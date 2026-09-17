@@ -1,0 +1,16 @@
+{
+  "name": "@cods-internal/example-static-html",
+  "version": "0.0.0",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/coloradodigitalservice/colorado-design-system.git",
+    "directory": "examples/static-html"
+  },
+  "scripts": {
+    "validate": "node ../../scripts/check-workspace.mjs --workspace examples/static-html"
+  },
+  "dependencies": {
+    "@coloradodigitalservice/colorado-design-system": "workspace:*"
+  }
+}
