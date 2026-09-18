@@ -7,10 +7,4 @@ storybook-static/
 coverage/
 playwright-report/
 test-results/
-*.tgz
-*.tar.gz
-.env
-.env.*
-!.env.example
-.DS_Store
-*.tsbuildinfo
+pnpm-lock.yaml

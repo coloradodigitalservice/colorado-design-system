@@ -8,7 +8,8 @@
     "directory": "packages/colorado-design-system"
   },
   "scripts": {
-    "validate": "node ../../scripts/check-workspace.mjs --workspace packages/colorado-design-system"
+    "validate": "node ../../scripts/check-workspace.mjs --workspace packages/colorado-design-system",
+    "build": "sass src/styles/index.scss dist/index.css --no-source-map"
   },
   "dependencies": {
     "@coloradodigitalservice/colorado-design-tokens": "workspace:*"

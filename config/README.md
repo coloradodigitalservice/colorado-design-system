@@ -1,3 +1,3 @@
 # Shared development configuration
 
-This directory is reserved for repository-level TypeScript, lint, format, Sass, and test configuration established by [CODS-P1-002](https://github.com/AtenDesignGroup/colorado-state-design-system/blob/main/docs/backlog/phase-1/CODS-P1-002-configure-development-toolchain.md). It is not a publishable workspace.
+`typescript/tsconfig.base.json` defines the strict TypeScript baseline for repository tooling and future workspaces. ESLint, Stylelint, Prettier, and Vitest use root configuration files so their command-line tools discover them without extra flags. Sass currently compiles the core package's layer-order entry; package build configuration expands in CODS-P1-009. This directory is not a publishable workspace.

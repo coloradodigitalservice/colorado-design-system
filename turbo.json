@@ -1,10 +1,20 @@
 {
   "$schema": "https://turborepo.dev/schema.json",
+  "globalDependencies": [
+    "config/**",
+    "package.json",
+    "pnpm-workspace.yaml",
+    "tsconfig.json"
+  ],
   "tasks": {
     "validate": {
       "dependsOn": ["^validate"],
       "outputs": [],
       "cache": false
+    },
+    "build": {
+      "dependsOn": ["^build", "validate"],
+      "outputs": ["dist/**"]
     }
   }
 }
