@@ -1,0 +1,4 @@
+{
+  "extends": "./config/typescript/tsconfig.base.json",
+  "include": ["tests/**/*.ts", "vitest.config.ts"]
+}

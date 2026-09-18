@@ -1,0 +1,8 @@
+packages:
+  - 'apps/*'
+  - 'packages/*'
+  - 'examples/*'
+allowBuilds:
+  '@parcel/watcher': false
+minimumReleaseAgeExclude:
+  - prettier@3.9.8

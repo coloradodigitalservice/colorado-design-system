@@ -1,0 +1,17 @@
+{
+  "name": "@coloradodigitalservice/colorado-design-system",
+  "version": "0.0.0",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/coloradodigitalservice/colorado-design-system.git",
+    "directory": "packages/colorado-design-system"
+  },
+  "scripts": {
+    "validate": "node ../../scripts/check-workspace.mjs --workspace packages/colorado-design-system",
+    "build": "sass src/styles/index.scss dist/index.css --no-source-map"
+  },
+  "dependencies": {
+    "@coloradodigitalservice/colorado-design-tokens": "workspace:*"
+  }
+}

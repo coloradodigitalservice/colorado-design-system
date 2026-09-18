@@ -1,0 +1,17 @@
+{
+  "name": "@cods-internal/storybook",
+  "version": "0.0.0",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/coloradodigitalservice/colorado-design-system.git",
+    "directory": "apps/storybook"
+  },
+  "scripts": {
+    "validate": "node ../../scripts/check-workspace.mjs --workspace apps/storybook"
+  },
+  "dependencies": {
+    "@coloradodigitalservice/colorado-design-system": "workspace:*",
+    "@coloradodigitalservice/colorado-design-tokens": "workspace:*"
+  }
+}
