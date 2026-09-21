@@ -175,7 +175,7 @@ describe('State design references and consumers', () => {
     for (const name of ['color-surface-info'])
       expect(output).not.toHaveProperty(name);
   });
-  it('compiles Phil’s bare Sass import from a real local consumer', () => {
+  it('compiles a bare Sass import from a real local consumer', () => {
     const requireFromCore = createRequire(
       join(packageRoot, '../colorado-design-system/package.json'),
     );

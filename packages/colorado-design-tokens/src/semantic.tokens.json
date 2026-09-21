@@ -6,7 +6,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "text / default",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B2:C2"
+          "location": "Semantic color reference / B2:C2"
         }
       }
     },
@@ -16,7 +16,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "text / secondary",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B3:C3"
+          "location": "Semantic color reference / B3:C3"
         }
       }
     },
@@ -26,7 +26,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "text / disabled",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B4:C4"
+          "location": "Semantic color reference / B4:C4"
         }
       }
     },
@@ -36,7 +36,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "text / danger",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B5:C5"
+          "location": "Semantic color reference / B5:C5"
         }
       }
     },
@@ -46,7 +46,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "text / action / primary",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B6:C6"
+          "location": "Semantic color reference / B6:C6"
         }
       }
     },
@@ -56,7 +56,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "text / action / link",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B7:C7"
+          "location": "Semantic color reference / B7:C7"
         }
       }
     },
@@ -66,7 +66,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "text / action / secondary",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B8:C8"
+          "location": "Semantic color reference / B8:C8"
         }
       }
     },
@@ -76,7 +76,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "text / action / link / hover",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B9:C9"
+          "location": "Semantic color reference / B9:C9"
         }
       }
     },
@@ -86,7 +86,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "text / action / link / active",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B10:C10"
+          "location": "Semantic color reference / B10:C10"
         }
       }
     },
@@ -96,7 +96,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "text / action / secondary / hover",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B11:C11"
+          "location": "Semantic color reference / B11:C11"
         }
       }
     },
@@ -106,7 +106,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "text / action / secondary / active",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B12:C12"
+          "location": "Semantic color reference / B12:C12"
         }
       }
     },
@@ -116,7 +116,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "bg / disabled",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B13:C13"
+          "location": "Semantic color reference / B13:C13"
         }
       }
     },
@@ -126,7 +126,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "bg / action / focus",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B14:C14"
+          "location": "Semantic color reference / B14:C14"
         }
       }
     },
@@ -136,7 +136,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "bg / action / primary",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B15:C15"
+          "location": "Semantic color reference / B15:C15"
         }
       }
     },
@@ -146,7 +146,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "bg / action / primary / hover",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B16:C16"
+          "location": "Semantic color reference / B16:C16"
         }
       }
     },
@@ -156,7 +156,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "bg / action / primary / active",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B17:C17"
+          "location": "Semantic color reference / B17:C17"
         }
       }
     },
@@ -166,7 +166,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "bg / action / secondary / hover",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B18:C18"
+          "location": "Semantic color reference / B18:C18"
         }
       }
     },
@@ -176,7 +176,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "bg / action / danger",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B19:C19"
+          "location": "Semantic color reference / B19:C19"
         }
       }
     },
@@ -186,7 +186,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "bg / action / danger / hover",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B20:C20"
+          "location": "Semantic color reference / B20:C20"
         }
       }
     },
@@ -196,7 +196,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "bg / action / danger / active",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B21:C21"
+          "location": "Semantic color reference / B21:C21"
         }
       }
     },
@@ -206,7 +206,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "border / disabled",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B22:C22"
+          "location": "Semantic color reference / B22:C22"
         }
       }
     },
@@ -216,7 +216,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "border / action / secondary",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B23:C23"
+          "location": "Semantic color reference / B23:C23"
         }
       }
     },
@@ -226,7 +226,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "border / action / secondary / hover",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B24:C24"
+          "location": "Semantic color reference / B24:C24"
         }
       }
     },
@@ -236,7 +236,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "border / action / secondary / active",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B25:C25"
+          "location": "Semantic color reference / B25:C25"
         }
       }
     },
@@ -246,7 +246,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "border / form / default",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B26:C26"
+          "location": "Semantic color reference / B26:C26"
         }
       }
     },
@@ -256,7 +256,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "border / form / hover",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B27:C27"
+          "location": "Semantic color reference / B27:C27"
         }
       }
     },
@@ -266,7 +266,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "border / form / danger",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B28:C28"
+          "location": "Semantic color reference / B28:C28"
         }
       }
     },
@@ -276,7 +276,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "icon / default",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B29:C29"
+          "location": "Semantic color reference / B29:C29"
         }
       }
     },
@@ -286,7 +286,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "icon / disabled",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B30:C30"
+          "location": "Semantic color reference / B30:C30"
         }
       }
     },
@@ -296,7 +296,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "icon / on-primary",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B31:C31"
+          "location": "Semantic color reference / B31:C31"
         }
       }
     },
@@ -306,7 +306,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "icon / on-primary / hover",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B32:C32"
+          "location": "Semantic color reference / B32:C32"
         }
       }
     },
@@ -316,7 +316,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "icon / on-primary / active",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B33:C33"
+          "location": "Semantic color reference / B33:C33"
         }
       }
     },
@@ -326,7 +326,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "icon / action / link",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B34:C34"
+          "location": "Semantic color reference / B34:C34"
         }
       }
     },
@@ -336,7 +336,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "icon / action / link / hover",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B35:C35"
+          "location": "Semantic color reference / B35:C35"
         }
       }
     },
@@ -346,7 +346,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "icon / action / link / active",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B36:C36"
+          "location": "Semantic color reference / B36:C36"
         }
       }
     },
@@ -356,7 +356,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "icon / action / secondary",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B37:C37"
+          "location": "Semantic color reference / B37:C37"
         }
       }
     },
@@ -366,7 +366,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "icon / action / secondary / hover",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B38:C38"
+          "location": "Semantic color reference / B38:C38"
         }
       }
     },
@@ -376,7 +376,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "icon / action / secondary / active",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B39:C39"
+          "location": "Semantic color reference / B39:C39"
         }
       }
     },
@@ -386,7 +386,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "icon / form / secondary",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B40:C40"
+          "location": "Semantic color reference / B40:C40"
         }
       }
     },
@@ -396,7 +396,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "icon / form / disabled",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B41:C41"
+          "location": "Semantic color reference / B41:C41"
         }
       }
     },
@@ -406,7 +406,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "icon / form / success",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B42:C42"
+          "location": "Semantic color reference / B42:C42"
         }
       }
     },
@@ -416,7 +416,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "icon / form / danger",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B43:C43"
+          "location": "Semantic color reference / B43:C43"
         }
       }
     },
@@ -426,7 +426,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "surface / form",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B44:C44"
+          "location": "Semantic color reference / B44:C44"
         }
       }
     },
@@ -436,7 +436,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "surface / form / hover",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B45:C45"
+          "location": "Semantic color reference / B45:C45"
         }
       }
     },
@@ -446,7 +446,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "surface / nav / active",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B46:C46"
+          "location": "Semantic color reference / B46:C46"
         }
       }
     },
@@ -456,7 +456,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "state / success",
-          "location": "CDS Semantic Color Mapping.xlsx / use the screenshots i shared to / B47:C47"
+          "location": "Semantic color reference / B47:C47"
         }
       }
     }

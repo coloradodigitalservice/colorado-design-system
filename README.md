@@ -2,7 +2,7 @@
 
 The Colorado Design System (CoDS) helps State of Colorado agencies build simple, accessible, and consistent digital services. The State owns this repository and its release decisions. The component contract is semantic HTML, layered CSS, and TypeScript behavior; released design tokens are maintained in Git using DTCG files.
 
-The [Figma kit](https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System) remains in development. The [accepted architecture memo](https://github.com/AtenDesignGroup/colorado-state-design-system/blob/main/docs/memos/ADR_Acceptance_Memo_2026-09-14.md) and [Phase 1 backlog](https://github.com/AtenDesignGroup/colorado-state-design-system/blob/main/docs/backlog/phase-1-foundation-readiness.md) describe the approved direction and remaining work. Contact zach.alcorn@state.co.us to learn more.
+The design kit remains in development. The [accepted architecture memo](docs/memos/ADR_Acceptance_Memo_2026-09-14.md), [governance documentation](docs/governance/README.md), and repository issues describe the approved direction and remaining work.
 
 ## Workspaces
 
@@ -14,7 +14,7 @@ The [Figma kit](https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Des
 | `apps/storybook`                  | `@cods-internal/storybook`                       | HTML/Vite component workbench                                            |
 | `examples/static-html`            | `@cods-internal/example-static-html`             | Plain HTML consumer example                                              |
 
-The core package depends on tokens. The apps and example depend on core; the apps also depend directly on tokens for token guidance. All internal dependencies use `workspace:*`. Libraries cannot depend on apps or examples. The two `@coloradodigitalservice` names are **provisional** until the State confirms control of the npm scope under [CODS-P0-003](https://github.com/AtenDesignGroup/colorado-state-design-system/blob/main/docs/backlog/phase-0/CODS-P0-003-confirm-package-naming-and-release-identity.md). Every workspace is private at this stage.
+The core package depends on tokens. The apps and example depend on core; the apps also depend directly on tokens for token guidance. All internal dependencies use `workspace:*`. Libraries cannot depend on apps or examples. The two `@coloradodigitalservice` names are **provisional** until the State confirms control of the npm scope. Every workspace is private at this stage.
 
 ## Contributor setup
 
@@ -42,6 +42,6 @@ Node, pnpm, Turbo, and all toolchain dependencies are pinned to exact versions. 
 
 ## Ownership and scope
 
-[Ownership and RACI](docs/governance/ownership-and-raci.md) identifies the review path. [ADR-001](docs/adrs/001-pnpm-turborepo-boundaries.md) records this repository's workspace decision and its pending State approval. The [Phase 1 backlog](https://github.com/AtenDesignGroup/colorado-state-design-system/blob/main/docs/backlog/phase-1-foundation-readiness.md) provides the next steps.
+[Ownership and RACI](docs/governance/ownership-and-raci.md) identifies the review path. [ADR-001](docs/adrs/001-pnpm-turborepo-boundaries.md) records this repository's workspace decision and its pending State approval. Repository issues and pull requests track the next implementation steps.
 
 The first supported scope targets 27 components and seven foundations, subject to the documented capacity and approval gates. Web Components, Drupal packages, Twig, framework adapters, a runtime CMS, and a production application server are outside the initial release.

@@ -9,7 +9,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "Fine-tuning / 4px",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Grids & Spacing / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Grids & Spacing / design reference"
         }
       }
     },
@@ -22,7 +22,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "Tight Grouping / 8px",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Grids & Spacing / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Grids & Spacing / design reference"
         }
       }
     },
@@ -35,7 +35,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "Dense Layouts / 12px",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Grids & Spacing / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Grids & Spacing / design reference"
         }
       }
     },
@@ -48,7 +48,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "Standard Padding / 16px",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Grids & Spacing / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Grids & Spacing / design reference"
         }
       }
     },
@@ -61,7 +61,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "Component Spacing / 24px",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Grids & Spacing / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Grids & Spacing / design reference"
         }
       }
     },
@@ -74,7 +74,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "Content Blocks / 32px",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Grids & Spacing / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Grids & Spacing / design reference"
         }
       }
     },
@@ -87,7 +87,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "Section Breaks / 48px",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Grids & Spacing / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Grids & Spacing / design reference"
         }
       }
     },
@@ -100,7 +100,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "Page Margins / 64px",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Grids & Spacing / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Grids & Spacing / design reference"
         }
       }
     }
@@ -115,7 +115,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "radius-none",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Radius / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Radius / design reference"
         }
       }
     },
@@ -128,7 +128,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "radius-sm",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Radius / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Radius / design reference"
         }
       }
     },
@@ -141,7 +141,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "radius-md",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Radius / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Radius / design reference"
         }
       }
     },
@@ -154,7 +154,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "radius-lg",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Radius / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Radius / design reference"
         }
       }
     },
@@ -167,7 +167,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "radius-full",
-          "location": "Radius screenshot table; September 21 implementation decision: prefer explicit 9999px table over 999 variable panel"
+          "location": "Radius specification: use the explicit 9999px table value rather than the alternate 999 variable-panel value"
         }
       }
     }
@@ -179,7 +179,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "Museo Slab",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / Font Families / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / Font Families / design reference"
         }
       }
     },
@@ -189,7 +189,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "Open Sans",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / Font Families / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / Font Families / design reference"
         }
       }
     },
@@ -199,7 +199,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "Source Code Pro",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / Font Families / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / Font Families / design reference"
         }
       }
     },
@@ -209,7 +209,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "regular",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / Font Families / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / Font Families / design reference"
         }
       }
     },
@@ -219,7 +219,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "medium",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / Font Families / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / Font Families / design reference"
         }
       }
     },
@@ -229,7 +229,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "semibold",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / Font Families / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / Font Families / design reference"
         }
       }
     },
@@ -242,7 +242,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / h1 / font size",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -252,7 +252,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / h1 / family",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -262,7 +262,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / h1 / weight",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -275,7 +275,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / h2 / font size",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -285,7 +285,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / h2 / family",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -295,7 +295,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / h2 / weight",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -308,7 +308,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / h3 / font size",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -318,7 +318,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / h3 / family",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -328,7 +328,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / h3 / weight",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -341,7 +341,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / h4 / font size",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -351,7 +351,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / h4 / family",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -361,7 +361,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / h4 / weight",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -374,7 +374,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / h5 / font size",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -384,7 +384,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / h5 / family",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -394,7 +394,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / h5 / weight",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -407,7 +407,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / h6 / font size",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -417,7 +417,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / h6 / family",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -427,7 +427,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / h6 / weight",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -440,7 +440,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / body-lg / font size",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -450,7 +450,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / body-lg / family",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -460,7 +460,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / body-lg / weight",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -473,7 +473,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / body / font size",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -483,7 +483,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / body / family",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -493,7 +493,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / body / weight",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -506,7 +506,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / body-sm / font size",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -516,7 +516,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / body-sm / family",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -526,7 +526,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / body-sm / weight",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -539,7 +539,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / ui / font size",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -549,7 +549,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / ui / family",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -559,7 +559,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / ui / weight",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -572,7 +572,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / ui-sm / font size",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -582,7 +582,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / ui-sm / family",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -592,7 +592,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / ui-sm / weight",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -605,7 +605,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / supporting / font size",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -615,7 +615,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / supporting / family",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -625,7 +625,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / supporting / weight",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -638,7 +638,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / code / font size",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -648,7 +648,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / code / family",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -658,7 +658,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / code / weight",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -671,7 +671,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / h1 / font size",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -681,7 +681,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / h1 / family",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -691,7 +691,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / h1 / weight",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -704,7 +704,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / h2 / font size",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -714,7 +714,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / h2 / family",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -724,7 +724,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / h2 / weight",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -737,7 +737,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / h3 / font size",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -747,7 +747,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / h3 / family",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -757,7 +757,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / h3 / weight",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -770,7 +770,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / h4 / font size",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -780,7 +780,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / h4 / family",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -790,7 +790,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / h4 / weight",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -803,7 +803,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / h5 / font size",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -813,7 +813,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / h5 / family",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -823,7 +823,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / h5 / weight",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -836,7 +836,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / h6 / font size",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -846,7 +846,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / h6 / family",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -856,7 +856,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / h6 / weight",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -869,7 +869,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / body-lg / font size",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -879,7 +879,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / body-lg / family",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -889,7 +889,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / body-lg / weight",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -902,7 +902,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / body / font size",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -912,7 +912,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / body / family",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -922,7 +922,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / body / weight",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -935,7 +935,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / code / font size",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -945,7 +945,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / code / family",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -955,7 +955,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / code / weight",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -965,7 +965,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "Body / Small / font size",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     }
@@ -980,7 +980,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / h1 / line height",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -993,7 +993,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / h2 / line height",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1006,7 +1006,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / h3 / line height",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1019,7 +1019,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / h4 / line height",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1032,7 +1032,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / h5 / line height",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1045,7 +1045,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / h6 / line height",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1058,7 +1058,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / body-lg / line height",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1071,7 +1071,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / body / line height",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1084,7 +1084,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / body-sm / line height",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1097,7 +1097,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / ui / line height",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1110,7 +1110,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / ui-sm / line height",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1123,7 +1123,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / supporting / line height",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1136,7 +1136,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / code / line height",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1149,7 +1149,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / h1 / line height",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1162,7 +1162,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / h2 / line height",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1175,7 +1175,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / h3 / line height",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1188,7 +1188,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / h4 / line height",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1201,7 +1201,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / h5 / line height",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1214,7 +1214,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / h6 / line height",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1227,7 +1227,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / body-lg / line height",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1240,7 +1240,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / body / line height",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1253,7 +1253,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / code / line height",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     }
@@ -1268,7 +1268,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / h1 / paragraph spacing",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1281,7 +1281,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / h2 / paragraph spacing",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1294,7 +1294,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / h3 / paragraph spacing",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1307,7 +1307,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / h4 / paragraph spacing",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1320,7 +1320,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / h5 / paragraph spacing",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1333,7 +1333,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / h6 / paragraph spacing",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1346,7 +1346,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / body-lg / paragraph spacing",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1359,7 +1359,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / body / paragraph spacing",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1372,7 +1372,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / body-sm / paragraph spacing",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1385,7 +1385,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / ui / paragraph spacing",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1398,7 +1398,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / ui-sm / paragraph spacing",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1411,7 +1411,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / supporting / paragraph spacing",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1424,7 +1424,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "desktop / code / paragraph spacing",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1437,7 +1437,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / h1 / paragraph spacing",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1450,7 +1450,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / h2 / paragraph spacing",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1463,7 +1463,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / h3 / paragraph spacing",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1476,7 +1476,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / h4 / paragraph spacing",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1489,7 +1489,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / h5 / paragraph spacing",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1502,7 +1502,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / h6 / paragraph spacing",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1515,7 +1515,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / body-lg / paragraph spacing",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1528,7 +1528,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / body / paragraph spacing",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     },
@@ -1541,7 +1541,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "mobile / code / paragraph spacing",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+          "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
     }
@@ -1556,7 +1556,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "ring-width",
-          "location": "Language Selector screenshot accessibility notes: trigger white 2px gap + blue 4px ring; rows 2px navy outline"
+          "location": "Language Selector accessibility specification: trigger white 2px gap + blue 4px ring; rows 2px navy outline"
         }
       }
     },
@@ -1569,7 +1569,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "ring-offset",
-          "location": "Language Selector screenshot accessibility notes: trigger white 2px gap + blue 4px ring; rows 2px navy outline"
+          "location": "Language Selector accessibility specification: trigger white 2px gap + blue 4px ring; rows 2px navy outline"
         }
       }
     },
@@ -1582,7 +1582,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "row-width",
-          "location": "Language Selector screenshot accessibility notes: trigger white 2px gap + blue 4px ring; rows 2px navy outline"
+          "location": "Language Selector accessibility specification: trigger white 2px gap + blue 4px ring; rows 2px navy outline"
         }
       }
     }

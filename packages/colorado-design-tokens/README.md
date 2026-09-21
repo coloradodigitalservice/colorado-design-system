@@ -47,11 +47,11 @@ Use semantic colors in components. Palette tokens exist to supply aliases. Deskt
 
 ## Sources and pending decisions
 
-See [design-to-code mapping](references/mapping.md) and `references/design-values.json` for the 54 palette colors and all 46 workbook roles, including roles with identical values. The reference JSON records the workbook hash and row positions; it is an independent test reference, not generator input. Changing it requires explicit design review of the replacement source, not merely updating a failing test.
+See [design-to-code mapping](references/mapping.md) and `references/design-values.json` for the 54 palette colors and all 46 source roles, including roles with identical values. The reference JSON records the source rows and serves as an independent test reference, not generator input. Changing it requires explicit design review of the replacement source, not merely updating a failing test.
 
-Spacing is 4, 8, 12, 16, 24, 32, 48, and 64px, mapped to Phil's `2xs` through `3xl` scale. Radius is none=0, sm=2, md=4, lg=8px. Typography uses the screenshot's desktop/mobile tables, retaining their explicit line heights and paragraph spacing even where they differ from font size. Families are Museo Slab, Open Sans, and Source Code Pro; font binaries and licenses are not distributed here. `font-size-sm` aliases desktop body small (14px).
+Spacing is 4, 8, 12, 16, 24, 32, 48, and 64px, mapped to the `2xs` through `3xl` scale. Radius is none=0, sm=2, md=4, lg=8px. Typography uses the desktop and mobile design-reference tables, retaining their explicit line heights and paragraph spacing even where they differ from font size. Families are Museo Slab, Open Sans, and Source Code Pro; font binaries and licenses are not distributed here. `font-size-sm` aliases desktop body small (14px).
 
-Decisions recorded September 21: `radius-full` is 9999px, following the written Radius table rather than the variable-panel value 999. `color-shadow` is black (#000000), an explicit user assumption, not a measured screenshot value. It represents the base color only; shadow opacity and geometry remain unspecified.
+`radius-full` is 9999px, following the written radius specification rather than the alternate variable-panel value of 999. `color-shadow` is defined as black (#000000) for the base color only; shadow opacity and geometry remain unspecified.
 
 The Language Selector notes explicitly describe a 4px blue trigger ring with a 2px white gap and a 2px navy row outline. `focus-ring-width`, `focus-ring-offset`, `color-focus-gap`, `focus-row-width`, and `color-focus-row` encode these treatments. The trigger uses the workbook's `color-bg-action-focus`. A transparent outline offset alone does not paint a white gap; the sample includes a white spread shadow. These are two focus treatments, not competing system-wide values. Component styles select the appropriate treatment and still require keyboard/forced-color verification.
 
@@ -59,7 +59,7 @@ The Language Selector notes explicitly describe a 4px blue trigger ring with a 2
 
 Both complete sample Sass files now compile in tests. The disclosure uses `color-border-subtle`, the existing `color-bg-action-focus`, and the documented trigger focus dimensions. The tag uses `color-bg-surface-secondary`, `color-bg-tag-info`, and `color-text-tag-info`.
 
-`src/supplemental.tokens.json` separates these implementation mappings from the unchanged 46 workbook roles. Secondary surface maps to gray/10; subtle border to gray/20; blue tag background to blue/20 and its dark text to blue/90. These choices follow screenshot appearance and the supplied palette; they are explicitly implementation decisions rather than exact workbook mappings. Reviewers can assess concrete values instead of unresolved placeholder names. The controller contract now describes Phil's existing module-function API, `init(root)` / `destroy(root)`.
+`src/supplemental.tokens.json` separates these implementation mappings from the unchanged 46 source roles. Secondary surface maps to gray/10; subtle border to gray/20; blue tag background to blue/20 and its dark text to blue/90. These choices follow the design references and existing palette; they are implementation decisions rather than exact source mappings. Reviewers can assess concrete values instead of unresolved placeholder names. The controller contract uses the module-function API `init(root)` / `destroy(root)`.
 
 ## Accessibility and troubleshooting
 

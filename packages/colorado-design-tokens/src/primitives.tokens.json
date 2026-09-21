@@ -12,7 +12,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-blue/5",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -28,7 +28,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-blue/10",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -44,7 +44,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-blue/20",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -60,7 +60,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-blue/30",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -76,7 +76,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-blue/60v",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -92,7 +92,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-blue/60-brand",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -106,7 +106,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-blue/80-brand",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -120,7 +120,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-blue/90",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -136,7 +136,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-plum/5",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -152,7 +152,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-plum/10",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -168,7 +168,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-plum/20",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -184,7 +184,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-plum/30",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -200,7 +200,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-plum/60v",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -214,7 +214,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-plum/60-brand",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -230,7 +230,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-plum/80",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -246,7 +246,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-plum/90",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -262,7 +262,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-red/5",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -278,7 +278,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-red/10",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -292,7 +292,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-red/20",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -308,7 +308,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-red/30",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -324,7 +324,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-red/60v",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -340,7 +340,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-red/60-brand",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -356,7 +356,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-red/80",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -372,7 +372,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-red/90",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -388,7 +388,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-green/5",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -404,7 +404,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-green/10",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -420,7 +420,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-green/20",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -436,7 +436,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-green/30",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -452,7 +452,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-green/60v",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -468,7 +468,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-green/60-brand",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -484,7 +484,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-green/80",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -500,7 +500,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-green/90",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -516,7 +516,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-teal/5",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -532,7 +532,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-teal/10",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -548,7 +548,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-teal/20",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -564,7 +564,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-teal/30",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -580,7 +580,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-teal/60v",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -596,7 +596,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-teal/60-brand",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -612,7 +612,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-teal/80",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -628,7 +628,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-teal/90",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -644,7 +644,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-yellow/5",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -660,7 +660,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-yellow/10",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -674,7 +674,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-yellow/20",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -688,7 +688,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-yellow/30-brand",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -704,7 +704,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-yellow/40",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -720,7 +720,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-gray/1",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -736,7 +736,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-gray/5",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -752,7 +752,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-gray/10",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -768,7 +768,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-gray/20",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -784,7 +784,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-gray/50",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -800,7 +800,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-gray/60",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -816,7 +816,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-gray/70",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -832,7 +832,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/co-gray/90",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     },
@@ -846,7 +846,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "color/white",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Color / Core Color Ramps"
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
     }

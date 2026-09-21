@@ -6,7 +6,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "bg-surface-secondary",
-          "location": "Secondary neutral surface; implementation mapping from existing palette for contract sample"
+          "location": "Component surface reference; implementation mapping to the existing neutral palette"
         }
       }
     },
@@ -16,7 +16,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "bg-tag-info",
-          "location": "Tags screenshot blue tag; implementation mapping to existing blue/20 palette"
+          "location": "Tag design reference; implementation mapping to the existing blue/20 palette"
         }
       }
     },
@@ -26,7 +26,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "text-tag-info",
-          "location": "Tags screenshot dark text on blue tag; implementation mapping to existing blue/90 palette"
+          "location": "Tag design reference; implementation mapping to the existing blue/90 palette"
         }
       }
     },
@@ -36,7 +36,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "border-subtle",
-          "location": "Accordion screenshot container border; implementation mapping to existing gray/20 palette"
+          "location": "Disclosure design reference; implementation mapping to the existing gray/20 palette"
         }
       }
     },
@@ -46,7 +46,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "focus-gap",
-          "location": "Language Selector screenshot: white 2px gap"
+          "location": "Language Selector focus treatment: white 2px gap"
         }
       }
     },
@@ -56,7 +56,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "focus-row",
-          "location": "Language Selector screenshot: navy 2px row outline"
+          "location": "Language Selector focus treatment: navy 2px row outline"
         }
       }
     },
@@ -70,7 +70,7 @@
       "$extensions": {
         "org.colorado.source": {
           "name": "shadow base color",
-          "location": "User decision September 21, 2026: assume black; base color only, opacity and complete shadow remain unspecified"
+          "location": "Base shadow color decision; opacity and complete shadow geometry remain unspecified"
         }
       }
     }

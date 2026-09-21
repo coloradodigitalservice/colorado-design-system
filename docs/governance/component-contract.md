@@ -1,7 +1,7 @@
 # CoDS Canonical Component Contract
 
 **Status:** Draft for G1 approval  
-**Related work:** [CDS-27 / CODS-P1-004](https://atendesign.atlassian.net/browse/CDS-27) — Define the canonical component contract  
+**Related work:** CODS-P1-004 — Define the canonical component contract
 **Depends on:** CODS-P0-006 (capped 1.0 component set), CODS-P1-001 (monorepo skeleton), CODS-P1-003 (DTCG token pipeline)  
 **Blocks:** Phase 2 vertical slice and every Phase 3 component task
 

@@ -1,6 +1,6 @@
 # Design-to-code mapping
 
-Source: `CDS Semantic Color Mapping.xlsx`, rows 2–47. Original sheet name and SHA-256 are recorded in `design-values.json`. `text/default` is the explicit primary-text naming exception. All other role segments are retained.
+Source: the reviewed semantic-color mapping, rows 2–47. `text/default` is the explicit primary-text naming exception. All other role segments are retained. `design-values.json` preserves the independently reviewed values used by tests.
 
 | Workbook row | Design role                            | Code name                              | Palette                  | Value     |
 | ------------ | -------------------------------------- | -------------------------------------- | ------------------------ | --------- |
@@ -53,7 +53,7 @@ Source: `CDS Semantic Color Mapping.xlsx`, rows 2–47. Original sheet name and 
 
 ## Foundation mapping
 
-Every foundation token records its original table row and source location in `src/foundations.tokens.json`. The supplied Grids & Spacing, Typography, and Radius screenshots were captured September 21, 2026. Palette transcription comes from the supplied palette reference; the workbook establishes semantic aliases. The Semantic Color Tokens PDF and backlog PDF provide supporting context, not executable instructions.
+Every foundation token records its design-reference section in `src/foundations.tokens.json`. The spacing, typography, radius, and palette references establish the source values, while the semantic-color mapping establishes aliases. Supporting planning documents provide context but are not generator inputs.
 
 | Spacing design use | Code name   | Value |
 | ------------------ | ----------- | ----- |
