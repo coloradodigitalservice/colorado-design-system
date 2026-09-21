@@ -1,0 +1,13 @@
+{
+  "name": "@coloradodigitalservice/colorado-design-tokens",
+  "version": "0.0.0",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/coloradodigitalservice/colorado-design-system.git",
+    "directory": "packages/colorado-design-tokens"
+  },
+  "scripts": {
+    "validate": "node ../../scripts/check-workspace.mjs --workspace packages/colorado-design-tokens"
+  }
+}
