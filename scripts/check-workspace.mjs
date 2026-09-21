@@ -139,7 +139,7 @@ function validateRepository() {
     'packages/colorado-design-tokens',
     'packages/colorado-design-system',
     'examples/static-html',
-    'governance',
+    'docs/governance',
     'config',
     'scripts',
     'tests',

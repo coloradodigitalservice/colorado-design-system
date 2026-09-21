@@ -42,6 +42,6 @@ Node, pnpm, Turbo, and all toolchain dependencies are pinned to exact versions. 
 
 ## Ownership and scope
 
-[Ownership by role](governance/OWNERSHIP.md) identifies the review path. [ADR-001](governance/adrs/001-pnpm-turborepo-boundaries.md) records this repository's workspace decision and its pending State approval. [G1 evidence](governance/evidence/g1/README.md) tracks the foundation checks. The [Phase 1 backlog](https://github.com/AtenDesignGroup/colorado-state-design-system/blob/main/docs/backlog/phase-1-foundation-readiness.md) provides the next steps.
+[Ownership and RACI](docs/governance/ownership-and-raci.md) identifies the review path. [ADR-001](docs/adrs/001-pnpm-turborepo-boundaries.md) records this repository's workspace decision and its pending State approval. The [Phase 1 backlog](https://github.com/AtenDesignGroup/colorado-state-design-system/blob/main/docs/backlog/phase-1-foundation-readiness.md) provides the next steps.
 
 The first supported scope targets 27 components and seven foundations, subject to the documented capacity and approval gates. Web Components, Drupal packages, Twig, framework adapters, a runtime CMS, and a production application server are outside the initial release.
