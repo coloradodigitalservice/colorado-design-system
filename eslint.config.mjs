@@ -18,7 +18,7 @@ export default [
   {
     files: ['**/*.{js,mjs,cjs}'],
     languageOptions: {
-      globals: { process: 'readonly' },
+      globals: { process: 'readonly', console: 'readonly' },
     },
   },
   prettier,

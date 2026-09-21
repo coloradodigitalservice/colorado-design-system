@@ -12,6 +12,7 @@ Use the documents in this order when establishing or reviewing delivery governan
 2. [Escalation and Decision Recording](escalation-and-decision-recording.md) explains how blockers, risks, disagreements, and material decisions are handled.
 3. [Gate Approval Matrix](gate-approval-matrix.md) defines the evidence and approval roles for G0 through G5.
 4. [Review Cadence and Response Expectations](review-cadence-and-response-expectations.md) sets review timing and response standards.
+5. [Canonical Component Contract](component-contract.md) defines the semantic HTML, CSS, TypeScript, metadata, and accessibility-evidence rules every component must satisfy.
 
 ## Operating guides
 

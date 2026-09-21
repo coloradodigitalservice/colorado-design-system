@@ -1,0 +1,6 @@
+<!-- State: default -->
+<div class="cods-__NAME__">
+  <!-- TODO: replace with __DISPLAY_NAME__'s real semantic markup. -->
+</div>
+
+<!-- TODO: add one labeled fixture block per documented state (section 2 of the contract). -->

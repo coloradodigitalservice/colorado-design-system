@@ -1,0 +1,24 @@
+// Contract sample only — not part of the package's build entry point.
+@use '@coloradodigitalservice/colorado-design-tokens' as tokens;
+
+@layer cods.components {
+  .cods-tag {
+    display: inline-block;
+    padding-block: var(--cods-tag-padding-block, tokens.$space-2xs);
+    padding-inline: var(--cods-tag-padding-inline, tokens.$space-xs);
+    border-radius: var(--cods-tag-radius, tokens.$radius-sm);
+    background-color: var(
+      --cods-tag-background,
+      tokens.$color-surface-secondary
+    );
+    color: var(--cods-tag-color, tokens.$color-text-primary);
+    font-size: tokens.$font-size-sm;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+  }
+
+  .cods-tag--info {
+    background-color: var(--cods-tag-background, tokens.$color-surface-info);
+    color: var(--cods-tag-color, tokens.$color-text-info);
+  }
+}

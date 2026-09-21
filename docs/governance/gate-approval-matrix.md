@@ -5,14 +5,14 @@
 
 The responsible delivery lead assembles gate evidence and the required domain roles review it. Approval is recorded by the accountable role below. Silence or completion of implementation tasks does not constitute approval.
 
-| Gate                   | Approval role                                                                  | Minimum evidence                                                                                                    |
-| ---------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
-| G0 - Mobilization      | State product owners                                                           | Ownership and RACI, access, scope, dependencies, decision rights, and review cadence                                |
-| G1 - Foundation        | State product owners, with State technology owner acceptance                   | Monorepo, token, component-contract, docs, Storybook, CI, package-build, and release workflow evidence              |
-| G2 - Vertical slice    | State product owners, with State technology and accessibility owner acceptance | Static and interactive component evidence, tests, accessibility results, documentation, package, and archive        |
-| G3 - Beta              | State product owners, with required domain-owner acceptance                    | Approved component inventory, implementation, documentation, accessibility, content, and beta artifacts             |
-| G4 - Release candidate | State product owners, with State release owner acceptance                      | Scope freeze, full test and accessibility evidence, security review, content review, and verified release artifacts |
-| G5 - Supported release | State release owner, with State product owner approval                         | Published packages and archive, deployed docs, support ownership, limitations, and launch record                    |
+| Gate                   | Approval role                                                                  | Minimum evidence                                                                                                                |
+| ---------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| G0 - Mobilization      | State product owners                                                           | Ownership and RACI, access, scope, dependencies, decision rights, and review cadence                                            |
+| G1 - Foundation        | State product owners, with State technology owner acceptance                   | Monorepo, token, [component-contract](component-contract.md), docs, Storybook, CI, package-build, and release workflow evidence |
+| G2 - Vertical slice    | State product owners, with State technology and accessibility owner acceptance | Static and interactive component evidence, tests, accessibility results, documentation, package, and archive                    |
+| G3 - Beta              | State product owners, with required domain-owner acceptance                    | Approved component inventory, implementation, documentation, accessibility, content, and beta artifacts                         |
+| G4 - Release candidate | State product owners, with State release owner acceptance                      | Scope freeze, full test and accessibility evidence, security review, content review, and verified release artifacts             |
+| G5 - Supported release | State release owner, with State product owner approval                         | Published packages and archive, deployed docs, support ownership, limitations, and launch record                                |
 
 ## Gate decision outcomes
 

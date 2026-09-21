@@ -1,0 +1,30 @@
+// Contract sample only — not part of the package's build entry point.
+@use '@coloradodigitalservice/colorado-design-tokens' as tokens;
+
+@layer cods.components {
+  .cods-disclosure {
+    border: 1px solid
+      var(--cods-disclosure-border-color, tokens.$color-border-secondary);
+    border-radius: var(--cods-disclosure-radius, tokens.$radius-sm);
+  }
+
+  .cods-disclosure__trigger {
+    cursor: pointer;
+    padding: var(--cods-disclosure-trigger-padding, tokens.$space-sm);
+
+    &:focus-visible {
+      outline: var(--cods-focus-ring-width, tokens.$focus-ring-width) solid
+        var(--cods-focus-ring-color, tokens.$color-focus-ring);
+      outline-offset: tokens.$focus-ring-offset;
+    }
+  }
+
+  .cods-disclosure__panel {
+    padding: var(--cods-disclosure-panel-padding, tokens.$space-sm);
+  }
+
+  .cods-disclosure--disabled .cods-disclosure__trigger {
+    cursor: not-allowed;
+    opacity: var(--cods-disclosure-disabled-opacity, 0.6);
+  }
+}
