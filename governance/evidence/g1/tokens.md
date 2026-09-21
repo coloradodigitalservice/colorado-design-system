@@ -16,7 +16,7 @@ Environment: Node 24.21.0, pnpm 12.4.2, Turbo 2.10.13, Style Dictionary 5.5.5.
 | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
 | `pnpm check`            | Passed workspace validation, uncached token drift check before generation, formatting, lint, typecheck, tests, and dependency-ordered build |
 | Fresh working-tree copy | Frozen install and full checks passed without existing node_modules, Turbo cache, or build outputs                                          |
-| Test suite              | 26 tests passed across 2 files                                                                                                              |
+| Test suite              | 27 tests passed across 2 files                                                                                                              |
 | Source profile          | Invalid values/types/units, missing or incompatible aliases, cycles, duplicate paths/JSON keys, and generated-name collisions rejected      |
 | Source parity           | All 46 semantic mappings and 54 palette values matched the independent source transcription                                                 |
 | Consumer formats        | CSS aliases preserved; Sass and JSON resolved; dimensions, color, family, weight, and numeric values tested, including multi-step aliases   |
@@ -24,13 +24,13 @@ Environment: Node 24.21.0, pnpm 12.4.2, Turbo 2.10.13, Style Dictionary 5.5.5.
 | Determinism and drift   | Repeated generation identical; modified, missing, and unexpected generated files rejected                                                   |
 | Contrast                | 16 documented pairs passed their thresholds; altered failing color rejected without rewriting design values                                 |
 
-The existing CI workflow runs the same `pnpm check`; a GitHub Actions result for this implementation has not yet been recorded.
+The existing CI workflow runs the same `pnpm check`. PR #2 is merged; PR #3 now targets `main` directly. The scaffold review fixes are verified against the merged main branch.
 
 ## Deferred values and component review
 
 - Resolved `radius-full` to 9999px using the explicit table; black shadow base color is the user's approved assumption. Shadow opacity and geometry remain unspecified.
 - Added the Language Selector's documented 4px blue trigger ring / 2px white gap and separate 2px navy row outline. Focus color uses the existing workbook `color-bg-action-focus`; the previous `color-border-focus` reference was incorrect and is removed.
-- Both P1-004 sample Sass files compile in automated tests. Supplemental sample color mappings are implementation decisions from the supplied palette, separately labeled in source and the consumer guide. The controller contract is aligned with Phil's module functions and `destroy(root)`.
+- Both P1-004 sample Sass files and the interactive scaffold template compile in automated tests. Supplemental sample color mappings are implementation decisions from the supplied palette, separately labeled in source and the consumer guide. The controller contract is aligned with Phil's module functions and `destroy(root)`.
 - Motion/reduced motion, typography fallback/zoom/reflow, forced colors, complete focus visibility, keyboard and assistive-technology behavior require component review. Token contrast checks do not constitute component accessibility approval.
 
 ## Required review record
