@@ -1,0 +1,15 @@
+{
+  "name": "disclosure",
+  "displayName": "Disclosure",
+  "maturity": "experimental",
+  "type": "interactive",
+  "uswdsEquivalent": null,
+  "owners": {
+    "responsible": "Aten component lead",
+    "accountable": "State technical owner"
+  },
+  "states": ["collapsed", "expanded", "disabled"],
+  "progressiveEnhancement": "full",
+  "localization": "text-content-only",
+  "description": "A contract sample demonstrating an interactive component with a TypeScript controller: a native-details-backed show/hide disclosure."
+}

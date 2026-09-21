@@ -1,0 +1,47 @@
+# Accessibility Evidence: `cods-__NAME__`
+
+**Component maturity at time of review:** experimental
+**Reviewer:** _name, role_
+**Date:** _YYYY-MM-DD_
+**Related component metadata:** `__NAME__.metadata.json`
+
+Complete every section below before this component can be marked `stable`. See the [accessibility evidence template](../../../../../../docs/governance/templates/accessibility-evidence-template.md) for guidance on each item.
+
+## Keyboard
+
+- [ ] Every interactive element is reachable using only the keyboard, in a logical order.
+- [ ] No keyboard trap.
+- Documented keyboard interactions: _list keys and resulting behavior_.
+
+## Focus
+
+- [ ] Visible focus indication uses the approved focus tokens.
+- [ ] Focus is managed predictably on state changes.
+
+## Naming and roles
+
+- [ ] Accessible name and role documented for each interactive element and state variation.
+
+## Screen reader verification
+
+- [ ] Screen reader / browser pairing(s) tested: _e.g., VoiceOver + Safari_.
+
+## Zoom and reflow
+
+- [ ] Verified usable at 400% zoom / 320px-equivalent reflow.
+
+## Motion
+
+- [ ] Animation (if any) respects `prefers-reduced-motion`. N/A if none.
+
+## Forced colors / high contrast
+
+- [ ] Component remains usable and distinguishable under a forced-colors mode.
+
+## Localization
+
+- [ ] String expansion, truncation, and bidirectional text behavior noted.
+
+## Open items
+
+- _none_

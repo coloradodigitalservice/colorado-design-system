@@ -1,0 +1,7 @@
+@use '@coloradodigitalservice/colorado-design-tokens' as tokens;
+
+@layer cods.components {
+  .cods-__NAME__ {
+    // TODO: implement styles using approved tokens only (section 3 of the contract).
+  }
+}

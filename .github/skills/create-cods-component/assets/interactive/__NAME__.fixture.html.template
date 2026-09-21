@@ -1,0 +1,15 @@
+<!-- State: default -->
+<div class="cods-__NAME__" data-cods-__NAME__>
+  <button
+    class="cods-__NAME____trigger"
+    type="button"
+    data-cods-__NAME__-trigger
+  >
+    <!-- TODO: replace with __DISPLAY_NAME__'s real trigger label. -->
+  </button>
+  <div class="cods-__NAME____panel" data-cods-__NAME__-panel>
+    <!-- TODO: replace with __DISPLAY_NAME__'s real panel content. -->
+  </div>
+</div>
+
+<!-- TODO: add one labeled fixture block per documented state (section 2 of the contract). -->

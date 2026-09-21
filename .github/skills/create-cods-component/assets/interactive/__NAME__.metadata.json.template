@@ -1,0 +1,15 @@
+{
+  "name": "__NAME__",
+  "displayName": "__DISPLAY_NAME__",
+  "maturity": "experimental",
+  "type": "interactive",
+  "uswdsEquivalent": __USWDS__,
+  "owners": {
+    "responsible": "Aten component lead",
+    "accountable": "State technical owner"
+  },
+  "states": ["default"],
+  "progressiveEnhancement": "full",
+  "localization": "text-content-only",
+  "description": "TODO: one-sentence description of __DISPLAY_NAME__."
+}

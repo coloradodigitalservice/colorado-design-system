@@ -1,0 +1,59 @@
+// TODO: replace this scaffold with __DISPLAY_NAME__'s real behavior.
+// Follows the section 4 controller lifecycle contract: init / runtime / destroy,
+// idempotent, and silent (console.warn only) on missing required elements.
+
+const ROOT_SELECTOR = '[data-cods-__NAME__]';
+const TRIGGER_SELECTOR = '[data-cods-__NAME__-trigger]';
+
+interface __CLASS_NAME__Instance {
+  root: HTMLElement;
+  trigger: HTMLElement;
+  onTriggerClick: () => void;
+}
+
+const instances = new WeakMap<HTMLElement, __CLASS_NAME__Instance>();
+
+/**
+ * Initializes a single `cods-__NAME__` root. Idempotent: calling `init`
+ * again on the same root is a no-op rather than double-binding listeners.
+ */
+export function init(root: HTMLElement): void {
+  if (instances.has(root)) return;
+
+  const trigger = root.querySelector<HTMLElement>(TRIGGER_SELECTOR);
+  if (!trigger) {
+    console.warn('cods-__NAME__: missing required trigger element', root);
+    return;
+  }
+
+  const onTriggerClick = () => {
+    // TODO: replace with __DISPLAY_NAME__'s real state change.
+    root.dispatchEvent(
+      new CustomEvent('cods-__NAME__:change', {
+        bubbles: true,
+        detail: {},
+      }),
+    );
+  };
+
+  trigger.addEventListener('click', onTriggerClick);
+  instances.set(root, { root, trigger, onTriggerClick });
+}
+
+/** Initializes every `cods-__NAME__` instance found under `container`. */
+export function initAll(container: ParentNode = document): void {
+  container
+    .querySelectorAll<HTMLElement>(ROOT_SELECTOR)
+    .forEach((root) => init(root));
+}
+
+/**
+ * Reverses `init`: removes listeners so the element returns to its
+ * no-JavaScript markup state. Safe to call without a prior `init`.
+ */
+export function destroy(root: HTMLElement): void {
+  const instance = instances.get(root);
+  if (!instance) return;
+  instance.trigger.removeEventListener('click', instance.onTriggerClick);
+  instances.delete(root);
+}

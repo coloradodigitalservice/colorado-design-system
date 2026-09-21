@@ -1,0 +1,37 @@
+// TODO: adjust these assertions for __DISPLAY_NAME__'s real behavior.
+import { describe, expect, it } from 'vitest';
+import { destroy, init } from './__NAME__.js';
+
+function renderFixture(): HTMLElement {
+  document.body.innerHTML = `
+    <div class="cods-__NAME__" data-cods-__NAME__>
+      <button type="button" data-cods-__NAME__-trigger>Trigger</button>
+      <div data-cods-__NAME__-panel></div>
+    </div>
+  `;
+  return document.querySelector<HTMLElement>('[data-cods-__NAME__]')!;
+}
+
+describe('cods-__NAME__', () => {
+  it('initializes without throwing when required elements are present', () => {
+    const root = renderFixture();
+    expect(() => init(root)).not.toThrow();
+  });
+
+  it('is idempotent: calling init twice does not double-bind', () => {
+    const root = renderFixture();
+    init(root);
+    expect(() => init(root)).not.toThrow();
+  });
+
+  it('destroy is safe to call without a prior init', () => {
+    const root = renderFixture();
+    expect(() => destroy(root)).not.toThrow();
+  });
+
+  it('warns instead of throwing when the trigger is missing', () => {
+    document.body.innerHTML = '<div data-cods-__NAME__></div>';
+    const root = document.querySelector<HTMLElement>('[data-cods-__NAME__]')!;
+    expect(() => init(root)).not.toThrow();
+  });
+});

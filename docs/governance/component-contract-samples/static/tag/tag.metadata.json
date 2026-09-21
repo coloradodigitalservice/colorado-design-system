@@ -1,0 +1,15 @@
+{
+  "name": "tag",
+  "displayName": "Tag",
+  "maturity": "experimental",
+  "type": "static",
+  "uswdsEquivalent": "tag",
+  "owners": {
+    "responsible": "Aten component lead",
+    "accountable": "State technical owner"
+  },
+  "states": ["default", "long-content"],
+  "progressiveEnhancement": "full",
+  "localization": "text-content-only",
+  "description": "A contract sample demonstrating a static, no-JavaScript component: a small labeled status/category indicator."
+}

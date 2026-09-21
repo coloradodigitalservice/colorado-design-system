@@ -1,0 +1,15 @@
+@use '@coloradodigitalservice/colorado-design-tokens' as tokens;
+
+@layer cods.components {
+  .cods-__NAME__ {
+    // TODO: implement styles using approved tokens only (section 3 of the contract).
+  }
+
+  .cods-__NAME____trigger {
+    &:focus-visible {
+      outline: var(--cods-focus-ring-width, tokens.$focus-ring-width) solid
+        var(--cods-focus-ring-color, tokens.$color-focus-ring);
+      outline-offset: tokens.$focus-ring-offset;
+    }
+  }
+}
