@@ -57,13 +57,13 @@ Interactive components ship a TypeScript controller in `<component-name>.ts`. St
 
 ### 4.2 Controller lifecycle
 
-Every controller exports a class or factory with exactly this lifecycle:
+Every controller exports module functions with the following lifecycle. Instances are tracked per root; `destroy(root)` tears down only that root:
 
-| Stage                     | Responsibility                                                                                                                                           |
-| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `init(root: HTMLElement)` | Locate required elements by data attribute inside `root`, attach listeners, read initial state from markup (never assume JavaScript-only default state). |
-| Runtime                   | Respond to user interaction and public method calls; dispatch documented events on state change.                                                         |
-| `destroy()`               | Remove all listeners and any DOM/attribute changes made by `init`, so the element can return to its no-JavaScript markup state.                          |
+| Stage                        | Responsibility                                                                                                                                           |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `init(root: HTMLElement)`    | Locate required elements by data attribute inside `root`, attach listeners, read initial state from markup (never assume JavaScript-only default state). |
+| Runtime                      | Respond to user interaction and public method calls; dispatch documented events on state change.                                                         |
+| `destroy(root: HTMLElement)` | Remove all listeners and any DOM/attribute changes made by `init`, so the element can return to its no-JavaScript markup state.                          |
 
 Controllers must be idempotent: calling `init` twice on the same root, or calling `destroy` without a prior `init`, must not throw.
 

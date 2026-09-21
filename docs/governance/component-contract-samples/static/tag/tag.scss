@@ -18,7 +18,7 @@
   }
 
   .cods-tag--info {
-    background-color: var(--cods-tag-background, tokens.$color-surface-info);
-    color: var(--cods-tag-color, tokens.$color-text-info);
+    background-color: var(--cods-tag-background, tokens.$color-bg-tag-info);
+    color: var(--cods-tag-color, tokens.$color-text-tag-info);
   }
 }

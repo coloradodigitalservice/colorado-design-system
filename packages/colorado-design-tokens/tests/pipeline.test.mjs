@@ -172,12 +172,7 @@ describe('State design references and consumers', () => {
       'font-size-mobile-body-lg': '24px',
       'font-weight-medium': 500,
     });
-    for (const name of [
-      'radius-full',
-      'color-shadow',
-      'focus-ring-width',
-      'color-surface-info',
-    ])
+    for (const name of ['color-surface-info'])
       expect(output).not.toHaveProperty(name);
   });
   it('compiles Phil’s bare Sass import from a real local consumer', () => {
@@ -198,6 +193,24 @@ describe('State design references and consumers', () => {
     );
     expect(result.css).toContain('color: #1b1b1b');
     expect(result.css).toContain('padding: 12px');
+  });
+  it('compiles both complete contract Sass samples with documented focus treatment', () => {
+    const options = {
+      loadPaths: [join(packageRoot, '../colorado-design-system/node_modules')],
+    };
+    const samples = join(
+      packageRoot,
+      '../../docs/governance/component-contract-samples',
+    );
+    const tag = sass.compile(join(samples, 'static/tag/tag.scss'), options).css;
+    const disclosure = sass.compile(
+      join(samples, 'interactive/disclosure/disclosure.scss'),
+      options,
+    ).css;
+    expect(tag).toContain('#aacdec');
+    expect(disclosure).toContain('outline-offset: 2px');
+    expect(disclosure).toContain('box-shadow: 0 0 0 2px #ffffff');
+    expect(disclosure).toContain('4px');
   });
   it('emits CSS aliases using the public names and valid CSS', async () => {
     const css = await readFile(join(temporary, 'first/tokens.css'), 'utf8');

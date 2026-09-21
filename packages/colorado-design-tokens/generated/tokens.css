@@ -9,6 +9,8 @@
   --cods-color-bg-action-primary-hover: var(--cods-color-co-blue-90);
   --cods-color-bg-action-secondary-hover: var(--cods-color-co-blue-20);
   --cods-color-bg-disabled: var(--cods-color-co-gray-10);
+  --cods-color-bg-surface-secondary: var(--cods-color-co-gray-10);
+  --cods-color-bg-tag-info: var(--cods-color-co-blue-20);
   --cods-color-border-action-secondary: var(--cods-color-co-blue-80-brand);
   --cods-color-border-action-secondary-active: var(--cods-color-co-blue-60-brand);
   --cods-color-border-action-secondary-hover: var(--cods-color-co-blue-90);
@@ -16,6 +18,7 @@
   --cods-color-border-form-danger: var(--cods-color-co-red-60-brand);
   --cods-color-border-form-default: var(--cods-color-co-gray-60);
   --cods-color-border-form-hover: var(--cods-color-co-gray-90);
+  --cods-color-border-subtle: var(--cods-color-co-gray-20);
   --cods-color-co-blue-10: #d9e8f6;
   --cods-color-co-blue-20: #aacdec;
   --cods-color-co-blue-30: #7fadda;
@@ -69,6 +72,8 @@
   --cods-color-co-yellow-30-brand: #ffd100;
   --cods-color-co-yellow-40: #dfa902;
   --cods-color-co-yellow-5: #fdfcf0;
+  --cods-color-focus-gap: var(--cods-color-white);
+  --cods-color-focus-row: var(--cods-color-co-blue-80-brand);
   --cods-color-icon-action-link: var(--cods-color-co-blue-60v);
   --cods-color-icon-action-link-active: var(--cods-color-co-blue-90);
   --cods-color-icon-action-link-hover: var(--cods-color-co-blue-80-brand);
@@ -84,6 +89,7 @@
   --cods-color-icon-on-primary: var(--cods-color-white);
   --cods-color-icon-on-primary-active: var(--cods-color-white);
   --cods-color-icon-on-primary-hover: var(--cods-color-white);
+  --cods-color-shadow: #000000;
   --cods-color-state-success: var(--cods-color-co-green-60v);
   --cods-color-surface-form: var(--cods-color-white);
   --cods-color-surface-form-hover: var(--cods-color-co-gray-1);
@@ -99,7 +105,11 @@
   --cods-color-text-disabled: var(--cods-color-co-gray-60);
   --cods-color-text-primary: var(--cods-color-co-gray-90);
   --cods-color-text-secondary: var(--cods-color-co-gray-70);
+  --cods-color-text-tag-info: var(--cods-color-co-blue-90);
   --cods-color-white: #ffffff;
+  --cods-focus-ring-offset: 2px;
+  --cods-focus-ring-width: 4px;
+  --cods-focus-row-width: 2px;
   --cods-font-family-body: "Open Sans";
   --cods-font-family-code: "Source Code Pro";
   --cods-font-family-desktop-body: var(--cods-font-family-body);
@@ -217,6 +227,7 @@
   --cods-paragraph-space-mobile-h4: 24px;
   --cods-paragraph-space-mobile-h5: 22px;
   --cods-paragraph-space-mobile-h6: 18px;
+  --cods-radius-full: 9999px;
   --cods-radius-lg: 8px;
   --cods-radius-md: 4px;
   --cods-radius-none: 0px;

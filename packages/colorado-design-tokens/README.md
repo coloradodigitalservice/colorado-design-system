@@ -51,13 +51,15 @@ See [design-to-code mapping](references/mapping.md) and `references/design-value
 
 Spacing is 4, 8, 12, 16, 24, 32, 48, and 64px, mapped to Phil's `2xs` through `3xl` scale. Radius is none=0, sm=2, md=4, lg=8px. Typography uses the screenshot's desktop/mobile tables, retaining their explicit line heights and paragraph spacing even where they differ from font size. Families are Museo Slab, Open Sans, and Source Code Pro; font binaries and licenses are not distributed here. `font-size-sm` aliases desktop body small (14px).
 
-Deferred: `radius-full` (999 versus 9999), shadow color/opacity, and the complete focus effect. The documented `color-border-focus` mapping is retained, but focus width and offset are unspecified. No motion values, dark mode, or assumed sample tokens are invented.
+Decisions recorded September 21: `radius-full` is 9999px, following the written Radius table rather than the variable-panel value 999. `color-shadow` is black (#000000), an explicit user assumption, not a measured screenshot value. It represents the base color only; shadow opacity and geometry remain unspecified.
+
+The Language Selector notes explicitly describe a 4px blue trigger ring with a 2px white gap and a 2px navy row outline. `focus-ring-width`, `focus-ring-offset`, `color-focus-gap`, `focus-row-width`, and `color-focus-row` encode these treatments. The trigger uses the workbook's `color-bg-action-focus`. A transparent outline offset alone does not paint a white gap; the sample includes a white spread shadow. These are two focus treatments, not competing system-wide values. Component styles select the appropriate treatment and still require keyboard/forced-color verification.
 
 ## P1-004 reconciliation
 
-Phil's sample names `color-text-primary`, `space-2xs`, `space-xs`, `radius-sm`, and `font-size-sm` are available. For examples, use the documented role that actually matches the context: `color-bg-surface-secondary` for a secondary surface and `color-border-focus` for the focus color. Names `color-surface-info`, `color-text-info`, and `color-border-secondary` have no unambiguous supplied equivalent and remain pending; do not globally substitute unrelated roles. `color-focus-ring` can use `color-border-focus` for color only. `focus-ring-width` and `focus-ring-offset` remain pending.
+Both complete sample Sass files now compile in tests. The disclosure uses `color-border-subtle`, the existing `color-bg-action-focus`, and the documented trigger focus dimensions. The tag uses `color-bg-surface-secondary`, `color-bg-tag-info`, and `color-text-tag-info`.
 
-This branch is stacked on PR #2's scaffold. Documented secondary-surface and focus-color equivalents are reconciled in its samples; unsupported names remain pending. The representative Sass consumer is tested, but the complete interactive scaffold is not claimed to compile until its focus dependencies are resolved. Correct the separate controller lifecycle inconsistency in P1-004.
+`src/supplemental.tokens.json` separates these implementation mappings from the unchanged 46 workbook roles. Secondary surface maps to gray/10; subtle border to gray/20; blue tag background to blue/20 and its dark text to blue/90. These choices follow screenshot appearance and the supplied palette; they are explicitly implementation decisions rather than exact workbook mappings. Reviewers can assess concrete values instead of unresolved placeholder names. The controller contract now describes Phil's existing module-function API, `init(root)` / `destroy(root)`.
 
 ## Accessibility and troubleshooting
 

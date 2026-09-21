@@ -1,0 +1,78 @@
+{
+  "color": {
+    "bg-surface-secondary": {
+      "$type": "color",
+      "$value": "{color.co-gray-10}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "bg-surface-secondary",
+          "location": "Secondary neutral surface; implementation mapping from existing palette for contract sample"
+        }
+      }
+    },
+    "bg-tag-info": {
+      "$type": "color",
+      "$value": "{color.co-blue-20}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "bg-tag-info",
+          "location": "Tags screenshot blue tag; implementation mapping to existing blue/20 palette"
+        }
+      }
+    },
+    "text-tag-info": {
+      "$type": "color",
+      "$value": "{color.co-blue-90}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "text-tag-info",
+          "location": "Tags screenshot dark text on blue tag; implementation mapping to existing blue/90 palette"
+        }
+      }
+    },
+    "border-subtle": {
+      "$type": "color",
+      "$value": "{color.co-gray-20}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "border-subtle",
+          "location": "Accordion screenshot container border; implementation mapping to existing gray/20 palette"
+        }
+      }
+    },
+    "focus-gap": {
+      "$type": "color",
+      "$value": "{color.white}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "focus-gap",
+          "location": "Language Selector screenshot: white 2px gap"
+        }
+      }
+    },
+    "focus-row": {
+      "$type": "color",
+      "$value": "{color.co-blue-80-brand}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "focus-row",
+          "location": "Language Selector screenshot: navy 2px row outline"
+        }
+      }
+    },
+    "shadow": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [0, 0, 0],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "shadow base color",
+          "location": "User decision September 21, 2026: assume black; base color only, opacity and complete shadow remain unspecified"
+        }
+      }
+    }
+  }
+}

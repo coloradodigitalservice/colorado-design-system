@@ -9,6 +9,8 @@ export interface TokenDictionary {
   readonly "color-bg-action-primary-hover": string;
   readonly "color-bg-action-secondary-hover": string;
   readonly "color-bg-disabled": string;
+  readonly "color-bg-surface-secondary": string;
+  readonly "color-bg-tag-info": string;
   readonly "color-border-action-secondary": string;
   readonly "color-border-action-secondary-active": string;
   readonly "color-border-action-secondary-hover": string;
@@ -16,6 +18,7 @@ export interface TokenDictionary {
   readonly "color-border-form-danger": string;
   readonly "color-border-form-default": string;
   readonly "color-border-form-hover": string;
+  readonly "color-border-subtle": string;
   readonly "color-co-blue-10": string;
   readonly "color-co-blue-20": string;
   readonly "color-co-blue-30": string;
@@ -69,6 +72,8 @@ export interface TokenDictionary {
   readonly "color-co-yellow-30-brand": string;
   readonly "color-co-yellow-40": string;
   readonly "color-co-yellow-5": string;
+  readonly "color-focus-gap": string;
+  readonly "color-focus-row": string;
   readonly "color-icon-action-link": string;
   readonly "color-icon-action-link-active": string;
   readonly "color-icon-action-link-hover": string;
@@ -84,6 +89,7 @@ export interface TokenDictionary {
   readonly "color-icon-on-primary": string;
   readonly "color-icon-on-primary-active": string;
   readonly "color-icon-on-primary-hover": string;
+  readonly "color-shadow": string;
   readonly "color-state-success": string;
   readonly "color-surface-form": string;
   readonly "color-surface-form-hover": string;
@@ -99,7 +105,11 @@ export interface TokenDictionary {
   readonly "color-text-disabled": string;
   readonly "color-text-primary": string;
   readonly "color-text-secondary": string;
+  readonly "color-text-tag-info": string;
   readonly "color-white": string;
+  readonly "focus-ring-offset": string;
+  readonly "focus-ring-width": string;
+  readonly "focus-row-width": string;
   readonly "font-family-body": string;
   readonly "font-family-code": string;
   readonly "font-family-desktop-body": string;
@@ -217,6 +227,7 @@ export interface TokenDictionary {
   readonly "paragraph-space-mobile-h4": string;
   readonly "paragraph-space-mobile-h5": string;
   readonly "paragraph-space-mobile-h6": string;
+  readonly "radius-full": string;
   readonly "radius-lg": string;
   readonly "radius-md": string;
   readonly "radius-none": string;

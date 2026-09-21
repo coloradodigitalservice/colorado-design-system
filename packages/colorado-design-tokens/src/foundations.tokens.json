@@ -157,6 +157,19 @@
           "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Radius / screenshot supplied 2026-09-21"
         }
       }
+    },
+    "full": {
+      "$type": "dimension",
+      "$value": {
+        "value": 9999,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "radius-full",
+          "location": "Radius screenshot table; September 21 implementation decision: prefer explicit 9999px table over 999 variable panel"
+        }
+      }
     }
   },
   "font": {
@@ -1529,6 +1542,47 @@
         "org.colorado.source": {
           "name": "mobile / code / paragraph spacing",
           "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography / screenshot supplied 2026-09-21"
+        }
+      }
+    }
+  },
+  "focus": {
+    "ring-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 4,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "ring-width",
+          "location": "Language Selector screenshot accessibility notes: trigger white 2px gap + blue 4px ring; rows 2px navy outline"
+        }
+      }
+    },
+    "ring-offset": {
+      "$type": "dimension",
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "ring-offset",
+          "location": "Language Selector screenshot accessibility notes: trigger white 2px gap + blue 4px ring; rows 2px navy outline"
+        }
+      }
+    },
+    "row-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "row-width",
+          "location": "Language Selector screenshot accessibility notes: trigger white 2px gap + blue 4px ring; rows 2px navy outline"
         }
       }
     }
