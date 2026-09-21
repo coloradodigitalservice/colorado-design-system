@@ -8,7 +8,7 @@ The [Figma kit](https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Des
 
 | Directory                         | Workspace                                        | Purpose                                                                  |
 | --------------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------ |
-| `packages/colorado-design-tokens` | `@coloradodigitalservice/colorado-design-tokens` | DTCG source and, later, generated consumer formats                       |
+| `packages/colorado-design-tokens` | `@coloradodigitalservice/colorado-design-tokens` | DTCG source and generated consumer formats                               |
 | `packages/colorado-design-system` | `@coloradodigitalservice/colorado-design-system` | Canonical components, styles, controllers, fixtures, metadata, and icons |
 | `apps/web`                        | `@cods-internal/web`                             | Astro static reference website                                           |
 | `apps/storybook`                  | `@cods-internal/storybook`                       | HTML/Vite component workbench                                            |
@@ -38,7 +38,7 @@ The core package depends on tokens. The apps and example depend on core; the app
 
 Install enables the Husky pre-commit hook. It runs lint-staged on changed source and documentation files. No environment variables are required for the current toolchain; `.env.example` documents this and must never contain credentials. The TypeScript baseline is in `config/typescript/tsconfig.base.json`. Root ESLint, Stylelint, Prettier, and Vitest configurations cover the current source types, including future Astro files.
 
-Node, pnpm, Turbo, and all toolchain dependencies are pinned to exact versions. Upgrade them in a reviewed change, update `pnpm-lock.yaml`, run every root check, and repeat the frozen install in a fresh clone. The current `build` command compiles only the core Sass layer declaration. Token generation, package bundles, Astro, Storybook, and development commands arrive with their implementation tasks.
+Node, pnpm, Turbo, and all toolchain dependencies are pinned to exact versions. Upgrade them in a reviewed change, update `pnpm-lock.yaml`, run every root check, and repeat the frozen install in a fresh clone. The current `build` command generates tokens before compiling the core Sass layer declaration. Token generation is implemented; package bundles, Astro, Storybook, and development commands remain later work. See the [token editing guide](packages/colorado-design-tokens/README.md).
 
 ## Ownership and scope
 

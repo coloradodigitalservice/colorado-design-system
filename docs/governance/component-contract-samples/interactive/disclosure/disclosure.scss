@@ -14,7 +14,7 @@
 
     &:focus-visible {
       outline: var(--cods-focus-ring-width, tokens.$focus-ring-width) solid
-        var(--cods-focus-ring-color, tokens.$color-focus-ring);
+        var(--cods-focus-ring-color, tokens.$color-border-focus);
       outline-offset: tokens.$focus-ring-offset;
     }
   }

@@ -7,6 +7,7 @@ export default [
   {
     ignores: [
       '**/dist/**',
+      '**/generated/**',
       '**/node_modules/**',
       '**/.astro/**',
       '**/storybook-static/**',

@@ -8,3 +8,6 @@ coverage/
 playwright-report/
 test-results/
 pnpm-lock.yaml
+
+# Deterministic Style Dictionary output, verified by tokens:check
+packages/colorado-design-tokens/generated/

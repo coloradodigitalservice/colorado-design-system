@@ -9,7 +9,7 @@
   },
   "scripts": {
     "validate": "node ../../scripts/check-workspace.mjs --workspace packages/colorado-design-system",
-    "build": "sass src/styles/index.scss dist/index.css --no-source-map"
+    "build": "sass --load-path=node_modules src/styles/index.scss dist/index.css --no-source-map"
   },
   "dependencies": {
     "@coloradodigitalservice/colorado-design-tokens": "workspace:*"
