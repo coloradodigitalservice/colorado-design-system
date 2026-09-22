@@ -32,13 +32,28 @@ The core package depends on tokens. The apps and example depend on core; the app
 | `pnpm lint`            | Run ESLint for JS, TS, and Astro and Stylelint for CSS and Sass         |
 | `pnpm typecheck`       | Typecheck the current TypeScript toolchain and test sources             |
 | `pnpm test`            | Run Vitest's DOM-capable test suite                                     |
-| `pnpm build`           | Compile the current Sass layer-order entry to CSS                       |
+| `pnpm build`           | Build all packages via Turbo (tokens and design-system)                 |
 | `pnpm check`           | Run workspace, format, lint, typecheck, test, and build checks          |
 | `pnpm exec turbo ls`   | Show the package graph                                                  |
 
 Install enables the Husky pre-commit hook. It runs lint-staged on changed source and documentation files. No environment variables are required for the current toolchain; `.env.example` documents this and must never contain credentials. The TypeScript baseline is in `config/typescript/tsconfig.base.json`. Root ESLint, Stylelint, Prettier, and Vitest configurations cover the current source types, including future Astro files.
 
-Node, pnpm, Turbo, and all toolchain dependencies are pinned to exact versions. Upgrade them in a reviewed change, update `pnpm-lock.yaml`, run every root check, and repeat the frozen install in a fresh clone. The current `build` command generates tokens before compiling the core Sass layer declaration. Token generation is implemented; package bundles, Astro, Storybook, and development commands remain later work. See the [token editing guide](packages/colorado-design-tokens/README.md).
+Node, pnpm, Turbo, and all toolchain dependencies are pinned to exact versions. Upgrade them in a reviewed change, update `pnpm-lock.yaml`, run every root check, and repeat the frozen install in a fresh clone. Token generation and package builds are implemented via [Style Dictionary](packages/colorado-design-tokens/README.md) and [Vite](docs/BUILD.md) respectively. Astro, Storybook, and development commands remain later work.
+
+## Build & Development
+
+The [Build Architecture guide](docs/BUILD.md) describes the complete package build configuration, dependency alignment, and development workflow for both `colorado-design-tokens` and `colorado-design-system`.
+
+**Common build commands:**
+
+```bash
+pnpm build              # Build all packages via Turbo (tokens → design-system)
+pnpm build:watch        # Watch mode for colorado-design-system development
+pnpm tokens:build       # Build design tokens only
+pnpm tokens:check       # Validate tokens and compare with committed outputs
+```
+
+Each package (`colorado-design-tokens`, `colorado-design-system`) includes its own `README.md` with package-specific build instructions and development workflows.
 
 ## Ownership and scope
 
