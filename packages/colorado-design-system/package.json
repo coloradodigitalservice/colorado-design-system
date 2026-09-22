@@ -7,9 +7,25 @@
     "url": "https://github.com/coloradodigitalservice/colorado-design-system.git",
     "directory": "packages/colorado-design-system"
   },
+  "type": "module",
+  "sideEffects": [
+    "*.css",
+    "dist/**/*.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/colorado-design-system.mjs"
+    },
+    "./styles": {
+      "default": "./dist/colorado-design-system.css"
+    },
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "validate": "node ../../scripts/check-workspace.mjs --workspace packages/colorado-design-system",
-    "build": "sass --load-path=node_modules src/styles/index.scss dist/index.css --no-source-map"
+    "build": "vite build",
+    "build:watch": "vite build --watch"
   },
   "dependencies": {
     "@coloradodigitalservice/colorado-design-tokens": "workspace:*"
