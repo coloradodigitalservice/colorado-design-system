@@ -17,9 +17,12 @@
     "lint": "pnpm lint:js && pnpm lint:styles",
     "typecheck": "tsc --project tsconfig.json --noEmit",
     "test": "vitest run",
-    "build": "turbo run build",
-    "check": "pnpm check:workspace && pnpm validate && pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build",
-    "prepare": "husky"
+    "build": "pnpm tokens:check && turbo run build",
+    "check": "pnpm check:workspace && pnpm validate && pnpm tokens:check && pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build",
+    "prepare": "husky",
+    "tokens:validate": "pnpm --filter @coloradodigitalservice/colorado-design-tokens tokens:validate",
+    "tokens:build": "pnpm --filter @coloradodigitalservice/colorado-design-tokens build",
+    "tokens:check": "turbo run tokens:check"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",

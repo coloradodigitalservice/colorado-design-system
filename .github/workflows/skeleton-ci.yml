@@ -21,4 +21,5 @@ jobs:
           corepack enable
           corepack prepare pnpm@12.4.2 --activate
       - run: pnpm install --frozen-lockfile
-      - run: pnpm check
+      - name: Validate tokens, verify drift, and check repository
+        run: pnpm check

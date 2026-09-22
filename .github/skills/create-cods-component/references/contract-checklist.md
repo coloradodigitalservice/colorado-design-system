@@ -21,7 +21,7 @@ Quick-reference summary of [docs/governance/component-contract.md](../../../../d
 ## Controller lifecycle (interactive only)
 
 - `init(root)`: find elements by `data-cods-*`, attach listeners, read initial state from markup. Idempotent. Warns (never throws) if required elements are missing.
-- `destroy()`: removes everything `init` added; safe to call without a prior `init`.
+- `destroy(root)`: removes everything `init` added; safe to call without a prior `init`.
 - No global state, no dependency on a bundler beyond a plain ES module.
 
 ## Progressive enhancement

@@ -1,0 +1,102 @@
+{
+  "source": "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html",
+  "note": "Initial checks for documented roles on form/white surfaces and action backgrounds. These do not establish whole-component conformance. Disabled controls are intentionally excluded.",
+  "pairs": [
+    {
+      "name": "Body text on form surface",
+      "foreground": "color.text-primary",
+      "background": "color.surface-form",
+      "minimum": 4.5
+    },
+    {
+      "name": "Secondary text on form surface",
+      "foreground": "color.text-secondary",
+      "background": "color.surface-form",
+      "minimum": 4.5
+    },
+    {
+      "name": "Danger text on form surface",
+      "foreground": "color.text-danger",
+      "background": "color.surface-form",
+      "minimum": 4.5
+    },
+    {
+      "name": "Link default",
+      "foreground": "color.text-action-link",
+      "background": "color.surface-form",
+      "minimum": 4.5
+    },
+    {
+      "name": "Link hover",
+      "foreground": "color.text-action-link-hover",
+      "background": "color.surface-form",
+      "minimum": 4.5
+    },
+    {
+      "name": "Link active",
+      "foreground": "color.text-action-link-active",
+      "background": "color.surface-form",
+      "minimum": 4.5
+    },
+    {
+      "name": "Primary button default",
+      "foreground": "color.text-action-primary",
+      "background": "color.bg-action-primary",
+      "minimum": 4.5
+    },
+    {
+      "name": "Primary button hover",
+      "foreground": "color.text-action-primary",
+      "background": "color.bg-action-primary-hover",
+      "minimum": 4.5
+    },
+    {
+      "name": "Primary button active",
+      "foreground": "color.text-action-primary",
+      "background": "color.bg-action-primary-active",
+      "minimum": 4.5
+    },
+    {
+      "name": "Secondary button hover",
+      "foreground": "color.text-action-secondary-hover",
+      "background": "color.bg-action-secondary-hover",
+      "minimum": 4.5
+    },
+    {
+      "name": "Form border default",
+      "foreground": "color.border-form-default",
+      "background": "color.surface-form",
+      "minimum": 3
+    },
+    {
+      "name": "Form border hover",
+      "foreground": "color.border-form-hover",
+      "background": "color.surface-form-hover",
+      "minimum": 3
+    },
+    {
+      "name": "Form border danger",
+      "foreground": "color.border-form-danger",
+      "background": "color.surface-form",
+      "minimum": 3
+    },
+    {
+      "name": "Success icon",
+      "foreground": "color.icon-form-success",
+      "background": "color.surface-form",
+      "minimum": 3
+    },
+    {
+      "name": "Danger icon",
+      "foreground": "color.icon-form-danger",
+      "background": "color.surface-form",
+      "minimum": 3
+    },
+    {
+      "name": "Focus color against white only",
+      "foreground": "color.bg-action-focus",
+      "background": "color.surface-form",
+      "minimum": 3
+    }
+  ]
+}

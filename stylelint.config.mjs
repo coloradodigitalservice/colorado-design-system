@@ -1,6 +1,11 @@
 export default {
   extends: ['stylelint-config-standard-scss'],
-  ignoreFiles: ['**/dist/**', '**/node_modules/**', '**/storybook-static/**'],
+  ignoreFiles: [
+    '**/dist/**',
+    '**/generated/**',
+    '**/node_modules/**',
+    '**/storybook-static/**',
+  ],
   rules: {
     // Allows the cods- BEM naming required by the component contract
     // (docs/governance/component-contract.md#3-css-conventions-and-cods--naming):

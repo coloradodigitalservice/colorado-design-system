@@ -1,0 +1,382 @@
+{
+  "palette": {
+    "co-blue/5": "#eff5fa",
+    "co-blue/10": "#d9e8f6",
+    "co-blue/20": "#aacdec",
+    "co-blue/30": "#7fadda",
+    "co-blue/60v": "#173bb3",
+    "co-blue/60-brand": "#2551a3",
+    "co-blue/80-brand": "#001970",
+    "co-blue/90": "#001049",
+    "co-plum/5": "#faf4f8",
+    "co-plum/10": "#f3ebf2",
+    "co-plum/20": "#dac3d3",
+    "co-plum/30": "#c59ab8",
+    "co-plum/60v": "#864377",
+    "co-plum/60-brand": "#663355",
+    "co-plum/80": "#491839",
+    "co-plum/90": "#3c062a",
+    "co-red/5": "#fdf4f4",
+    "co-red/10": "#f8dede",
+    "co-red/20": "#ffabab",
+    "co-red/30": "#eb8080",
+    "co-red/60v": "#d40202",
+    "co-red/60-brand": "#b50909",
+    "co-red/80": "#950707",
+    "co-red/90": "#6f0101",
+    "co-green/5": "#f3f9f3",
+    "co-green/10": "#e8f5e8",
+    "co-green/20": "#b4d1b8",
+    "co-green/30": "#88b297",
+    "co-green/60v": "#026f28",
+    "co-green/60-brand": "#245d38",
+    "co-green/80": "#134626",
+    "co-green/90": "#073116",
+    "co-teal/5": "#f3f8f9",
+    "co-teal/10": "#e7f2f5",
+    "co-teal/20": "#aeced4",
+    "co-teal/30": "#85b2be",
+    "co-teal/60v": "#0c7097",
+    "co-teal/60-brand": "#35647e",
+    "co-teal/80": "#1f465c",
+    "co-teal/90": "#1a323f",
+    "co-yellow/5": "#fdfcf0",
+    "co-yellow/10": "#fcf9d9",
+    "co-yellow/20": "#ffec87",
+    "co-yellow/30-brand": "#ffd100",
+    "co-yellow/40": "#dfa902",
+    "co-gray/1": "#fbfcfd",
+    "co-gray/5": "#f4f5f6",
+    "co-gray/10": "#ebeced",
+    "co-gray/20": "#c4c5c9",
+    "co-gray/50": "#71767a",
+    "co-gray/60": "#565c65",
+    "co-gray/70": "#3a414b",
+    "co-gray/90": "#1b1b1b",
+    "white": "#ffffff"
+  },
+  "semanticColors": [
+    {
+      "row": 2,
+      "designName": "text / default",
+      "codeName": "color-text-primary",
+      "paletteName": "color/co-gray/90",
+      "hex": "#1b1b1b"
+    },
+    {
+      "row": 3,
+      "designName": "text / secondary",
+      "codeName": "color-text-secondary",
+      "paletteName": "color/co-gray/70",
+      "hex": "#3a414b"
+    },
+    {
+      "row": 4,
+      "designName": "text / disabled",
+      "codeName": "color-text-disabled",
+      "paletteName": "color/co-gray/60",
+      "hex": "#565c65"
+    },
+    {
+      "row": 5,
+      "designName": "text / danger",
+      "codeName": "color-text-danger",
+      "paletteName": "color/co-red/60-brand",
+      "hex": "#b50909"
+    },
+    {
+      "row": 6,
+      "designName": "text / action / primary",
+      "codeName": "color-text-action-primary",
+      "paletteName": "color/white",
+      "hex": "#ffffff"
+    },
+    {
+      "row": 7,
+      "designName": "text / action / link",
+      "codeName": "color-text-action-link",
+      "paletteName": "color/co-blue/60v",
+      "hex": "#173bb3"
+    },
+    {
+      "row": 8,
+      "designName": "text / action / secondary",
+      "codeName": "color-text-action-secondary",
+      "paletteName": "color/co-blue/80-brand",
+      "hex": "#001970"
+    },
+    {
+      "row": 9,
+      "designName": "text / action / link / hover",
+      "codeName": "color-text-action-link-hover",
+      "paletteName": "color/co-blue/80-brand",
+      "hex": "#001970"
+    },
+    {
+      "row": 10,
+      "designName": "text / action / link / active",
+      "codeName": "color-text-action-link-active",
+      "paletteName": "color/co-blue/90",
+      "hex": "#001049"
+    },
+    {
+      "row": 11,
+      "designName": "text / action / secondary / hover",
+      "codeName": "color-text-action-secondary-hover",
+      "paletteName": "color/co-blue/90",
+      "hex": "#001049"
+    },
+    {
+      "row": 12,
+      "designName": "text / action / secondary / active",
+      "codeName": "color-text-action-secondary-active",
+      "paletteName": "color/co-blue/60-brand",
+      "hex": "#2551a3"
+    },
+    {
+      "row": 13,
+      "designName": "bg / disabled",
+      "codeName": "color-bg-disabled",
+      "paletteName": "color/co-gray/10",
+      "hex": "#ebeced"
+    },
+    {
+      "row": 14,
+      "designName": "bg / action / focus",
+      "codeName": "color-bg-action-focus",
+      "paletteName": "color/co-blue/60v",
+      "hex": "#173bb3"
+    },
+    {
+      "row": 15,
+      "designName": "bg / action / primary",
+      "codeName": "color-bg-action-primary",
+      "paletteName": "color/co-blue/80-brand",
+      "hex": "#001970"
+    },
+    {
+      "row": 16,
+      "designName": "bg / action / primary / hover",
+      "codeName": "color-bg-action-primary-hover",
+      "paletteName": "color/co-blue/90",
+      "hex": "#001049"
+    },
+    {
+      "row": 17,
+      "designName": "bg / action / primary / active",
+      "codeName": "color-bg-action-primary-active",
+      "paletteName": "color/co-blue/60-brand",
+      "hex": "#2551a3"
+    },
+    {
+      "row": 18,
+      "designName": "bg / action / secondary / hover",
+      "codeName": "color-bg-action-secondary-hover",
+      "paletteName": "color/co-blue/20",
+      "hex": "#aacdec"
+    },
+    {
+      "row": 19,
+      "designName": "bg / action / danger",
+      "codeName": "color-bg-action-danger",
+      "paletteName": "color/co-red/60-brand",
+      "hex": "#b50909"
+    },
+    {
+      "row": 20,
+      "designName": "bg / action / danger / hover",
+      "codeName": "color-bg-action-danger-hover",
+      "paletteName": "color/co-red/80",
+      "hex": "#950707"
+    },
+    {
+      "row": 21,
+      "designName": "bg / action / danger / active",
+      "codeName": "color-bg-action-danger-active",
+      "paletteName": "color/co-red/90",
+      "hex": "#6f0101"
+    },
+    {
+      "row": 22,
+      "designName": "border / disabled",
+      "codeName": "color-border-disabled",
+      "paletteName": "color/co-gray/50",
+      "hex": "#71767a"
+    },
+    {
+      "row": 23,
+      "designName": "border / action / secondary",
+      "codeName": "color-border-action-secondary",
+      "paletteName": "color/co-blue/80-brand",
+      "hex": "#001970"
+    },
+    {
+      "row": 24,
+      "designName": "border / action / secondary / hover",
+      "codeName": "color-border-action-secondary-hover",
+      "paletteName": "color/co-blue/90",
+      "hex": "#001049"
+    },
+    {
+      "row": 25,
+      "designName": "border / action / secondary / active",
+      "codeName": "color-border-action-secondary-active",
+      "paletteName": "color/co-blue/60-brand",
+      "hex": "#2551a3"
+    },
+    {
+      "row": 26,
+      "designName": "border / form / default",
+      "codeName": "color-border-form-default",
+      "paletteName": "color/co-gray/60",
+      "hex": "#565c65"
+    },
+    {
+      "row": 27,
+      "designName": "border / form / hover",
+      "codeName": "color-border-form-hover",
+      "paletteName": "color/co-gray/90",
+      "hex": "#1b1b1b"
+    },
+    {
+      "row": 28,
+      "designName": "border / form / danger",
+      "codeName": "color-border-form-danger",
+      "paletteName": "color/co-red/60-brand",
+      "hex": "#b50909"
+    },
+    {
+      "row": 29,
+      "designName": "icon / default",
+      "codeName": "color-icon-default",
+      "paletteName": "color/co-gray/90",
+      "hex": "#1b1b1b"
+    },
+    {
+      "row": 30,
+      "designName": "icon / disabled",
+      "codeName": "color-icon-disabled",
+      "paletteName": "color/co-gray/60",
+      "hex": "#565c65"
+    },
+    {
+      "row": 31,
+      "designName": "icon / on-primary",
+      "codeName": "color-icon-on-primary",
+      "paletteName": "color/white",
+      "hex": "#ffffff"
+    },
+    {
+      "row": 32,
+      "designName": "icon / on-primary / hover",
+      "codeName": "color-icon-on-primary-hover",
+      "paletteName": "color/white",
+      "hex": "#ffffff"
+    },
+    {
+      "row": 33,
+      "designName": "icon / on-primary / active",
+      "codeName": "color-icon-on-primary-active",
+      "paletteName": "color/white",
+      "hex": "#ffffff"
+    },
+    {
+      "row": 34,
+      "designName": "icon / action / link",
+      "codeName": "color-icon-action-link",
+      "paletteName": "color/co-blue/60v",
+      "hex": "#173bb3"
+    },
+    {
+      "row": 35,
+      "designName": "icon / action / link / hover",
+      "codeName": "color-icon-action-link-hover",
+      "paletteName": "color/co-blue/80-brand",
+      "hex": "#001970"
+    },
+    {
+      "row": 36,
+      "designName": "icon / action / link / active",
+      "codeName": "color-icon-action-link-active",
+      "paletteName": "color/co-blue/90",
+      "hex": "#001049"
+    },
+    {
+      "row": 37,
+      "designName": "icon / action / secondary",
+      "codeName": "color-icon-action-secondary",
+      "paletteName": "color/co-blue/80-brand",
+      "hex": "#001970"
+    },
+    {
+      "row": 38,
+      "designName": "icon / action / secondary / hover",
+      "codeName": "color-icon-action-secondary-hover",
+      "paletteName": "color/co-blue/90",
+      "hex": "#001049"
+    },
+    {
+      "row": 39,
+      "designName": "icon / action / secondary / active",
+      "codeName": "color-icon-action-secondary-active",
+      "paletteName": "color/co-blue/60-brand",
+      "hex": "#2551a3"
+    },
+    {
+      "row": 40,
+      "designName": "icon / form / secondary",
+      "codeName": "color-icon-form-secondary",
+      "paletteName": "color/co-gray/60",
+      "hex": "#565c65"
+    },
+    {
+      "row": 41,
+      "designName": "icon / form / disabled",
+      "codeName": "color-icon-form-disabled",
+      "paletteName": "color/co-gray/60",
+      "hex": "#565c65"
+    },
+    {
+      "row": 42,
+      "designName": "icon / form / success",
+      "codeName": "color-icon-form-success",
+      "paletteName": "color/co-green/60v",
+      "hex": "#026f28"
+    },
+    {
+      "row": 43,
+      "designName": "icon / form / danger",
+      "codeName": "color-icon-form-danger",
+      "paletteName": "color/co-red/60-brand",
+      "hex": "#b50909"
+    },
+    {
+      "row": 44,
+      "designName": "surface / form",
+      "codeName": "color-surface-form",
+      "paletteName": "color/white",
+      "hex": "#ffffff"
+    },
+    {
+      "row": 45,
+      "designName": "surface / form / hover",
+      "codeName": "color-surface-form-hover",
+      "paletteName": "color/co-gray/1",
+      "hex": "#fbfcfd"
+    },
+    {
+      "row": 46,
+      "designName": "surface / nav / active",
+      "codeName": "color-surface-nav-active",
+      "paletteName": "color/co-blue/80-brand",
+      "hex": "#001970"
+    },
+    {
+      "row": 47,
+      "designName": "state / success",
+      "codeName": "color-state-success",
+      "paletteName": "color/co-green/60v",
+      "hex": "#026f28"
+    }
+  ]
+}

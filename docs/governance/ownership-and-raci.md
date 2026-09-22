@@ -5,7 +5,7 @@
 
 ## Product ownership
 
-The State product owners are Greg Knaddison (greg.knaddison@state.co.us) and Zach Alcorn (zach.alcorn@state.co.us). They are jointly accountable for product priority, approved scope, release outcomes, and gate acceptance. They may delegate preparation or consultation, but any delegation of approval accountability must be recorded in the decision log.
+The State product-owner role is accountable for product priority, approved scope, release outcomes, and gate acceptance. Preparation or consultation may be delegated, but any delegation of approval accountability must be recorded in the decision log.
 
 ## Delivery-area RACI
 

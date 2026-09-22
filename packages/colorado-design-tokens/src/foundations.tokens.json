@@ -1,0 +1,1590 @@
+{
+  "space": {
+    "2xs": {
+      "$type": "dimension",
+      "$value": {
+        "value": 4,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Fine-tuning / 4px",
+          "location": "Colorado Design System Figma / Grids & Spacing / design reference"
+        }
+      }
+    },
+    "xs": {
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Tight Grouping / 8px",
+          "location": "Colorado Design System Figma / Grids & Spacing / design reference"
+        }
+      }
+    },
+    "sm": {
+      "$type": "dimension",
+      "$value": {
+        "value": 12,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Dense Layouts / 12px",
+          "location": "Colorado Design System Figma / Grids & Spacing / design reference"
+        }
+      }
+    },
+    "md": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Standard Padding / 16px",
+          "location": "Colorado Design System Figma / Grids & Spacing / design reference"
+        }
+      }
+    },
+    "lg": {
+      "$type": "dimension",
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Component Spacing / 24px",
+          "location": "Colorado Design System Figma / Grids & Spacing / design reference"
+        }
+      }
+    },
+    "xl": {
+      "$type": "dimension",
+      "$value": {
+        "value": 32,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Content Blocks / 32px",
+          "location": "Colorado Design System Figma / Grids & Spacing / design reference"
+        }
+      }
+    },
+    "2xl": {
+      "$type": "dimension",
+      "$value": {
+        "value": 48,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Section Breaks / 48px",
+          "location": "Colorado Design System Figma / Grids & Spacing / design reference"
+        }
+      }
+    },
+    "3xl": {
+      "$type": "dimension",
+      "$value": {
+        "value": 64,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Page Margins / 64px",
+          "location": "Colorado Design System Figma / Grids & Spacing / design reference"
+        }
+      }
+    }
+  },
+  "radius": {
+    "none": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "radius-none",
+          "location": "Colorado Design System Figma / Radius / design reference"
+        }
+      }
+    },
+    "sm": {
+      "$type": "dimension",
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "radius-sm",
+          "location": "Colorado Design System Figma / Radius / design reference"
+        }
+      }
+    },
+    "md": {
+      "$type": "dimension",
+      "$value": {
+        "value": 4,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "radius-md",
+          "location": "Colorado Design System Figma / Radius / design reference"
+        }
+      }
+    },
+    "lg": {
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "radius-lg",
+          "location": "Colorado Design System Figma / Radius / design reference"
+        }
+      }
+    },
+    "full": {
+      "$type": "dimension",
+      "$value": {
+        "value": 9999,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "radius-full",
+          "location": "Radius specification: use the explicit 9999px table value rather than the alternate 999 variable-panel value"
+        }
+      }
+    }
+  },
+  "font": {
+    "family-heading": {
+      "$type": "fontFamily",
+      "$value": "Museo Slab",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Museo Slab",
+          "location": "Colorado Design System Figma / Typography / Font Families / design reference"
+        }
+      }
+    },
+    "family-body": {
+      "$type": "fontFamily",
+      "$value": "Open Sans",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Open Sans",
+          "location": "Colorado Design System Figma / Typography / Font Families / design reference"
+        }
+      }
+    },
+    "family-code": {
+      "$type": "fontFamily",
+      "$value": "Source Code Pro",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Source Code Pro",
+          "location": "Colorado Design System Figma / Typography / Font Families / design reference"
+        }
+      }
+    },
+    "weight-regular": {
+      "$type": "fontWeight",
+      "$value": 400,
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "regular",
+          "location": "Colorado Design System Figma / Typography / Font Families / design reference"
+        }
+      }
+    },
+    "weight-medium": {
+      "$type": "fontWeight",
+      "$value": 500,
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "medium",
+          "location": "Colorado Design System Figma / Typography / Font Families / design reference"
+        }
+      }
+    },
+    "weight-semibold": {
+      "$type": "fontWeight",
+      "$value": 600,
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "semibold",
+          "location": "Colorado Design System Figma / Typography / Font Families / design reference"
+        }
+      }
+    },
+    "size-desktop-h1": {
+      "$type": "dimension",
+      "$value": {
+        "value": 48,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / h1 / font size",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "family-desktop-h1": {
+      "$type": "fontFamily",
+      "$value": "{font.family-heading}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / h1 / family",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "weight-desktop-h1": {
+      "$type": "fontWeight",
+      "$value": "{font.weight-medium}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / h1 / weight",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "size-desktop-h2": {
+      "$type": "dimension",
+      "$value": {
+        "value": 40,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / h2 / font size",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "family-desktop-h2": {
+      "$type": "fontFamily",
+      "$value": "{font.family-body}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / h2 / family",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "weight-desktop-h2": {
+      "$type": "fontWeight",
+      "$value": "{font.weight-semibold}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / h2 / weight",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "size-desktop-h3": {
+      "$type": "dimension",
+      "$value": {
+        "value": 32,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / h3 / font size",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "family-desktop-h3": {
+      "$type": "fontFamily",
+      "$value": "{font.family-body}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / h3 / family",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "weight-desktop-h3": {
+      "$type": "fontWeight",
+      "$value": "{font.weight-semibold}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / h3 / weight",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "size-desktop-h4": {
+      "$type": "dimension",
+      "$value": {
+        "value": 28,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / h4 / font size",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "family-desktop-h4": {
+      "$type": "fontFamily",
+      "$value": "{font.family-body}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / h4 / family",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "weight-desktop-h4": {
+      "$type": "fontWeight",
+      "$value": "{font.weight-semibold}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / h4 / weight",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "size-desktop-h5": {
+      "$type": "dimension",
+      "$value": {
+        "value": 22,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / h5 / font size",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "family-desktop-h5": {
+      "$type": "fontFamily",
+      "$value": "{font.family-body}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / h5 / family",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "weight-desktop-h5": {
+      "$type": "fontWeight",
+      "$value": "{font.weight-semibold}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / h5 / weight",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "size-desktop-h6": {
+      "$type": "dimension",
+      "$value": {
+        "value": 18,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / h6 / font size",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "family-desktop-h6": {
+      "$type": "fontFamily",
+      "$value": "{font.family-body}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / h6 / family",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "weight-desktop-h6": {
+      "$type": "fontWeight",
+      "$value": "{font.weight-semibold}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / h6 / weight",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "size-desktop-body-lg": {
+      "$type": "dimension",
+      "$value": {
+        "value": 22,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / body-lg / font size",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "family-desktop-body-lg": {
+      "$type": "fontFamily",
+      "$value": "{font.family-body}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / body-lg / family",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "weight-desktop-body-lg": {
+      "$type": "fontWeight",
+      "$value": "{font.weight-regular}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / body-lg / weight",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "size-desktop-body": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / body / font size",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "family-desktop-body": {
+      "$type": "fontFamily",
+      "$value": "{font.family-body}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / body / family",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "weight-desktop-body": {
+      "$type": "fontWeight",
+      "$value": "{font.weight-regular}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / body / weight",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "size-desktop-body-sm": {
+      "$type": "dimension",
+      "$value": {
+        "value": 14,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / body-sm / font size",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "family-desktop-body-sm": {
+      "$type": "fontFamily",
+      "$value": "{font.family-body}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / body-sm / family",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "weight-desktop-body-sm": {
+      "$type": "fontWeight",
+      "$value": "{font.weight-regular}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / body-sm / weight",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "size-desktop-ui": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / ui / font size",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "family-desktop-ui": {
+      "$type": "fontFamily",
+      "$value": "{font.family-body}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / ui / family",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "weight-desktop-ui": {
+      "$type": "fontWeight",
+      "$value": "{font.weight-semibold}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / ui / weight",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "size-desktop-ui-sm": {
+      "$type": "dimension",
+      "$value": {
+        "value": 14,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / ui-sm / font size",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "family-desktop-ui-sm": {
+      "$type": "fontFamily",
+      "$value": "{font.family-body}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / ui-sm / family",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "weight-desktop-ui-sm": {
+      "$type": "fontWeight",
+      "$value": "{font.weight-semibold}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / ui-sm / weight",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "size-desktop-supporting": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / supporting / font size",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "family-desktop-supporting": {
+      "$type": "fontFamily",
+      "$value": "{font.family-body}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / supporting / family",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "weight-desktop-supporting": {
+      "$type": "fontWeight",
+      "$value": "{font.weight-regular}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / supporting / weight",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "size-desktop-code": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / code / font size",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "family-desktop-code": {
+      "$type": "fontFamily",
+      "$value": "{font.family-code}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / code / family",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "weight-desktop-code": {
+      "$type": "fontWeight",
+      "$value": "{font.weight-regular}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / code / weight",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "size-mobile-h1": {
+      "$type": "dimension",
+      "$value": {
+        "value": 36,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / h1 / font size",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "family-mobile-h1": {
+      "$type": "fontFamily",
+      "$value": "{font.family-heading}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / h1 / family",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "weight-mobile-h1": {
+      "$type": "fontWeight",
+      "$value": "{font.weight-medium}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / h1 / weight",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "size-mobile-h2": {
+      "$type": "dimension",
+      "$value": {
+        "value": 32,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / h2 / font size",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "family-mobile-h2": {
+      "$type": "fontFamily",
+      "$value": "{font.family-body}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / h2 / family",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "weight-mobile-h2": {
+      "$type": "fontWeight",
+      "$value": "{font.weight-semibold}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / h2 / weight",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "size-mobile-h3": {
+      "$type": "dimension",
+      "$value": {
+        "value": 28,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / h3 / font size",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "family-mobile-h3": {
+      "$type": "fontFamily",
+      "$value": "{font.family-body}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / h3 / family",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "weight-mobile-h3": {
+      "$type": "fontWeight",
+      "$value": "{font.weight-semibold}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / h3 / weight",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "size-mobile-h4": {
+      "$type": "dimension",
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / h4 / font size",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "family-mobile-h4": {
+      "$type": "fontFamily",
+      "$value": "{font.family-body}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / h4 / family",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "weight-mobile-h4": {
+      "$type": "fontWeight",
+      "$value": "{font.weight-semibold}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / h4 / weight",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "size-mobile-h5": {
+      "$type": "dimension",
+      "$value": {
+        "value": 22,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / h5 / font size",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "family-mobile-h5": {
+      "$type": "fontFamily",
+      "$value": "{font.family-body}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / h5 / family",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "weight-mobile-h5": {
+      "$type": "fontWeight",
+      "$value": "{font.weight-semibold}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / h5 / weight",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "size-mobile-h6": {
+      "$type": "dimension",
+      "$value": {
+        "value": 18,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / h6 / font size",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "family-mobile-h6": {
+      "$type": "fontFamily",
+      "$value": "{font.family-body}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / h6 / family",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "weight-mobile-h6": {
+      "$type": "fontWeight",
+      "$value": "{font.weight-semibold}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / h6 / weight",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "size-mobile-body-lg": {
+      "$type": "dimension",
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / body-lg / font size",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "family-mobile-body-lg": {
+      "$type": "fontFamily",
+      "$value": "{font.family-body}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / body-lg / family",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "weight-mobile-body-lg": {
+      "$type": "fontWeight",
+      "$value": "{font.weight-regular}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / body-lg / weight",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "size-mobile-body": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / body / font size",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "family-mobile-body": {
+      "$type": "fontFamily",
+      "$value": "{font.family-body}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / body / family",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "weight-mobile-body": {
+      "$type": "fontWeight",
+      "$value": "{font.weight-regular}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / body / weight",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "size-mobile-code": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / code / font size",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "family-mobile-code": {
+      "$type": "fontFamily",
+      "$value": "{font.family-code}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / code / family",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "weight-mobile-code": {
+      "$type": "fontWeight",
+      "$value": "{font.weight-regular}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / code / weight",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "size-sm": {
+      "$type": "dimension",
+      "$value": "{font.size-desktop-body-sm}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Body / Small / font size",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    }
+  },
+  "line-height": {
+    "desktop-h1": {
+      "$type": "dimension",
+      "$value": {
+        "value": 56,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / h1 / line height",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "desktop-h2": {
+      "$type": "dimension",
+      "$value": {
+        "value": 48,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / h2 / line height",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "desktop-h3": {
+      "$type": "dimension",
+      "$value": {
+        "value": 40,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / h3 / line height",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "desktop-h4": {
+      "$type": "dimension",
+      "$value": {
+        "value": 32,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / h4 / line height",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "desktop-h5": {
+      "$type": "dimension",
+      "$value": {
+        "value": 28,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / h5 / line height",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "desktop-h6": {
+      "$type": "dimension",
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / h6 / line height",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "desktop-body-lg": {
+      "$type": "dimension",
+      "$value": {
+        "value": 32,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / body-lg / line height",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "desktop-body": {
+      "$type": "dimension",
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / body / line height",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "desktop-body-sm": {
+      "$type": "dimension",
+      "$value": {
+        "value": 20,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / body-sm / line height",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "desktop-ui": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / ui / line height",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "desktop-ui-sm": {
+      "$type": "dimension",
+      "$value": {
+        "value": 14,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / ui-sm / line height",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "desktop-supporting": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / supporting / line height",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "desktop-code": {
+      "$type": "dimension",
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / code / line height",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "mobile-h1": {
+      "$type": "dimension",
+      "$value": {
+        "value": 42,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / h1 / line height",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "mobile-h2": {
+      "$type": "dimension",
+      "$value": {
+        "value": 36,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / h2 / line height",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "mobile-h3": {
+      "$type": "dimension",
+      "$value": {
+        "value": 32,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / h3 / line height",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "mobile-h4": {
+      "$type": "dimension",
+      "$value": {
+        "value": 30,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / h4 / line height",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "mobile-h5": {
+      "$type": "dimension",
+      "$value": {
+        "value": 28,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / h5 / line height",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "mobile-h6": {
+      "$type": "dimension",
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / h6 / line height",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "mobile-body-lg": {
+      "$type": "dimension",
+      "$value": {
+        "value": 30,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / body-lg / line height",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "mobile-body": {
+      "$type": "dimension",
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / body / line height",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "mobile-code": {
+      "$type": "dimension",
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / code / line height",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    }
+  },
+  "paragraph-space": {
+    "desktop-h1": {
+      "$type": "dimension",
+      "$value": {
+        "value": 48,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / h1 / paragraph spacing",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "desktop-h2": {
+      "$type": "dimension",
+      "$value": {
+        "value": 40,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / h2 / paragraph spacing",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "desktop-h3": {
+      "$type": "dimension",
+      "$value": {
+        "value": 32,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / h3 / paragraph spacing",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "desktop-h4": {
+      "$type": "dimension",
+      "$value": {
+        "value": 26,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / h4 / paragraph spacing",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "desktop-h5": {
+      "$type": "dimension",
+      "$value": {
+        "value": 22,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / h5 / paragraph spacing",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "desktop-h6": {
+      "$type": "dimension",
+      "$value": {
+        "value": 18,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / h6 / paragraph spacing",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "desktop-body-lg": {
+      "$type": "dimension",
+      "$value": {
+        "value": 22,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / body-lg / paragraph spacing",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "desktop-body": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / body / paragraph spacing",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "desktop-body-sm": {
+      "$type": "dimension",
+      "$value": {
+        "value": 14,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / body-sm / paragraph spacing",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "desktop-ui": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / ui / paragraph spacing",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "desktop-ui-sm": {
+      "$type": "dimension",
+      "$value": {
+        "value": 14,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / ui-sm / paragraph spacing",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "desktop-supporting": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / supporting / paragraph spacing",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "desktop-code": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "desktop / code / paragraph spacing",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "mobile-h1": {
+      "$type": "dimension",
+      "$value": {
+        "value": 36,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / h1 / paragraph spacing",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "mobile-h2": {
+      "$type": "dimension",
+      "$value": {
+        "value": 30,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / h2 / paragraph spacing",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "mobile-h3": {
+      "$type": "dimension",
+      "$value": {
+        "value": 26,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / h3 / paragraph spacing",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "mobile-h4": {
+      "$type": "dimension",
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / h4 / paragraph spacing",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "mobile-h5": {
+      "$type": "dimension",
+      "$value": {
+        "value": 22,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / h5 / paragraph spacing",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "mobile-h6": {
+      "$type": "dimension",
+      "$value": {
+        "value": 18,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / h6 / paragraph spacing",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "mobile-body-lg": {
+      "$type": "dimension",
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / body-lg / paragraph spacing",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "mobile-body": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / body / paragraph spacing",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "mobile-code": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mobile / code / paragraph spacing",
+          "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    }
+  },
+  "focus": {
+    "ring-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 4,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "ring-width",
+          "location": "Language Selector accessibility specification: trigger white 2px gap + blue 4px ring; rows 2px navy outline"
+        }
+      }
+    },
+    "ring-offset": {
+      "$type": "dimension",
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "ring-offset",
+          "location": "Language Selector accessibility specification: trigger white 2px gap + blue 4px ring; rows 2px navy outline"
+        }
+      }
+    },
+    "row-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "row-width",
+          "location": "Language Selector accessibility specification: trigger white 2px gap + blue 4px ring; rows 2px navy outline"
+        }
+      }
+    }
+  }
+}

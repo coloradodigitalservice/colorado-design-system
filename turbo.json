@@ -4,7 +4,8 @@
     "config/**",
     "package.json",
     "pnpm-workspace.yaml",
-    "tsconfig.json"
+    "tsconfig.json",
+    "scripts/**"
   ],
   "tasks": {
     "validate": {
@@ -15,6 +16,14 @@
     "build": {
       "dependsOn": ["^build", "validate"],
       "outputs": ["dist/**"]
+    },
+    "tokens:check": {
+      "cache": false,
+      "outputs": []
+    },
+    "@coloradodigitalservice/colorado-design-tokens#build": {
+      "dependsOn": ["validate"],
+      "outputs": ["generated/**"]
     }
   }
 }

@@ -1,0 +1,464 @@
+{
+  "color": {
+    "text-primary": {
+      "$type": "color",
+      "$value": "{color.co-gray-90}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "text / default",
+          "location": "Semantic color reference / B2:C2"
+        }
+      }
+    },
+    "text-secondary": {
+      "$type": "color",
+      "$value": "{color.co-gray-70}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "text / secondary",
+          "location": "Semantic color reference / B3:C3"
+        }
+      }
+    },
+    "text-disabled": {
+      "$type": "color",
+      "$value": "{color.co-gray-60}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "text / disabled",
+          "location": "Semantic color reference / B4:C4"
+        }
+      }
+    },
+    "text-danger": {
+      "$type": "color",
+      "$value": "{color.co-red-60-brand}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "text / danger",
+          "location": "Semantic color reference / B5:C5"
+        }
+      }
+    },
+    "text-action-primary": {
+      "$type": "color",
+      "$value": "{color.white}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "text / action / primary",
+          "location": "Semantic color reference / B6:C6"
+        }
+      }
+    },
+    "text-action-link": {
+      "$type": "color",
+      "$value": "{color.co-blue-60v}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "text / action / link",
+          "location": "Semantic color reference / B7:C7"
+        }
+      }
+    },
+    "text-action-secondary": {
+      "$type": "color",
+      "$value": "{color.co-blue-80-brand}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "text / action / secondary",
+          "location": "Semantic color reference / B8:C8"
+        }
+      }
+    },
+    "text-action-link-hover": {
+      "$type": "color",
+      "$value": "{color.co-blue-80-brand}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "text / action / link / hover",
+          "location": "Semantic color reference / B9:C9"
+        }
+      }
+    },
+    "text-action-link-active": {
+      "$type": "color",
+      "$value": "{color.co-blue-90}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "text / action / link / active",
+          "location": "Semantic color reference / B10:C10"
+        }
+      }
+    },
+    "text-action-secondary-hover": {
+      "$type": "color",
+      "$value": "{color.co-blue-90}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "text / action / secondary / hover",
+          "location": "Semantic color reference / B11:C11"
+        }
+      }
+    },
+    "text-action-secondary-active": {
+      "$type": "color",
+      "$value": "{color.co-blue-60-brand}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "text / action / secondary / active",
+          "location": "Semantic color reference / B12:C12"
+        }
+      }
+    },
+    "bg-disabled": {
+      "$type": "color",
+      "$value": "{color.co-gray-10}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "bg / disabled",
+          "location": "Semantic color reference / B13:C13"
+        }
+      }
+    },
+    "bg-action-focus": {
+      "$type": "color",
+      "$value": "{color.co-blue-60v}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "bg / action / focus",
+          "location": "Semantic color reference / B14:C14"
+        }
+      }
+    },
+    "bg-action-primary": {
+      "$type": "color",
+      "$value": "{color.co-blue-80-brand}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "bg / action / primary",
+          "location": "Semantic color reference / B15:C15"
+        }
+      }
+    },
+    "bg-action-primary-hover": {
+      "$type": "color",
+      "$value": "{color.co-blue-90}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "bg / action / primary / hover",
+          "location": "Semantic color reference / B16:C16"
+        }
+      }
+    },
+    "bg-action-primary-active": {
+      "$type": "color",
+      "$value": "{color.co-blue-60-brand}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "bg / action / primary / active",
+          "location": "Semantic color reference / B17:C17"
+        }
+      }
+    },
+    "bg-action-secondary-hover": {
+      "$type": "color",
+      "$value": "{color.co-blue-20}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "bg / action / secondary / hover",
+          "location": "Semantic color reference / B18:C18"
+        }
+      }
+    },
+    "bg-action-danger": {
+      "$type": "color",
+      "$value": "{color.co-red-60-brand}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "bg / action / danger",
+          "location": "Semantic color reference / B19:C19"
+        }
+      }
+    },
+    "bg-action-danger-hover": {
+      "$type": "color",
+      "$value": "{color.co-red-80}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "bg / action / danger / hover",
+          "location": "Semantic color reference / B20:C20"
+        }
+      }
+    },
+    "bg-action-danger-active": {
+      "$type": "color",
+      "$value": "{color.co-red-90}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "bg / action / danger / active",
+          "location": "Semantic color reference / B21:C21"
+        }
+      }
+    },
+    "border-disabled": {
+      "$type": "color",
+      "$value": "{color.co-gray-50}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "border / disabled",
+          "location": "Semantic color reference / B22:C22"
+        }
+      }
+    },
+    "border-action-secondary": {
+      "$type": "color",
+      "$value": "{color.co-blue-80-brand}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "border / action / secondary",
+          "location": "Semantic color reference / B23:C23"
+        }
+      }
+    },
+    "border-action-secondary-hover": {
+      "$type": "color",
+      "$value": "{color.co-blue-90}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "border / action / secondary / hover",
+          "location": "Semantic color reference / B24:C24"
+        }
+      }
+    },
+    "border-action-secondary-active": {
+      "$type": "color",
+      "$value": "{color.co-blue-60-brand}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "border / action / secondary / active",
+          "location": "Semantic color reference / B25:C25"
+        }
+      }
+    },
+    "border-form-default": {
+      "$type": "color",
+      "$value": "{color.co-gray-60}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "border / form / default",
+          "location": "Semantic color reference / B26:C26"
+        }
+      }
+    },
+    "border-form-hover": {
+      "$type": "color",
+      "$value": "{color.co-gray-90}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "border / form / hover",
+          "location": "Semantic color reference / B27:C27"
+        }
+      }
+    },
+    "border-form-danger": {
+      "$type": "color",
+      "$value": "{color.co-red-60-brand}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "border / form / danger",
+          "location": "Semantic color reference / B28:C28"
+        }
+      }
+    },
+    "icon-default": {
+      "$type": "color",
+      "$value": "{color.co-gray-90}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "icon / default",
+          "location": "Semantic color reference / B29:C29"
+        }
+      }
+    },
+    "icon-disabled": {
+      "$type": "color",
+      "$value": "{color.co-gray-60}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "icon / disabled",
+          "location": "Semantic color reference / B30:C30"
+        }
+      }
+    },
+    "icon-on-primary": {
+      "$type": "color",
+      "$value": "{color.white}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "icon / on-primary",
+          "location": "Semantic color reference / B31:C31"
+        }
+      }
+    },
+    "icon-on-primary-hover": {
+      "$type": "color",
+      "$value": "{color.white}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "icon / on-primary / hover",
+          "location": "Semantic color reference / B32:C32"
+        }
+      }
+    },
+    "icon-on-primary-active": {
+      "$type": "color",
+      "$value": "{color.white}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "icon / on-primary / active",
+          "location": "Semantic color reference / B33:C33"
+        }
+      }
+    },
+    "icon-action-link": {
+      "$type": "color",
+      "$value": "{color.co-blue-60v}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "icon / action / link",
+          "location": "Semantic color reference / B34:C34"
+        }
+      }
+    },
+    "icon-action-link-hover": {
+      "$type": "color",
+      "$value": "{color.co-blue-80-brand}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "icon / action / link / hover",
+          "location": "Semantic color reference / B35:C35"
+        }
+      }
+    },
+    "icon-action-link-active": {
+      "$type": "color",
+      "$value": "{color.co-blue-90}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "icon / action / link / active",
+          "location": "Semantic color reference / B36:C36"
+        }
+      }
+    },
+    "icon-action-secondary": {
+      "$type": "color",
+      "$value": "{color.co-blue-80-brand}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "icon / action / secondary",
+          "location": "Semantic color reference / B37:C37"
+        }
+      }
+    },
+    "icon-action-secondary-hover": {
+      "$type": "color",
+      "$value": "{color.co-blue-90}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "icon / action / secondary / hover",
+          "location": "Semantic color reference / B38:C38"
+        }
+      }
+    },
+    "icon-action-secondary-active": {
+      "$type": "color",
+      "$value": "{color.co-blue-60-brand}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "icon / action / secondary / active",
+          "location": "Semantic color reference / B39:C39"
+        }
+      }
+    },
+    "icon-form-secondary": {
+      "$type": "color",
+      "$value": "{color.co-gray-60}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "icon / form / secondary",
+          "location": "Semantic color reference / B40:C40"
+        }
+      }
+    },
+    "icon-form-disabled": {
+      "$type": "color",
+      "$value": "{color.co-gray-60}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "icon / form / disabled",
+          "location": "Semantic color reference / B41:C41"
+        }
+      }
+    },
+    "icon-form-success": {
+      "$type": "color",
+      "$value": "{color.co-green-60v}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "icon / form / success",
+          "location": "Semantic color reference / B42:C42"
+        }
+      }
+    },
+    "icon-form-danger": {
+      "$type": "color",
+      "$value": "{color.co-red-60-brand}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "icon / form / danger",
+          "location": "Semantic color reference / B43:C43"
+        }
+      }
+    },
+    "surface-form": {
+      "$type": "color",
+      "$value": "{color.white}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "surface / form",
+          "location": "Semantic color reference / B44:C44"
+        }
+      }
+    },
+    "surface-form-hover": {
+      "$type": "color",
+      "$value": "{color.co-gray-1}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "surface / form / hover",
+          "location": "Semantic color reference / B45:C45"
+        }
+      }
+    },
+    "surface-nav-active": {
+      "$type": "color",
+      "$value": "{color.co-blue-80-brand}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "surface / nav / active",
+          "location": "Semantic color reference / B46:C46"
+        }
+      }
+    },
+    "state-success": {
+      "$type": "color",
+      "$value": "{color.co-green-60v}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "state / success",
+          "location": "Semantic color reference / B47:C47"
+        }
+      }
+    }
+  }
+}

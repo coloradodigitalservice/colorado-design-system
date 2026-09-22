@@ -8,6 +8,30 @@
     "directory": "packages/colorado-design-tokens"
   },
   "scripts": {
-    "validate": "node ../../scripts/check-workspace.mjs --workspace packages/colorado-design-tokens"
+    "validate": "node ../../scripts/check-workspace.mjs --workspace packages/colorado-design-tokens",
+    "tokens:validate": "node scripts/cli.mjs validate",
+    "tokens:check": "node scripts/cli.mjs check",
+    "build": "node scripts/cli.mjs build"
+  },
+  "devDependencies": {
+    "ajv": "8.17.1",
+    "jsonc-parser": "3.3.1",
+    "style-dictionary": "5.5.5"
+  },
+  "type": "module",
+  "sass": "./_index.scss",
+  "exports": {
+    ".": {
+      "sass": "./_index.scss"
+    },
+    "./tokens.css": "./generated/tokens.css",
+    "./tokens.json": {
+      "types": "./generated/tokens.d.ts",
+      "default": "./generated/tokens.json"
+    },
+    "./types": {
+      "types": "./generated/tokens.d.ts"
+    },
+    "./package.json": "./package.json"
   }
 }

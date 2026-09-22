@@ -1,0 +1,78 @@
+{
+  "color": {
+    "bg-surface-secondary": {
+      "$type": "color",
+      "$value": "{color.co-gray-10}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "bg-surface-secondary",
+          "location": "Component surface reference; implementation mapping to the existing neutral palette"
+        }
+      }
+    },
+    "bg-tag-info": {
+      "$type": "color",
+      "$value": "{color.co-blue-20}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "bg-tag-info",
+          "location": "Tag design reference; implementation mapping to the existing blue/20 palette"
+        }
+      }
+    },
+    "text-tag-info": {
+      "$type": "color",
+      "$value": "{color.co-blue-90}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "text-tag-info",
+          "location": "Tag design reference; implementation mapping to the existing blue/90 palette"
+        }
+      }
+    },
+    "border-subtle": {
+      "$type": "color",
+      "$value": "{color.co-gray-20}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "border-subtle",
+          "location": "Disclosure design reference; implementation mapping to the existing gray/20 palette"
+        }
+      }
+    },
+    "focus-gap": {
+      "$type": "color",
+      "$value": "{color.white}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "focus-gap",
+          "location": "Language Selector focus treatment: white 2px gap"
+        }
+      }
+    },
+    "focus-row": {
+      "$type": "color",
+      "$value": "{color.co-blue-80-brand}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "focus-row",
+          "location": "Language Selector focus treatment: navy 2px row outline"
+        }
+      }
+    },
+    "shadow": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [0, 0, 0],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "shadow base color",
+          "location": "Base shadow color decision; opacity and complete shadow geometry remain unspecified"
+        }
+      }
+    }
+  }
+}

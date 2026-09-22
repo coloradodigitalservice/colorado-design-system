@@ -1,0 +1,854 @@
+{
+  "color": {
+    "co-blue-5": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9372549019607843, 0.9607843137254902, 0.9803921568627451
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-blue/5",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-blue-10": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8509803921568627, 0.9098039215686274, 0.9647058823529412
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-blue/10",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-blue-20": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.6666666666666666, 0.803921568627451, 0.9254901960784314
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-blue/20",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-blue-30": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.4980392156862745, 0.6784313725490196, 0.8549019607843137
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-blue/30",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-blue-60v": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.09019607843137255, 0.23137254901960785, 0.7019607843137254
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-blue/60v",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-blue-60-brand": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.1450980392156863, 0.3176470588235294, 0.6392156862745098
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-blue/60-brand",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-blue-80-brand": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [0.0, 0.09803921568627451, 0.4392156862745098],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-blue/80-brand",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-blue-90": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [0.0, 0.06274509803921569, 0.28627450980392155],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-blue/90",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-plum-5": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9803921568627451, 0.9568627450980393, 0.9725490196078431
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-plum/5",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-plum-10": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9529411764705882, 0.9215686274509803, 0.9490196078431372
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-plum/10",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-plum-20": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8549019607843137, 0.7647058823529411, 0.8274509803921568
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-plum/20",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-plum-30": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.7725490196078432, 0.6039215686274509, 0.7215686274509804
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-plum/30",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-plum-60v": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.5254901960784314, 0.2627450980392157, 0.4666666666666667
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-plum/60v",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-plum-60-brand": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [0.4, 0.2, 0.3333333333333333],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-plum/60-brand",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-plum-80": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.28627450980392155, 0.09411764705882353, 0.2235294117647059
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-plum/80",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-plum-90": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.23529411764705882, 0.023529411764705882, 0.16470588235294117
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-plum/90",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-red-5": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9921568627450981, 0.9568627450980393, 0.9568627450980393
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-red/5",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-red-10": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9725490196078431, 0.8705882352941177, 0.8705882352941177
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-red/10",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-red-20": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [1.0, 0.6705882352941176, 0.6705882352941176],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-red/20",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-red-30": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9215686274509803, 0.5019607843137255, 0.5019607843137255
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-red/30",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-red-60v": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8313725490196079, 0.00784313725490196, 0.00784313725490196
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-red/60v",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-red-60-brand": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.7098039215686275, 0.03529411764705882, 0.03529411764705882
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-red/60-brand",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-red-80": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.5843137254901961, 0.027450980392156862, 0.027450980392156862
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-red/80",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-red-90": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.43529411764705883, 0.00392156862745098, 0.00392156862745098
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-red/90",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-green-5": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9529411764705882, 0.9764705882352941, 0.9529411764705882
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-green/5",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-green-10": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9098039215686274, 0.9607843137254902, 0.9098039215686274
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-green/10",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-green-20": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.7058823529411765, 0.8196078431372549, 0.7215686274509804
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-green/20",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-green-30": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.5333333333333333, 0.6980392156862745, 0.592156862745098
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-green/30",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-green-60v": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.00784313725490196, 0.43529411764705883, 0.1568627450980392
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-green/60v",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-green-60-brand": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.1411764705882353, 0.36470588235294116, 0.2196078431372549
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-green/60-brand",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-green-80": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.07450980392156863, 0.27450980392156865, 0.14901960784313725
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-green/80",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-green-90": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.027450980392156862, 0.19215686274509805, 0.08627450980392157
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-green/90",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-teal-5": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9529411764705882, 0.9725490196078431, 0.9764705882352941
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-teal/5",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-teal-10": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9058823529411765, 0.9490196078431372, 0.9607843137254902
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-teal/10",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-teal-20": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.6823529411764706, 0.807843137254902, 0.8313725490196079
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-teal/20",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-teal-30": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.5215686274509804, 0.6980392156862745, 0.7450980392156863
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-teal/30",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-teal-60v": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.047058823529411764, 0.4392156862745098, 0.592156862745098
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-teal/60v",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-teal-60-brand": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.20784313725490197, 0.39215686274509803, 0.49411764705882355
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-teal/60-brand",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-teal-80": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.12156862745098039, 0.27450980392156865, 0.3607843137254902
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-teal/80",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-teal-90": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.10196078431372549, 0.19607843137254902, 0.24705882352941178
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-teal/90",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-yellow-5": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9921568627450981, 0.9882352941176471, 0.9411764705882353
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-yellow/5",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-yellow-10": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9882352941176471, 0.9764705882352941, 0.8509803921568627
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-yellow/10",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-yellow-20": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [1.0, 0.9254901960784314, 0.5294117647058824],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-yellow/20",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-yellow-30-brand": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [1.0, 0.8196078431372549, 0.0],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-yellow/30-brand",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-yellow-40": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8745098039215686, 0.6627450980392157, 0.00784313725490196
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-yellow/40",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-gray-1": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.984313725490196, 0.9882352941176471, 0.9921568627450981
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-gray/1",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-gray-5": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9568627450980393, 0.9607843137254902, 0.9647058823529412
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-gray/5",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-gray-10": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9215686274509803, 0.9254901960784314, 0.9294117647058824
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-gray/10",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-gray-20": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.7686274509803922, 0.7725490196078432, 0.788235294117647
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-gray/20",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-gray-50": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.44313725490196076, 0.4627450980392157, 0.47843137254901963
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-gray/50",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-gray-60": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.33725490196078434, 0.3607843137254902, 0.396078431372549
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-gray/60",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-gray-70": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.22745098039215686, 0.2549019607843137, 0.29411764705882354
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-gray/70",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "co-gray-90": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.10588235294117647, 0.10588235294117647, 0.10588235294117647
+        ],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/co-gray/90",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    },
+    "white": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [1.0, 1.0, 1.0],
+        "alpha": 1
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/white",
+          "location": "Colorado Design System Figma / Color / Core Color Ramps"
+        }
+      }
+    }
+  }
+}
