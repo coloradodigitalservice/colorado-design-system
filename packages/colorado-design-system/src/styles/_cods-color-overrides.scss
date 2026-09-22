@@ -1,0 +1,99 @@
+/// @file
+/// CoDS Color Override Layer
+///
+/// USWDS's Sass theme settings (`_uswds-theme.scss`) only accept USWDS's own
+/// built-in color tokens, not arbitrary hex, so they can only *approximate*
+/// Colorado's brand palette (see ADR-002, Open Questions). This file
+/// re-declares the specific USWDS selectors that carry brand color meaning
+/// using Colorado's own design tokens (as CSS custom properties), so
+/// Colorado's tokens — not USWDS's nearest-available approximation — are the
+/// source of truth for brand color.
+///
+/// Scope discipline: only roles with an explicit, unambiguous Colorado token
+/// are overridden below. Roles with no dedicated Colorado token are left at
+/// USWDS's default rather than guessed — see "Known gaps" at the end of this
+/// file.
+///
+/// This must be forwarded AFTER `uswds` in index.scss: at equal selector
+/// specificity, the later source order wins, so no `!important` is needed.
+///
+/// Task: CODS-P1-015 — Integrate USWDS as the foundational dependency
+/// Decision record: docs/adrs/002-uswds-foundational-dependency.md
+
+@use '@coloradodigitalservice/colorado-design-tokens/tokens.css';
+
+// Primary button
+.usa-button {
+  background-color: var(--cods-color-bg-action-primary);
+  color: var(--cods-color-text-action-primary);
+}
+
+.usa-button:hover,
+.usa-button.usa-button--hover {
+  background-color: var(--cods-color-bg-action-primary-hover);
+}
+
+.usa-button.usa-button--active {
+  background-color: var(--cods-color-bg-action-primary-active);
+}
+
+// Outline button (bordered secondary variant)
+.usa-button--outline {
+  color: var(--cods-color-border-action-secondary);
+  box-shadow: inset 0 0 0 2px var(--cods-color-border-action-secondary);
+}
+
+.usa-button--outline:hover,
+.usa-button--outline.usa-button--hover {
+  color: var(--cods-color-border-action-secondary-hover);
+  box-shadow: inset 0 0 0 2px var(--cods-color-border-action-secondary-hover);
+}
+
+// Secondary (danger) button
+.usa-button--secondary {
+  background-color: var(--cods-color-bg-action-danger);
+}
+
+.usa-button--secondary:hover,
+.usa-button--secondary.usa-button--hover {
+  background-color: var(--cods-color-bg-action-danger-hover);
+}
+
+// Disabled buttons and inputs (background/text only — see known gaps)
+.usa-button:disabled,
+.usa-button[aria-disabled='true'],
+.usa-input:disabled,
+.usa-input[aria-disabled='true'] {
+  background-color: var(--cods-color-bg-disabled);
+  color: var(--cods-color-text-disabled);
+}
+
+// Links
+.usa-link {
+  color: var(--cods-color-text-action-link);
+}
+
+.usa-link:hover {
+  color: var(--cods-color-text-action-link-hover);
+}
+
+.usa-link:active {
+  color: var(--cods-color-text-action-link-active);
+}
+
+// Form validation
+.usa-input--error {
+  border-color: var(--cods-color-border-form-danger);
+}
+
+// ============================================================================
+// Known gaps (intentionally not overridden — no unambiguous Colorado token):
+// - Visited link color (`.usa-link:visited`).
+// - Alert background/border-left tints (`.usa-alert--error/warning/success/info`).
+// - Focus-ring outline color: USWDS hardcodes it per-component across dozens
+//   of selectors rather than one reusable rule, so a full override requires
+//   either `!important` or reproducing every USWDS focus selector. Neither is
+//   done here; needs a follow-on decision (see ADR-002).
+// - Disabled border-color: a higher-specificity USWDS `:not()` selector wins
+//   over a same-specificity override, so it is left at USWDS's default.
+// ============================================================================

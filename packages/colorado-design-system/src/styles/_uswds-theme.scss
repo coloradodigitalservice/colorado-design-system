@@ -1,197 +1,69 @@
 /// @file
 /// USWDS Theme Settings for Colorado Design System
 ///
-/// This file maps approved Colorado DTCG tokens (color, spacing, radius, typography,
-/// elevation, focus) into USWDS's theme-setting variables, so USWDS's own mixins
-/// and functions render Colorado's visual design.
+/// Configures USWDS's own Sass settings module using the modern Dart Sass
+/// module system, per USWDS's documented pattern:
+/// https://designsystem.digital.gov/documentation/settings/
 ///
-/// References:
-/// - USWDS theme documentation: https://designsystem.digital.gov/design-tokens/
-/// - Colorado DTCG tokens: @coloradodigitalservice/colorado-design-tokens
-/// - Task: CODS-P1-015 — Integrate USWDS as the foundational dependency
+///   @use "uswds-core" with ( $theme-setting: value, ... );
+///
+/// This must be the FIRST thing that loads `uswds-core` in the build (see
+/// `index.scss`, which forwards this file before forwarding `uswds`), because
+/// Sass only allows a module to be configured on its first load.
+///
+/// IMPORTANT — color fidelity caveat:
+/// USWDS's `$theme-color-*` settings only accept USWDS's own built-in system
+/// color tokens (e.g. "blue-60v"); the settings API does not accept arbitrary
+/// hex values. The family/token selections below are the closest available
+/// USWDS tokens to Colorado's brand palette (see
+/// @coloradodigitalservice/colorado-design-tokens) and are NOT pixel-identical
+/// to Colorado's brand hex values. Exact-hex brand colors for the roles that
+/// have an unambiguous Colorado token are enforced separately by
+/// `_cods-color-overrides.scss`, which is forwarded after `uswds` in
+/// `index.scss`. Roles with no dedicated Colorado token remain at USWDS's
+/// approximation here — see that file's "Known gaps" section and ADR-002,
+/// Open Questions.
+///
+/// Task: CODS-P1-015 — Integrate USWDS as the foundational dependency
+/// Decision record: docs/adrs/002-uswds-foundational-dependency.md
 
-// Import Colorado design tokens
-@use '@coloradodigitalservice/colorado-design-tokens' as tokens;
+@use 'uswds-core' with (
+  // Quiet USWDS's own "check for updates" notice; keep compile warnings on.
+  $theme-show-notifications: false,
 
-// ============================================================================
-// 1. COLOR TOKENS
-// ============================================================================
+  // Colorado's primary brand color is a dark, saturated blue. USWDS's "blue"
+  // family (with "blue-warm" grades for the darker end) is the closest match.
+  $theme-color-primary-family: 'blue',
+  $theme-color-primary: 'blue-60v',
+  $theme-color-primary-vivid: 'blue-warm-60v',
+  $theme-color-primary-dark: 'blue-warm-70v',
+  $theme-color-primary-darker: 'blue-warm-80v',
 
-// Primary brand colors
-$theme-primary-darker: tokens.$color-co-blue-80-brand; // #001970
-$theme-primary-dark: tokens.$color-co-blue-60v; // #173bb3
-$theme-primary: tokens.$color-co-blue-60-brand; // #2551a3
-$theme-primary-light: tokens.$color-co-blue-30; // #7fadda
-$theme-primary-lighter: tokens.$color-co-blue-20; // #aacdec
-$theme-primary-lightest: tokens.$color-co-blue-5; // #eff5fa
+  // Colorado's secondary brand color is a cool green.
+  $theme-color-secondary-family: 'green-cool',
 
-// Secondary colors (using Colorado green as secondary action)
-$theme-secondary-darker: tokens.$color-co-green-80; // #134626
-$theme-secondary-dark: tokens.$color-co-green-60v; // #026f28
-$theme-secondary: tokens.$color-co-green-60-brand; // #245d38
-$theme-secondary-light: tokens.$color-co-green-30; // #88b297
-$theme-secondary-lighter: tokens.$color-co-green-20; // #b4d1b8
-$theme-secondary-lightest: tokens.$color-co-green-5; // #f3f9f3
+  // Colorado's warning/accent color is a saturated gold/yellow.
+  $theme-color-accent-warm-family: 'gold',
 
-// Accent colors (using Colorado red for alerts/warnings)
-$theme-accent-cool: tokens.$color-co-red-60v; // #d40202
-$theme-accent-warm: tokens.$color-co-yellow-30-brand; // #ffd100
-$theme-accent-warmer: tokens.$color-co-yellow-40; // #dfa902
+  // Links follow the primary brand color.
+  $theme-link-color: 'primary-vivid',
 
-// State colors
-$theme-success: tokens.$color-state-success; // #026f28
-$theme-warning: tokens.$color-co-yellow-30-brand; // #ffd100
-$theme-error: tokens.$color-co-red-60v; // #d40202
-$theme-info: tokens.$color-co-blue-60v; // #173bb3
-$theme-disabled: tokens.$color-bg-disabled; // #ebeced
-
-// Grayscale
-$theme-gray-dark: tokens.$color-co-gray-90; // #1b1b1b
-$theme-gray: tokens.$color-co-gray-50; // #71767a
-$theme-gray-medium: tokens.$color-co-gray-60; // #565c65
-$theme-gray-light: tokens.$color-co-gray-20; // #c4c5c9
-$theme-gray-lighter: tokens.$color-co-gray-5; // #f4f5f6
-$theme-gray-lightest: tokens.$color-co-gray-1; // #fbfcfd
-
-// Text colors
-$theme-text-dark: tokens.$color-co-gray-90; // #1b1b1b
-$theme-text: tokens.$color-co-gray-90; // #1b1b1b
-$theme-text-light: tokens.$color-co-gray-50; // #71767a
-
-// Link colors
-$theme-link-color: tokens.$color-text-action-link; // #173bb3
-$theme-link-hover-color: tokens.$color-text-action-link-hover; // #001970
-$theme-link-active-color: tokens.$color-text-action-link-active; // #001049
-$theme-link-visited-color: tokens.$color-co-plum-60v; // #864377
-
-// ============================================================================
-// 2. FOCUS & FOCUS STYLES
-// ============================================================================
-
-$theme-focus-color: tokens.$color-focus-row; // #001970
-$theme-focus-width: 3px;
-$theme-focus-style: solid;
-$theme-focus-offset: 0px; // USWDS default; CoDS will use outline-offset via custom properties
-
-// ============================================================================
-// 3. SPACING TOKENS
-// ============================================================================
-
-// Map Colorado spacing tokens to USWDS unit sizes (in pixels/base units)
-// Colorado tokens: 2xs=4px, xs=8px, sm=12px, md=16px, lg=24px, xl=32px, 2xl=40px, 3xl=48px
-
-$theme-spacing-unit: 4px;
-
-// USWDS sizing scale (multiples of $theme-spacing-unit)
-$theme-sizing-xs: tokens.$space-xs; // 8px
-$theme-sizing-sm: tokens.$space-sm; // 12px
-$theme-sizing-md: tokens.$space-md; // 16px
-$theme-sizing-lg: tokens.$space-lg; // 24px
-$theme-sizing-xl: tokens.$space-xl; // 32px
-
-// ============================================================================
-// 4. TYPOGRAPHY
-// ============================================================================
-
-// Body font stack (system fonts)
-$theme-font-family-body: (
-  -apple-system,
-  blinkmacsystemfont,
-  'Segoe UI',
-  roboto,
-  'Helvetica Neue',
-  arial,
-  sans-serif,
-  'Apple Color Emoji',
-  'Segoe UI Emoji',
-  'Segoe UI Symbol'
+  // Colorado's typography tokens (see
+  // @coloradodigitalservice/colorado-design-tokens `$font-family-*`).
+  $theme-font-sans-custom-stack: (
+    'Open Sans',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif
+  ),
+  $theme-font-serif-custom-stack: ('Museo Slab', Georgia, 'Times New Roman', serif),
+  $theme-font-mono-custom-stack: ('Source Code Pro', 'Courier New', monospace),
+  $theme-font-role-heading: 'serif',
+  $theme-font-role-body: 'sans',
+  $theme-font-role-ui: 'sans',
+  $theme-font-role-code: 'mono'
 );
-
-// Heading font stack (same as body for consistency; Colorado typography uses single font family)
-$theme-font-family-heading: $theme-font-family-body;
-
-// Monospace font
-$theme-font-family-mono: (
-  'Courier New',
-  monospace
-);
-$theme-font-size-base: 16px;
-
-// Line height
-$theme-line-height-body: 1.6;
-$theme-line-height-heading: 1.2;
-$theme-line-height-mono: 1.5;
-
-// ============================================================================
-// 5. BORDER & RADIUS
-// ============================================================================
-
-$theme-border-radius-sm: 2px;
-$theme-border-radius-base: 4px;
-$theme-border-radius-lg: 8px;
-$theme-border-width: 1px;
-
-// ============================================================================
-// 6. BUTTON SETTINGS
-// ============================================================================
-
-// Button appearance
-$theme-button-font-weight: 600;
-$theme-button-padding-y: tokens.$space-sm; // 12px
-$theme-button-padding-x: tokens.$space-md; // 16px
-
-// Button state background colors
-$theme-button-bg: tokens.$color-bg-action-primary; // #001970 (primary)
-$theme-button-hover-bg: tokens.$color-bg-action-primary-hover; // #001049
-$theme-button-active-bg: tokens.$color-bg-action-primary-active; // #2551a3
-
-// Button text color
-$theme-button-text-color: tokens.$color-text-action-primary; // #ffffff
-
-// Secondary button settings
-$theme-button-secondary-bg: transparent;
-$theme-button-secondary-text-color: tokens.$color-text-action-secondary; // #001970
-$theme-button-secondary-border: tokens.$color-border-action-secondary; // #001970
-
-// ============================================================================
-// 7. FORM & INPUT SETTINGS
-// ============================================================================
-
-// Input background and border
-$theme-input-background: tokens.$color-surface-form; // #ffffff
-$theme-input-border: tokens.$color-border-form-default; // #565c65
-$theme-input-border-width: 1px;
-$theme-input-padding-y: tokens.$space-sm; // 12px
-$theme-input-padding-x: tokens.$space-md; // 16px
-
-// Input states
-$theme-input-hover-border: tokens.$color-border-form-hover; // #1b1b1b
-$theme-input-focus-border: tokens.$color-focus-row; // #001970
-$theme-input-disabled-bg: tokens.$color-bg-disabled; // #ebeced
-$theme-input-disabled-text: tokens.$color-text-disabled; // gray (if available)
-
-// Form validation colors
-$theme-form-error-color: tokens.$color-border-form-danger; // #b50909
-$theme-form-success-color: tokens.$color-state-success; // #026f28
-
-// ============================================================================
-// 8. SHADOW SETTINGS
-// ============================================================================
-
-$theme-shadow-sm: 0 1px 3px 0 #{tokens.$color-shadow}26; // ~15% opacity
-$theme-shadow: 0 2px 8px 0 #{tokens.$color-shadow}1a; // ~10% opacity
-$theme-shadow-lg: 0 4px 12px 0 #{tokens.$color-shadow}26; // ~15% opacity
-
-// ============================================================================
-// 9. ANIMATION / TRANSITION
-// ============================================================================
-
-$theme-animation-duration: 200ms;
-$theme-animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-
-// ============================================================================
-// 10. OVERRIDE USWDS SETTINGS
-// ============================================================================
-
-// After USWDS imports, these settings will cascade into component mixins.
-// Use @use "uswds-core" with ($theme-*) in the main styles entry point.

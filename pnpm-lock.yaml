@@ -165,10 +165,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      '@uswds/uswds':
-        specifier: ^3.14.0
-        version: 3.14.0
     devDependencies:
       '@eslint/js':
         specifier: 10.0.1
@@ -261,7 +257,7 @@ importers:
         specifier: workspace:*
         version: link:../colorado-design-tokens
       '@uswds/uswds':
-        specifier: ^3.14.0
+        specifier: 3.14.0
         version: 3.14.0
 
   packages/colorado-design-tokens:

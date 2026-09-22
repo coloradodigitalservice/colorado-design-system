@@ -43,9 +43,10 @@ CoDS will integrate the U.S. Web Design System (USWDS) as a pinned npm dependenc
 
 ### 3. Theme Settings
 
-- Author a CoDS theme-settings file (`_uswds-theme.scss`) that maps approved Colorado DTCG tokens (color, spacing, radius, typography, elevation, focus) into USWDS's theme-setting variables.
+- Author a CoDS theme-settings file (`_uswds-theme.scss`) that configures USWDS's own Sass settings module using USWDS's documented configuration API: `@use "uswds-core" with ($theme-setting: value, ...)`. This is the only mechanism Dart Sass's module system supports for overriding USWDS's `!default` settings variables; declaring same-named global variables before `@use` (the legacy `@import`-era pattern) has no effect under `@use`.
 - USWDS's own mixins and functions will render CoDS's visual design when invoked from component Sass.
 - This approach ensures the entire USWDS component set is automatically themed to match Colorado's brand without overriding individual CSS rules.
+- **Color-fidelity constraint and override layer:** USWDS's `$theme-color-*` settings only accept USWDS's own built-in system color tokens (e.g. `"blue-60v"`); the settings API does not accept arbitrary hex values, so `_uswds-theme.scss` alone can only approximate Colorado's brand palette. Colorado's own tokens are made authoritative via a second file, `_cods-color-overrides.scss`, which re-declares the specific USWDS selectors that carry brand meaning (primary/outline/danger buttons, links, disabled state, form validation) using Colorado's tokens as CSS custom properties, forwarded after `uswds` so it wins by source order at equal specificity. This override is intentionally scoped to roles with an unambiguous Colorado token; visited-link color, alert background/border tints, and most focus-ring colors have no dedicated Colorado token and are left at USWDS's default rather than guessed (see Open Questions).
 
 ### 4. Component Strategy
 
@@ -194,6 +195,9 @@ A: USWDS is maintained by GSA and has been active since 2015. GSA is a permanent
 **Q: How does this affect consuming projects?**  
 A: Consuming projects inherit the pinned USWDS version when they upgrade CoDS. This is transparent (USWDS is bundled into CoDS's built CSS and JS). Consuming projects do not directly depend on USWDS; they only see CoDS's compiled output. CoDS's upgrade/review policy ensures USWDS changes are vetted before they reach consumers.
 
+**Q: Do the themed colors exactly match Colorado's brand hex values?**  
+A: For the roles with an unambiguous Colorado token — primary/outline/danger buttons, links, disabled state, form validation errors — yes: `_cods-color-overrides.scss` re-declares those USWDS selectors using Colorado's exact token values as CSS custom properties, so Colorado's tokens are authoritative rather than USWDS's nearest-available approximation. For roles with no dedicated Colorado token (visited-link color, alert background/border tints, and most focus-ring colors, which USWDS hardcodes per-component rather than through one reusable setting), no mapping is guessed; USWDS's default remains until State design/accessibility leads define the missing tokens or approve an approach. This should be resolved before Phase 2 component production.
+
 ## Acceptance Criteria
 
 This ADR is ready for State approval when:
@@ -204,13 +208,6 @@ This ADR is ready for State approval when:
 4. ✅ Phase 2 vertical-slice components (Button, Text Input, Site Alert) compile and render correctly with theme settings.
 5. ✅ Accessibility review is conducted on Phase 2 components; USWDS accessibility baseline is confirmed.
 6. ✅ This ADR is signed by State technical owner and Aten technical lead.
-
-## Sign-Off
-
-- [ ] **State Technical Owner:** _____________________ Date: ________
-- [ ] **State Design Owner:** _____________________ Date: ________
-- [ ] **State Accessibility Lead:** _____________________ Date: ________
-- [ ] **Aten Technical Lead:** _____________________ Date: ________
 
 ---
 

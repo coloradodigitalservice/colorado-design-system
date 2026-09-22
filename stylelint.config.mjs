@@ -15,4 +15,14 @@ export default {
       { resolveNestedSelectors: true },
     ],
   },
+  overrides: [
+    {
+      // Intentionally targets USWDS's own `.usa-*` vendor classes to override
+      // their brand color with Colorado tokens (see CODS-P1-015, ADR-002).
+      files: ['**/_cods-color-overrides.scss'],
+      rules: {
+        'selector-class-pattern': null,
+      },
+    },
+  ],
 };

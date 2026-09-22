@@ -38,11 +38,6 @@ export default defineConfig({
     rollupOptions: {
       // Mark external dependencies so they aren't bundled
       external: ['@coloradodigitalservice/colorado-design-tokens'],
-      output: {
-        globals: {
-          '@coloradodigitalservice/colorado-design-tokens': 'ColoRadoTokens',
-        },
-      },
     },
     outDir: 'dist',
     emptyOutDir: true,
