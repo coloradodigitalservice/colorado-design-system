@@ -28,6 +28,7 @@
     "build:watch": "vite build --watch"
   },
   "dependencies": {
-    "@coloradodigitalservice/colorado-design-tokens": "workspace:*"
+    "@coloradodigitalservice/colorado-design-tokens": "workspace:*",
+    "@uswds/uswds": "^3.14.0"
   }
 }

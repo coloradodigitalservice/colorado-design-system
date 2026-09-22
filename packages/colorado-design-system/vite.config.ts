@@ -6,6 +6,17 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
+  css: {
+    preprocessorOptions: {
+      scss: {
+        loadPaths: [
+          path.resolve(__dirname, 'node_modules'),
+          path.resolve(__dirname, 'node_modules/@uswds/uswds/packages'),
+          path.resolve(__dirname, 'src/styles'),
+        ],
+      },
+    },
+  },
   plugins: [
     dts({
       include: ['src/**/*.ts'],

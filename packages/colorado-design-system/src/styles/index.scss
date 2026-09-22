@@ -1,1 +1,107 @@
+/// Colorado Design System Styles
+///
+/// Imports USWDS theming, core components, and declares cascade layers.
+
+// All @use statements must come first (before any other rules)
+@use '@coloradodigitalservice/colorado-design-tokens' as tokens;
+@use 'uswds-core' as uswds;
+
+// Map Colorado tokens to USWDS theme variables
+$theme-primary-darker: tokens.$color-co-blue-80-brand;
+$theme-primary-dark: tokens.$color-co-blue-60v;
+$theme-primary: tokens.$color-co-blue-60-brand;
+$theme-primary-light: tokens.$color-co-blue-30;
+$theme-primary-lighter: tokens.$color-co-blue-20;
+$theme-primary-lightest: tokens.$color-co-blue-5;
+$theme-secondary-darker: tokens.$color-co-green-80;
+$theme-secondary-dark: tokens.$color-co-green-60v;
+$theme-secondary: tokens.$color-co-green-60-brand;
+$theme-secondary-light: tokens.$color-co-green-30;
+$theme-secondary-lighter: tokens.$color-co-green-20;
+$theme-secondary-lightest: tokens.$color-co-green-5;
+$theme-accent-cool: tokens.$color-co-red-60v;
+$theme-accent-warm: tokens.$color-co-yellow-30-brand;
+$theme-accent-warmer: tokens.$color-co-yellow-40;
+$theme-success: tokens.$color-state-success;
+$theme-warning: tokens.$color-co-yellow-30-brand;
+$theme-error: tokens.$color-co-red-60v;
+$theme-info: tokens.$color-co-blue-60v;
+$theme-disabled: tokens.$color-bg-disabled;
+$theme-gray-dark: tokens.$color-co-gray-90;
+$theme-gray: tokens.$color-co-gray-50;
+$theme-gray-medium: tokens.$color-co-gray-60;
+$theme-gray-light: tokens.$color-co-gray-20;
+$theme-gray-lighter: tokens.$color-co-gray-5;
+$theme-gray-lightest: tokens.$color-co-gray-1;
+$theme-text-dark: tokens.$color-co-gray-90;
+$theme-text: tokens.$color-co-gray-90;
+$theme-text-light: tokens.$color-co-gray-50;
+$theme-link-color: tokens.$color-text-action-link;
+$theme-link-hover-color: tokens.$color-text-action-link-hover;
+$theme-link-active-color: tokens.$color-text-action-link-active;
+$theme-link-visited-color: tokens.$color-co-plum-60v;
+
+// Focus
+$theme-focus-color: tokens.$color-focus-row;
+$theme-focus-width: 3px;
+$theme-focus-style: solid;
+$theme-focus-offset: 0px;
+
+// Spacing
+$theme-spacing-unit: 4px;
+$theme-sizing-xs: tokens.$space-xs;
+$theme-sizing-sm: tokens.$space-sm;
+$theme-sizing-md: tokens.$space-md;
+$theme-sizing-lg: tokens.$space-lg;
+$theme-sizing-xl: tokens.$space-xl;
+
+// Typography
+$theme-font-family-body: (-apple-system, blinkmacsystemfont, 'Segoe UI', roboto, 'Helvetica Neue', arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol');
+$theme-font-family-heading: $theme-font-family-body;
+$theme-font-family-mono: ('Courier New', monospace);
+$theme-font-size-base: 16px;
+$theme-line-height-body: 1.6;
+$theme-line-height-heading: 1.2;
+$theme-line-height-mono: 1.5;
+
+// Border & Radius
+$theme-border-radius-sm: 2px;
+$theme-border-radius-base: 4px;
+$theme-border-radius-lg: 8px;
+$theme-border-width: 1px;
+
+// Button
+$theme-button-font-weight: 600;
+$theme-button-padding-y: tokens.$space-sm;
+$theme-button-padding-x: tokens.$space-md;
+$theme-button-bg: tokens.$color-bg-action-primary;
+$theme-button-hover-bg: tokens.$color-bg-action-primary-hover;
+$theme-button-active-bg: tokens.$color-bg-action-primary-active;
+$theme-button-text-color: tokens.$color-text-action-primary;
+$theme-button-secondary-bg: transparent;
+$theme-button-secondary-text-color: tokens.$color-text-action-secondary;
+$theme-button-secondary-border: tokens.$color-border-action-secondary;
+
+// Form
+$theme-input-background: tokens.$color-surface-form;
+$theme-input-border: tokens.$color-border-form-default;
+$theme-input-border-width: 1px;
+$theme-input-padding-y: tokens.$space-sm;
+$theme-input-padding-x: tokens.$space-md;
+$theme-input-hover-border: tokens.$color-border-form-hover;
+$theme-input-focus-border: tokens.$color-focus-row;
+$theme-input-disabled-bg: tokens.$color-bg-disabled;
+$theme-form-error-color: tokens.$color-border-form-danger;
+$theme-form-success-color: tokens.$color-state-success;
+
+// Shadow
+$theme-shadow-sm: 0 1px 3px 0 rgba(tokens.$color-shadow, 0.15);
+$theme-shadow: 0 2px 8px 0 rgba(tokens.$color-shadow, 0.1);
+$theme-shadow-lg: 0 4px 12px 0 rgba(tokens.$color-shadow, 0.15);
+
+// Animation
+$theme-animation-duration: 200ms;
+$theme-animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+// 3. Declare cascade layers for CoDS components and utilities
 @layer cods.reset, cods.base, cods.components, cods.utilities;
