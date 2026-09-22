@@ -18,7 +18,7 @@
       "default": "./dist/colorado-design-system.mjs"
     },
     "./styles": {
-      "default": "./dist/styles/index.css"
+      "default": "./dist/colorado-design-system.css"
     },
     "./package.json": "./package.json"
   },

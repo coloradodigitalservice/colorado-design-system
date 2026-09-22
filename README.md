@@ -47,10 +47,10 @@ The [Build Architecture guide](docs/BUILD.md) describes the complete package bui
 **Common build commands:**
 
 ```bash
-pnpm build              # Build all packages via Turbo (tokens → design-system)
-pnpm build:watch        # Watch mode for colorado-design-system development
-pnpm tokens:build       # Build design tokens only
-pnpm tokens:check       # Validate tokens and compare with committed outputs
+pnpm build                                                    # Build all packages via Turbo (tokens → design-system)
+pnpm --filter @coloradodigitalservice/colorado-design-system build:watch  # Watch mode for colorado-design-system development
+pnpm tokens:build                                             # Build design tokens only
+pnpm tokens:check                                             # Validate tokens and compare with committed outputs
 ```
 
 Each package (`colorado-design-tokens`, `colorado-design-system`) includes its own `README.md` with package-specific build instructions and development workflows.
