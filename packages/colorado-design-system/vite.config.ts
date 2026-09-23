@@ -1,9 +1,26 @@
-import { defineConfig } from 'vite';
+import { defineConfig, type Plugin } from 'vite';
 import dts from 'vite-plugin-dts';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { cp } from 'fs/promises';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+// USWDS's compiled CSS references self-hosted fonts by relative url(), not
+// by JS import, so Vite's module graph never sees them. Copy them into
+// dist/fonts (matching $theme-font-path in _uswds-theme.scss) after build.
+function copyFontsPlugin(): Plugin {
+  return {
+    name: 'copy-fonts',
+    async closeBundle() {
+      await cp(
+        path.resolve(__dirname, 'src/assets/fonts'),
+        path.resolve(__dirname, 'dist/fonts'),
+        { recursive: true },
+      );
+    },
+  };
+}
 
 export default defineConfig({
   css: {
@@ -26,6 +43,7 @@ export default defineConfig({
         skipLibCheck: true,
       },
     }),
+    copyFontsPlugin(),
   ],
   build: {
     lib: {

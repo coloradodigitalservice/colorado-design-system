@@ -31,6 +31,13 @@
   // Quiet USWDS's own "check for updates" notice; keep compile warnings on.
   $theme-show-notifications: false,
 
+  // USWDS only generates @font-face rules for weights enabled here (both
+  // default to `false`). Colorado's tokens use 500/600, so both must be
+  // explicitly enabled or the Medium/SemiBold/Museo-Slab-500 font files are
+  // silently skipped rather than erroring.
+  $theme-font-weight-medium: 500,
+  $theme-font-weight-semibold: 600,
+
   // Colorado's primary brand color is a dark, saturated blue. USWDS's "blue"
   // family (with "blue-warm" grades for the darker end) is the closest match.
   $theme-color-primary-family: 'blue',
@@ -48,22 +55,98 @@
   // Links follow the primary brand color.
   $theme-link-color: 'primary-vivid',
 
-  // Colorado's typography tokens (see
-  // @coloradodigitalservice/colorado-design-tokens `$font-family-*`).
+  // Self-hosted font files live alongside the compiled CSS (copied into
+  // dist/fonts by the Vite plugin in vite.config.ts); USWDS's default
+  // "../fonts" assumes a nested css/ output directory, which we don't have.
+  $theme-font-path: './fonts',
+
+  // Register Colorado's non-built-in brand fonts. "open-sans" is already a
+  // built-in USWDS token (correct display name and cap-height), so it only
+  // needs a custom-src entry, not a full token registration. Cap-height
+  // values below are measured directly from the delivered font files
+  // (OS/2.sCapHeight / unitsPerEm * 500px), not estimated.
+  $theme-typeface-tokens: (
+      'museo-slab': (
+        display-name: 'Museo Slab',
+        cap-height: 350px,
+      ),
+      'source-code-pro': (
+        display-name: 'Source Code Pro',
+        cap-height: 330px,
+      )
+    ),
+
+  // Assign the type-based font roles. Setting $theme-font-type-* is required
+  // even for built-in tokens like "open-sans": it's what makes USWDS prepend
+  // the *correct* display name ahead of the fallback stack. Leaving these at
+  // USWDS's defaults is why the compiled CSS previously listed "Source Sans
+  // Pro Web" / "Merriweather Web" / "Roboto Mono Web" ahead of Colorado's
+  // fonts — those were only ever fallbacks.
+  $theme-font-type-sans: 'open-sans',
+  $theme-font-type-serif: 'museo-slab',
+  $theme-font-type-mono: 'source-code-pro',
+
+  // Fallback stacks, used after the primary font. Trebuchet MS is a
+  // system-font fallback only (not self-hosted; see CODS-P1-015 PR feedback).
   $theme-font-sans-custom-stack: (
-    'Open Sans',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    Helvetica,
-    Arial,
-    sans-serif
+      'Trebuchet MS',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      Helvetica,
+      Arial,
+      sans-serif
+    ),
+  $theme-font-serif-custom-stack: (
+    'Trebuchet MS',
+    Georgia,
+    'Times New Roman',
+    serif
   ),
-  $theme-font-serif-custom-stack: ('Museo Slab', Georgia, 'Times New Roman', serif),
-  $theme-font-mono-custom-stack: ('Source Code Pro', 'Courier New', monospace),
-  $theme-font-role-heading: 'serif',
+  $theme-font-mono-custom-stack: ('Courier New', monospace),
+
+  // Colorado's design mocks only use Museo Slab at weight 500 (h1). USWDS has
+  // no per-heading-level family/weight setting — $theme-font-role-heading
+  // applies to h1-h6 uniformly — so mapping it to 'serif' would force Museo
+  // Slab (and a non-existent 600 weight) onto h2-h6 too, which use Open Sans
+  // in the actual design. 'sans' is correct for the h2-h6 majority; h1's
+  // Museo Slab treatment is applied separately in
+  // _cods-typography-overrides.scss (see CODS-P1-015).
+  $theme-font-role-heading: 'sans',
   $theme-font-role-body: 'sans',
   $theme-font-role-ui: 'sans',
-  $theme-font-role-code: 'mono'
+  $theme-font-role-code: 'mono',
+
+  // Self-hosted font source files, matching the fonts above. Only the
+  // weights actually shipped are listed; unlisted weights fall back to the
+  // stack rather than requesting a file that doesn't exist.
+  $theme-font-sans-custom-src: (
+      dir: 'open-sans',
+      roman: (
+        400: 'OpenSans-Regular',
+        500: 'OpenSans-Medium',
+        600: 'OpenSans-SemiBold',
+      ),
+      italic: (
+        400: 'OpenSans-Italic',
+        500: 'OpenSans-MediumItalic',
+        600: 'OpenSans-SemiBoldItalic',
+      )
+    ),
+  $theme-font-serif-custom-src: (
+    dir: 'museo-slab',
+    roman: (
+      500: 'MuseoSlab-500',
+    )
+  ),
+  $theme-font-mono-custom-src: (
+    dir: 'source-code-pro',
+    roman: (
+      400: 'SourceCodePro-Regular',
+    ),
+    italic: (
+      400: 'SourceCodePro-Italic',
+    )
+  )
 );

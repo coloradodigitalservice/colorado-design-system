@@ -18,8 +18,12 @@ export default {
   overrides: [
     {
       // Intentionally targets USWDS's own `.usa-*` vendor classes to override
-      // their brand color with Colorado tokens (see CODS-P1-015, ADR-002).
-      files: ['**/_cods-color-overrides.scss'],
+      // their brand color/typography with Colorado tokens (see CODS-P1-015,
+      // ADR-002).
+      files: [
+        '**/_cods-color-overrides.scss',
+        '**/_cods-typography-overrides.scss',
+      ],
       rules: {
         'selector-class-pattern': null,
       },
