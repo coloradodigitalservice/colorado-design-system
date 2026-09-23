@@ -36,19 +36,19 @@ Patterns use GitHub's CODEOWNERS matching rules. Common examples include:
 
 ```text
 # Default owner for files not covered below
-* @colorado-design-system/technical-maintainers
+* @coloradodigitalservice/technical-maintainers
 
 # Component implementation and tests
-packages/components/ @colorado-design-system/component-maintainers
+packages/components/ @coloradodigitalservice/component-maintainers
 
 # Design tokens and token build inputs
-packages/tokens/ @colorado-design-system/design-system-maintainers
+packages/tokens/ @coloradodigitalservice/design-system-maintainers
 
 # Documentation and website content
-apps/docs/ @colorado-design-system/documentation-maintainers
+apps/docs/ @coloradodigitalservice/documentation-maintainers
 
 # Accessibility review for accessibility guidance and test fixtures
-docs/accessibility/ @colorado-design-system/accessibility-reviewers
+docs/accessibility/ @coloradodigitalservice/accessibility-reviewers
 ```
 
 More specific rules should appear after broader rules when the ownership model depends on the last matching rule. Every owner must be written as a valid GitHub username or team handle, such as `@organization/team-name`.
