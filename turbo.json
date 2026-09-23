@@ -24,6 +24,10 @@
     "@coloradodigitalservice/colorado-design-tokens#build": {
       "dependsOn": ["validate"],
       "outputs": ["generated/**"]
+    },
+    "@cods-internal/storybook#build": {
+      "dependsOn": ["^build", "validate"],
+      "outputs": ["storybook-static/**"]
     }
   }
 }
