@@ -1,0 +1,23 @@
+# CODEOWNERS
+#
+# DRAFT — only technical-maintainers is a real/planned GitHub team today.
+# Every path falls back to the default owner below until additional teams
+# (component-maintainers, design-system-maintainers, documentation-maintainers,
+# accessibility-reviewers, security-owners) are actually created with repo
+# access. Uncomment and assign the rules below as each team is stood up. See
+# docs/governance/repository-access-and-codeowners.md for the full policy.
+#
+# More specific rules override earlier, broader rules (last match wins).
+
+# Default owner for everything
+* @coloradodigitalservice/technical-maintainers
+
+# --- Future ownership areas (enable once the team exists with repo access) ---
+# /packages/colorado-design-tokens/  @coloradodigitalservice/design-system-maintainers
+# /packages/colorado-design-system/  @coloradodigitalservice/component-maintainers
+# /apps/storybook/                   @coloradodigitalservice/component-maintainers
+# /apps/web/                         @coloradodigitalservice/documentation-maintainers
+# /docs/                             @coloradodigitalservice/documentation-maintainers
+# /docs/governance/templates/accessibility-evidence-template.md @coloradodigitalservice/accessibility-reviewers
+# /.github/dependabot.yml            @coloradodigitalservice/security-owners
+# /.github/workflows/                @coloradodigitalservice/security-owners
