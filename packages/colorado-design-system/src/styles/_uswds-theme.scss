@@ -1,0 +1,152 @@
+/// @file
+/// USWDS Theme Settings for Colorado Design System
+///
+/// Configures USWDS's own Sass settings module using the modern Dart Sass
+/// module system, per USWDS's documented pattern:
+/// https://designsystem.digital.gov/documentation/settings/
+///
+///   @use "uswds-core" with ( $theme-setting: value, ... );
+///
+/// This must be the FIRST thing that loads `uswds-core` in the build (see
+/// `index.scss`, which forwards this file before forwarding `uswds`), because
+/// Sass only allows a module to be configured on its first load.
+///
+/// IMPORTANT — color fidelity caveat:
+/// USWDS's `$theme-color-*` settings only accept USWDS's own built-in system
+/// color tokens (e.g. "blue-60v"); the settings API does not accept arbitrary
+/// hex values. The family/token selections below are the closest available
+/// USWDS tokens to Colorado's brand palette (see
+/// @coloradodigitalservice/colorado-design-tokens) and are NOT pixel-identical
+/// to Colorado's brand hex values. Exact-hex brand colors for the roles that
+/// have an unambiguous Colorado token are enforced separately by
+/// `_cods-color-overrides.scss`, which is forwarded after `uswds` in
+/// `index.scss`. Roles with no dedicated Colorado token remain at USWDS's
+/// approximation here — see that file's "Known gaps" section and ADR-002,
+/// Open Questions.
+///
+/// Task: CODS-P1-015 — Integrate USWDS as the foundational dependency
+/// Decision record: docs/adrs/002-uswds-foundational-dependency.md
+
+@use 'uswds-core' with (
+  // Quiet USWDS's own "check for updates" notice; keep compile warnings on.
+  $theme-show-notifications: false,
+
+  // USWDS only generates @font-face rules for weights enabled here (both
+  // default to `false`). Colorado's tokens use 500/600, so both must be
+  // explicitly enabled or the Medium/SemiBold/Museo-Slab-500 font files are
+  // silently skipped rather than erroring.
+  $theme-font-weight-medium: 500,
+  $theme-font-weight-semibold: 600,
+
+  // Colorado's primary brand color is a dark, saturated blue. USWDS's "blue"
+  // family (with "blue-warm" grades for the darker end) is the closest match.
+  $theme-color-primary-family: 'blue',
+  $theme-color-primary: 'blue-60v',
+  $theme-color-primary-vivid: 'blue-warm-60v',
+  $theme-color-primary-dark: 'blue-warm-70v',
+  $theme-color-primary-darker: 'blue-warm-80v',
+
+  // Colorado's secondary brand color is a cool green.
+  $theme-color-secondary-family: 'green-cool',
+
+  // Colorado's warning/accent color is a saturated gold/yellow.
+  $theme-color-accent-warm-family: 'gold',
+
+  // Links follow the primary brand color.
+  $theme-link-color: 'primary-vivid',
+
+  // Self-hosted font files live alongside the compiled CSS (copied into
+  // dist/fonts by the Vite plugin in vite.config.ts); USWDS's default
+  // "../fonts" assumes a nested css/ output directory, which we don't have.
+  $theme-font-path: './fonts',
+
+  // Register Colorado's non-built-in brand fonts. "open-sans" is already a
+  // built-in USWDS token (correct display name and cap-height), so it only
+  // needs a custom-src entry, not a full token registration. Cap-height
+  // values below are measured directly from the delivered font files
+  // (OS/2.sCapHeight / unitsPerEm * 500px), not estimated.
+  $theme-typeface-tokens: (
+      'museo-slab': (
+        display-name: 'Museo Slab',
+        cap-height: 350px,
+      ),
+      'source-code-pro': (
+        display-name: 'Source Code Pro',
+        cap-height: 330px,
+      )
+    ),
+
+  // Assign the type-based font roles. Setting $theme-font-type-* is required
+  // even for built-in tokens like "open-sans": it's what makes USWDS prepend
+  // the *correct* display name ahead of the fallback stack. Leaving these at
+  // USWDS's defaults is why the compiled CSS previously listed "Source Sans
+  // Pro Web" / "Merriweather Web" / "Roboto Mono Web" ahead of Colorado's
+  // fonts — those were only ever fallbacks.
+  $theme-font-type-sans: 'open-sans',
+  $theme-font-type-serif: 'museo-slab',
+  $theme-font-type-mono: 'source-code-pro',
+
+  // Fallback stacks, used after the primary font. Trebuchet MS is a
+  // system-font fallback only (not self-hosted; see CODS-P1-015 PR feedback).
+  $theme-font-sans-custom-stack: (
+      'Trebuchet MS',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      Helvetica,
+      Arial,
+      sans-serif
+    ),
+  $theme-font-serif-custom-stack: (
+    'Trebuchet MS',
+    Georgia,
+    'Times New Roman',
+    serif
+  ),
+  $theme-font-mono-custom-stack: ('Courier New', monospace),
+
+  // Colorado's design mocks only use Museo Slab at weight 500 (h1). USWDS has
+  // no per-heading-level family/weight setting — $theme-font-role-heading
+  // applies to h1-h6 uniformly — so mapping it to 'serif' would force Museo
+  // Slab (and a non-existent 600 weight) onto h2-h6 too, which use Open Sans
+  // in the actual design. 'sans' is correct for the h2-h6 majority; h1's
+  // Museo Slab treatment is applied separately in
+  // _cods-typography-overrides.scss (see CODS-P1-015).
+  $theme-font-role-heading: 'sans',
+  $theme-font-role-body: 'sans',
+  $theme-font-role-ui: 'sans',
+  $theme-font-role-code: 'mono',
+
+  // Self-hosted font source files, matching the fonts above. Only the
+  // weights actually shipped are listed; unlisted weights fall back to the
+  // stack rather than requesting a file that doesn't exist.
+  $theme-font-sans-custom-src: (
+      dir: 'open-sans',
+      roman: (
+        400: 'OpenSans-Regular',
+        500: 'OpenSans-Medium',
+        600: 'OpenSans-SemiBold',
+      ),
+      italic: (
+        400: 'OpenSans-Italic',
+        500: 'OpenSans-MediumItalic',
+        600: 'OpenSans-SemiBoldItalic',
+      )
+    ),
+  $theme-font-serif-custom-src: (
+    dir: 'museo-slab',
+    roman: (
+      500: 'MuseoSlab-500',
+    )
+  ),
+  $theme-font-mono-custom-src: (
+    dir: 'source-code-pro',
+    roman: (
+      400: 'SourceCodePro-Regular',
+    ),
+    italic: (
+      400: 'SourceCodePro-Italic',
+    )
+  )
+);

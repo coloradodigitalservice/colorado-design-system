@@ -1,0 +1,17 @@
+/// @file
+/// CoDS Typography Override Layer
+///
+/// USWDS has no per-heading-level font-family/weight setting —
+/// $theme-font-role-heading (_uswds-theme.scss) applies uniformly to h1-h6.
+/// Colorado's design mocks only use Museo Slab, at weight 500, for h1;
+/// h2-h6 use Open Sans. This file re-declares USWDS's own h1 selector to
+/// apply Museo Slab and Colorado's actual h1 weight instead of USWDS's
+/// hardcoded bold (700).
+///
+/// Forwarded after `uswds` in index.scss so it wins by source order at
+/// equal selector specificity (no `!important` needed).
+
+.usa-prose > h1 {
+  font-family: 'Museo Slab', 'Trebuchet MS', Georgia, 'Times New Roman', serif;
+  font-weight: 500;
+}

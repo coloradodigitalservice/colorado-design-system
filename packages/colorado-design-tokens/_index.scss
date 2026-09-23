@@ -1,1 +1,3 @@
-@forward 'generated/tokens';
+// The generated Sass artifact is a partial, so its canonical filename includes an underscore.
+// stylelint-disable-next-line scss/load-no-partial-leading-underscore
+@forward 'generated/_tokens';
