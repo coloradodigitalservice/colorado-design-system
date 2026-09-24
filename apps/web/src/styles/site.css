@@ -1,0 +1,104 @@
+/* Documentation shell only. Component styles belong to the design-system package. */
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--cods-color-text-primary, #1b1b1b);
+  background: var(--cods-color-white, #fff);
+  font-family: var(--cods-font-family-body, Arial), sans-serif;
+  line-height: 1.6;
+}
+
+.cods-docs-container {
+  width: min(100% - 2rem, 75rem);
+  margin-inline: auto;
+}
+
+.cods-docs-skip-link {
+  position: absolute;
+  z-index: 10;
+  top: 0.5rem;
+  left: 0.5rem;
+  transform: translateY(-150%);
+  padding: 0.5rem 0.75rem;
+  background: var(--cods-color-white, #fff);
+}
+
+.cods-docs-skip-link:focus {
+  transform: none;
+}
+
+a:focus-visible {
+  outline: var(--cods-focus-ring-width, 4px) solid
+    var(--cods-color-bg-action-focus, #173bb3);
+  outline-offset: var(--cods-focus-ring-offset, 2px);
+}
+
+.cods-docs-header,
+.cods-docs-footer {
+  padding-block: 1rem;
+  border-block-end: 1px solid var(--cods-color-border-subtle, #c4c5c9);
+}
+
+.cods-docs-footer {
+  margin-top: 3rem;
+  border-block-start: 1px solid var(--cods-color-border-subtle, #c4c5c9);
+  border-block-end: 0;
+}
+
+.cods-docs-brand {
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+
+.cods-docs-grid {
+  display: grid;
+  gap: 2rem;
+  padding-block: 2rem;
+}
+
+.cods-docs-nav-title {
+  margin-block: 0 0.75rem;
+  font-size: 1.125rem;
+}
+
+.cods-docs-nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cods-docs-nav a {
+  display: block;
+  padding: 0.4rem 0.75rem;
+}
+
+.cods-docs-nav a[aria-current='page'] {
+  border-inline-start: 0.25rem solid
+    var(--cods-color-surface-nav-active, #001970);
+  font-weight: 700;
+}
+
+main {
+  min-width: 0;
+}
+
+main h1 {
+  margin-block-start: 0;
+}
+
+.cods-docs-content {
+  max-width: 72ch;
+}
+
+@media (width >= 48rem) {
+  .cods-docs-grid {
+    grid-template-columns: minmax(12rem, 16rem) minmax(0, 1fr);
+  }
+}

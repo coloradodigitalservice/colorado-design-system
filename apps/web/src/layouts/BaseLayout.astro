@@ -1,0 +1,69 @@
+---
+import { getCollection } from 'astro:content';
+import '@coloradodigitalservice/colorado-design-tokens/tokens.css';
+import '../styles/site.css';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const docs = (await getCollection('docs')).sort(
+  (a, b) =>
+    a.data.order - b.data.order || a.data.title.localeCompare(b.data.title),
+);
+const pathname = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title} | Colorado Design System</title>
+  </head>
+  <body>
+    <a class="cods-docs-skip-link" href="#main-content">
+      Skip to main content
+    </a>
+    <header class="cods-docs-header">
+      <div class="cods-docs-container">
+        <a class="cods-docs-brand" href="/">
+          Colorado Design System
+        </a>
+      </div>
+    </header>
+    <div class="cods-docs-container cods-docs-grid">
+      <nav class="cods-docs-nav" aria-label="Documentation">
+        <p class="cods-docs-nav-title">Documentation</p>
+        <ul>
+          <li>
+            <a href="/" aria-current={pathname === '/' ? 'page' : undefined}>
+              Overview
+            </a>
+          </li>
+          {docs.map((entry) => (
+            <li>
+              <a
+                href={`/${entry.id}/`}
+                aria-current={pathname === `/${entry.id}/` ? 'page' : undefined}
+              >
+                {entry.data.navLabel}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <main id="main-content" tabindex="-1">
+        <slot />
+      </main>
+    </div>
+    <footer class="cods-docs-footer">
+      <div class="cods-docs-container">
+        Colorado Design System documentation
+      </div>
+    </footer>
+  </body>
+</html>

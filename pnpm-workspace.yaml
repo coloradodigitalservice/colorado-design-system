@@ -4,5 +4,7 @@ packages:
   - 'examples/*'
 allowBuilds:
   '@parcel/watcher': false
+  esbuild: true
 minimumReleaseAgeExclude:
   - prettier@3.9.8
+  - astro@7.3.5
