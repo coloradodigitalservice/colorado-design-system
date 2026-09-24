@@ -8,6 +8,7 @@
     "node": "24.21.0"
   },
   "scripts": {
+    "dev": "pnpm --filter @cods-internal/web dev",
     "check:workspace": "node scripts/check-workspace.mjs --repo",
     "validate": "turbo run validate",
     "format": "prettier --write .",
