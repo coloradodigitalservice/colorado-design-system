@@ -27,18 +27,18 @@ A component directory never imports from another component's directory; shared b
 
 Run from the repo root unless noted; each is expected to exit `0` before a change is considered done:
 
-| Command                             | Purpose                                                                                    |
-| ----------------------------------- | ------------------------------------------------------------------------------------------ |
-| `pnpm check:workspace`              | Validates workspace package boundaries against `scripts/check-workspace.mjs`               |
-| `pnpm tokens:check`                 | Rebuilds tokens and diffs against committed `generated/` output — fails on drift           |
-| `pnpm format:check` / `pnpm format` | Prettier check / write                                                                     |
-| `pnpm lint`                         | ESLint (`lint:js`) + Stylelint (`lint:styles`)                                             |
-| `pnpm typecheck`                    | `tsc --noEmit` across the workspace                                                        |
-| `pnpm test`                         | Vitest                                                                                     |
-| `pnpm build`                        | `tokens:check` then `turbo run build` (tokens must build before the design-system package) |
-| `pnpm check`                        | Runs everything above in order — the full gate a change must pass                          |
+| Command                             | Purpose                                                                                                                                                                                                          |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pnpm check:workspace`              | Validates workspace package boundaries against `scripts/check-workspace.mjs`                                                                                                                                     |
+| `pnpm tokens:check`                 | Rebuilds tokens and diffs against committed `generated/` output — fails on drift                                                                                                                                 |
+| `pnpm format:check` / `pnpm format` | Prettier check / write                                                                                                                                                                                           |
+| `pnpm lint`                         | ESLint (`lint:js`) + Stylelint (`lint:styles`)                                                                                                                                                                   |
+| `pnpm typecheck`                    | `tsc --noEmit` for the root `tsconfig.json` scope only (`tests/**`, `vitest.config.ts`, the tokens consumer test) — it does not typecheck `apps/web`, `apps/storybook`, or `packages/colorado-design-system/src` |
+| `pnpm test`                         | Vitest                                                                                                                                                                                                           |
+| `pnpm build`                        | `tokens:check` then `turbo run build` (tokens must build before the design-system package)                                                                                                                       |
+| `pnpm check`                        | Runs everything above in order — the full gate a change must pass                                                                                                                                                |
 
-`packages/colorado-design-tokens/generated/**` is committed to git (unlike `dist/` and `storybook-static/`, which are gitignored). Never delete `generated/` to simulate a clean checkout; restore it with `git checkout -- packages/colorado-design-tokens/generated` if that happens by accident.
+`packages/colorado-design-tokens/generated/**` is committed to git (unlike `dist/` and `storybook-static/`, which are gitignored). Never delete `generated/` to simulate a clean checkout; regenerate it from the current token source with `pnpm tokens:build` rather than `git checkout --`, which would discard an in-progress token update instead of rebuilding it.
 
 ## Canonical component contract
 
