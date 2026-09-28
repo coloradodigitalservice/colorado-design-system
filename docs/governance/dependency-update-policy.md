@@ -52,7 +52,7 @@ If CI checks fail, the PR is blocked from merging until the issues are resolved.
 
 ### Step 2: Code Review
 
-**Reviewers**: Dependabot requests review from the `@coloradodigitalservice/technical-maintainers` GitHub team (currently mapped to Philip Stier, Aten technical lead). This team must exist in the GitHub organization for automatic review requests to be applied.  
+**Reviewers**: Dependabot requests review from the `@coloradodigitalservice/cods-technical-maintainers` GitHub team (currently mapped to Philip Stier, Aten technical lead). This team must exist in the GitHub organization for automatic review requests to be applied.  
 **Approval**: At least one approval required before merge
 
 Reviewers should check for:

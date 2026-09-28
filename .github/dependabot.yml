@@ -10,7 +10,7 @@ updates:
       timezone: 'America/Denver'
     open-pull-requests-limit: 10
     reviewers:
-      - 'coloradodigitalservice/technical-maintainers'
+      - 'coloradodigitalservice/cods-technical-maintainers'
     labels:
       - 'dependencies'
       - 'maintenance'
@@ -34,7 +34,7 @@ updates:
       time: '09:30'
       timezone: 'America/Denver'
     reviewers:
-      - 'coloradodigitalservice/technical-maintainers'
+      - 'coloradodigitalservice/cods-technical-maintainers'
     labels:
       - 'dependencies'
       - 'github-actions'

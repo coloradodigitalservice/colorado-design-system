@@ -36,7 +36,7 @@ Patterns use GitHub's CODEOWNERS matching rules. Common examples include:
 
 ```text
 # Default owner for files not covered below
-* @coloradodigitalservice/technical-maintainers
+* @coloradodigitalservice/cods-technical-maintainers
 
 # Component implementation and tests
 packages/components/ @coloradodigitalservice/component-maintainers
