@@ -10,6 +10,15 @@ const config: StorybookConfig = {
   framework: '@storybook/html-vite',
   stories: ['../src/**/*.stories.@(js|ts)'],
   addons: ['@storybook/addon-a11y'],
+  staticDirs: [
+    {
+      from: path.resolve(
+        repoRoot,
+        'packages/colorado-design-system/node_modules/@uswds/uswds/dist/img',
+      ),
+      to: '/img',
+    },
+  ],
   viteFinal: async (viteConfig) => {
     viteConfig.css = {
       ...viteConfig.css,
