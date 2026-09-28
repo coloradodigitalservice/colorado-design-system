@@ -82,10 +82,10 @@ function validateWorkspace(path) {
   ) {
     fail(`${path}: repository.url must point to the State repository`);
   }
-  if (
-    manifest.scripts?.validate !==
-    `node ../../scripts/check-workspace.mjs --workspace ${path}`
-  ) {
+  const workspaceCheck = `node ../../scripts/check-workspace.mjs --workspace ${path}`;
+  const expectedValidation =
+    path === 'apps/web' ? `${workspaceCheck} && astro check` : workspaceCheck;
+  if (manifest.scripts?.validate !== expectedValidation) {
     fail(`${path}: validate script must run this workspace check`);
   }
 

@@ -25,6 +25,10 @@
       "dependsOn": ["validate"],
       "outputs": ["generated/**"]
     },
+    "@cods-internal/web#build": {
+      "dependsOn": ["^build", "validate"],
+      "outputs": ["dist/**"]
+    },
     "@cods-internal/storybook#build": {
       "dependsOn": ["^build", "validate"],
       "outputs": ["storybook-static/**"]
