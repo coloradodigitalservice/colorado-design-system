@@ -17,6 +17,14 @@ Monorepo managed with pnpm workspaces + Turborepo:
 
 A component directory never imports from another component's directory; shared behavior belongs in a `shared/` support module. Every internal workspace package/app name, version, and `workspace:*` dependency is enforced by `scripts/check-workspace.mjs` (`pnpm check:workspace`) — don't hand-edit those fields without checking that script's expectations.
 
+## Branch naming
+
+Name ticket branches exactly after the canonical CODS ticket identifier, such as
+`CODS-P1-007` or `CODS-P1-010`. Use the identifier in the ticket title, not the Jira
+issue key (`CDS-30`, `CDS-34`). Do not add a `codex/` prefix or descriptive suffix.
+Confirm the canonical identifier from the ticket or PR before creating a branch;
+do not invent one. This applies to every new ticket branch.
+
 ## Tooling: pnpm, nvm, Corepack
 
 - Node version is pinned in `.nvmrc` and `package.json#engines` (`24.21.0`). Run `nvm use` before installing or building — the default shell Node is often older and Storybook/Vite will fail silently or loudly otherwise.
