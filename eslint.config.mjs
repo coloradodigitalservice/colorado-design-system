@@ -11,6 +11,8 @@ export default [
       '**/node_modules/**',
       '**/.astro/**',
       '**/storybook-static/**',
+      '**/test-results/**',
+      '**/playwright-report/**',
     ],
   },
   js.configs.recommended,

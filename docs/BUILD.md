@@ -158,3 +158,5 @@ Both build systems depend on consistent Node.js and tool versions:
 | TypeScript       | 6.0.2   | All                           |
 
 Storybook and Astro configurations manage their own Vite instances; see their respective documentation for version alignment.
+
+See [Foundation CI](CI.md) for path selection, browser checks, preview artifacts, and deployment prerequisites.
