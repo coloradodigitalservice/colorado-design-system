@@ -71,3 +71,36 @@ approval, configure the required `foundation` check, and review representative
 PR runs for docs, web content, tokens, and components. Attach their workflow run
 URLs and both artifact links to CDS-30. CI is only active after this workflow is
 merged/pushed; local verification cannot prove hosted job selection or approval.
+
+## Acceptance status and handoff
+
+| Acceptance criterion                                            | Implementation / remaining evidence                                                                                                                                                                                                      |
+| --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Required checks run on relevant changes                         | Workflow selects affected jobs and aggregates their result. GitHub's current `main` ruleset has no required status checks; the owner must require `foundation` after its first run.                                                      |
+| Docs-only changes avoid every component job                     | Governance docs select repository checks only; published site content selects Astro/browser checks. Scope tests cover both.                                                                                                              |
+| Token and component changes trigger affected validation         | Both select shared-code validation and both site builds/accessibility suites.                                                                                                                                                            |
+| Astro and Storybook preview artifacts are available             | Upload steps retain both static builds for 14 days. Availability must be demonstrated by a successful PR run. Hosted URLs remain a separate deployment dependency.                                                                       |
+| Workflow permissions and action pinning meet State requirements | Read-only permission and SHA pins are implemented. Technical review is recorded above; State security approval is still pending.                                                                                                         |
+| Clean checkout passes the foundation workflow                   | A fresh detached checkout passed frozen-lockfile installation and the full gate on macOS with Node 24.21.0/pnpm 12.4.2 (36 unit tests, 3 browser tests). Hosted Ubuntu evidence and representative PR job-selection runs remain pending. |
+
+Storybook validation explicitly runs its own TypeScript project check, including
+stories and `.storybook` configuration, during both root validation and scoped
+builds. Each built story has an individual browser test, timeout, and failure trace.
+
+GitHub repository settings inspected September 29, 2026: the global ruleset
+requires signed commits, and the default-branch ruleset requires PR approval but
+contains no required status-check rule. The local environment currently has no
+configured commit-signing key. Configure an existing contributor signing identity
+and sign the feature-branch commits before pushing; do not weaken the ruleset.
+
+### Suggested CDS-30 comment (draft)
+
+CI scaffolding is implemented on `codex/CDS-30-configure-ci-previews`: path-aware
+validation, builds, internal documentation link checks, Storybook typechecking,
+per-story browser/axe checks, and retained Astro/Storybook preview artifacts.
+Local checks pass. To close this ticket, capture representative PR workflow runs,
+require the final `foundation` status check, and record State security approval.
+Hosted preview deployment additionally needs a selected/connected State-approved
+static host for the two output directories. Downloadable artifacts satisfy the
+preview-artifact criterion; hosted deployment remains open unless the accountable
+owner explicitly accepts its deferral to a follow-up ticket.
