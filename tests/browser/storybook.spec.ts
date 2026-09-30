@@ -1,22 +1,22 @@
+import { readFileSync } from 'node:fs';
 import { test, expect } from '@playwright/test';
 import { AxeBuilder } from '@axe-core/playwright';
 
-test('all story fixtures render and pass axe', async ({ page, request }) => {
-  const response = await request.get('/index.json');
-  expect(response.ok()).toBe(true);
-  const index = await response.json();
-  const stories = Object.values(index.entries).filter(
-    (entry): entry is { id: string; type: string } =>
-      typeof entry === 'object' &&
-      entry !== null &&
-      'type' in entry &&
-      entry.type === 'story',
+const index: { entries: Record<string, { id: string; type: string }> } =
+  JSON.parse(
+    readFileSync('apps/storybook/storybook-static/index.json', 'utf8'),
   );
-  expect(stories.length).toBeGreaterThan(0);
-  for (const story of stories) {
-    await page.goto(
+const stories = Object.values(index.entries).filter(
+  (entry) => entry.type === 'story',
+);
+if (!stories.length) throw new Error('The Storybook build contains no stories');
+
+for (const story of stories) {
+  test(`story smoke and accessibility: ${story.id}`, async ({ page }) => {
+    const response = await page.goto(
       `/iframe.html?id=${encodeURIComponent(story.id)}&viewMode=story`,
     );
+    expect(response?.ok()).toBe(true);
     await expect(page.locator('#storybook-root')).not.toBeEmpty();
     await expect(page.locator('.sb-errordisplay')).not.toBeVisible();
     const results = await new AxeBuilder({ page })
@@ -24,5 +24,5 @@ test('all story fixtures render and pass axe', async ({ page, request }) => {
       .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
       .analyze();
     expect(results.violations, story.id).toEqual([]);
-  }
-});
+  });
+}
