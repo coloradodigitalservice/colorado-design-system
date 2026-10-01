@@ -160,3 +160,23 @@ Both build systems depend on consistent Node.js and tool versions:
 Storybook and Astro configurations manage their own Vite instances; see their respective documentation for version alignment.
 
 See [Foundation CI](CI.md) for path selection, browser checks, preview artifacts, and deployment prerequisites.
+
+## Local development orchestration
+
+From the root, `pnpm dev` runs `turbo watch dev`, while `pnpm dev:web` and
+`pnpm dev:storybook` filter to one app. The `dev` task is persistent and uncached;
+`^build` completes dependency builds before starting the app. Astro and Storybook
+keep their own dev servers running and detect changes in the built package
+files. Turbo reruns finite dependency builds when their source inputs change,
+covering copied assets as well as the Vite module graph.
+
+The pinned Turbo version enables `futureFlags.watchUsingTaskInputs`. Token
+build/validation inputs exclude `generated/**` so rebuilding tracked token
+outputs does not trigger another build. Token outputs stay committed and are
+still checked by `pnpm tokens:check` and the release pipeline.
+
+Use ports 4321 (docs) and 6006 (Storybook); occupied ports fail explicitly.
+Stop the current development command before starting another or running the
+browser test suite, which owns these same ports. App source updates use the
+framework's normal hot reload; shared package updates take a short rebuild.
+No production server or new runtime dependency is introduced.
