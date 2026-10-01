@@ -167,3 +167,23 @@ The design-system build also copies the Accordion fixture and metadata into
 `dist/fixtures/accordion.html` and `dist/metadata/accordion.json`; both are
 available through declared package exports. Accordion controller exports share
 the main ES module and do not require a separate USWDS runtime script.
+
+## Local development orchestration
+
+From the root, `pnpm dev` runs `turbo watch dev`, while `pnpm dev:web` and
+`pnpm dev:storybook` filter to one app. The `dev` task is persistent and uncached;
+`^build` completes dependency builds before starting the app. Astro and Storybook
+keep their own dev servers running and detect changes in the built package
+files. Turbo reruns finite dependency builds when their source inputs change,
+covering copied assets as well as the Vite module graph.
+
+The pinned Turbo version enables `futureFlags.watchUsingTaskInputs`. Token
+build/validation inputs exclude `generated/**` so rebuilding tracked token
+outputs does not trigger another build. Token outputs stay committed and are
+still checked by `pnpm tokens:check` and the release pipeline.
+
+Use ports 4321 (docs) and 6006 (Storybook); occupied ports fail explicitly.
+Stop the current development command before starting another or running the
+browser test suite, which owns these same ports. App source updates use the
+framework's normal hot reload; shared package updates take a short rebuild.
+No production server or new runtime dependency is introduced.
