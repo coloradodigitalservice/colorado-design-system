@@ -8,7 +8,7 @@
     "node": "24.21.0"
   },
   "scripts": {
-    "dev": "pnpm --filter @cods-internal/web dev",
+    "dev": "turbo watch dev --ui=stream",
     "check:workspace": "node scripts/check-workspace.mjs --repo",
     "validate": "turbo run validate",
     "format": "prettier --write .",
@@ -26,7 +26,9 @@
     "tokens:check": "turbo run tokens:check",
     "test:browser": "playwright test",
     "test:browser:install": "playwright install chromium firefox webkit",
-    "test:browser:report": "playwright show-report"
+    "test:browser:report": "playwright show-report",
+    "dev:web": "turbo watch dev --filter=@cods-internal/web --ui=stream",
+    "dev:storybook": "turbo watch dev --filter=@cods-internal/storybook --ui=stream"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",

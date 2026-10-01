@@ -9,7 +9,7 @@
   },
   "scripts": {
     "validate": "node ../../scripts/check-workspace.mjs --workspace apps/storybook && pnpm typecheck",
-    "dev": "storybook dev -p 6006 --no-open",
+    "dev": "storybook dev --host 127.0.0.1 -p 6006 --exact-port --no-open",
     "build": "pnpm --filter @coloradodigitalservice/colorado-design-system build && storybook build",
     "typecheck": "tsc --project tsconfig.json --noEmit"
   },

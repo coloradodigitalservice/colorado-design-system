@@ -23,7 +23,8 @@
     },
     "@coloradodigitalservice/colorado-design-tokens#build": {
       "dependsOn": ["validate"],
-      "outputs": ["generated/**"]
+      "outputs": ["generated/**"],
+      "inputs": ["$TURBO_DEFAULT$", "!generated/**"]
     },
     "@cods-internal/web#build": {
       "dependsOn": ["^build", "validate"],
@@ -32,6 +33,19 @@
     "@cods-internal/storybook#build": {
       "dependsOn": ["^build", "validate"],
       "outputs": ["storybook-static/**"]
+    },
+    "dev": {
+      "dependsOn": ["^build"],
+      "cache": false,
+      "persistent": true
+    },
+    "@coloradodigitalservice/colorado-design-tokens#validate": {
+      "inputs": ["$TURBO_DEFAULT$", "!generated/**"],
+      "outputs": [],
+      "cache": false
     }
+  },
+  "futureFlags": {
+    "watchUsingTaskInputs": true
   }
 }
