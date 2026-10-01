@@ -19,14 +19,17 @@
     "typecheck": "tsc --project tsconfig.json --noEmit",
     "test": "vitest run",
     "build": "pnpm tokens:check && turbo run build",
-    "check": "pnpm check:workspace && pnpm validate && pnpm tokens:check && pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build",
+    "check": "pnpm check:workspace && pnpm validate && pnpm tokens:check && pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build && pnpm test:browser",
     "prepare": "husky",
     "tokens:validate": "pnpm --filter @coloradodigitalservice/colorado-design-tokens tokens:validate",
     "tokens:build": "pnpm --filter @coloradodigitalservice/colorado-design-tokens build",
-    "tokens:check": "turbo run tokens:check"
+    "tokens:check": "turbo run tokens:check",
+    "test:browser": "playwright test"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
     "@eslint/js": "10.0.1",
+    "@playwright/test": "1.63.0",
     "@types/node": "24.10.1",
     "@typescript-eslint/parser": "8.70.0",
     "eslint": "10.10.0",

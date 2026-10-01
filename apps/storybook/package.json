@@ -8,9 +8,10 @@
     "directory": "apps/storybook"
   },
   "scripts": {
-    "validate": "node ../../scripts/check-workspace.mjs --workspace apps/storybook",
+    "validate": "node ../../scripts/check-workspace.mjs --workspace apps/storybook && pnpm typecheck",
     "dev": "storybook dev -p 6006 --no-open",
-    "build": "pnpm --filter @coloradodigitalservice/colorado-design-system build && storybook build"
+    "build": "pnpm --filter @coloradodigitalservice/colorado-design-system build && storybook build",
+    "typecheck": "tsc --project tsconfig.json --noEmit"
   },
   "dependencies": {
     "@coloradodigitalservice/colorado-design-system": "workspace:*",

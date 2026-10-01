@@ -3,6 +3,7 @@
   "include": [
     "tests/**/*.ts",
     "vitest.config.ts",
-    "packages/colorado-design-tokens/tests/consumer.ts"
+    "packages/colorado-design-tokens/tests/consumer.ts",
+    "playwright.config.ts"
   ]
 }

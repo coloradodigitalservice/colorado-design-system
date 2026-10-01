@@ -84,7 +84,11 @@ function validateWorkspace(path) {
   }
   const workspaceCheck = `node ../../scripts/check-workspace.mjs --workspace ${path}`;
   const expectedValidation =
-    path === 'apps/web' ? `${workspaceCheck} && astro check` : workspaceCheck;
+    path === 'apps/web'
+      ? `${workspaceCheck} && astro check`
+      : path === 'apps/storybook'
+        ? `${workspaceCheck} && pnpm typecheck`
+        : workspaceCheck;
   if (manifest.scripts?.validate !== expectedValidation) {
     fail(`${path}: validate script must run this workspace check`);
   }
