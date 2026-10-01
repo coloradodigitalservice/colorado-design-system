@@ -1,6 +1,5 @@
 import { readdirSync } from 'node:fs';
-import { test, expect } from '@playwright/test';
-import { AxeBuilder } from '@axe-core/playwright';
+import { test, expect, expectAccessible } from './fixtures.js';
 
 const paths = readdirSync('apps/web/dist', { recursive: true })
   .filter(
@@ -13,18 +12,26 @@ if (!paths.length)
   throw new Error('Build the documentation site before testing');
 
 for (const path of paths) {
-  test(`documentation smoke and accessibility: ${path}`, async ({ page }) => {
+  test(`documentation smoke: ${path}`, async ({ page, browserName }) => {
     const response = await page.goto(path);
     expect(response?.ok()).toBe(true);
     await expect(page.locator('main')).toBeVisible();
-    await page.keyboard.press('Tab');
+    // macOS WebKit follows Safari's Option+Tab navigation for links.
+    await page.keyboard.press(
+      browserName === 'webkit' && process.platform === 'darwin'
+        ? 'Alt+Tab'
+        : 'Tab',
+    );
     await expect(page.locator('a[href="#main-content"]')).toBeFocused();
     await page.keyboard.press('Enter');
     await expect(page.locator('main')).toBeFocused();
-    const results = await new AxeBuilder({ page })
-      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
-      .analyze();
-    expect(results.violations).toEqual([]);
+  });
+
+  test(`documentation accessibility: ${path}`, async ({ page }, testInfo) => {
+    const response = await page.goto(path);
+    expect(response?.ok()).toBe(true);
+    await expect(page.locator('main')).toBeVisible();
+    await expectAccessible(page, testInfo);
   });
 }
 
