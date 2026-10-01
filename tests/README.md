@@ -24,7 +24,7 @@ repeat installations reuse the matching browser revisions.
 
 `pnpm check` builds both sites before running browser tests. `pnpm test:browser`
 expects those builds to exist and starts/stops local static previews itself.
-It never targets a deployed environment. Ports 4321 and 6006 must be free; strict
+It never targets a deployed environment. Ports 4321 and 6006 must be free; multi-page previews return real 404s for missing routes. Strict
 ports and disabled server reuse prevent accidentally testing a development server.
 
 For a faster scoped run:
@@ -50,7 +50,8 @@ pnpm exec playwright show-trace test-results/<failed-test>/trace.zip
 
 The config uses a 30-second test timeout, 5-second assertion timeout, 60-second
 preview startup timeout, two local workers, and one CI worker. CI disallows
-`test.only` and retries failures twice; local runs have no retries.
+`test.only`. Automatic retries are disabled locally and in CI: this static-page
+suite is deterministic, so a failure must make the check fail on its first run.
 
 ## Extend the foundation
 
@@ -135,25 +136,4 @@ the failure path with a temporary spec: emit `console.error` to check console
 capture, and render an image without alt text in a real loaded page to check axe
 output. Confirm a nonzero exit and attachments, then remove the temporary spec.
 
-See [Foundation CI](../docs/CI.md) for job selection, artifacts, and hosted evidence.
-
-### Current verification evidence
-
-September 30, 2026: a fresh source copy passed frozen-lockfile installation with
-Node 24.21.0 and pnpm 12.4.2. The repository gate passed with
-`CODS_BROWSER_TARGET=storybook pnpm check` (36 unit tests and one Storybook test).
-Eight Astro smoke/axe checks passed in Chromium and WebKit with CI settings
-(one worker and two configured retries; no retry was needed). Temporary console
-and missing-alt-text failures both produced nonzero exits, readable diagnostics,
-HTML attachments, screenshots, and traces; the temporary specs were removed.
-
-Firefox initially exited before page navigation with `Could not find profile
-folder`. On macOS 27.0.1, Codex could not list
-`~/Library/Application Support/Firefox` (`Operation not permitted`), matching
-[Playwright issue 42768](https://github.com/microsoft/playwright/issues/42768).
-After the user granted macOS privacy access, all four Firefox smoke/axe checks
-passed in 4.2 seconds. The complete, unscoped `pnpm check` then passed, including
-36 unit tests and all 13 browser tests across Chromium, Firefox, WebKit, and
-Storybook. The browser suite took 6.5 seconds. No browser binary changes or
-skipped tests were needed.
-A successful hosted Ubuntu workflow run is still required before closing CDS-34.
+See [Foundation CI](../docs/CI.md) for job selection and artifacts.
