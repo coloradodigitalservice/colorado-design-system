@@ -1,0 +1,95 @@
+# Accessibility evidence: `cods-site-alert`
+
+- Maturity: experimental (`0.0.x`); not approved as stable.
+- Date: October 1, 2026.
+- Automated verification: Codex; manual reviewer and approval pending Aten accessibility lead.
+- Ticket: CODS-P2-001; Site Alert selected by Eric Swanson in the implementation chat.
+- Source: themed USWDS 3.14.0 Site Alert, no-icon option.
+
+## Keyboard and focus
+
+Native action links are the only focusable elements. Notices do not steal focus
+or provide dismissal controls. Browser regression checks cover sequential Tab
+navigation and the approved 4px focus outline with 2px offset. Real keyboard
+focus is exercised rather than a simulated focus class. No keyboard trap is
+introduced. Manual assistive-technology keyboard review remains pending.
+
+## Naming and semantics
+
+Every fixture uses a named `section` linked to its visible heading with
+`aria-labelledby`; IDs are unique across states. Native links have descriptive
+text. Emergency headings explicitly name the emergency. These static notices do
+not have `role="alert"` or an assertive live region: they are present on page
+load. Applications inserting urgent notices dynamically need separate review of
+announcement behavior. Axe scans cover all rendered states.
+
+## Screen reader
+
+Pending manual verification with VoiceOver/Safari or NVDA/Firefox. No actual
+screen-reader session has been performed by this automation. Review region and
+heading navigation, link names, Spanish/Arabic pronunciation, and confirm that
+page-load content is discoverable without redundant live announcements.
+
+## Zoom and reflow
+
+Browser tests use a 320px viewport (400% equivalent at a 1280px viewport), check
+that every notice fits without horizontal overflow, and include long content.
+Actual browser 400% zoom verification remains pending manual review. Text wraps;
+no fixed height or truncation is used.
+
+## Motion
+
+No animations, transitions, or scripted motion. Reduced-motion emulation is
+included in the narrow-viewport browser check.
+
+## Forced colors
+
+Forced-colors emulation checks visibility and logical border placement. System
+Canvas, CanvasText, LinkText, and Highlight colors preserve text, borders, and
+focus. Severity remains explicit in wording. Actual operating-system high
+contrast review remains pending.
+
+## Contrast and tokens
+
+The approved neutral surface, primary text, action link, focus, and primary or
+danger border tokens are consumed without introducing new color values. Axe
+checks normal rendered text/link contrast; forced-colors scans supplement them.
+Any consumer color customization needs a new contrast review.
+
+## Localization
+
+Spanish and Arabic fixture states use language attributes; Arabic also uses
+`dir="rtl"`. Logical border/padding and `overflow-wrap: anywhere` avoid reliance
+on left alignment or short strings. No strings are generated in JavaScript.
+Content owners must translate service copy and link labels, use local time-zone
+wording, and confirm RTL presentation with representative readers.
+
+## G2 evidence and open review items
+
+- Canonical fixture is shipped through the package; Storybook and the reference
+  page import it. Regression checks compare the shipped file and Storybook DOM.
+- Browser tests: `tests/browser/storybook-site-alert.spec.ts` and
+  `tests/browser/web-site-alert.spec.ts`; shared smoke tests scan all stories and
+  reference pages. Axe JSON and failure traces are attached by the test harness.
+- No-CSS/no-JavaScript coverage runs against the statically rendered reference
+  page in Chromium, Firefox, and WebKit.
+- Required before G2 sign-off: component/fixture review, design and content
+  review, actual screen-reader and zoom/high-contrast review, accessibility lead
+  approval, and attachment of run artifacts to the gate record.
+- This file records implementation evidence; it does not assert State gate
+  approval or completed manual accessibility review.
+
+## Validation run
+
+On October 1, 2026, `pnpm check` passed using Node 24.21.0 and pnpm 12.4.2
+on macOS. This includes workspace validation, Astro/Storybook validation, token
+drift checks (240 tokens, 16 contrast pairs), formatting, ESLint, Stylelint,
+root typecheck, 39 unit tests, all package/app builds, and 33 browser tests.
+
+Interactive Firefox inspection used the built Storybook preview on
+`127.0.0.1:6006` at desktop and 320px widths. Screenshots were reviewed for
+heading hierarchy, spacing, readable links, severity accents, and wrapping.
+The first pass exposed an inherited USWDS body background causing emergency
+link contrast failure; body background/color inheritance was corrected and the
+full axe suite passed afterward. These developer checks supplement the pending
+manual domain reviews above.

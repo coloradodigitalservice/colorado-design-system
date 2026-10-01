@@ -1,6 +1,8 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import '@coloradodigitalservice/colorado-design-system/styles';
+import siteAlertFixture from '@coloradodigitalservice/colorado-design-system/fixtures/site-alert.html?raw';
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs');
@@ -18,5 +20,6 @@ const { Content } = await render(entry);
   <article class="cods-docs-content">
     <h1>{entry.data.title}</h1>
     <Content />
+    {entry.id === 'site-alert' && <div set:html={siteAlertFixture} />}
   </article>
 </BaseLayout>

@@ -1,6 +1,6 @@
 /// Colorado Design System Styles
 ///
-/// Configures USWDS theme settings (`_uswds-theme.scss`), forwards the full
+/// Configures USWDS theme settings (`_uswds-theme.scss`), loads the full
 /// themed USWDS component library, applies the CoDS color and typography
 /// override layers (`_cods-color-overrides.scss`, `_cods-typography-overrides.scss`)
 /// so Colorado's own tokens are authoritative, and declares CoDS's own
@@ -11,11 +11,19 @@
 /// https://designsystem.digital.gov/documentation/settings/#where-to-include-your-configuration
 
 // All @use statements must come first (before any other rules)
+@use 'sass:meta';
 @use '@coloradodigitalservice/colorado-design-tokens' as tokens;
 @forward 'uswds-theme';
-@forward 'uswds';
-@forward 'cods-color-overrides';
-@forward 'cods-typography-overrides';
 
 // Declare cascade layers for CoDS components and utilities
 @layer cods.reset, cods.base, cods.components, cods.utilities;
+
+// Upstream styles and brand overrides belong below CoDS component rules.
+// Loading them together preserves their existing source-order relationship.
+@layer cods.base {
+  @include meta.load-css('uswds');
+  @include meta.load-css('cods-color-overrides');
+  @include meta.load-css('cods-typography-overrides');
+}
+
+@include meta.load-css('../components/site-alert/site-alert');
