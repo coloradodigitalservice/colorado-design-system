@@ -26,6 +26,12 @@
     },
     "./metadata/accordion.json": {
       "default": "./dist/metadata/accordion.json"
+    },
+    "./fixtures/site-alert.html": {
+      "default": "./dist/fixtures/site-alert.html"
+    },
+    "./metadata/site-alert.json": {
+      "default": "./dist/metadata/site-alert.json"
     }
   },
   "scripts": {

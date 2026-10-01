@@ -139,3 +139,9 @@ main h1 {
     background: Canvas;
   }
 }
+
+.cods-docs-content th { background: var(--cods-color-bg-surface-secondary); }
+.cods-docs-example-source { margin-block: var(--cods-space-md) var(--cods-space-lg); }
+.cods-docs-example-source summary { cursor: pointer; }
+.cods-docs-example-source :focus-visible { outline: var(--cods-focus-ring-width) solid var(--cods-color-bg-action-focus); outline-offset: var(--cods-focus-ring-offset); }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

@@ -10,6 +10,10 @@ const config: StorybookConfig = {
   framework: '@storybook/html-vite',
   stories: ['../src/**/*.stories.@(js|ts)'],
   addons: ['@storybook/addon-a11y'],
+  features: {
+    sidebarOnboardingChecklist: false,
+    menuOnboardingChecklist: false,
+  },
   staticDirs: [
     {
       from: path.resolve(

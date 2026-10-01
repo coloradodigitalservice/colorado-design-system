@@ -101,3 +101,18 @@ markup, initial state, keyboard behavior, configuration, and
 the same fixture. See
 [accessibility evidence](src/components/accordion/accessibility/accordion.evidence.md)
 for automated coverage and outstanding manual/G2 review.
+### Site Alert (experimental)
+
+The first static vertical slice is `cods-site-alert`, a themed USWDS Site Alert.
+Load the package stylesheet and use the canonical fixture structure. It requires
+no JavaScript controller. Package exports include `./fixtures/site-alert.html`
+and `./metadata/site-alert.json`; both are copied from component source at build
+time. Public usage and customization are documented in
+[`apps/web/src/content/docs/site-alert.md`](../../apps/web/src/content/docs/site-alert.md).
+Accessibility review status is recorded beside the component in
+`src/components/site-alert/accessibility/site-alert.evidence.md`.
+
+USWDS CSS and its Colorado brand overrides are emitted together in `cods.base`.
+CoDS component rules live in `cods.components`, so they can override upstream
+styles without raising selector specificity. Consumers may use `cods.utilities`
+for their own overrides. Unlayered consumer CSS takes precedence over these layers.
