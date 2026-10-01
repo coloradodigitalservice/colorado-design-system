@@ -1,106 +1,100 @@
-# Foundation CI (CODS-P1-007 / CDS-30)
+# Foundation CI workflow
 
-## Job selection
+`.github/workflows/foundation.yml` runs on pull requests, pushes to `main`, and
+manual dispatch. The workflow checks the proposed code before merge; it does not
+deploy a production site. Superseded runs for the same PR/ref are cancelled.
 
-The `Foundation` workflow runs on every PR, pushes to `main`, and manual dispatch.
-Require the final `foundation` job in the repository ruleset; it fails when any
-selected job fails or is cancelled. Do not require conditional jobs individually.
-There are no workflow-level path exclusions that would leave a required check pending.
+## Jobs and selection
 
-| Changed paths                                                                                            | Validation                                                                                                                     |
-| -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `docs/**`, root README, AGENTS, LICENSE                                                                  | Workspace boundaries and repository formatting                                                                                 |
-| `apps/web/**` (including Markdown content)                                                               | Above plus lint, token drift, dependent builds, Astro validation, generated-page link checks, Chromium smoke/axe, web artifact |
-| `apps/storybook/**`                                                                                      | Above plus lint, token drift, dependent builds, Chromium smoke/axe of every story, Storybook artifact                          |
-| Contract sample fixtures, packages, tests, configuration, lockfile, workflows, scripts, or unknown paths | All jobs and both previews                                                                                                     |
-| Main push / manual dispatch                                                                              | All jobs                                                                                                                       |
+`scope` compares the PR base SHA with the checked-out merge commit. The Git diff
+is NUL-delimited and uses `--no-renames`, so a moved file selects validation for
+both its old and new locations. Unknown paths select every job. Main pushes and
+manual runs select all jobs.
 
-The scope selector uses the PR base SHA and the checked-out merge commit, includes
-deleted files, and combines selections across all changed paths. Unknown paths
-fail open to full validation. `tests/ci-scope.test.ts` covers representative docs,
-app content, token, component, fixture, lockfile, and new-workspace changes.
+| Changed paths                                                                                 | Selected validation          |
+| --------------------------------------------------------------------------------------------- | ---------------------------- |
+| `docs/**`, root README, AGENTS, LICENSE                                                       | `repository` only            |
+| `apps/web/**`, including published Markdown                                                   | `repository` and `web`       |
+| `apps/storybook/**`                                                                           | `repository` and `storybook` |
+| Contract sample fixtures, packages, tests, config, lockfile, workflow, scripts, unknown paths | All jobs                     |
 
-## Local verification
+Every run executes `repository`: frozen dependency installation, workspace
+boundaries, and formatting. The selected jobs add these checks:
 
-Run `nvm use`, `corepack enable`, and `pnpm install --frozen-lockfile` from a clean
-checkout. Install Chromium once with `pnpm exec playwright install chromium`, then
-run `pnpm check`. The full gate builds both sites before browser checks.
-For a scoped CI reproduction, build the app and its dependencies with
-`pnpm exec turbo run build --filter=@cods-internal/web...` (or Storybook), then run
-`CODS_BROWSER_TARGET=web pnpm test:browser --project=web` (or `storybook`).
+- `code`: workspace validation, token drift, lint, root TypeScript checking,
+  Vitest, and package/static-consumer builds.
+- `web`: token drift, lint, the Astro site and dependency builds (including Astro
+  validation and generated internal links/anchors), and Chromium smoke/axe checks.
+- `storybook`: token drift, lint, Storybook and dependency builds (including its
+  own TypeScript project), and Chromium smoke/axe checks of every built story.
 
-Browser smoke checks exercise documentation skip-link focus and scan WCAG A/AA
-rules with axe. Storybook checks enumerate its built story index. Automated axe
-results supplement the component contract's manual accessibility evidence; they
-do not complete screen-reader, zoom, forced-colors, or localization evidence.
-The Astro build also runs `scripts/check-docs-output.mjs` for generated internal
-page links, same-page anchors, and structural accessibility. External URLs and
-repository Markdown links are not currently checked.
+`foundation` always runs after the other jobs. It fails if any selected job fails
+or is cancelled. Configure **foundation** as the required status check in the
+repository ruleset; conditional jobs can legitimately be skipped. Workflow-level
+path exclusions are avoided so the required check receives a result on every PR.
 
-## Preview artifacts and deployment
+## Reproduce a run locally
 
-Successful browser validation uploads `web-preview-<sha>` and
-`storybook-preview-<sha>` as immutable, run-scoped GitHub Actions artifacts,
-retained for 14 days. Failed browser runs retain `test-results` traces for 7 days.
-Download an artifact from the workflow run, extract it, and serve it at the root
-of a local static HTTP server. Artifacts are review builds, not published releases.
+Use the pinned toolchain from the repository root:
 
-Remote preview deployment is **pending State-approved host selection and connection**.
-The repository currently contains no host configuration or preview credentials.
-The hosting owner must connect both static output directories (`apps/web/dist`
-and `apps/storybook/storybook-static`) and record fork-PR policy, preview URLs,
-expiration, and access controls. A privileged deployment must never execute PR
-code with deployment credentials. No production deployment is configured here.
+```sh
+nvm use
+corepack enable
+pnpm install --frozen-lockfile
+pnpm exec playwright install chromium
+pnpm check
+```
 
-## Workflow security review record
+On Linux, install browser system dependencies with
+`pnpm exec playwright install --with-deps chromium`. The full gate builds both
+sites before browser tests. For a scoped web run:
 
-Technical review prepared September 29, 2026; **State security approval pending**.
+```sh
+pnpm exec turbo run build --filter=@cods-internal/web...
+CODS_BROWSER_TARGET=web pnpm test:browser
+```
 
-- Workflow token permission is `contents: read`; no write, deployment, or OIDC grant.
-- Checkout disables credential persistence; no production or preview secrets are used.
-- Every external action is pinned to a full commit SHA. Dependency updates must
-  verify the upstream commit and preserve SHA pinning.
-- The workflow uses `pull_request`, never `pull_request_target`, for untrusted code.
-- Event values enter scripts through environment variables; paths are read with
-  a NUL-delimited git diff and never interpolated into shell commands.
-- Jobs have timeouts; superseded runs cancel; retention is explicit. No shared
-  persistent runner or privileged cache is configured.
+Replace `web` with `storybook` for that app. Targets are validated and select the
+named preview server and its project; invalid targets fail immediately. Previews
+use Vite's multi-page mode so missing routes return HTTP 404, and browser tests
+verify that behavior. Ports 4321/6006 must be free; existing servers are not reused.
+Browser checks run against built static files, not development or deployed pages.
+Automated axe results supplement the component contract's manual accessibility
+requirements.
 
-Before claiming G1 completion, the State technology/security owners must record
-approval, configure the required `foundation` check, and review representative
-PR runs for docs, web content, tokens, and components. Attach their workflow run
-URLs and both artifact links to CDS-30. CI is only active after this workflow is
-merged/pushed; local verification cannot prove hosted job selection or approval.
+## Inspect failures and artifacts
 
-## Acceptance status and handoff
+Open the PR's **Checks** tab or the repository's **Actions → Foundation** run.
+Start with the failing job and step. For browser failures, download that app's
+`<app>-browser-results-<sha>` artifact and open a retained trace:
 
-| Acceptance criterion                                            | Implementation / remaining evidence                                                                                                                                                                                                      |
-| --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Required checks run on relevant changes                         | Workflow selects affected jobs and aggregates their result. GitHub's current `main` ruleset has no required status checks; the owner must require `foundation` after its first run.                                                      |
-| Docs-only changes avoid every component job                     | Governance docs select repository checks only; published site content selects Astro/browser checks. Scope tests cover both.                                                                                                              |
-| Token and component changes trigger affected validation         | Both select shared-code validation and both site builds/accessibility suites.                                                                                                                                                            |
-| Astro and Storybook preview artifacts are available             | Upload steps retain both static builds for 14 days. Availability must be demonstrated by a successful PR run. Hosted URLs remain a separate deployment dependency.                                                                       |
-| Workflow permissions and action pinning meet State requirements | Read-only permission and SHA pins are implemented. Technical review is recorded above; State security approval is still pending.                                                                                                         |
-| Clean checkout passes the foundation workflow                   | A fresh detached checkout passed frozen-lockfile installation and the full gate on macOS with Node 24.21.0/pnpm 12.4.2 (36 unit tests, 3 browser tests). Hosted Ubuntu evidence and representative PR job-selection runs remain pending. |
+```sh
+pnpm exec playwright show-trace path/to/trace.zip
+```
 
-Storybook validation explicitly runs its own TypeScript project check, including
-stories and `.storybook` configuration, during both root validation and scoped
-builds. Each built story has an individual browser test, timeout, and failure trace.
+Browser failure artifacts are retained for seven days. Successful browser jobs
+upload `web-preview-<sha>` and `storybook-preview-<sha>` for fourteen days. These
+ZIP artifacts contain `apps/web/dist` or `apps/storybook/storybook-static` contents;
+extract a preview and serve its root with a local static HTTP server. Each job
+uploads to a distinct name. These are downloadable review builds. Hosted previews
+require a separately approved and connected static host.
 
-GitHub repository settings inspected September 29, 2026: the global ruleset
-requires signed commits, and the default-branch ruleset requires PR approval but
-contains no required status-check rule. The local environment currently has no
-configured commit-signing key. Configure an existing contributor signing identity
-and sign the feature-branch commits before pushing; do not weaken the ruleset.
+To rerun a failed workflow, use **Re-run failed jobs** on its Actions page; new
+commits also trigger fresh PR checks. Manual dispatch is available once the
+workflow exists on the default branch. Record validation links in the PR/ticket,
+not a running acceptance diary in this guide.
 
-### Suggested CDS-30 comment (draft)
+## Workflow maintenance
 
-CI scaffolding is implemented on `codex/CDS-30-configure-ci-previews`: path-aware
-validation, builds, internal documentation link checks, Storybook typechecking,
-per-story browser/axe checks, and retained Astro/Storybook preview artifacts.
-Local checks pass. To close this ticket, capture representative PR workflow runs,
-require the final `foundation` status check, and record State security approval.
-Hosted preview deployment additionally needs a selected/connected State-approved
-static host for the two output directories. Downloadable artifacts satisfy the
-preview-artifact criterion; hosted deployment remains open unless the accountable
-owner explicitly accepts its deferral to a follow-up ticket.
+The workflow uses GitHub-hosted Ubuntu runners, read-only `contents` permission,
+checkout without persisted credentials, and no deployment secrets. All third-party
+actions are pinned to complete commit SHAs. Upgrade a pin only after verifying
+its upstream release commit and runner/input compatibility; then confirm its
+actual upload in a PR run. `upload-artifact` v7.0.1 uses Node 24 and retains ZIP
+archive behavior by default, compatible with these hosted runners and directory
+uploads ([upstream action](https://github.com/actions/upload-artifact/tree/v7.0.1)).
+Keep artifact names unique and retention explicit.
+
+Scope selection is covered by both path unit tests and temporary-Git-repository
+regression tests for cross-area renames. When changing path rules, extend those
+tests so removing or moving a file cannot silently drop affected validation.

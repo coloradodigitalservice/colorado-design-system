@@ -27,3 +27,8 @@ for (const path of paths) {
     expect(results.violations).toEqual([]);
   });
 }
+
+test('preview returns 404 for a missing page', async ({ request }) => {
+  const response = await request.get('/__cods_missing_page__/');
+  expect(response.status()).toBe(404);
+});
