@@ -82,6 +82,36 @@ describe('USWDS accordion lifecycle', () => {
     setExpanded(root, 'accordion-default-1', true);
     expect(document.activeElement).toBe(buttons(root)[1]);
   });
+  it('returns focus to the trigger when delayed initialization closes its panel', () => {
+    const root = rootFor();
+    const listener = vi.fn();
+    root.addEventListener('cods-accordion:change', listener);
+    root.querySelector('a')!.focus();
+    init(root);
+    expect(panels(root)[1].hidden).toBe(true);
+    expect(document.activeElement).toBe(buttons(root)[1]);
+    init(root);
+    expect(document.activeElement).toBe(buttons(root)[1]);
+    expect(listener).not.toHaveBeenCalled();
+  });
+  it('keeps focus in content that remains open after initialization settles', () => {
+    const root = rootFor();
+    buttons(root)[1].setAttribute('data-cods-accordion-expanded', 'true');
+    const link = root.querySelector('a')!;
+    link.focus();
+    init(root);
+    expect(panels(root).map((panel) => panel.hidden)).toEqual([true, false]);
+    expect(document.activeElement).toBe(link);
+  });
+  it('restores focus when single-open initialization closes an initially open panel', () => {
+    const root = rootFor();
+    buttons(root)[1].setAttribute('data-cods-accordion-expanded', 'true');
+    panels(root)[0].tabIndex = -1;
+    panels(root)[0].focus();
+    init(root);
+    expect(panels(root).map((panel) => panel.hidden)).toEqual([true, false]);
+    expect(document.activeElement).toBe(buttons(root)[0]);
+  });
   it('restores exactly the authored markup and removes listeners', () => {
     const root = rootFor();
     const original = root.outerHTML;

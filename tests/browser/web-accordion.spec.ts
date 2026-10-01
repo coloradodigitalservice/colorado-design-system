@@ -2,6 +2,34 @@ import { test, expect, expectAccessible } from './fixtures.js';
 
 const state = (name: string) => `[data-cods-fixture-state="${name}"]`;
 
+test('delayed enhancement preserves focus when initial state hides content', async ({
+  page,
+}) => {
+  let releaseScripts!: () => void;
+  const scriptsReady = new Promise<void>((resolve) => {
+    releaseScripts = resolve;
+  });
+  await page.route('**/*.js', async (route) => {
+    await scriptsReady;
+    await route.continue();
+  });
+  try {
+    await page.goto('/accordion/', { waitUntil: 'commit' });
+    const root = page.locator(`${state('default')} [data-cods-accordion]`);
+    const link = root.getByRole('link');
+    await expect(link).toBeVisible();
+    await expect(root).not.toHaveAttribute('data-cods-accordion-enhanced');
+    await link.focus();
+    await expect(link).toBeFocused();
+    releaseScripts();
+    await expect(root).toHaveAttribute('data-cods-accordion-enhanced', '');
+    await expect(link).toBeHidden();
+    await expect(root.getByRole('button').nth(1)).toBeFocused();
+  } finally {
+    releaseScripts();
+  }
+});
+
 test('accordion keyboard, exclusive state, focus, and bubbling events', async ({
   page,
   browserName,

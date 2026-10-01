@@ -141,9 +141,14 @@ export function init(root: HTMLElement): void {
   if (root.hasAttribute('data-cods-accordion-multiple'))
     root.setAttribute('data-allow-multiple', '');
   else root.removeAttribute('data-allow-multiple');
+  // Capture focus before hiding content: browsers may move it to the body.
+  const focusedItem = items.find(({ panel }) =>
+    panel.contains(root.ownerDocument.activeElement),
+  );
   // Last initially expanded item wins in single-open mode, as in USWDS init.
   for (const item of items)
     uswdsAccordion.toggle(item.button, item.initialExpanded);
+  if (focusedItem?.panel.hidden) focusedItem.button.focus();
   root.setAttribute('data-cods-accordion-enhanced', '');
   for (const item of items) item.button.addEventListener('click', item.onClick);
 }

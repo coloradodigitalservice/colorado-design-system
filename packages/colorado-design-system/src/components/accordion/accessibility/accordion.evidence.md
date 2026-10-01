@@ -8,8 +8,8 @@
 ## Automated validation results
 
 Full local repository gate passed on 2026-10-01: workspace checks, token drift,
-formatting, lint, root type checking, 51 unit/DOM tests, package/app builds, and
-50 browser tests across Chromium, Firefox, WebKit, and Storybook. The package
+formatting, lint, root type checking, 54 unit/DOM tests, package/app builds, and
+53 browser tests across Chromium, Firefox, WebKit, and Storybook. The package
 source was also type checked directly, and its built ES module was imported in
 Node without browser globals. The host's nested command runner used Node
 24.19.0 / pnpm 11.19.0; the prescribed Node 24.21.0 / pnpm 12.4.2 validation
@@ -21,7 +21,7 @@ Native buttons support Enter and Space, and Tab/Shift+Tab follow the page order.
 
 ## Focus
 
-Triggers use the approved focus width, offset, gap, and action-focus tokens. Programmatic collapse returns focus from inside a closing panel to its trigger. Opening another item does not move focus away from the activating trigger. DOM tests cover programmatic focus restoration; browser tests check visible keyboard outlines. Manual review of focus contrast and order remains open.
+Triggers use the approved focus width, offset, gap, and action-focus tokens. Initialization and programmatic collapse return focus from inside a closing panel to its trigger. Initialization preserves focus in content that stays open, including after single-open state resolution. DOM tests cover delayed initialization, initial exclusivity, and programmatic focus restoration; browser tests pause script loading while focusing unenhanced content and verify focus restoration after enhancement in Chromium, Firefox, and WebKit. Browser tests also check visible keyboard outlines. Manual review of focus contrast and order remains open.
 
 ## Names, roles, and announcements
 
