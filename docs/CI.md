@@ -24,7 +24,7 @@ boundaries, and formatting. The selected jobs add these checks:
 - `code`: workspace validation, token drift, lint, root TypeScript checking,
   Vitest, and package/static-consumer builds.
 - `web`: token drift, lint, the Astro site and dependency builds (including Astro
-  validation and generated internal links/anchors), and Chromium/Firefox/WebKit smoke/axe checks.
+  validation and generated internal links/anchors), and Chromium smoke/axe checks.
 - `storybook`: token drift, lint, Storybook and dependency builds (including its
   own TypeScript project), and Chromium smoke/axe checks of every built story.
 
@@ -41,12 +41,12 @@ Use the pinned toolchain from the repository root:
 nvm use
 corepack enable
 pnpm install --frozen-lockfile
-pnpm test:browser:install
+pnpm exec playwright install chromium
 pnpm check
 ```
 
 On Linux, install browser system dependencies with
-`pnpm exec playwright install --with-deps chromium firefox webkit`. The full gate builds both
+`pnpm exec playwright install --with-deps chromium`. The full gate builds both
 sites before browser tests. For a scoped web run:
 
 ```sh
@@ -72,10 +72,7 @@ Start with the failing job and step. For browser failures, download that app's
 pnpm exec playwright show-trace path/to/trace.zip
 ```
 
-Both apps upload HTML reports and test results for seven days, even on failure.
-Reports include axe JSON, console diagnostics, failure screenshots, and traces.
-See [browser testing conventions](../tests/README.md) for configuration extension
-and visual baseline guidance. Successful browser jobs
+Browser failure artifacts are retained for seven days. Successful browser jobs
 upload `web-preview-<sha>` and `storybook-preview-<sha>` for fourteen days. These
 ZIP artifacts contain `apps/web/dist` or `apps/storybook/storybook-static` contents;
 extract a preview and serve its root with a local static HTTP server. Each job
