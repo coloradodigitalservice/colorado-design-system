@@ -1,7 +1,7 @@
 ---
 name: create-cods-component
 description: 'Scaffold a new Colorado Design System (CoDS) component that conforms to the canonical component contract. Use when creating, adding, or scaffolding a new cods- component, a static or interactive component directory under packages/colorado-design-system/src/components, or when asked to "add a component", "create a new component", or "scaffold a component" for CoDS.'
-argument-hint: '<kebab-case-component-name> <static|interactive>'
+argument-hint: '<kebab-case-component-name> <static|interactive> [A|B|C]'
 ---
 
 # Create a CoDS Component
@@ -18,7 +18,7 @@ Scaffolding a component does **not** by itself finish it. Every TODO in the gene
 
 ## Procedure
 
-1. Confirm the component name (kebab-case, e.g. `site-alert`) and whether it is `static` (no scripted behavior) or `interactive` (ships a TypeScript controller). If unsure, check whether the component has a USWDS equivalent listed in the [1.0 proposal](../../../docs/proposals/Colorado_Design_System_1.0_Proposal_2026-09-15.md) and pass its id via `--uswds`.
+1. Confirm the component name (kebab-case, e.g. `site-alert`) and whether it is `static` (no scripted behavior) or `interactive` (ships a TypeScript controller). Look the component up in the [ownership matrix](../../../docs/governance/component-ownership-matrix.md) to get its type (A themed USWDS, B CoDS-authored, C divergent) and USWDS id.
 2. Run the scaffold script from the repository root:
 
    ```sh
@@ -26,24 +26,31 @@ Scaffolding a component does **not** by itself finish it. Every TODO in the gene
      --name <kebab-case-name> \
      --type <static|interactive> \
      --display-name "<Human Readable Name>" \
-     --uswds <uswds-component-id>   # omit entirely if there is no USWDS equivalent
+     --uswds <uswds-component-id> \
+     --component-type <A|B|C>
    ```
 
-   This creates `packages/colorado-design-system/src/components/<name>/` with:
-   - `<name>.metadata.json` — pre-filled maturity/type/owners shape (contract section 5).
-   - `<name>.fixture.html` — a starter semantic fixture with a `default` state block (contract section 2).
-   - `<name>.scss` — a `cods.components`-layered partial using the token package (contract section 3).
-   - `<name>.ts` and `<name>.test.ts` — interactive only: an `init`/`initAll`/`destroy` controller skeleton and matching Vitest smoke tests (contract section 4).
-   - `accessibility/<name>.evidence.md` — the accessibility evidence checklist (contract section 6).
+   Omit `--uswds` when there is no USWDS equivalent. `--component-type` defaults to `A` with `--uswds` and `B` without. The script creates `packages/colorado-design-system/src/components/<name>/` with:
+   - `<name>.metadata.json`: pre-filled shape, including the ownership-matrix fields `componentType`, `uswdsVersion` (read from the pinned dependency), `divergenceApproved`, and `divergenceNotes`.
+   - `<name>.fixture.html`: a starter semantic fixture with a `default` state block (contract section 2).
+   - `<name>.scss`: a `cods.components`-layered partial using the token package (contract section 3).
+   - `<name>.ts` and `<name>.test.ts`: interactive only; an `init`/`initAll`/`destroy` controller skeleton and Vitest smoke tests (contract section 4). The controller's exports are also added to `src/components/index.ts`.
+   - `accessibility/<name>.evidence.md`: generated from the [governance evidence template](../../../docs/governance/templates/accessibility-evidence-template.md), so the checklist cannot drift (contract section 6).
 
-3. Replace every `TODO` in the generated files with the component's real markup, styles, behavior, and description.
-4. Add one fixture block per documented state (default, focus, disabled, error, loading, empty, long-content, as applicable) — see contract section 2.
-5. If the component is themed from a USWDS equivalent, follow the USWDS layering model described in the [1.0 proposal](../../../docs/proposals/Colorado_Design_System_1.0_Proposal_2026-09-15.md) rather than reimplementing the interaction pattern from scratch.
-6. Complete the accessibility evidence file — do not leave checklist items blank.
-7. Walk the [acceptance-criteria checklist](../../../docs/governance/component-contract.md#7-acceptance-criteria-checklist) before calling the component done, and run `pnpm check` from the repo root.
+   It also writes `apps/storybook/src/stories/<name>.stories.ts`, which renders the component's own fixture and Sass.
+
+3. Replace every `TODO` with the component's real markup, styles, behavior, and description.
+4. Add one fixture block per documented state (default, focus, disabled, error, loading, empty, long-content, as applicable) and list them in `metadata.json`.
+5. For type A or C, follow [themed USWDS components](./references/uswds-wrapper.md) before writing markup, styles, or behavior: keep `usa-*` classes and add `cods-*` alongside, and use USWDS's own JavaScript rather than reimplementing it.
+6. Need a color, spacing, or other value with no token? Stop and use the [token change skill](../cods-token-change/SKILL.md). Never hard-code it.
+7. Work through the [registration and handoff checklist](./references/registration-checklist.md): the parts the script does not automate (Sass registration, browser spec, package export).
+8. Complete the accessibility evidence with the [accessibility review skill](../cods-accessibility-review/SKILL.md). Do not leave items blank, and do not mark the component `stable`.
+9. Walk the [acceptance-criteria checklist](../../../docs/governance/component-contract.md#7-acceptance-criteria-checklist) and run `pnpm check` from the repo root.
 
 ## Reference
 
 - [Condensed contract checklist](./references/contract-checklist.md) — quick lookup without opening the full contract.
+- [Registration and handoff checklist](./references/registration-checklist.md) — what the script does not do.
+- [Themed USWDS components](./references/uswds-wrapper.md) — type A and C workflow and open questions.
 - [Full canonical component contract](../../../docs/governance/component-contract.md) — normative source; consult this for anything the checklist doesn't resolve.
 - [Scaffold script](./scripts/create-component.mjs) — run with `--help` for argument details.
