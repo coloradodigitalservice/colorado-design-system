@@ -216,7 +216,7 @@ describe('State design references and consumers', () => {
     const template = await readFile(
       join(
         packageRoot,
-        '../../.github/skills/create-cods-component/assets/interactive/__NAME__.scss.template',
+        '../../.agents/skills/create-cods-component/assets/interactive/__NAME__.scss.template',
       ),
       'utf8',
     );

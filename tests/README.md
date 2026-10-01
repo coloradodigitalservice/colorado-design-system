@@ -95,13 +95,13 @@ Microsoft's [upstream skill](https://playwright.dev/agent-cli/skills) is a
 `SKILL.md` and reference guides teaching coding agents the CLI. With this pinned
 version, `pnpm exec playwright cli install --skills=agents` writes
 `.agents/skills/playwright-cli/` relative to the current directory and initializes
-`.playwright/`; it does not write `.github/skills/`. Without `=agents`, `--skills`
+`.playwright/`; it does not write `.github/skills/`, which no longer exists. Without `=agents`, `--skills`
 defaults to `.claude/skills/playwright-cli/`. The CLI works without installing a
 skill. This repository commits the upstream files unmodified at
 `.agents/skills/playwright-cli/`; Prettier excludes this vendored directory.
 Re-run the installer from the repository root whenever Playwright is upgraded
 and review the regenerated skill files alongside the dependency update. The
-[CoDS browser-verification skill](../.github/skills/cods-browser-verification/SKILL.md)
+[CoDS browser-verification skill](../.agents/skills/cods-browser-verification/SKILL.md)
 links to this guide for the repository workflow. `AGENTS.md` remains the source
 of repository conventions.
 
