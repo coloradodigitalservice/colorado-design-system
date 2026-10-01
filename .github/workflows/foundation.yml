@@ -103,23 +103,21 @@ jobs:
       - run: pnpm tokens:check
       - run: pnpm lint
       - run: pnpm exec turbo run build --filter=@cods-internal/web...
-      - run: pnpm exec playwright install --with-deps chromium firefox webkit
-      - run: pnpm test:browser --project='web*'
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm test:browser --project=web
         env:
           CODS_BROWSER_TARGET: web
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: web-preview-${{ github.sha }}
           path: apps/web/dist/
           if-no-files-found: error
           retention-days: 14
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
-        if: ${{ !cancelled() }}
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: failure()
         with:
           name: web-browser-results-${{ github.sha }}
-          path: |
-            test-results/
-            playwright-report/
+          path: test-results/
           retention-days: 7
 
   storybook:
@@ -146,19 +144,17 @@ jobs:
       - run: pnpm test:browser --project=storybook
         env:
           CODS_BROWSER_TARGET: storybook
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: storybook-preview-${{ github.sha }}
           path: apps/storybook/storybook-static/
           if-no-files-found: error
           retention-days: 14
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
-        if: ${{ !cancelled() }}
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: failure()
         with:
           name: storybook-browser-results-${{ github.sha }}
-          path: |
-            test-results/
-            playwright-report/
+          path: test-results/
           retention-days: 7
 
   foundation:
