@@ -53,6 +53,53 @@ preview startup timeout, two local workers, and one CI worker. CI disallows
 `test.only`. Automatic retries are disabled locally and in CI: this static-page
 suite is deterministic, so a failure must make the check fail on its first run.
 
+## Interactive browser verification
+
+The pinned `@playwright/test` dependency also provides the interactive CLI. Use
+`pnpm exec playwright cli` from the repository root; no global install or new
+dependency is needed. `pnpm exec playwright cli --help` lists available commands.
+
+Build a site, then keep its static preview running in one terminal:
+
+```sh
+pnpm exec turbo run build --filter=@cods-internal/web...
+pnpm exec vite preview --config config/vite.preview.ts --outDir apps/web/dist --host 127.0.0.1 --port 4321 --strictPort
+```
+
+For Storybook, build with `--filter=@cods-internal/storybook...` and serve with
+`--outDir apps/storybook/storybook-static --port 6006`, keeping the other preview
+options above. Use local previews only.
+
+In a second terminal, inspect the page using the already provisioned Firefox:
+
+```sh
+pnpm exec playwright cli -s=cods open http://127.0.0.1:4321/ --browser firefox
+pnpm exec playwright cli -s=cods snapshot
+pnpm exec playwright cli -s=cods console error
+pnpm exec playwright cli -s=cods close
+```
+
+Snapshots expose element references for commands such as `click` and `fill`;
+take a fresh snapshot after navigation or page changes. Add `--headed` to `open`
+to watch the browser. Close the session and stop the preview when finished.
+`.playwright/` and `.playwright-cli/` are ignored workspace/output directories;
+CLI output can include session data and credentials.
+
+The interactive CLI does not start the previews or apply `playwright.config.ts`,
+`CODS_BROWSER_TARGET`, or our console/axe fixtures. Use it to investigate, then
+capture meaningful findings in `tests/browser/*.spec.ts` using the shared fixture
+below. Run `pnpm test:browser` after stopping the interactive preview so the
+automated suite can own its ports and enforce its accessibility checks.
+
+Microsoft's optional [upstream skill](https://playwright.dev/agent-cli/skills) is a
+`SKILL.md` and reference guides teaching coding agents the CLI. With this pinned
+version, `pnpm exec playwright cli install --skills=agents` writes
+`.agents/skills/playwright-cli/` relative to the current directory and initializes
+`.playwright/`; it does not write `.github/skills/`. Without `=agents`, `--skills`
+defaults to `.claude/skills/playwright-cli/`. The CLI works without installing a
+skill. If the upstream skill is committed later, preserve its files unmodified
+and regenerate them with the pinned CLI whenever Playwright is upgraded.
+
 ## Extend the foundation
 
 Name built-page tests `web-<feature>.spec.ts` and built-story tests

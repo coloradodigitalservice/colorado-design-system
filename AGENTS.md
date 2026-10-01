@@ -48,6 +48,14 @@ Run from the repo root unless noted; each is expected to exit `0` before a chang
 
 `packages/colorado-design-tokens/generated/**` is committed to git (unlike `dist/` and `storybook-static/`, which are gitignored). Never delete `generated/` to simulate a clean checkout; regenerate it from the current token source with `pnpm tokens:build` rather than `git checkout --`, which would discard an in-progress token update instead of rebuilding it.
 
+## Interactive browser verification
+
+Use `pnpm exec playwright cli` from the repository root for interactive browser
+work; the CLI is included in the pinned Playwright dependency. Follow
+[the browser testing guide](tests/README.md#interactive-browser-verification)
+to build and serve local previews, inspect pages, and turn findings into browser
+tests. Keep browser work on local previews (ports 4321/6006).
+
 ## Canonical component contract
 
 Every component must satisfy the [canonical component contract](docs/governance/component-contract.md): semantic HTML fixture, layered Sass in the `cods.components` cascade layer, `cods-`-prefixed public classes/custom properties/data attributes, a metadata JSON file, and (for interactive components) a TypeScript controller with an `init`/`destroy` lifecycle and `cods-<component>:<event>` custom events. Use the [`create-cods-component` skill](.github/skills/create-cods-component/SKILL.md) to scaffold a new component rather than hand-rolling the directory shape.
