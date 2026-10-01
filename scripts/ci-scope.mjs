@@ -27,7 +27,7 @@ if (
 ) {
   const paths = execFileSync(
     'git',
-    ['diff', '--name-only', '-z', process.argv[2], 'HEAD'],
+    ['diff', '--no-renames', '--name-only', '-z', process.argv[2], 'HEAD'],
     {
       encoding: 'utf8',
     },

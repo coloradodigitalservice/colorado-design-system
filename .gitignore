@@ -14,7 +14,3 @@ test-results/
 !.env.example
 .DS_Store
 *.tsbuildinfo
-
-# Browser verification artifacts
-/test-results/
-/playwright-report/
