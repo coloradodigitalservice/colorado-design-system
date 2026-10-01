@@ -57,6 +57,6 @@ Each package (`colorado-design-tokens`, `colorado-design-system`) includes its o
 
 ## Ownership and scope
 
-[Ownership and RACI](docs/governance/ownership-and-raci.md) identifies the review path. [ADR-001](docs/adrs/001-pnpm-turborepo-boundaries.md) records this repository's workspace decision and its pending State approval. Repository issues and pull requests track the next implementation steps.
+[Ownership and RACI](docs/governance/ownership-and-raci.md) identifies the review path. [ADR-001](docs/adrs/001-pnpm-turborepo-boundaries.md) records this repository's workspace decision and its pending State approval. Repository issues and pull requests track the next implementation steps. Agent-assisted development resources are indexed in [`.agents/README.md`](.agents/README.md); see [ADR-005](docs/adrs/005-unified-agent-directory.md).
 
 The first supported scope targets 27 components and seven foundations, subject to the documented capacity and approval gates. Web Components, Drupal packages, Twig, framework adapters, a runtime CMS, and a production application server are outside the initial release.

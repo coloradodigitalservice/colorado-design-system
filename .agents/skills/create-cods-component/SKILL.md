@@ -22,7 +22,7 @@ Scaffolding a component does **not** by itself finish it. Every TODO in the gene
 2. Run the scaffold script from the repository root:
 
    ```sh
-   node .github/skills/create-cods-component/scripts/create-component.mjs \
+   node .agents/skills/create-cods-component/scripts/create-component.mjs \
      --name <kebab-case-name> \
      --type <static|interactive> \
      --display-name "<Human Readable Name>" \

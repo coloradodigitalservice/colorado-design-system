@@ -52,7 +52,7 @@ Run from the repo root unless noted; each is expected to exit `0` before a chang
 
 Use `pnpm exec playwright cli` from the repository root for interactive browser
 work; the CLI is included in the pinned Playwright dependency. Follow
-[the CoDS browser-verification skill](.github/skills/cods-browser-verification/SKILL.md)
+[the CoDS browser-verification skill](.agents/skills/cods-browser-verification/SKILL.md)
 for the repository workflow and
 [the browser testing guide](tests/README.md#interactive-browser-verification)
 to build and serve local previews, inspect pages, and turn findings into browser
@@ -60,7 +60,7 @@ tests. Keep browser work on local previews (ports 4321/6006).
 
 ## Canonical component contract
 
-Every component must satisfy the [canonical component contract](docs/governance/component-contract.md): semantic HTML fixture, layered Sass in the `cods.components` cascade layer, `cods-`-prefixed public classes/custom properties/data attributes, a metadata JSON file, and (for interactive components) a TypeScript controller with an `init`/`destroy` lifecycle and `cods-<component>:<event>` custom events. Use the [`create-cods-component` skill](.github/skills/create-cods-component/SKILL.md) to scaffold a new component rather than hand-rolling the directory shape.
+Every component must satisfy the [canonical component contract](docs/governance/component-contract.md): semantic HTML fixture, layered Sass in the `cods.components` cascade layer, `cods-`-prefixed public classes/custom properties/data attributes, a metadata JSON file, and (for interactive components) a TypeScript controller with an `init`/`destroy` lifecycle and `cods-<component>:<event>` custom events. Use the [`create-cods-component` skill](.agents/skills/create-cods-component/SKILL.md) to scaffold a new component rather than hand-rolling the directory shape.
 
 **Do not, for the `1.0.x` release line:**
 
@@ -96,4 +96,5 @@ Every component at `experimental` maturity or above needs `accessibility/<name>.
 - [Canonical Component Contract](docs/governance/component-contract.md) — normative component rules.
 - [Build Architecture](docs/BUILD.md) — build systems, entry points, package exports.
 - [Ownership and RACI](docs/governance/ownership-and-raci.md) — who approves what.
-- [`create-cods-component` skill](.github/skills/create-cods-component/SKILL.md) — component scaffolding workflow.
+- [`create-cods-component` skill](.agents/skills/create-cods-component/SKILL.md) — component scaffolding workflow.
+- [Agent resources index](.agents/README.md) — all repository-local skills and agent instructions.

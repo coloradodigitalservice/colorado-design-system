@@ -9,7 +9,7 @@ Follow [AGENTS.md](../../../AGENTS.md) for repository conventions and the
 [browser testing guide](../../../tests/README.md#interactive-browser-verification)
 for commands, configuration, and diagnostics. Use `pnpm exec playwright cli`
 from the repository root; Microsoft's
-[upstream skill](../../../.agents/skills/playwright-cli/SKILL.md) supplies CLI
+[upstream skill](../playwright-cli/SKILL.md) supplies CLI
 command reference material.
 
 - Build the selected app before inspection and serve its static output using
