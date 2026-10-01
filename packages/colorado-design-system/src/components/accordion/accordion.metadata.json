@@ -1,0 +1,26 @@
+{
+  "name": "accordion",
+  "displayName": "Accordion",
+  "maturity": "experimental",
+  "type": "interactive",
+  "uswdsEquivalent": "accordion",
+  "owners": {
+    "responsible": "Aten component engineer",
+    "accountable": "Aten technical lead"
+  },
+  "states": [
+    "default",
+    "expanded",
+    "collapsed",
+    "bordered",
+    "multiple",
+    "disabled",
+    "focus-visible",
+    "long-content",
+    "localization",
+    "rtl"
+  ],
+  "progressiveEnhancement": "full",
+  "localization": "layout-sensitive",
+  "description": "A progressively enhanced USWDS accordion with per-root lifecycle, single or multiple open panels, and bubbling CoDS change events."
+}

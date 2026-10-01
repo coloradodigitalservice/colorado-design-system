@@ -85,3 +85,19 @@ import '@coloradodigitalservice/colorado-design-system/styles';
 ```
 
 Per-component imports will be available once components are implemented.
+
+## Accordion (experimental)
+
+CODS-P2-002 selects Accordion as the interactive vertical slice. Import
+`initAccordion`, `initAllAccordions`, `destroyAccordion`, and
+`setAccordionExpanded` from the package root. Its USWDS toggle behavior is
+bundled; consumers do not need a second runtime script. Import the compiled
+stylesheet from `@coloradodigitalservice/colorado-design-system/styles`.
+
+Canonical HTML and metadata are exported as `./fixtures/accordion.html` and
+`./metadata/accordion.json`. The reference page at `/accordion/` documents
+markup, initial state, keyboard behavior, configuration, and
+`cods-accordion:change` events. Storybook's `Components/Accordion` stories use
+the same fixture. See
+[accessibility evidence](src/components/accordion/accessibility/accordion.evidence.md)
+for automated coverage and outstanding manual/G2 review.

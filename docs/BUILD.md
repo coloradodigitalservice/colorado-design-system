@@ -160,3 +160,10 @@ Both build systems depend on consistent Node.js and tool versions:
 Storybook and Astro configurations manage their own Vite instances; see their respective documentation for version alignment.
 
 See [Foundation CI](CI.md) for path selection, browser checks, preview artifacts, and deployment prerequisites.
+
+App validation tasks depend on shared package builds so Astro and Storybook
+check the current exported controller declarations from a clean checkout.
+The design-system build also copies the Accordion fixture and metadata into
+`dist/fixtures/accordion.html` and `dist/metadata/accordion.json`; both are
+available through declared package exports. Accordion controller exports share
+the main ES module and do not require a separate USWDS runtime script.
