@@ -17,6 +17,14 @@ Monorepo managed with pnpm workspaces + Turborepo:
 
 A component directory never imports from another component's directory; shared behavior belongs in a `shared/` support module. Every internal workspace package/app name, version, and `workspace:*` dependency is enforced by `scripts/check-workspace.mjs` (`pnpm check:workspace`) — don't hand-edit those fields without checking that script's expectations.
 
+## Branch naming
+
+Name ticket branches exactly after the canonical CODS ticket identifier, such as
+`CODS-P1-007` or `CODS-P1-010`. Use the identifier in the ticket title, not the Jira
+issue key (`CDS-30`, `CDS-34`). Do not add a `codex/` prefix or descriptive suffix.
+Confirm the canonical identifier from the ticket or PR before creating a branch;
+do not invent one. This applies to every new ticket branch.
+
 ## Tooling: pnpm, nvm, Corepack
 
 - Node version is pinned in `.nvmrc` and `package.json#engines` (`24.21.0`). Run `nvm use` before installing or building — the default shell Node is often older and Storybook/Vite will fail silently or loudly otherwise.
@@ -39,6 +47,16 @@ Run from the repo root unless noted; each is expected to exit `0` before a chang
 | `pnpm check`                        | Runs everything above in order — the full gate a change must pass                                                                                                                                                |
 
 `packages/colorado-design-tokens/generated/**` is committed to git (unlike `dist/` and `storybook-static/`, which are gitignored). Never delete `generated/` to simulate a clean checkout; regenerate it from the current token source with `pnpm tokens:build` rather than `git checkout --`, which would discard an in-progress token update instead of rebuilding it.
+
+## Interactive browser verification
+
+Use `pnpm exec playwright cli` from the repository root for interactive browser
+work; the CLI is included in the pinned Playwright dependency. Follow
+[the CoDS browser-verification skill](.github/skills/cods-browser-verification/SKILL.md)
+for the repository workflow and
+[the browser testing guide](tests/README.md#interactive-browser-verification)
+to build and serve local previews, inspect pages, and turn findings into browser
+tests. Keep browser work on local previews (ports 4321/6006).
 
 ## Canonical component contract
 

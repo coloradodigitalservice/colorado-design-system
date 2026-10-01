@@ -7,6 +7,9 @@ storybook-static/
 coverage/
 playwright-report/
 test-results/
+# Interactive Playwright workspace and output (may contain credentials)
+.playwright/
+.playwright-cli/
 *.tgz
 *.tar.gz
 .env
