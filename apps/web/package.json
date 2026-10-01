@@ -8,7 +8,7 @@
     "directory": "apps/web"
   },
   "scripts": {
-    "dev": "astro dev",
+    "dev": "astro dev --host 127.0.0.1 --port 4321",
     "preview": "astro preview",
     "validate": "node ../../scripts/check-workspace.mjs --workspace apps/web && astro check",
     "build": "astro build && node ../../scripts/check-docs-output.mjs",

@@ -5,7 +5,7 @@ This private workspace hosts the HTML/Vite Storybook workbench for component sta
 ## Commands
 
 - Use Node `24.21.0` from the repository's `.nvmrc` and pnpm `12.4.2`.
-- `pnpm --filter @cods-internal/storybook dev` — run Storybook locally.
+- `pnpm dev:storybook` — build/watch shared dependencies and run Storybook locally on port 6006. Use `pnpm dev` to also start the docs site.
 - `pnpm --filter @cods-internal/storybook build` — build the design-system package boundary and produce the static `storybook-static/` preview artifact. This command is self-contained; the root `pnpm build` also orders the package build through Turborepo.
 
 ## Configuration
@@ -16,7 +16,7 @@ This private workspace hosts the HTML/Vite Storybook workbench for component sta
 
 ## Accessibility checks
 
-The accessibility addon runs automated axe checks when a story is opened in the Storybook Accessibility panel. Start the workbench with `pnpm --filter @cods-internal/storybook dev`, open the representative story, and use that panel to inspect violations and passes. Stories use `a11y.test: 'error'` so the configured checks are blocking when executed by a compatible Storybook test runner or CI integration.
+The accessibility addon runs automated axe checks when a story is opened in the Storybook Accessibility panel. Start the workbench with `pnpm dev:storybook`, open the representative story, and use that panel to inspect violations and passes. Stories use `a11y.test: 'error'` so the configured checks are blocking when executed by a compatible Storybook test runner or CI integration.
 
 Automated checks supplement, rather than replace, manual accessibility review. Keyboard operation, focus behavior, screen-reader output, zoom/reflow, localization, forced colors, and reduced-motion behavior still require human verification.
 
