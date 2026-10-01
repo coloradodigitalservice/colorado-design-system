@@ -11,7 +11,7 @@ pnpm install --frozen-lockfile
 pnpm dev:web
 ```
 
-The root command builds and watches shared package dependencies, then starts Astro. Use `pnpm dev` to also start Storybook. Astro prints the local URL (normally `http://localhost:4321/`). Stop the server with Ctrl+C. To inspect the production build instead, run `pnpm --filter @cods-internal/web build` followed by `pnpm --filter @cods-internal/web preview`.
+The root command builds and watches shared package dependencies, then starts Astro. Use `pnpm dev` to also start Storybook. Astro prints the local URL (`http://127.0.0.1:4321/`). Stop the server with Ctrl+C. To inspect the production build instead, run `pnpm --filter @cods-internal/web build` followed by `pnpm --filter @cods-internal/web preview`.
 
 ## Build and preview
 
