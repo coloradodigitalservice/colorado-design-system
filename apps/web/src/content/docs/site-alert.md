@@ -5,14 +5,10 @@ navLabel: Site Alert
 order: 20
 ---
 
-Site Alert communicates a sitewide service update or emergency. It is the
-static vertical slice selected for CODS-P2-001 on October 1, 2026.
-Its maturity is **experimental** in the `0.0.x` development series.
-
 Place the notice near the top of the page, after the skip link. Use one alert
 per page in production. Write a specific heading and a useful action link.
 Prefix urgent headings with “Emergency” so severity does not depend on color.
-The examples below show all fixture states together for review.
+The example above shows the default notice. More examples below cover the other fixture states.
 
 ## Use the package
 
@@ -72,4 +68,18 @@ and right-to-left content. Forced colors use system text, link, and border color
 Manual screen-reader and actual 400% zoom verification, content/design review,
 and G2 approval remain required before stable maturity or gate sign-off.
 
-## Rendered canonical fixture
+## Manual review checklist
+
+Use the examples to complete the remaining accessibility review:
+
+- With VoiceOver/Safari or NVDA/Firefox, navigate by regions and headings, check
+  distinct names, and verify Spanish and Arabic content uses the expected language.
+- At actual 400% browser zoom, confirm all notice text and links remain usable.
+- In operating-system high contrast, check readable text, visible boundaries,
+  severity wording, and keyboard focus.
+- Confirm translated service copy and links with content reviewers.
+
+Record the browser/assistive-technology versions and observations in the
+component evidence file before accessibility approval.
+
+## More examples

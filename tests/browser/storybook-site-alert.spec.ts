@@ -1,3 +1,4 @@
+import { AxeBuilder } from '@axe-core/playwright';
 import { readFileSync } from 'node:fs';
 import { test, expect, expectAccessible } from './fixtures.js';
 
@@ -133,3 +134,71 @@ test('layered USWDS preserves the existing Colorado button theme', async ({
   await button.hover();
   await expect(button).toHaveCSS('background-color', 'rgb(0, 16, 73)');
 });
+
+test('all fixture landmarks have distinct accessible names', async ({
+  page,
+}, testInfo) => {
+  await page.goto(story);
+  await expect(page.locator('.cods-site-alert')).toHaveCount(7);
+  // This best-practice rule is not covered by the shared WCAG tag filter.
+  const results = await new AxeBuilder({ page })
+    .include('#storybook-root')
+    .withRules(['landmark-unique'])
+    .analyze();
+  await testInfo.attach('landmark-unique-results', {
+    body: JSON.stringify(results, null, 2),
+    contentType: 'application/json',
+  });
+  expect(results.violations).toEqual([]);
+});
+
+test('translated sections leave English fixture labels in the page language', async ({
+  page,
+}) => {
+  await page.goto(story);
+  for (const [state, language] of [
+    ['localization', 'es'],
+    ['rtl', 'ar'],
+  ] as const) {
+    const block = page.locator(`[data-cods-site-alert-fixture="${state}"]`);
+    await expect(block.locator('section')).toHaveAttribute('lang', language);
+    expect(
+      await block
+        .locator('h2')
+        .evaluate((element) => element.closest('[lang]')?.getAttribute('lang')),
+    ).toBe('en');
+  }
+});
+
+for (const [id, state] of [
+  ['informational', 'informational'],
+  ['emergency', 'emergency'],
+  ['long-content', 'long-content'],
+  ['spanish', 'localization'],
+  ['arabic-rtl', 'rtl'],
+  ['focus-visible', 'focus-visible'],
+] as const) {
+  test(`isolated story reuses canonical state: ${state}`, async ({ page }) => {
+    await page.goto(
+      `/iframe.html?id=components-site-alert--${id}&viewMode=story`,
+    );
+    await expect(page.locator('.cods-site-alert')).toHaveCount(1);
+    await expect(
+      page.locator(`[data-cods-site-alert-fixture="${state}"]`),
+    ).toBeVisible();
+    const equivalent = await page.locator('.cods-site-alert').evaluate(
+      (element, { html, state }) => {
+        const template = document.createElement('template');
+        template.innerHTML = html;
+        return (
+          element.outerHTML ===
+          template.content.querySelector(
+            `[data-cods-site-alert-fixture="${state}"] .cods-site-alert`,
+          )?.outerHTML
+        );
+      },
+      { html: fixture, state },
+    );
+    expect(equivalent).toBe(true);
+  });
+}
