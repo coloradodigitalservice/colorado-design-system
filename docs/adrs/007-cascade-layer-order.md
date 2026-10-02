@@ -2,7 +2,7 @@
 
 - **Status:** Proposed pending technical lead and State technology owner approval
 - **Date:** 2026-10-02
-- **Related work:** CODS-P1-018 (Jira CDS-105), CODS-P1-015, CODS-P1-004, ADR-002, ADR-003
+- **Related work:** CODS-P1-018 (Jira CDS-105), a follow-up to CODS-P1-014 (agent skills, CDS-38) and CODS-P1-017 (ADR-006, CDS-103); also CODS-P1-015, CODS-P1-004, ADR-002, ADR-003
 
 ## Context
 

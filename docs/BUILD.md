@@ -36,6 +36,7 @@ After build, the `dist/` directory contains:
 | ---------------------------- | ------------------------------------------- |
 | `colorado-design-system.mjs` | ESM bundle with all components and exports  |
 | `colorado-design-system.css` | Compiled CSS from `src/styles/index.scss`   |
+| `fonts/`, `img/`             | Fonts and USWDS icons the CSS references    |
 | `index.d.ts`                 | TypeScript type declarations for main entry |
 | `components/*.d.ts`          | Component-specific type declarations        |
 
@@ -66,6 +67,12 @@ The `@coloradodigitalservice/colorado-design-tokens` package is marked external 
 ### Cascade Layers
 
 `src/styles/index.scss` forwards `_cods-layers.scss` first, which declares `@layer uswds, cods.reset, cods.base, cods.components, cods.utilities;`. USWDS is loaded into the `uswds` layer by `_uswds-layer.scss` after `uswds-theme` configures it, and the color/typography overrides live in `cods.base`. Component rules go in `cods.components`, so they override USWDS without `!important`; consumer unlayered CSS overrides CoDS. USWDS utility classes use `!important` and cannot be overridden by normal declarations. The build sets `cssMinify: 'esbuild'` so the order statement stays first in `dist/colorado-design-system.css`. See [ADR-007](adrs/007-cascade-layer-order.md).
+
+### USWDS JavaScript
+
+Interactive Type A components import the single USWDS behavior they wrap (for example `@uswds/uswds/js/usa-accordion`), as decided in [ADR-006](adrs/006-uswds-javascript-ingestion.md). USWDS ships these as CommonJS; Vite bundles them into `colorado-design-system.mjs`, so consumers load one `<script type="module">` and need no CommonJS handling. `@uswds/uswds` is deliberately not external. To confirm a build, check that `dist/colorado-design-system.mjs` contains no `require(` and no `uswdsPresent`. The wrapper pattern is in [contract section 4.5](governance/component-contract.md#45-wrapping-uswds-javascript).
+
+USWDS's CSS references icons by relative `url()`. `_uswds-theme.scss` sets `$theme-font-path` and `$theme-image-path` to `./fonts` and `./img`, and the Vite config copies those assets into `dist/` after the build. Vite warns that these paths "didn't resolve at build time"; this is expected, and they resolve at runtime from `dist/`.
 
 ## Design Tokens Package (`colorado-design-tokens`)
 

@@ -176,6 +176,7 @@ This ADR requires **State technical owner approval** before proceeding to Phase 
 
 ## Related Decisions
 
+- **ADR-006:** Amends this ADR's scope to include USWDS JavaScript, ingested per component through the controller contract.
 - **ADR-001:** Repository structure (pnpm, Turborepo, monorepo boundaries) — This ADR is compatible; USWDS is a regular npm dependency.
 - **CODS-P1-001:** Monorepo skeleton and dependencies — @uswds/uswds is now a pinned production dependency per this ADR.
 - **CODS-P1-004:** Component contract — Amended to clarify Type A components and accessibility evidence expectations.
