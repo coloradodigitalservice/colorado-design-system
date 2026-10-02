@@ -20,7 +20,13 @@
     "./styles": {
       "default": "./dist/colorado-design-system.css"
     },
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./fixtures/site-alert.html": {
+      "default": "./dist/fixtures/site-alert.html"
+    },
+    "./metadata/site-alert.json": {
+      "default": "./dist/metadata/site-alert.json"
+    }
   },
   "scripts": {
     "validate": "node ../../scripts/check-workspace.mjs --workspace packages/colorado-design-system",

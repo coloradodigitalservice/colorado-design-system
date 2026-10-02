@@ -60,6 +60,21 @@ Consumers must not rely on undeclared export paths. Per-component imports will b
 - **Styles**: `src/styles/index.scss` → `dist/colorado-design-system.css`
 - **Components barrel**: `src/components/index.ts` (re-exports all component controllers)
 
+### Static Site Alert assets and cascade
+
+The build copies the canonical Site Alert HTML and metadata unchanged into
+`dist/fixtures/site-alert.html` and `dist/metadata/site-alert.json`. The public
+subpaths are `./fixtures/site-alert.html` and `./metadata/site-alert.json`.
+Storybook and the reference site import the same shipped fixture using Vite's
+`?raw` loader. Static components do not need controller exports.
+
+`src/styles/index.scss` declares `cods.reset`, `cods.base`, `cods.components`,
+and `cods.utilities` in that order. Sass `meta.load-css` emits USWDS and the
+existing Colorado color/typography overrides together in `cods.base`, retaining
+source order. Component partials emit their own `cods.components` rules.
+This makes low-specificity CoDS rules authoritative over upstream CSS;
+unlayered consumer styles still take precedence. Token values are unchanged.
+
 ### External Dependencies
 
 The `@coloradodigitalservice/colorado-design-tokens` package is marked external and not bundled; consumers must install it separately.
