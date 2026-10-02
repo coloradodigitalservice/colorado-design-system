@@ -76,7 +76,7 @@ Components with a USWDS equivalent are themed wrappers around USWDS markup/behav
 
 ## Design tokens: Git is authoritative, not Figma
 
-Figma is the design-composition and display surface only. Approved token _values_ are authored and reviewed as DTCG-format JSON in `packages/colorado-design-tokens/src/*.tokens.json` and built into CSS/Sass/JSON/TypeScript via Style Dictionary. A change to a Figma variable is not a released token change until it is reflected in the repository's token source and passes `pnpm tokens:check`. Never hand-edit files under `packages/colorado-design-tokens/generated/` — they're build output.
+Figma is the design-composition and display surface only. Approved token _values_ are authored and reviewed as DTCG-format JSON in `packages/colorado-design-tokens/src/*.tokens.json` and built into CSS/Sass/JSON/TypeScript via Style Dictionary. A change to a Figma variable is not a released token change until it is reflected in the repository's token source and passes `pnpm tokens:check`. Never hand-edit files under `packages/colorado-design-tokens/generated/` — they're build output. To add, rename, remove, or re-alias a token, follow the [`cods-token-change` skill](.agents/skills/cods-token-change/SKILL.md).
 
 ## Package naming and release policy
 
@@ -87,7 +87,7 @@ Figma is the design-composition and display surface only. Approved token _values
 
 ## Accessibility evidence
 
-Every component at `experimental` maturity or above needs `accessibility/<name>.evidence.md` covering keyboard operation, focus management, accessible naming, screen-reader verification, 400% zoom/reflow, reduced-motion, forced-colors, and localization notes (contract [section 6](docs/governance/component-contract.md#6-accessibility-localization-and-evidence-requirements)). A component cannot be marked `stable` in its metadata without a completed evidence file and every acceptance-criteria item satisfied.
+Every component at `experimental` maturity or above needs `accessibility/<name>.evidence.md` covering keyboard operation, focus management, accessible naming, screen-reader verification, 400% zoom/reflow, reduced-motion, forced-colors, and localization notes (contract [section 6](docs/governance/component-contract.md#6-accessibility-localization-and-evidence-requirements)). A component cannot be marked `stable` in its metadata without a completed evidence file and every acceptance-criteria item satisfied. Use the [`cods-accessibility-review` skill](.agents/skills/cods-accessibility-review/SKILL.md) to prepare the evidence; screen-reader findings and `stable` sign-off come from people, not agents.
 
 ## Reference documents (read these instead of asking for re-explanation)
 
