@@ -77,6 +77,19 @@ Controllers must be idempotent: calling `init` twice on the same root, or callin
 
 If the controller's `init` cannot find its required elements, it must fail silently for that instance (log a single developer-facing console warning, do not throw) and leave the underlying static markup usable.
 
+### 4.5 Wrapping USWDS JavaScript
+
+Type A components reuse USWDS's own JavaScript instead of reimplementing the interaction ([ADR-006](../adrs/006-uswds-javascript-ingestion.md)). The controller is a thin wrapper:
+
+- Import only the behavior being wrapped (`import behavior from '@uswds/uswds/js/<package>'`). Never import the global bundle (`uswds.min.js`) or `uswds-init.js`; they initialize on `document.body` and set `window.uswdsPresent`, which conflicts with section 4.1.
+- `init(root)` validates the markup, then calls `behavior.on(root)`. `destroy(root)` calls `behavior.off(root)` and restores every attribute `init` or the behavior changed to the value authored in the markup. USWDS's `off` does not do this itself.
+- Validate whatever the behavior would throw on (for example a missing controlled panel) before calling `on`; on failure log one warning and leave the markup alone (section 4.4).
+- Keep `usa-*` classes and attributes in the fixture, because USWDS selectors depend on them, and add `cods-*` classes and the `data-cods-<name>` root hook alongside. Pass-through USWDS attributes (for example `data-allow-multiple`) are documented as USWDS-owned.
+- USWDS behaviors emit no events. Derive the section 4.1 `cods-<name>:<event>` events from the attributes the behavior sets, and do not emit during `init` or `destroy`.
+- Call `init` after the markup is attached to the document; USWDS resolves controlled elements by id in the document.
+- The code is bundled into the package's ES module output. `require(` calls and `window.uswdsPresent` must not appear in `dist/`.
+- CoDS source must not contain an equivalent of the interaction. The first interactive Type A component in the Phase 2 vertical slice is the reference implementation of this pattern.
+
 ## 5. Metadata and maturity model
 
 Every component ships `<component-name>.metadata.json`, validated against the shared metadata shape:

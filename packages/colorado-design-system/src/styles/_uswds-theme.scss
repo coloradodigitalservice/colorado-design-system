@@ -60,6 +60,10 @@
   // "../fonts" assumes a nested css/ output directory, which we don't have.
   $theme-font-path: './fonts',
 
+  // Icons referenced by url() are copied into dist/img the same way, for the
+  // same reason (USWDS defaults to "../img").
+  $theme-image-path: './img',
+
   // Register Colorado's non-built-in brand fonts. "open-sans" is already a
   // built-in USWDS token (correct display name and cap-height), so it only
   // needs a custom-src entry, not a full token registration. Cap-height
