@@ -52,7 +52,7 @@ Run from the repo root unless noted; each is expected to exit `0` before a chang
 
 Use `pnpm exec playwright cli` from the repository root for interactive browser
 work; the CLI is included in the pinned Playwright dependency. Follow
-[the CoDS browser-verification skill](.github/skills/cods-browser-verification/SKILL.md)
+[the CoDS browser-verification skill](.agents/skills/cods-browser-verification/SKILL.md)
 for the repository workflow and
 [the browser testing guide](tests/README.md#interactive-browser-verification)
 to build and serve local previews, inspect pages, and turn findings into browser
@@ -60,7 +60,7 @@ tests. Keep browser work on local previews (ports 4321/6006).
 
 ## Canonical component contract
 
-Every component must satisfy the [canonical component contract](docs/governance/component-contract.md): semantic HTML fixture, layered Sass in the `cods.components` cascade layer, `cods-`-prefixed public classes/custom properties/data attributes, a metadata JSON file, and (for interactive components) a TypeScript controller with an `init`/`destroy` lifecycle and `cods-<component>:<event>` custom events. Use the [`create-cods-component` skill](.github/skills/create-cods-component/SKILL.md) to scaffold a new component rather than hand-rolling the directory shape.
+Every component must satisfy the [canonical component contract](docs/governance/component-contract.md): semantic HTML fixture, layered Sass in the `cods.components` cascade layer, `cods-`-prefixed public classes/custom properties/data attributes, a metadata JSON file, and (for interactive components) a TypeScript controller with an `init`/`destroy` lifecycle and `cods-<component>:<event>` custom events. Use the [`create-cods-component` skill](.agents/skills/create-cods-component/SKILL.md) to scaffold a new component rather than hand-rolling the directory shape.
 
 **Do not, for the `1.0.x` release line:**
 
@@ -76,7 +76,7 @@ Components with a USWDS equivalent are themed wrappers around USWDS markup/behav
 
 ## Design tokens: Git is authoritative, not Figma
 
-Figma is the design-composition and display surface only. Approved token _values_ are authored and reviewed as DTCG-format JSON in `packages/colorado-design-tokens/src/*.tokens.json` and built into CSS/Sass/JSON/TypeScript via Style Dictionary. A change to a Figma variable is not a released token change until it is reflected in the repository's token source and passes `pnpm tokens:check`. Never hand-edit files under `packages/colorado-design-tokens/generated/` — they're build output.
+Figma is the design-composition and display surface only. Approved token _values_ are authored and reviewed as DTCG-format JSON in `packages/colorado-design-tokens/src/*.tokens.json` and built into CSS/Sass/JSON/TypeScript via Style Dictionary. A change to a Figma variable is not a released token change until it is reflected in the repository's token source and passes `pnpm tokens:check`. Never hand-edit files under `packages/colorado-design-tokens/generated/` — they're build output. To add, rename, remove, or re-alias a token, follow the [`cods-token-change` skill](.agents/skills/cods-token-change/SKILL.md).
 
 ## Package naming and release policy
 
@@ -87,7 +87,7 @@ Figma is the design-composition and display surface only. Approved token _values
 
 ## Accessibility evidence
 
-Every component at `experimental` maturity or above needs `accessibility/<name>.evidence.md` covering keyboard operation, focus management, accessible naming, screen-reader verification, 400% zoom/reflow, reduced-motion, forced-colors, and localization notes (contract [section 6](docs/governance/component-contract.md#6-accessibility-localization-and-evidence-requirements)). A component cannot be marked `stable` in its metadata without a completed evidence file and every acceptance-criteria item satisfied.
+Every component at `experimental` maturity or above needs `accessibility/<name>.evidence.md` covering keyboard operation, focus management, accessible naming, screen-reader verification, 400% zoom/reflow, reduced-motion, forced-colors, and localization notes (contract [section 6](docs/governance/component-contract.md#6-accessibility-localization-and-evidence-requirements)). A component cannot be marked `stable` in its metadata without a completed evidence file and every acceptance-criteria item satisfied. Use the [`cods-accessibility-review` skill](.agents/skills/cods-accessibility-review/SKILL.md) to prepare the evidence; screen-reader findings and `stable` sign-off come from people, not agents.
 
 ## Reference documents (read these instead of asking for re-explanation)
 
@@ -96,4 +96,5 @@ Every component at `experimental` maturity or above needs `accessibility/<name>.
 - [Canonical Component Contract](docs/governance/component-contract.md) — normative component rules.
 - [Build Architecture](docs/BUILD.md) — build systems, entry points, package exports.
 - [Ownership and RACI](docs/governance/ownership-and-raci.md) — who approves what.
-- [`create-cods-component` skill](.github/skills/create-cods-component/SKILL.md) — component scaffolding workflow.
+- [`create-cods-component` skill](.agents/skills/create-cods-component/SKILL.md) — component scaffolding workflow.
+- [Agent resources index](.agents/README.md) — all repository-local skills and agent instructions.

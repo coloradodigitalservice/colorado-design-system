@@ -9,7 +9,7 @@ Follow [AGENTS.md](../../../AGENTS.md) for repository conventions and the
 [browser testing guide](../../../tests/README.md#interactive-browser-verification)
 for commands, configuration, and diagnostics. Use `pnpm exec playwright cli`
 from the repository root; Microsoft's
-[upstream skill](../../../.agents/skills/playwright-cli/SKILL.md) supplies CLI
+[upstream skill](../playwright-cli/SKILL.md) supplies CLI
 command reference material.
 
 - Build the selected app before inspection and serve its static output using
@@ -26,3 +26,7 @@ command reference material.
 - Follow the guide's extension, accessibility, and visual-baseline conventions.
   Verify the relevant automated tests after adding a regression case;
   interactive inspection alone does not establish automated accessibility coverage.
+- Adding or changing a screenshot baseline: follow
+  [visual baselines](./references/visual-baselines.md).
+- Reviewing a component's accessibility evidence: use the
+  [accessibility review skill](../cods-accessibility-review/SKILL.md).

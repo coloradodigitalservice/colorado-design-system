@@ -12,7 +12,7 @@ Research on 2026-10-01 compared each candidate against its CLI/skill alternative
 
 Repository facts relevant to the decision:
 
-- `gh` is already installed and authenticated on contributor machines used so far; `AGENTS.md` already uses repo-local skills (`.github/skills/`) as the extension mechanism.
+- `gh` is already installed and authenticated on contributor machines used so far; `AGENTS.md` already uses repo-local skills (now `.agents/skills/`, consolidated in CODS-P1-016) as the extension mechanism.
 - `apps/storybook` uses `@storybook/html-vite` with `@storybook/addon-a11y`.
 - CODS-P1-010 (under review, not yet merged) adds `@playwright/test` `^1.63.0` and `@axe-core/playwright`. The Playwright CLI ships inside `@playwright/test` (`npx playwright cli`, confirmed for 1.63.0), so adopting it needs no new dependency. Neither the CLI nor any Playwright skill is in the repository on `main`.
 - Dependencies are exact-pinned; tooling that resolves `@latest` at start-up conflicts with that practice.
@@ -133,7 +133,7 @@ A: Unknown. Figma documents that Figma for Government supports the desktop MCP s
 A: Not verified. Only the local server's `--read-only` flag was confirmed.
 
 **Q: Where should the Playwright skill live?**
-A: The upstream installer only supports `.claude/skills` and `.agents/skills`, while the existing repo skill is in `.github/skills`. Confirm during CODS-P1-010 review that Copilot in VS Code discovers `.agents/skills`; otherwise copy the skill into `.github/skills`.
+A: The upstream installer only supports `.claude/skills` and `.agents/skills`, while the existing repo skill was in `.github/skills`. Resolved by CODS-P1-016 ([ADR-005](005-unified-agent-directory.md)): all skills now live in `.agents/skills`. Confirm that Copilot in VS Code discovers them.
 
 ## Acceptance criteria
 

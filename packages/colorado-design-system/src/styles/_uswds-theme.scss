@@ -19,8 +19,8 @@
 /// @coloradodigitalservice/colorado-design-tokens) and are NOT pixel-identical
 /// to Colorado's brand hex values. Exact-hex brand colors for the roles that
 /// have an unambiguous Colorado token are enforced separately by
-/// `_cods-color-overrides.scss`, which is forwarded after `uswds` in
-/// `index.scss`. Roles with no dedicated Colorado token remain at USWDS's
+/// `_cods-color-overrides.scss`, which is forwarded after `uswds` in the same
+/// `uswds` layer (see `index.scss`). Roles with no dedicated Colorado token remain at USWDS's
 /// approximation here — see that file's "Known gaps" section and ADR-002,
 /// Open Questions.
 ///
@@ -59,6 +59,10 @@
   // dist/fonts by the Vite plugin in vite.config.ts); USWDS's default
   // "../fonts" assumes a nested css/ output directory, which we don't have.
   $theme-font-path: './fonts',
+
+  // Icons referenced by url() are copied into dist/img the same way, for the
+  // same reason (USWDS defaults to "../img").
+  $theme-image-path: './img',
 
   // Register Colorado's non-built-in brand fonts. "open-sans" is already a
   // built-in USWDS token (correct display name and cap-height), so it only

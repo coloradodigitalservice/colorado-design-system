@@ -1,0 +1,21 @@
+{
+  "name": "__NAME__",
+  "displayName": __DISPLAY_NAME_JSON__,
+  "maturity": "experimental",
+  "type": "static",
+  "uswdsEquivalent": __USWDS__,
+  "uswdsVersion": __USWDS_VERSION__,
+  "componentType": "__COMPONENT_TYPE__",
+  "owners": {
+    "responsible": "Aten component lead",
+    "accountable": "State technical owner",
+    "consulted": "State design owner, accessibility lead",
+    "informed": "Component contributors, product owner"
+  },
+  "divergenceApproved": false,
+  "divergenceNotes": null,
+  "states": ["default"],
+  "progressiveEnhancement": "full",
+  "localization": "text-content-only",
+  "description": __DESCRIPTION_JSON__
+}
