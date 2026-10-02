@@ -20,7 +20,13 @@
     "./styles": {
       "default": "./dist/colorado-design-system.css"
     },
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./fixtures/accordion.html": {
+      "default": "./dist/fixtures/accordion.html"
+    },
+    "./metadata/accordion.json": {
+      "default": "./dist/metadata/accordion.json"
+    }
   },
   "scripts": {
     "validate": "node ../../scripts/check-workspace.mjs --workspace packages/colorado-design-system",

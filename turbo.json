@@ -34,6 +34,16 @@
       "dependsOn": ["^build", "validate"],
       "outputs": ["storybook-static/**"]
     },
+    "@cods-internal/web#validate": {
+      "dependsOn": ["^build", "^validate"],
+      "outputs": [],
+      "cache": false
+    },
+    "@cods-internal/storybook#validate": {
+      "dependsOn": ["^build", "^validate"],
+      "outputs": [],
+      "cache": false
+    },
     "dev": {
       "dependsOn": ["^build"],
       "cache": false,

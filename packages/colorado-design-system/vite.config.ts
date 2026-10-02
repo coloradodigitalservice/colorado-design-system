@@ -2,7 +2,7 @@ import { defineConfig, type Plugin } from 'vite';
 import dts from 'vite-plugin-dts';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { cp } from 'fs/promises';
+import { cp, mkdir } from 'fs/promises';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -15,6 +15,18 @@ function copyAssetsPlugin(): Plugin {
   return {
     name: 'copy-assets',
     async closeBundle() {
+      for (const [source, directory, filename] of [
+        ['accordion.fixture.html', 'fixtures', 'accordion.html'],
+        ['accordion.metadata.json', 'metadata', 'accordion.json'],
+      ]) {
+        await mkdir(path.resolve(__dirname, 'dist', directory), {
+          recursive: true,
+        });
+        await cp(
+          path.resolve(__dirname, 'src/components/accordion', source),
+          path.resolve(__dirname, 'dist', directory, filename),
+        );
+      }
       await cp(
         path.resolve(__dirname, 'src/assets/fonts'),
         path.resolve(__dirname, 'dist/fonts'),

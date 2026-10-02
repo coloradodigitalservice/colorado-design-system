@@ -20,3 +20,6 @@
 @forward 'uswds-layer';
 @forward 'cods-color-overrides';
 @forward 'cods-typography-overrides';
+
+// Register component partials after the package's layer order and theme.
+@forward '../components/accordion/accordion';

@@ -172,6 +172,13 @@ Storybook and Astro configurations manage their own Vite instances; see their re
 
 See [Foundation CI](CI.md) for path selection, browser checks, preview artifacts, and deployment prerequisites.
 
+App validation tasks depend on shared package builds so Astro and Storybook
+check the current exported controller declarations from a clean checkout.
+The design-system build also copies the Accordion fixture and metadata into
+`dist/fixtures/accordion.html` and `dist/metadata/accordion.json`; both are
+available through declared package exports. Accordion controller exports share
+the main ES module and do not require a separate USWDS runtime script.
+
 ## Local development orchestration
 
 From the root, `pnpm dev` runs `turbo watch dev`, while `pnpm dev:web` and
