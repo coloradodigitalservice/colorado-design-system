@@ -38,12 +38,14 @@ Scaffolding a component does **not** by itself finish it. Every TODO in the gene
 
 3. Replace every `TODO` in the generated files with the component's real markup, styles, behavior, and description.
 4. Add one fixture block per documented state (default, focus, disabled, error, loading, empty, long-content, as applicable) — see contract section 2.
-5. If the component is themed from a USWDS equivalent, follow the USWDS layering model described in the [1.0 proposal](../../../docs/proposals/Colorado_Design_System_1.0_Proposal_2026-09-15.md) rather than reimplementing the interaction pattern from scratch.
+5. If the component is themed from a USWDS equivalent, follow the USWDS layering model described in the [1.0 proposal](../../../docs/proposals/Colorado_Design_System_1.0_Proposal_2026-09-15.md) rather than reimplementing the interaction pattern from scratch. For an interactive one, replace the generated controller with a thin wrapper over the USWDS behavior as described in [uswds-wrapper.md](./references/uswds-wrapper.md).
 6. Complete the accessibility evidence file — do not leave checklist items blank.
-7. Walk the [acceptance-criteria checklist](../../../docs/governance/component-contract.md#7-acceptance-criteria-checklist) before calling the component done, and run `pnpm check` from the repo root.
+7. Walk the [acceptance-criteria checklist](../../../docs/governance/component-contract.md#7-acceptance-criteria-checklist) and the [registration checklist](./references/registration-checklist.md) before calling the component done, and run `pnpm check` from the repo root.
 
 ## Reference
 
 - [Condensed contract checklist](./references/contract-checklist.md) — quick lookup without opening the full contract.
+- [Wrapping a USWDS behavior](./references/uswds-wrapper.md) — controller pattern for interactive Type A components.
+- [Registration checklist](./references/registration-checklist.md) — exports, story, browser spec, and metadata steps.
 - [Full canonical component contract](../../../docs/governance/component-contract.md) — normative source; consult this for anything the checklist doesn't resolve.
 - [Scaffold script](./scripts/create-component.mjs) — run with `--help` for argument details.
