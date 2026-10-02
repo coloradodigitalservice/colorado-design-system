@@ -7,7 +7,7 @@ import fixtureHtml from '../../../../packages/colorado-design-system/src/compone
 import { initAll } from '../../../../packages/colorado-design-system/src/components/__NAME__/__NAME__.js';
 
 const meta = {
-  title: 'Components/__DISPLAY_NAME__',
+  title: __STORY_TITLE__,
   render: () => fixtureHtml,
   // The story root is mounted by `play`; controllers that look up elements by id need that.
   play: ({ canvasElement }) => {

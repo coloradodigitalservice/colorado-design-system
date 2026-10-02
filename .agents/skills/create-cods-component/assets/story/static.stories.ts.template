@@ -6,7 +6,7 @@ import '../../../../packages/colorado-design-system/src/components/__NAME__/__NA
 import fixtureHtml from '../../../../packages/colorado-design-system/src/components/__NAME__/__NAME__.fixture.html?raw';
 
 const meta = {
-  title: 'Components/__DISPLAY_NAME__',
+  title: __STORY_TITLE__,
   render: () => fixtureHtml,
 } satisfies Meta;
 

@@ -1,6 +1,6 @@
 {
   "name": "__NAME__",
-  "displayName": "__DISPLAY_NAME__",
+  "displayName": __DISPLAY_NAME_JSON__,
   "maturity": "experimental",
   "type": "interactive",
   "uswdsEquivalent": __USWDS__,
@@ -17,5 +17,5 @@
   "states": ["default"],
   "progressiveEnhancement": "full",
   "localization": "text-content-only",
-  "description": "TODO: one-sentence description of __DISPLAY_NAME__."
+  "description": __DESCRIPTION_JSON__
 }

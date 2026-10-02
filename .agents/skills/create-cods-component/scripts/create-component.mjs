@@ -206,6 +206,14 @@ function main() {
     return;
   }
 
+  const displayName = args.displayName ?? toDisplayName(args.name);
+  // A newline would end the `//` comments the templates put the name in.
+  if ([...displayName].some((ch) => ch.charCodeAt(0) < 32 || ch === '\u007f')) {
+    console.error('--display-name must not contain control characters.');
+    process.exitCode = 1;
+    return;
+  }
+
   const targetDir = join(componentsRoot, args.name);
   const storyPath = join(storiesRoot, `${args.name}.stories.ts`);
   for (const existing of [targetDir, storyPath]) {
@@ -221,7 +229,13 @@ function main() {
   const usesUswds = componentType !== 'B' || Boolean(args.uswds);
   const replacements = {
     __NAME__: args.name,
-    __DISPLAY_NAME__: args.displayName ?? toDisplayName(args.name),
+    __DISPLAY_NAME__: displayName,
+    // Quoted JSON strings so apostrophes and quotes cannot break JSON or TypeScript.
+    __DISPLAY_NAME_JSON__: JSON.stringify(displayName),
+    __DESCRIPTION_JSON__: JSON.stringify(
+      `TODO: one-sentence description of ${displayName}.`,
+    ),
+    __STORY_TITLE__: JSON.stringify(`Components/${displayName}`),
     __CLASS_NAME__: className,
     __USWDS__: args.uswds ? JSON.stringify(args.uswds) : 'null',
     __USWDS_VERSION__: usesUswds ? JSON.stringify(readUswdsVersion()) : 'null',

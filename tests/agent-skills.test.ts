@@ -12,6 +12,7 @@ import {
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import ts from 'typescript';
 import { afterEach, describe, expect, it } from 'vitest';
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -192,7 +193,7 @@ describe('create-cods-component scaffold script', () => {
       'utf8',
     );
     expect(story).toContain('components/probe-box/probe-box.fixture.html?raw');
-    expect(story).toContain("title: 'Components/Probe Box'");
+    expect(story).toContain('title: "Components/Probe Box"');
     expect(story).toContain('play: ({ canvasElement })');
 
     const index = readFileSync(
@@ -230,6 +231,77 @@ describe('create-cods-component scaffold script', () => {
       componentType: 'A',
     });
     expect(readFileSync(indexPath, 'utf8')).toBe(before);
+  });
+
+  it.each(["Governor's Banner", 'Say "Hi"', 'Back\\slash'])(
+    'generates valid JSON and TypeScript for the display name %s',
+    (displayName) => {
+      for (const type of ['static', 'interactive']) {
+        const root = makeRepo();
+        scaffold(
+          root,
+          '--name',
+          'probe-box',
+          '--type',
+          type,
+          '--display-name',
+          displayName,
+        );
+        const dir = join(
+          root,
+          'packages/colorado-design-system/src/components/probe-box',
+        );
+
+        const metadata = JSON.parse(
+          readFileSync(join(dir, 'probe-box.metadata.json'), 'utf8'),
+        );
+        expect(metadata.displayName).toBe(displayName);
+        expect(metadata.description).toContain(displayName);
+
+        const sources = [
+          join(root, 'apps/storybook/src/stories/probe-box.stories.ts'),
+          ...(type === 'interactive'
+            ? [join(dir, 'probe-box.ts'), join(dir, 'probe-box.test.ts')]
+            : []),
+        ];
+        for (const path of sources) {
+          const { diagnostics } = ts.transpileModule(
+            readFileSync(path, 'utf8'),
+            {
+              reportDiagnostics: true,
+              fileName: path,
+            },
+          );
+          expect(diagnostics, path).toEqual([]);
+        }
+        expect(
+          readFileSync(
+            join(root, 'apps/storybook/src/stories/probe-box.stories.ts'),
+            'utf8',
+          ),
+        ).toContain(JSON.stringify(`Components/${displayName}`));
+      }
+    },
+  );
+
+  it('rejects a display name with a newline before writing anything', () => {
+    const root = makeRepo();
+    expect(() =>
+      scaffold(
+        root,
+        '--name',
+        'probe-box',
+        '--type',
+        'static',
+        '--display-name',
+        'Two\nLines',
+      ),
+    ).toThrow(/--display-name/);
+    expect(
+      existsSync(
+        join(root, 'packages/colorado-design-system/src/components/probe-box'),
+      ),
+    ).toBe(false);
   });
 
   it('refuses to overwrite an existing component and rejects a bad component type', () => {
