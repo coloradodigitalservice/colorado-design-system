@@ -1,6 +1,6 @@
 # Core design system
 
-This package boundary will own semantic HTML fixtures, layered CSS, optional TypeScript controllers, metadata, icons, assets, and accessibility evidence for components. It depends on the token package. The P1-002 Sass entry currently emits only the agreed CSS layer order; it is not a distributable package build. Package compilation and public exports are tracked as CODS-P1-009. Every component in this package must follow the [canonical component contract](../../docs/governance/component-contract.md) (CODS-P1-004). The USWDS foundational-dependency decision (CODS-P1-015) requires an ADR amendment before implementation.
+This package owns semantic HTML fixtures, layered CSS, optional TypeScript controllers, metadata, icons, assets, and accessibility evidence for components. It depends on the token package and on a pinned USWDS release ([ADR-002](../../docs/adrs/002-uswds-foundational-dependency.md)). Every component in this package must follow the [canonical component contract](../../docs/governance/component-contract.md).
 
 ## Build & Development
 

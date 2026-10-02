@@ -71,18 +71,18 @@ Figma is the display and design-composition surface. The repository is authorita
 #### Canonical component implementation
 
 - Establish the semantic HTML, CSS, and TypeScript component contract.
-- Implement the full client-confirmed `1.0.x` component set (2026-09-16 final decision): Accordion, Breadcrumbs, Button, Card (Default and Icon variants), Checkbox, Combo Box, Divider, Footer, Header, Hero, Icon List, Input, In-Page Alert, In-Page Navigation, Language Selector, Link, Maps, Modal, Process List, Radio Buttons, Search, Select (dropdown), Site Alert, Tags, Toasts/Snackbars, Videos, and Tooltip — 27 components in total.
-- Include at least one static component and one interactive component in the first vertical slice.
+- Implement the full client-confirmed `1.0.x` component set (2026-09-16 final decision): Accordion, Breadcrumbs, Button, Card - Default, Card - Icon, Checkbox, Combo Box, Divider, Footer, Header, Hero, Icon List, Input, In-Page Alert, In-Page Navigation, Language Selector, Link, Maps, Modal, Process List, Radio Buttons, Search, Select (dropdown), Site Alert, Tags, Toasts/Snackbars, Videos, and Tooltip — 28 components in total.
+- Include one static component (Site Alert) and one interactive component (Accordion) in the first vertical slice.
 - Provide component fixtures, states, usage guidance, accessibility requirements, and metadata.
 - Use namespaced public classes, custom properties, data attributes, and documented controller APIs.
 - Preserve progressive enhancement wherever the component pattern permits.
 - Build the majority of this set as themed, contract-conforming implementations of the equivalent USWDS component (see "Foundational dependency: U.S. Web Design System" below), reserving fully bespoke implementation effort for components with no USWDS equivalent (Hero, Maps, Videos, Toasts/Snackbars, Divider) or an intentional, documented divergence.
 
-**This expands the originally proposed cap of approximately 8-12 priority components to the client's complete confirmed inventory.** This is accepted as an explicit client-directed scope change, but it changes the delivery-risk profile of Phase 3 and requires the capacity, schedule, and USWDS-dependency confirmations described in section 7 (Scope change and schedule risk) before it can be treated as a committed `1.0.x` launch scope rather than an aspirational target.
+**This expands the originally proposed cap of approximately 8-12 priority components to the client's complete confirmed inventory.** This is accepted as an explicit client-directed scope change, but it changes the delivery-risk profile of Phase 3 The capacity and schedule confirmation described in section 7 (Scope change and schedule risk) was completed on 2026-10-02, and the USWDS dependency is recorded in ADR-002, so this is a committed `1.0.x` launch scope.
 
 #### Foundational dependency: U.S. Web Design System (USWDS)
 
-Most of the confirmed 1.0 component set already exists as an equivalent component in the [U.S. Web Design System](https://designsystem.digital.gov/) (Accordion, Alert/Site Alert, Breadcrumb, Button, Card, Checkbox, Combo Box, Footer, Header, Icon List, In-Page Navigation, Language Selector, Link, Modal, Process List, Radio Buttons, Search, Select, Tag, Tooltip). Reimplementing all of these from first principles would duplicate publicly available, federally maintained, accessibility-reviewed work.
+Most of the confirmed 1.0 component set already exists as an equivalent component in the [U.S. Web Design System](https://designsystem.digital.gov/) (Accordion, Breadcrumbs, Button, Card, Checkbox, Combo Box, Footer, Header, Icon List, In-Page Alert, In-Page Navigation, Input, Language Selector, Link, Modal, Process List, Radio Buttons, Search, Select, Site Alert, Tags, Tooltip). Reimplementing all of these from first principles would duplicate publicly available, federally maintained, accessibility-reviewed work.
 
 CoDS should instead consume USWDS as a foundational dependency and theme it, following the precedent set by other State/agency design systems built on USWDS, most notably the [VA.gov Design System](https://design.va.gov/): VA's CSS-Library imports USWDS Sass source with VA-specific theme settings and tokens, and VA's own component work is layered on top only where VA's product needs diverge from or extend USWDS. CoDS should adopt the same layering model, without adopting VA's separate Web Component library, since Web Components and Shadow DOM remain out of scope for this release per the accepted ADR.
 
@@ -94,7 +94,7 @@ In practice, this means:
 - Components with no USWDS equivalent (Hero, Maps, Videos, Toasts/Snackbars, Divider) are authored entirely by CoDS, using the same token and contract conventions.
 - A documented component-ownership matrix records, for every 1.0 component, whether it is themed-USWDS, CoDS-authored, or an intentional documented divergence from a USWDS equivalent.
 
-This is a material addition to the architecture accepted in the [ADR Acceptance Memo](../memos/ADR_Acceptance_Memo_2026-09-14.md), which did not previously name USWDS as a dependency. It should be recorded as an ADR amendment before Phase 1 closes, alongside confirmation that USWDS's public-domain licensing is compatible with CoDS's own release and attribution requirements. See [CODS-P1-015](../backlog/phase-1/CODS-P1-015-integrate-uswds-as-foundational-dependency.md) for the corresponding backlog task.
+This is a material addition to the architecture accepted in the [ADR Acceptance Memo](../memos/ADR_Acceptance_Memo_2026-09-14.md), which did not previously name USWDS as a dependency. It should be recorded as an ADR amendment before Phase 1 closes, alongside confirmation that USWDS's public-domain licensing is compatible with CoDS's own release and attribution requirements. See CODS-P1-015 for the corresponding backlog task.
 
 #### Public reference website
 
@@ -103,8 +103,8 @@ This is a material addition to the architecture accepted in the [ADR Acceptance 
 - Publish the initial site content architecture supplied by the client, with final navigation and page placement subject to design review.
 - Publish a home page with the CoDS description, key resource links, implementation highlights, and getting-started paths.
 - Publish the four design principles: Accessible, Trustworthy, Empowering, and Adaptable, including their supporting statements.
-- Publish foundations for Color, Elevation, Focus States, Grids & Spacing, Icons, Radius, and Typography, matching the client's final confirmed foundations inventory (2026-09-16). Logos was listed as a foundation candidate in earlier planning but is not part of the client's final foundations inventory; State design ownership must confirm whether Logos remains a separate foundation page or folds into brand/Icons guidance before Phase 3 website content work locks its navigation.
-- Publish component pages for the full approved 1.0 component set, confirmed against the client's complete Figma inventory (2026-09-16): Accordion, Breadcrumbs, Button, Card (Default and Icon variants), Checkbox, Combo Box, Divider, Footer, Header, Hero, Icon List, Input, In-Page Alert, In-Page Navigation, Language Selector, Link, Maps, Modal, Process List, Radio Buttons, Search, Select (dropdown), Site Alert, Tags, Toasts/Snackbars, Videos, and Tooltip.
+- Publish foundations for Color, Elevation, Focus States, Grids & Spacing, Icons, Radius, and Typography, matching the client's final confirmed foundations inventory (2026-09-16), plus Logos, which was approved as a foundation on 2026-10-02; a dedicated task decides whether it is a separate foundation page or folds into brand/Icons guidance before Phase 3 website content work locks its navigation.
+- Publish component pages for the full approved 1.0 component set, confirmed against the client's complete Figma inventory (2026-09-16): Accordion, Breadcrumbs, Button, Card - Default, Card - Icon, Checkbox, Combo Box, Divider, Footer, Header, Hero, Icon List, Input, In-Page Alert, In-Page Navigation, Language Selector, Link, Maps, Modal, Process List, Radio Buttons, Search, Select (dropdown), Site Alert, Tags, Toasts/Snackbars, Videos, and Tooltip.
 - Publish implementation guidance and an implementations gallery for known CoDS consumers, including Colorado Department of Revenue and other approved examples such as Colorado Tax Division and Colorado DMV when their content and imagery are available.
 - Publish About content covering who we are, State ownership and stewardship, contact routes, contribution guidance, community links, policies, and attributions.
 - Publish distinct getting-started paths for developers and designers. The developer path is dependent on the final package and component APIs; the designer path is dependent on approved Figma content and design ownership.
@@ -113,7 +113,7 @@ This is a material addition to the architecture accepted in the [ADR Acceptance 
 - Provide copyable markup, package guidance, maturity status, Figma/source links, known limitations, audit status, and implementation status.
 - Configure static previews and production deployment to State-approved hosting/CDN.
 
-The client's content inventory was originally a content and information-architecture baseline rather than a component-implementation commitment. As of the 2026-09-16 final decision, the full inventory of 27 components and 7 foundations is the confirmed `1.0.x` component list, closed at G0 per [CODS-P0-006](../backlog/phase-0/CODS-P0-006-select-capped-1-0-component-set.md), and remains capped at this set unless the client explicitly changes the launch scope or date.
+The client's content inventory was originally a content and information-architecture baseline rather than a component-implementation commitment. As of the 2026-09-16 final decision, the full inventory of 28 components and 8 foundations (Logos added 2026-10-02) is the confirmed `1.0.x` component list, closed at G0 per CODS-P0-006, and remains capped at this set unless the client explicitly changes the launch scope or date.
 
 #### Storybook workbench
 
@@ -124,7 +124,7 @@ The client's content inventory was originally a content and information-architec
 
 #### Distribution and release
 
-- Publish the token package using the approved Colorado Design System naming convention once the npm scope is confirmed.
+- Publish the token package using the approved Colorado Design System naming convention. The npm scope is set up; the project's Senior Developer publishes until the client team takes over.
 - Publish the core design-system package with CSS, controllers, fixtures, types, metadata, assets, and licenses.
 - Produce a matching release archive with compiled assets, manifest, checksums, and release notes.
 - Publish development releases in the `0.0.x` series during implementation.
@@ -153,7 +153,7 @@ The client's content inventory was originally a content and information-architec
 - Full recreation of every Figma component.
 - Guaranteed compatibility with every agency platform or assistive technology.
 - Long-term support commitments beyond the release policy approved for 1.0.
-- Full recreation of every artifact in the Figma file beyond the 27 approved components and 7 approved foundations (for example, unused exploratory variants, internal design-file organization, or components not in the client's final confirmed inventory).
+- Full recreation of every artifact in the Figma file beyond the 28 approved components and 8 approved foundations (for example, unused exploratory variants, internal design-file organization, or components not in the client's final confirmed inventory).
 
 These may become future proposals, but they cannot be allowed to expand the November release scope without an explicit change decision.
 
@@ -169,8 +169,8 @@ The schedule assumes work begins no later than September 15 and that the State, 
 **Activities**
 
 - Confirm State product owner, technical owner, design owner, accessibility owner, content owner, security contact, and release authority.
-- Confirm GitHub repository administration, npm scope, domains, hosting, recovery accounts, and required State policies.
-- Confirm final public package names and reserve the npm scope.
+- Confirm GitHub repository administration, npm scope, recovery accounts, and required State policies (access granted by the client). Domains and hosting outside GitHub are deferred until closer to launch.
+- Confirm final public package names (the npm scope is set up).
 - Confirm the initial component candidates and acceptance criteria.
 - Confirm Figma access and resource availability.
 - Create the project backlog, decision log, risk register, and weekly review cadence.
@@ -222,7 +222,7 @@ The foundation is accepted when a clean checkout can install, build, test, and p
 
 **Activities**
 
-- Implement one static component and one interactive component.
+- Implement one static component (Site Alert) and one interactive component (Accordion).
 - Carry both components through tokens, HTML/CSS/TypeScript, fixtures, Storybook, Astro documentation, package exports, archive generation, and tests.
 - Validate keyboard behavior, progressive enhancement, accessible naming, focus behavior, responsive behavior, and representative content.
 - Produce a `0.0.x` development release.
@@ -366,8 +366,8 @@ The backlog should be organized by outcomes and vertical slices rather than by t
 - Add site navigation and layouts.
 - Add the home page with key resources, implementation highlights, and getting-started entry points.
 - Add Design Principles content for Accessible, Trustworthy, Empowering, and Adaptable.
-- Add foundation pages for Color, Elevation, Focus States, Grids & Spacing, Icons, Radius, and Typography (Logos status pending State design confirmation; see section 3.1).
-- Add component pages for the full approved 1.0 component set confirmed on 2026-09-16 (27 components; see section 3.1), themed from USWDS equivalents where one exists.
+- Add foundation pages for Color, Elevation, Focus States, Grids & Spacing, Icons, Radius, and Typography, and Logos (approved 2026-10-02; see section 3.1).
+- Add component pages for the full approved 1.0 component set confirmed on 2026-09-16 (28 components; see section 3.1), themed from USWDS equivalents where one exists.
 - Add implementations, About/Who We Are, Contact, Contribute, policies, and attributions sections.
 - Add developer and designer getting-started content, with TBD areas tracked as client content dependencies until approved.
 - Add accessibility, localization, governance, release, and contribution guidance.
@@ -384,7 +384,7 @@ The backlog should be organized by outcomes and vertical slices rather than by t
 
 ### Epic G: Distribution and release
 
-- Confirm npm scope and package names.
+- Confirm package names; publishing is done by the Senior Developer until the client team takes over.
 - Build package exports and assets.
 - Generate release archive and checksums.
 - Publish `0.0.x` development releases.
@@ -393,9 +393,9 @@ The backlog should be organized by outcomes and vertical slices rather than by t
 
 ### Epic H: Full component set
 
-[CODS-P0-006](../backlog/phase-0/CODS-P0-006-select-capped-1-0-component-set.md) closed its final decision on 2026-09-16 against the client's complete Figma inventory: all 27 components and all 7 foundations listed in section 3.1 are approved for `1.0.x`. This replaces the original approach of prioritizing a reduced 8-12 component subset by service need and architectural risk.
+CODS-P0-006 closed its final decision on 2026-09-16 against the client's complete Figma inventory: all 28 components and the 7 foundations listed in section 3.1 are approved for `1.0.x`. Logos was approved as an eighth foundation on 2026-10-02. This replaces the original approach of prioritizing a reduced 8-12 component subset by service need and architectural risk.
 
-Because this is a scope expansion rather than a reduction, the remaining risk-management lever is sequencing and schedule, not component selection: build the highest-risk and most-reused items first (the USWDS foundational dependency, the icon system, and the Phase 2 vertical-slice pair), then the fifteen static-tier and twelve interactive-tier components in parallel, per the Phase 3 backlog. If capacity review during Phase 0/1 shows the full set cannot meet the November 30 gate, the appropriate response is the same one described in section 2: preserve `0.0.x` and move the supported release date, rather than silently drop components without a recorded change decision.
+Because this is a scope expansion rather than a reduction, the remaining risk-management lever is sequencing and schedule, not component selection: build the highest-risk and most-reused items first (the USWDS foundational dependency, the icon system, and the Phase 2 vertical-slice pair), then the fifteen static-tier and twelve interactive-tier components in parallel, per the Phase 3 backlog. The capacity review was completed on 2026-10-02 and supports the date. If later delivery shows the full set cannot meet the November 30 gate, the appropriate response is the same one described in section 2: preserve `0.0.x` and move the supported release date, rather than silently drop components without a recorded change decision.
 
 ## 6. Assumptions
 
@@ -404,19 +404,19 @@ This schedule depends on the following assumptions:
 - Project authorization is complete by September 15.
 - State decision-makers are available for weekly reviews and time-boxed approvals.
 - GitHub repository access and State ownership can be established during Phase 0.
-- The final npm scope is available and can be controlled by the State before publication.
+- The npm scope is set up and held by the project team; publishing moves to the client team later.
 - Figma access and qualified design resources are available by the start of Phase 1.
 - USWDS's public-domain licensing terms are compatible with CoDS's own release, attribution, and State-ownership requirements, and a pinned USWDS dependency version can be adopted without introducing unreviewed security or accessibility regressions.
-- The expanded 27-component, 7-foundation scope confirmed on 2026-09-16 can be delivered by November 30 given USWDS reuse; this assumption must be validated by an explicit capacity review before Phase 3 begins, with the fallback being a preserved `0.0.x` channel and a revised supported-release date rather than a silent scope reduction.
+- The expanded 28-component, 8-foundation scope (confirmed on 2026-09-16, with Logos added on 2026-10-02) can be delivered by November 30 given USWDS reuse; the project owner validated this assumption in a capacity review on 2026-10-02, and the fallback if it later fails is a preserved `0.0.x` channel and a revised supported-release date rather than a silent scope reduction.
 - A mapping-provider and accessible-fallback decision for the Maps component is made by the State early in Phase 1/2, since it is the one component in the confirmed set with no USWDS equivalent and a third-party runtime dependency risk.
 
 ## 7. Scope change and schedule risk
 
-This proposal originally capped the `1.0.x` component set at approximately 8-12 components, selected for architectural risk and service value rather than Figma completeness. The client's 2026-09-16 direction to include the full 27-component, 7-foundation inventory is accepted here as an explicit scope change, on the following conditions:
+This proposal originally capped the `1.0.x` component set at approximately 8-12 components, selected for architectural risk and service value rather than Figma completeness. The client's 2026-09-16 direction to include the full 28-component inventory and 7 foundations (Logos was added later) is accepted here as an explicit scope change, on the following conditions:
 
-- **USWDS reuse is the schedule mitigation.** The expanded scope is only realistic within the November 30 gate because most of the added components already exist as USWDS patterns that can be themed rather than built from scratch (see the USWDS foundational-dependency section above and [CODS-P1-015](../backlog/phase-1/CODS-P1-015-integrate-uswds-as-foundational-dependency.md)). Components with no USWDS equivalent (Hero, Maps, Videos, Toasts/Snackbars, Divider) carry disproportionately higher schedule and accessibility risk per component and should be sequenced early enough to surface problems before the release-candidate gate.
-- **This requires an ADR amendment.** The accepted ADR (2026-09-14) did not name USWDS as a dependency or approve a 27-component set. Both should be recorded as an ADR amendment, submitted alongside CODS-P1-015, before Phase 1 closes.
-- **A capacity checkpoint is required before Phase 3 begins.** If the Phase 0/1 capacity review determines the full set cannot be delivered with adequate accessibility evidence by November 30, the fallback is the same one already described in section 2: keep the `0.0.x` development channel and move the supported `1.0.x` date. Do not quietly drop components from the confirmed list without recording a new change decision.
+- **USWDS reuse is the schedule mitigation.** The expanded scope is only realistic within the November 30 gate because most of the added components already exist as USWDS patterns that can be themed rather than built from scratch (see the USWDS foundational-dependency section above and CODS-P1-015). Components with no USWDS equivalent (Hero, Maps, Videos, Toasts/Snackbars, Divider) carry disproportionately higher schedule and accessibility risk per component and should be sequenced early enough to surface problems before the release-candidate gate.
+- **This requires an ADR amendment.** The accepted ADR (2026-09-14) did not name USWDS as a dependency or approve a 28-component set. Both should be recorded as an ADR amendment, submitted alongside CODS-P1-015, before Phase 1 closes.
+- **The capacity checkpoint is complete.** The project owner confirmed on 2026-10-02 that the full set can be delivered with adequate accessibility evidence by November 30. If that later changes, the fallback is the same one already described in section 2: keep the `0.0.x` development channel and move the supported `1.0.x` date. Do not quietly drop components from the confirmed list without recording a new change decision.
 - **The Maps component needs a State decision, not just engineering time**, because it is the component most likely to require a third-party runtime dependency (a mapping/tile provider) outside the otherwise dependency-light CoDS/USWDS stack.
 - The State provides or approves hosting/CDN infrastructure for static docs and release artifacts.
 - Accessibility reviewers can participate during the vertical slice and release-hardening phases.
@@ -468,19 +468,19 @@ A gate should produce one of three outcomes: approve and proceed, approve with e
 
 ## 10. Risks and responses
 
-| Risk                                                                                               | Response                                                                                                                                                                                                                                                                         |
-| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| The November date encourages shipping an incomplete 1.0 contract                                   | Cap the component set, enforce G2/G3/G4 gates, and retain `0.0.x` if readiness criteria are not met.                                                                                                                                                                             |
-| Figma procurement or inventory is delayed                                                          | Start repository and contract work with placeholder token fixtures while treating approved token mapping as a gate for stable components.                                                                                                                                        |
-| Accessibility review becomes the final-week bottleneck                                             | Schedule manual review during the vertical slice and as each component lands, not only during Phase 4.                                                                                                                                                                           |
-| Monorepo CI becomes slow or noisy                                                                  | Add path-aware jobs, dependency-aware checks, caching, and a required full suite only at release boundaries.                                                                                                                                                                     |
-| Package scope or State ownership is not ready                                                      | Produce development archives locally or in a controlled prerelease environment, but do not claim a public supported release until ownership and publication are verified.                                                                                                        |
-| Component requests expand the scope                                                                | Route additions through the backlog owner; defer nonessential components to the next release.                                                                                                                                                                                    |
-| Public docs and component behavior diverge                                                         | Require shared fixtures or contract metadata and add representative documentation smoke tests.                                                                                                                                                                                   |
-| Website content arrives late or lacks an owner                                                     | Freeze the information architecture first, track missing copy and assets as named dependencies, and publish only approved content in the supported release.                                                                                                                      |
-| The client content inventory is mistaken for a commitment to implement every listed component      | Confirm the capped 1.0 component list at G0 and label the remaining inventory as planned or future work.                                                                                                                                                                         |
-| The expanded 27-component scope, built on a new USWDS dependency, cannot meet the November 30 gate | Sequence USWDS integration and the highest-risk no-equivalent components (Hero, Maps, Videos, Toasts/Snackbars) early; run the Phase 0/1 capacity checkpoint described in section 7 and preserve `0.0.x` with a revised date if needed rather than silently dropping components. |
-| The 0.0.x period creates false expectations of stability                                           | Label every development release clearly and publish known breaking changes.                                                                                                                                                                                                      |
+| Risk                                                                                               | Response                                                                                                                                                                                                                                                                                    |
+| -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| The November date encourages shipping an incomplete 1.0 contract                                   | Cap the component set, enforce G2/G3/G4 gates, and retain `0.0.x` if readiness criteria are not met.                                                                                                                                                                                        |
+| Figma procurement or inventory is delayed                                                          | Start repository and contract work with placeholder token fixtures while treating approved token mapping as a gate for stable components.                                                                                                                                                   |
+| Accessibility review becomes the final-week bottleneck                                             | Schedule manual review during the vertical slice and as each component lands, not only during Phase 4.                                                                                                                                                                                      |
+| Monorepo CI becomes slow or noisy                                                                  | Add path-aware jobs, dependency-aware checks, caching, and a required full suite only at release boundaries.                                                                                                                                                                                |
+| Package scope or State ownership is not ready                                                      | Produce development archives locally or in a controlled prerelease environment, but do not claim a public supported release until ownership and publication are verified.                                                                                                                   |
+| Component requests expand the scope                                                                | Route additions through the backlog owner; defer nonessential components to the next release.                                                                                                                                                                                               |
+| Public docs and component behavior diverge                                                         | Require shared fixtures or contract metadata and add representative documentation smoke tests.                                                                                                                                                                                              |
+| Website content arrives late or lacks an owner                                                     | Freeze the information architecture first, track missing copy and assets as named dependencies, and publish only approved content in the supported release.                                                                                                                                 |
+| The client content inventory is mistaken for a commitment to implement every listed component      | Confirm the capped 1.0 component list at G0 and label the remaining inventory as planned or future work.                                                                                                                                                                                    |
+| The expanded 28-component scope, built on a new USWDS dependency, cannot meet the November 30 gate | Sequence USWDS integration and the highest-risk no-equivalent components (Hero, Maps, Videos, Toasts/Snackbars) early; the capacity checkpoint described in section 7 was completed on 2026-10-02; preserve `0.0.x` with a revised date if needed rather than silently dropping components. |
+| The 0.0.x period creates false expectations of stability                                           | Label every development release clearly and publish known breaking changes.                                                                                                                                                                                                                 |
 
 ## 11. Backlog planning inputs
 
@@ -523,10 +523,10 @@ The first supported release is ready only when:
 
 Before work begins, the client should confirm:
 
-1. Whether November 30 is a hard public launch date or a target date subject to the G4 readiness gate, given the expanded 27-component scope.
-2. Approval of the USWDS foundational-dependency approach and the related ADR amendment (see [CODS-P1-015](../backlog/phase-1/CODS-P1-015-integrate-uswds-as-foundational-dependency.md)).
+1. Whether November 30 is a hard public launch date or a target date subject to the G4 readiness gate, given the expanded 28-component scope.
+2. Approval of the USWDS foundational-dependency approach and the related ADR amendment (see CODS-P1-015).
 3. The mapping provider and accessible-fallback approach for the Maps component.
-4. The State npm scope and who controls package publishing.
+4. Transfer of npm publishing from the Senior Developer to the client team.
 5. The State-approved hosting/CDN and public domain arrangements.
 6. Figma resource start date and anticipated design capacity.
 7. The stakeholder roles that must participate in accessibility, security, content, and release reviews; named personnel will be assigned during backlog planning.

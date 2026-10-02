@@ -89,6 +89,8 @@ not a running acceptance diary in this guide.
 
 ## Workflow maintenance
 
+Tag-driven `0.0.x` releases use a separate workflow, [`release.yml`](../.github/workflows/release.yml), documented in [the release workflow](RELEASE.md). Its action pins follow the same rules below.
+
 The workflow uses GitHub-hosted Ubuntu runners, read-only `contents` permission,
 checkout without persisted credentials, and no deployment secrets. All third-party
 actions are pinned to complete commit SHAs. Upgrade a pin only after verifying

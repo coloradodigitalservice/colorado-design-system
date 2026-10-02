@@ -21,4 +21,4 @@ Agent guidance was split across `.github/copilot-instructions.md`, `.github/skil
 - Skills have one home; contributors search one directory.
 - The Copilot stub is the only tool-specific entry point and can be removed once Copilot no longer needs it.
 - Path references in docs, tests, and skill scripts were updated to `.agents/skills/`.
-- Whether Copilot in VS Code and the Playwright CLI resolve `.agents/skills/` is confirmed manually, as the ticket's validation plan requires.
+- VS Code Copilot Chat discovers the skills in `.agents/skills/`, and the Playwright CLI skill installs there.

@@ -8,6 +8,12 @@ import { JSDOM } from 'jsdom';
 const root = resolve(
   fileURLToPath(new URL('../apps/web/dist/', import.meta.url)),
 );
+const designSystemVersion = JSON.parse(
+  readFileSync(
+    new URL('../packages/colorado-design-system/package.json', import.meta.url),
+    'utf8',
+  ),
+).version;
 const pages = [];
 const failures = [];
 
@@ -35,6 +41,9 @@ for (const page of pages) {
     failures.push(`${label}: missing labeled documentation navigation`);
   if (document.querySelectorAll('h1').length !== 1)
     failures.push(`${label}: expected exactly one h1`);
+  const release = document.querySelector('footer [data-cods-release]');
+  if (release?.getAttribute('data-cods-release') !== designSystemVersion)
+    failures.push(`${label}: footer must show release ${designSystemVersion}`);
   const main = document.querySelector('main[id]');
   if (!main || !document.querySelector(`a[href="#${main.id}"]`))
     failures.push(`${label}: skip link does not target main`);

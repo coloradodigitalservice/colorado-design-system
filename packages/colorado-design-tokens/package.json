@@ -19,6 +19,10 @@
     "style-dictionary": "5.5.5"
   },
   "type": "module",
+  "files": [
+    "_index.scss",
+    "generated"
+  ],
   "sass": "./_index.scss",
   "exports": {
     ".": {

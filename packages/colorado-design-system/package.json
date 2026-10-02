@@ -8,6 +8,9 @@
     "directory": "packages/colorado-design-system"
   },
   "type": "module",
+  "files": [
+    "dist"
+  ],
   "sideEffects": [
     "*.css",
     "dist/**/*.css"
