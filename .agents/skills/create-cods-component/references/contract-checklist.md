@@ -15,7 +15,7 @@ Quick-reference summary of [docs/governance/component-contract.md](../../../../d
 
 ## CSS
 
-- Lives in the `cods.components` layer only.
+- Lives in the `cods.components` layer only, which is declared after the `uswds` layer so it overrides USWDS without `!important` or extra specificity.
 - Uses tokens from `@coloradodigitalservice/colorado-design-tokens`; no hard-coded values that already have a token.
 
 ## Controller lifecycle (interactive only)

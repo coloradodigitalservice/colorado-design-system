@@ -63,6 +63,10 @@ Consumers must not rely on undeclared export paths. Per-component imports will b
 
 The `@coloradodigitalservice/colorado-design-tokens` package is marked external and not bundled; consumers must install it separately.
 
+### Cascade Layers
+
+`src/styles/index.scss` forwards `_cods-layers.scss` first, which declares `@layer uswds, cods.reset, cods.base, cods.components, cods.utilities;`. USWDS is loaded into the `uswds` layer by `_uswds-layer.scss` after `uswds-theme` configures it, and the color/typography overrides live in `cods.base`. Component rules go in `cods.components`, so they override USWDS without `!important`; consumer unlayered CSS overrides CoDS. USWDS utility classes use `!important` and cannot be overridden by normal declarations. The build sets `cssMinify: 'esbuild'` so the order statement stays first in `dist/colorado-design-system.css`. See [ADR-007](adrs/007-cascade-layer-order.md).
+
 ## Design Tokens Package (`colorado-design-tokens`)
 
 ### Build System
