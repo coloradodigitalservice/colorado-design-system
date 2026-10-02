@@ -16,7 +16,7 @@ Quick-reference summary of [docs/governance/component-contract.md](../../../../d
 
 ## CSS
 
-- Lives in the `cods.components` layer only. Exception until CODS-P1-018 lands: a type A override of a `.usa-*` rule must be unlayered, because USWDS is unlayered (see [uswds-wrapper.md](./uswds-wrapper.md)).
+- Lives in the `cods.components` layer only. USWDS is currently unlayered, so a layered rule cannot override a `.usa-*` rule until CODS-P1-018 lands; do not work around it with unlayered styles (see [uswds-wrapper.md](./uswds-wrapper.md)).
 - Uses tokens from `@coloradodigitalservice/colorado-design-tokens`; no hard-coded values that already have a token.
 
 ## Controller lifecycle (interactive only)

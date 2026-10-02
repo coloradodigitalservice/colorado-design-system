@@ -193,6 +193,7 @@ describe('create-cods-component scaffold script', () => {
     );
     expect(story).toContain('components/probe-box/probe-box.fixture.html?raw');
     expect(story).toContain("title: 'Components/Probe Box'");
+    expect(story).toContain('play: ({ canvasElement })');
 
     const index = readFileSync(
       join(root, 'packages/colorado-design-system/src/components/index.ts'),

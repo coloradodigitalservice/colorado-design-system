@@ -8,11 +8,10 @@ import { initAll } from '../../../../packages/colorado-design-system/src/compone
 
 const meta = {
   title: 'Components/__DISPLAY_NAME__',
-  render: () => {
-    const container = document.createElement('div');
-    container.innerHTML = fixtureHtml;
-    initAll(container);
-    return container;
+  render: () => fixtureHtml,
+  // The story root is mounted by `play`; controllers that look up elements by id need that.
+  play: ({ canvasElement }) => {
+    initAll(canvasElement);
   },
 } satisfies Meta;
 
