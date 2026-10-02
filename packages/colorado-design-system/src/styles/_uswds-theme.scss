@@ -19,8 +19,8 @@
 /// @coloradodigitalservice/colorado-design-tokens) and are NOT pixel-identical
 /// to Colorado's brand hex values. Exact-hex brand colors for the roles that
 /// have an unambiguous Colorado token are enforced separately by
-/// `_cods-color-overrides.scss`, which is forwarded after `uswds` in
-/// `index.scss`. Roles with no dedicated Colorado token remain at USWDS's
+/// `_cods-color-overrides.scss`, which is forwarded after `uswds` in the same
+/// `uswds` layer (see `index.scss`). Roles with no dedicated Colorado token remain at USWDS's
 /// approximation here — see that file's "Known gaps" section and ADR-002,
 /// Open Questions.
 ///

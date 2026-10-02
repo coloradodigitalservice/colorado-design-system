@@ -52,4 +52,4 @@ Verified against `@uswds/uswds` 3.14.0. The accordion findings come from a throw
 ## Related decisions
 
 - ADR-002: this ADR adds JavaScript to its component strategy.
-- CODS-P1-018 (cascade layering) is independent but changes the same contract and stylesheet entry point.
+- [ADR-007](007-cascade-layer-order.md) (CODS-P1-018) places USWDS CSS in a lowest `uswds` cascade layer. It is independent of JavaScript ingestion but changes the same contract and stylesheet entry point.

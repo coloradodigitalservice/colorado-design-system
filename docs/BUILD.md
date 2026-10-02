@@ -64,6 +64,10 @@ Consumers must not rely on undeclared export paths. Per-component imports will b
 
 The `@coloradodigitalservice/colorado-design-tokens` package is marked external and not bundled; consumers must install it separately.
 
+### Cascade Layers
+
+`src/styles/index.scss` forwards `_cods-layers.scss` first, which declares `@layer uswds, cods.reset, cods.base, cods.components, cods.utilities;`. USWDS is loaded into the `uswds` layer by `_uswds-layer.scss` after `uswds-theme` configures it, and the color/typography overrides follow it in the same layer, so they still lose to USWDS's higher-specificity variant, state, and `:visited` rules. Component rules go in `cods.components`, so they override USWDS without `!important`; consumer unlayered CSS overrides CoDS. USWDS utility classes use `!important` and cannot be overridden by normal declarations. The build sets `cssMinify: 'esbuild'` so the order statement stays first in `dist/colorado-design-system.css`. See [ADR-007](adrs/007-cascade-layer-order.md).
+
 ### USWDS JavaScript
 
 Interactive Type A components import the single USWDS behavior they wrap (for example `@uswds/uswds/js/usa-accordion`), as decided in [ADR-006](adrs/006-uswds-javascript-ingestion.md). USWDS ships these as CommonJS; Vite bundles them into `colorado-design-system.mjs`, so consumers load one `<script type="module">` and need no CommonJS handling. `@uswds/uswds` is deliberately not external. To confirm a build, check that `dist/colorado-design-system.mjs` contains no `require(` and no `uswdsPresent`. The wrapper pattern is in [contract section 4.5](governance/component-contract.md#45-wrapping-uswds-javascript).

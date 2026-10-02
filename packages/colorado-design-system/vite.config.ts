@@ -70,5 +70,8 @@ export default defineConfig({
     outDir: 'dist',
     emptyOutDir: true,
     sourcemap: false,
+    // Lightning CSS splits the leading `@layer` order statement and moves
+    // parts of it after rules; esbuild keeps it intact at the top.
+    cssMinify: 'esbuild',
   },
 });
