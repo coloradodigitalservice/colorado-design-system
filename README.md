@@ -38,11 +38,39 @@ The core package depends on tokens. The apps and example depend on core; the app
 
 Install enables the Husky pre-commit hook. It runs lint-staged on changed source and documentation files. No environment variables are required for the current toolchain; `.env.example` documents this and must never contain credentials. The TypeScript baseline is in `config/typescript/tsconfig.base.json`. Root ESLint, Stylelint, Prettier, and Vitest configurations cover the current source types, including future Astro files.
 
-Node, pnpm, Turbo, and all toolchain dependencies are pinned to exact versions. Upgrade them in a reviewed change, update `pnpm-lock.yaml`, run every root check, and repeat the frozen install in a fresh clone. Token generation and package builds are implemented via [Style Dictionary](packages/colorado-design-tokens/README.md) and [Vite](docs/BUILD.md) respectively. Astro, Storybook, and development commands remain later work.
+Node, pnpm, Turbo, and all toolchain dependencies are pinned to exact versions. Upgrade them in a reviewed change, update `pnpm-lock.yaml`, run every root check, and repeat the frozen install in a fresh clone. Token generation and package builds are implemented via [Style Dictionary](packages/colorado-design-tokens/README.md) and [Vite](docs/BUILD.md) respectively. Astro and Storybook development is coordinated by the root Turbo watch commands.
 
 ## Build & Development
 
 The [Build Architecture guide](docs/BUILD.md) describes the complete package build configuration, dependency alignment, and development workflow for both `colorado-design-tokens` and `colorado-design-system`.
+
+**Development commands:**
+
+```sh
+pnpm dev                 # Docs + Storybook + dependency rebuilds
+pnpm dev:web             # Docs + dependency rebuilds
+pnpm dev:storybook       # Storybook + dependency rebuilds
+```
+
+Docs run at <http://127.0.0.1:4321/> and Storybook at
+<http://127.0.0.1:6006/>. Run one of these commands per checkout. Each builds
+its shared dependencies before starting the requested app(s), so a clean
+checkout does not need a separate package build. Ctrl+C stops the session.
+Browsers do not open automatically, and occupied ports cause startup to fail
+rather than move to another port.
+
+Turbo watches token and design-system inputs and rebuilds them in dependency
+order. Astro and Storybook handle their own page/story updates. This includes
+component Sass/TypeScript, fixture HTML, metadata, and DTCG token source changes;
+package assets are refreshed by the normal build hooks. Generated token output
+remains tracked and must be reviewed when token sources change. Watch inputs
+exclude the token build's own `generated/` output to avoid rebuild loops.
+
+Use the root commands for development. Direct app `dev` scripts bypass dependency
+building/watching; the package's `build:watch` watches Vite's module graph and is
+useful for styles/code alone, but does not cover every copied fixture or metadata
+input. The root workflow uses Turbo's task-input-aware watch mode (enabled in the
+pinned version) to cover those files as well.
 
 **Common build commands:**
 

@@ -261,6 +261,11 @@ function main() {
   console.log(
     'Not automated: registering the Sass partial in the package stylesheet and the browser spec; see SKILL.md.',
   );
+  if (args.type === 'interactive' && componentType !== 'B') {
+    console.log(
+      'Type A/C interactive: replace the generated controller with a thin wrapper over the USWDS behavior (contract section 4.5; references/uswds-wrapper.md).',
+    );
+  }
 }
 
 main();

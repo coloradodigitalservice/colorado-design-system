@@ -36,6 +36,7 @@ After build, the `dist/` directory contains:
 | ---------------------------- | ------------------------------------------- |
 | `colorado-design-system.mjs` | ESM bundle with all components and exports  |
 | `colorado-design-system.css` | Compiled CSS from `src/styles/index.scss`   |
+| `fonts/`, `img/`             | Fonts and USWDS icons the CSS references    |
 | `index.d.ts`                 | TypeScript type declarations for main entry |
 | `components/*.d.ts`          | Component-specific type declarations        |
 
@@ -62,6 +63,12 @@ Consumers must not rely on undeclared export paths. Per-component imports will b
 ### External Dependencies
 
 The `@coloradodigitalservice/colorado-design-tokens` package is marked external and not bundled; consumers must install it separately.
+
+### USWDS JavaScript
+
+Interactive Type A components import the single USWDS behavior they wrap (for example `@uswds/uswds/js/usa-accordion`), as decided in [ADR-006](adrs/006-uswds-javascript-ingestion.md). USWDS ships these as CommonJS; Vite bundles them into `colorado-design-system.mjs`, so consumers load one `<script type="module">` and need no CommonJS handling. `@uswds/uswds` is deliberately not external. To confirm a build, check that `dist/colorado-design-system.mjs` contains no `require(` and no `uswdsPresent`. The wrapper pattern is in [contract section 4.5](governance/component-contract.md#45-wrapping-uswds-javascript).
+
+USWDS's CSS references icons by relative `url()`. `_uswds-theme.scss` sets `$theme-font-path` and `$theme-image-path` to `./fonts` and `./img`, and the Vite config copies those assets into `dist/` after the build. Vite warns that these paths "didn't resolve at build time"; this is expected, and they resolve at runtime from `dist/`.
 
 ## Design Tokens Package (`colorado-design-tokens`)
 
@@ -160,3 +167,23 @@ Both build systems depend on consistent Node.js and tool versions:
 Storybook and Astro configurations manage their own Vite instances; see their respective documentation for version alignment.
 
 See [Foundation CI](CI.md) for path selection, browser checks, preview artifacts, and deployment prerequisites.
+
+## Local development orchestration
+
+From the root, `pnpm dev` runs `turbo watch dev`, while `pnpm dev:web` and
+`pnpm dev:storybook` filter to one app. The `dev` task is persistent and uncached;
+`^build` completes dependency builds before starting the app. Astro and Storybook
+keep their own dev servers running and detect changes in the built package
+files. Turbo reruns finite dependency builds when their source inputs change,
+covering copied assets as well as the Vite module graph.
+
+The pinned Turbo version enables `futureFlags.watchUsingTaskInputs`. Token
+build/validation inputs exclude `generated/**` so rebuilding tracked token
+outputs does not trigger another build. Token outputs stay committed and are
+still checked by `pnpm tokens:check` and the release pipeline.
+
+Use ports 4321 (docs) and 6006 (Storybook); occupied ports fail explicitly.
+Stop the current development command before starting another or running the
+browser test suite, which owns these same ports. App source updates use the
+framework's normal hot reload; shared package updates take a short rebuild.
+No production server or new runtime dependency is introduced.

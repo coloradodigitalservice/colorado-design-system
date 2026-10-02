@@ -41,16 +41,16 @@ Scaffolding a component does **not** by itself finish it. Every TODO in the gene
 
 3. Replace every `TODO` with the component's real markup, styles, behavior, and description.
 4. Add one fixture block per documented state (default, focus, disabled, error, loading, empty, long-content, as applicable) and list them in `metadata.json`.
-5. For type A or C, follow [themed USWDS components](./references/uswds-wrapper.md) before writing markup, styles, or behavior: keep `usa-*` classes and add `cods-*` alongside, and use USWDS's own JavaScript rather than reimplementing it.
+5. For type A or C, follow [themed USWDS components](./references/uswds-wrapper.md) before writing markup, styles, or behavior: keep `usa-*` classes and add `cods-*` alongside, and use USWDS's own JavaScript rather than reimplementing it. For an interactive one, replace the generated controller with a thin wrapper over the USWDS behavior ([contract section 4.5](../../../docs/governance/component-contract.md#45-wrapping-uswds-javascript)).
 6. Need a color, spacing, or other value with no token? Stop and use the [token change skill](../cods-token-change/SKILL.md). Never hard-code it.
-7. Work through the [registration and handoff checklist](./references/registration-checklist.md): the parts the script does not automate (Sass registration, browser spec, package export).
+7. Work through the [registration and handoff checklist](./references/registration-checklist.md): the parts the script does not automate (Sass registration, browser specs, package export).
 8. Complete the accessibility evidence with the [accessibility review skill](../cods-accessibility-review/SKILL.md). Do not leave items blank, and do not mark the component `stable`.
 9. Walk the [acceptance-criteria checklist](../../../docs/governance/component-contract.md#7-acceptance-criteria-checklist) and run `pnpm check` from the repo root.
 
 ## Reference
 
 - [Condensed contract checklist](./references/contract-checklist.md) — quick lookup without opening the full contract.
-- [Registration and handoff checklist](./references/registration-checklist.md) — what the script does not do.
-- [Themed USWDS components](./references/uswds-wrapper.md) — type A and C workflow and open questions.
+- [Registration and handoff checklist](./references/registration-checklist.md) — what the script does not do: exports, story, browser specs, and metadata steps.
+- [Themed USWDS components](./references/uswds-wrapper.md) — type A and C workflow, including how to wrap a USWDS behavior in a controller.
 - [Full canonical component contract](../../../docs/governance/component-contract.md) — normative source; consult this for anything the checklist doesn't resolve.
 - [Scaffold script](./scripts/create-component.mjs) — run with `--help` for argument details.

@@ -24,6 +24,7 @@ Quick-reference summary of [docs/governance/component-contract.md](../../../../d
 - `init(root)`: find elements by `data-cods-*`, attach listeners, read initial state from markup. Idempotent. Warns (never throws) if required elements are missing.
 - `destroy(root)`: removes everything `init` added; safe to call without a prior `init`.
 - No global state, no dependency on a bundler beyond a plain ES module.
+- Interactive type A: the controller is a thin wrapper over the USWDS behavior (`on(root)` / `off(root)`), and `destroy` also restores what the behavior leaves behind. See [contract section 4.5](../../../../docs/governance/component-contract.md#45-wrapping-uswds-javascript) and [uswds-wrapper.md](./uswds-wrapper.md#wrapping-a-uswds-behavior).
 
 ## Progressive enhancement
 
