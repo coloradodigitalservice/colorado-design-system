@@ -34,7 +34,7 @@ Colorado's three brand fonts (Open Sans, Museo Slab, Source Code Pro) are self-h
 
 ### 4. Heading role architecture
 
-`$theme-font-role-heading` is set to `'sans'` (Open Sans), matching the h2–h6 majority. Museo Slab at weight 500 is applied only to `h1` via a dedicated override file, `_cods-typography-overrides.scss`, in the `cods.base` layer above the `uswds` layer (see ADR-007; same pattern as the existing color-override layer in ADR-002). This is a necessary workaround for USWDS's lack of a per-heading-level family/weight setting — not a preference.
+`$theme-font-role-heading` is set to `'sans'` (Open Sans), matching the h2–h6 majority. Museo Slab at weight 500 is applied only to `h1` via a dedicated override file, `_cods-typography-overrides.scss`, in the same `uswds` layer as USWDS and forwarded after it (see ADR-007; same pattern as the existing color-override layer in ADR-002). This is a necessary workaround for USWDS's lack of a per-heading-level family/weight setting — not a preference.
 
 ### 5. Trebuchet MS as system fallback only
 

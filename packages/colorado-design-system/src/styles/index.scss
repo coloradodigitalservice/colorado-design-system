@@ -3,8 +3,9 @@
 /// Declares the cascade layer order (`_cods-layers.scss`), configures USWDS
 /// theme settings (`_uswds-theme.scss`), loads the themed USWDS library into
 /// the lowest `uswds` layer (`_uswds-layer.scss`), and applies the CoDS color
-/// and typography overrides in `cods.base` so Colorado's own tokens are
-/// authoritative.
+/// and typography overrides after it, in the same `uswds` layer, so Colorado's
+/// own tokens win over USWDS without out-ranking its higher-specificity
+/// variant and state rules.
 ///
 /// The layer-order partial is forwarded first so its statement precedes every
 /// layered rule. Sass module configuration must happen before USWDS is used

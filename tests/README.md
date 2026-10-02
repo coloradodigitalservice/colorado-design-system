@@ -145,7 +145,9 @@ screen-reader, zoom/reflow, forced-colors, and localization evidence.
 through a routed fixture and proves the cascade layer order with computed styles
 in all three browsers: the order statement leads the stylesheet, a low-specificity
 `cods.components` rule beats USWDS, a consumer's unlayered rule beats CoDS, the
-`cods.base` overrides beat USWDS, and USWDS fonts still load. Build the design
+color overrides beat USWDS, inverse and disabled outline buttons keep USWDS's
+variant colors, no `.usa-*` rule sits outside the `uswds` layer (computed style
+cannot see `:visited`), and USWDS fonts still load. Build the design
 system (`pnpm build`) before running it. See [ADR-007](../docs/adrs/007-cascade-layer-order.md).
 
 ## Visual regression conventions for Phase 2 onward

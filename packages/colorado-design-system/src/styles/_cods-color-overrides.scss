@@ -14,15 +14,17 @@
 /// USWDS's default rather than guessed — see "Known gaps" at the end of this
 /// file.
 ///
-/// Rules live in the `cods.base` layer, which is declared after the `uswds`
-/// layer in `_cods-layers.scss`, so they win without `!important`.
+/// Rules live in the `uswds` layer, after the USWDS library, so they compete
+/// with USWDS by specificity and then source order, exactly as before layering:
+/// a USWDS variant or state rule with higher specificity (inverse, visited,
+/// disabled) still wins. Moving them to a higher layer would override those.
 ///
 /// Task: CODS-P1-015 — Integrate USWDS as the foundational dependency
 /// Decision record: docs/adrs/002-uswds-foundational-dependency.md
 
 @use '@coloradodigitalservice/colorado-design-tokens/tokens.css';
 
-@layer cods.base {
+@layer uswds {
   // Primary button
   .usa-button {
     background-color: var(--cods-color-bg-action-primary);
