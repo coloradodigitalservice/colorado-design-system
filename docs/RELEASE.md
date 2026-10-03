@@ -71,7 +71,7 @@ pnpm build
 pnpm release:artifacts v0.0.1        # writes ./release (ignored by Git)
 ```
 
-`--allow-untagged` skips the tag-exists check for a dry run before tagging; `--out <dir>` changes the output directory. Archive bytes include file timestamps, so rebuilding yields different hashes; the published `SHA256SUMS` is the reference for a given release.
+`--allow-untagged` skips the tag-exists check for a dry run before tagging; `--out <dir>` changes the output directory. The script deletes that directory first, so it refuses a missing value, the repository root or any parent, anything inside `.git`, and any non-empty directory that is not a previous release output. Archive bytes include file timestamps, so rebuilding yields different hashes; the published `SHA256SUMS` is the reference for a given release.
 
 ## Rollback
 

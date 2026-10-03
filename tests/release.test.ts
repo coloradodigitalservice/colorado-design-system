@@ -1,7 +1,21 @@
 // @vitest-environment node
-import { describe, expect, it } from 'vitest';
+import { spawnSync } from 'node:child_process';
+import {
+  copyFileSync,
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  rmSync,
+  symlinkSync,
+  writeFileSync,
+} from 'node:fs';
+import { tmpdir } from 'node:os';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { afterEach, describe, expect, it } from 'vitest';
 import {
   accessibilityLines,
+  assertSafeOutputDir,
   buildChangelog,
   changeEntries,
   formatChecksums,
@@ -181,5 +195,97 @@ describe('SBOM validation', () => {
     expect(() => validateSbom({ ...sbom, components: [] }, expected)).toThrow(
       /does not list uswds/,
     );
+  });
+});
+
+const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
+const scratch: string[] = [];
+
+function fixture() {
+  const dir = mkdtempSync(join(tmpdir(), 'cods-release-test-'));
+  scratch.push(dir);
+  return dir;
+}
+
+afterEach(() => {
+  for (const dir of scratch.splice(0))
+    rmSync(dir, { recursive: true, force: true });
+});
+
+describe('output directory safety', () => {
+  it('rejects the repository root, its ancestors, and .git', () => {
+    const root = fixture();
+    mkdirSync(join(root, '.git'));
+    expect(() => assertSafeOutputDir(root, root)).toThrow(/repository root/);
+    expect(() => assertSafeOutputDir(dirname(root), root)).toThrow(
+      /repository root/,
+    );
+    expect(() => assertSafeOutputDir(join(root, '.git'), root)).toThrow(
+      /inside \.git/,
+    );
+  });
+
+  it('rejects a symlink that points at the repository root', () => {
+    const root = fixture();
+    const link = join(fixture(), 'out');
+    symlinkSync(root, link);
+    expect(() => assertSafeOutputDir(link, root)).toThrow(/repository root/);
+  });
+
+  it('rejects a non-empty directory that is not a previous release output', () => {
+    const root = fixture();
+    const out = join(root, 'notes');
+    mkdirSync(out);
+    writeFileSync(join(out, 'keep.txt'), 'x');
+    expect(() => assertSafeOutputDir(out, root)).toThrow(/not empty/);
+  });
+
+  it('accepts a new, empty, or previous release directory', () => {
+    const root = fixture();
+    const empty = join(root, 'empty');
+    const previous = join(root, 'previous');
+    mkdirSync(empty);
+    mkdirSync(previous);
+    writeFileSync(join(previous, 'release-manifest.json'), '{}');
+    expect(() =>
+      assertSafeOutputDir(join(root, 'release'), root),
+    ).not.toThrow();
+    expect(() => assertSafeOutputDir(empty, root)).not.toThrow();
+    expect(() => assertSafeOutputDir(previous, root)).not.toThrow();
+  });
+});
+
+describe('release script destructive-input regression', () => {
+  function checkout() {
+    const root = fixture();
+    mkdirSync(join(root, 'scripts'));
+    for (const file of ['release.mjs', 'release-lib.mjs']) {
+      copyFileSync(
+        join(repoRoot, 'scripts', file),
+        join(root, 'scripts', file),
+      );
+    }
+    writeFileSync(join(root, 'source.txt'), 'keep me');
+    mkdirSync(join(root, '.git'));
+    return root;
+  }
+
+  it.each([
+    [['--out'], /--out requires a directory/],
+    [['--out', '--allow-untagged'], /--out requires a directory/],
+    [['--out', '.'], /Refusing --out/],
+    [['--out', '..'], /Refusing --out/],
+  ])('rejects %j before deleting anything', (args, message) => {
+    const root = checkout();
+    const result = spawnSync(
+      process.execPath,
+      ['scripts/release.mjs', 'v0.0.1', ...args],
+      { cwd: root, encoding: 'utf8' },
+    );
+    expect(result.status).not.toBe(0);
+    expect(result.stderr).toMatch(message);
+    expect(existsSync(join(root, 'source.txt'))).toBe(true);
+    expect(existsSync(join(root, '.git'))).toBe(true);
+    expect(existsSync(join(root, 'scripts', 'release.mjs'))).toBe(true);
   });
 });

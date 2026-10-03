@@ -19,6 +19,7 @@ import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
+  assertSafeOutputDir,
   buildChangelog,
   buildManifest,
   formatChecksums,
@@ -52,8 +53,12 @@ function parseArguments(argv) {
   const options = { out: join(root, 'release'), allowUntagged: false };
   let tag;
   for (let i = 0; i < argv.length; i++) {
-    if (argv[i] === '--out') options.out = resolve(argv[++i] ?? '');
-    else if (argv[i] === '--allow-untagged') options.allowUntagged = true;
+    if (argv[i] === '--out') {
+      const value = argv[++i];
+      if (!value || value.startsWith('--'))
+        throw new Error('--out requires a directory path');
+      options.out = resolve(value);
+    } else if (argv[i] === '--allow-untagged') options.allowUntagged = true;
     else if (!tag && !argv[i].startsWith('--')) tag = argv[i];
     else throw new Error(`Unexpected argument: ${argv[i]}`);
   }
@@ -325,6 +330,7 @@ function verifyCleanInstall(out, version, tokensFile, systemFile, archiveFile) {
 
 function main() {
   const { tag, out, allowUntagged } = parseArguments(process.argv.slice(2));
+  assertSafeOutputDir(out, root);
   const version = versionFromTag(tag);
   const source = verifySource(tag, allowUntagged);
   const manifests = verifyVersions(version);

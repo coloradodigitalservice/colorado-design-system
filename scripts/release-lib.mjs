@@ -1,5 +1,19 @@
 import { createHash } from 'node:crypto';
-import { readFileSync } from 'node:fs';
+import {
+  existsSync,
+  readFileSync,
+  readdirSync,
+  realpathSync,
+  statSync,
+} from 'node:fs';
+import {
+  basename,
+  dirname,
+  isAbsolute,
+  join,
+  relative,
+  resolve,
+} from 'node:path';
 
 const RELEASE_TAG = /^v((?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*))$/;
 
@@ -26,6 +40,49 @@ export function releaseChannel(version) {
 
 export function sha256(path) {
   return createHash('sha256').update(readFileSync(path)).digest('hex');
+}
+
+// Resolves symlinks in the deepest existing ancestor so a link cannot hide the repository root.
+function realResolve(path) {
+  const absolute = resolve(path);
+  const missing = [];
+  let current = absolute;
+  while (!existsSync(current)) {
+    missing.unshift(basename(current));
+    const parent = dirname(current);
+    if (parent === current) break;
+    current = parent;
+  }
+  return join(realpathSync(current), ...missing);
+}
+
+// The release script deletes its output directory, so refuse anything that is not clearly disposable.
+export function assertSafeOutputDir(out, root) {
+  const target = realResolve(out);
+  const repo = realResolve(root);
+  const fromTarget = relative(target, repo);
+  if (
+    fromTarget === '' ||
+    (!fromTarget.startsWith('..') && !isAbsolute(fromTarget))
+  ) {
+    throw new Error(
+      `Refusing --out ${out}: it is the repository root or contains it`,
+    );
+  }
+  const fromGit = relative(join(repo, '.git'), target);
+  if (fromGit === '' || (!fromGit.startsWith('..') && !isAbsolute(fromGit))) {
+    throw new Error(`Refusing --out ${out}: it is inside .git`);
+  }
+  if (!existsSync(target)) return;
+  if (!statSync(target).isDirectory()) {
+    throw new Error(`Refusing --out ${out}: it is not a directory`);
+  }
+  const entries = readdirSync(target);
+  if (entries.length > 0 && !entries.includes('release-manifest.json')) {
+    throw new Error(
+      `Refusing --out ${out}: it is not empty and is not a previous release output`,
+    );
+  }
 }
 
 // `requires` lists dependency names that must appear in the SBOM (for example bundled USWDS).
