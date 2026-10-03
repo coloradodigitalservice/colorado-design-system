@@ -36,7 +36,7 @@ Quick-reference summary of [docs/governance/component-contract.md](../../../../d
 - `maturity`: `experimental` | `stable` | `deprecated` — `stable` requires completed accessibility evidence and every acceptance-criteria item satisfied.
 - `type`: `static` | `interactive`
 - `uswdsEquivalent`: USWDS id or `null`
-- `uswdsVersion`, `componentType` (`A` themed USWDS, `B` CoDS-authored, `C` divergent), `divergenceApproved`, `divergenceNotes`, and `owners.consulted`/`owners.informed` come from the [ownership matrix](../../../../docs/governance/component-ownership-matrix.md#component-metadata-schema). Contract section 5 does not list them yet; the scaffold follows the matrix.
+- `uswdsVersion`, `componentType` (`A` themed USWDS, `B` CoDS-authored, `C` divergent), `divergenceApproved`, `divergenceNotes`, and `owners.consulted`/`owners.informed` are defined in [contract section 5](../../../../docs/governance/component-contract.md#5-metadata-and-maturity-model) and mirrored in the [ownership matrix](../../../../docs/governance/component-ownership-matrix.md#component-metadata-schema); the scaffold fills them in.
 - `progressiveEnhancement`, `localization`: see contract section 5 for allowed values.
 
 ## Accessibility evidence (`accessibility/<name>.evidence.md`)

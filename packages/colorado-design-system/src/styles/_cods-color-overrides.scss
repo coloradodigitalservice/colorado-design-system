@@ -19,7 +19,6 @@
 /// a USWDS variant or state rule with higher specificity (inverse, visited,
 /// disabled) still wins. Moving them to a higher layer would override those.
 ///
-/// Task: CODS-P1-015 — Integrate USWDS as the foundational dependency
 /// Decision record: docs/adrs/002-uswds-foundational-dependency.md
 
 @use '@coloradodigitalservice/colorado-design-tokens/tokens.css';

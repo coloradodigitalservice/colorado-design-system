@@ -1,13 +1,13 @@
 # CoDS Release Rollback Runbook
 
 **Status:** Draft for G0 approval  
-**Related backlog item:** [CODS-P0-004](../backlog/phase-0/CODS-P0-004-confirm-hosting-and-recovery.md)
+**Related backlog item:** CODS-P0-004
 
 ## Purpose
 
-Define how Colorado Design System documentation, Storybook, and release artifacts are restored after a production release problem. This runbook is provider-neutral until the State-approved hosting and CDN decision is recorded. It does not authorize a production change by itself.
+Define how Colorado Design System documentation, Storybook, and release artifacts are restored after a production release problem. This runbook is provider-neutral until a production hosting and CDN decision is recorded. Until then, documentation and Storybook previews are GitHub Actions artifacts and releases are GitHub releases; hosting and a domain outside GitHub will be arranged closer to launch. It does not authorize a production change by itself.
 
-## Preconditions to record at G0
+## Preconditions to record before launch
 
 - State-approved hosting and CDN provider, production URLs, and the provider-specific rollback command or console procedure.
 - State release owner, named deployer, State technology owner, incident notification channel, and access-recovery contacts.

@@ -1,7 +1,7 @@
 # Repository Access and CODEOWNERS
 
 **Status:** Draft for G0 approval  
-**Related backlog item:** [CODS-P0-002](../backlog/phase-0/CODS-P0-002-establish-repository-and-access.md)
+**Related backlog item:** CODS-P0-002
 
 ## Purpose
 

@@ -314,7 +314,7 @@ When a consuming project upgrades CoDS, they implicitly update the pinned USWDS 
 
 ---
 
-**Document ID:** CODS-USWDS-UPGRADE-POLICY  
+**Document ID:** USWDS-UPGRADE-POLICY  
 **Maintained by:** Aten Design Group (technical lead)  
 **Approved by:** [State Technical Owner signature & date TBD]  
 **Repository:** `docs/governance/USWDS-UPGRADE-POLICY.md`

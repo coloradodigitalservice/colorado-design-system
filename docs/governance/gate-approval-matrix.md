@@ -1,7 +1,7 @@
 # CoDS Gate Approval Matrix
 
 **Status:** Draft for G0 approval  
-**Related backlog item:** [CODS-P0-001](../backlog/phase-0/CODS-P0-001-establish-ownership-and-decision-rights.md)
+**Related backlog item:** CODS-P0-001
 
 The responsible delivery lead assembles gate evidence and the required domain roles review it. Approval is recorded by the accountable role below. Silence or completion of implementation tasks does not constitute approval.
 

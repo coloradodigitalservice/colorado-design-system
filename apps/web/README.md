@@ -1,6 +1,6 @@
 # Colorado Design System documentation
 
-This private Astro workspace is the static documentation site for the Colorado Design System. The approved monorepo path is `apps/web` (the upstream CODS-P1-005 ticket calls it `apps/docs`; see ADR-001).
+This private Astro workspace is the static documentation site for the Colorado Design System. The approved monorepo path is `apps/web` (the accepted architecture memo calls it `apps/docs`; see ADR-001).
 
 ## Run locally
 
@@ -28,6 +28,6 @@ The local preview command is not required for deployment.
 
 ## Preview deployment
 
-Configure the approved static host to install at the repository root with `pnpm install --frozen-lockfile`, build with `pnpm build`, and publish `apps/web/dist`. Enable per-branch or per-pull-request preview deployments in the host. Point the preview URL at the `dist` artifact; do not configure a production Node server or SSR adapter. The hosting owner still needs to select and connect the actual provider before a remote preview URL can exist.
+Configure the approved static host to install at the repository root with `pnpm install --frozen-lockfile`, build with `pnpm build`, and publish `apps/web/dist`. Enable per-branch or per-pull-request preview deployments in the host. Point the preview URL at the `dist` artifact; do not configure a production Node server or SSR adapter. Hosting and a domain outside GitHub are not provisioned yet; they will be arranged closer to launch.
 
 Documentation entries live in `src/content/docs/*.md`. Each entry requires `title`, `description`, `navLabel`, and `order` frontmatter. The collection schema checks these at build time; navigation and static routes are generated from the same entries. Site shell styles live in `src/styles/site.css` and consume generated tokens. Component styles remain in the design-system package for future component examples.

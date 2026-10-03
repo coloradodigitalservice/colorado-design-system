@@ -47,28 +47,29 @@ The approved `1.0.x` foundations are:
 - Icons
 - Radius
 - Typography
+- Logos (added October 2, 2026)
 
-Logos was listed as a foundation candidate in the original proposal but is not part of the client's final foundations inventory. State design ownership must confirm whether Logos remains a separate foundation page or folds into brand or Icons guidance.
+Logos was a foundation candidate in the original proposal and was not in the client's list of September 16. It is approved as a foundation as of October 2, 2026. Whether it is a separate foundation page or folds into brand or Icons guidance is settled by its own task.
 
 ### Approved components
 
-The approved `1.0.x` component set contains 27 components. Card's Default and Icon variants are grouped as one component:
+The approved `1.0.x` component set contains 28 components. Card's Default and Icon variants are counted as two components:
 
-Accordion, Breadcrumbs, Button, Card (Default and Icon variants), Checkbox, Combo Box, Divider, Footer, Header, Hero, Icon List, Input, In-Page Alert, In-Page Navigation, Language Selector, Link, Maps, Modal, Process List, Radio Buttons, Search, Select (dropdown), Site Alert, Tags, Toasts/Snackbars, Videos, and Tooltip.
+Accordion, Breadcrumbs, Button, Card - Default, Card - Icon, Checkbox, Combo Box, Divider, Footer, Header, Hero, Icon List, Input, In-Page Alert, In-Page Navigation, Language Selector, Link, Maps, Modal, Process List, Radio Buttons, Search, Select (dropdown), Site Alert, Tags, Toasts/Snackbars, Videos, and Tooltip.
 
-The two vertical-slice components implemented in Phase 2 remain the architecture proof and are not revisited by this amendment.
+The two vertical-slice components implemented in Phase 2, Site Alert (static) and Accordion (interactive), remain the architecture proof and are not revisited by this amendment.
 
 ### Related architecture decision
 
 CoDS will build on the U.S. Web Design System (USWDS) as a foundational dependency. The core package will consume a pinned USWDS dependency, theme its Sass and assets with approved CoDS tokens, and reuse its markup and interaction patterns where an equivalent exists. Components without a suitable USWDS equivalent, or with a documented intentional divergence, remain CoDS-authored. Web Components and Shadow DOM remain out of scope.
 
-This is a material amendment to the canonical implementation decision above and must be implemented and recorded through [CODS-P1-015](../backlog/phase-1/CODS-P1-015-integrate-uswds-as-foundational-dependency.md), including confirmation that USWDS licensing and attribution requirements are compatible with the CoDS release model.
+This is a material amendment to the canonical implementation decision above and must be implemented and recorded through CODS-P1-015, including confirmation that USWDS licensing and attribution requirements are compatible with the CoDS release model.
 
 ### Scope and schedule conditions
 
-The expanded inventory is accepted as an explicit client-directed scope change, but the November 30, 2026 supported-release target remains conditional. Before the date is treated as committed, the delivery team must complete a capacity and schedule review at the expanded component count. If the review does not support the date, the State must make an explicit date or scope tradeoff decision. An incomplete contract must remain in the `0.0.x` development channel rather than be labeled `1.0.x`.
+The expanded inventory is accepted as an explicit client-directed scope change. The capacity and schedule review at the expanded component count is complete: the project owner confirmed on October 2, 2026 that the full inventory is committed for development and that the time and forecast to deliver it are secured, so the November 30, 2026 supported-release target is treated as committed. If delivery later falls behind, the State must make an explicit date or scope tradeoff decision. An incomplete contract must remain in the `0.0.x` development channel rather than be labeled `1.0.x`.
 
-Phase 3 work for the newly added components and the Icons foundation is tracked in [CODS-P3-018](../backlog/phase-3/CODS-P3-018-implement-breadcrumbs-component.md) through [CODS-P3-036](../backlog/phase-3/CODS-P3-036-implement-icon-system-and-asset-pipeline.md). The Phase 3 rollups must use this final inventory and must not describe these items as candidates or deferred work.
+Phase 3 work for the newly added components and the Icons foundation is tracked in CODS-P3-018 through CODS-P3-036. The Phase 3 rollups must use this final inventory and must not describe these items as candidates or deferred work.
 
 ## Naming convention
 
@@ -79,7 +80,7 @@ The recommended package names are:
 - `@coloradodigitalservice/colorado-design-tokens`
 - `@coloradodigitalservice/colorado-design-system`
 
-This follows the owning GitHub organization and project naming convention more closely than the earlier unscoped or shortened names. The final npm scope must be confirmed as available and owned by the State before package publication. If the State establishes a dedicated npm scope, that scope should replace `@coloradodigitalservice` while retaining the `colorado-design-*` package names.
+This follows the owning GitHub organization and project naming convention more closely than the earlier unscoped or shortened names. The `@coloradodigitalservice` npm scope is set up. The project's Senior Developer publishes the packages until the client team takes over. If a dedicated npm scope is established later, that scope should replace `@coloradodigitalservice` while retaining the `colorado-design-*` package names.
 
 The same naming convention should be applied to the monorepo package directories, documentation references, release archives, and public examples wherever practical:
 
@@ -196,14 +197,14 @@ The website should be deployed from the `apps/docs` build output. A visitor shou
 
 ## Immediate next steps
 
-1. Confirm State ownership of the GitHub organization, repository administration, npm scope, domains, hosting, and recovery credentials.
-2. Confirm the final npm scope and reserve the approved package names before implementation reaches publication.
+1. The client has granted the project team the GitHub organization, repository administration, npm scope, and recovery access. Hosting and domains outside GitHub are not provisioned yet and will be arranged closer to launch.
+2. The `@coloradodigitalservice` npm scope is set up and the package names are reserved. The project's Senior Developer publishes until the client team takes over.
 3. Translate the accepted decisions into a proposal or statement of work with phases, deliverables, assumptions, dependencies, and approval gates.
 4. Procure or assign Figma design resources and begin the Figma inventory while engineering establishes the token and repository conventions.
-5. Maintain the full confirmed `1.0.x` backlog while prioritizing the two-component vertical slice as the first delivery gate: one static component and one interactive component.
+5. Maintain the full confirmed `1.0.x` backlog while prioritizing the two-component vertical slice as the first delivery gate: Site Alert (static) and Accordion (interactive).
 6. Establish the monorepo skeleton, CI path filters, package versioning, changesets, and static preview deployments before scaling component production.
 7. Define the readiness criteria for the transition from `0.0.x` development releases to the first `1.0.x` supported release.
 
 ## Acceptance
 
-The decisions in this memo, as amended on September 16, 2026, are accepted as the working architecture and delivery direction for CoDS. The final `1.0.x` inventory and USWDS foundation decision are subject to the capacity, schedule, licensing, and ownership follow-ups identified in the amendment. Any further change should be recorded through a new ADR or an amendment to this memo, with the affected scope and migration consequences identified.
+The decisions in this memo, as amended on September 16, 2026, are accepted as the working architecture and delivery direction for CoDS. The final `1.0.x` inventory and USWDS foundation decision are subject to the licensing and ownership follow-ups identified in the amendment. Any further change should be recorded through a new ADR or an amendment to this memo, with the affected scope and migration consequences identified.

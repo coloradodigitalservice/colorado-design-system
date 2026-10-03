@@ -2,6 +2,7 @@ node_modules/
 .turbo/
 .cache/
 dist/
+release/
 storybook-static/
 .astro/
 coverage/

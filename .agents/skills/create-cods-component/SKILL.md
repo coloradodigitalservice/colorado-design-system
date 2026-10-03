@@ -6,7 +6,7 @@ argument-hint: '<kebab-case-component-name> <static|interactive> [A|B|C]'
 
 # Create a CoDS Component
 
-Scaffolds a new component directory under `packages/colorado-design-system/src/components/<name>/` that already satisfies the structural parts of the [canonical component contract](../../../docs/governance/component-contract.md) (CDS-27 / CODS-P1-004): directory layout, `cods-` naming, metadata shape, and — for interactive components — the controller lifecycle contract.
+Scaffolds a new component directory under `packages/colorado-design-system/src/components/<name>/` that already satisfies the structural parts of the [canonical component contract](../../../docs/governance/component-contract.md): directory layout, `cods-` naming, metadata shape, and — for interactive components — the controller lifecycle contract.
 
 Scaffolding a component does **not** by itself finish it. Every TODO in the generated files must be resolved and every item in the contract's acceptance-criteria checklist (section 7) must be satisfied before the component can be considered contract-conformant.
 
