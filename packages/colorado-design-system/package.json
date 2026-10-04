@@ -21,11 +21,11 @@
       "default": "./dist/colorado-design-system.css"
     },
     "./package.json": "./package.json",
-    "./fixtures/site-alert.html": {
-      "default": "./dist/fixtures/site-alert.html"
+    "./fixtures/*.html": {
+      "default": "./dist/fixtures/*.html"
     },
-    "./metadata/site-alert.json": {
-      "default": "./dist/metadata/site-alert.json"
+    "./metadata/*.json": {
+      "default": "./dist/metadata/*.json"
     }
   },
   "scripts": {

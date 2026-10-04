@@ -52,7 +52,10 @@ import { initComponentName } from '@coloradodigitalservice/colorado-design-syste
 import '@coloradodigitalservice/colorado-design-system/styles';
 ```
 
-Consumers must not rely on undeclared export paths. Per-component imports will be available when components are implemented.
+Consumers must not rely on undeclared export paths. The `./fixtures/*.html` and
+`./metadata/*.json` patterns export every component's fixture and metadata,
+including experimental components. These paths do not imply stable maturity;
+check the component metadata. Per-component controller subpaths are not exported.
 
 ### Entry Points
 
@@ -60,13 +63,18 @@ Consumers must not rely on undeclared export paths. Per-component imports will b
 - **Styles**: `src/styles/index.scss` → `dist/colorado-design-system.css`
 - **Components barrel**: `src/components/index.ts` (re-exports all component controllers)
 
-### Static Site Alert assets and cascade
+### Component assets and cascade
 
-The build copies the canonical Site Alert HTML and metadata unchanged into
-`dist/fixtures/site-alert.html` and `dist/metadata/site-alert.json`. The public
-subpaths are `./fixtures/site-alert.html` and `./metadata/site-alert.json`.
-Storybook and the reference site import the same shipped fixture using Vite's
-`?raw` loader. Static components do not need controller exports.
+The build discovers component directories under `src/components/` and copies
+`<name>.fixture.html` and `<name>.metadata.json` unchanged into
+`dist/fixtures/<name>.html` and `dist/metadata/<name>.json`. The reserved
+`shared/` support directory is skipped. Missing either required component asset
+fails the build, regardless of maturity. Wildcard package exports make copying
+and fixture/metadata registration automatic; no per-component list is needed.
+For example, Site Alert resolves at `./fixtures/site-alert.html` and
+`./metadata/site-alert.json`. Storybook and the reference site import the same
+shipped fixture using Vite's `?raw` loader. Static components do not need
+controller exports.
 
 `src/styles/index.scss` forwards `_cods-layers.scss` first to declare
 `uswds`, `cods.reset`, `cods.base`, `cods.components`, and `cods.utilities`
@@ -163,7 +171,8 @@ pnpm build          # Builds everything; Turbo ensures tokens are cached/availab
 2. Write TypeScript controller (if interactive): `<component-name>.ts`
 3. Export controller in `src/components/index.ts`
 4. Run `pnpm run -C packages/colorado-design-system build:watch` during development
-5. Add subpath export to `package.json` once component is stable
+5. Forward the component Sass partial in `src/styles/index.scss`; fixture and
+   metadata copying and subpath exports are automatic for all maturities.
 
 ## Vite Configuration Notes
 

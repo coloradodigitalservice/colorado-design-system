@@ -2,7 +2,7 @@ import { defineConfig, type Plugin } from 'vite';
 import dts from 'vite-plugin-dts';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { cp, mkdir } from 'fs/promises';
+import { cp, mkdir, readdir } from 'fs/promises';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -15,17 +15,29 @@ function copyAssetsPlugin(): Plugin {
   return {
     name: 'copy-assets',
     async closeBundle() {
-      for (const [source, directory, filename] of [
-        ['site-alert.fixture.html', 'fixtures', 'site-alert.html'],
-        ['site-alert.metadata.json', 'metadata', 'site-alert.json'],
-      ]) {
-        await mkdir(path.resolve(__dirname, 'dist', directory), {
-          recursive: true,
-        });
-        await cp(
-          path.resolve(__dirname, 'src/components/site-alert', source),
-          path.resolve(__dirname, 'dist', directory, filename),
-        );
+      const componentsDir = path.resolve(__dirname, 'src/components');
+      const entries = await readdir(componentsDir, { withFileTypes: true });
+      for (const entry of entries) {
+        // shared/ holds support modules, not a component. Every component
+        // must ship both contract assets; cp rejects a missing required file.
+        if (!entry.isDirectory() || entry.name === 'shared') continue;
+        for (const [suffix, directory, extension] of [
+          ['fixture.html', 'fixtures', 'html'],
+          ['metadata.json', 'metadata', 'json'],
+        ]) {
+          await mkdir(path.resolve(__dirname, 'dist', directory), {
+            recursive: true,
+          });
+          await cp(
+            path.join(componentsDir, entry.name, `${entry.name}.${suffix}`),
+            path.resolve(
+              __dirname,
+              'dist',
+              directory,
+              `${entry.name}.${extension}`,
+            ),
+          );
+        }
       }
       await cp(
         path.resolve(__dirname, 'src/assets/fonts'),

@@ -60,17 +60,12 @@ After running `pnpm run build`, the `dist/` directory contains:
    } from './component-name/component-name.js';
    ```
 
-4. Add a subpath export in `package.json`:
-   ```json
-   {
-     "exports": {
-       "./component-name": {
-         "types": "./dist/components/component-name/component-name.d.ts",
-         "default": "./dist/components/component-name/component-name.mjs"
-       }
-     }
-   }
-   ```
+4. Forward the component Sass partial in `src/styles/index.scss`. The build
+   automatically copies every component's fixture and metadata, and wildcard
+   exports expose `./fixtures/<name>.html` and `./metadata/<name>.json` for all
+   maturities. The reserved `shared/` directory is skipped; missing either asset
+   in a component directory fails the build. No export entry is needed for each
+   component. Controller functions are exported from the main bundle.
 
 ### Package exports
 
@@ -84,7 +79,10 @@ import { initComponentName } from '@coloradodigitalservice/colorado-design-syste
 import '@coloradodigitalservice/colorado-design-system/styles';
 ```
 
-Per-component imports will be available once components are implemented.
+Fixtures and metadata are exported through `./fixtures/*.html` and
+`./metadata/*.json`, including experimental components. Consult the metadata
+for maturity; an exported path does not imply stability. Per-component
+controller subpaths are not exported.
 
 ### Site Alert (experimental)
 
