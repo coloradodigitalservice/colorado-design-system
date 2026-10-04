@@ -97,7 +97,10 @@ time. Public usage and customization are documented in
 Accessibility review status is recorded beside the component in
 `src/components/site-alert/accessibility/site-alert.evidence.md`.
 
-USWDS CSS and its Colorado brand overrides are emitted together in `cods.base`.
-CoDS component rules live in `cods.components`, so they can override upstream
-styles without raising selector specificity. Consumers may use `cods.utilities`
-for their own overrides. Unlayered consumer CSS takes precedence over these layers.
+USWDS CSS and its Colorado brand overrides are emitted together in `uswds`.
+The layer order is `uswds`, `cods.reset`, `cods.base`, `cods.components`,
+then `cods.utilities`. CoDS component rules live in `cods.components`, so normal
+rules override upstream styles without raising selector specificity. Consumers
+may use `cods.utilities` for their own overrides. Unlayered consumer CSS takes
+precedence over normal layered rules. USWDS utilities using `!important` cannot
+be overridden by normal declarations.
