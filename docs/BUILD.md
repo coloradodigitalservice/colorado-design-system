@@ -68,12 +68,14 @@ subpaths are `./fixtures/site-alert.html` and `./metadata/site-alert.json`.
 Storybook and the reference site import the same shipped fixture using Vite's
 `?raw` loader. Static components do not need controller exports.
 
-`src/styles/index.scss` declares `cods.reset`, `cods.base`, `cods.components`,
-and `cods.utilities` in that order. Sass `meta.load-css` emits USWDS and the
-existing Colorado color/typography overrides together in `cods.base`, retaining
-source order. Component partials emit their own `cods.components` rules.
-This makes low-specificity CoDS rules authoritative over upstream CSS;
-unlayered consumer styles still take precedence. Token values are unchanged.
+`src/styles/index.scss` forwards `_cods-layers.scss` first to declare
+`uswds`, `cods.reset`, `cods.base`, `cods.components`, and `cods.utilities`
+in that order. `_uswds-layer.scss` loads USWDS into `uswds`; the existing
+Colorado color/typography overrides follow in that same layer. Component
+partials emit their own `cods.components` rules, so normal component rules
+override upstream CSS without raising specificity. Unlayered consumer styles
+take precedence over normal layered rules; USWDS utilities using `!important`
+cannot be overridden by normal declarations. Token values are unchanged.
 
 ### External Dependencies
 
