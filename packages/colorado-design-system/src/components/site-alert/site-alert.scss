@@ -1,5 +1,3 @@
-@use '@coloradodigitalservice/colorado-design-tokens' as tokens;
-
 @layer cods.components {
   .cods-site-alert {
     --cods-site-alert-background: var(--cods-color-bg-surface-secondary);
