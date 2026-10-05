@@ -1,13 +1,13 @@
 # Colorado Design System — Component Ownership Matrix
 
-**Status:** Draft for G1 approval  
+**Status:** Approved by the client  
 **Related work:** CODS-P1-015 — Integrate USWDS as the foundational dependency  
-**Effective:** Phase 1.0 (candidate)  
-**Last updated:** 2026-09-22
+**Effective:** Phase 1.0  
+**Last updated:** 2026-10-02
 
 ## Overview
 
-This matrix classifies every Colorado Design System 1.0 candidate component according to its implementation strategy:
+This matrix classifies every Colorado Design System 1.0 component according to its implementation strategy:
 
 - **Type A: Themed USWDS** — Component markup, structure, and behavior reused directly from USWDS; CoDS applies theming (color, spacing, typography) via token-mapped Sass variables and custom properties.
 - **Type B: CoDS-only** — Component authored entirely within CoDS with no USWDS equivalent; represents new capability or State-specific requirement.
@@ -15,36 +15,38 @@ This matrix classifies every Colorado Design System 1.0 candidate component acco
 
 ## Component Inventory
 
+The 28 components below are the approved 1.0 inventory (Card - Default and Card - Icon are counted separately). The Tag and Disclosure contract samples illustrate the [component contract](component-contract.md) and are not inventory items.
+
 | Component          | Type | Ownership  | USWDS Equivalent                                                                        | Notes                                                                                                 |
 | ------------------ | ---- | ---------- | --------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
 | Accordion          | A    | Aten/State | [`accordion`](https://designsystem.digital.gov/components/accordion/)                   | Reuse USWDS markup; style with CoDS tokens                                                            |
-| Alert (Site Alert) | A    | Aten/State | [`site-alert`](https://designsystem.digital.gov/components/site-alert/)                 | Reuse USWDS markup; remap colors to CoDS severity scale                                               |
-| Breadcrumb         | A    | Aten/State | [`breadcrumb`](https://designsystem.digital.gov/components/breadcrumb/)                 | Reuse USWDS markup; style with CoDS tokens                                                            |
+| Breadcrumbs        | A    | Aten/State | [`breadcrumb`](https://designsystem.digital.gov/components/breadcrumb/)                 | Reuse USWDS markup; style with CoDS tokens                                                            |
 | Button             | A    | Aten/State | [`button`](https://designsystem.digital.gov/components/button/)                         | Reuse USWDS markup; apply CoDS primary/secondary/tertiary token colors                                |
-| Card               | A    | Aten/State | [`card`](https://designsystem.digital.gov/components/card/)                             | Reuse USWDS markup; style with CoDS spacing and elevation tokens                                      |
+| Card - Default     | A    | Aten/State | [`card`](https://designsystem.digital.gov/components/card/)                             | Reuse USWDS markup; style with CoDS spacing and elevation tokens                                      |
+| Card - Icon        | A    | Aten/State | [`card`](https://designsystem.digital.gov/components/card/)                             | USWDS card with an icon treatment; confirm against the Figma variant when the Card task starts        |
 | Checkbox           | A    | Aten/State | [`checkbox`](https://designsystem.digital.gov/components/checkbox/)                     | Reuse USWDS markup and interaction; style with CoDS focus and form tokens                             |
 | Combo Box          | A    | Aten/State | [`combo-box`](https://designsystem.digital.gov/components/combo-box/)                   | Reuse USWDS JS and ARIA pattern; style with CoDS form tokens                                          |
-| Disclosure         | A    | Aten/State | (n/a — custom CoDS)                                                                     | HTML `<details>/<summary>` with minimal enhancement; no USWDS equivalent                              |
 | Divider            | B    | Aten/State | (none)                                                                                  | CoDS-authored; visual separator with themeable color/spacing                                          |
 | Footer             | A    | Aten/State | [`footer`](https://designsystem.digital.gov/components/footer/)                         | Reuse USWDS markup; adapt to State government footer structure                                        |
 | Header             | A    | Aten/State | [`header`](https://designsystem.digital.gov/components/header/)                         | Reuse USWDS markup; adapt to State branding and navigation patterns                                   |
 | Hero               | B    | Aten/State | (none)                                                                                  | CoDS-authored; large-scale page-top visual prominence component (no USWDS equivalent)                 |
 | Icon List          | A    | Aten/State | [`icon-list`](https://designsystem.digital.gov/components/icon-list/)                   | Reuse USWDS markup; style with CoDS icon and spacing tokens                                           |
+| In-Page Alert      | A    | Aten/State | [`alert`](https://designsystem.digital.gov/components/alert/)                           | Reuse USWDS markup; remap colors to CoDS severity scale                                               |
 | In-Page Navigation | A    | Aten/State | [`in-page-navigation`](https://designsystem.digital.gov/components/in-page-navigation/) | Reuse USWDS markup; style with CoDS typography and link tokens                                        |
 | Language Selector  | A    | Aten/State | (component pattern in USWDS)                                                            | Adapt USWDS select component; style with CoDS form tokens                                             |
 | Link               | A    | Aten/State | (native HTML)                                                                           | Use semantic `<a>`; style with CoDS link and focus tokens                                             |
-| Map                | B    | Aten/State | (none)                                                                                  | CoDS-authored; embedded map container for geographic data visualization                               |
+| Maps               | B    | Aten/State | (none)                                                                                  | CoDS-authored; embedded map container for geographic data visualization                               |
 | Modal              | A    | Aten/State | [`modal`](https://designsystem.digital.gov/components/modal/)                           | Reuse USWDS markup and JS; style with CoDS overlay and elevation tokens                               |
 | Process List       | A    | Aten/State | [`process-list`](https://designsystem.digital.gov/components/process-list/)             | Reuse USWDS markup; style with CoDS spacing and typography                                            |
-| Radio Button       | A    | Aten/State | [`radio-button`](https://designsystem.digital.gov/components/radio-button/)             | Reuse USWDS markup and interaction; style with CoDS focus and form tokens                             |
+| Radio Buttons      | A    | Aten/State | [`radio-button`](https://designsystem.digital.gov/components/radio-button/)             | Reuse USWDS markup and interaction; style with CoDS focus and form tokens                             |
 | Search             | A    | Aten/State | (form component pattern)                                                                | Compose from USWDS form elements; style with CoDS input tokens                                        |
-| Select             | A    | Aten/State | [`select`](https://designsystem.digital.gov/components/select/)                         | Reuse USWDS markup; style with CoDS form tokens                                                       |
-| Snackbar/Toast     | B    | Aten/State | (none)                                                                                  | CoDS-authored; transient notification with dismissal and optional action (no static USWDS equivalent) |
-| Tag                | A    | Aten/State | [`tag`](https://designsystem.digital.gov/components/tag/)                               | Reuse USWDS markup; remap to CoDS status colors                                                       |
-| Text Input         | A    | Aten/State | (form input)                                                                            | Use semantic `<input type="text">`; style with CoDS input tokens                                      |
-| Text Area          | A    | Aten/State | (form textarea)                                                                         | Use semantic `<textarea>`; style with CoDS input tokens                                               |
+| Select (dropdown)  | A    | Aten/State | [`select`](https://designsystem.digital.gov/components/select/)                         | Reuse USWDS markup; style with CoDS form tokens                                                       |
+| Site Alert         | A    | Aten/State | [`site-alert`](https://designsystem.digital.gov/components/site-alert/)                 | Reuse USWDS markup; remap colors to CoDS severity scale                                               |
+| Toasts/Snackbars   | B    | Aten/State | (none)                                                                                  | CoDS-authored; transient notification with dismissal and optional action (no static USWDS equivalent) |
+| Tags               | A    | Aten/State | [`tag`](https://designsystem.digital.gov/components/tag/)                               | Reuse USWDS markup; remap to CoDS status colors                                                       |
+| Input              | A    | Aten/State | (form input)                                                                            | Use semantic `<input type="text">`; style with CoDS input tokens                                      |
 | Tooltip            | A    | Aten/State | [`tooltip`](https://designsystem.digital.gov/components/tooltip/)                       | Reuse USWDS markup and JS; style with CoDS elevation and text tokens                                  |
-| Video              | B    | Aten/State | (none)                                                                                  | CoDS-authored; responsive video container for embedded media                                          |
+| Videos             | B    | Aten/State | (none)                                                                                  | CoDS-authored; responsive video container for embedded media                                          |
 
 ## Type A: Themed USWDS Components
 
@@ -79,9 +81,9 @@ This matrix classifies every Colorado Design System 1.0 candidate component acco
 
 - **Divider** — Visual separator element; State-specific styling requirement.
 - **Hero** — Large-scale page-top banner; not present in USWDS component library.
-- **Map** — Geographic data visualization container; specialized to Colorado State products.
-- **Snackbar/Toast** — Transient notification pattern; USWDS has no equivalent in the main library.
-- **Video** — Responsive media container; State-specific accessibility requirement.
+- **Maps** — Geographic data visualization container; specialized to Colorado State products.
+- **Toasts/Snackbars** — Transient notification pattern; USWDS has no equivalent in the main library.
+- **Videos** — Responsive media container; State-specific accessibility requirement.
 
 **Approach:**
 
@@ -100,7 +102,7 @@ This matrix classifies every Colorado Design System 1.0 candidate component acco
 
 **Definition:** These components _could_ reuse USWDS markup as a starting point, but intentionally diverge from USWDS design or interaction pattern due to State product requirements or accessibility needs.
 
-**Current list:** None identified in 1.0 candidate set.
+**Current list:** None identified in the 1.0 component set.
 
 **Future divergences** (to be evaluated during Phase 3):
 
@@ -173,7 +175,7 @@ Each component's `metadata.json` includes ownership and USWDS tracking:
 
 ## Maintenance & Upgrade Policy
 
-(See separate document: `CODS-USWDS-UPGRADE-POLICY.md`)
+(See the [USWDS Upgrade Policy](USWDS-UPGRADE-POLICY.md).)
 
 **Summary:**
 
@@ -184,20 +186,11 @@ Each component's `metadata.json` includes ownership and USWDS tracking:
 
 ## Governance & Decision Log
 
-| Date       | Decision                                                 | Owner                 | Notes                                  |
-| ---------- | -------------------------------------------------------- | --------------------- | -------------------------------------- |
-| 2026-09-16 | Approved USWDS integration as Phase 1 foundation         | State governance      | See CDS-53 task                        |
-| 2026-09-22 | Component inventory and ownership matrix drafted         | Aten technical lead   | This document; awaiting State approval |
-| TBD        | Matrix approved; Phase 2 vertical-slice components begin | State technical owner | Blocks Phase 3 component production    |
-
-## Approval Signatures
-
-**To be completed upon State review:**
-
-- [ ] **State Technical Owner:** _____________________ Date: ________
-- [ ] **State Design Owner:** _____________________ Date: ________
-- [ ] **State Accessibility Lead:** _____________________ Date: ________
-- [ ] **Aten Technical Lead:** _____________________ Date: ________
+| Date       | Decision                                         | Owner               | Notes               |
+| ---------- | ------------------------------------------------ | ------------------- | ------------------- |
+| 2026-09-16 | Approved USWDS integration as Phase 1 foundation | State governance    | See CDS-53 task     |
+| 2026-09-22 | Component inventory and ownership matrix drafted | Aten technical lead | This document       |
+| 2026-10-02 | Inventory approved by the client: 28 components  | Client              | Recorded 2026-10-02 |
 
 ---
 

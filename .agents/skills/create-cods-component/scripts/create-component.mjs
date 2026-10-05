@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Scaffolds a new CoDS component directory that conforms to the canonical
-// component contract (docs/governance/component-contract.md, CDS-27 /
-// CODS-P1-004). See ../SKILL.md for usage.
+// component contract (docs/governance/component-contract.md). See
+// ../SKILL.md for usage.
 
 import {
   existsSync,

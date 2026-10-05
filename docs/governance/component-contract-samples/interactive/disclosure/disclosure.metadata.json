@@ -4,10 +4,16 @@
   "maturity": "experimental",
   "type": "interactive",
   "uswdsEquivalent": null,
+  "uswdsVersion": null,
+  "componentType": "B",
   "owners": {
     "responsible": "Aten component lead",
-    "accountable": "State technical owner"
+    "accountable": "State technical owner",
+    "consulted": "State design owner, accessibility lead",
+    "informed": "Component contributors, product owner"
   },
+  "divergenceApproved": false,
+  "divergenceNotes": null,
   "states": ["collapsed", "expanded", "disabled"],
   "progressiveEnhancement": "full",
   "localization": "text-content-only",

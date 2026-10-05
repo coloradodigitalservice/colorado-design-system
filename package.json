@@ -23,6 +23,9 @@
     "build": "pnpm tokens:check && turbo run build",
     "check": "pnpm check:workspace && pnpm validate && pnpm tokens:check && pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build && pnpm test:browser",
     "prepare": "husky",
+    "changeset": "changeset",
+    "release:version": "changeset version",
+    "release:artifacts": "node scripts/release.mjs",
     "tokens:validate": "pnpm --filter @coloradodigitalservice/colorado-design-tokens tokens:validate",
     "tokens:build": "pnpm --filter @coloradodigitalservice/colorado-design-tokens build",
     "tokens:check": "turbo run tokens:check",
@@ -32,6 +35,7 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",
+    "@changesets/cli": "3.0.3",
     "@eslint/js": "10.0.1",
     "@playwright/test": "1.63.0",
     "@types/node": "24.10.1",

@@ -89,7 +89,7 @@ Type A components reuse USWDS's own JavaScript instead of reimplementing the int
 - Derive the section 4.1 `cods-<name>:<event>` events from what the behavior exposes, and do not emit during `init` or `destroy`. Where it only changes attributes (the Accordion), observe them with a `MutationObserver`. Where it dispatches its own DOM events or updates properties such as `value` (Combo Box, Date Picker), which a `MutationObserver` cannot see, listen for those events on the root and translate them into CoDS events. Remove every listener and observer in `destroy`.
 - Call `init` after the markup is attached to the document; USWDS resolves controlled elements by id in the document.
 - The code is bundled into the package's ES module output. `require(` calls and `window.uswdsPresent` must not appear in `dist/`.
-- CoDS source must not contain an equivalent of the interaction. The first interactive Type A component in the Phase 2 vertical slice is the reference implementation of this pattern.
+- CoDS source must not contain an equivalent of the interaction. The Accordion, the interactive Type A component in the Phase 2 vertical slice, is the reference implementation of this pattern.
 
 ## 5. Metadata and maturity model
 
@@ -102,10 +102,16 @@ Every component ships `<component-name>.metadata.json`, validated against the sh
   "maturity": "experimental",
   "type": "static",
   "uswdsEquivalent": "site-alert",
+  "uswdsVersion": "3.14.0",
+  "componentType": "A",
   "owners": {
     "responsible": "Aten component lead",
-    "accountable": "State technical owner"
+    "accountable": "State technical owner",
+    "consulted": "State design owner, accessibility lead",
+    "informed": "Component contributors, product owner"
   },
+  "divergenceApproved": false,
+  "divergenceNotes": null,
   "states": ["default", "informational", "emergency", "dismissed"],
   "progressiveEnhancement": "full",
   "localization": "text-content-only",
@@ -118,6 +124,11 @@ Every component ships `<component-name>.metadata.json`, validated against the sh
 | `maturity`               | `experimental`, `stable`, `deprecated`                             | `experimental`: contract-conformant but API/markup may still change. `stable`: API frozen for the current major version; requires completed accessibility evidence. `deprecated`: scheduled for removal; migration guidance required. |
 | `type`                   | `static`, `interactive`                                            | Whether the component ships a TypeScript controller.                                                                                                                                                                                  |
 | `uswdsEquivalent`        | USWDS component id, or `null`                                      | Names the themed USWDS source when this component is a themed wrapper, per the USWDS foundational-dependency decision. `null` means CoDS-authored with no USWDS equivalent.                                                           |
+| `uswdsVersion`           | Pinned `@uswds/uswds` version, or `null`                           | The USWDS release the component was built and verified against. `null` for CoDS-authored components. Updated with every USWDS upgrade ([USWDS Upgrade Policy](./USWDS-UPGRADE-POLICY.md)).                                            |
+| `componentType`          | `A`, `B`, `C`                                                      | Ownership-matrix classification: `A` themed USWDS, `B` CoDS-authored, `C` intentional divergence. See the [ownership matrix](./component-ownership-matrix.md).                                                                        |
+| `owners`                 | Object of role names                                               | `responsible` and `accountable` are required; `consulted` and `informed` are recommended.                                                                                                                                             |
+| `divergenceApproved`     | `true`, `false`                                                    | `true` only for a Type C component whose divergence has the required design and accessibility approval.                                                                                                                               |
+| `divergenceNotes`        | String, or `null`                                                  | Rationale for the divergence; `null` unless `componentType` is `C`.                                                                                                                                                                   |
 | `progressiveEnhancement` | `full`, `partial`, `none` (`none` requires a documented exception) | Declares the section 4.3 progressive-enhancement level.                                                                                                                                                                               |
 | `localization`           | `text-content-only`, `layout-sensitive`, `not-applicable`          | Flags whether translated content can change layout assumptions (for example bidirectional text, string expansion).                                                                                                                    |
 
