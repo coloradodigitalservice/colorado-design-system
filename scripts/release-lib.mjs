@@ -18,7 +18,7 @@ import {
 const RELEASE_TAG = /^v((?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*))$/;
 
 export const STATUS_NOTICE =
-  'This is a `0.0.x` development release, not a supported release. Markup, tokens, CSS custom properties, controller APIs, fixtures, and package boundaries may change between releases without a migration path.';
+  'This is a `0.x` development release, not a supported release. Markup, tokens, CSS custom properties, controller APIs, fixtures, and package boundaries may change between releases without a migration path.';
 
 export const USWDS_ATTRIBUTION =
   'CoDS incorporates components and styles from the U.S. Web Design System (USWDS), maintained by the General Services Administration. USWDS is a public-domain design system for U.S. federal government websites and applications. See https://designsystem.digital.gov/ for more information.';

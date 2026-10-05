@@ -76,8 +76,8 @@ function validateWorkspace(path) {
   if (manifest.name !== expectation.name)
     fail(`${path}: expected name ${expectation.name}`);
   if (releasePackages.has(manifest.name)) {
-    if (!/^0\.0\.\d+$/.test(manifest.version))
-      fail(`${path}: version must be in the 0.0.x development series`);
+    if (!/^0\.\d+\.\d+$/.test(manifest.version))
+      fail(`${path}: version must be in the 0.x development series`);
   } else if (manifest.version !== '0.0.0') {
     fail(`${path}: internal workspaces must stay at version 0.0.0`);
   }
