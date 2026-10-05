@@ -1,6 +1,6 @@
 # Visual baselines
 
-Conventions are normative in [tests/README.md](../../../../tests/README.md#visual-regression-conventions-for-phase-2-onward). This file is the procedure for adding or changing a baseline; it does not restate those rules. No component baselines exist yet, so check whether an earlier component set a precedent before following this.
+Conventions are normative in [tests/README.md](../../../../tests/README.md#visual-regression-conventions). This file is the procedure for adding or changing a baseline; it does not restate those rules. No component baselines exist yet, so check whether an earlier component set a precedent before following this.
 
 ## Add a baseline test
 

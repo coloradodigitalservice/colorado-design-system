@@ -1,6 +1,6 @@
 # Core design system
 
-This package boundary will own semantic HTML fixtures, layered CSS, optional TypeScript controllers, metadata, icons, assets, and accessibility evidence for components. It depends on the token package. The P1-002 Sass entry currently emits only the agreed CSS layer order; it is not a distributable package build. Package compilation and public exports are tracked as CODS-P1-009. Every component in this package must follow the [canonical component contract](../../docs/governance/component-contract.md) (CODS-P1-004). The USWDS foundational-dependency decision (CODS-P1-015) requires an ADR amendment before implementation.
+This package owns semantic HTML fixtures, layered CSS, optional TypeScript controllers, metadata, icons, assets, and accessibility evidence for components. It depends on the token package and on a pinned USWDS release ([ADR-002](../../docs/adrs/002-uswds-foundational-dependency.md)). Every component in this package must follow the [canonical component contract](../../docs/governance/component-contract.md).
 
 ## Build & Development
 
@@ -60,17 +60,12 @@ After running `pnpm run build`, the `dist/` directory contains:
    } from './component-name/component-name.js';
    ```
 
-4. Add a subpath export in `package.json`:
-   ```json
-   {
-     "exports": {
-       "./component-name": {
-         "types": "./dist/components/component-name/component-name.d.ts",
-         "default": "./dist/components/component-name/component-name.mjs"
-       }
-     }
-   }
-   ```
+4. Forward the component Sass partial in `src/styles/index.scss`. The build
+   automatically copies every component's fixture and metadata, and wildcard
+   exports expose `./fixtures/<name>.html` and `./metadata/<name>.json` for all
+   maturities. The reserved `shared/` directory is skipped; missing either asset
+   in a component directory fails the build. No export entry is needed for each
+   component. Controller functions are exported from the main bundle.
 
 ### Package exports
 
@@ -84,7 +79,29 @@ import { initComponentName } from '@coloradodigitalservice/colorado-design-syste
 import '@coloradodigitalservice/colorado-design-system/styles';
 ```
 
-Per-component imports will be available once components are implemented.
+Fixtures and metadata are exported through `./fixtures/*.html` and
+`./metadata/*.json`, including experimental components. Consult the metadata
+for maturity; an exported path does not imply stability. Per-component
+controller subpaths are not exported.
+
+### Site Alert (experimental)
+
+The first static vertical slice is `cods-site-alert`, a themed USWDS Site Alert.
+Load the package stylesheet and use the canonical fixture structure. It requires
+no JavaScript controller. Package exports include `./fixtures/site-alert.html`
+and `./metadata/site-alert.json`; both are copied from component source at build
+time. Public usage and customization are documented in
+[`apps/web/src/content/docs/site-alert.md`](../../apps/web/src/content/docs/site-alert.md).
+Accessibility review status is recorded beside the component in
+`src/components/site-alert/accessibility/site-alert.evidence.md`.
+
+USWDS CSS and its Colorado brand overrides are emitted together in `uswds`.
+The layer order is `uswds`, `cods.reset`, `cods.base`, `cods.components`,
+then `cods.utilities`. CoDS component rules live in `cods.components`, so normal
+rules override upstream styles without raising selector specificity. Consumers
+may use `cods.utilities` for their own overrides. Unlayered consumer CSS takes
+precedence over normal layered rules. USWDS utilities using `!important` cannot
+be overridden by normal declarations.
 
 ## Accordion (experimental)
 

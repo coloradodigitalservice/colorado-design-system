@@ -1,0 +1,87 @@
+@layer cods.components {
+  .cods-site-alert {
+    --cods-site-alert-background: var(--cods-color-bg-surface-secondary);
+    --cods-site-alert-color: var(--cods-color-text-primary);
+    --cods-site-alert-accent: var(--cods-color-border-action-secondary);
+    --cods-site-alert-padding: var(--cods-space-lg);
+
+    overflow-wrap: anywhere;
+    font-family: var(--cods-font-family-body);
+    font-size: var(--cods-font-size-desktop-body);
+    line-height: var(--cods-line-height-desktop-body);
+  }
+
+  .cods-site-alert--emergency {
+    --cods-site-alert-accent: var(--cods-color-border-form-danger);
+  }
+
+  .cods-site-alert__surface {
+    margin: 0;
+    border: 0;
+    border-inline-start: var(--cods-space-xs) solid
+      var(--cods-site-alert-accent);
+    background: var(--cods-site-alert-background);
+    color: var(--cods-site-alert-color);
+    padding: 0;
+  }
+
+  .cods-site-alert__body {
+    display: block;
+    min-height: 0;
+    background: inherit;
+    color: inherit;
+    margin: 0;
+    max-width: none;
+    padding: var(--cods-site-alert-padding);
+  }
+
+  .cods-site-alert__heading {
+    margin: 0 0 var(--cods-space-xs);
+    font-family: var(--cods-font-family-mobile-h3);
+    font-size: var(--cods-font-size-mobile-h3);
+    font-weight: var(--cods-font-weight-mobile-h3);
+    line-height: var(--cods-line-height-mobile-h3);
+  }
+
+  .cods-site-alert__text {
+    margin: 0;
+    max-width: none;
+  }
+
+  .cods-site-alert__link {
+    color: var(--cods-color-text-action-link);
+    text-decoration: underline;
+  }
+
+  .cods-site-alert__link:hover {
+    color: var(--cods-color-text-action-link-hover);
+  }
+
+  .cods-site-alert__link:active {
+    color: var(--cods-color-text-action-link-active);
+  }
+
+  .cods-site-alert__link:focus-visible {
+    outline: var(--cods-focus-ring-width) solid
+      var(--cods-color-bg-action-focus);
+    outline-offset: var(--cods-focus-ring-offset);
+    box-shadow: 0 0 0 var(--cods-focus-ring-offset) var(--cods-color-focus-gap);
+  }
+
+  @media (forced-colors: active) {
+    .cods-site-alert__surface {
+      border: 1px solid CanvasText;
+      border-inline-start-width: var(--cods-space-xs);
+      background: Canvas;
+      color: CanvasText;
+    }
+
+    .cods-site-alert__link {
+      color: LinkText;
+    }
+
+    .cods-site-alert__link:focus-visible {
+      outline-color: Highlight;
+    }
+  }
+}

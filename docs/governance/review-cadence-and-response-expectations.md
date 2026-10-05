@@ -1,7 +1,7 @@
 # CoDS Review Cadence and Response Expectations
 
 **Status:** Draft for G0 approval  
-**Related backlog item:** [CODS-P0-001](../backlog/phase-0/CODS-P0-001-establish-ownership-and-decision-rights.md)
+**Related backlog item:** CODS-P0-001
 
 ## Cadence
 

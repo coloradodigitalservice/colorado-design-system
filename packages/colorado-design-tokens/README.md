@@ -55,7 +55,7 @@ Spacing is 4, 8, 12, 16, 24, 32, 48, and 64px, mapped to the `2xs` through `3xl`
 
 The Language Selector notes explicitly describe a 4px blue trigger ring with a 2px white gap and a 2px navy row outline. `focus-ring-width`, `focus-ring-offset`, `color-focus-gap`, `focus-row-width`, and `color-focus-row` encode these treatments. The trigger uses the workbook's `color-bg-action-focus`. A transparent outline offset alone does not paint a white gap; the sample includes a white spread shadow. These are two focus treatments, not competing system-wide values. Component styles select the appropriate treatment and still require keyboard/forced-color verification.
 
-## P1-004 reconciliation
+## Contract sample reconciliation
 
 Both complete sample Sass files now compile in tests. The disclosure uses `color-border-subtle`, the existing `color-bg-action-focus`, and the documented trigger focus dimensions. The tag uses `color-bg-surface-secondary`, `color-bg-tag-info`, and `color-text-tag-info`.
 

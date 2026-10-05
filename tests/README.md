@@ -4,7 +4,7 @@ Vitest tests (`*.test.ts` / `*.test.mjs`) cover shared tooling and package behav
 Run them with `pnpm test`. Playwright tests (`tests/browser/**/*.spec.ts`) exercise
 built static pages separately; Vitest does not collect them.
 
-## Browser setup and execution (CODS-P1-010 / CDS-34)
+## Browser setup and execution
 
 From a clean checkout at the repository root:
 
@@ -150,7 +150,7 @@ variant colors, no `.usa-*` rule sits outside the `uswds` layer (computed style
 cannot see `:visited`), and USWDS fonts still load. Build the design
 system (`pnpm build`) before running it. See [ADR-007](../docs/adrs/007-cascade-layer-order.md).
 
-## Visual regression conventions for Phase 2 onward
+## Visual regression conventions
 
 Use `await expect(page.getByRole(...)).toHaveScreenshot('descriptive-state.png')`
 for a component or `await expect(page).toHaveScreenshot('page-state.png',

@@ -119,9 +119,9 @@ Checked by reading the USWDS 3.14.0 source; none has a CoDS wrapper yet.
 ## Decisions and follow-ups
 
 - **Class naming** (decided 2026-10-01 by the project lead; recorded in contract section 4.5). Keep USWDS's `usa-*` classes and add `cods-*` classes alongside; do not rename or replace USWDS classes. `usa-*` is covered by USWDS's stability; `cods-*` is the CoDS public surface, and `data-cods-*` remains the controller hook.
-- **Cascade layers** (CODS-P1-018, [ADR-007](../../../../docs/adrs/007-cascade-layer-order.md)). A component that extends a USWDS component must be able to override USWDS, so USWDS is loaded into a lowest `uswds` layer below the `cods.*` layers, and the color and typography overrides stay in that layer after USWDS, so they keep USWDS's specificity-based variant and state behavior. Caveat: USWDS utility classes use `!important`, which layer order cannot override with normal declarations.
+- **Cascade layers** ([ADR-007](../../../../docs/adrs/007-cascade-layer-order.md)). A component that extends a USWDS component must be able to override USWDS, so USWDS is loaded into a lowest `uswds` layer below the `cods.*` layers, and the color and typography overrides stay in that layer after USWDS, so they keep USWDS's specificity-based variant and state behavior. Caveat: USWDS utility classes use `!important`, which layer order cannot override with normal declarations.
 - **Metadata shape.** The scaffold follows the ownership matrix schema. A formal JSON Schema and validator is a follow-up.
-- **No USWDS-specific scaffold template.** Only the accordion case has been exercised; revisit when the vertical-slice component and a second wrapper show which parts repeat. Until then this document is the template.
+- **No USWDS-specific scaffold template.** Only the accordion case has been exercised; revisit when the Accordion is implemented and a second wrapper shows which parts repeat. Until then this document is the template.
 - **`uswds-init.js` is not needed.** It only supports the global bundle.
 - **Bundle duplication.** Measure shared USWDS utility code when the second wrapper lands.
 - **Remaining interactive type A components** (Combo Box, Modal, Tooltip, Language Selector, In-Page Navigation, and others in the ownership matrix) follow this pattern in their Phase 2 and Phase 3 tasks.

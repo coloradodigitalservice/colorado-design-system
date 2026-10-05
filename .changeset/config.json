@@ -1,0 +1,18 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@4.0.1/schema.json",
+  "baseBranch": "main",
+  "access": "restricted",
+  "format": "auto",
+  "changelog": "@changesets/cli/changelog",
+  "commit": false,
+  "fixed": [
+    [
+      "@coloradodigitalservice/colorado-design-tokens",
+      "@coloradodigitalservice/colorado-design-system"
+    ]
+  ],
+  "linked": [],
+  "ignore": ["@cods-internal/*"],
+  "privatePackages": { "version": true, "tag": false },
+  "updateInternalDependencies": "patch"
+}

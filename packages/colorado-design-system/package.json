@@ -8,6 +8,9 @@
     "directory": "packages/colorado-design-system"
   },
   "type": "module",
+  "files": [
+    "dist"
+  ],
   "sideEffects": [
     "*.css",
     "dist/**/*.css"
@@ -21,11 +24,11 @@
       "default": "./dist/colorado-design-system.css"
     },
     "./package.json": "./package.json",
-    "./fixtures/accordion.html": {
-      "default": "./dist/fixtures/accordion.html"
+    "./fixtures/*.html": {
+      "default": "./dist/fixtures/*.html"
     },
-    "./metadata/accordion.json": {
-      "default": "./dist/metadata/accordion.json"
+    "./metadata/*.json": {
+      "default": "./dist/metadata/*.json"
     }
   },
   "scripts": {
