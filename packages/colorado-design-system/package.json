@@ -23,7 +23,13 @@
     "./styles": {
       "default": "./dist/colorado-design-system.css"
     },
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./fixtures/*.html": {
+      "default": "./dist/fixtures/*.html"
+    },
+    "./metadata/*.json": {
+      "default": "./dist/metadata/*.json"
+    }
   },
   "scripts": {
     "validate": "node ../../scripts/check-workspace.mjs --workspace packages/colorado-design-system",

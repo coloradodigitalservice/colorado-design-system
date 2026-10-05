@@ -1,0 +1,23 @@
+{
+  "name": "site-alert",
+  "displayName": "Site Alert",
+  "maturity": "experimental",
+  "type": "static",
+  "uswdsEquivalent": "site-alert",
+  "owners": {
+    "responsible": "Aten component engineer",
+    "accountable": "Aten technical lead"
+  },
+  "states": [
+    "default",
+    "informational",
+    "emergency",
+    "long-content",
+    "localization",
+    "rtl",
+    "focus-visible"
+  ],
+  "progressiveEnhancement": "full",
+  "localization": "layout-sensitive",
+  "description": "A static sitewide informational or emergency notice using themed USWDS markup; no JavaScript required."
+}
