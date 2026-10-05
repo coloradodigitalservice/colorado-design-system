@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '@coloradodigitalservice/colorado-design-system/styles';
 import SiteAlertExamples from '../components/SiteAlertExamples.astro';
+import AccordionExamples from '../components/AccordionExamples.astro';
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs');
@@ -29,6 +30,7 @@ const { Content } = await render(entry);
         <SiteAlertExamples mode="default" />
       </>
     )}
+    {entry.id === 'accordion' && <AccordionExamples />}
     <Content />
     {entry.id === 'site-alert' && <SiteAlertExamples mode="remaining" />}
   </article>

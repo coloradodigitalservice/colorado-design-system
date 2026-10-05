@@ -1,0 +1,22 @@
+---
+import fixture from '@coloradodigitalservice/colorado-design-system/fixtures/accordion.html?raw';
+import '@coloradodigitalservice/colorado-design-system/styles';
+---
+
+<div class="cods-docs-accordion-examples" set:html={fixture} />
+<details>
+  <summary>View the example HTML</summary>
+  <pre><code>{fixture}</code></pre>
+</details>
+
+<script>
+  import { initAllAccordions } from '@coloradodigitalservice/colorado-design-system';
+  initAllAccordions();
+</script>
+
+<style>
+  pre {
+    overflow-x: auto;
+    max-width: 100%;
+  }
+</style>

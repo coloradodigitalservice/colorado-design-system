@@ -1,0 +1,237 @@
+<!-- Canonical USWDS 3.14.0 accordion markup. Panels stay visible until init. -->
+<section data-cods-fixture-state="default">
+  <h2>Single-open accordion</h2>
+  <div class="usa-accordion cods-accordion" data-cods-accordion>
+    <h3 class="usa-accordion__heading cods-accordion__heading">
+      <button
+        type="button"
+        class="usa-accordion__button cods-accordion__trigger"
+        data-cods-accordion-trigger
+        data-cods-accordion-expanded="true"
+        aria-expanded="true"
+        aria-controls="accordion-default-1"
+      >
+        Before you apply
+      </button>
+    </h3>
+    <div
+      id="accordion-default-1"
+      class="usa-accordion__content cods-accordion__panel"
+      data-cods-accordion-panel
+    >
+      <p>Gather your identification and contact information.</p>
+    </div>
+    <h3 class="usa-accordion__heading cods-accordion__heading">
+      <button
+        type="button"
+        class="usa-accordion__button cods-accordion__trigger"
+        data-cods-accordion-trigger
+        data-cods-accordion-expanded="false"
+        aria-expanded="true"
+        aria-controls="accordion-default-2"
+      >
+        After you apply
+      </button>
+    </h3>
+    <div
+      id="accordion-default-2"
+      class="usa-accordion__content cods-accordion__panel"
+      data-cods-accordion-panel
+    >
+      <p>
+        Save your confirmation number.
+        <a href="/getting-started/">Read the getting started guide</a>.
+      </p>
+    </div>
+  </div>
+</section>
+<section data-cods-fixture-state="bordered">
+  <h2>Bordered accordion</h2>
+  <div
+    class="usa-accordion cods-accordion usa-accordion--bordered cods-accordion--bordered"
+    data-cods-accordion
+  >
+    <h3 class="usa-accordion__heading cods-accordion__heading">
+      <button
+        type="button"
+        class="usa-accordion__button cods-accordion__trigger"
+        data-cods-accordion-trigger
+        data-cods-accordion-expanded="true"
+        aria-expanded="true"
+        aria-controls="accordion-bordered-1"
+      >
+        Application requirements
+      </button>
+    </h3>
+    <div
+      id="accordion-bordered-1"
+      class="usa-accordion__content cods-accordion__panel"
+      data-cods-accordion-panel
+    >
+      <p>You can submit supporting documents with your application.</p>
+    </div>
+  </div>
+</section>
+<section data-cods-fixture-state="multiple">
+  <h2>Multiple panels open</h2>
+  <div
+    class="usa-accordion cods-accordion"
+    data-cods-accordion
+    data-cods-accordion-multiple
+  >
+    <h3 class="usa-accordion__heading cods-accordion__heading">
+      <button
+        type="button"
+        class="usa-accordion__button cods-accordion__trigger"
+        data-cods-accordion-trigger
+        data-cods-accordion-expanded="true"
+        aria-expanded="true"
+        aria-controls="accordion-multiple-1"
+      >
+        Proof of identity
+      </button>
+    </h3>
+    <div
+      id="accordion-multiple-1"
+      class="usa-accordion__content cods-accordion__panel"
+      data-cods-accordion-panel
+    >
+      <p>Use a current identification document.</p>
+    </div>
+    <h3 class="usa-accordion__heading cods-accordion__heading">
+      <button
+        type="button"
+        class="usa-accordion__button cods-accordion__trigger"
+        data-cods-accordion-trigger
+        data-cods-accordion-expanded="true"
+        aria-expanded="true"
+        aria-controls="accordion-multiple-2"
+      >
+        Proof of address
+      </button>
+    </h3>
+    <div
+      id="accordion-multiple-2"
+      class="usa-accordion__content cods-accordion__panel"
+      data-cods-accordion-panel
+    >
+      <p>Use a document that includes your current address.</p>
+    </div>
+  </div>
+</section>
+<section data-cods-fixture-state="disabled">
+  <h2>Disabled trigger</h2>
+  <div class="usa-accordion cods-accordion" data-cods-accordion>
+    <h3 class="usa-accordion__heading cods-accordion__heading">
+      <button
+        type="button"
+        class="usa-accordion__button cods-accordion__trigger"
+        data-cods-accordion-trigger
+        data-cods-accordion-expanded="true"
+        aria-expanded="true"
+        aria-controls="accordion-disabled-1"
+        disabled
+      >
+        Service temporarily unavailable
+      </button>
+    </h3>
+    <div
+      id="accordion-disabled-1"
+      class="usa-accordion__content cods-accordion__panel"
+      data-cods-accordion-panel
+    >
+      <p>
+        This service is temporarily unavailable. Call the service office for
+        help.
+      </p>
+    </div>
+  </div>
+</section>
+<section data-cods-fixture-state="long-content">
+  <h2>Long content and heading</h2>
+  <div class="usa-accordion cods-accordion" data-cods-accordion>
+    <h3 class="usa-accordion__heading cods-accordion__heading">
+      <button
+        type="button"
+        class="usa-accordion__button cods-accordion__trigger"
+        data-cods-accordion-trigger
+        data-cods-accordion-expanded="true"
+        aria-expanded="true"
+        aria-controls="accordion-long-content-1"
+      >
+        How to prepare your application when your household circumstances have
+        changed and you need additional assistance
+      </button>
+    </h3>
+    <div
+      id="accordion-long-content-1"
+      class="usa-accordion__content cods-accordion__panel"
+      data-cods-accordion-panel
+    >
+      <p>
+        Review the guidance and gather the documents that describe your current
+        circumstances. You can ask the service office for help with documents
+        you cannot obtain.
+      </p>
+      <p>
+        Keep copies of everything you submit and save the confirmation number
+        for future questions.
+      </p>
+    </div>
+  </div>
+</section>
+<section data-cods-fixture-state="localization">
+  <h2>Spanish content</h2>
+  <div class="usa-accordion cods-accordion" data-cods-accordion lang="es">
+    <h3 class="usa-accordion__heading cods-accordion__heading">
+      <button
+        type="button"
+        class="usa-accordion__button cods-accordion__trigger"
+        data-cods-accordion-trigger
+        data-cods-accordion-expanded="false"
+        aria-expanded="true"
+        aria-controls="accordion-localization-1"
+      >
+        Antes de presentar la solicitud
+      </button>
+    </h3>
+    <div
+      id="accordion-localization-1"
+      class="usa-accordion__content cods-accordion__panel"
+      data-cods-accordion-panel
+    >
+      <p>
+        Reúna sus documentos de identificación y su información de contacto.
+      </p>
+    </div>
+  </div>
+</section>
+<section data-cods-fixture-state="rtl">
+  <h2>Right-to-left content</h2>
+  <div
+    class="usa-accordion cods-accordion"
+    data-cods-accordion
+    lang="ar"
+    dir="rtl"
+  >
+    <h3 class="usa-accordion__heading cods-accordion__heading">
+      <button
+        type="button"
+        class="usa-accordion__button cods-accordion__trigger"
+        data-cods-accordion-trigger
+        data-cods-accordion-expanded="false"
+        aria-expanded="true"
+        aria-controls="accordion-rtl-1"
+      >
+        قبل تقديم الطلب
+      </button>
+    </h3>
+    <div
+      id="accordion-rtl-1"
+      class="usa-accordion__content cods-accordion__panel"
+      data-cods-accordion-panel
+    >
+      <p>اجمع وثائق الهوية ومعلومات الاتصال الخاصة بك.</p>
+    </div>
+  </div>
+</section>

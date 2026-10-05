@@ -1,0 +1,109 @@
+@use '@coloradodigitalservice/colorado-design-tokens' as tokens;
+
+@layer cods.components {
+  .cods-accordion {
+    --cods-accordion-background: var(--cods-color-bg-surface-secondary);
+    --cods-accordion-text: var(--cods-color-text-primary);
+    --cods-accordion-border: var(--cods-color-border-subtle);
+
+    color: var(--cods-accordion-text);
+    width: 100%;
+    min-width: 0;
+  }
+
+  .cods-accordion__heading {
+    margin: 0;
+    margin-block-start: 1rem;
+    font-size: inherit;
+  }
+
+  .cods-accordion__trigger {
+    position: relative;
+    padding-block: 1rem;
+    padding-inline: 1.5rem 3rem;
+    background: var(--cods-accordion-background);
+    color: var(--cods-accordion-text);
+    font-family: inherit;
+    line-height: 1.5;
+    text-align: start;
+    overflow-wrap: anywhere;
+
+    &:focus-visible {
+      outline: var(--cods-focus-ring-width, tokens.$focus-ring-width) solid
+        var(--cods-color-bg-action-focus);
+      outline-offset: var(--cods-focus-ring-offset, tokens.$focus-ring-offset);
+      box-shadow: 0 0 0 tokens.$focus-ring-offset var(--cods-color-focus-gap);
+      z-index: 1;
+    }
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      inset-inline-end: 1.5rem;
+      top: 50%;
+      background: none;
+      mask: none;
+      width: 1rem;
+      height: 0;
+      border-block-start: 2px solid currentcolor;
+    }
+
+    &::before {
+      transform: rotate(90deg);
+    }
+
+    &[aria-expanded='true']::before {
+      content: none;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      color: var(--cods-color-text-disabled);
+    }
+  }
+
+  .cods-accordion:not([data-cods-accordion-enhanced]) {
+    > .cods-accordion__heading > .cods-accordion__trigger {
+      cursor: default;
+
+      &::before,
+      &::after {
+        content: none;
+      }
+    }
+  }
+
+  .cods-accordion__panel {
+    padding: 1.5rem;
+    background: var(--cods-color-white);
+    color: var(--cods-accordion-text);
+    overflow-wrap: anywhere;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .cods-accordion--bordered > .cods-accordion__panel {
+    border: 1px solid var(--cods-accordion-border);
+    border-block-start: 0;
+  }
+
+  @media (forced-colors: active) {
+    .cods-accordion__trigger,
+    .cods-accordion__panel {
+      border: 1px solid CanvasText;
+      background: Canvas;
+      color: CanvasText;
+    }
+
+    .cods-accordion__trigger:focus-visible {
+      outline-color: Highlight;
+    }
+
+    .cods-accordion__trigger:disabled {
+      color: GrayText;
+    }
+  }
+}

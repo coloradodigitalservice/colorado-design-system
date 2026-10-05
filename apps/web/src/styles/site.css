@@ -103,7 +103,25 @@ main h1 {
   }
 }
 
+/* Plain code examples use approved contrast tokens, including in forced colors. */
+.cods-docs-content pre {
+  padding: 1rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  overflow-x: auto;
+  max-width: 100%;
+  background: var(--cods-color-bg-surface-secondary);
+  color: var(--cods-color-text-primary);
+}
+
+.cods-docs-content code {
+  overflow-wrap: anywhere;
+}
+
 .cods-docs-content table {
+  display: block;
+  overflow-x: auto;
+  max-width: 100%;
   width: 100%;
   margin-block: var(--cods-space-lg);
   border-collapse: collapse;
@@ -145,5 +163,12 @@ main h1 {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+}
+
+@media (forced-colors: active) {
+  .cods-docs-content pre {
+    color: CanvasText;
+    background: Canvas;
   }
 }
