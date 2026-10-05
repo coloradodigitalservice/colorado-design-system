@@ -1,6 +1,16 @@
 # Release workflow
 
-This is the repeatable process for producing a release of the CoDS packages. Versions below `1.0.0` (currently the `0.0.x` series) are **development** releases: they are published as GitHub prereleases and the changelog states they are not supported. A `1.0.x` release is a supported release and is gated on the readiness criteria in the [release policy](memos/ADR_Acceptance_Memo_2026-09-14.md#release-policy); the tooling does not decide that readiness, and `pnpm check:workspace` currently allows only `0.0.x` package versions until that gate is deliberately opened. npm trusted publishing and long-term support are out of scope.
+This is the repeatable process for producing a release of the CoDS packages. Versions below `1.0.0` (the `0.x` series) are **development** releases: they are published as GitHub prereleases and the changelog states they are not supported. A `1.0.x` release is a supported release and is gated on the readiness criteria in the [release policy](memos/ADR_Acceptance_Memo_2026-09-14.md#release-policy); the tooling does not decide that readiness, and `pnpm check:workspace` allows only `0.x.y` package versions until that gate is deliberately opened.
+
+## Version numbering
+
+| Bump  | When                                                               | Example |
+| ----- | ------------------------------------------------------------------ | ------- |
+| Minor | A delivery phase is complete (`0.<phase>.0`).                      | `0.1.0` |
+| Patch | A task-level release between phase milestones.                     | `0.1.1` |
+| Major | The approved supported release, after the readiness gate. Not yet. | `1.0.0` |
+
+Changesets accumulate: every pending changeset is consumed by one `pnpm release:version` run, and the highest bump among them wins. Ship a patch release per task by running the version-and-tag cycle before more changesets are merged. npm trusted publishing and long-term support are out of scope.
 
 ## What a release contains
 
@@ -20,9 +30,9 @@ Release notes and assets are published as a GitHub **prerelease**. The workflow 
 
 ## Cutting a release
 
-1. **Record intent in each pull request.** Run `pnpm changeset`, choose `patch` while the series stays `0.0.x`, and describe the change. Start the summary with `BREAKING:` for a breaking change; those are listed under "Known breaking changes". The two `@coloradodigitalservice` packages are a Changesets `fixed` group, so they always share one version. Internal `@cods-internal/*` workspaces are ignored.
+1. **Record intent in each pull request.** Run `pnpm changeset`, choose `patch` for a task-level change (or `minor` for the changeset that closes a phase), and describe the change. Start the summary with `BREAKING:` for a breaking change; those are listed under "Known breaking changes". The two `@coloradodigitalservice` packages are a Changesets `fixed` group, so they always share one version. Internal `@cods-internal/*` workspaces are ignored.
 2. **Version.** On a branch from `main`, run `pnpm release:version`. It consumes the changesets, bumps both packages, and writes each package's `CHANGELOG.md`. Commit and merge through a normal pull request.
-3. **Tag.** Create `v<version>` (for example `v0.0.N`) on the merged commit on `main` and push it. Pushing the tag is the approval: confirm the [Foundation workflow](CI.md) passed on that commit first.
+3. **Tag.** Create `v<version>` (for example `v0.1.0`) on the merged commit on `main` and push it. Pushing the tag is the approval: confirm the [Foundation workflow](CI.md) passed on that commit first.
 4. **Generate and publish.** The `build` job runs the repository gate and generates the artifacts without any secret. The `publish` job then verifies `SHA256SUMS` and creates the GitHub release (a prerelease for any `0.x` version).
 
 ## Gates enforced by the workflow

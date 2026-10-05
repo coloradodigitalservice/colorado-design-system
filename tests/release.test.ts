@@ -22,6 +22,7 @@ import {
   isBreaking,
   mergeEntries,
   releaseChannel,
+  STATUS_NOTICE,
   validateSbom,
   versionFromTag,
   versionSection,
@@ -68,6 +69,10 @@ describe('release tags', () => {
     expect(releaseChannel('0.0.3')).toBe('development');
     expect(releaseChannel('0.9.0')).toBe('development');
     expect(releaseChannel('1.0.0')).toBe('supported');
+  });
+
+  it('describes every 0.x release as a development release', () => {
+    expect(STATUS_NOTICE).toContain('`0.x` development release');
   });
 });
 

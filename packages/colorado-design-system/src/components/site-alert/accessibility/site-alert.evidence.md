@@ -1,6 +1,6 @@
 # Accessibility evidence: `cods-site-alert`
 
-- Maturity: experimental (`0.0.x`); not approved as stable.
+- Maturity: experimental (`0.x`); not approved as stable.
 - Date: October 1, 2026.
 - Automated verification: Codex; manual review: Eric Swanson (reported October 1, 2026); accessibility lead approval pending.
 - Ticket: CODS-P2-001; Site Alert selected by Eric Swanson in the implementation chat.

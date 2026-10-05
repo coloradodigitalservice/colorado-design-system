@@ -27,7 +27,7 @@ The accepted direction is a State-owned, framework-agnostic design system delive
 | Figma                    | Use Figma as the display and design-composition surface. Figma is not the production source of token values. Repository token files are updated using the DTCG standard and then built into consumer formats. |
 | Web Components           | Defer Web Components and Shadow DOM. They are not part of the initial implementation scope.                                                                                                                   |
 | Drupal                   | Defer all Drupal scope, including a supported Drupal theme, runtime integration, and Drupal-specific implementation work. Any future Drupal work requires separate approval and scope.                        |
-| Release progression      | During development, publish releases using the `0.0.x` series. When CoDS is ready for its first supported release, begin the `1.0.x` series.                                                                  |
+| Release progression      | During development, publish releases using the `0.x` series: minor versions mark completed phases and patch versions mark task releases. When CoDS is ready for its first supported release, begin `1.0.x`.   |
 
 ## Amendment: final `1.0.x` inventory and USWDS foundation
 
@@ -103,9 +103,9 @@ Directory names may remain shorter inside the repository when that improves loca
 
 CoDS will use a deliberately conservative release progression:
 
-### Development releases: `0.0.x`
+### Development releases: `0.x`
 
-The `0.0.x` series is for active architecture and implementation development. Consumers may use these releases for internal testing and vertical-slice validation, but the public contract is not yet considered stable. Markup, tokens, CSS custom properties, controller APIs, fixtures, and package boundaries may change between releases.
+The `0.x` series is for active architecture and implementation development. The minor version records the delivery phase most recently completed (`0.1.0` closes Phase 1), and the patch version increments for task-level releases within a phase (amended October 5, 2026; previously all development releases used `0.0.x`). Consumers may use these releases for internal testing and vertical-slice validation, but the public contract is not yet considered stable. Markup, tokens, CSS custom properties, controller APIs, fixtures, and package boundaries may change between releases.
 
 Every development release should still include:
 
