@@ -38,6 +38,9 @@ function change(root: HTMLElement, item: Item, expanded: boolean) {
   const before = instance.items.map(({ button }) =>
     button.getAttribute('aria-expanded'),
   );
+  // Capture focus before USWDS hides content; browsers may clear it while
+  // closing this panel or a sibling in single-open mode.
+  const focusedElement = root.ownerDocument.activeElement;
   // Use pinned USWDS state/exclusivity behavior; only lifecycle, focus safety,
   // and CoDS events are added here. No document-level USWDS auto-initializer.
   uswdsAccordion.toggle(item.button, expanded);
@@ -48,7 +51,7 @@ function change(root: HTMLElement, item: Item, expanded: boolean) {
   for (const changed of changes) {
     if (
       changed.button.getAttribute('aria-expanded') === 'false' &&
-      changed.panel.contains(root.ownerDocument.activeElement)
+      changed.panel.contains(focusedElement)
     ) {
       changed.button.focus();
     }
