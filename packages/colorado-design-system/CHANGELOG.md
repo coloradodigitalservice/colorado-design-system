@@ -1,5 +1,15 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.1.2
+
+### Patch Changes
+
+- 33507e6: Document the Site Alert and Accordion vertical-slice components on the Astro docs site, with component summaries, anatomy, accessibility guidance, known limitations, Figma links, and development-release install instructions.
+- 5a52cd3: Release 0.1.2
+- Updated dependencies [33507e6]
+- Updated dependencies [5a52cd3]
+  - @coloradodigitalservice/colorado-design-tokens@0.1.2
+
 ## 0.1.1
 
 ### Patch Changes

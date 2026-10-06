@@ -5,6 +5,7 @@ import '@coloradodigitalservice/colorado-design-system/styles';
 import SiteAlertExamples from '../components/SiteAlertExamples.astro';
 import ButtonExamples from '../components/ButtonExamples.astro';
 import AccordionExamples from '../components/AccordionExamples.astro';
+import ComponentSummary from '../components/ComponentSummary.astro';
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs');
@@ -32,7 +33,19 @@ const { Content } = await render(entry);
       </>
     )}
     {entry.id === 'button' && <ButtonExamples mode="default" />}
-    {entry.id === 'accordion' && <AccordionExamples />}
+    {entry.id === 'accordion' && (
+      <>
+        <p>
+          Accordion shows and hides related sections of content. Its maturity is{' '}
+          <strong>experimental</strong> in the <code>0.x</code> development
+          series.
+        </p>
+        <AccordionExamples />
+      </>
+    )}
+    {(entry.id === 'site-alert' || entry.id === 'accordion') && (
+      <ComponentSummary component={entry.id} figma={entry.data.figma} />
+    )}
     <Content />
     {entry.id === 'button' && <ButtonExamples mode="remaining" />}
     {entry.id === 'site-alert' && <SiteAlertExamples mode="remaining" />}

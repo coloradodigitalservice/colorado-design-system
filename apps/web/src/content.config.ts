@@ -9,6 +9,7 @@ const docs = defineCollection({
     description: z.string().trim().min(1),
     navLabel: z.string().trim().min(1),
     order: z.number().int().nonnegative(),
+    figma: z.url().optional(),
   }),
 });
 

@@ -2,18 +2,26 @@
 title: Accordion
 description: An experimental, progressively enhanced accordion for related sections of content.
 navLabel: Accordion
-order: 20
+order: 10
+figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=1387-254
 ---
 
 ## When to use
 
-Use an accordion to organize related, optional sections. Keep information everyone needs visible outside it. Choose heading levels to fit the page outline. The examples above use the package's canonical fixture.
+Use an accordion to organize related, optional sections, such as supporting details or frequently asked questions. Keep information everyone needs visible outside it. Do not use it for a single block of content, for navigation, or for content people must read in full to complete a task. Choose heading levels to fit the page outline. The examples above use the package's canonical fixture.
 
 Accordion is **experimental** in the `0.0.x` development series. Manual accessibility review and G2 acceptance remain open.
 
+## Anatomy
+
+1. **Root** (`cods-accordion`, `data-cods-accordion`): owns the lifecycle, configuration, and events.
+2. **Heading** (`cods-accordion__heading`): a heading element at the level your page needs.
+3. **Trigger** (`cods-accordion__trigger`): a native `button` inside the heading that names and toggles one panel.
+4. **Panel** (`cods-accordion__panel`): the content controlled by the trigger through `aria-controls`.
+
 ## Install and initialize
 
-Load the package stylesheet and author the USWDS markup with the CoDS hooks shown above. Give every panel a document-unique ID and point its button's `aria-controls` to that ID. Keep panels visible and `aria-expanded="true"` in server-rendered markup. Set `data-cods-accordion-expanded="true"` or `"false"` on each button for its initial enhanced state. No panel needs a region role or a live region.
+Follow [Getting started](/getting-started/) to install the development release and load `@coloradodigitalservice/colorado-design-tokens/tokens.css` and `@coloradodigitalservice/colorado-design-system/styles` once. Author the USWDS markup with the CoDS hooks shown above. Give every panel a document-unique ID and point its button's `aria-controls` to that ID. Keep panels visible and `aria-expanded="true"` in server-rendered markup. Set `data-cods-accordion-expanded="true"` or `"false"` on each button for its initial enhanced state. No panel needs a region role or a live region.
 
 ```js
 import {
@@ -70,3 +78,18 @@ The controller wraps the pinned [USWDS accordion](https://designsystem.digital.g
 Public classes are `cods-accordion`, `cods-accordion--bordered`, `cods-accordion__heading`, `cods-accordion__trigger`, and `cods-accordion__panel`. Keep the corresponding `usa-*` classes as the private upstream integration markup. Set `--cods-accordion-background`, `--cods-accordion-text`, and `--cods-accordion-border` on a root to customize approved token-based defaults. Preserve readable contrast and visible focus.
 
 Translate heading/body text, set the appropriate `lang`, and use `dir="rtl"` for right-to-left content. Padding and icons use logical positioning. Content wraps without a fixed height; do not place unresponsive tables or media inside panels. Error, loading, and empty states belong to the content rather than this disclosure control.
+
+The shipped fixture is available at `@coloradodigitalservice/colorado-design-system/fixtures/accordion.html` and metadata at `@coloradodigitalservice/colorado-design-system/metadata/accordion.json`. Storybook, the automated tests, and this page use that same fixture.
+
+## Accessibility responsibilities
+
+The component supplies native button semantics, `aria-expanded`/`aria-controls` state, visible focus, reflow, reduced-motion, and forced-colors support. Authors remain responsible for unique panel IDs, heading levels that fit the page outline, meaningful trigger text, translated content, and keeping panel content accessible. Do not hide content that must remain available without JavaScript. Manual screen-reader, actual zoom, and Windows forced-colors observations are not fully recorded in the evidence file, so accessibility lead acceptance is pending.
+
+## Known limitations and implementation status
+
+- **Status:** implemented as a G2 vertical-slice component at **experimental** maturity. Automated browser, accessibility, and unit tests pass; the author reports completed manual accessibility review without detailed observations. Domain-owner acceptance and G2 sign-off are pending.
+- Configuration is read once at initialization; destroy and reinitialize after changing configuration or an existing root's items.
+- The controller does not observe the DOM; call `initAllAccordions()` after inserting new markup.
+- No custom arrow-key navigation, animation, or live-region announcements.
+- Approved visual regression baselines are not yet established.
+- Markup, custom properties, and controller APIs may change before `1.0`.
