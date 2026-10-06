@@ -30,16 +30,17 @@ Release notes and assets are published as a GitHub **prerelease**. The workflow 
 
 ## Cutting a release
 
-1. **Record intent in each pull request.** Run `pnpm changeset`, choose `patch` for a task-level change (or `minor` for the changeset that closes a phase), and describe the change. Start the summary with `BREAKING:` for a breaking change; those are listed under "Known breaking changes". The two `@coloradodigitalservice` packages are a Changesets `fixed` group, so they always share one version. Internal `@cods-internal/*` workspaces are ignored.
-2. **Version.** On a branch from `main`, run `pnpm release:version`. It consumes the changesets, bumps both packages, and writes each package's `CHANGELOG.md`. Commit and merge through a normal pull request.
-3. **Tag.** Create `v<version>` (for example `v0.1.0`) on the merged commit on `main` and push it. Pushing the tag is the approval: confirm the [Foundation workflow](CI.md) passed on that commit first.
-4. **Generate and publish.** The `build` job runs the repository gate and generates the artifacts without any secret. The `publish` job then verifies `SHA256SUMS` and creates the GitHub release (a prerelease for any `0.x` version).
+1. **Record intent.** Run `pnpm changeset`, choose `patch` for a task release or `minor` to close a phase, and describe the change. Start the summary with `BREAKING:` for a breaking change; those are listed under "Known breaking changes". The two `@coloradodigitalservice` packages are a Changesets `fixed` group, so they always share one version. Internal `@cods-internal/*` workspaces are ignored.
+2. **Version.** On a branch containing only the changes intended for this release, run `pnpm release:version`. It consumes the changesets, bumps both packages, and writes each package's `CHANGELOG.md`. Commit the version changes. For phase-only releases, base `release/<version>` on the last commit included in that phase so later-phase work is excluded.
+3. **Validate.** Push `release/<version>` (for example `release/0.1.0`) and wait for the [Foundation workflow](CI.md) to pass on its tip. Keep the branch tip unchanged until release generation finishes.
+4. **Tag.** Create `v<version>` on that exact release-branch tip and push it. A tag may instead target a commit already on `main`. Pushing the tag is the approval; the release workflow accepts a release-branch tag only when its commit is still the branch tip.
+5. **Generate and publish.** The `build` job runs the repository gate and generates the artifacts without any secret. The `publish` job then verifies `SHA256SUMS` and creates the GitHub release (a prerelease for any `0.x` version).
 
 ## Gates enforced by the workflow
 
 `scripts/release.mjs` fails the release if any of these do not hold:
 
-- The tag matches `vMAJOR.MINOR.PATCH` (above `0.0.0`), and the commit is on `main`.
+- The tag matches `vMAJOR.MINOR.PATCH` (above `0.0.0`), and its commit is on `main` or exactly the tip of `release/<version>`.
 - Both package versions, the packed dependency range between them, and the version shown in the documentation footer (`data-cods-release`) all equal the tag version.
 - The working tree is clean after the build, so artifacts match the tagged commit.
 - A `## <version>` entry exists in a package changelog (that is, `pnpm release:version` ran).
