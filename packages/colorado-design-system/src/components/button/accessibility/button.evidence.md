@@ -84,3 +84,13 @@ Browser checks live in
 `tests/browser/button-checks.ts`, invoked on the built documentation in Chromium,
 Firefox, and WebKit and the built Storybook in Chromium. The shared harness
 captures console/page errors and complete axe results without excluded rules.
+
+## Shared-fixture contract follow-up
+
+On 2026-10-06, current main's shared-fixture contract was integrated following
+PR CI validation. Every Button state now declares an example mapping and a
+`data-cods-fixture-state` marker; focus setup is flagged for runtime review.
+Documentation and isolated Storybook stories consume the generated package
+examples, with metadata and matching copyable code. The updated `pnpm check`
+passed: 110 unit tests and 201 browser tests, including generated output/export
+drift checks, static-consumer checks, and cross-surface example parity.

@@ -14,13 +14,13 @@ test.describe('without enhancement', () => {
     const button = page.locator('[data-cods-button-fixture="default"] button');
     await expect(button).toHaveAttribute('type', 'button');
     await expect(button).toBeVisible();
-    await page.getByText('View and copy HTML', { exact: true }).first().click();
+    await page.locator('[data-cods-example=default] summary').click();
     await expect(
-      page.getByRole('region', { name: 'default Button HTML', exact: true }),
+      page.getByRole('region', { name: 'Default Button HTML', exact: true }),
     ).toContainText('usa-button cods-button');
     expect(
       await page
-        .getByRole('region', { name: 'default Button HTML', exact: true })
+        .getByRole('region', { name: 'Default Button HTML', exact: true })
         .evaluate((el) => {
           const template = document.createElement('template');
           template.innerHTML = el.textContent ?? '';

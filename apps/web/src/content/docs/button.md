@@ -25,7 +25,9 @@ form submission. Provide a descriptive visible label. The examples below and
 Storybook use the shipped fixture at
 `@coloradodigitalservice/colorado-design-system/fixtures/button.html`; metadata
 is available at `@coloradodigitalservice/colorado-design-system/metadata/button.json`.
-Expand “View and copy HTML” to copy each example's canonical markup.
+Expand each HTML disclosure to copy its canonical markup. Example data is
+generated at `@coloradodigitalservice/colorado-design-system/examples/button.json`
+from the fixture and metadata; focus examples include runtime review instructions.
 
 ## Variants and sizing
 
