@@ -3,16 +3,36 @@ title: Site Alert
 description: Static sitewide informational and emergency notices.
 navLabel: Site Alert
 order: 20
+figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=2769-6573
 ---
+
+## When to use
+
+Use Site Alert for a sitewide service update or emergency that applies to every
+visitor, such as an outage or closure. Do not use it for messages about one form
+or task (put those near the content they affect), for confirmation of a user
+action, or for content people must dismiss or act on immediately; this static
+notice has no dismissal and is not announced automatically.
 
 Place the notice near the top of the page, after the skip link. Use one alert
 per page in production. Write a specific heading and a useful action link.
 Prefix urgent headings with “Emergency” so severity does not depend on color.
 The example above shows the default notice. More examples below cover the other fixture states.
 
+## Anatomy
+
+1. **Root section** (`cods-site-alert`): a named region.
+2. **Surface** (`cods-site-alert__surface`): the inner USWDS alert container.
+3. **Body** (`cods-site-alert__body`): padding for the content.
+4. **Heading** (`cods-site-alert__heading`): visible name of the region; its ID is referenced by `aria-labelledby`.
+5. **Text** (`cods-site-alert__text`): the notice paragraph.
+6. **Link** (`cods-site-alert__link`): one native action link.
+
 ## Use the package
 
-Load `@coloradodigitalservice/colorado-design-system/styles` once. Author the
+Follow [Getting started](/getting-started/) to install the development release
+and load `@coloradodigitalservice/colorado-design-tokens/tokens.css` and
+`@coloradodigitalservice/colorado-design-system/styles` once. Author the
 USWDS section → alert surface → alert body structure shown in the canonical
 fixture, retaining both the `usa-` structural classes and the `cods-` public
 classes. There is no JavaScript import, controller, dismissal, or custom event.
@@ -67,6 +87,20 @@ animation. Logical borders and wrapping support narrow widths, translated text,
 and right-to-left content. Forced colors use system text, link, and border colors.
 Manual screen-reader and actual 400% zoom verification, content/design review,
 and G2 approval remain required before stable maturity or gate sign-off.
+
+## Known limitations and implementation status
+
+- **Status:** implemented as a G2 vertical-slice component at **experimental**
+  maturity. Automated accessibility checks, Storybook parity checks, and the
+  author's manual keyboard, VoiceOver/Safari, Firefox zoom, and reduced-motion
+  reviews are recorded in the evidence file. Accessibility lead approval and G2
+  sign-off are pending.
+- No dismissal, icon, or live-region announcement. The no-icon USWDS option
+  avoids a decorative asset dependency.
+- No new severity colors: informational and emergency notices share the neutral
+  surface, so severity must be stated in the heading text.
+- Actual Windows forced-colors review and translated-content review are open.
+- Markup, custom properties, and package paths may change before `1.0`.
 
 ## Manual review checklist
 

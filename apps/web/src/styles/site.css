@@ -148,6 +148,24 @@ main h1 {
   cursor: pointer;
 }
 
+.cods-docs-summary dl {
+  margin: 0;
+}
+
+.cods-docs-summary dl > div {
+  padding-block: var(--cods-space-sm);
+  border-block-end: 1px solid var(--cods-color-border-subtle);
+}
+
+.cods-docs-summary dt {
+  font-weight: 700;
+}
+
+.cods-docs-summary dd {
+  margin-inline-start: 0;
+  overflow-wrap: anywhere;
+}
+
 .cods-docs-example-source pre {
   max-width: 100%;
   padding: var(--cods-space-md);
