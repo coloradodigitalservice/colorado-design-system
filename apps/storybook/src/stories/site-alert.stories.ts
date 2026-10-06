@@ -1,20 +1,22 @@
 import type { Meta, StoryObj } from '@storybook/html-vite';
+import examples from '@coloradodigitalservice/colorado-design-system/examples/site-alert.json';
+import metadata from '@coloradodigitalservice/colorado-design-system/metadata/site-alert.json';
 import fixture from '@coloradodigitalservice/colorado-design-system/fixtures/site-alert.html?raw';
 
-function renderState(state: string) {
-  const template = document.createElement('template');
-  template.innerHTML = fixture;
-  const block = template.content.querySelector(
-    `[data-cods-site-alert-fixture="${state}"]`,
-  );
-  if (!block) throw new Error(`Missing canonical Site Alert state: ${state}`);
-  return block.outerHTML;
+function renderState(name: string): string {
+  const example = examples.examples.find((example) => example.state === name);
+  if (!example) throw new Error(`Missing canonical state: ${name}`);
+  return example.html;
 }
 
 const meta = {
   title: 'Components/Site Alert',
   render: () => fixture,
-  parameters: { controls: { disable: true }, actions: { disable: true } },
+  parameters: {
+    componentMetadata: metadata,
+    controls: { disable: true },
+    actions: { disable: true },
+  },
 } satisfies Meta;
 
 export default meta;
@@ -36,3 +38,5 @@ export const FocusVisible: Story = {
       ?.focus();
   },
 };
+
+export const Default: Story = { render: () => renderState('default') };

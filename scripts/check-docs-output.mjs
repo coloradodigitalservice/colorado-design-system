@@ -4,6 +4,7 @@ import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { fileURLToPath, URL } from 'node:url';
 import { JSDOM } from 'jsdom';
+import { loadComponents, checkComponentAssets } from './component-fixtures.mjs';
 
 const root = resolve(
   fileURLToPath(new URL('../apps/web/dist/', import.meta.url)),
@@ -25,6 +26,25 @@ function visit(directory) {
   }
 }
 
+checkComponentAssets();
+for (const component of loadComponents()) {
+  const page = join(root, component.name, 'index.html');
+  if (!existsSync(page)) {
+    failures.push(`${component.name}: missing documentation page`);
+    continue;
+  }
+  const dom = new JSDOM(readFileSync(page, 'utf8'));
+  for (const example of component.examples.examples) {
+    const code = dom.window.document.querySelector(
+      `[data-cods-example="${example.state}"] code`,
+    );
+    if (code?.textContent !== example.code)
+      failures.push(
+        `${component.name}/${example.state}: documentation code drift`,
+      );
+  }
+  dom.window.close();
+}
 visit(root);
 if (!pages.length) failures.push('No static HTML pages were generated');
 

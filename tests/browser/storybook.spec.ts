@@ -15,7 +15,7 @@ for (const story of stories) {
     page,
   }, testInfo) => {
     const response = await page.goto(
-      `/iframe.html?id=${encodeURIComponent(story.id)}&viewMode=story`,
+      `/iframe.html?id=${encodeURIComponent(story.id)}&viewMode=story&globals=a11y.manual:!true`,
     );
     expect(response?.ok()).toBe(true);
     await expect(page.locator('#storybook-root')).not.toBeEmpty();

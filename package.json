@@ -21,7 +21,7 @@
     "typecheck": "tsc --project tsconfig.json --noEmit",
     "test": "vitest run",
     "build": "pnpm tokens:check && turbo run build",
-    "check": "pnpm check:workspace && pnpm validate && pnpm tokens:check && pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build && pnpm test:browser",
+    "check": "pnpm check:workspace && pnpm fixtures:validate && pnpm validate && pnpm tokens:check && pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build && pnpm fixtures:check && node scripts/build-static-example.mjs --check && pnpm test:browser",
     "prepare": "husky",
     "changeset": "changeset",
     "release:version": "changeset version",
@@ -31,7 +31,9 @@
     "tokens:check": "turbo run tokens:check",
     "test:browser": "playwright test",
     "test:browser:install": "playwright install chromium firefox webkit",
-    "test:browser:report": "playwright show-report"
+    "test:browser:report": "playwright show-report",
+    "fixtures:validate": "node scripts/component-fixtures.mjs",
+    "fixtures:check": "node scripts/component-fixtures.mjs --output"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",
