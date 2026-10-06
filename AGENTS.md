@@ -30,6 +30,7 @@ do not invent one. This applies to every new ticket branch.
 - Node version is pinned in `.nvmrc` and `package.json#engines` (`24.21.0`). Run `nvm use` before installing or building — the default shell Node is often older and Storybook/Vite will fail silently or loudly otherwise.
 - Package manager is pnpm, pinned via `package.json#packageManager` (`pnpm@12.4.2`). Run `corepack enable` once, then plain `pnpm install` resolves the pinned version automatically. Do not use `npm` or `yarn` in this repo.
 - pnpm blocks native postinstall scripts by default. If a dependency's build is required (for example `esbuild`), approve it in `pnpm-workspace.yaml`'s `allowBuilds`, don't work around it with `--ignore-scripts`.
+- The Husky pre-commit hook runs `betterleaks git --staged --redact` and refuses to commit when the `betterleaks` binary is missing (`brew install betterleaks`). Suppress a false positive with a `betterleaks:allow` comment; never bypass the hook with `--no-verify`.
 
 ## Required commands
 
@@ -44,7 +45,7 @@ Run from the repo root unless noted; each is expected to exit `0` before a chang
 | `pnpm typecheck`                    | `tsc --noEmit` for the root `tsconfig.json` scope only (`tests/**`, `vitest.config.ts`, the tokens consumer test) — it does not typecheck `apps/web`, `apps/storybook`, or `packages/colorado-design-system/src` |
 | `pnpm test`                         | Vitest                                                                                                                                                                                                           |
 | `pnpm build`                        | `tokens:check` then `turbo run build` (tokens must build before the design-system package)                                                                                                                       |
-| `pnpm check`                        | Runs everything above in order — the full gate a change must pass                                                                                                                                                |
+| `pnpm check`                        | Runs `check:workspace`, `validate`, `tokens:check`, `format:check`, `lint`, `typecheck`, `test`, `build`, then `test:browser` — the full gate a change must pass                                                 |
 
 `packages/colorado-design-tokens/generated/**` is committed to git (unlike `dist/` and `storybook-static/`, which are gitignored). Never delete `generated/` to simulate a clean checkout; regenerate it from the current token source with `pnpm tokens:build` rather than `git checkout --`, which would discard an in-progress token update instead of rebuilding it.
 
@@ -76,18 +77,18 @@ Components with a USWDS equivalent are themed wrappers around USWDS markup/behav
 
 ## Design tokens: Git is authoritative, not Figma
 
-Figma is the design-composition and display surface only. Approved token _values_ are authored and reviewed as DTCG-format JSON in `packages/colorado-design-tokens/src/*.tokens.json` and built into CSS/Sass/JSON/TypeScript via Style Dictionary. A change to a Figma variable is not a released token change until it is reflected in the repository's token source and passes `pnpm tokens:check`. Never hand-edit files under `packages/colorado-design-tokens/generated/` — they're build output.
+Figma is the design-composition and display surface only. Approved token _values_ are authored and reviewed as DTCG-format JSON in `packages/colorado-design-tokens/src/*.tokens.json` and built into CSS/Sass/JSON/TypeScript via Style Dictionary. A change to a Figma variable is not a released token change until it is reflected in the repository's token source and passes `pnpm tokens:check`. Never hand-edit files under `packages/colorado-design-tokens/generated/` — they're build output. To add, rename, remove, or re-alias a token, follow the [`cods-token-change` skill](.agents/skills/cods-token-change/SKILL.md).
 
 ## Package naming and release policy
 
-- Published package names are `@coloradodigitalservice/colorado-design-tokens` and `@coloradodigitalservice/colorado-design-system` (scope subject to the State's final confirmed npm scope). Internal app package names under `apps/` use the private `@cods-internal/*` scope and are never published.
-- Release series has a specific meaning — don't casually suggest or imply a `1.0.x` tag:
-  - **`0.0.x`** — current, active development series. Markup, tokens, CSS custom properties, controller APIs, and package boundaries may still change between releases.
-  - **`1.0.x`** — the first _supported_ release, gated on an approved public component contract, completed accessibility evidence, stable exports, and explicit State sign-off (see the [ADR acceptance memo](docs/memos/ADR_Acceptance_Memo_2026-09-14.md) and the [1.0 proposal](docs/proposals/Colorado_Design_System_1.0_Proposal_2026-09-15.md)). If a readiness condition isn't met, the answer is to stay on `0.0.x` and move the date — never label an incomplete contract `1.0.x`.
+- Published package names are `@coloradodigitalservice/colorado-design-tokens` and `@coloradodigitalservice/colorado-design-system` (the npm scope is set up; the Senior Developer publishes until the client team takes over). Internal app package names under `apps/` use the private `@cods-internal/*` scope and are never published.
+- Release series has a specific meaning — don't casually suggest or imply a `1.0.x` tag or a `major` bump:
+  - **`0.x`** — current, active development series. Minor versions mark completed phases (`0.1.0` closes Phase 1); patch versions mark task-level releases. Markup, tokens, CSS custom properties, controller APIs, and package boundaries may still change between releases. Releases are cut by tag and generated by the [development release workflow](docs/RELEASE.md); record intent with `pnpm changeset` (`patch` for tasks, `minor` only to close a phase, never `major`).
+  - **`1.0.x`** — the first _supported_ release, gated on an approved public component contract, completed accessibility evidence, stable exports, and explicit State sign-off (see the [ADR acceptance memo](docs/memos/ADR_Acceptance_Memo_2026-09-14.md) and the [1.0 proposal](docs/proposals/Colorado_Design_System_1.0_Proposal_2026-09-15.md)). If a readiness condition isn't met, the answer is to stay on `0.x` and move the date — never label an incomplete contract `1.0.x`.
 
 ## Accessibility evidence
 
-Every component at `experimental` maturity or above needs `accessibility/<name>.evidence.md` covering keyboard operation, focus management, accessible naming, screen-reader verification, 400% zoom/reflow, reduced-motion, forced-colors, and localization notes (contract [section 6](docs/governance/component-contract.md#6-accessibility-localization-and-evidence-requirements)). A component cannot be marked `stable` in its metadata without a completed evidence file and every acceptance-criteria item satisfied.
+Every component at `experimental` maturity or above needs `accessibility/<name>.evidence.md` covering keyboard operation, focus management, accessible naming, screen-reader verification, 400% zoom/reflow, reduced-motion, forced-colors, and localization notes (contract [section 6](docs/governance/component-contract.md#6-accessibility-localization-and-evidence-requirements)). A component cannot be marked `stable` in its metadata without a completed evidence file and every acceptance-criteria item satisfied. Use the [`cods-accessibility-review` skill](.agents/skills/cods-accessibility-review/SKILL.md) to prepare the evidence; screen-reader findings and `stable` sign-off come from people, not agents.
 
 ## Reference documents (read these instead of asking for re-explanation)
 

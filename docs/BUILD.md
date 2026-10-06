@@ -36,6 +36,7 @@ After build, the `dist/` directory contains:
 | ---------------------------- | ------------------------------------------- |
 | `colorado-design-system.mjs` | ESM bundle with all components and exports  |
 | `colorado-design-system.css` | Compiled CSS from `src/styles/index.scss`   |
+| `fonts/`, `img/`             | Fonts and USWDS icons the CSS references    |
 | `index.d.ts`                 | TypeScript type declarations for main entry |
 | `components/*.d.ts`          | Component-specific type declarations        |
 
@@ -51,7 +52,10 @@ import { initComponentName } from '@coloradodigitalservice/colorado-design-syste
 import '@coloradodigitalservice/colorado-design-system/styles';
 ```
 
-Consumers must not rely on undeclared export paths. Per-component imports will be available when components are implemented.
+Consumers must not rely on undeclared export paths. The `./fixtures/*.html` and
+`./metadata/*.json` patterns export every component's fixture and metadata,
+including experimental components. These paths do not imply stable maturity;
+check the component metadata. Per-component controller subpaths are not exported.
 
 ### Entry Points
 
@@ -59,24 +63,41 @@ Consumers must not rely on undeclared export paths. Per-component imports will b
 - **Styles**: `src/styles/index.scss` → `dist/colorado-design-system.css`
 - **Components barrel**: `src/components/index.ts` (re-exports all component controllers)
 
-### Static Site Alert assets and cascade
+### Component assets and cascade
 
-The build copies the canonical Site Alert HTML and metadata unchanged into
-`dist/fixtures/site-alert.html` and `dist/metadata/site-alert.json`. The public
-subpaths are `./fixtures/site-alert.html` and `./metadata/site-alert.json`.
-Storybook and the reference site import the same shipped fixture using Vite's
-`?raw` loader. Static components do not need controller exports.
+The build discovers component directories under `src/components/` and copies
+`<name>.fixture.html` and `<name>.metadata.json` unchanged into
+`dist/fixtures/<name>.html` and `dist/metadata/<name>.json`. The reserved
+`shared/` support directory is skipped. Missing either required component asset
+fails the build, regardless of maturity. Wildcard package exports make copying
+and fixture/metadata registration automatic; no per-component list is needed.
+For example, Site Alert resolves at `./fixtures/site-alert.html` and
+`./metadata/site-alert.json`. Storybook and the reference site import the same
+shipped fixture using Vite's `?raw` loader. Static components do not need
+controller exports.
 
-`src/styles/index.scss` declares `cods.reset`, `cods.base`, `cods.components`,
-and `cods.utilities` in that order. Sass `meta.load-css` emits USWDS and the
-existing Colorado color/typography overrides together in `cods.base`, retaining
-source order. Component partials emit their own `cods.components` rules.
-This makes low-specificity CoDS rules authoritative over upstream CSS;
-unlayered consumer styles still take precedence. Token values are unchanged.
+`src/styles/index.scss` forwards `_cods-layers.scss` first to declare
+`uswds`, `cods.reset`, `cods.base`, `cods.components`, and `cods.utilities`
+in that order. `_uswds-layer.scss` loads USWDS into `uswds`; the existing
+Colorado color/typography overrides follow in that same layer. Component
+partials emit their own `cods.components` rules, so normal component rules
+override upstream CSS without raising specificity. Unlayered consumer styles
+take precedence over normal layered rules; USWDS utilities using `!important`
+cannot be overridden by normal declarations. Token values are unchanged.
 
 ### External Dependencies
 
 The `@coloradodigitalservice/colorado-design-tokens` package is marked external and not bundled; consumers must install it separately.
+
+### Cascade Layers
+
+`src/styles/index.scss` forwards `_cods-layers.scss` first, which declares `@layer uswds, cods.reset, cods.base, cods.components, cods.utilities;`. USWDS is loaded into the `uswds` layer by `_uswds-layer.scss` after `uswds-theme` configures it, and the color/typography overrides follow it in the same layer, so they still lose to USWDS's higher-specificity variant, state, and `:visited` rules. Component rules go in `cods.components`, so they override USWDS without `!important`; consumer unlayered CSS overrides CoDS. USWDS utility classes use `!important` and cannot be overridden by normal declarations. The build sets `cssMinify: 'esbuild'` so the order statement stays first in `dist/colorado-design-system.css`. See [ADR-007](adrs/007-cascade-layer-order.md).
+
+### USWDS JavaScript
+
+Interactive Type A components import the single USWDS behavior they wrap (for example `@uswds/uswds/js/usa-accordion`), as decided in [ADR-006](adrs/006-uswds-javascript-ingestion.md). USWDS ships these as CommonJS; Vite bundles them into `colorado-design-system.mjs`, so consumers load one `<script type="module">` and need no CommonJS handling. `@uswds/uswds` is deliberately not external. To confirm a build, check that `dist/colorado-design-system.mjs` contains no `require(` and no `uswdsPresent`. The wrapper pattern is in [contract section 4.5](governance/component-contract.md#45-wrapping-uswds-javascript).
+
+USWDS's CSS references icons by relative `url()`. `_uswds-theme.scss` sets `$theme-font-path` and `$theme-image-path` to `./fonts` and `./img`, and the Vite config copies those assets into `dist/` after the build. Vite warns that these paths "didn't resolve at build time"; this is expected, and they resolve at runtime from `dist/`.
 
 ## Design Tokens Package (`colorado-design-tokens`)
 
@@ -150,7 +171,8 @@ pnpm build          # Builds everything; Turbo ensures tokens are cached/availab
 2. Write TypeScript controller (if interactive): `<component-name>.ts`
 3. Export controller in `src/components/index.ts`
 4. Run `pnpm run -C packages/colorado-design-system build:watch` during development
-5. Add subpath export to `package.json` once component is stable
+5. Forward the component Sass partial in `src/styles/index.scss`; fixture and
+   metadata copying and subpath exports are automatic for all maturities.
 
 ## Vite Configuration Notes
 

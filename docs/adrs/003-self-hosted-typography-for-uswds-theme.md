@@ -34,7 +34,7 @@ Colorado's three brand fonts (Open Sans, Museo Slab, Source Code Pro) are self-h
 
 ### 4. Heading role architecture
 
-`$theme-font-role-heading` is set to `'sans'` (Open Sans), matching the h2–h6 majority. Museo Slab at weight 500 is applied only to `h1` via a dedicated override file, `_cods-typography-overrides.scss`, forwarded after `uswds` in `index.scss` (same pattern as the existing color-override layer in ADR-002). This is a necessary workaround for USWDS's lack of a per-heading-level family/weight setting — not a preference.
+`$theme-font-role-heading` is set to `'sans'` (Open Sans), matching the h2–h6 majority. Museo Slab at weight 500 is applied only to `h1` via a dedicated override file, `_cods-typography-overrides.scss`, in the same `uswds` layer as USWDS and forwarded after it (see ADR-007; same pattern as the existing color-override layer in ADR-002). This is a necessary workaround for USWDS's lack of a per-heading-level family/weight setting — not a preference.
 
 ### 5. Trebuchet MS as system fallback only
 
@@ -55,7 +55,7 @@ Only a weight-500 Museo Slab file was provided. Colorado's token set defines a 6
 
 ### Costs & risks
 
-1. **Licensing custody:** the repository now contains a Museo Slab binary. Open Sans (Apache 2.0) and Source Code Pro (SIL OFL) are unambiguously fine to redistribute; Museo Slab is a commercial font (exljbris/FontSpring), and this ADR does **not** independently verify that Colorado/Aten holds a webfont license permitting redistribution in this repository — see Open Questions.
+1. **Licensing custody:** the repository now contains a Museo Slab binary. Open Sans (Apache 2.0) and Source Code Pro (SIL OFL) are unambiguously fine to redistribute; Museo Slab is a commercial font (exljbris/FontSpring); its license has been verified by the project owner (2026-10-02), and the license reference is to be stored with the font (see Open Questions).
 2. **No bold Museo Slab:** if a future design calls for Museo Slab at 600/700, a new font file is required; none exists today.
 3. **Figma verification gap:** Figma MCP access hit a seat-tier rate limit during this work, so exact typography values were taken from Colorado's existing token package rather than cross-checked live against Figma. Should be spot-checked once access allows.
 4. **USWDS upgrade risk:** the `$theme-font-weight-*` defaulting-to-`false` behavior is undocumented in the settings table's plain-language description (it's implied by the default value, not called out as a gotcha). A future USWDS upgrade could change this default; the upgrade-review checklist (`docs/governance/USWDS-UPGRADE-POLICY.md`) should include a font-weight regression check.
@@ -90,17 +90,10 @@ Only a weight-500 Museo Slab file was provided. Colorado's token set defines a 6
 ## Open questions
 
 **Q: Is there a confirmed webfont license for Museo Slab permitting its inclusion in this repository?**
-A: Not yet verified as part of this work. This must be confirmed by Colorado/Aten legal or procurement before this ADR is accepted, and the license reference should be recorded in the font's asset directory or this ADR.
+A: Verified by the project owner on 2026-10-02. The license reference (and any required notice) should be recorded in the font's asset directory so it ships with the font.
 
 **Q: Should Museo Slab support additional weights (600/700)?**
 A: Not per current design mocks, which use it only at 500. If a future design need arises, a new font file and a corresponding ADR/decision-log update would be required.
 
 **Q: Are the typography values (sizes, weights, line-heights) fully verified against Figma?**
 A: Values used match Colorado's existing token package (`@coloradodigitalservice/colorado-design-tokens`), which predates this task. Direct Figma verification was blocked by an MCP rate limit and should be revisited once access is available.
-
-## Acceptance criteria
-
-- [ ] Museo Slab webfont license confirmed and referenced.
-- [ ] State design owner confirms Museo Slab (weight 500 only) matches current brand requirements.
-- [ ] Figma typography values spot-checked once MCP access allows.
-- [ ] This ADR is signed by the State technical owner and Aten technical lead.

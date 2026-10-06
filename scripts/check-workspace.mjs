@@ -47,6 +47,10 @@ const expected = new Map([
     },
   ],
 ]);
+const releasePackages = new Set([
+  `${scope}colorado-design-tokens`,
+  `${scope}colorado-design-system`,
+]);
 const names = new Map([...expected].map(([path, entry]) => [entry.name, path]));
 const failures = [];
 
@@ -71,9 +75,14 @@ function validateWorkspace(path) {
 
   if (manifest.name !== expectation.name)
     fail(`${path}: expected name ${expectation.name}`);
-  if (manifest.version !== '0.0.0') fail(`${path}: expected version 0.0.0`);
+  if (releasePackages.has(manifest.name)) {
+    if (!/^0\.\d+\.\d+$/.test(manifest.version))
+      fail(`${path}: version must be in the 0.x development series`);
+  } else if (manifest.version !== '0.0.0') {
+    fail(`${path}: internal workspaces must stay at version 0.0.0`);
+  }
   if (manifest.private !== true)
-    fail(`${path}: must remain private during skeleton work`);
+    fail(`${path}: must remain private until the first npm publication`);
   if (manifest.repository?.directory !== path)
     fail(`${path}: repository.directory must match its workspace path`);
   if (
@@ -164,6 +173,22 @@ function validateRepository() {
   }
   if (readFileSync(join(root, '.nvmrc'), 'utf8').trim() !== '24.21.0')
     fail('.nvmrc must pin 24.21.0');
+
+  const releaseVersions = [...releasePackages].map(
+    (name) => json(join(root, names.get(name), 'package.json'))?.version,
+  );
+  if (new Set(releaseVersions).size !== 1)
+    fail(
+      'tokens and design-system must share one version (Changesets fixed group)',
+    );
+  const changesets = json(join(root, '.changeset/config.json'));
+  if (
+    changesets &&
+    JSON.stringify(changesets.fixed?.[0]?.slice().sort()) !==
+      JSON.stringify([...releasePackages].sort())
+  ) {
+    fail('.changeset/config.json must fix the two published packages together');
+  }
 
   const workspaceFile = readFileSync(join(root, 'pnpm-workspace.yaml'), 'utf8');
   const packageSection =

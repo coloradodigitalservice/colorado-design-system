@@ -34,7 +34,8 @@ A component directory never imports from another component's directory. Shared b
 
 ## 3. CSS conventions and `cods-` naming
 
-- All public CSS lives in the `cods.components` Sass/cascade layer declared by `src/styles/index.scss` (`@layer cods.reset, cods.base, cods.components, cods.utilities;`). A component must never write rules outside its assigned layer or increase specificity to defeat the layer order.
+- All public CSS lives in the `cods.components` Sass/cascade layer. The layer order is declared once, first, by `src/styles/_cods-layers.scss` (forwarded by `src/styles/index.scss`): `@layer uswds, cods.reset, cods.base, cods.components, cods.utilities;`. Later layers win regardless of specificity, so a type A component overrides USWDS from `cods.components` with a normal, low-specificity rule. A component must never write rules outside its assigned layer, add `!important`, or increase specificity to defeat the layer order. USWDS and the CoDS color/typography overrides of its selectors (both in the `uswds` layer) are assigned by the package, not by components.
+- Consuming projects override CoDS with unlayered CSS, which beats every layer. USWDS utility classes use `!important`, which layer order cannot override with a normal declaration. See [ADR-007](../adrs/007-cascade-layer-order.md).
 - Every publicly documented class, custom property, and `data-` attribute is namespaced with the `cods-` prefix:
   - Block class: `.cods-<component-name>` (for example `.cods-site-alert`).
   - Elements use a single hyphen-delimited BEM-style suffix: `.cods-site-alert__icon`, `.cods-site-alert__body`.
@@ -77,6 +78,19 @@ Controllers must be idempotent: calling `init` twice on the same root, or callin
 
 If the controller's `init` cannot find its required elements, it must fail silently for that instance (log a single developer-facing console warning, do not throw) and leave the underlying static markup usable.
 
+### 4.5 Wrapping USWDS JavaScript
+
+Type A components reuse USWDS's own JavaScript instead of reimplementing the interaction ([ADR-006](../adrs/006-uswds-javascript-ingestion.md)). The controller is a thin wrapper:
+
+- Import only the behavior being wrapped (`import behavior from '@uswds/uswds/js/<package>'`). Never import the global bundle (`uswds.min.js`) or `uswds-init.js`; they initialize on `document.body` and set `window.uswdsPresent`, which conflicts with section 4.1.
+- `init(root)` validates the markup, then calls `behavior.on(root)`. `destroy(root)` calls `behavior.off(root)` and then performs the cleanup that particular behavior needs, so the root returns to its authored markup. What `off` leaves behind differs per behavior: the Accordion leaves `aria-expanded` and `hidden` changed; the Combo Box leaves the DOM it generated; the Modal relocates its root into `document.body`. Read the behavior's source, record what survives `off`, and test that the root's markup after `destroy` matches the markup before `init`.
+- Validate whatever the behavior would throw on (for example a missing controlled panel) before calling `on`; on failure log one warning and leave the markup alone (section 4.4).
+- Keep `usa-*` classes and attributes in the fixture, because USWDS selectors depend on them, and add `cods-*` classes and the `data-cods-<name>` root hook alongside. Pass-through USWDS attributes (for example `data-allow-multiple`) are documented as USWDS-owned.
+- Derive the section 4.1 `cods-<name>:<event>` events from what the behavior exposes, and do not emit during `init` or `destroy`. Where it only changes attributes (the Accordion), observe them with a `MutationObserver`. Where it dispatches its own DOM events or updates properties such as `value` (Combo Box, Date Picker), which a `MutationObserver` cannot see, listen for those events on the root and translate them into CoDS events. Remove every listener and observer in `destroy`.
+- Call `init` after the markup is attached to the document; USWDS resolves controlled elements by id in the document.
+- The code is bundled into the package's ES module output. `require(` calls and `window.uswdsPresent` must not appear in `dist/`.
+- CoDS source must not contain an equivalent of the interaction. The Accordion, the interactive Type A component in the Phase 2 vertical slice, is the reference implementation of this pattern.
+
 ## 5. Metadata and maturity model
 
 Every component ships `<component-name>.metadata.json`, validated against the shared metadata shape:
@@ -88,10 +102,16 @@ Every component ships `<component-name>.metadata.json`, validated against the sh
   "maturity": "experimental",
   "type": "static",
   "uswdsEquivalent": "site-alert",
+  "uswdsVersion": "3.14.0",
+  "componentType": "A",
   "owners": {
     "responsible": "Aten component lead",
-    "accountable": "State technical owner"
+    "accountable": "State technical owner",
+    "consulted": "State design owner, accessibility lead",
+    "informed": "Component contributors, product owner"
   },
+  "divergenceApproved": false,
+  "divergenceNotes": null,
   "states": ["default", "informational", "emergency", "dismissed"],
   "progressiveEnhancement": "full",
   "localization": "text-content-only",
@@ -104,6 +124,11 @@ Every component ships `<component-name>.metadata.json`, validated against the sh
 | `maturity`               | `experimental`, `stable`, `deprecated`                             | `experimental`: contract-conformant but API/markup may still change. `stable`: API frozen for the current major version; requires completed accessibility evidence. `deprecated`: scheduled for removal; migration guidance required. |
 | `type`                   | `static`, `interactive`                                            | Whether the component ships a TypeScript controller.                                                                                                                                                                                  |
 | `uswdsEquivalent`        | USWDS component id, or `null`                                      | Names the themed USWDS source when this component is a themed wrapper, per the USWDS foundational-dependency decision. `null` means CoDS-authored with no USWDS equivalent.                                                           |
+| `uswdsVersion`           | Pinned `@uswds/uswds` version, or `null`                           | The USWDS release the component was built and verified against. `null` for CoDS-authored components. Updated with every USWDS upgrade ([USWDS Upgrade Policy](./USWDS-UPGRADE-POLICY.md)).                                            |
+| `componentType`          | `A`, `B`, `C`                                                      | Ownership-matrix classification: `A` themed USWDS, `B` CoDS-authored, `C` intentional divergence. See the [ownership matrix](./component-ownership-matrix.md).                                                                        |
+| `owners`                 | Object of role names                                               | `responsible` and `accountable` are required; `consulted` and `informed` are recommended.                                                                                                                                             |
+| `divergenceApproved`     | `true`, `false`                                                    | `true` only for a Type C component whose divergence has the required design and accessibility approval.                                                                                                                               |
+| `divergenceNotes`        | String, or `null`                                                  | Rationale for the divergence; `null` unless `componentType` is `C`.                                                                                                                                                                   |
 | `progressiveEnhancement` | `full`, `partial`, `none` (`none` requires a documented exception) | Declares the section 4.3 progressive-enhancement level.                                                                                                                                                                               |
 | `localization`           | `text-content-only`, `layout-sensitive`, `not-applicable`          | Flags whether translated content can change layout assumptions (for example bidirectional text, string expansion).                                                                                                                    |
 

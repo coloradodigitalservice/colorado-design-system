@@ -229,11 +229,13 @@ describe('State design references and consumers', () => {
       },
     ).css;
     expect(result).toContain('.cods-probe__trigger:focus-visible');
+    expect(result).toMatch(/^@layer cods\.components \{/m);
     expect(result).toContain('var(--cods-focus-ring-width, 4px)');
     expect(result).toContain('var(--cods-focus-ring-color, #173bb3)');
     expect(result).toContain('outline-offset: 2px');
     expect(result).toContain('box-shadow: 0 0 0 2px #ffffff');
   });
+
   it('emits CSS aliases using the public names and valid CSS', async () => {
     const css = await readFile(join(temporary, 'first/tokens.css'), 'utf8');
     expect(css).toContain(

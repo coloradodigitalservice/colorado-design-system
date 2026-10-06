@@ -1,0 +1,16 @@
+/// @file
+/// USWDS in the lowest cascade layer
+///
+/// `uswds-theme` must still be the first load of `uswds-core` so USWDS's Sass
+/// settings are configured; it is loaded here explicitly to keep that
+/// dependency visible. Placing USWDS in the `uswds` layer lets every `cods.*`
+/// layer override it without specificity or `!important`.
+///
+/// Decision record: docs/adrs/007-cascade-layer-order.md
+
+@use 'sass:meta';
+@use 'uswds-theme';
+
+@layer uswds {
+  @include meta.load-css('uswds');
+}

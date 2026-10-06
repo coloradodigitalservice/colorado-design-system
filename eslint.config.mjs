@@ -7,6 +7,7 @@ export default [
   {
     ignores: [
       '**/dist/**',
+      '**/release/**',
       '**/generated/**',
       '**/node_modules/**',
       '**/.astro/**',

@@ -4,7 +4,7 @@ Vitest tests (`*.test.ts` / `*.test.mjs`) cover shared tooling and package behav
 Run them with `pnpm test`. Playwright tests (`tests/browser/**/*.spec.ts`) exercise
 built static pages separately; Vitest does not collect them.
 
-## Browser setup and execution (CODS-P1-010 / CDS-34)
+## Browser setup and execution
 
 From a clean checkout at the repository root:
 
@@ -141,7 +141,16 @@ or disabled rules; any justified exception needs an explicit, reviewed rationale
 Automated scans supplement the component contract's required manual keyboard,
 screen-reader, zoom/reflow, forced-colors, and localization evidence.
 
-## Visual regression conventions for Phase 2 onward
+`web-cascade.spec.ts` serves the built `packages/colorado-design-system/dist` CSS
+through a routed fixture and proves the cascade layer order with computed styles
+in all three browsers: the order statement leads the stylesheet, a low-specificity
+`cods.components` rule beats USWDS, a consumer's unlayered rule beats CoDS, the
+color overrides beat USWDS, inverse and disabled outline buttons keep USWDS's
+variant colors, no `.usa-*` rule sits outside the `uswds` layer (computed style
+cannot see `:visited`), and USWDS fonts still load. Build the design
+system (`pnpm build`) before running it. See [ADR-007](../docs/adrs/007-cascade-layer-order.md).
+
+## Visual regression conventions
 
 Use `await expect(page.getByRole(...)).toHaveScreenshot('descriptive-state.png')`
 for a component or `await expect(page).toHaveScreenshot('page-state.png',

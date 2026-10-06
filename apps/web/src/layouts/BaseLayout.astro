@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import '@coloradodigitalservice/colorado-design-tokens/tokens.css';
+import { version } from '@coloradodigitalservice/colorado-design-system/package.json';
 import '../styles/site.css';
 
 interface Props {
@@ -62,7 +63,9 @@ const pathname = Astro.url.pathname;
     </div>
     <footer class="cods-docs-footer">
       <div class="cods-docs-container">
-        Colorado Design System documentation
+        Colorado Design System documentation, development release
+        <span data-cods-release={version}>{version}</span>. Not a supported
+        release.
       </div>
     </footer>
   </body>

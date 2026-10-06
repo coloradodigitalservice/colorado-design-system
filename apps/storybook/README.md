@@ -1,6 +1,6 @@
 # Component workbench
 
-This private workspace hosts the HTML/Vite Storybook workbench for component states, interactions, accessibility checks, and visual review (CODS-P1-006).
+This private workspace hosts the HTML/Vite Storybook workbench for component states, interactions, accessibility checks, and visual review.
 
 ## Commands
 

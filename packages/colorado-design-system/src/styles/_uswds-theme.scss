@@ -19,12 +19,11 @@
 /// @coloradodigitalservice/colorado-design-tokens) and are NOT pixel-identical
 /// to Colorado's brand hex values. Exact-hex brand colors for the roles that
 /// have an unambiguous Colorado token are enforced separately by
-/// `_cods-color-overrides.scss`, which is forwarded after `uswds` in
-/// `index.scss`. Roles with no dedicated Colorado token remain at USWDS's
+/// `_cods-color-overrides.scss`, which is forwarded after `uswds` in the same
+/// `uswds` layer (see `index.scss`). Roles with no dedicated Colorado token remain at USWDS's
 /// approximation here — see that file's "Known gaps" section and ADR-002,
 /// Open Questions.
 ///
-/// Task: CODS-P1-015 — Integrate USWDS as the foundational dependency
 /// Decision record: docs/adrs/002-uswds-foundational-dependency.md
 
 @use 'uswds-core' with (
@@ -60,6 +59,10 @@
   // "../fonts" assumes a nested css/ output directory, which we don't have.
   $theme-font-path: './fonts',
 
+  // Icons referenced by url() are copied into dist/img the same way, for the
+  // same reason (USWDS defaults to "../img").
+  $theme-image-path: './img',
+
   // Register Colorado's non-built-in brand fonts. "open-sans" is already a
   // built-in USWDS token (correct display name and cap-height), so it only
   // needs a custom-src entry, not a full token registration. Cap-height
@@ -87,7 +90,7 @@
   $theme-font-type-mono: 'source-code-pro',
 
   // Fallback stacks, used after the primary font. Trebuchet MS is a
-  // system-font fallback only (not self-hosted; see CODS-P1-015 PR feedback).
+  // system-font fallback only (not self-hosted; see ADR-003).
   $theme-font-sans-custom-stack: (
       'Trebuchet MS',
       -apple-system,
@@ -112,7 +115,7 @@
   // Slab (and a non-existent 600 weight) onto h2-h6 too, which use Open Sans
   // in the actual design. 'sans' is correct for the h2-h6 majority; h1's
   // Museo Slab treatment is applied separately in
-  // _cods-typography-overrides.scss (see CODS-P1-015).
+  // _cods-typography-overrides.scss (see ADR-003).
   $theme-font-role-heading: 'sans',
   $theme-font-role-body: 'sans',
   $theme-font-role-ui: 'sans',

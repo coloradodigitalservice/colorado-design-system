@@ -1,8 +1,10 @@
 # Foundation CI workflow
 
-`.github/workflows/foundation.yml` runs on pull requests, pushes to `main`, and
-manual dispatch. The workflow checks the proposed code before merge; it does not
-deploy a production site. Superseded runs for the same PR/ref are cancelled.
+`.github/workflows/foundation.yml` runs on pull requests, pushes to `main` and
+`release/**`, and manual dispatch. Pushes to release branches run all validation
+jobs, so a release branch can be validated before its tag is created. The
+workflow does not deploy a production site. Superseded runs for the same
+PR/ref are cancelled.
 
 ## Jobs and selection
 
@@ -19,7 +21,8 @@ manual runs select all jobs.
 | Contract sample fixtures, packages, tests, config, lockfile, workflow, scripts, unknown paths | All jobs                     |
 
 Every run executes `repository`: frozen dependency installation, workspace
-boundaries, and formatting. The selected jobs add these checks:
+boundaries, and formatting. Pushes to `main` and release branches select all
+jobs. The selected jobs add these checks:
 
 - `code`: workspace validation, token drift, lint, root TypeScript checking,
   Vitest, and package/static-consumer builds.
@@ -88,6 +91,8 @@ workflow exists on the default branch. Record validation links in the PR/ticket,
 not a running acceptance diary in this guide.
 
 ## Workflow maintenance
+
+Tag-driven `0.x` releases use a separate workflow, [`release.yml`](../.github/workflows/release.yml), documented in [the release workflow](RELEASE.md). Its action pins follow the same rules below.
 
 The workflow uses GitHub-hosted Ubuntu runners, read-only `contents` permission,
 checkout without persisted credentials, and no deployment secrets. All third-party

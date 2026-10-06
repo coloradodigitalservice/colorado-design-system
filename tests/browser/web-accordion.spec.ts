@@ -1,6 +1,79 @@
+import { readFileSync } from 'node:fs';
 import { test, expect, expectAccessible } from './fixtures.js';
 
 const state = (name: string) => `[data-cods-fixture-state="${name}"]`;
+
+for (const scenario of [
+  { name: 'direct collapse', panelId: 'accordion-default-2', expanded: false },
+  {
+    name: 'single-open sibling collapse',
+    panelId: 'accordion-default-1',
+    expanded: true,
+  },
+]) {
+  test(`public setExpanded restores panel focus on ${scenario.name}`, async ({
+    page,
+  }) => {
+    const controllerUrl = '/__accordion-controller.mjs';
+    await page.route(`**${controllerUrl}`, (route) =>
+      route.fulfill({
+        contentType: 'text/javascript',
+        body: readFileSync(
+          new URL(
+            '../../packages/colorado-design-system/dist/colorado-design-system.mjs',
+            import.meta.url,
+          ),
+          'utf8',
+        ),
+      }),
+    );
+    await page.goto('/accordion/');
+    const root = page.locator(`${state('default')} [data-cods-accordion]`);
+    await expect(root).toHaveAttribute('data-cods-accordion-enhanced', '');
+    await page.evaluate(
+      async ({ controllerUrl }) => {
+        const api = await import(controllerUrl);
+        const original = document.querySelector<HTMLElement>(
+          '[data-cods-fixture-state="default"] [data-cods-accordion]',
+        )!;
+        // Reuse rendered canonical markup with a fresh root so the bundled
+        // public API owns initialization without the docs script's listeners.
+        const freshRoot = original.cloneNode(true) as HTMLElement;
+        original.replaceWith(freshRoot);
+        api.initAccordion(freshRoot);
+        api.setAccordionExpanded(freshRoot, 'accordion-default-2', true);
+      },
+      { controllerUrl },
+    );
+    const trigger = root.getByRole('button').nth(1);
+    const link = root.getByRole('link');
+    await link.focus();
+    await expect(link).toBeFocused();
+    const focusedDuringEvents = await page.evaluate(
+      async ({ controllerUrl, panelId, expanded }) => {
+        const api = await import(controllerUrl);
+        const root = document.querySelector<HTMLElement>(
+          '[data-cods-fixture-state="default"] [data-cods-accordion]',
+        )!;
+        const trigger = root.querySelector(
+          '[aria-controls="accordion-default-2"]',
+        );
+        const observations: boolean[] = [];
+        root.addEventListener('cods-accordion:change', () =>
+          observations.push(document.activeElement === trigger),
+        );
+        api.setAccordionExpanded(root, panelId, expanded);
+        return observations;
+      },
+      { controllerUrl, panelId: scenario.panelId, expanded: scenario.expanded },
+    );
+    await expect(link).toBeHidden();
+    await expect(trigger).toBeFocused();
+    expect(focusedDuringEvents).toEqual(
+      scenario.expanded ? [true, true] : [true],
+    );
+  });
+}
 
 test('delayed enhancement preserves focus when initial state hides content', async ({
   page,

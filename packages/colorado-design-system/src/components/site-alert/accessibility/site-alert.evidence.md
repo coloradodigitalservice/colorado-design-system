@@ -1,6 +1,6 @@
 # Accessibility evidence: `cods-site-alert`
 
-- Maturity: experimental (`0.0.x`); not approved as stable.
+- Maturity: experimental (`0.x`); not approved as stable.
 - Date: October 1, 2026.
 - Automated verification: Codex; manual review: Eric Swanson (reported October 1, 2026); accessibility lead approval pending.
 - Ticket: CODS-P2-001; Site Alert selected by Eric Swanson in the implementation chat.
@@ -104,10 +104,13 @@ and representative-reader content review remain separate open items.
 
 ## Validation run
 
-On October 1, 2026, `pnpm check` passed using Node 24.21.0 and pnpm 12.4.2
+On October 3, 2026, validation was rerun using Node 24.21.0 and pnpm 12.4.2
 on macOS. This includes workspace validation, Astro/Storybook validation, token
 drift checks (240 tokens, 16 contrast pairs), formatting, ESLint, Stylelint,
-root typecheck, 39 unit tests, all package/app builds, and 49 browser tests.
+root typecheck, 57 unit tests, all package/app builds, and 76 browser tests.
+The `pnpm check` run passed through builds; the sandbox blocked local preview
+ports at the browser step. `pnpm test:browser` then passed with execution
+permission for local previews and Chromium, Firefox, and WebKit.
 
 Follow-up review verified the built Astro example and its native HTML-source
 disclosure at desktop and 320px widths with no page overflow. Individual

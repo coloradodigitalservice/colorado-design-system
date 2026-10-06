@@ -14,14 +14,15 @@ The design kit remains in development. The [accepted architecture memo](docs/mem
 | `apps/storybook`                  | `@cods-internal/storybook`                       | HTML/Vite component workbench                                            |
 | `examples/static-html`            | `@cods-internal/example-static-html`             | Plain HTML consumer example                                              |
 
-The core package depends on tokens. The apps and example depend on core; the apps also depend directly on tokens for token guidance. All internal dependencies use `workspace:*`. Libraries cannot depend on apps or examples. The two `@coloradodigitalservice` names are **provisional** until the State confirms control of the npm scope. Every workspace is private at this stage.
+The core package depends on tokens. The apps and example depend on core; the apps also depend directly on tokens for token guidance. All internal dependencies use `workspace:*`. Libraries cannot depend on apps or examples. The two `@coloradodigitalservice` package names are published under an npm scope the project already controls; the project's Senior Developer publishes until the client team takes over. Every workspace is private until the first publication.
 
 ## Contributor setup
 
 1. Install Node `24.21.0` with `nvm` and run `nvm use` in this repository.
 2. Run `corepack enable` and `corepack prepare pnpm@12.4.2 --activate` to select the pinned pnpm release.
-3. Run `pnpm install --frozen-lockfile`.
-4. Run `pnpm check`.
+3. Install [Betterleaks](https://github.com/betterleaks/betterleaks) (for example `brew install betterleaks`); the pre-commit hook requires it.
+4. Run `pnpm install --frozen-lockfile`.
+5. Run `pnpm check`.
 
 | Command                | Purpose                                                                 |
 | ---------------------- | ----------------------------------------------------------------------- |
@@ -32,11 +33,11 @@ The core package depends on tokens. The apps and example depend on core; the app
 | `pnpm lint`            | Run ESLint for JS, TS, and Astro and Stylelint for CSS and Sass         |
 | `pnpm typecheck`       | Typecheck the current TypeScript toolchain and test sources             |
 | `pnpm test`            | Run Vitest's DOM-capable test suite                                     |
-| `pnpm build`           | Build all packages via Turbo (tokens and design-system)                 |
-| `pnpm check`           | Run workspace, format, lint, typecheck, test, and build checks          |
+| `pnpm build`           | Check token drift, then build every workspace via Turbo                 |
+| `pnpm check`           | Run every check above, then the Playwright browser tests                |
 | `pnpm exec turbo ls`   | Show the package graph                                                  |
 
-Install enables the Husky pre-commit hook. It runs lint-staged on changed source and documentation files. No environment variables are required for the current toolchain; `.env.example` documents this and must never contain credentials. The TypeScript baseline is in `config/typescript/tsconfig.base.json`. Root ESLint, Stylelint, Prettier, and Vitest configurations cover the current source types, including future Astro files.
+Install enables the Husky pre-commit hook. It scans staged changes for secrets with `betterleaks git --staged --redact` and blocks the commit on a finding or when Betterleaks is not installed, then runs lint-staged on changed source and documentation files. Mark a false positive with a `betterleaks:allow` comment on the line rather than bypassing the hook. No environment variables are required for the current toolchain; `.env.example` documents this and must never contain credentials. The TypeScript baseline is in `config/typescript/tsconfig.base.json`. Root ESLint, Stylelint, Prettier, and Vitest configurations cover the current source types, including future Astro files.
 
 Node, pnpm, Turbo, and all toolchain dependencies are pinned to exact versions. Upgrade them in a reviewed change, update `pnpm-lock.yaml`, run every root check, and repeat the frozen install in a fresh clone. Token generation and package builds are implemented via [Style Dictionary](packages/colorado-design-tokens/README.md) and [Vite](docs/BUILD.md) respectively. Astro and Storybook development is coordinated by the root Turbo watch commands.
 
@@ -83,8 +84,16 @@ pnpm tokens:check                                             # Validate tokens 
 
 Each package (`colorado-design-tokens`, `colorado-design-system`) includes its own `README.md` with package-specific build instructions and development workflows.
 
+## Releases
+
+Releases are cut by pushing a `vMAJOR.MINOR.PATCH` tag; versions below `1.0.0` (currently `0.0.x`) are development releases. Release intent is recorded with Changesets (`pnpm changeset`); the tag workflow then generates the package archives, release archive, SBOMs, `SHA256SUMS`, `release-manifest.json`, and `CHANGELOG.md`. See [the release workflow](docs/RELEASE.md).
+
+## Attribution
+
+CoDS incorporates components and styles from the U.S. Web Design System (USWDS), maintained by the General Services Administration. USWDS is a public-domain design system for U.S. federal government websites and applications. See [designsystem.digital.gov](https://designsystem.digital.gov/) for more information.
+
 ## Ownership and scope
 
 [Ownership and RACI](docs/governance/ownership-and-raci.md) identifies the review path. [ADR-001](docs/adrs/001-pnpm-turborepo-boundaries.md) records this repository's workspace decision and its pending State approval. Repository issues and pull requests track the next implementation steps. Agent-assisted development resources are indexed in [`.agents/README.md`](.agents/README.md); see [ADR-005](docs/adrs/005-unified-agent-directory.md).
 
-The first supported scope targets 27 components and seven foundations, subject to the documented capacity and approval gates. Web Components, Drupal packages, Twig, framework adapters, a runtime CMS, and a production application server are outside the initial release.
+The first supported scope targets 28 components and eight foundations (including Logos), subject to the documented approval gates. Web Components, Drupal packages, Twig, framework adapters, a runtime CMS, and a production application server are outside the initial release.

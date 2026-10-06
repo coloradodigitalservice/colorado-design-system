@@ -1,9 +1,9 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import AccordionExamples from '../components/AccordionExamples.astro';
 import '@coloradodigitalservice/colorado-design-system/styles';
 import SiteAlertExamples from '../components/SiteAlertExamples.astro';
+import AccordionExamples from '../components/AccordionExamples.astro';
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs');
@@ -20,17 +20,17 @@ const { Content } = await render(entry);
 <BaseLayout title={entry.data.title} description={entry.data.description}>
   <article class="cods-docs-content">
     <h1>{entry.data.title}</h1>
-    {entry.id === 'accordion' && <AccordionExamples />}
     {entry.id === 'site-alert' && (
       <>
         <p>
           Site Alert communicates a sitewide service update or emergency. Its
-          maturity is <strong>experimental</strong> in the <code>0.0.x</code>{' '}
+          maturity is <strong>experimental</strong> in the <code>0.x</code>{' '}
           development series.
         </p>
         <SiteAlertExamples mode="default" />
       </>
     )}
+    {entry.id === 'accordion' && <AccordionExamples />}
     <Content />
     {entry.id === 'site-alert' && <SiteAlertExamples mode="remaining" />}
   </article>

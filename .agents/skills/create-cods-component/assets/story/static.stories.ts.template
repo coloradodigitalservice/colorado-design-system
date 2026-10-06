@@ -1,0 +1,18 @@
+import type { Meta, StoryObj } from '@storybook/html-vite';
+
+// Renders the canonical fixture and styles from the component directory so the
+// story cannot drift from the contract fixture (component-contract.md section 2).
+import '../../../../packages/colorado-design-system/src/components/__NAME__/__NAME__.scss';
+import fixtureHtml from '../../../../packages/colorado-design-system/src/components/__NAME__/__NAME__.fixture.html?raw';
+
+const meta = {
+  title: __STORY_TITLE__,
+  render: () => fixtureHtml,
+} satisfies Meta;
+
+export default meta;
+
+type Story = StoryObj;
+
+/** Every documented `cods-__NAME__` state, rendered from the canonical fixture. */
+export const AllStates: Story = {};

@@ -8,10 +8,13 @@
 /// apply Museo Slab and Colorado's actual h1 weight instead of USWDS's
 /// hardcoded bold (700).
 ///
-/// Forwarded after `uswds` in index.scss so it wins by source order at
-/// equal selector specificity (no `!important` needed).
+/// Lives in the `uswds` layer, after the USWDS library, so it wins by source
+/// order at equal specificity (no `!important` needed).
 
-.usa-prose > h1 {
-  font-family: 'Museo Slab', 'Trebuchet MS', Georgia, 'Times New Roman', serif;
-  font-weight: 500;
+@layer uswds {
+  .usa-prose > h1 {
+    font-family:
+      'Museo Slab', 'Trebuchet MS', Georgia, 'Times New Roman', serif;
+    font-weight: 500;
+  }
 }

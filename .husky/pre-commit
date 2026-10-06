@@ -1,1 +1,7 @@
+if ! command -v betterleaks >/dev/null 2>&1; then
+  echo "betterleaks is required to commit. Install it (for example: brew install betterleaks); see README.md." >&2
+  exit 1
+fi
+betterleaks git --staged --redact --no-banner
+
 pnpm exec lint-staged

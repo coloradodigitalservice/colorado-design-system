@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import uswdsAccordion from '@uswds/uswds/js/usa-accordion';
 import { init, initAll, destroy, setExpanded } from './accordion.js';
 
 import fixture from './accordion.fixture.html?raw';
@@ -80,6 +81,24 @@ describe('USWDS accordion lifecycle', () => {
     setExpanded(root, 'accordion-default-2', true);
     root.querySelector('a')!.focus();
     setExpanded(root, 'accordion-default-1', true);
+    expect(document.activeElement).toBe(buttons(root)[1]);
+  });
+  it('restores focus even when hiding clears the active element before toggle returns', () => {
+    const root = rootFor();
+    init(root);
+    setExpanded(root, 'accordion-default-2', true);
+    const link = root.querySelector('a')!;
+    link.focus();
+    const toggle = uswdsAccordion.toggle;
+    vi.spyOn(uswdsAccordion, 'toggle').mockImplementation(
+      (button, expanded) => {
+        toggle(button, expanded);
+        // Model the early focus reset identified in review. jsdom does not
+        // automatically blur an element when its containing panel is hidden.
+        if (panels(root)[1].hidden) link.blur();
+      },
+    );
+    setExpanded(root, 'accordion-default-2', false);
     expect(document.activeElement).toBe(buttons(root)[1]);
   });
   it('returns focus to the trigger when delayed initialization closes its panel', () => {

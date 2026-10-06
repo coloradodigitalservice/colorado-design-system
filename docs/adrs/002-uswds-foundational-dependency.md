@@ -7,14 +7,15 @@
 
 ## Context
 
-The accepted Colorado Design System proposal of 2026-09-15 outlined a 1.0 component set of ~30 components, with the implementation approach described as "build each component from scratch." The proposal assumed CoDS would author all markup, styling, and interaction patterns independently.
+The accepted Colorado Design System proposal of 2026-09-15 outlined a 1.0 component set, with the implementation approach described as "build each component from scratch." The proposal assumed CoDS would author all markup, styling, and interaction patterns independently.
 
-However, the State's finalized 1.0 component and foundation inventory (2026-09-16) reveals substantial overlap with the existing U.S. Web Design System (USWDS) component library. Specifically:
+However, the State's finalized 1.0 component and foundation inventory (2026-09-16) reveals substantial overlap with the existing U.S. Web Design System (USWDS) component library. The [component ownership matrix](../governance/component-ownership-matrix.md) classifies all 28 components:
 
-- **USWDS equivalents:** Accordion, Alert/Site Alert, Breadcrumb, Button, Card, Checkbox, Combo Box, Footer, Header, Icon List, In-Page Navigation, Language Selector, Link, Modal, Process List, Radio Buttons, Search, Select, Tag, Tooltip (~20 components).
-- **CoDS-only components:** Hero, Maps, Videos, Snackbars/Toasts, Divider (~5 components).
+- **Themed USWDS (Type A, 23):** Accordion, Breadcrumbs, Button, Card - Default, Card - Icon, Checkbox, Combo Box, Footer, Header, Icon List, In-Page Alert, In-Page Navigation, Input, Language Selector, Link, Modal, Process List, Radio Buttons, Search, Select (dropdown), Site Alert, Tags, Tooltip. Link, Input, Search, and Language Selector build on USWDS link, form, and select styles and patterns rather than a standalone USWDS component.
+- **CoDS-authored (Type B, 5):** Divider, Hero, Maps, Toasts/Snackbars, Videos.
+- **CoDS divergent (Type C, 0):** none identified.
 
-Building all ~20 overlapping components independently from scratch would duplicate substantial work that USWDS already provides, tests, and maintains as a public-domain U.S. government work product. USWDS has been in production since 2015, is WCAG 2.0 AA and Section 508 compliant, and is actively maintained by the General Services Administration (GSA).
+Building all 23 overlapping components independently from scratch would duplicate substantial work that USWDS already provides, tests, and maintains as a public-domain U.S. government work product. USWDS has been in production since 2015, is WCAG 2.0 AA and Section 508 compliant, and is actively maintained by the General Services Administration (GSA).
 
 ## Precedent: VA Design System & design.va.gov
 
@@ -50,9 +51,9 @@ CoDS will integrate the U.S. Web Design System (USWDS) as a pinned npm dependenc
 
 ### 4. Component Strategy
 
-- **Type A: Themed USWDS** (~20 components) — Reuse USWDS's canonical markup, structure, ARIA roles, and interaction patterns; apply CoDS theming via token-mapped Sass.
-- **Type B: CoDS-authored** (~5 components) — Hero, Maps, Videos, Snackbars/Toasts, Divider have no USWDS equivalent; author from scratch following CoDS component contract.
-- **Type C: CoDS divergent** (TBD) — If a component needs to intentionally diverge from USWDS, divergence is documented and approved by State design and engineering.
+- **Type A: Themed USWDS** (23 components) — Reuse USWDS's canonical markup, structure, ARIA roles, and interaction patterns; apply CoDS theming via token-mapped Sass.
+- **Type B: CoDS-authored** (5 components) — Divider, Hero, Maps, Toasts/Snackbars, and Videos have no USWDS equivalent; author from scratch following the CoDS component contract.
+- **Type C: CoDS divergent** (none identified) — If a component needs to intentionally diverge from USWDS, divergence is documented and approved by State design and engineering.
 
 ### 5. Accessibility Conformance
 
@@ -64,7 +65,7 @@ CoDS will integrate the U.S. Web Design System (USWDS) as a pinned npm dependenc
 
 - USWDS is in the public domain (CC0 1.0 Universal); it is a U.S. government work product.
 - Attribution to USWDS is not legally required but is encouraged and will be included in CoDS README.md and release notes.
-- CoDS's own license (to be determined by State legal/procurement) is separate from USWDS's public domain status.
+- CoDS's own license is MIT (see the repository `LICENSE`), retained for now and separate from USWDS's public domain status.
 
 ### 7. Upgrade Policy
 
@@ -82,7 +83,7 @@ CoDS will integrate the U.S. Web Design System (USWDS) as a pinned npm dependenc
 
 ### Benefits
 
-1. **Reduced maintenance burden:** CoDS avoids authoring and maintaining ~20 components that USWDS already provides and tests.
+1. **Reduced maintenance burden:** CoDS avoids authoring and maintaining 23 components that USWDS already provides and tests.
 2. **Faster time to value:** Phase 2 vertical-slice components and Phase 3 component production can proceed with themed USWDS components rather than building from scratch.
 3. **Inherited quality:** USWDS's accessibility conformance (WCAG 2.0 AA, Section 508), tested interaction patterns, and active maintenance reduce CoDS's QA and long-term maintenance costs.
 4. **Alignment with federal practice:** Design.va.gov and other federal design systems already use this pattern, establishing it as a best practice.
@@ -106,13 +107,12 @@ CoDS will integrate the U.S. Web Design System (USWDS) as a pinned npm dependenc
 
 No existing components have been authored yet (this is Phase 1); the decision applies to the Phase 2 vertical-slice and Phase 3 full component set.
 
-### Phase 2 vertical-slice candidates:
+### Phase 2 vertical slice:
 
-- Button (Type A — themed USWDS)
-- Text Input (Type A — themed USWDS)
-- Site Alert (Type A — themed USWDS)
+- Site Alert (static, Type A — themed USWDS)
+- Accordion (interactive, Type A — themed USWDS, wrapping the USWDS accordion behavior per [ADR-006](006-uswds-javascript-ingestion.md))
 
-These components will serve as proof-of-concept for the USWDS integration and theme-settings approach.
+These two components are the proof of concept for the USWDS integration and theme-settings approach.
 
 ### Phase 3 full set:
 
@@ -136,7 +136,7 @@ The following documents are created or amended to support this decision:
 2. **USWDS Upgrade Policy** (`docs/governance/USWDS-UPGRADE-POLICY.md`) — Documents version pinning, quarterly review, security fast-track, and accessibility review processes.
 3. **USWDS Theme Settings** (`packages/colorado-design-system/src/styles/_uswds-theme.scss`) — Maps Colorado tokens to USWDS Sass variables.
 4. **Build Configuration** (`packages/colorado-design-system/vite.config.ts`) — Adds USWDS load paths to Sass preprocessor.
-5. **Component Contract Amendment** (CODS-P1-004 update, pending) — Clarifies that Type A components reuse USWDS markup and accessibility evidence validates themed output, not re-implements from scratch.
+5. **Component Contract Amendment** — Applied in the component contract (sections 4.5 and 5): Type A components reuse USWDS markup, and accessibility evidence validates the themed output rather than re-implementing it.
 6. **Package Dependency** (`packages/colorado-design-system/package.json`) — @uswds/uswds@3.14.0 added as production dependency.
 
 ## Governance & Approval
@@ -145,8 +145,6 @@ The following documents are created or amended to support this decision:
 - **Accountable:** State technical owner
 - **Consulted:** State design owner, accessibility lead, legal/procurement (license verification)
 - **Informed:** Component contributors, product owner, consuming projects
-
-This ADR requires **State technical owner approval** before proceeding to Phase 2 and Phase 3 component production.
 
 ## Alternatives Considered
 
@@ -159,7 +157,7 @@ This ADR requires **State technical owner approval** before proceeding to Phase 
 ### A2. Fork USWDS into CoDS repository
 
 - **Pros:** Full control; no upstream dependency risk.
-- **Cons:** Massive maintenance burden; duplicate all USWDS upgrades, security patches, and accessibility fixes; loses community benefit; impractical for ~20 components.
+- **Cons:** Massive maintenance burden; duplicate all USWDS upgrades, security patches, and accessibility fixes; loses community benefit; impractical for 23 components.
 - **Decision:** Rejected — explicitly out of scope; npm dependency model is standard practice.
 
 ### A3. Adopt VA's Web Component layer on top of USWDS
@@ -176,10 +174,11 @@ This ADR requires **State technical owner approval** before proceeding to Phase 
 
 ## Related Decisions
 
+- **ADR-006:** Amends this ADR's scope to include USWDS JavaScript, ingested per component through the controller contract.
 - **ADR-001:** Repository structure (pnpm, Turborepo, monorepo boundaries) — This ADR is compatible; USWDS is a regular npm dependency.
 - **CODS-P1-001:** Monorepo skeleton and dependencies — @uswds/uswds is now a pinned production dependency per this ADR.
 - **CODS-P1-004:** Component contract — Amended to clarify Type A components and accessibility evidence expectations.
-- **CODS-P0-006:** Approved 1.0 component set — No changes; same 30 components, with new ownership classification.
+- **CODS-P0-006:** Approved 1.0 component set — No changes; the 28 components in the ownership matrix are classified as Type A, B, or C.
 
 ## Questions & Clarifications
 
@@ -197,17 +196,6 @@ A: Consuming projects inherit the pinned USWDS version when they upgrade CoDS. T
 
 **Q: Do the themed colors exactly match Colorado's brand hex values?**  
 A: For the roles with an unambiguous Colorado token — primary/outline/danger buttons, links, disabled state, form validation errors — yes: `_cods-color-overrides.scss` re-declares those USWDS selectors using Colorado's exact token values as CSS custom properties, so Colorado's tokens are authoritative rather than USWDS's nearest-available approximation. For roles with no dedicated Colorado token (visited-link color, alert background/border tints, and most focus-ring colors, which USWDS hardcodes per-component rather than through one reusable setting), no mapping is guessed; USWDS's default remains until State design/accessibility leads define the missing tokens or approve an approach. This should be resolved before Phase 2 component production.
-
-## Acceptance Criteria
-
-This ADR is ready for State approval when:
-
-1. ✅ Component Ownership Matrix is complete and approved by State design and engineering.
-2. ✅ USWDS Upgrade Policy is documented and approved by State technical owner.
-3. ✅ License verification is complete (legal/procurement confirms public domain status and any required attribution).
-4. ✅ Phase 2 vertical-slice components (Button, Text Input, Site Alert) compile and render correctly with theme settings.
-5. ✅ Accessibility review is conducted on Phase 2 components; USWDS accessibility baseline is confirmed.
-6. ✅ This ADR is signed by State technical owner and Aten technical lead.
 
 ---
 

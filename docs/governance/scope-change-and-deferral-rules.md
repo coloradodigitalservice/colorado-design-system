@@ -1,7 +1,7 @@
 # CoDS Scope-Change and Deferral Rules
 
 **Status:** Draft for G0 approval  
-**Related backlog item:** [CODS-P0-008](../backlog/phase-0/CODS-P0-008-establish-delivery-backlog-and-review-cadence.md)  
+**Related backlog item:** CODS-P0-008  
 **Related procedures:** [Escalation and Decision Recording](escalation-and-decision-recording.md), [Gate Approval Matrix](gate-approval-matrix.md), [Review Cadence and Response Expectations](review-cadence-and-response-expectations.md)
 
 ## Purpose
@@ -20,7 +20,7 @@ The approved release baseline is the scope accepted at the applicable gate and r
 - the target gate dates and supported-release conditions; and
 - explicit exclusions, known limitations, and deferred work.
 
-The current expanded component inventory remains conditional on the capacity and schedule review described in the proposal. The team must not silently remove items from that inventory to preserve the November 30 date.
+The expanded component inventory is committed; the capacity and schedule review described in the proposal was completed on 2026-10-02. The team must not silently remove items from that inventory to preserve the November 30 date.
 
 ## What counts as a scope change
 
