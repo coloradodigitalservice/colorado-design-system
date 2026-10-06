@@ -1,0 +1,63 @@
+---
+import siteAlert from '@coloradodigitalservice/colorado-design-system/metadata/site-alert.json';
+import accordion from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
+
+interface Props {
+  component: 'site-alert' | 'accordion';
+  figma?: string;
+}
+
+const metadata = { 'site-alert': siteAlert, accordion }[Astro.props.component];
+const { figma } = Astro.props;
+const repository =
+  'https://github.com/coloradodigitalservice/colorado-design-system/tree/main/packages/colorado-design-system/src/components';
+const source = `${repository}/${metadata.name}`;
+const evidence = `${source}/accessibility/${metadata.name}.evidence.md`;
+const upstream = `https://designsystem.digital.gov/components/${metadata.uswdsEquivalent}/`;
+---
+
+<section class="cods-docs-summary" aria-labelledby="component-summary-heading">
+  <h2 id="component-summary-heading">Summary</h2>
+  <dl>
+    <div>
+      <dt>Maturity</dt>
+      <dd>{metadata.maturity} (development release, not supported)</dd>
+    </div>
+    <div>
+      <dt>Type</dt>
+      <dd>
+        {metadata.type === 'static'
+          ? 'Static, no JavaScript'
+          : 'Interactive, progressively enhanced'}
+      </dd>
+    </div>
+    <div>
+      <dt>Upstream</dt>
+      <dd>
+        <a href={upstream}>USWDS {metadata.uswdsEquivalent}</a>, themed
+      </dd>
+    </div>
+    <div>
+      <dt>Documented states</dt>
+      <dd>{metadata.states.join(', ')}</dd>
+    </div>
+    <div>
+      <dt>Source</dt>
+      <dd>
+        <a href={source}>Component source</a>
+      </dd>
+    </div>
+    <div>
+      <dt>Accessibility evidence</dt>
+      <dd>
+        <a href={evidence}>Evidence file</a>
+      </dd>
+    </div>
+    <div>
+      <dt>Figma</dt>
+      <dd>
+        {figma ? <a href={figma}>Design file</a> : 'Link not yet recorded'}
+      </dd>
+    </div>
+  </dl>
+</section>
