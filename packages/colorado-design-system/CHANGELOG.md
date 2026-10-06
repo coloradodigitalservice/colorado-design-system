@@ -1,5 +1,13 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.1.2
+
+### Patch Changes
+
+- b6d1e4b: Release 0.1.2
+- Updated dependencies [b6d1e4b]
+  - @coloradodigitalservice/colorado-design-tokens@0.1.2
+
 ## 0.1.1
 
 ### Patch Changes
