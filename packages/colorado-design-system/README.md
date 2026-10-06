@@ -118,3 +118,11 @@ markup, initial state, keyboard behavior, configuration, and
 the same fixture. See
 [accessibility evidence](src/components/accordion/accessibility/accordion.evidence.md)
 for automated coverage and outstanding manual/G2 review.
+
+## Shared examples
+
+Fixtures, metadata, and generated per-state examples are available through
+`./fixtures/*.html`, `./metadata/*.json`, and `./examples/*.json`. The package
+build validates canonical source and generates samples for Astro, Storybook,
+and the static HTML consumer. See [the shared fixture workflow](../../docs/governance/shared-fixtures.md)
+for state mappings, runtime review instructions, and drift checks.

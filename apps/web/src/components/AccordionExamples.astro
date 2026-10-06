@@ -1,13 +1,13 @@
 ---
+import metadata from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
+import examples from '@coloradodigitalservice/colorado-design-system/examples/accordion.json';
+import CodeExamples from './CodeExamples.astro';
 import fixture from '@coloradodigitalservice/colorado-design-system/fixtures/accordion.html?raw';
 import '@coloradodigitalservice/colorado-design-system/styles';
 ---
 
 <div class="cods-docs-accordion-examples" set:html={fixture} />
-<details>
-  <summary>View the example HTML</summary>
-  <pre><code>{fixture}</code></pre>
-</details>
+<CodeExamples metadata={metadata} examples={examples.examples} />
 
 <script>
   import { initAllAccordions } from '@coloradodigitalservice/colorado-design-system';

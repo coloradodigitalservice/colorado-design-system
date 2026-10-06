@@ -19,5 +19,47 @@
   ],
   "progressiveEnhancement": "full",
   "localization": "layout-sensitive",
-  "description": "A static sitewide informational or emergency notice using themed USWDS markup; no JavaScript required."
+  "description": "A static sitewide informational or emergency notice using themed USWDS markup; no JavaScript required.",
+  "examples": [
+    {
+      "state": "default",
+      "fixtureState": "default",
+      "setup": "none"
+    },
+    {
+      "state": "informational",
+      "fixtureState": "informational",
+      "setup": "none"
+    },
+    {
+      "state": "emergency",
+      "fixtureState": "emergency",
+      "setup": "none"
+    },
+    {
+      "state": "long-content",
+      "fixtureState": "long-content",
+      "setup": "none"
+    },
+    {
+      "state": "localization",
+      "fixtureState": "localization",
+      "setup": "none"
+    },
+    {
+      "state": "rtl",
+      "fixtureState": "rtl",
+      "setup": "none"
+    },
+    {
+      "state": "focus-visible",
+      "fixtureState": "focus-visible",
+      "setup": "focus",
+      "instructions": "Use keyboard navigation to verify visible focus on the first interactive element."
+    }
+  ],
+  "uswdsVersion": "3.14.0",
+  "componentType": "A",
+  "divergenceApproved": false,
+  "divergenceNotes": null
 }

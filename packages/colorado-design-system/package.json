@@ -29,6 +29,9 @@
     },
     "./metadata/*.json": {
       "default": "./dist/metadata/*.json"
+    },
+    "./examples/*.json": {
+      "default": "./dist/examples/*.json"
     }
   },
   "scripts": {

@@ -76,12 +76,15 @@ jobs:
           corepack enable
           corepack prepare pnpm@12.4.2 --activate
       - run: pnpm install --frozen-lockfile
+      - run: pnpm fixtures:validate
       - run: pnpm validate
       - run: pnpm tokens:check
       - run: pnpm lint
       - run: pnpm typecheck
       - run: pnpm test
       - run: pnpm exec turbo run build --filter='./packages/*' --filter='./examples/*'
+      - run: pnpm fixtures:check
+      - run: node scripts/build-static-example.mjs --check
 
   web:
     needs: scope
@@ -103,6 +106,7 @@ jobs:
       - run: pnpm tokens:check
       - run: pnpm lint
       - run: pnpm exec turbo run build --filter=@cods-internal/web...
+      - run: pnpm fixtures:check
       - run: pnpm exec playwright install --with-deps chromium firefox webkit
       - run: pnpm test:browser --project='web*'
         env:
@@ -142,6 +146,7 @@ jobs:
       - run: pnpm tokens:check
       - run: pnpm lint
       - run: pnpm exec turbo run build --filter=@cods-internal/storybook...
+      - run: pnpm fixtures:check
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm test:browser --project=storybook
         env:
