@@ -15,7 +15,7 @@ for (const component of loadComponents()) {
       page,
     }) => {
       await page.goto(
-        `/iframe.html?id=components-${component.name}--${story}&viewMode=story`,
+        `/iframe.html?id=components-${component.name}--${story}&viewMode=story&globals=a11y.manual:!true`,
       );
       const block = page.locator(
         `#storybook-root [data-cods-fixture-state="${example.fixtureState}"]`,

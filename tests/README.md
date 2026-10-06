@@ -131,6 +131,9 @@ Astro suite discovers every built HTML route and gives smoke/skip-link navigatio
 and accessibility checks separate tests. macOS WebKit uses Option+Tab to reach
 links; other browser/platform combinations use Tab. Storybook discovers every built story
 and scans its rendered `#storybook-root` after checking it is nonempty.
+Storybook test URLs set `globals=a11y.manual:!true` so the addon does not
+start a competing axe scan. Playwright owns the automated scan and still fails
+on violations; normal Storybook visits retain the addon’s automatic checks.
 
 `expectAccessible` scans WCAG 2.0/2.1 A/AA and WCAG 2.2 AA tags. Omit its optional
 selector for a complete page scan; use a selector only for an isolated story.

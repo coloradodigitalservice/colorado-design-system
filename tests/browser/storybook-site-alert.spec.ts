@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import { test, expect, expectAccessible } from './fixtures.js';
 
 const story =
-  '/iframe.html?id=components-site-alert--all-states&viewMode=story';
+  '/iframe.html?id=components-site-alert--all-states&viewMode=story&globals=a11y.manual:!true';
 const fixture = readFileSync(
   'packages/colorado-design-system/src/components/site-alert/site-alert.fixture.html',
   'utf8',
@@ -180,7 +180,7 @@ for (const [id, state] of [
 ] as const) {
   test(`isolated story reuses canonical state: ${state}`, async ({ page }) => {
     await page.goto(
-      `/iframe.html?id=components-site-alert--${id}&viewMode=story`,
+      `/iframe.html?id=components-site-alert--${id}&viewMode=story&globals=a11y.manual:!true`,
     );
     await expect(page.locator('.cods-site-alert')).toHaveCount(1);
     await expect(

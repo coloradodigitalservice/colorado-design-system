@@ -10,7 +10,7 @@ test('canonical accordion fixture supports interactions in Storybook', async ({
   page,
 }, testInfo) => {
   await page.goto(
-    '/iframe.html?id=components-accordion--default&viewMode=story',
+    '/iframe.html?id=components-accordion--default&viewMode=story&globals=a11y.manual:!true',
   );
   const root = page.locator('#storybook-root [data-cods-accordion]');
   await expect(root).toHaveAttribute('data-cods-accordion-enhanced', '');
@@ -27,7 +27,7 @@ test('unenhanced Storybook story uses the complete package fixture', async ({
   page,
 }) => {
   await page.goto(
-    '/iframe.html?id=components-accordion--without-java-script&viewMode=story',
+    '/iframe.html?id=components-accordion--without-java-script&viewMode=story&globals=a11y.manual:!true',
   );
   const root = page.locator('#storybook-root');
   await expect(root).not.toBeEmpty();
