@@ -1,0 +1,29 @@
+---
+import fixture from '@coloradodigitalservice/colorado-design-system/fixtures/button.html?raw';
+interface Props {
+  mode: 'default' | 'remaining';
+}
+const { mode } = Astro.props;
+const blocks = fixture
+  .split(/(?=<!-- State: [a-z-]+ -->)/)
+  .filter((block) => block.startsWith('<!-- State:'));
+const selected = blocks.filter((block) =>
+  mode === 'default'
+    ? block.startsWith('<!-- State: default -->')
+    : !block.startsWith('<!-- State: default -->'),
+);
+---
+
+{selected.map((block) => (
+  <>
+    <div set:html={block} />
+    <details class="cods-docs-example-source">
+      <summary>View and copy HTML</summary>
+      <pre
+        tabindex="0"
+        role="region"
+        aria-label={`${block.match(/State: ([a-z-]+)/)?.[1]} Button HTML`}
+      ><code>{block.trim()}</code></pre>
+    </details>
+  </>
+))}

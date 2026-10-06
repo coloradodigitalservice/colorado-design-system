@@ -1,0 +1,36 @@
+{
+  "name": "button",
+  "displayName": "Button",
+  "maturity": "experimental",
+  "type": "static",
+  "uswdsEquivalent": "button",
+  "uswdsVersion": "3.14.0",
+  "componentType": "A",
+  "owners": {
+    "responsible": "Aten component lead",
+    "accountable": "State technical owner",
+    "consulted": "State design owner, accessibility lead",
+    "informed": "Component contributors, product owner"
+  },
+  "divergenceApproved": false,
+  "divergenceNotes": null,
+  "states": [
+    "default",
+    "secondary",
+    "outline",
+    "ghost",
+    "danger",
+    "small",
+    "icon-only",
+    "link",
+    "hover",
+    "active",
+    "focus-visible",
+    "disabled",
+    "long-content",
+    "rtl"
+  ],
+  "progressiveEnhancement": "full",
+  "localization": "layout-sensitive",
+  "description": "Native action buttons and distinctly documented navigation links, themed from USWDS with approved CoDS tokens."
+}
