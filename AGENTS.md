@@ -25,6 +25,18 @@ issue key (`CDS-30`, `CDS-34`). Do not add a `codex/` prefix or descriptive suff
 Confirm the canonical identifier from the ticket or PR before creating a branch;
 do not invent one. This applies to every new ticket branch.
 
+## Jira linking
+
+For ticket work, include the actual Jira issue key in the PR title alongside any
+canonical CODS identifier, for example
+`CDS-42 / CODS-P2-003: Validate shared fixtures and metadata`. The canonical
+identifier or a description-only mention is not sufficient for reliable Jira
+linking. Include the Jira ticket link in the PR description as well.
+
+Including the Jira key in new commit messages is recommended for commit/build
+traceability, but is not required to link the PR. Preserve the branch naming rules
+above.
+
 ## Tooling: pnpm, nvm, Corepack
 
 - Node version is pinned in `.nvmrc` and `package.json#engines` (`24.21.0`). Run `nvm use` before installing or building — the default shell Node is often older and Storybook/Vite will fail silently or loudly otherwise.
