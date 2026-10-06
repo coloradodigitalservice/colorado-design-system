@@ -53,6 +53,28 @@ preview startup timeout, two local workers, and one CI worker. CI disallows
 `test.only`. Automatic retries are disabled locally and in CI: this static-page
 suite is deterministic, so a failure must make the check fail on its first run.
 
+### Firefox fails to launch on macOS 27
+
+On macOS 27, every `web-firefox` test can fail with `browserType.launch ... Could not
+find profile folder` while Chromium and WebKit pass. macOS 27 protects
+`~/Library/Application Support/Firefox`, and Firefox reads that folder even when
+Playwright passes a temporary `-profile`. The privacy check is charged to the app that
+started the tests (terminal, editor, or agent), so launches from an app without Full
+Disk Access are denied. This is
+[Playwright issue #42768](https://github.com/microsoft/playwright/issues/42768); Firefox
+158 fixes it upstream, and the pinned Playwright bundles Firefox 155.
+
+Either grant Full Disk Access to the app you run tests from (System Settings, Privacy &
+Security), or give Firefox an empty home directory for that shell:
+
+```sh
+export CFFIXED_USER_HOME=$(mktemp -d)
+pnpm test:browser
+```
+
+The variable only affects processes started from that shell. Linux and CI are not
+affected, and neither workaround is needed once Playwright bundles Firefox 158 or later.
+
 ## Interactive browser verification
 
 The pinned `@playwright/test` dependency also provides the interactive CLI. Use
