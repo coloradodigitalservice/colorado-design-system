@@ -1,0 +1,33 @@
+---
+interface Props {
+  metadata: { name: string; displayName: string; maturity: string };
+  examples: {
+    state: string;
+    code: string;
+    status: string;
+    instructions: string;
+  }[];
+}
+const { metadata, examples } = Astro.props;
+---
+
+<p>
+  {metadata.displayName} maturity: {metadata.maturity}.
+</p>
+{examples.map((example) => (
+  <details class="cods-docs-example-source" data-cods-example={example.state}>
+    <summary>
+      {metadata.name === 'site-alert' && example.state === 'default'
+        ? 'View and copy HTML'
+        : `View ${example.state} HTML`}
+    </summary>
+    {example.status === 'review-required' && (
+      <p>Review required: {example.instructions}</p>
+    )}
+    <pre
+      tabindex="0"
+      role="region"
+      aria-label={`${example.state === 'default' ? 'Default' : example.state} ${metadata.displayName} HTML`}
+    ><code>{example.code}</code></pre>
+  </details>
+))}

@@ -173,3 +173,7 @@ These samples exist only to prove the contract is followable; they are documenta
 - [ ] This contract is published in governance documentation (this file).
 - [ ] Sample fixtures in section 8 conform to sections 2-6.
 - [ ] Required domain reviewers (Aten technical lead, Aten accessibility lead, State technical owner per [Ownership and RACI](./ownership-and-raci.md)) approve the contract at G1.
+
+The Phase 2 fixture pipeline adds per-state `examples` definitions to metadata.
+See [shared fixtures and metadata](shared-fixtures.md) for the additive shape,
+generated package exports, runtime-state review flags, and validation commands.

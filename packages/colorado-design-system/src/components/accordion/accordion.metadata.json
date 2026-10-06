@@ -22,5 +22,64 @@
   ],
   "progressiveEnhancement": "full",
   "localization": "layout-sensitive",
-  "description": "A progressively enhanced USWDS accordion with per-root lifecycle, single or multiple open panels, and bubbling CoDS change events."
+  "description": "A progressively enhanced USWDS accordion with per-root lifecycle, single or multiple open panels, and bubbling CoDS change events.",
+  "examples": [
+    {
+      "state": "default",
+      "fixtureState": "default",
+      "setup": "none"
+    },
+    {
+      "state": "expanded",
+      "fixtureState": "default",
+      "setup": "expand",
+      "instructions": "Initialize the accordion and expand its first panel."
+    },
+    {
+      "state": "collapsed",
+      "fixtureState": "default",
+      "setup": "collapse",
+      "instructions": "Initialize the accordion and collapse its first panel."
+    },
+    {
+      "state": "bordered",
+      "fixtureState": "bordered",
+      "setup": "none"
+    },
+    {
+      "state": "multiple",
+      "fixtureState": "multiple",
+      "setup": "none"
+    },
+    {
+      "state": "disabled",
+      "fixtureState": "disabled",
+      "setup": "none"
+    },
+    {
+      "state": "focus-visible",
+      "fixtureState": "default",
+      "setup": "focus",
+      "instructions": "Use keyboard navigation to verify visible focus on the first interactive element."
+    },
+    {
+      "state": "long-content",
+      "fixtureState": "long-content",
+      "setup": "none"
+    },
+    {
+      "state": "localization",
+      "fixtureState": "localization",
+      "setup": "none"
+    },
+    {
+      "state": "rtl",
+      "fixtureState": "rtl",
+      "setup": "none"
+    }
+  ],
+  "uswdsVersion": "3.14.0",
+  "componentType": "A",
+  "divergenceApproved": false,
+  "divergenceNotes": null
 }

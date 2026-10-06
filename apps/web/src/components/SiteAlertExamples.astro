@@ -1,42 +1,19 @@
 ---
-import fixture from '@coloradodigitalservice/colorado-design-system/fixtures/site-alert.html?raw';
-
+import examples from '@coloradodigitalservice/colorado-design-system/examples/site-alert.json';
+import metadata from '@coloradodigitalservice/colorado-design-system/metadata/site-alert.json';
+import CodeExamples from './CodeExamples.astro';
 interface Props {
   mode: 'default' | 'remaining';
 }
 const { mode } = Astro.props;
-// Keep every rendered example and its source tied to the shipped fixture.
-const blocks = fixture
-  .split(/(?=<!-- State: [a-z-]+ -->)/)
-  .filter((block) => block.startsWith('<!-- State:'));
-const defaultBlock = blocks.find((block) =>
-  block.startsWith('<!-- State: default -->'),
-);
-if (!defaultBlock)
-  throw new Error('Missing canonical default Site Alert fixture');
-const defaultMarkup = defaultBlock.slice(
-  defaultBlock.indexOf('<section'),
-  defaultBlock.lastIndexOf('</section>') + '</section>'.length,
+const selected = examples.examples.filter((example) =>
+  mode === 'default'
+    ? example.state === 'default'
+    : example.state !== 'default',
 );
 ---
 
-{mode === 'default' ? (
-  <>
-    <h2>Example</h2>
-    <div set:html={defaultMarkup} />
-    <details class="cods-docs-example-source">
-      <summary>View and copy HTML</summary>
-      <pre
-        tabindex="0"
-        role="region"
-        aria-label="Default Site Alert HTML"
-      ><code>{defaultMarkup}</code></pre>
-    </details>
-  </>
-) : (
-  <div
-    set:html={blocks
-      .filter((block) => !block.startsWith('<!-- State: default -->'))
-      .join('')}
-  />
-)}
+{selected.map((example) => (
+  <div set:html={example.html} />
+))}
+<CodeExamples metadata={metadata} examples={selected} />

@@ -224,3 +224,11 @@ Stop the current development command before starting another or running the
 browser test suite, which owns these same ports. App source updates use the
 framework's normal hot reload; shared package updates take a short rebuild.
 No production server or new runtime dependency is introduced.
+
+## Shared component fixtures (CODS-P2-003)
+
+Site Alert and Accordion expose canonical fixtures, metadata, and generated
+state/code samples through `./fixtures/<name>.html`, `./metadata/<name>.json`,
+and `./examples/<name>.json`. The package build validates and discovers these
+assets from component directories. See [shared fixtures](governance/shared-fixtures.md)
+for source paths, runtime-state review flags, consumers, and drift checks.
