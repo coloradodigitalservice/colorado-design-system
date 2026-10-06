@@ -25,6 +25,14 @@ was confirmed by the successful Foundation CI run for focus-fix commit
 `2c206b6adab4997a33e6ddfdf1db93983720ae1b`:
 [Foundation run 36927681565](https://github.com/coloradodigitalservice/colorado-design-system/actions/runs/36927681565).
 
+CODS-P2-005 rerun on 2026-10-06 (macOS 27.0.1, Node 24.21.0, pnpm 12.4.2,
+Playwright 1.63.0 with Chromium 153.0, Firefox 155.0, WebKit 26.6, axe-core
+4.13.0): `pnpm check` passed with 108 unit/DOM tests (16 for the Accordion
+controller) and 159 browser tests across Chromium, Firefox, WebKit, and
+Storybook. No test is skipped and no axe rule is disabled or excluded. The
+consolidated results are in the
+[vertical-slice audit](../../../../../../docs/audits/CODS-P2-005-vertical-slice-audit.md).
+
 ## Keyboard
 
 Native buttons support Enter and Space, and Tab/Shift+Tab follow the page order. Disabled triggers skip the tab order. No custom arrow navigation, Escape behavior, or focus trap is added. Browser tests check keyboard toggling, link navigation, and focus retention; unit tests cover repeated initialization, independent/nested roots, dynamic insertion, and cleanup. Eric reports the manual accessibility checks passed; detailed observations are not recorded.

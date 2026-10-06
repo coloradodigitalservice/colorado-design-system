@@ -126,3 +126,11 @@ The first pass exposed an inherited USWDS body background causing emergency
 link contrast failure; body background/color inheritance was corrected and the
 full axe suite passed afterward. These developer checks supplement the pending
 manual domain reviews above.
+
+CODS-P2-005 rerun on October 6, 2026 (macOS 27.0.1, Node 24.21.0, pnpm 12.4.2,
+Playwright 1.63.0 with Chromium 153.0, Firefox 155.0, WebKit 26.6, axe-core
+4.13.0): `pnpm check` passed with 108 unit tests, 159 browser tests across
+Chromium, Firefox, WebKit, and Storybook, and 240 validated tokens with 16
+contrast pairs. No test is skipped and no axe rule is disabled or excluded.
+The consolidated results are in the
+[vertical-slice audit](../../../../../../docs/audits/CODS-P2-005-vertical-slice-audit.md).
