@@ -1,5 +1,15 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.1.3
+
+### Patch Changes
+
+- 3f21b23: Validate copied fonts and images while preserving their
+  filenames, bytes, and relative CSS URLs. Eliminate expected unresolved-asset
+  warnings and fail builds when a stylesheet references a missing packaged file,
+  including during watch rebuilds.
+- @coloradodigitalservice/colorado-design-tokens@0.1.3
+
 ## 0.1.2
 
 ### Patch Changes

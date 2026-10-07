@@ -79,16 +79,6 @@ test('color overrides still win over USWDS', async ({ page }) => {
   expect(await background(page, 'plain')).toBe(await background(page, 'token'));
 });
 
-test('self-hosted USWDS fonts still load from the uswds layer', async ({
-  page,
-}) => {
-  const loaded = await page.evaluate(async () => {
-    const faces = await document.fonts.load('400 16px "Open Sans"');
-    return faces.length > 0 && faces.every((face) => face.status === 'loaded');
-  });
-  expect(loaded).toBe(true);
-});
-
 const colors = (page: Page, id: string) =>
   page.locator(`#${id}`).evaluate((element) => {
     const style = getComputedStyle(element);

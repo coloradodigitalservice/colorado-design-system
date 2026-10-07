@@ -2,34 +2,22 @@ import { defineConfig, type Plugin } from 'vite';
 import dts from 'vite-plugin-dts';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { cp } from 'fs/promises';
 import { writeComponentAssets } from '../../scripts/component-fixtures.mjs';
+import { copiedAssets } from './build/packaged-assets.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// USWDS's compiled CSS references self-hosted fonts and icons by relative
-// url(), not by JS import, so Vite's module graph never sees them. Copy them
-// into dist/fonts and dist/img (matching $theme-font-path and
-// $theme-image-path in _uswds-theme.scss) after build. The Material icon set
-// (8 MB) and favicons are not referenced by any stylesheet, so they are left out.
-function copyAssetsPlugin(): Plugin {
+// Keep USWDS's portable CSS URLs and existing copied asset layout.
+const packageAssets = copiedAssets({
+  fonts: path.resolve(__dirname, 'src/assets/fonts'),
+  img: path.resolve(__dirname, 'node_modules/@uswds/uswds/dist/img'),
+});
+
+function componentAssetsPlugin(): Plugin {
   return {
-    name: 'copy-assets',
-    async closeBundle() {
+    name: 'component-assets',
+    closeBundle() {
       writeComponentAssets();
-      await cp(
-        path.resolve(__dirname, 'src/assets/fonts'),
-        path.resolve(__dirname, 'dist/fonts'),
-        { recursive: true },
-      );
-      await cp(
-        path.resolve(__dirname, 'node_modules/@uswds/uswds/dist/img'),
-        path.resolve(__dirname, 'dist/img'),
-        {
-          recursive: true,
-          filter: (source) => !/[\\/](material-icons|favicons)$/.test(source),
-        },
-      );
     },
   };
 }
@@ -55,7 +43,8 @@ export default defineConfig({
         skipLibCheck: true,
       },
     }),
-    copyAssetsPlugin(),
+    packageAssets.plugin,
+    componentAssetsPlugin(),
   ],
   build: {
     lib: {
@@ -67,7 +56,9 @@ export default defineConfig({
     },
     rollupOptions: {
       // Mark external dependencies so they aren't bundled
-      external: ['@coloradodigitalservice/colorado-design-tokens'],
+      external: (id) =>
+        id === '@coloradodigitalservice/colorado-design-tokens' ||
+        packageAssets.isExternal(id),
     },
     outDir: 'dist',
     emptyOutDir: true,
