@@ -74,7 +74,7 @@ test('getting started documents installation and both style imports', async ({
   await page.goto('/getting-started/');
   const main = page.locator('main');
   await expect(main).toContainText('colorado-design-tokens/tokens.css');
-  await expect(main).toContainText('colorado-design-system/styles');
+  await expect(main).toContainText('colorado-design-system/styles.css');
   await expect(
     main.getByRole('link', { name: 'Accordion' }).first(),
   ).toHaveAttribute('href', '/accordion/');

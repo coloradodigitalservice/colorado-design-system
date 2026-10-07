@@ -49,8 +49,11 @@ The package provides controlled subpath exports:
 import { initComponentName } from '@coloradodigitalservice/colorado-design-system';
 
 // Styles only
-import '@coloradodigitalservice/colorado-design-system/styles';
+import '@coloradodigitalservice/colorado-design-system/styles.css';
 ```
+
+The `/styles` subpath remains a compatibility alias for `/styles.css`; both
+resolve to `dist/colorado-design-system.css`. Prefer `/styles.css` for new imports.
 
 Consumers must not rely on undeclared export paths. The `./fixtures/*.html` and
 `./metadata/*.json` patterns export every component's fixture and metadata,

@@ -1,6 +1,6 @@
 // Shared tokens and styles load from the package boundary: the compiled
 // package stylesheet, not this app reaching into the package's source.
-import '@coloradodigitalservice/colorado-design-system/styles';
+import '@coloradodigitalservice/colorado-design-system/styles.css';
 
 import type { Preview } from '@storybook/html-vite';
 

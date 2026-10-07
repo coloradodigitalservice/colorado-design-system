@@ -76,7 +76,7 @@ The package provides several export patterns for consumers:
 import { initComponentName } from '@coloradodigitalservice/colorado-design-system';
 
 // Styles
-import '@coloradodigitalservice/colorado-design-system/styles';
+import '@coloradodigitalservice/colorado-design-system/styles.css';
 ```
 
 Fixtures and metadata are exported through `./fixtures/*.html` and
@@ -109,7 +109,9 @@ CODS-P2-002 selects Accordion as the interactive vertical slice. Import
 `initAccordion`, `initAllAccordions`, `destroyAccordion`, and
 `setAccordionExpanded` from the package root. Its USWDS toggle behavior is
 bundled; consumers do not need a second runtime script. Import the compiled
-stylesheet from `@coloradodigitalservice/colorado-design-system/styles`.
+stylesheet from `@coloradodigitalservice/colorado-design-system/styles.css`.
+The extensionless `/styles` path remains a compatibility alias for the same
+built stylesheet; prefer `/styles.css` for new imports.
 
 Canonical HTML and metadata are exported as `./fixtures/accordion.html` and
 `./metadata/accordion.json`. The reference page at `/accordion/` documents
