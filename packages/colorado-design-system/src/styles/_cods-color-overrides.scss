@@ -75,6 +75,19 @@
     color: var(--cods-color-text-action-link);
   }
 
+  // Must precede :hover/:active to keep the link, visited, hover, active order.
+  .usa-link:visited,
+  :is(
+      .usa-alert--info,
+      .usa-alert--warning,
+      .usa-alert--error,
+      .usa-alert--success
+    )
+    .usa-alert__body
+    .usa-link:visited {
+    color: var(--cods-color-text-action-link-visited);
+  }
+
   .usa-link:hover {
     color: var(--cods-color-text-action-link-hover);
   }
@@ -88,15 +101,43 @@
     border-color: var(--cods-color-border-form-danger);
   }
 
+  // Alerts: Figma defines Info, Warning, and Urgent (usa-alert--error); success stays at the USWDS default.
+  .usa-alert--info,
+  .usa-alert--info .usa-alert__body {
+    background-color: var(--cods-color-bg-alert-info);
+  }
+
+  .usa-alert--info {
+    border-left-color: var(--cods-color-border-alert-info);
+  }
+
+  .usa-alert--warning,
+  .usa-alert--warning .usa-alert__body {
+    background-color: var(--cods-color-bg-alert-warning);
+  }
+
+  .usa-alert--warning {
+    border-left-color: var(--cods-color-border-alert-warning);
+  }
+
+  .usa-alert--error,
+  .usa-alert--error .usa-alert__body {
+    background-color: var(--cods-color-bg-alert-urgent);
+  }
+
+  .usa-alert--error {
+    border-left-color: var(--cods-color-border-alert-urgent);
+  }
+
   // ============================================================================
   // Known gaps (intentionally not overridden — no unambiguous Colorado token):
-  // - Visited link color (`.usa-link:visited`).
-  // - Alert background/border-left tints (`.usa-alert--error/warning/success/info`).
+  // - Success alert tints (`.usa-alert--success`): Figma defines no Success alert.
   // - Focus-ring outline color: USWDS hardcodes it per-component across dozens
   //   of selectors rather than one reusable rule, so a full override requires
   //   either `!important` or reproducing every USWDS focus selector. Neither is
   //   done here; needs a follow-on decision (see ADR-002).
-  // - Disabled border-color: a higher-specificity USWDS `:not()` selector wins
-  //   over a same-specificity override, so it is left at USWDS's default.
+  // - Disabled border-color: USWDS draws no border on disabled buttons, and the
+  //   Figma disabled fill (color-bg-disabled) is already applied above, so there
+  //   is nothing to override. Disabled input borders are not defined in Figma.
   // ============================================================================
 }

@@ -39,6 +39,12 @@
       "minimum": 4.5
     },
     {
+      "name": "Link visited",
+      "foreground": "color.text-action-link-visited",
+      "background": "color.surface-form",
+      "minimum": 4.5
+    },
+    {
       "name": "Primary button default",
       "foreground": "color.text-action-primary",
       "background": "color.bg-action-primary",
