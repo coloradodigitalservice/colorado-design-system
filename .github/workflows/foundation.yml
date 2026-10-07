@@ -105,7 +105,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm tokens:check
       - run: pnpm lint
-      - run: pnpm exec turbo run build --filter=@cods-internal/web...
+      - run: pnpm exec turbo run build --filter=@cods-internal/web... --filter=@cods-internal/example-static-html...
       - run: pnpm fixtures:check
       - run: pnpm exec playwright install --with-deps chromium firefox webkit
       - run: pnpm test:browser --project='web*'
