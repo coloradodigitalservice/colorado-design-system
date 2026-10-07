@@ -75,7 +75,7 @@
     color: var(--cods-color-text-action-link);
   }
 
-  // Must precede :hover/:active to keep the link, visited, hover, active order.
+  // Link visited and hover/active states (source order: link, visited, hover, active).
   .usa-link:visited,
   :is(
       .usa-alert--info,
@@ -92,7 +92,31 @@
     color: var(--cods-color-text-action-link-hover);
   }
 
+  .usa-link:visited:hover,
+  :is(
+      .usa-alert--info,
+      .usa-alert--warning,
+      .usa-alert--error,
+      .usa-alert--success
+    )
+    .usa-alert__body
+    .usa-link:visited:hover {
+    color: var(--cods-color-text-action-link-hover);
+  }
+
   .usa-link:active {
+    color: var(--cods-color-text-action-link-active);
+  }
+
+  .usa-link:visited:active,
+  :is(
+      .usa-alert--info,
+      .usa-alert--warning,
+      .usa-alert--error,
+      .usa-alert--success
+    )
+    .usa-alert__body
+    .usa-link:visited:active {
     color: var(--cods-color-text-action-link-active);
   }
 

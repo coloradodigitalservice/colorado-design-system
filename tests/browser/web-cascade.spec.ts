@@ -199,10 +199,10 @@ test('alert variants keep their borders in forced-colors mode', async ({
   }
 });
 
-test('compiled CSS ends the uswds layer with the visited-link token rule', async ({
+test('compiled CSS ends the uswds layer with the visited-link token rules', async ({
   page,
 }) => {
-  // :visited is invisible to getComputedStyle, so read the rule itself.
+  // :visited is invisible to getComputedStyle, so read the rules themselves.
   const rules = await page.evaluate(() => {
     const found: { layer: string; color: string }[] = [];
     const walk = (list: CSSRuleList, layer: string) => {
@@ -224,8 +224,19 @@ test('compiled CSS ends the uswds layer with the visited-link token rule', async
         walk(sheet.cssRules, '');
     return found;
   });
-  expect(rules.at(-1)).toEqual({
-    layer: 'uswds',
-    color: 'var(--cods-color-text-action-link-visited)',
-  });
+  // Last three overrides cover visited, visited:hover, and visited:active.
+  expect(rules.slice(-3)).toEqual([
+    {
+      layer: 'uswds',
+      color: 'var(--cods-color-text-action-link-visited)',
+    },
+    {
+      layer: 'uswds',
+      color: 'var(--cods-color-text-action-link-hover)',
+    },
+    {
+      layer: 'uswds',
+      color: 'var(--cods-color-text-action-link-active)',
+    },
+  ]);
 });
