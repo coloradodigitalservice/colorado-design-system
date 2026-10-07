@@ -11,7 +11,7 @@ This private workspace hosts the HTML/Vite Storybook workbench for component sta
 ## Configuration
 
 - `.storybook/main.ts` configures the `@storybook/html-vite` framework and the accessibility addon (`@storybook/addon-a11y`).
-- `.storybook/preview.ts` imports the design system's compiled stylesheet through its published `./styles` export — stories never reach into the package's source to load tokens or styles.
+- `.storybook/preview.ts` imports the design system's compiled stylesheet through its published `./styles.css` export — stories never reach into the package's source to load tokens or styles.
 - The Storybook static directory publishes USWDS image assets at `/img`, matching the relative `../img/` URLs in the compiled stylesheet so icons and other referenced images render in both development and the static preview.
 
 ## Accessibility checks

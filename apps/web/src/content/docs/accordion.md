@@ -21,7 +21,7 @@ Accordion is **experimental** in the `0.0.x` development series. Manual accessib
 
 ## Install and initialize
 
-Follow [Getting started](/getting-started/) to install the development release and load `@coloradodigitalservice/colorado-design-tokens/tokens.css` and `@coloradodigitalservice/colorado-design-system/styles` once. Author the USWDS markup with the CoDS hooks shown above. Give every panel a document-unique ID and point its button's `aria-controls` to that ID. Keep panels visible and `aria-expanded="true"` in server-rendered markup. Set `data-cods-accordion-expanded="true"` or `"false"` on each button for its initial enhanced state. No panel needs a region role or a live region.
+Follow [Getting started](/getting-started/) to install the development release and load `@coloradodigitalservice/colorado-design-tokens/tokens.css` and `@coloradodigitalservice/colorado-design-system/styles.css` once. Author the USWDS markup with the CoDS hooks shown above. Give every panel a document-unique ID and point its button's `aria-controls` to that ID. Keep panels visible and `aria-expanded="true"` in server-rendered markup. Set `data-cods-accordion-expanded="true"` or `"false"` on each button for its initial enhanced state. No panel needs a region role or a live region.
 
 ```js
 import {

@@ -1,6 +1,6 @@
 {
   "name": "@coloradodigitalservice/colorado-design-system",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "private": true,
   "repository": {
     "type": "git",
@@ -19,6 +19,9 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/colorado-design-system.mjs"
+    },
+    "./styles.css": {
+      "default": "./dist/colorado-design-system.css"
     },
     "./styles": {
       "default": "./dist/colorado-design-system.css"
