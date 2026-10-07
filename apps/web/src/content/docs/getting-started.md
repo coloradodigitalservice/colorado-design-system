@@ -27,7 +27,7 @@ Load the token custom properties, then the design-system stylesheet, once per pa
 
 ```js
 import '@coloradodigitalservice/colorado-design-tokens/tokens.css';
-import '@coloradodigitalservice/colorado-design-system/styles';
+import '@coloradodigitalservice/colorado-design-system/styles.css';
 ```
 
 The stylesheet places USWDS in the lowest cascade layer and CoDS rules in the `cods.*` layers above it, so your own unlayered CSS overrides both.

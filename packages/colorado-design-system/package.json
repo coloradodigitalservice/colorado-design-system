@@ -20,6 +20,9 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/colorado-design-system.mjs"
     },
+    "./styles.css": {
+      "default": "./dist/colorado-design-system.css"
+    },
     "./styles": {
       "default": "./dist/colorado-design-system.css"
     },
