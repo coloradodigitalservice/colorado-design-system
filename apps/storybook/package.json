@@ -18,8 +18,8 @@
     "@coloradodigitalservice/colorado-design-tokens": "workspace:*"
   },
   "devDependencies": {
-    "@storybook/addon-a11y": "10.6.0",
-    "@storybook/html-vite": "10.6.0",
-    "storybook": "10.6.0"
+    "@storybook/addon-a11y": "10.6.1",
+    "@storybook/html-vite": "10.6.1",
+    "storybook": "10.6.1"
   }
 }
