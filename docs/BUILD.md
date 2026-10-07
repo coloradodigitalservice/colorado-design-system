@@ -97,7 +97,20 @@ The `@coloradodigitalservice/colorado-design-tokens` package is marked external 
 
 Interactive Type A components import the single USWDS behavior they wrap (for example `@uswds/uswds/js/usa-accordion`), as decided in [ADR-006](adrs/006-uswds-javascript-ingestion.md). USWDS ships these as CommonJS; Vite bundles them into `colorado-design-system.mjs`, so consumers load one `<script type="module">` and need no CommonJS handling. `@uswds/uswds` is deliberately not external. To confirm a build, check that `dist/colorado-design-system.mjs` contains no `require(` and no `uswdsPresent`. The wrapper pattern is in [contract section 4.5](governance/component-contract.md#45-wrapping-uswds-javascript).
 
-USWDS's CSS references icons by relative `url()`. `_uswds-theme.scss` sets `$theme-font-path` and `$theme-image-path` to `./fonts` and `./img`, and the Vite config copies those assets into `dist/` after the build. Vite warns that these paths "didn't resolve at build time"; this is expected, and they resolve at runtime from `dist/`.
+USWDS's CSS references fonts and icons by relative `url()`. `_uswds-theme.scss`
+sets `$theme-font-path` and `$theme-image-path` to `./fonts` and `./img`.
+The Vite asset plugin keeps the existing copy layout under `dist/fonts` and
+`dist/img`, excluding unused `material-icons` and `favicons`. It declares a CSS
+URL external only when its corresponding source file exists and will be copied.
+Expected warnings disappear; unknown references retain Vite's normal warnings.
+
+In `writeBundle`, the plugin refreshes the copied directories and parses the
+written CSS with CSS-tree to check every local URL. Missing files fail the build
+with the stylesheet and asset path; root-relative and escaping paths also fail.
+Remote/data URLs and fragment references are skipped. Source directories and
+files are watched, and refreshing output prevents deleted sources from surviving
+as stale assets. Tests cover validation, unexpected warnings, watch changes and
+deletions, and font/icon loading in all three consumers.
 
 ## Design Tokens Package (`colorado-design-tokens`)
 
