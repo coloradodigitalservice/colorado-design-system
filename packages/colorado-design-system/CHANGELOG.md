@@ -1,5 +1,15 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.1.4
+
+### Patch Changes
+
+- 31ab558: Add the `/styles.css` stylesheet export and retain `/styles` as a compatibility
+  alias to the same built CSS file. Update repository imports and documentation
+  to prefer `/styles.css`, removing the dedicated ambient declarations in the
+  web and Storybook apps.
+- @coloradodigitalservice/colorado-design-tokens@0.1.4
+
 ## 0.1.3
 
 ### Patch Changes
