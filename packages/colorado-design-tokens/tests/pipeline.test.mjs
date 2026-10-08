@@ -548,6 +548,71 @@ describe('component inventory completeness', () => {
       validateComponentInventory(inventory, catalog, implementations),
     ).toThrow('Modal: missing catalog token space.missing');
   });
+  it('rejects a numerically wrong measured token mapping', async () => {
+    const inventory = await readInventory();
+    const button = inventory.components.find(
+      (entry) => entry.name === 'Button',
+    );
+    const measurement = button.foundationMeasurements.find(
+      (entry) =>
+        entry.property === 'stackHorizontalPadding' &&
+        entry.token === 'space.md',
+    );
+    measurement.value = { value: 24, unit: 'px' };
+    expect(() =>
+      validateComponentInventory(inventory, catalog, implementations),
+    ).toThrow('Button: measured value differs from space.md');
+  });
+  it('rejects invented measurements even when their token values match', async () => {
+    const inventory = await readInventory();
+    const evidence = JSON.parse(
+      await readFile(
+        join(packageRoot, 'references/figma-variants-observed-2026-10-08.json'),
+        'utf8',
+      ),
+    );
+    const button = inventory.components.find(
+      (entry) => entry.name === 'Button',
+    );
+    const measurement = button.foundationMeasurements.find(
+      (entry) =>
+        entry.property === 'stackHorizontalPadding' &&
+        entry.token === 'space.md',
+    );
+    evidence.components.find((entry) => entry.name === 'Button').measurements[
+      measurement.measurement
+    ].properties.stackHorizontalPadding = 24;
+    expect(() =>
+      validateComponentInventory(inventory, catalog, implementations, evidence),
+    ).toThrow(
+      `Button: binding ${measurement.binding} differs from source measurement`,
+    );
+  });
+  it('keeps incomplete design coverage explicit instead of requiring invented tokens', async () => {
+    const inventory = await readInventory();
+    const evidence = JSON.parse(
+      await readFile(
+        join(packageRoot, 'references/figma-variants-observed-2026-10-08.json'),
+        'utf8',
+      ),
+    );
+    expect(() =>
+      validateComponentInventory(inventory, catalog, implementations, evidence),
+    ).not.toThrow();
+    expect(
+      inventory.components.find((entry) => entry.name === 'Videos'),
+    ).toMatchObject({
+      designCoverage: 'design-incomplete',
+      foundationTokens: [],
+      tokens: [],
+    });
+    inventory.components.find(
+      (entry) => entry.name === 'Videos',
+    ).designCoverage = 'measured';
+    expect(() =>
+      validateComponentInventory(inventory, catalog, implementations, evidence),
+    ).toThrow('Videos: source coverage differs from measurement evidence');
+  });
   it('rejects newly introduced stylesheet dependencies until they are documented', async () => {
     const inventory = await readInventory();
     const updated = new Map(implementations);
