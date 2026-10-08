@@ -15,7 +15,7 @@ Never edit `packages/colorado-design-tokens/generated/**` by hand. Regenerate it
 1. **State the need.** What component or foundation needs the value, and why no existing token fits. Search first: `grep -rn "<value or role>" packages/colorado-design-tokens/src packages/colorado-design-tokens/references/mapping.md`. Prefer reusing a token.
 2. **Classify** using the table below. The file decides who must review.
 3. **Check alias impact** before changing or removing anything: [alias impact](#alias-impact).
-4. **Edit the source.** Follow the profile in the README: flat lowercase kebab-case key, `$type`, `$value`, and `$extensions.org.colorado.source` with the original name and location. Semantic and supplemental colors alias a palette token (`{color.co-blue-80-brand}`), not a literal, and an alias must target the same `$type`.
+4. **Edit the source.** Follow the profile in the README: flat lowercase kebab-case key, `$type`, `$value`, and `$extensions.org.colorado.source` with the original name and location. Semantic and supplemental colors preserve a source semantic alias when one is specified; otherwise alias a palette token (`{color.co-blue-80-brand}`), not a literal. An alias must target the same `$type`. Confirm runtime propagation when a semantic alias is re-aliased.
 5. **Contrast.** If the token is a foreground or background that will be used for text, links, controls, borders, or focus, decide whether it needs a pair in `references/contrast-pairs.json`. Run the ratio against the surfaces it will really sit on. Never change `references/design-values.json` or a failing test to make a change pass; that file needs explicit design review.
 6. **Regenerate and verify** from the repo root, then commit sources and all four generated files together:
 

@@ -40,3 +40,35 @@ test('component aliases follow semantic customization without changing palette v
   );
   await expect(teal).toHaveCSS('background-color', 'rgb(101, 67, 33)');
 });
+
+test('gray and yellow tags follow the shared default text role through both aliases', async ({
+  page,
+}) => {
+  await page.setContent(`<!doctype html><html lang="en"><head><title>Shared text role</title><style>${css}</style></head><body>
+    <span id="body" style="color:var(--cods-color-text-primary)">Body</span>
+    <span id="gray" style="color:var(--cods-component-tag-gray-text)">Gray tag</span>
+    <span id="yellow" style="color:var(--cods-component-tag-yellow-text)">Yellow tag</span>
+    <span id="blue" style="color:var(--cods-component-tag-blue-text)">Blue tag</span>
+    <span id="palette" style="color:var(--cods-color-co-gray-90)">Palette</span>
+  </body></html>`);
+  for (const id of ['body', 'gray', 'yellow'])
+    await expect(page.locator(`#${id}`)).toHaveCSS('color', 'rgb(27, 27, 27)');
+  await page.evaluate(() =>
+    document.documentElement.style.setProperty(
+      '--cods-color-text-primary',
+      '#123456',
+    ),
+  );
+  for (const id of ['body', 'gray', 'yellow'])
+    await expect(page.locator(`#${id}`)).toHaveCSS('color', 'rgb(18, 52, 86)');
+  await expect(page.locator('#blue')).toHaveCSS('color', 'rgb(0, 16, 73)');
+  await expect(page.locator('#palette')).toHaveCSS('color', 'rgb(27, 27, 27)');
+  await page.evaluate(() =>
+    document.documentElement.style.setProperty(
+      '--cods-component-tag-gray-text',
+      '#654321',
+    ),
+  );
+  await expect(page.locator('#gray')).toHaveCSS('color', 'rgb(101, 67, 33)');
+  await expect(page.locator('#yellow')).toHaveCSS('color', 'rgb(18, 52, 86)');
+});

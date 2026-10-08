@@ -146,23 +146,25 @@
     },
     "text-tag-gray": {
       "$type": "color",
-      "$value": "{color.co-gray-90}",
+      "$value": "{color.text-primary}",
       "$extensions": {
         "org.colorado.source": {
           "name": "text/tag/gray",
           "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / text/tag/gray; observed 2026-10-08; proposed for design review"
         }
-      }
+      },
+      "$description": "Preserves the observed text/default semantic alias, including runtime customization."
     },
     "text-tag-yellow": {
       "$type": "color",
-      "$value": "{color.co-gray-90}",
+      "$value": "{color.text-primary}",
       "$extensions": {
         "org.colorado.source": {
           "name": "text/tag/yellow",
           "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / text/tag/yellow; observed 2026-10-08; proposed for design review"
         }
-      }
+      },
+      "$description": "Preserves the observed text/default semantic alias, including runtime customization."
     },
     "text-tag-blue": {
       "$type": "color",

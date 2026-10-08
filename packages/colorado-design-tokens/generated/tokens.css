@@ -157,13 +157,13 @@
   --cods-color-text-primary: var(--cods-color-co-gray-90);
   --cods-color-text-secondary: var(--cods-color-co-gray-70);
   --cods-color-text-tag-blue: var(--cods-color-co-blue-90);
-  --cods-color-text-tag-gray: var(--cods-color-co-gray-90);
+  --cods-color-text-tag-gray: var(--cods-color-text-primary);
   --cods-color-text-tag-green: var(--cods-color-co-green-90);
   --cods-color-text-tag-info: var(--cods-color-co-blue-90);
   --cods-color-text-tag-plum: var(--cods-color-co-plum-90);
   --cods-color-text-tag-red: var(--cods-color-co-red-90);
   --cods-color-text-tag-teal: var(--cods-color-co-teal-90);
-  --cods-color-text-tag-yellow: var(--cods-color-co-gray-90);
+  --cods-color-text-tag-yellow: var(--cods-color-text-primary);
   --cods-color-white: #ffffff;
   --cods-component-modal-background: var(--cods-color-surface-modal);
   --cods-component-tag-blue-background: var(--cods-color-surface-tag-blue);

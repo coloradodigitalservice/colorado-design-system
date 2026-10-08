@@ -12,6 +12,11 @@ import {
   validateDocuments,
 } from '../scripts/validate.mjs';
 import { checkContrast, contrastRatio } from '../scripts/contrast.mjs';
+import {
+  extractTokenDependencies,
+  loadImplementationDependencies,
+  validateComponentInventory,
+} from '../scripts/inventory.mjs';
 import { compareOutputs, formatValue, generate } from '../scripts/build.mjs';
 
 const source = {
@@ -319,6 +324,11 @@ describe('Phase 3 catalog dependencies', () => {
         'utf8',
       ),
     );
+    validateComponentInventory(
+      inventory,
+      catalog,
+      await loadImplementationDependencies(catalog),
+    );
     const approved = [
       'Accordion',
       'Breadcrumbs',
@@ -453,9 +463,14 @@ it('accounts for every observed semantic role and preserves its source alias', a
         expect(catalog.resolved.get(path).alpha).toBe(0.08);
         continue;
       }
+      if (row[1] === 'text/default') {
+        expect(catalog.tokens.get(path).$value, role).toBe(
+          '{color.text-primary}',
+        );
+      }
       const target =
         row[1] === 'text/default'
-          ? 'color.co-gray-90'
+          ? 'color.text-primary'
           : row[1].replace(/^color\//, 'color.').replaceAll('/', '-');
       expect(catalog.resolved.get(path), role).toEqual(
         catalog.resolved.get(target),
@@ -463,4 +478,101 @@ it('accounts for every observed semantic role and preserves its source alias', a
     }
   }
   expect(count).toBe(104);
+});
+
+describe('component inventory completeness', () => {
+  const readInventory = async () =>
+    JSON.parse(
+      await readFile(
+        join(packageRoot, 'references/component-token-inventory.json'),
+        'utf8',
+      ),
+    );
+  it.each([
+    ['Accordion', 'focus.ring-width'],
+    ['Site Alert', 'font.size-mobile-h3'],
+  ])(
+    'detects omitted %s stylesheet dependencies independently of the inventory',
+    async (name, missing) => {
+      const inventory = await readInventory();
+      const component = inventory.components.find(
+        (entry) => entry.name === name,
+      );
+      component.tokens = component.tokens.filter((path) => path !== missing);
+      component.implementationTokens = component.implementationTokens.filter(
+        (path) => path !== missing,
+      );
+      component.foundationTokens = component.foundationTokens.filter(
+        (path) => path !== missing,
+      );
+      for (const [part, paths] of Object.entries(
+        component.foundationBindings,
+      )) {
+        component.foundationBindings[part] = paths.filter(
+          (path) => path !== missing,
+        );
+      }
+      expect(() =>
+        validateComponentInventory(inventory, catalog, implementations),
+      ).toThrow(`stylesheet dependency ${missing} is undocumented`);
+    },
+  );
+  let implementations;
+  beforeAll(async () => {
+    implementations = await loadImplementationDependencies(catalog);
+  });
+  it('rejects generic or empty foundation coverage', async () => {
+    const inventory = await readInventory();
+    inventory.components.find(
+      (entry) => entry.name === 'Modal',
+    ).foundationBindings = {};
+    expect(() =>
+      validateComponentInventory(inventory, catalog, implementations),
+    ).toThrow('Modal: specify concrete foundation bindings');
+  });
+  it('rejects unknown proposed foundation dependencies', async () => {
+    const inventory = await readInventory();
+    const component = inventory.components.find(
+      (entry) => entry.name === 'Modal',
+    );
+    component.foundationBindings.padding = ['space.missing'];
+    component.tokens.push('space.missing');
+    component.foundationTokens = [
+      ...new Set(
+        Object.values(component.foundationBindings)
+          .flat()
+          .filter((path) => !path.startsWith('color.')),
+      ),
+    ].sort();
+    expect(() =>
+      validateComponentInventory(inventory, catalog, implementations),
+    ).toThrow('Modal: missing catalog token space.missing');
+  });
+  it('rejects newly introduced stylesheet dependencies until they are documented', async () => {
+    const inventory = await readInventory();
+    const updated = new Map(implementations);
+    const accordion = updated.get('Accordion');
+    updated.set('Accordion', {
+      ...accordion,
+      tokens: [...accordion.tokens, 'space.4xl'],
+    });
+    expect(() =>
+      validateComponentInventory(inventory, catalog, updated),
+    ).toThrow('Accordion: stylesheet dependency space.4xl is undocumented');
+  });
+  it('extracts CSS and namespaced Sass token references without including component properties or comments', () => {
+    const styles = `@use '@coloradodigitalservice/colorado-design-tokens' as ds;
+      .cods-probe { background: url(https://example.test/image.svg); padding: ds.$space-lg; font-size: var(--cods-font-size-mobile-body); --cods-probe-padding: 1px; }
+      /* --cods-space-unused */`;
+    expect(extractTokenDependencies(styles, catalog)).toEqual([
+      'font.size-mobile-body',
+      'space.lg',
+    ]);
+    expect(
+      extractTokenDependencies(
+        '.cods-probe { padding: var(--cods-space-missing); }',
+        catalog,
+      ),
+    ).toEqual(['space.missing']);
+  });
 });
