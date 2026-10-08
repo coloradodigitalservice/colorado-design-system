@@ -51,6 +51,20 @@ Source: the reviewed semantic-color mapping, rows 2–47. `text/default` is the 
 | 46           | `surface / nav / active`               | `color-surface-nav-active`             | `color/co-blue/80-brand` | `#001970` |
 | 47           | `state / success`                      | `color-state-success`                  | `color/co-green/60v`     | `#026f28` |
 
+## Supplemental mapping
+
+These implementation mappings live in `src/supplemental.tokens.json`, outside the 46 source roles. They have no workbook row. Success alerts, the Accordion focus ring (`color-bg-action-focus`), and the disabled button border add no token; see the tokens README.
+
+| Use                      | Code name                        | Palette                    | Value     |
+| ------------------------ | -------------------------------- | -------------------------- | --------- |
+| Visited link text        | `color-text-action-link-visited` | `color/co-plum/80`         | `#491839` |
+| Info alert background    | `color-bg-alert-info`            | `color/co-blue/10`         | `#d9e8f6` |
+| Info alert border        | `color-border-alert-info`        | `color/co-blue/60-brand`   | `#2551a3` |
+| Warning alert background | `color-bg-alert-warning`         | `color/co-yellow/10`       | `#fcf9d9` |
+| Warning alert border     | `color-border-alert-warning`     | `color/co-yellow/30-brand` | `#ffd100` |
+| Urgent alert background  | `color-bg-alert-urgent`          | `color/co-red/10`          | `#f8dede` |
+| Urgent alert border      | `color-border-alert-urgent`      | `color/co-red/60-brand`    | `#b50909` |
+
 ## Foundation mapping
 
 Every foundation token records its design-reference section in `src/foundations.tokens.json`. The spacing, typography, radius, and palette references establish the source values, while the semantic-color mapping establishes aliases. Supporting planning documents provide context but are not generator inputs.

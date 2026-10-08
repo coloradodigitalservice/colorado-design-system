@@ -25,6 +25,10 @@ const fixtureHtml = `<!doctype html>
       <button type="button" id="inverse-unstyled" class="usa-button usa-button--outline usa-button--inverse usa-button--unstyled">Unstyled</button>
     </div>
     <button type="button" id="outline-disabled" class="usa-button usa-button--outline" disabled>Disabled</button>
+    <div id="alert-info" class="usa-alert usa-alert--info"><div class="usa-alert__body"><p class="usa-alert__text">Info <a class="usa-link" href="#">link</a></p></div></div>
+    <div id="alert-warning" class="usa-alert usa-alert--warning"><div class="usa-alert__body"><p class="usa-alert__text">Warning</p></div></div>
+    <div id="alert-error" class="usa-alert usa-alert--error"><div class="usa-alert__body"><p class="usa-alert__text">Urgent</p></div></div>
+    <div id="alert-success" class="usa-alert usa-alert--success"><div class="usa-alert__body"><p class="usa-alert__text">Success</p></div></div>
   </body>
 </html>`;
 
@@ -145,4 +149,94 @@ test('USWDS selectors are restyled only inside the uswds layer', async ({
     return found;
   });
   expect(offenders).toEqual([]);
+});
+
+const tokenColor = (page: Page, token: string) =>
+  page.evaluate((name) => {
+    const probe = document.createElement('div');
+    probe.style.color = `var(--cods-color-${name})`;
+    document.body.append(probe);
+    const value = getComputedStyle(probe).color;
+    probe.remove();
+    return value;
+  }, token);
+
+for (const [variant, token] of [
+  ['info', 'alert-info'],
+  ['warning', 'alert-warning'],
+  ['error', 'alert-urgent'],
+] as const) {
+  test(`usa-alert--${variant} uses the ${token} tokens`, async ({ page }) => {
+    const alert = page.locator(`#alert-${variant}`);
+    const [bg, border] = await Promise.all([
+      tokenColor(page, `bg-${token}`),
+      tokenColor(page, `border-${token}`),
+    ]);
+    await expect(alert).toHaveCSS('background-color', bg);
+    await expect(alert.locator('.usa-alert__body')).toHaveCSS(
+      'background-color',
+      bg,
+    );
+    await expect(alert).toHaveCSS('border-left-color', border);
+  });
+}
+
+test('usa-alert--success keeps the USWDS default tints', async ({ page }) => {
+  const alert = page.locator('#alert-success');
+  await expect(alert).toHaveCSS('background-color', 'rgb(236, 243, 236)');
+  await expect(alert).toHaveCSS('border-left-color', 'rgb(0, 169, 28)');
+});
+
+test('alert variants keep their borders in forced-colors mode', async ({
+  page,
+}) => {
+  await page.emulateMedia({ forcedColors: 'active' });
+  for (const variant of ['info', 'warning', 'error', 'success']) {
+    const alert = page.locator(`#alert-${variant}`);
+    await expect(alert).toBeVisible();
+    await expect(alert).toHaveCSS('border-left-style', 'solid');
+    await expect(alert).not.toHaveCSS('border-left-width', '0px');
+  }
+});
+
+test('compiled CSS ends the uswds layer with the visited-link token rules', async ({
+  page,
+}) => {
+  // :visited is invisible to getComputedStyle, so read the rules themselves.
+  const rules = await page.evaluate(() => {
+    const found: { layer: string; color: string }[] = [];
+    const walk = (list: CSSRuleList, layer: string) => {
+      for (const rule of Array.from(list)) {
+        if (rule instanceof CSSLayerBlockRule) walk(rule.cssRules, rule.name);
+        else if (rule instanceof CSSStyleRule) {
+          if (
+            rule.selectorText.includes('.usa-link:visited') &&
+            rule.style.color
+          )
+            found.push({ layer, color: rule.style.color });
+        } else if ('cssRules' in rule) {
+          walk(rule.cssRules as CSSRuleList, layer);
+        }
+      }
+    };
+    for (const sheet of Array.from(document.styleSheets))
+      if (sheet.href?.endsWith('/colorado-design-system.css'))
+        walk(sheet.cssRules, '');
+    return found;
+  });
+  // Last three overrides cover visited, visited:hover, and visited:active.
+  expect(rules.slice(-3)).toEqual([
+    {
+      layer: 'uswds',
+      color: 'var(--cods-color-text-action-link-visited)',
+    },
+    {
+      layer: 'uswds',
+      color: 'var(--cods-color-text-action-link-hover)',
+    },
+    {
+      layer: 'uswds',
+      color: 'var(--cods-color-text-action-link-active)',
+    },
+  ]);
 });

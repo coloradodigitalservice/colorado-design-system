@@ -60,6 +60,76 @@
         }
       }
     },
+    "text-action-link-visited": {
+      "$type": "color",
+      "$value": "{color.co-plum-80}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "text-action-link-visited",
+          "location": "Link design reference (Figma node 1-2); implementation mapping to the existing plum/80 palette"
+        }
+      }
+    },
+    "bg-alert-info": {
+      "$type": "color",
+      "$value": "{color.co-blue-10}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "bg-alert-info",
+          "location": "Alert design reference, Info (Figma node 2769-6573); implementation mapping to the existing blue/10 palette"
+        }
+      }
+    },
+    "border-alert-info": {
+      "$type": "color",
+      "$value": "{color.co-blue-60-brand}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "border-alert-info",
+          "location": "Alert design reference, Info (Figma node 2769-6573); implementation mapping to the existing blue/60-brand palette"
+        }
+      }
+    },
+    "bg-alert-warning": {
+      "$type": "color",
+      "$value": "{color.co-yellow-10}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "bg-alert-warning",
+          "location": "Alert design reference, Warning (Figma node 2769-6573); implementation mapping to the existing yellow/10 palette"
+        }
+      }
+    },
+    "border-alert-warning": {
+      "$type": "color",
+      "$value": "{color.co-yellow-30-brand}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "border-alert-warning",
+          "location": "Alert design reference, Warning (Figma node 2769-6573); implementation mapping to the existing yellow/30-brand palette"
+        }
+      }
+    },
+    "bg-alert-urgent": {
+      "$type": "color",
+      "$value": "{color.co-red-10}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "bg-alert-urgent",
+          "location": "Alert design reference, Urgent (Figma node 2769-6573); implementation mapping to the existing red/10 palette"
+        }
+      }
+    },
+    "border-alert-urgent": {
+      "$type": "color",
+      "$value": "{color.co-red-60-brand}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "border-alert-urgent",
+          "location": "Alert design reference, Urgent (Figma node 2769-6573); implementation mapping to the existing red/60-brand palette"
+        }
+      }
+    },
     "shadow": {
       "$type": "color",
       "$value": {

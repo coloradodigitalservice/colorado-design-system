@@ -1,4 +1,5 @@
 import { readFileSync } from 'node:fs';
+import type { Page } from '@playwright/test';
 import { test, expect, expectAccessible } from './fixtures.js';
 
 const state = (name: string) => `[data-cods-fixture-state="${name}"]`;
@@ -257,4 +258,43 @@ test('visual review of expanded and collapsed keyboard focus states', async ({
     body: await example.screenshot(),
     contentType: 'image/png',
   });
+});
+
+const firstTrigger = (page: Page) =>
+  page
+    .locator(`${state('default')} [data-cods-accordion]`)
+    .getByRole('button')
+    .first();
+
+test('focused trigger shows the Colorado focus ring', async ({ page }) => {
+  await page.goto('/accordion/');
+  const trigger = firstTrigger(page);
+  await trigger.focus();
+  await expect(trigger).toBeFocused();
+  await expect(trigger).toHaveCSS('outline-style', 'solid');
+  await expect(trigger).toHaveCSS('outline-width', '4px');
+  await expect(trigger).toHaveCSS('outline-color', 'rgb(23, 59, 179)');
+});
+
+test('focused trigger uses the system highlight in forced colors', async ({
+  page,
+}) => {
+  await page.emulateMedia({ forcedColors: 'active' });
+  await page.goto('/accordion/');
+  const trigger = firstTrigger(page);
+  await trigger.focus();
+  await expect(trigger).toBeFocused();
+  const [outline, highlight] = await Promise.all([
+    trigger.evaluate((element) => getComputedStyle(element).outlineColor),
+    page.evaluate(() => {
+      const probe = document.createElement('div');
+      probe.style.color = 'Highlight';
+      document.body.append(probe);
+      const value = getComputedStyle(probe).color;
+      probe.remove();
+      return value;
+    }),
+  ]);
+  expect(outline).toBe(highlight);
+  await expect(trigger).toHaveCSS('outline-style', 'solid');
 });
