@@ -1,0 +1,109 @@
+{
+  "name": "button",
+  "displayName": "Button",
+  "maturity": "experimental",
+  "type": "static",
+  "uswdsEquivalent": "button",
+  "uswdsVersion": "3.14.0",
+  "componentType": "A",
+  "owners": {
+    "responsible": "Aten component lead",
+    "accountable": "State technical owner",
+    "consulted": "State design owner, accessibility lead",
+    "informed": "Component contributors, product owner"
+  },
+  "divergenceApproved": false,
+  "divergenceNotes": null,
+  "states": [
+    "default",
+    "secondary",
+    "outline",
+    "ghost",
+    "danger",
+    "small",
+    "icon-only",
+    "link",
+    "hover",
+    "active",
+    "focus-visible",
+    "disabled",
+    "long-content",
+    "rtl"
+  ],
+  "progressiveEnhancement": "full",
+  "localization": "layout-sensitive",
+  "description": "Native action buttons and distinctly documented navigation links, themed from USWDS with approved CoDS tokens.",
+  "examples": [
+    {
+      "state": "default",
+      "fixtureState": "default",
+      "setup": "none"
+    },
+    {
+      "state": "secondary",
+      "fixtureState": "secondary",
+      "setup": "none"
+    },
+    {
+      "state": "outline",
+      "fixtureState": "outline",
+      "setup": "none"
+    },
+    {
+      "state": "ghost",
+      "fixtureState": "ghost",
+      "setup": "none"
+    },
+    {
+      "state": "danger",
+      "fixtureState": "danger",
+      "setup": "none"
+    },
+    {
+      "state": "small",
+      "fixtureState": "small",
+      "setup": "none"
+    },
+    {
+      "state": "icon-only",
+      "fixtureState": "icon-only",
+      "setup": "none"
+    },
+    {
+      "state": "link",
+      "fixtureState": "link",
+      "setup": "none"
+    },
+    {
+      "state": "hover",
+      "fixtureState": "hover",
+      "setup": "none"
+    },
+    {
+      "state": "active",
+      "fixtureState": "active",
+      "setup": "none"
+    },
+    {
+      "state": "focus-visible",
+      "fixtureState": "focus-visible",
+      "setup": "focus",
+      "instructions": "Use keyboard navigation to verify visible focus on each button variant."
+    },
+    {
+      "state": "disabled",
+      "fixtureState": "disabled",
+      "setup": "none"
+    },
+    {
+      "state": "long-content",
+      "fixtureState": "long-content",
+      "setup": "none"
+    },
+    {
+      "state": "rtl",
+      "fixtureState": "rtl",
+      "setup": "none"
+    }
+  ]
+}
