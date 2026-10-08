@@ -1,246 +1,302 @@
 {
-  "source": "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html",
-  "note": "Selected actual text, tag, link, action, form-border, status-icon and focus pairs. Disabled states excluded. Warning accents and unresolved transparent borders require the separate review in catalog-review.md; passing pairs do not establish component conformance.",
-  "pairs": [
+  "method": "Existing opaque sRGB contrast calculator; unrounded ratios",
+  "approval": "Automated evidence only; component and human accessibility review pending",
+  "passingPairs": [
     {
       "name": "Body text on form surface",
       "foreground": "color.text-primary",
       "background": "color.surface-form",
-      "minimum": 4.5
+      "minimum": 4.5,
+      "ratio": 17.224382887077635
     },
     {
       "name": "Secondary text on form surface",
       "foreground": "color.text-secondary",
       "background": "color.surface-form",
-      "minimum": 4.5
+      "minimum": 4.5,
+      "ratio": 10.306107129653498
     },
     {
       "name": "Danger text on form surface",
       "foreground": "color.text-danger",
       "background": "color.surface-form",
-      "minimum": 4.5
+      "minimum": 4.5,
+      "ratio": 6.981914771853206
     },
     {
       "name": "Link default",
       "foreground": "color.text-action-link",
       "background": "color.surface-form",
-      "minimum": 4.5
+      "minimum": 4.5,
+      "ratio": 9.0793056634429
     },
     {
       "name": "Link hover",
       "foreground": "color.text-action-link-hover",
       "background": "color.surface-form",
-      "minimum": 4.5
+      "minimum": 4.5,
+      "ratio": 15.294721516398141
     },
     {
       "name": "Link active",
       "foreground": "color.text-action-link-active",
       "background": "color.surface-form",
-      "minimum": 4.5
+      "minimum": 4.5,
+      "ratio": 17.94374476605884
     },
     {
       "name": "Link visited",
       "foreground": "color.text-action-link-visited",
       "background": "color.surface-form",
-      "minimum": 4.5
+      "minimum": 4.5,
+      "ratio": 14.256342233559636
     },
     {
       "name": "Primary button default",
       "foreground": "color.text-action-primary",
       "background": "color.bg-action-primary",
-      "minimum": 4.5
+      "minimum": 4.5,
+      "ratio": 15.294721516398141
     },
     {
       "name": "Primary button hover",
       "foreground": "color.text-action-primary",
       "background": "color.bg-action-primary-hover",
-      "minimum": 4.5
+      "minimum": 4.5,
+      "ratio": 17.94374476605884
     },
     {
       "name": "Primary button active",
       "foreground": "color.text-action-primary",
       "background": "color.bg-action-primary-active",
-      "minimum": 4.5
+      "minimum": 4.5,
+      "ratio": 7.541739415218818
     },
     {
       "name": "Secondary button hover",
       "foreground": "color.text-action-secondary-hover",
       "background": "color.bg-action-secondary-hover",
-      "minimum": 4.5
+      "minimum": 4.5,
+      "ratio": 10.811502639575428
     },
     {
       "name": "Form border default",
       "foreground": "color.border-form-default",
       "background": "color.surface-form",
-      "minimum": 3
+      "minimum": 3,
+      "ratio": 6.742737054449583
     },
     {
       "name": "Form border hover",
       "foreground": "color.border-form-hover",
       "background": "color.surface-form-hover",
-      "minimum": 3
+      "minimum": 3,
+      "ratio": 16.76865619040154
     },
     {
       "name": "Form border danger",
       "foreground": "color.border-form-danger",
       "background": "color.surface-form",
-      "minimum": 3
+      "minimum": 3,
+      "ratio": 6.981914771853206
     },
     {
       "name": "Success icon",
       "foreground": "color.icon-form-success",
       "background": "color.surface-form",
-      "minimum": 3
+      "minimum": 3,
+      "ratio": 6.350171634501851
     },
     {
       "name": "Danger icon",
       "foreground": "color.icon-form-danger",
       "background": "color.surface-form",
-      "minimum": 3
+      "minimum": 3,
+      "ratio": 6.981914771853206
     },
     {
       "name": "Focus color against white only",
       "foreground": "color.bg-action-focus",
       "background": "color.surface-form",
-      "minimum": 3
+      "minimum": 3,
+      "ratio": 9.0793056634429
     },
     {
       "name": "Tag gray",
       "foreground": "color.text-tag-gray",
       "background": "color.surface-tag-gray",
-      "minimum": 4.5
+      "minimum": 4.5,
+      "ratio": 9.987732832807295
     },
     {
       "name": "Tag yellow",
       "foreground": "color.text-tag-yellow",
       "background": "color.surface-tag-yellow",
-      "minimum": 4.5
+      "minimum": 4.5,
+      "ratio": 14.435701988014124
     },
     {
       "name": "Tag blue",
       "foreground": "color.text-tag-blue",
       "background": "color.surface-tag-blue",
-      "minimum": 4.5
+      "minimum": 4.5,
+      "ratio": 10.811502639575428
     },
     {
       "name": "Tag green",
       "foreground": "color.text-tag-green",
       "background": "color.surface-tag-green",
-      "minimum": 4.5
+      "minimum": 4.5,
+      "ratio": 8.735250804778186
     },
     {
       "name": "Tag red",
       "foreground": "color.text-tag-red",
       "background": "color.surface-tag-red",
-      "minimum": 4.5
+      "minimum": 4.5,
+      "ratio": 6.940767454512506
     },
     {
       "name": "Tag teal",
       "foreground": "color.text-tag-teal",
       "background": "color.surface-tag-teal",
-      "minimum": 4.5
+      "minimum": 4.5,
+      "ratio": 8.002184352926744
     },
     {
       "name": "Tag plum",
       "foreground": "color.text-tag-plum",
       "background": "color.surface-tag-plum",
-      "minimum": 4.5
+      "minimum": 4.5,
+      "ratio": 10.169066882975796
     },
     {
       "name": "Link inline",
       "foreground": "color.text-action-link-inline",
       "background": "color.surface-default",
-      "minimum": 4.5
+      "minimum": 4.5,
+      "ratio": 9.0793056634429
     },
     {
       "name": "Link inline-hover",
       "foreground": "color.text-action-link-inline-hover",
       "background": "color.surface-default",
-      "minimum": 4.5
+      "minimum": 4.5,
+      "ratio": 15.294721516398141
     },
     {
       "name": "Link inline-active",
       "foreground": "color.text-action-link-inline-active",
       "background": "color.surface-default",
-      "minimum": 4.5
+      "minimum": 4.5,
+      "ratio": 17.94374476605884
     },
     {
       "name": "Link standalone",
       "foreground": "color.text-action-link-standalone",
       "background": "color.surface-default",
-      "minimum": 4.5
+      "minimum": 4.5,
+      "ratio": 15.294721516398141
     },
     {
       "name": "Link standalone-hover",
       "foreground": "color.text-action-link-standalone-hover",
       "background": "color.surface-default",
-      "minimum": 4.5
+      "minimum": 4.5,
+      "ratio": 7.541739415218818
     },
     {
       "name": "Link standalone-active",
       "foreground": "color.text-action-link-standalone-active",
       "background": "color.surface-default",
-      "minimum": 4.5
+      "minimum": 4.5,
+      "ratio": 17.94374476605884
     },
     {
       "name": "Body text on error-subtle",
       "foreground": "color.text-primary",
       "background": "color.bg-alert-urgent",
-      "minimum": 4.5
+      "minimum": 4.5,
+      "ratio": 13.529004278266237
     },
     {
       "name": "Body text on warning-subtle",
       "foreground": "color.text-primary",
       "background": "color.bg-alert-warning",
-      "minimum": 4.5
+      "minimum": 4.5,
+      "ratio": 16.150986330020704
     },
     {
       "name": "Body text on info-subtle",
       "foreground": "color.text-primary",
       "background": "color.bg-alert-info",
-      "minimum": 4.5
+      "minimum": 4.5,
+      "ratio": 13.798987925927662
     },
     {
       "name": "Body text on form-selected",
       "foreground": "color.text-primary",
       "background": "color.surface-form-selected",
-      "minimum": 4.5
+      "minimum": 4.5,
+      "ratio": 13.798987925927662
     },
     {
       "name": "Body text on nav-secondary",
       "foreground": "color.text-primary",
       "background": "color.surface-nav-secondary",
-      "minimum": 4.5
+      "minimum": 4.5,
+      "ratio": 16.76865619040154
     },
     {
       "name": "Body text on nav-heel",
       "foreground": "color.text-primary",
       "background": "color.surface-nav-heel",
-      "minimum": 4.5
+      "minimum": 4.5,
+      "ratio": 15.77945945029303
     },
     {
       "name": "Body text on nav-social-container",
       "foreground": "color.text-primary",
       "background": "color.surface-nav-social-container",
-      "minimum": 4.5
+      "minimum": 4.5,
+      "ratio": 14.561574925061656
     },
     {
       "name": "Toast inverse text",
       "foreground": "color.text-action-primary",
       "background": "color.surface-toast-default",
-      "minimum": 4.5
+      "minimum": 4.5,
+      "ratio": 17.224382887077635
     },
     {
       "name": "error accent on subtle surface",
       "foreground": "color.border-alert-urgent",
       "background": "color.bg-alert-urgent",
-      "minimum": 3
+      "minimum": 3,
+      "ratio": 5.483990656626566
     },
     {
       "name": "info accent on subtle surface",
       "foreground": "color.border-alert-info",
       "background": "color.bg-alert-info",
-      "minimum": 3
+      "minimum": 3,
+      "ratio": 6.0419216069083745
+    }
+  ],
+  "reviewIssues": [
+    {
+      "foreground": "color.border-alert-warning",
+      "background": "color.bg-alert-warning",
+      "ratio": 1.3700986982951529,
+      "requiredIfSoleVisualCue": 3,
+      "status": "Fails if relied upon as the sole control/state boundary; human design and accessibility review required"
+    },
+    {
+      "foreground": "color.border-alert-warning",
+      "background": "color.surface-default",
+      "ratio": 1.4611556279171296,
+      "requiredIfSoleVisualCue": 3,
+      "status": "Fails if relied upon as the sole control/state boundary; human design and accessibility review required"
     }
   ]
 }

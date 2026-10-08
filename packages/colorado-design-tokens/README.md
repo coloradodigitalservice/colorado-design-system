@@ -12,7 +12,7 @@ Edit `src/*.tokens.json`, then run `pnpm tokens:validate`, `pnpm tokens:build`, 
 
 The catalog uses a constrained [DTCG 2025.10 format](https://www.designtokens.org/tr/2025.10/format/) profile, validated by `profile.schema.json`. This is not a validator for every DTCG feature. Each category contains flat, lowercase kebab-case keys; every token has `$type`, `$value`, and `$extensions.org.colorado.source` with the original name and source location. Optional `$description` is supported.
 
-Supported literals are sRGB colors (three normalized components and explicit alpha), dimensions with numeric value and `px` or `rem` unit, font families (string or nonempty string array), numeric font weights from 1 through 1000, and numbers. Units are preserved; no pixel-to-rem conversion occurs. Composite tokens, inherited types, alternate color spaces, modes, and component catalogs are outside this initial profile.
+Supported literals are sRGB colors (three normalized components and explicit alpha), dimensions with numeric value and `px` or `rem` unit, font families (string or nonempty string array), numeric font weights from 1 through 1000, and numbers. Units are preserved; no pixel-to-rem conversion occurs. Composite tokens, inherited types, alternate color spaces, and embedded mode objects remain outside this profile. Responsive modes use explicit desktop/mobile token names. A limited flat `component` category supports same-type aliases to semantic roles; see the [Phase 3 catalog proposal](references/catalog-review.md).
 
 Any supported type can instead use an exact whole-value reference such as `{color.co-blue-80-brand}`. References must target the same type. Multi-step aliases are supported; missing targets, cycles, duplicate JSON keys/token paths, and flattened-name collisions fail with source paths. Do not place literal values on semantic colors when a palette alias exists.
 
@@ -49,9 +49,9 @@ Use semantic colors in components. Palette tokens exist to supply aliases. Deskt
 
 See [design-to-code mapping](references/mapping.md) and `references/design-values.json` for the 54 palette colors and all 46 source roles, including roles with identical values. The reference JSON records the source rows and serves as an independent test reference, not generator input. Changing it requires explicit design review of the replacement source, not merely updating a failing test.
 
-Spacing is 4, 8, 12, 16, 24, 32, 48, and 64px, mapped to the `2xs` through `3xl` scale. Radius is none=0, sm=2, md=4, lg=8px. Typography uses the desktop and mobile design-reference tables, retaining their explicit line heights and paragraph spacing even where they differ from font size. Families are Museo Slab, Open Sans, and Source Code Pro; font binaries and licenses are not distributed here. `font-size-sm` aliases desktop body small (14px).
+Spacing is 4, 8, 12, 16, 24, 32, 48, 64, and 80px, mapped to the `2xs` through `4xl` scale. Radius is none=0, sm=2, md=4, lg=8px. Typography uses the desktop and mobile design-reference tables, retaining their explicit line heights and paragraph spacing even where they differ from font size. Families are Museo Slab, Open Sans, and Source Code Pro; font binaries and licenses are not distributed here. `font-size-sm` aliases desktop body small (14px).
 
-`radius-full` is 9999px, following the written radius specification rather than the alternate variable-panel value of 999. `color-shadow` is defined as black (#000000) for the base color only; shadow opacity and geometry remain unspecified.
+`radius-full` is 9999px, following the written radius specification rather than the alternate variable-panel value of 999. `color-shadow` is defined as black (#000000) for the base color only; the additive `color-elevation-shadow` and scalar `elevation-*` tokens describe the observed 12% light-theme shadows. Do not apply `elevation-opacity` again to the translucent shadow color.
 
 The Language Selector notes explicitly describe a 4px blue trigger ring with a 2px white gap and a 2px navy row outline. `focus-ring-width`, `focus-ring-offset`, `color-focus-gap`, `focus-row-width`, and `color-focus-row` encode these treatments. The trigger uses the workbook's `color-bg-action-focus`. A transparent outline offset alone does not paint a white gap; the sample includes a white spread shadow. These are two focus treatments, not competing system-wide values. Component styles select the appropriate treatment and still require keyboard/forced-color verification.
 
@@ -63,8 +63,12 @@ Both complete sample Sass files now compile in tests. The disclosure uses `color
 
 ## Accessibility and troubleshooting
 
-`references/contrast-pairs.json` records the 16 selected text, link, button, form-border, status-icon, and focus-color pairs and their thresholds. Validation fails rather than changing supplied values. Disabled states are excluded. These checks do not approve component accessibility or arbitrary token combinations.
+`references/contrast-pairs.json` records the 40 selected text, link, button, form-border, status-icon, and focus-color pairs and their thresholds. Validation fails rather than changing supplied values. Disabled states are excluded. These checks do not approve component accessibility or arbitrary token combinations.
 
 Review full focus visibility and obscuration, reduced-motion behavior, typography at zoom/reflow and with fallback fonts, and forced-color rendering at component level. Preserve native semantics and test keyboard and assistive-technology behavior. The focus-color check against white does not establish a complete focus treatment.
 
 For profile errors, follow the reported source path and supported types above. For alias errors, check the exact category/key and type. For drift, regenerate intentionally and review the diff; remove unexpected generated files only after checking their purpose. For Sass resolution, confirm the workspace dependency, install, load path, and generated files. Human design and technical acceptance are tracked through the pull-request review process.
+
+## Phase 3 catalog
+
+The [catalog proposal](references/catalog-review.md) documents source evidence, responsive mode representation, the limited component alias category, contrast failures requiring review, dependencies, and migration guidance. The [28-component inventory](references/component-token-inventory.json) records observed semantic dependencies, measured foundation bindings with source properties and explicit Maps/Videos design gaps, verified stylesheet dependencies, and unresolved styles. Validate/build/check compare measured mappings with export evidence and independently scan implemented component styles to reject undocumented or stale token references. Gray and yellow tag text retain the shared `color-text-primary` semantic alias. The existing approved reference is unchanged; new observations and value conflicts require human design and accessibility acceptance.
