@@ -1,5 +1,4 @@
 {
-  "ticket": "CODS-P3-001",
   "method": "Existing opaque sRGB contrast calculator; unrounded ratios",
   "approval": "Automated evidence only; component and human accessibility review pending",
   "passingPairs": [
