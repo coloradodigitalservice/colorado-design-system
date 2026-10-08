@@ -1,5 +1,13 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.1.5
+
+### Patch Changes
+
+- 4d94782: Add GitHub Pages deployment workflow to automatically build and deploy the reference site (`apps/web`) to GitHub Pages on pushes to `main` and manual workflow dispatch.
+- Updated dependencies [4d94782]
+  - @coloradodigitalservice/colorado-design-tokens@0.1.5
+
 ## 0.1.4
 
 ### Patch Changes
