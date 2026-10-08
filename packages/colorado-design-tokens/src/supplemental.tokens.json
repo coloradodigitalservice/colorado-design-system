@@ -134,16 +134,6 @@
         }
       }
     },
-    "text-action-link-inline-visited": {
-      "$type": "color",
-      "$value": "{color.co-plum-80}",
-      "$extensions": {
-        "org.colorado.source": {
-          "name": "text/action/link-inline/visited",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / text/action/link-inline/visited; observed 2026-10-08; proposed for design review"
-        }
-      }
-    },
     "text-tag-gray": {
       "$type": "color",
       "$value": "{color.text-primary}",
@@ -356,36 +346,6 @@
         }
       }
     },
-    "border-error-accent": {
-      "$type": "color",
-      "$value": "{color.co-red-60-brand}",
-      "$extensions": {
-        "org.colorado.source": {
-          "name": "border/error/accent",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / border/error/accent; observed 2026-10-08; proposed for design review"
-        }
-      }
-    },
-    "border-warning-accent": {
-      "$type": "color",
-      "$value": "{color.co-yellow-30-brand}",
-      "$extensions": {
-        "org.colorado.source": {
-          "name": "border/warning/accent",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / border/warning/accent; observed 2026-10-08; proposed for design review"
-        }
-      }
-    },
-    "border-info-accent": {
-      "$type": "color",
-      "$value": "{color.co-blue-60-brand}",
-      "$extensions": {
-        "org.colorado.source": {
-          "name": "border/info/accent",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / border/info/accent; observed 2026-10-08; proposed for design review"
-        }
-      }
-    },
     "icon-action-link-secondary": {
       "$type": "color",
       "$value": "{color.co-gray-70}",
@@ -426,16 +386,6 @@
         }
       }
     },
-    "surface-error-subtle": {
-      "$type": "color",
-      "$value": "{color.co-red-10}",
-      "$extensions": {
-        "org.colorado.source": {
-          "name": "surface/error/subtle",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / surface/error/subtle; observed 2026-10-08; proposed for design review"
-        }
-      }
-    },
     "surface-error-bold": {
       "$type": "color",
       "$value": "{color.co-red-60-brand}",
@@ -446,16 +396,6 @@
         }
       }
     },
-    "surface-warning-subtle": {
-      "$type": "color",
-      "$value": "{color.co-yellow-10}",
-      "$extensions": {
-        "org.colorado.source": {
-          "name": "surface/warning/subtle",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / surface/warning/subtle; observed 2026-10-08; proposed for design review"
-        }
-      }
-    },
     "surface-warning-bold": {
       "$type": "color",
       "$value": "{color.co-yellow-30-brand}",
@@ -463,16 +403,6 @@
         "org.colorado.source": {
           "name": "surface/warning/bold",
           "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / surface/warning/bold; observed 2026-10-08; proposed for design review"
-        }
-      }
-    },
-    "surface-info-subtle": {
-      "$type": "color",
-      "$value": "{color.co-blue-10}",
-      "$extensions": {
-        "org.colorado.source": {
-          "name": "surface/info/subtle",
-          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / surface/info/subtle; observed 2026-10-08; proposed for design review"
         }
       }
     },
@@ -633,6 +563,76 @@
         "org.colorado.source": {
           "name": "color/shadow",
           "location": "Colorado Design System Figma jQ3EiYqe3uEvFbid5ewc41 / Elevation light-theme shadow; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "text-action-link-visited": {
+      "$type": "color",
+      "$value": "{color.co-plum-80}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "text-action-link-visited",
+          "location": "Link design reference (Figma node 1-2); implementation mapping to the existing plum/80 palette"
+        }
+      }
+    },
+    "bg-alert-info": {
+      "$type": "color",
+      "$value": "{color.co-blue-10}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "bg-alert-info",
+          "location": "Alert design reference, Info (Figma node 2769-6573); implementation mapping to the existing blue/10 palette"
+        }
+      }
+    },
+    "border-alert-info": {
+      "$type": "color",
+      "$value": "{color.co-blue-60-brand}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "border-alert-info",
+          "location": "Alert design reference, Info (Figma node 2769-6573); implementation mapping to the existing blue/60-brand palette"
+        }
+      }
+    },
+    "bg-alert-warning": {
+      "$type": "color",
+      "$value": "{color.co-yellow-10}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "bg-alert-warning",
+          "location": "Alert design reference, Warning (Figma node 2769-6573); implementation mapping to the existing yellow/10 palette"
+        }
+      }
+    },
+    "border-alert-warning": {
+      "$type": "color",
+      "$value": "{color.co-yellow-30-brand}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "border-alert-warning",
+          "location": "Alert design reference, Warning (Figma node 2769-6573); implementation mapping to the existing yellow/30-brand palette"
+        }
+      }
+    },
+    "bg-alert-urgent": {
+      "$type": "color",
+      "$value": "{color.co-red-10}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "bg-alert-urgent",
+          "location": "Alert design reference, Urgent (Figma node 2769-6573); implementation mapping to the existing red/10 palette"
+        }
+      }
+    },
+    "border-alert-urgent": {
+      "$type": "color",
+      "$value": "{color.co-red-60-brand}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "border-alert-urgent",
+          "location": "Alert design reference, Urgent (Figma node 2769-6573); implementation mapping to the existing red/60-brand palette"
         }
       }
     }

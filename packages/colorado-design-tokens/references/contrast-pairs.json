@@ -39,6 +39,12 @@
       "minimum": 4.5
     },
     {
+      "name": "Link visited",
+      "foreground": "color.text-action-link-visited",
+      "background": "color.surface-form",
+      "minimum": 4.5
+    },
+    {
       "name": "Primary button default",
       "foreground": "color.text-action-primary",
       "background": "color.bg-action-primary",
@@ -159,12 +165,6 @@
       "minimum": 4.5
     },
     {
-      "name": "Link inline-visited",
-      "foreground": "color.text-action-link-inline-visited",
-      "background": "color.surface-default",
-      "minimum": 4.5
-    },
-    {
       "name": "Link standalone",
       "foreground": "color.text-action-link-standalone",
       "background": "color.surface-default",
@@ -185,19 +185,19 @@
     {
       "name": "Body text on error-subtle",
       "foreground": "color.text-primary",
-      "background": "color.surface-error-subtle",
+      "background": "color.bg-alert-urgent",
       "minimum": 4.5
     },
     {
       "name": "Body text on warning-subtle",
       "foreground": "color.text-primary",
-      "background": "color.surface-warning-subtle",
+      "background": "color.bg-alert-warning",
       "minimum": 4.5
     },
     {
       "name": "Body text on info-subtle",
       "foreground": "color.text-primary",
-      "background": "color.surface-info-subtle",
+      "background": "color.bg-alert-info",
       "minimum": 4.5
     },
     {
@@ -232,14 +232,14 @@
     },
     {
       "name": "error accent on subtle surface",
-      "foreground": "color.border-error-accent",
-      "background": "color.surface-error-subtle",
+      "foreground": "color.border-alert-urgent",
+      "background": "color.bg-alert-urgent",
       "minimum": 3
     },
     {
       "name": "info accent on subtle surface",
-      "foreground": "color.border-info-accent",
-      "background": "color.surface-info-subtle",
+      "foreground": "color.border-alert-info",
+      "background": "color.bg-alert-info",
       "minimum": 3
     }
   ]

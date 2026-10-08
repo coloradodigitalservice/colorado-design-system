@@ -295,7 +295,7 @@ describe('contrast checks', () => {
     const report = await checkContrast(catalog);
     expect(report).toHaveLength(reference.pairs.length);
     expect(report.map((pair) => pair.name)).toContain('Tag teal');
-    expect(report.map((pair) => pair.name)).toContain('Link inline-visited');
+    expect(report.map((pair) => pair.name)).toContain('Link visited');
   });
   it('uses unrounded contrast ratios and rejects transparent pairs', () => {
     const white = { colorSpace: 'srgb', components: [1, 1, 1], alpha: 1 };
@@ -385,7 +385,7 @@ describe('Phase 3 catalog dependencies', () => {
       'color-text-action-link-inline': '#173bb3',
       'color-text-action-link-standalone': '#001970',
       'color-text-action-link-standalone-hover': '#2551a3',
-      'color-text-action-link-inline-visited': '#491839',
+      'color-text-action-link-visited': '#491839',
       'component-tag-teal-background': '#aeced4',
       'component-tag-teal-text': '#1a323f',
       'space-4xl': '80px',

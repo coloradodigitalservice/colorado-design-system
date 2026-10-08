@@ -43,12 +43,24 @@ The yellow warning accent has only **1.37:1** against the warning tint and **1.4
 
 ## Migration and dependencies
 
-This change is additive. Existing link roles, tag sample aliases, shadow base color, focus treatments, and disputed values remain available. New Link implementations should choose inline or standalone roles rather than treating their hover states as interchangeable. Tags can consume `component-tag-<color>-background/text`; Modal and Toast can consume their background aliases. Typography consumers can now select complete mobile body-small/UI/supporting roles.
+This change is additive relative to the base package. Seven unpublished names from the earlier draft were replaced with the PR #37 names below; no compatibility aliases are retained for those draft names. Default values are unchanged.
+
+| Earlier draft name                | Shared name from PR #37    |
+| --------------------------------- | -------------------------- |
+| `text-action-link-inline-visited` | `text-action-link-visited` |
+| `surface-info-subtle`             | `bg-alert-info`            |
+| `border-info-accent`              | `border-alert-info`        |
+| `surface-warning-subtle`          | `bg-alert-warning`         |
+| `border-warning-accent`           | `border-alert-warning`     |
+| `surface-error-subtle`            | `bg-alert-urgent`          |
+| `border-error-accent`             | `border-alert-urgent`      |
+
+Existing link roles, tag sample aliases, shadow base color, focus treatments, and disputed values remain available. New Link implementations should choose inline or standalone roles rather than treating their hover states as interchangeable. Tags can consume `component-tag-<color>-background/text`; Modal and Toast can consume their background aliases. Typography consumers can now select complete mobile body-small/UI/supporting roles.
 
 Token validation checks the dependency inventory against catalog paths and independently scans current component Sass/CSS references. Missing or stale implementation dependencies, unknown proposed paths, and empty foundation bindings fail validate/build/check. Tests deliberately remove Accordion focus and Site Alert typography references and verify they cannot disappear from the inventory unnoticed. Proposed mappings for unimplemented components still need human review; automation cannot establish that an unmeasured Figma property is correct.
 
 For CSS customization, import `tokens.css` and override semantic properties on `:root`, for example `--cods-color-surface-tag-teal`. Its `--cods-component-tag-teal-background` alias follows the change without editing a palette value. Override the component property on `:root` to change only that component role. Inherited aliases resolve where defined: when scoping a semantic override to a subtree, redeclare the affected component alias there too. Sass/JSON resolve aliases at build time and cannot provide runtime customization.
 
-P2-007 / CDS-46 still supplies the State approval dependency. [P2-010 PR #37](https://github.com/coloradodigitalservice/colorado-design-system/pull/37) adds the USWDS-specific alert/visited aliases and core overrides. This proposal uses the observed Figma role names and leaves that theming work in its dependency PR. Reconcile supplemental and contrast files when it merges; both role sets can coexist. No public component stylesheet is changed here.
+P2-007 / CDS-46 still supplies the State approval dependency. [P2-010 PR #37](https://github.com/coloradodigitalservice/colorado-design-system/pull/37) adds the USWDS-specific alert/visited aliases and core overrides. The seven overlapping roles use the exact names and declarations from PR #37, with the same visited-link contrast pair. There is one name per shared role; the inventory maps the observed Figma names to these existing implementation conventions. Core USWDS override changes remain in PR #37. Reconcile shared files and regenerate outputs when it merges. No public component stylesheet is changed here.
 
 Record a patch changeset for the development series. A locally packed token archive can support review, but is not an official published beta or approval. After review, resolve the recorded value conflicts, obtain design/accessibility sign-off, merge dependencies, pass the full gate, and cut the beta through the repository release process. Do not close CDS-48 based solely on passing automation.

@@ -45,6 +45,13 @@
       "ratio": 17.94374476605884
     },
     {
+      "name": "Link visited",
+      "foreground": "color.text-action-link-visited",
+      "background": "color.surface-form",
+      "minimum": 4.5,
+      "ratio": 14.256342233559636
+    },
+    {
       "name": "Primary button default",
       "foreground": "color.text-action-primary",
       "background": "color.bg-action-primary",
@@ -185,13 +192,6 @@
       "ratio": 17.94374476605884
     },
     {
-      "name": "Link inline-visited",
-      "foreground": "color.text-action-link-inline-visited",
-      "background": "color.surface-default",
-      "minimum": 4.5,
-      "ratio": 14.256342233559636
-    },
-    {
       "name": "Link standalone",
       "foreground": "color.text-action-link-standalone",
       "background": "color.surface-default",
@@ -215,21 +215,21 @@
     {
       "name": "Body text on error-subtle",
       "foreground": "color.text-primary",
-      "background": "color.surface-error-subtle",
+      "background": "color.bg-alert-urgent",
       "minimum": 4.5,
       "ratio": 13.529004278266237
     },
     {
       "name": "Body text on warning-subtle",
       "foreground": "color.text-primary",
-      "background": "color.surface-warning-subtle",
+      "background": "color.bg-alert-warning",
       "minimum": 4.5,
       "ratio": 16.150986330020704
     },
     {
       "name": "Body text on info-subtle",
       "foreground": "color.text-primary",
-      "background": "color.surface-info-subtle",
+      "background": "color.bg-alert-info",
       "minimum": 4.5,
       "ratio": 13.798987925927662
     },
@@ -270,29 +270,29 @@
     },
     {
       "name": "error accent on subtle surface",
-      "foreground": "color.border-error-accent",
-      "background": "color.surface-error-subtle",
+      "foreground": "color.border-alert-urgent",
+      "background": "color.bg-alert-urgent",
       "minimum": 3,
       "ratio": 5.483990656626566
     },
     {
       "name": "info accent on subtle surface",
-      "foreground": "color.border-info-accent",
-      "background": "color.surface-info-subtle",
+      "foreground": "color.border-alert-info",
+      "background": "color.bg-alert-info",
       "minimum": 3,
       "ratio": 6.0419216069083745
     }
   ],
   "reviewIssues": [
     {
-      "foreground": "color.border-warning-accent",
-      "background": "color.surface-warning-subtle",
+      "foreground": "color.border-alert-warning",
+      "background": "color.bg-alert-warning",
       "ratio": 1.3700986982951529,
       "requiredIfSoleVisualCue": 3,
       "status": "Fails if relied upon as the sole control/state boundary; human design and accessibility review required"
     },
     {
-      "foreground": "color.border-warning-accent",
+      "foreground": "color.border-alert-warning",
       "background": "color.surface-default",
       "ratio": 1.4611556279171296,
       "requiredIfSoleVisualCue": 3,
