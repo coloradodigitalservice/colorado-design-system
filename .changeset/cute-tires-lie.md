@@ -14,4 +14,4 @@ All Figma-supplied values map to existing palette primitives:
 
 No new tokens: Success alerts retain USWDS defaults, Accordion focus reuses color-bg-action-focus, and disabled buttons need no border override.
 
-Add Link visited contrast pair (17 pairs total). Overrides in _cods-color-overrides.scss are layer-aware and avoid !important. See CODS-P2-010 and ADR-002.
+Add contrast pairs for the visited link, alert text, borders, visited links, and focus color on the alert tints and secondary surface (29 pairs total). The Warning alert border (#ffd100 on #fcf9d9, 1.37:1) is not asserted; it was waived as decorative pending accessibility-lead confirmation. Overrides in _cods-color-overrides.scss are layer-aware and avoid !important. See CODS-P2-010 and ADR-002.

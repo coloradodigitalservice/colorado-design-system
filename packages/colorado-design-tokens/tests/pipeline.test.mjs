@@ -281,7 +281,7 @@ describe('reproducibility and non-mutating drift detection', () => {
 
 describe('contrast checks', () => {
   it('checks the initial text, action, border, icon and focus pairs', async () => {
-    expect(await checkContrast(catalog)).toHaveLength(17);
+    expect(await checkContrast(catalog)).toHaveLength(29);
   });
   it('uses unrounded contrast ratios and rejects transparent pairs', () => {
     const white = { colorSpace: 'srgb', components: [1, 1, 1], alpha: 1 };
