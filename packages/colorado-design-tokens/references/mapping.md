@@ -65,3 +65,7 @@ Every foundation token records its design-reference section in `src/foundations.
 | Content blocks     | `space-xl`  | 32px  |
 | Section breaks     | `space-2xl` | 48px  |
 | Page margins       | `space-3xl` | 64px  |
+
+## CODS-P3-001 catalog expansion
+
+See [catalog review and migration](catalog-review.md), [component dependency inventory](component-token-inventory.json), and [observed variable tables](figma-observed-2026-10-08.json). The proposal preserves the original reviewed mappings. Supplemental additions retain the Figma role names as flattened kebab-case public names; source locations are recorded on each token. Tag, Modal and Toast component aliases point to semantic roles. Desktop/Mobile typography uses explicit names, with disputed existing values retained for design review. Spacing `4xl` adds 80px; existing 4/8/12px names remain `2xs`/`xs`/`sm` despite Figma xs/s/ms labels. Translucent bottom-border and shadow primitives preserve source alpha; elevation geometry is scalar. The inventory records exclusions and unresolved bindings rather than implying full component sign-off.

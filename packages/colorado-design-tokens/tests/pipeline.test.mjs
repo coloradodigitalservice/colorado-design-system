@@ -280,8 +280,17 @@ describe('reproducibility and non-mutating drift detection', () => {
 });
 
 describe('contrast checks', () => {
-  it('checks the initial text, action, border, icon and focus pairs', async () => {
-    expect(await checkContrast(catalog)).toHaveLength(16);
+  it('checks all documented text, tag, link, action, border, icon and focus pairs', async () => {
+    const reference = JSON.parse(
+      await readFile(
+        join(packageRoot, 'references/contrast-pairs.json'),
+        'utf8',
+      ),
+    );
+    const report = await checkContrast(catalog);
+    expect(report).toHaveLength(reference.pairs.length);
+    expect(report.map((pair) => pair.name)).toContain('Tag teal');
+    expect(report.map((pair) => pair.name)).toContain('Link inline-visited');
   });
   it('uses unrounded contrast ratios and rejects transparent pairs', () => {
     const white = { colorSpace: 'srgb', components: [1, 1, 1], alpha: 1 };
@@ -300,4 +309,158 @@ describe('contrast checks', () => {
     );
     await expect(checkContrast(altered)).rejects.toThrow('below 4.5:1');
   });
+});
+
+describe('Phase 3 catalog dependencies', () => {
+  it('covers every approved component and resolves its recorded dependencies', async () => {
+    const inventory = JSON.parse(
+      await readFile(
+        join(packageRoot, 'references/component-token-inventory.json'),
+        'utf8',
+      ),
+    );
+    const approved = [
+      'Accordion',
+      'Breadcrumbs',
+      'Button',
+      'Card - Default',
+      'Card - Icon',
+      'Checkbox',
+      'Combo Box',
+      'Divider',
+      'Footer',
+      'Header',
+      'Hero',
+      'Icon List',
+      'Input',
+      'In-Page Alert',
+      'In-Page Navigation',
+      'Language Selector',
+      'Link',
+      'Maps',
+      'Modal',
+      'Process List',
+      'Radio Buttons',
+      'Search',
+      'Select (Dropdown)',
+      'Site Alert',
+      'Tags',
+      'Toasts/Snackbars',
+      'Tooltip',
+      'Videos',
+    ];
+    expect(
+      inventory.components.map((component) => component.name).sort(),
+    ).toEqual(approved.sort());
+    for (const component of inventory.components) {
+      expect(component.source).toContain(inventory.figmaFileId);
+      for (const path of [...component.tokens, ...component.componentTokens]) {
+        expect(catalog.tokens.has(path), `${component.name}: ${path}`).toBe(
+          true,
+        );
+        expect(catalog.resolved.has(path), `${component.name}: ${path}`).toBe(
+          true,
+        );
+      }
+    }
+    for (const [path, entry] of catalog.tokens) {
+      if (!path.startsWith('component.')) continue;
+      expect(entry.$value).toMatch(
+        /^\{color\.(?!co-|white|shadow)[a-z0-9-]+\}$/,
+      );
+    }
+  });
+  it('retains source distinctions, responsive units and existing disputed values', () => {
+    expect(output).toMatchObject({
+      'color-text-action-link-inline': '#173bb3',
+      'color-text-action-link-standalone': '#001970',
+      'color-text-action-link-standalone-hover': '#2551a3',
+      'color-text-action-link-inline-visited': '#491839',
+      'component-tag-teal-background': '#aeced4',
+      'component-tag-teal-text': '#1a323f',
+      'space-4xl': '80px',
+      'font-size-mobile-body-sm': '13px',
+      'line-height-mobile-body-sm': '18px',
+      'paragraph-space-mobile-body-sm': '18px',
+      'font-size-mobile-ui': '16px',
+      'elevation-low-y': '4px',
+      'elevation-high-blur': '32px',
+      'elevation-opacity': 0.12,
+      'color-border-subtle': '#c4c5c9',
+      'font-size-mobile-h3': '28px',
+      'font-size-mobile-body-lg': '24px',
+    });
+    expect(output['color-border-bottom']).toBe('#1b1b1b14');
+    expect(output['color-elevation-shadow']).toBe('#0000001f');
+    expect(output).not.toHaveProperty('color-surface-table-row-sorted');
+  });
+  it('rejects a catalog whose tag foreground loses contrast', async () => {
+    const resolved = new Map(catalog.resolved);
+    resolved.set('color.text-tag-teal', resolved.get('color.surface-tag-teal'));
+    await expect(checkContrast({ ...catalog, resolved })).rejects.toThrow(
+      'Tag teal: contrast 1.00:1 is below 4.5:1',
+    );
+  });
+});
+
+it('keeps the contrast report reproducible, including the warning accent failures', async () => {
+  const report = JSON.parse(
+    await readFile(
+      join(packageRoot, 'references/catalog-contrast-report.json'),
+      'utf8',
+    ),
+  );
+  expect(await checkContrast(catalog)).toEqual(report.passingPairs);
+  for (const issue of report.reviewIssues) {
+    const ratio = contrastRatio(
+      catalog.resolved.get(issue.foreground),
+      catalog.resolved.get(issue.background),
+    );
+    expect(ratio).toBe(issue.ratio);
+    expect(ratio).toBeLessThan(issue.requiredIfSoleVisualCue);
+  }
+});
+
+it('accounts for every observed semantic role and preserves its source alias', async () => {
+  const observation = JSON.parse(
+    await readFile(
+      join(packageRoot, 'references/figma-observed-2026-10-08.json'),
+      'utf8',
+    ),
+  );
+  const inventory = JSON.parse(
+    await readFile(
+      join(packageRoot, 'references/component-token-inventory.json'),
+      'utf8',
+    ),
+  );
+  let count = 0;
+  for (const category of ['text', 'bg', 'border', 'icon', 'state', 'surface']) {
+    let group = category;
+    for (const row of observation.tables[category]) {
+      if (row.length === 1) {
+        group = row[0].replaceAll('\n', '/');
+        continue;
+      }
+      if (row.length < 2 || row[0] === 'Name') continue;
+      count += 1;
+      const role = `${group}/${row[0]}`;
+      if (inventory.excludedRoles[role] || inventory.pendingRoles[role])
+        continue;
+      const path = inventory.sourceRoles[role];
+      expect(catalog.tokens.has(path), role).toBe(true);
+      if (role === 'border/bottom') {
+        expect(catalog.resolved.get(path).alpha).toBe(0.08);
+        continue;
+      }
+      const target =
+        row[1] === 'text/default'
+          ? 'color.co-gray-90'
+          : row[1].replace(/^color\//, 'color.').replaceAll('/', '-');
+      expect(catalog.resolved.get(path), role).toEqual(
+        catalog.resolved.get(target),
+      );
+    }
+  }
+  expect(count).toBe(104);
 });

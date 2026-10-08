@@ -73,6 +73,728 @@
           "location": "Base shadow color decision; opacity and complete shadow geometry remain unspecified"
         }
       }
+    },
+    "text-action-link-inline": {
+      "$type": "color",
+      "$value": "{color.co-blue-60v}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "text/action/link-inline",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / text/action/link-inline; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "text-action-link-standalone": {
+      "$type": "color",
+      "$value": "{color.co-blue-80-brand}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "text/action/link-standalone",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / text/action/link-standalone; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "text-action-link-standalone-hover": {
+      "$type": "color",
+      "$value": "{color.co-blue-60-brand}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "text/action/link-standalone/hover",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / text/action/link-standalone/hover; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "text-action-link-standalone-active": {
+      "$type": "color",
+      "$value": "{color.co-blue-90}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "text/action/link-standalone/active",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / text/action/link-standalone/active; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "text-action-link-inline-hover": {
+      "$type": "color",
+      "$value": "{color.co-blue-80-brand}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "text/action/link-inline/hover",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / text/action/link-inline/hover; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "text-action-link-inline-active": {
+      "$type": "color",
+      "$value": "{color.co-blue-90}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "text/action/link-inline/active",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / text/action/link-inline/active; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "text-action-link-inline-visited": {
+      "$type": "color",
+      "$value": "{color.co-plum-80}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "text/action/link-inline/visited",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / text/action/link-inline/visited; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "text-tag-gray": {
+      "$type": "color",
+      "$value": "{color.co-gray-90}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "text/tag/gray",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / text/tag/gray; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "text-tag-yellow": {
+      "$type": "color",
+      "$value": "{color.co-gray-90}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "text/tag/yellow",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / text/tag/yellow; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "text-tag-blue": {
+      "$type": "color",
+      "$value": "{color.co-blue-90}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "text/tag/blue",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / text/tag/blue; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "text-tag-green": {
+      "$type": "color",
+      "$value": "{color.co-green-90}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "text/tag/green",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / text/tag/green; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "text-tag-red": {
+      "$type": "color",
+      "$value": "{color.co-red-90}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "text/tag/red",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / text/tag/red; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "text-tag-teal": {
+      "$type": "color",
+      "$value": "{color.co-teal-90}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "text/tag/teal",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / text/tag/teal; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "text-tag-plum": {
+      "$type": "color",
+      "$value": "{color.co-plum-90}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "text/tag/plum",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / text/tag/plum; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "bg-page-surface-blue": {
+      "$type": "color",
+      "$value": "{color.co-blue-5}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "bg/page/surface/blue",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / bg/page/surface/blue; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "bg-page-surface-green": {
+      "$type": "color",
+      "$value": "{color.co-green-5}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "bg/page/surface/green",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / bg/page/surface/green; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "bg-page-surface-red": {
+      "$type": "color",
+      "$value": "{color.co-red-5}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "bg/page/surface/red",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / bg/page/surface/red; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "bg-page-surface-plum": {
+      "$type": "color",
+      "$value": "{color.co-plum-5}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "bg/page/surface/plum",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / bg/page/surface/plum; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "bg-page-surface-yellow": {
+      "$type": "color",
+      "$value": "{color.co-yellow-5}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "bg/page/surface/yellow",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / bg/page/surface/yellow; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "bg-page-surface-teal": {
+      "$type": "color",
+      "$value": "{color.co-teal-5}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "bg/page/surface/teal",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / bg/page/surface/teal; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "bg-page-surface-white": {
+      "$type": "color",
+      "$value": "{color.white}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "bg/page/surface/white",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / bg/page/surface/white; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "bg-page-surface-gray": {
+      "$type": "color",
+      "$value": "{color.co-gray-5}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "bg/page/surface/gray",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / bg/page/surface/gray; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "bg-page-surface-medium-gray": {
+      "$type": "color",
+      "$value": "{color.co-gray-10}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "bg/page/surface/medium gray",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / bg/page/surface/medium gray; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "bg-page-surface-dark-blue": {
+      "$type": "color",
+      "$value": "{color.co-blue-90}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "bg/page/surface/dark blue",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / bg/page/surface/dark blue; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "bg-page-surface-dark-green": {
+      "$type": "color",
+      "$value": "{color.co-green-90}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "bg/page/surface/dark green",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / bg/page/surface/dark green; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "border-default": {
+      "$type": "color",
+      "$value": "{color.co-gray-20}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "border/default",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / border/default; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "border-form-subtle": {
+      "$type": "color",
+      "$value": "{color.co-gray-20}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "border/form/subtle",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / border/form/subtle; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "border-process-list-connector": {
+      "$type": "color",
+      "$value": "{color.co-blue-10}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "border/process-list/connector",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / border/process-list/connector; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "border-error-accent": {
+      "$type": "color",
+      "$value": "{color.co-red-60-brand}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "border/error/accent",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / border/error/accent; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "border-warning-accent": {
+      "$type": "color",
+      "$value": "{color.co-yellow-30-brand}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "border/warning/accent",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / border/warning/accent; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "border-info-accent": {
+      "$type": "color",
+      "$value": "{color.co-blue-60-brand}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "border/info/accent",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / border/info/accent; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "icon-action-link-secondary": {
+      "$type": "color",
+      "$value": "{color.co-gray-70}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "icon/action/link/secondary",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / icon/action/link/secondary; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "surface-modal": {
+      "$type": "color",
+      "$value": "{color.white}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "surface/modal",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / surface/modal; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "surface-default": {
+      "$type": "color",
+      "$value": "{color.white}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "surface/default",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / surface/default; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "surface-secondary": {
+      "$type": "color",
+      "$value": "{color.co-gray-10}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "surface/secondary",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / surface/secondary; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "surface-error-subtle": {
+      "$type": "color",
+      "$value": "{color.co-red-10}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "surface/error/subtle",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / surface/error/subtle; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "surface-error-bold": {
+      "$type": "color",
+      "$value": "{color.co-red-60-brand}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "surface/error/bold",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / surface/error/bold; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "surface-warning-subtle": {
+      "$type": "color",
+      "$value": "{color.co-yellow-10}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "surface/warning/subtle",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / surface/warning/subtle; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "surface-warning-bold": {
+      "$type": "color",
+      "$value": "{color.co-yellow-30-brand}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "surface/warning/bold",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / surface/warning/bold; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "surface-info-subtle": {
+      "$type": "color",
+      "$value": "{color.co-blue-10}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "surface/info/subtle",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / surface/info/subtle; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "surface-form-selected": {
+      "$type": "color",
+      "$value": "{color.co-blue-10}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "surface/form/selected",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / surface/form/selected; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "surface-nav-hover": {
+      "$type": "color",
+      "$value": "{color.co-blue-60-brand}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "surface/nav/hover",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / surface/nav/hover; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "surface-nav-default": {
+      "$type": "color",
+      "$value": "{color.white}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "surface/nav/default",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / surface/nav/default; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "surface-nav-secondary": {
+      "$type": "color",
+      "$value": "{color.co-gray-1}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "surface/nav/secondary",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / surface/nav/secondary; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "surface-nav-heel": {
+      "$type": "color",
+      "$value": "{color.co-gray-5}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "surface/nav/heel",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / surface/nav/heel; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "surface-nav-social-container": {
+      "$type": "color",
+      "$value": "{color.co-gray-10}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "surface/nav/social container",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / surface/nav/social container; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "surface-tag-gray": {
+      "$type": "color",
+      "$value": "{color.co-gray-20}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "surface/tag/gray",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / surface/tag/gray; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "surface-tag-yellow": {
+      "$type": "color",
+      "$value": "{color.co-yellow-20}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "surface/tag/yellow",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / surface/tag/yellow; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "surface-tag-blue": {
+      "$type": "color",
+      "$value": "{color.co-blue-20}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "surface/tag/blue",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / surface/tag/blue; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "surface-tag-green": {
+      "$type": "color",
+      "$value": "{color.co-green-20}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "surface/tag/green",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / surface/tag/green; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "surface-tag-plum": {
+      "$type": "color",
+      "$value": "{color.co-plum-20}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "surface/tag/plum",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / surface/tag/plum; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "surface-tag-red": {
+      "$type": "color",
+      "$value": "{color.co-red-20}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "surface/tag/red",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / surface/tag/red; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "surface-tag-teal": {
+      "$type": "color",
+      "$value": "{color.co-teal-20}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "surface/tag/teal",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / surface/tag/teal; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "surface-toast-default": {
+      "$type": "color",
+      "$value": "{color.co-gray-90}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "surface/toast/default",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Semantic Color Tokens / surface/toast/default; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "border-bottom": {
+      "$type": "color",
+      "$value": "{color.co-gray-90-alpha-8}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "border/bottom",
+          "location": "Colorado Design System Figma jQ3EiYqe3uEvFbid5ewc41 / Semantic Color Tokens; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "elevation-shadow": {
+      "$type": "color",
+      "$value": "{color.black-alpha-12}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/shadow",
+          "location": "Colorado Design System Figma jQ3EiYqe3uEvFbid5ewc41 / Elevation light-theme shadow; observed 2026-10-08; proposed for design review"
+        }
+      }
+    }
+  },
+  "component": {
+    "tag-gray-background": {
+      "$type": "color",
+      "$value": "{color.surface-tag-gray}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Tags / gray / background",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Tags; alias to Semantic Color Tokens; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "tag-gray-text": {
+      "$type": "color",
+      "$value": "{color.text-tag-gray}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Tags / gray / text",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Tags; alias to Semantic Color Tokens; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "tag-yellow-background": {
+      "$type": "color",
+      "$value": "{color.surface-tag-yellow}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Tags / yellow / background",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Tags; alias to Semantic Color Tokens; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "tag-yellow-text": {
+      "$type": "color",
+      "$value": "{color.text-tag-yellow}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Tags / yellow / text",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Tags; alias to Semantic Color Tokens; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "tag-blue-background": {
+      "$type": "color",
+      "$value": "{color.surface-tag-blue}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Tags / blue / background",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Tags; alias to Semantic Color Tokens; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "tag-blue-text": {
+      "$type": "color",
+      "$value": "{color.text-tag-blue}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Tags / blue / text",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Tags; alias to Semantic Color Tokens; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "tag-green-background": {
+      "$type": "color",
+      "$value": "{color.surface-tag-green}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Tags / green / background",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Tags; alias to Semantic Color Tokens; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "tag-green-text": {
+      "$type": "color",
+      "$value": "{color.text-tag-green}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Tags / green / text",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Tags; alias to Semantic Color Tokens; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "tag-red-background": {
+      "$type": "color",
+      "$value": "{color.surface-tag-red}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Tags / red / background",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Tags; alias to Semantic Color Tokens; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "tag-red-text": {
+      "$type": "color",
+      "$value": "{color.text-tag-red}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Tags / red / text",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Tags; alias to Semantic Color Tokens; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "tag-teal-background": {
+      "$type": "color",
+      "$value": "{color.surface-tag-teal}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Tags / teal / background",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Tags; alias to Semantic Color Tokens; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "tag-teal-text": {
+      "$type": "color",
+      "$value": "{color.text-tag-teal}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Tags / teal / text",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Tags; alias to Semantic Color Tokens; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "tag-plum-background": {
+      "$type": "color",
+      "$value": "{color.surface-tag-plum}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Tags / plum / background",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Tags; alias to Semantic Color Tokens; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "tag-plum-text": {
+      "$type": "color",
+      "$value": "{color.text-tag-plum}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Tags / plum / text",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Tags; alias to Semantic Color Tokens; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "modal-background": {
+      "$type": "color",
+      "$value": "{color.surface-modal}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Modal / background",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Modal; alias to Semantic Color Tokens; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "toast-background": {
+      "$type": "color",
+      "$value": "{color.surface-toast-default}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Toasts/Snackbars / background",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Toasts/Snackbars; alias to Semantic Color Tokens; observed 2026-10-08; proposed for design review"
+        }
+      }
     }
   }
 }
