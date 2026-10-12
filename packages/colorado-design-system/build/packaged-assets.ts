@@ -40,7 +40,7 @@ export function validateCssAssets(stylesheet: string): void {
 }
 
 // Preserve the existing copy layout; externalize only files we actually ship.
-type AssetDirectory = 'fonts' | 'img';
+type AssetDirectory = 'fonts' | 'img' | 'licenses';
 
 export function copiedAssets(
   sources: Partial<Record<AssetDirectory, string>>,
@@ -49,7 +49,7 @@ export function copiedAssets(
   isExternal: (id: string) => boolean;
 } {
   function sourceFile(id: string): string | undefined {
-    const match = /^\.\/(fonts|img)\/(.+?)(?:[?#].*)?$/.exec(id);
+    const match = /^\.\/(fonts|img|licenses)\/(.+?)(?:[?#].*)?$/.exec(id);
     if (!match) return;
     const root = sources[match[1] as AssetDirectory];
     if (!root) return;

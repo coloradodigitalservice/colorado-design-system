@@ -11,6 +11,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const packageAssets = copiedAssets({
   fonts: path.resolve(__dirname, 'src/assets/fonts'),
   img: path.resolve(__dirname, 'node_modules/@uswds/uswds/dist/img'),
+  licenses: path.resolve(__dirname, 'src/assets/licenses'),
 });
 
 function componentAssetsPlugin(): Plugin {

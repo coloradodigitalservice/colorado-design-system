@@ -24,7 +24,8 @@ Colorado's three brand fonts (Open Sans, Museo Slab, Source Code Pro) are self-h
 
 ### 2. Font preparation
 
-- Source files (variable TTF/OTF, provided directly by the State) were instanced to the specific static weights Colorado's tokens use — 400/500/600 for Open Sans (roman + italic), 500 for Museo Slab (roman only), 400 for Source Code Pro (roman + italic) — then converted to WOFF2, using `fonttools` in an isolated virtual environment (no system Python changes, no new repo dependency).
+- Open Sans variable TTF/OTF source was downloaded from Google Fonts, as confirmed by the project owner; its current SIL OFL 1.1 text is retained beside the derived WOFF2 files. Original variable sources used for font instancing were removed from the working tree after conversion at the State's direction.
+- Font files were instanced to the specific static weights Colorado's tokens use — 400/500/600 for Open Sans (roman + italic), 500 for Museo Slab (roman only), 400 for Source Code Pro (roman + italic) — then converted to WOFF2 using `fonttools` in an isolated virtual environment (no system Python changes, no new repo dependency).
 - **Cap-height** values required by USWDS's custom-typeface-token registration were measured directly from the delivered font files (`OS/2.sCapHeight / unitsPerEm * 500px`), not estimated. This cross-checked against USWDS's own published value for Open Sans (357px measured vs. 357px in USWDS's built-in token), validating the method.
 - Original variable-font source files were provided by the State and have since been removed from the working tree at the State's direction; only the derived WOFF2s are retained in the repository.
 
@@ -55,7 +56,7 @@ Only a weight-500 Museo Slab file was provided. Colorado's token set defines a 6
 
 ### Costs & risks
 
-1. **Licensing custody:** the repository now contains a Museo Slab binary. Open Sans (Apache 2.0) and Source Code Pro (SIL OFL) are unambiguously fine to redistribute; Museo Slab is a commercial font (exljbris/FontSpring); its license has been verified by the project owner (2026-10-02), and the license reference is to be stored with the font (see Open Questions).
+1. **Licensing custody:** Open Sans was downloaded from Google Fonts and is licensed under SIL OFL 1.1; its copyright notice and license text are stored beside the derived WOFF2 files. Source Code Pro's Adobe copyright/reserved-name notice and SIL OFL 1.1 text are also recorded beside the asset. Museo Slab redistribution terms remain unresolved; the project owner reports the license record is not currently available (2026-10-12). Do not distribute fonts with unresolved rights in package or release artifacts; see the [CODS-P2-009 licensing plan](../licensing-plan.md).
 2. **No bold Museo Slab:** if a future design calls for Museo Slab at 600/700, a new font file is required; none exists today.
 3. **Figma verification gap:** Figma MCP access hit a seat-tier rate limit during this work, so exact typography values were taken from Colorado's existing token package rather than cross-checked live against Figma. Should be spot-checked once access allows.
 4. **USWDS upgrade risk:** the `$theme-font-weight-*` defaulting-to-`false` behavior is undocumented in the settings table's plain-language description (it's implied by the default value, not called out as a gotcha). A future USWDS upgrade could change this default; the upgrade-review checklist (`docs/governance/USWDS-UPGRADE-POLICY.md`) should include a font-weight regression check.
@@ -90,7 +91,7 @@ Only a weight-500 Museo Slab file was provided. Colorado's token set defines a 6
 ## Open questions
 
 **Q: Is there a confirmed webfont license for Museo Slab permitting its inclusion in this repository?**
-A: Verified by the project owner on 2026-10-02. The license reference (and any required notice) should be recorded in the font's asset directory so it ships with the font.
+A: The project owner reports the license record is not currently available (2026-10-12). Obtain the applicable license or written redistribution permission, or record a client-approved fallback, before including Museo Slab in package or release artifacts.
 
 **Q: Should Museo Slab support additional weights (600/700)?**
 A: Not per current design mocks, which use it only at 500. If a future design need arises, a new font file and a corresponding ADR/decision-log update would be required.
