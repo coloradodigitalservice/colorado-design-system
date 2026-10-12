@@ -1,6 +1,7 @@
 {
   "name": "@coloradodigitalservice/colorado-design-system",
   "version": "0.1.6",
+  "license": "MIT",
   "private": true,
   "repository": {
     "type": "git",
@@ -9,6 +10,7 @@
   },
   "type": "module",
   "files": [
+    "LICENSE",
     "dist"
   ],
   "sideEffects": [
