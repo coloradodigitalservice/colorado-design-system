@@ -171,8 +171,13 @@ through a routed fixture and proves the cascade layer order with computed styles
 in all three browsers: the order statement leads the stylesheet, a low-specificity
 `cods.components` rule beats USWDS, a consumer's unlayered rule beats CoDS, the
 color overrides beat USWDS, inverse and disabled outline buttons keep USWDS's
-variant colors, no `.usa-*` rule sits outside the `uswds` layer (computed style
-cannot see `:visited`), and USWDS fonts still load. Build the design
+variant colors, no `.usa-*` rule sits outside the `uswds` layer, USWDS fonts
+still load, and Info, Warning, and Urgent alerts match their tokens (Success keeps
+USWDS defaults, including in forced colors). Computed style cannot see `:visited`,
+so the visited-link rule is verified by reading the compiled rule: the last
+`.usa-link:visited` rule must sit in the `uswds` layer and use
+`--cods-color-text-action-link-visited`. `storybook-accordion.spec.ts` checks the
+focused trigger's ring and its forced-colors system highlight. Build the design
 system (`pnpm build`) before running it. See [ADR-007](../docs/adrs/007-cascade-layer-order.md).
 
 ## Visual regression conventions

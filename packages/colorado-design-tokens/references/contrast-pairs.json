@@ -39,6 +39,12 @@
       "minimum": 4.5
     },
     {
+      "name": "Link visited",
+      "foreground": "color.text-action-link-visited",
+      "background": "color.surface-form",
+      "minimum": 4.5
+    },
+    {
       "name": "Primary button default",
       "foreground": "color.text-action-primary",
       "background": "color.bg-action-primary",
@@ -96,6 +102,78 @@
       "name": "Focus color against white only",
       "foreground": "color.bg-action-focus",
       "background": "color.surface-form",
+      "minimum": 3
+    },
+    {
+      "name": "Alert text on info tint",
+      "foreground": "color.text-primary",
+      "background": "color.bg-alert-info",
+      "minimum": 4.5
+    },
+    {
+      "name": "Alert text on warning tint",
+      "foreground": "color.text-primary",
+      "background": "color.bg-alert-warning",
+      "minimum": 4.5
+    },
+    {
+      "name": "Alert text on urgent tint",
+      "foreground": "color.text-primary",
+      "background": "color.bg-alert-urgent",
+      "minimum": 4.5
+    },
+    {
+      "name": "Alert border on info tint",
+      "foreground": "color.border-alert-info",
+      "background": "color.bg-alert-info",
+      "minimum": 3
+    },
+    {
+      "name": "Alert border on urgent tint",
+      "foreground": "color.border-alert-urgent",
+      "background": "color.bg-alert-urgent",
+      "minimum": 3
+    },
+    {
+      "name": "Link visited on info tint",
+      "foreground": "color.text-action-link-visited",
+      "background": "color.bg-alert-info",
+      "minimum": 4.5
+    },
+    {
+      "name": "Link visited on warning tint",
+      "foreground": "color.text-action-link-visited",
+      "background": "color.bg-alert-warning",
+      "minimum": 4.5
+    },
+    {
+      "name": "Link visited on urgent tint",
+      "foreground": "color.text-action-link-visited",
+      "background": "color.bg-alert-urgent",
+      "minimum": 4.5
+    },
+    {
+      "name": "Focus color on info tint",
+      "foreground": "color.bg-action-focus",
+      "background": "color.bg-alert-info",
+      "minimum": 3
+    },
+    {
+      "name": "Focus color on warning tint",
+      "foreground": "color.bg-action-focus",
+      "background": "color.bg-alert-warning",
+      "minimum": 3
+    },
+    {
+      "name": "Focus color on urgent tint",
+      "foreground": "color.bg-action-focus",
+      "background": "color.bg-alert-urgent",
+      "minimum": 3
+    },
+    {
+      "name": "Focus color on secondary surface",
+      "foreground": "color.bg-action-focus",
+      "background": "color.bg-surface-secondary",
       "minimum": 3
     }
   ]

@@ -8,12 +8,18 @@ export interface TokenDictionary {
   readonly "color-bg-action-primary-active": string;
   readonly "color-bg-action-primary-hover": string;
   readonly "color-bg-action-secondary-hover": string;
+  readonly "color-bg-alert-info": string;
+  readonly "color-bg-alert-urgent": string;
+  readonly "color-bg-alert-warning": string;
   readonly "color-bg-disabled": string;
   readonly "color-bg-surface-secondary": string;
   readonly "color-bg-tag-info": string;
   readonly "color-border-action-secondary": string;
   readonly "color-border-action-secondary-active": string;
   readonly "color-border-action-secondary-hover": string;
+  readonly "color-border-alert-info": string;
+  readonly "color-border-alert-urgent": string;
+  readonly "color-border-alert-warning": string;
   readonly "color-border-disabled": string;
   readonly "color-border-form-danger": string;
   readonly "color-border-form-default": string;
@@ -97,6 +103,7 @@ export interface TokenDictionary {
   readonly "color-text-action-link": string;
   readonly "color-text-action-link-active": string;
   readonly "color-text-action-link-hover": string;
+  readonly "color-text-action-link-visited": string;
   readonly "color-text-action-primary": string;
   readonly "color-text-action-secondary": string;
   readonly "color-text-action-secondary-active": string;
