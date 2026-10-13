@@ -47,7 +47,13 @@ The footer spelling `surface/nav/social-container` maps to the same observed `su
 
 [Contrast report](catalog-contrast-report.json) contains 47 passing opaque pairs: existing controls/focus, all seven tag variants, inline/standalone link states, tinted surfaces, inverse Toast text, visited links on alert tints, and focus colors on alert and secondary surfaces. Ratios are unrounded; the tests regenerate and compare the report and reject a deliberately failing tag foreground.
 
-The yellow warning accent has only **1.37:1** against the warning tint and **1.46:1** against white. It must not serve as the sole visual control boundary or state cue where 3:1 is required. The report retains those failures for design/accessibility review; they are not converted into passing thresholds. Components need accompanying text/icons and a review of the actual use. Pale decorative borders likewise do not imply accessible control boundaries.
+The yellow warning accent has only **1.37:1** against the warning tint and **1.46:1** against white. It must not serve as the sole visual control boundary or state cue where 3:1 is required. The report retains the ratios as accepted decorative exceptions, not passing pairs; the ratios are not converted into passing thresholds. Components need accompanying text/icons, and pale decorative borders do not imply accessible control boundaries.
+
+### Recorded technical-lead risk acceptance (2026-10-13)
+
+The CoDS technical lead accepts these known warning-accent contrast failures as a documented implementation risk for this catalog. The report classifies the two measurements as `acceptedExceptions`, distinct from passing pairs. This acceptance is limited to the recorded warning-accent uses and does not establish WCAG conformance or permit the accent to be relied on as the sole control boundary or state cue. The measured ratios and 3:1 threshold for any sole visual cue remain in `catalog-contrast-report.json`.
+
+This technical risk decision is not accessibility-owner approval. The accessibility review and approval required by CDS-48 remain outstanding; reviewers must assess actual component use, including accompanying text/icons and any required boundaries.
 
 `border-bottom` and elevation shadow are translucent. Their contrast depends on the underlying surface; the opaque contrast validator intentionally rejects transparent pairs. They are decorative roles, not substitutes for required boundaries or focus. DTCG retains 8%/12%; generated eight-digit hex rounds alpha to the nearest 8-bit value. No automated pair result establishes component accessibility, screen-reader verification, focus obscuration, forced colors, or human sign-off.
 

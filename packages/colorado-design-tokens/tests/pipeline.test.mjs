@@ -413,7 +413,7 @@ describe('Phase 3 catalog dependencies', () => {
   });
 });
 
-it('keeps the contrast report reproducible, including the warning accent failures', async () => {
+it('keeps the contrast report reproducible, including accepted warning accent exceptions', async () => {
   const report = JSON.parse(
     await readFile(
       join(packageRoot, 'references/catalog-contrast-report.json'),
@@ -421,13 +421,19 @@ it('keeps the contrast report reproducible, including the warning accent failure
     ),
   );
   expect(await checkContrast(catalog)).toEqual(report.passingPairs);
-  for (const issue of report.reviewIssues) {
+  expect(report.reviewIssues).toBeUndefined();
+  expect(report.acceptedExceptions).toHaveLength(2);
+  for (const exception of report.acceptedExceptions) {
     const ratio = contrastRatio(
-      catalog.resolved.get(issue.foreground),
-      catalog.resolved.get(issue.background),
+      catalog.resolved.get(exception.foreground),
+      catalog.resolved.get(exception.background),
     );
-    expect(ratio).toBe(issue.ratio);
-    expect(ratio).toBeLessThan(issue.requiredIfSoleVisualCue);
+    expect(ratio).toBe(exception.ratio);
+    expect(ratio).toBeLessThan(exception.requiredIfSoleVisualCue);
+    expect(exception.classification).toContain('Decorative');
+    expect(exception.acceptedBy).toBe('CoDS technical lead');
+    expect(exception.acceptedOn).toBe('2026-10-13');
+    expect(exception.status).toContain('not a WCAG conformance claim');
   }
 });
 

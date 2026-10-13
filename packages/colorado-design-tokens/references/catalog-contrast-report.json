@@ -1,6 +1,6 @@
 {
   "method": "Existing opaque sRGB contrast calculator; unrounded ratios",
-  "approval": "Automated evidence only; component and human accessibility review pending",
+  "approval": "Automated evidence only; technical-lead risk accepted for listed decorative exceptions; accessibility-owner and component review pending",
   "passingPairs": [
     {
       "name": "Body text on form surface",
@@ -332,20 +332,26 @@
       "ratio": 7.675688037854085
     }
   ],
-  "reviewIssues": [
+  "acceptedExceptions": [
     {
       "foreground": "color.border-alert-warning",
       "background": "color.bg-alert-warning",
       "ratio": 1.3700986982951529,
       "requiredIfSoleVisualCue": 3,
-      "status": "Fails if relied upon as the sole control/state boundary; human design and accessibility review required"
+      "classification": "Decorative warning accent; must not be relied upon as the sole control/state boundary or state cue",
+      "acceptedBy": "CoDS technical lead",
+      "acceptedOn": "2026-10-13",
+      "status": "Accepted implementation risk; not a WCAG conformance claim or accessibility-owner approval"
     },
     {
       "foreground": "color.border-alert-warning",
       "background": "color.surface-default",
       "ratio": 1.4611556279171296,
       "requiredIfSoleVisualCue": 3,
-      "status": "Fails if relied upon as the sole control/state boundary; human design and accessibility review required"
+      "classification": "Decorative warning accent; must not be relied upon as the sole control/state boundary or state cue",
+      "acceptedBy": "CoDS technical lead",
+      "acceptedOn": "2026-10-13",
+      "status": "Accepted implementation risk; not a WCAG conformance claim or accessibility-owner approval"
     }
   ]
 }
