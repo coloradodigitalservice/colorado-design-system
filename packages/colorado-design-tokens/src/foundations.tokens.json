@@ -103,6 +103,19 @@
           "location": "Colorado Design System Figma / Grids & Spacing / design reference"
         }
       }
+    },
+    "4xl": {
+      "$type": "dimension",
+      "$value": {
+        "value": 80,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Spacing/4xl",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Spacing variables; observed 2026-10-08; proposed for design review"
+        }
+      }
     }
   },
   "radius": {
@@ -968,6 +981,138 @@
           "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
+    },
+    "size-mobile-body-sm": {
+      "$type": "dimension",
+      "$value": {
+        "value": 13,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "font size / body-sm / Mobile",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Responsive Typography; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "family-mobile-body-sm": {
+      "$type": "fontFamily",
+      "$value": "{font.family-desktop-body-sm}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "body-sm / family / Mobile",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography; family and weight reuse the existing role; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "weight-mobile-body-sm": {
+      "$type": "fontWeight",
+      "$value": "{font.weight-desktop-body-sm}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "body-sm / weight / Mobile",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography; family and weight reuse the existing role; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "size-mobile-ui": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "font size / ui / Mobile",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Responsive Typography; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "family-mobile-ui": {
+      "$type": "fontFamily",
+      "$value": "{font.family-desktop-ui}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "ui / family / Mobile",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography; family and weight reuse the existing role; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "weight-mobile-ui": {
+      "$type": "fontWeight",
+      "$value": "{font.weight-desktop-ui}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "ui / weight / Mobile",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography; family and weight reuse the existing role; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "size-mobile-ui-sm": {
+      "$type": "dimension",
+      "$value": {
+        "value": 14,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "font size / ui-sm / Mobile",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Responsive Typography; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "family-mobile-ui-sm": {
+      "$type": "fontFamily",
+      "$value": "{font.family-desktop-ui-sm}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "ui-sm / family / Mobile",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography; family and weight reuse the existing role; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "weight-mobile-ui-sm": {
+      "$type": "fontWeight",
+      "$value": "{font.weight-desktop-ui-sm}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "ui-sm / weight / Mobile",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography; family and weight reuse the existing role; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "size-mobile-supporting": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "font size / supporting / Mobile",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Responsive Typography; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "family-mobile-supporting": {
+      "$type": "fontFamily",
+      "$value": "{font.family-desktop-supporting}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "supporting / family / Mobile",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography; family and weight reuse the existing role; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "weight-mobile-supporting": {
+      "$type": "fontWeight",
+      "$value": "{font.weight-desktop-supporting}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "supporting / weight / Mobile",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography; family and weight reuse the existing role; observed 2026-10-08; proposed for design review"
+        }
+      }
     }
   },
   "line-height": {
@@ -1254,6 +1399,58 @@
         "org.colorado.source": {
           "name": "mobile / code / line height",
           "location": "Colorado Design System Figma / Typography / design reference"
+        }
+      }
+    },
+    "mobile-body-sm": {
+      "$type": "dimension",
+      "$value": {
+        "value": 18,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "line height / body-sm / Mobile",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Responsive Typography; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "mobile-ui": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "line height / ui / Mobile",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Responsive Typography; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "mobile-ui-sm": {
+      "$type": "dimension",
+      "$value": {
+        "value": 14,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "line height / ui-sm / Mobile",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Responsive Typography; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "mobile-supporting": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "line height / supporting / Mobile",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Responsive Typography; observed 2026-10-08; proposed for design review"
         }
       }
     }
@@ -1544,6 +1741,58 @@
           "location": "Colorado Design System Figma / Typography / design reference"
         }
       }
+    },
+    "mobile-body-sm": {
+      "$type": "dimension",
+      "$value": {
+        "value": 18,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "paragraph spacing / body-sm / Mobile",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Responsive Typography; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "mobile-ui": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "paragraph spacing / ui / Mobile",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Responsive Typography; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "mobile-ui-sm": {
+      "$type": "dimension",
+      "$value": {
+        "value": 14,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "paragraph spacing / ui-sm / Mobile",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Responsive Typography; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "mobile-supporting": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "paragraph spacing / supporting / Mobile",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Responsive Typography; observed 2026-10-08; proposed for design review"
+        }
+      }
     }
   },
   "focus": {
@@ -1583,6 +1832,226 @@
         "org.colorado.source": {
           "name": "row-width",
           "location": "Language Selector accessibility specification: trigger white 2px gap + blue 4px ring; rows 2px navy outline"
+        }
+      }
+    }
+  },
+  "elevation": {
+    "flat-x": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "flat / x",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Elevation / light-theme shadow table; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "flat-y": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "flat / y",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Elevation / light-theme shadow table; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "flat-blur": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "flat / blur",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Elevation / light-theme shadow table; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "flat-spread": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "flat / spread",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Elevation / light-theme shadow table; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "low-x": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "low / x",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Elevation / light-theme shadow table; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "low-y": {
+      "$type": "dimension",
+      "$value": {
+        "value": 4,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "low / y",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Elevation / light-theme shadow table; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "low-blur": {
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "low / blur",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Elevation / light-theme shadow table; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "low-spread": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "low / spread",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Elevation / light-theme shadow table; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "mid-x": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mid / x",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Elevation / light-theme shadow table; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "mid-y": {
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mid / y",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Elevation / light-theme shadow table; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "mid-blur": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mid / blur",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Elevation / light-theme shadow table; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "mid-spread": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "mid / spread",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Elevation / light-theme shadow table; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "high-x": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "high / x",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Elevation / light-theme shadow table; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "high-y": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "high / y",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Elevation / light-theme shadow table; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "high-blur": {
+      "$type": "dimension",
+      "$value": {
+        "value": 32,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "high / blur",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Elevation / light-theme shadow table; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "high-spread": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "high / spread",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Elevation / light-theme shadow table; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "opacity": {
+      "$type": "number",
+      "$value": 0.12,
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/shadow opacity",
+          "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / _Primitives and Elevation; combine with the existing black color-shadow; observed 2026-10-08; proposed for design review"
         }
       }
     }

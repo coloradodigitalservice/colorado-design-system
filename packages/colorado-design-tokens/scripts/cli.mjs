@@ -3,6 +3,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { loadCatalog, packageRoot } from './validate.mjs';
 import { checkContrast } from './contrast.mjs';
+import { checkComponentInventory } from './inventory.mjs';
 import { compareOutputs, generate } from './build.mjs';
 
 try {
@@ -10,6 +11,7 @@ try {
   if (extra.length || !['validate', 'build', 'check'].includes(command))
     throw new Error('Usage: node scripts/cli.mjs validate|build|check');
   const catalog = await loadCatalog();
+  await checkComponentInventory(catalog);
   const pairs = await checkContrast(catalog);
   if (command === 'build')
     await generate(join(packageRoot, 'generated'), catalog);
