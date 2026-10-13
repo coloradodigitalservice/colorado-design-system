@@ -281,6 +281,55 @@
       "background": "color.bg-alert-info",
       "minimum": 3,
       "ratio": 6.0419216069083745
+    },
+    {
+      "name": "Link visited on info tint",
+      "foreground": "color.text-action-link-visited",
+      "background": "color.bg-alert-info",
+      "minimum": 4.5,
+      "ratio": 11.421198404522865
+    },
+    {
+      "name": "Link visited on warning tint",
+      "foreground": "color.text-action-link-visited",
+      "background": "color.bg-alert-warning",
+      "minimum": 4.5,
+      "ratio": 13.36790932016865
+    },
+    {
+      "name": "Link visited on urgent tint",
+      "foreground": "color.text-action-link-visited",
+      "background": "color.bg-alert-urgent",
+      "minimum": 4.5,
+      "ratio": 11.197737320096223
+    },
+    {
+      "name": "Focus color on info tint",
+      "foreground": "color.bg-action-focus",
+      "background": "color.bg-alert-info",
+      "minimum": 3,
+      "ratio": 7.2737136678289245
+    },
+    {
+      "name": "Focus color on warning tint",
+      "foreground": "color.bg-action-focus",
+      "background": "color.bg-alert-warning",
+      "minimum": 3,
+      "ratio": 8.513497558531421
+    },
+    {
+      "name": "Focus color on urgent tint",
+      "foreground": "color.bg-action-focus",
+      "background": "color.bg-alert-urgent",
+      "minimum": 3,
+      "ratio": 7.131400060582747
+    },
+    {
+      "name": "Focus color on secondary surface",
+      "foreground": "color.bg-action-focus",
+      "background": "color.bg-surface-secondary",
+      "minimum": 3,
+      "ratio": 7.675688037854085
     }
   ],
   "reviewIssues": [

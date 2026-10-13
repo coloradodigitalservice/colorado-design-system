@@ -45,7 +45,7 @@ The footer spelling `surface/nav/social-container` maps to the same observed `su
 
 ## Contrast evidence
 
-[Contrast report](catalog-contrast-report.json) contains 40 passing opaque pairs: existing controls/focus, all seven tag variants, inline/standalone link states, tinted surfaces and inverse Toast text. Ratios are unrounded; the tests regenerate and compare the report and reject a deliberately failing tag foreground.
+[Contrast report](catalog-contrast-report.json) contains 47 passing opaque pairs: existing controls/focus, all seven tag variants, inline/standalone link states, tinted surfaces, inverse Toast text, visited links on alert tints, and focus colors on alert and secondary surfaces. Ratios are unrounded; the tests regenerate and compare the report and reject a deliberately failing tag foreground.
 
 The yellow warning accent has only **1.37:1** against the warning tint and **1.46:1** against white. It must not serve as the sole visual control boundary or state cue where 3:1 is required. The report retains those failures for design/accessibility review; they are not converted into passing thresholds. Components need accompanying text/icons and a review of the actual use. Pale decorative borders likewise do not imply accessible control boundaries.
 
