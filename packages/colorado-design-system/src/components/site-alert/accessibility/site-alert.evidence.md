@@ -1,5 +1,111 @@
 # Accessibility evidence: `cods-site-alert`
 
+## CODS-P3-006 review — October 14, 2026
+
+- **Maturity:** experimental (`0.x`); stable and gate approval are pending.
+- **Tracking:** [CDS-54 / CODS-P3-006](https://atendesign.atlassian.net/browse/CDS-54).
+- **Reviewer:** Codex, developer/automated verification. Human review is pending.
+- **Source:** pinned USWDS 3.14.0 Site Alert markup and information/error icons.
+- **Changes requiring renewed review:** severity surfaces/icons, H5 headings,
+  top boundary and logical spacing, optional page-local dismissal and focus handoff.
+  The historical G2 manual findings below describe the older no-icon static
+  implementation and do not establish conformance of this revision.
+
+### Keyboard and focus
+
+- [ ] Native links and dismissal buttons follow document order without traps.
+      Chromium Storybook checks passed for Tab/Enter, pointer dismissal, link/button
+      focus rings, and the page-placement skip link. Human review and Firefox remain open.
+- [ ] Dismissal moves focus to an explicit external destination before hiding
+      the notice. Chromium and WebKit docs assertions passed. Missing, removed,
+      disabled, internal, or unfocusable destinations leave content readable;
+      failure paths and instance isolation are covered by unit tests. Initialization
+      does not move focus. Human keyboard/obscuration review remains open.
+- Keyboard model: Tab/Shift-Tab traverse native links/buttons; Enter activates
+  links and native dismissal buttons; Space also activates native buttons.
+  No custom key handling, global listener, or focus trap is introduced.
+
+### Names, roles, and announcements
+
+- [x] Accessible names/roles are documented and asserted by browser checks:
+
+  | Element                   | Role   | Name source                                                                                                                  |
+  | ------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------- |
+  | Notice section            | region | Visible heading via unique `aria-labelledby`                                                                                 |
+  | Service action link       | link   | Visible service-specific text                                                                                                |
+  | Optional dismissal button | button | `aria-label="Dismiss informational site notice"` or `"Dismiss emergency site notice"`, containing the visible “Dismiss” text |
+  | Example focus destination | link   | Visible “Continue to service content” text                                                                                   |
+  | Placement skip link       | link   | Visible “Skip to main content” text                                                                                          |
+
+- [x] Static notices have no live-region role. Icons are decorative CSS masks;
+      explicit severity headings convey meaning without CSS or color. Each example
+      region has a unique name; the dedicated axe landmark-unique check passed.
+- [ ] Human VoiceOver/Safari and NVDA/Firefox verification of initial reading,
+      skip-link navigation, and dismissal focus is required. No audible announcement
+      is claimed. Docs distinguish initially rendered regions from pre-mounted
+      `role="status"` or `role="alert"` regions updated by the consuming application.
+
+### Reflow, motion, forced colors, and localization
+
+- [ ] 320px-equivalent reflow passed for all nine examples in Chromium and
+      WebKit, including long text, Spanish, Arabic/RTL, and dismissal. Actual 400%
+      browser zoom, Firefox, and human readability/obscuration review remain open.
+- N/A — no motion, transition, timer, timeout, or auto-dismiss. Reduced-motion
+  emulation accompanies narrow-width checks.
+- [ ] Forced-colors emulation passed in Chromium and WebKit. System Canvas,
+      CanvasText, LinkText, and Highlight preserve boundaries, wording, icons, and
+      focus. Actual Windows high contrast and Firefox remain open.
+- [ ] Spanish and Arabic language scoping and RTL wrapping passed automated
+      checks. RTL icons move to the logical start (32px right inset). Human translation,
+      bidirectional-content review, and Firefox remain open.
+
+### Progressive enhancement and lifecycle
+
+- [x] No CSS/JavaScript checks passed in Chromium and WebKit: messages stay
+      named/readable, links remain usable, and both enhancement buttons stay hidden.
+- [x] Unit tests cover repeated initialization/destruction, restored authored DOM,
+      fresh-page visibility, missing targets, failed focus, disabled dismissal, and
+      independent instances. Dismissal uses no storage or cross-page persistence.
+- [x] `cods-site-alert:dismiss` bubbles with `composed: false` and
+      `{ focusTargetId }`; browser checks cover events, focus handoff, and reload.
+- USWDS Site Alert has no JavaScript behavior to wrap. CoDS supplies only the
+  optional dismissal lifecycle; markup/style remain based on the pinned source.
+
+### Validation and open items
+
+- Node 24.21.0, pnpm 12.4.2, Playwright 1.64.0, USWDS 3.14.0.
+  `nvm` was unavailable; the existing pinned Node binary was placed on PATH.
+- Workspace/fixture validation, Astro/Storybook validation, token drift
+  (352 tokens / 47 contrast pairs), formatting, lint, typecheck, 134 unit tests,
+  package/app builds, packaged examples, and static consumer checks passed.
+- 29 browser checks passed: 19 Chromium Storybook checks and five docs checks
+  each in Chromium and WebKit, including axe with no exclusions/disabled rules.
+  Rendered masks were compared with the packaged information/error SVG paths.
+- Firefox 157 exits before tests with “Could not find profile folder,” including
+  a fresh `/private/tmp` retry. Its five docs checks remain unverified and enabled.
+- Browser tests route built files without a local server. Reproduce after
+  `pnpm build` with `pnpm exec playwright test --config config/playwright.site-alert.ts`.
+  Full `pnpm check` browser-stage execution was not run because it starts preview
+  servers, prohibited by the user's instructions. CI retains the full gate.
+- Playwright CLI inspected built-file-routed docs at desktop and 320px widths.
+  Emergency and RTL screenshots were reviewed for readable text, icon placement,
+  and dismissal controls; keyboard dismissal returned focus to the documented
+  destination. This is developer verification, not human screen-reader evidence.
+- CodeRabbit review reported no findings. Developer source/lifecycle review
+  supplements browser checks.
+- Exact Figma alignment and State design/content review remain open. One connected
+  Figma account lacked file access; the other required reauthentication. Existing
+  repository measurements informed 32px icons/insets, a 16px gap, 18px vertical
+  padding, H5 typography, and the emergency surface token. No new token values
+  were introduced.
+- Human screen-reader, actual zoom, keyboard/obscuration, Windows high-contrast,
+  localization, and accessibility-owner approval remain required. No stable
+  maturity, G3 approval, multiple-alert stacking, or dismissal persistence is claimed.
+
+---
+
+## Historical G2 evidence (previous implementation)
+
 - Maturity: experimental (`0.x`); not approved as stable.
 - Date: October 1, 2026.
 - Automated verification: Codex; manual review: Eric Swanson (reported October 1, 2026); accessibility lead approval pending.

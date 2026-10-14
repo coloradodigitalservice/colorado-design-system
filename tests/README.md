@@ -228,3 +228,12 @@ capture, and render an image without alt text in a real loaded page to check axe
 output. Confirm a nonzero exit and attachments, then remove the temporary spec.
 
 See [Foundation CI](../docs/CI.md) for job selection and artifacts.
+
+### Site Alert verification without preview servers
+
+After `pnpm build`, run
+`pnpm exec playwright test --config config/playwright.site-alert.ts` to check
+Site Alert's built documentation and Storybook examples through request routing.
+The config starts no local server and retains the normal Chromium, Firefox,
+WebKit, and Storybook projects. This supplements the full `pnpm check` gate;
+it does not replace the full browser suite.
