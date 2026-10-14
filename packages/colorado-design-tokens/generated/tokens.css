@@ -312,6 +312,10 @@
   --cods-line-height-mobile-supporting: 16px;
   --cods-line-height-mobile-ui: 16px;
   --cods-line-height-mobile-ui-sm: 14px;
+  --cods-link-underline-offset: 2px;
+  --cods-link-underline-offset-standalone-hover: 3px;
+  --cods-link-underline-thickness: 2px;
+  --cods-link-underline-thickness-hover: 4px;
   --cods-paragraph-space-desktop-body: 16px;
   --cods-paragraph-space-desktop-body-lg: 22px;
   --cods-paragraph-space-desktop-body-sm: 14px;

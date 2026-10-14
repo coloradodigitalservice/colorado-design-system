@@ -283,6 +283,18 @@
       "foreground": "color.bg-action-focus",
       "background": "color.bg-surface-secondary",
       "minimum": 3
+    },
+    {
+      "name": "Link standalone default",
+      "foreground": "color.text-action-link-standalone",
+      "background": "color.surface-form",
+      "minimum": 4.5
+    },
+    {
+      "name": "Link standalone hover",
+      "foreground": "color.text-action-link-standalone-hover",
+      "background": "color.surface-form",
+      "minimum": 4.5
     }
   ]
 }

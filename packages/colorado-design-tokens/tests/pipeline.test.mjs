@@ -166,6 +166,24 @@ describe('State design references and consumers', () => {
     for (const [name, hex] of Object.entries(reference.palette))
       expect(output[`color-${name.replaceAll('/', '-')}`]).toBe(hex);
   });
+  it('maps Link variants to the inspected Figma palette without changing generic roles', () => {
+    expect(output).toMatchObject({
+      'color-text-action-link-inline': '#173bb3',
+      'color-text-action-link-inline-hover': '#001970',
+      'color-text-action-link-inline-active': '#001049',
+      'color-text-action-link-visited': '#491839',
+      'color-text-action-link-standalone': '#001970',
+      'color-text-action-link-standalone-hover': '#2551a3',
+      'color-text-action-link-standalone-active': '#001049',
+      'color-text-action-link': '#173bb3',
+      'color-text-action-link-hover': '#001970',
+      'color-text-action-link-active': '#001049',
+      'link-underline-thickness': '2px',
+      'link-underline-thickness-hover': '4px',
+      'link-underline-offset': '2px',
+      'link-underline-offset-standalone-hover': '3px',
+    });
+  });
   it('preserves explicit foundation values and omits unresolved values', () => {
     expect(output).toMatchObject({
       'space-2xs': '4px',

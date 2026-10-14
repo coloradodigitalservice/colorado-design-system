@@ -312,6 +312,10 @@ export interface TokenDictionary {
   readonly "line-height-mobile-supporting": string;
   readonly "line-height-mobile-ui": string;
   readonly "line-height-mobile-ui-sm": string;
+  readonly "link-underline-offset": string;
+  readonly "link-underline-offset-standalone-hover": string;
+  readonly "link-underline-thickness": string;
+  readonly "link-underline-thickness-hover": string;
   readonly "paragraph-space-desktop-body": string;
   readonly "paragraph-space-desktop-body-lg": string;
   readonly "paragraph-space-desktop-body-sm": string;
