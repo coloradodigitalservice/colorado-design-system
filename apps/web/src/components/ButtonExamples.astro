@@ -1,0 +1,19 @@
+---
+import examples from '@coloradodigitalservice/colorado-design-system/examples/button.json';
+import metadata from '@coloradodigitalservice/colorado-design-system/metadata/button.json';
+import CodeExamples from './CodeExamples.astro';
+interface Props {
+  mode: 'default' | 'remaining';
+}
+const { mode } = Astro.props;
+const selected = examples.examples.filter((example) =>
+  mode === 'default'
+    ? example.state === 'default'
+    : example.state !== 'default',
+);
+---
+
+{selected.map((example) => (
+  <div set:html={example.html} />
+))}
+<CodeExamples metadata={metadata} examples={selected} />
