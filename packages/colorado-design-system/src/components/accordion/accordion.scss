@@ -13,18 +13,26 @@
 
   .cods-accordion__heading {
     margin: 0;
-    margin-block-start: 1rem;
+    margin-block-start: var(--cods-space-md, tokens.$space-md);
     font-size: inherit;
   }
 
   .cods-accordion__trigger {
     position: relative;
-    padding-block: 1rem;
-    padding-inline: 1.5rem 3rem;
+    padding-block: var(--cods-space-md, tokens.$space-md);
+    padding-inline: var(--cods-space-md, tokens.$space-md)
+      calc(3 * var(--cods-space-md, tokens.$space-md));
+    border-radius: var(--cods-radius-md, tokens.$radius-md);
     background: var(--cods-accordion-background);
     color: var(--cods-accordion-text);
-    font-family: inherit;
-    line-height: 1.5;
+    font-family:
+      var(--cods-font-family-body, tokens.$font-family-body), sans-serif;
+    font-size: var(--cods-font-size-desktop-h6, tokens.$font-size-desktop-h6);
+    font-weight: var(--cods-font-weight-semibold, tokens.$font-weight-semibold);
+    line-height: var(
+      --cods-line-height-desktop-h6,
+      tokens.$line-height-desktop-h6
+    );
     text-align: start;
     overflow-wrap: anywhere;
 
@@ -40,17 +48,22 @@
     &::after {
       content: '';
       position: absolute;
-      inset-inline-end: 1.5rem;
+      inset-inline-end: var(--cods-space-md, tokens.$space-md);
       top: 50%;
       background: none;
       mask: none;
-      width: 1rem;
+      width: var(--cods-space-md, tokens.$space-md);
       height: 0;
       border-block-start: 2px solid currentcolor;
     }
 
     &::before {
       transform: rotate(90deg);
+    }
+
+    &[aria-expanded='true'] {
+      border-end-start-radius: 0;
+      border-end-end-radius: 0;
     }
 
     &[aria-expanded='true']::before {
@@ -75,9 +88,20 @@
   }
 
   .cods-accordion__panel {
-    padding: 1.5rem;
+    padding: var(--cods-space-md, tokens.$space-md);
     background: var(--cods-color-white);
     color: var(--cods-accordion-text);
+    font-family:
+      var(--cods-font-family-body, tokens.$font-family-body), sans-serif;
+    font-size: var(
+      --cods-font-size-desktop-body,
+      tokens.$font-size-desktop-body
+    );
+    font-weight: var(--cods-font-weight-regular, tokens.$font-weight-regular);
+    line-height: var(
+      --cods-line-height-desktop-body,
+      tokens.$line-height-desktop-body
+    );
     overflow-wrap: anywhere;
 
     &[hidden] {
@@ -88,6 +112,8 @@
   .cods-accordion--bordered > .cods-accordion__panel {
     border: 1px solid var(--cods-accordion-border);
     border-block-start: 0;
+    border-end-start-radius: var(--cods-radius-md, tokens.$radius-md);
+    border-end-end-radius: var(--cods-radius-md, tokens.$radius-md);
   }
 
   @media (forced-colors: active) {

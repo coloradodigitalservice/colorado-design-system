@@ -856,7 +856,16 @@
         "color.text-primary",
         "color.white",
         "focus.ring-offset",
-        "focus.ring-width"
+        "focus.ring-width",
+        "font.family-body",
+        "font.size-desktop-body",
+        "font.size-desktop-h6",
+        "font.weight-regular",
+        "font.weight-semibold",
+        "line-height.desktop-body",
+        "line-height.desktop-h6",
+        "radius.md",
+        "space.md"
       ],
       "foundationBindings": {
         "stackSpacing:space.md": ["space.md"],

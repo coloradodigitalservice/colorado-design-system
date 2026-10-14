@@ -1,3 +1,4 @@
+import { routeBuiltFiles } from './built-files.js';
 import { readFileSync } from 'node:fs';
 import { test, expect, expectAccessible } from './fixtures.js';
 
@@ -94,4 +95,56 @@ test('focused accordion trigger uses the system highlight in forced colors', asy
   ]);
   expect(outline).toBe(highlight);
   await expect(trigger).toHaveCSS('outline-style', 'solid');
+});
+
+test.beforeEach(async ({ page }) => {
+  if (process.env.CODS_BUILT_FILES === '1')
+    await routeBuiltFiles(page, 'storybook');
+});
+
+for (const [story, expanded] of [
+  ['expanded', ['true', 'true']],
+  ['mixed', ['true', 'false']],
+  ['collapsed', ['false', 'false']],
+] as const) {
+  test(`${story} story exposes the documented panel states`, async ({
+    page,
+  }, testInfo) => {
+    await page.goto(
+      `/iframe.html?id=components-accordion--${story}&viewMode=story&globals=a11y.manual:!true`,
+    );
+    const root = page.locator('#storybook-root [data-cods-accordion]');
+    await expect(root).toHaveAttribute('data-cods-accordion-enhanced', '');
+    for (const [index, value] of expanded.entries()) {
+      const trigger = root.getByRole('button').nth(index);
+      await expect(trigger).toHaveAttribute('aria-expanded', value);
+      const panel = root.locator(
+        `[id="${await trigger.getAttribute('aria-controls')}"]`,
+      );
+      if (value === 'true') await expect(panel).toBeVisible();
+      else await expect(panel).toBeHidden();
+    }
+    await expectAccessible(page, testInfo, '#storybook-root');
+  });
+}
+
+test('approved typography and spacing tokens can be customized at runtime', async ({
+  page,
+}) => {
+  await page.goto(defaultStory);
+  const root = page.locator('#storybook-root [data-cods-accordion]');
+  const trigger = root.getByRole('button').first();
+  const panel = root.locator('[data-cods-accordion-panel]').first();
+  await expect(trigger).toHaveCSS('font-size', '18px');
+  await expect(trigger).toHaveCSS('font-weight', '600');
+  await expect(trigger).toHaveCSS('padding-top', '16px');
+  await expect(panel).toHaveCSS('padding-top', '16px');
+  await expect(panel).toHaveCSS('font-size', '16px');
+  await root.evaluate((element) => {
+    element.style.setProperty('--cods-space-md', '20px');
+    element.style.setProperty('--cods-font-size-desktop-h6', '22px');
+  });
+  await expect(trigger).toHaveCSS('font-size', '22px');
+  await expect(trigger).toHaveCSS('padding-top', '20px');
+  await expect(panel).toHaveCSS('padding-top', '20px');
 });

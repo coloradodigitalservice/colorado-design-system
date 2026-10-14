@@ -12,6 +12,7 @@
     "default",
     "expanded",
     "collapsed",
+    "mixed",
     "bordered",
     "multiple",
     "disabled",
@@ -31,15 +32,21 @@
     },
     {
       "state": "expanded",
-      "fixtureState": "default",
+      "fixtureState": "multiple",
       "setup": "expand",
-      "instructions": "Initialize the accordion and expand its first panel."
+      "instructions": "Initialize the accordion and expand the first panel; the remaining panel keeps its declared initial state."
     },
     {
       "state": "collapsed",
       "fixtureState": "default",
       "setup": "collapse",
       "instructions": "Initialize the accordion and collapse its first panel."
+    },
+    {
+      "state": "mixed",
+      "fixtureState": "default",
+      "setup": "expand",
+      "instructions": "Initialize the accordion and expand the first panel; the remaining panel keeps its declared initial state."
     },
     {
       "state": "bordered",

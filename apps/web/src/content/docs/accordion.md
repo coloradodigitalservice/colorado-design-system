@@ -10,7 +10,7 @@ figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-Syste
 
 Use an accordion to organize related, optional sections, such as supporting details or frequently asked questions. Keep information everyone needs visible outside it. Do not use it for a single block of content, for navigation, or for content people must read in full to complete a task. Choose heading levels to fit the page outline. The examples above use the package's canonical fixture.
 
-Accordion is **experimental** in the `0.0.x` development series. Manual accessibility review and G2 acceptance remain open.
+Accordion is **experimental** in the `0.x` development series. P3-007 builds on the G2 vertical slice; design review, detailed manual accessibility evidence, and owner acceptance remain open.
 
 ## Anatomy
 
@@ -57,11 +57,15 @@ Use the built ES module in a `script type="module"` when consuming without a bun
 | `setAccordionExpanded(root, panelId, expanded)` | Set an owned panel's state. Unknown, uninitialized, and disabled targets are ignored.                              |
 | `destroyAccordion(root)`                        | Remove listeners and restore authored attributes. Safe before initialization or when called repeatedly.            |
 
-Initial configuration is read during initialization. Destroy and reinitialize after changing configuration or adding/removing items within an existing root. New roots can be initialized independently. Nested roots are isolated, but avoid nesting accordions when ordinary headings would be clearer.
+Initial configuration is read during initialization. Destroy and reinitialize after changing configuration or adding/removing items within an existing root. New roots can be initialized independently. Nested accordions are unsupported: initialization warns once per root and leaves nested markup readable without enhancement. Use ordinary headings instead.
 
 `aria-expanded` and `hidden` reflect the enhanced state. In single-open mode, the last initially expanded item wins if more than one is declared. Disabled triggers use the native `disabled` attribute, skip the tab order, and cannot be toggled by the public method. Their panel still remains readable without scripting.
 
 Every changed panel dispatches **`cods-accordion:change`** from its root with `bubbles: true`, `composed: false`, and `detail: { panelId: string, expanded: boolean }`. All affected states settle before the events fire. Opening a sibling therefore produces a closing event and an opening event; initialization, redundant operations, and teardown produce no events.
+
+## Open-panel decision
+
+CODS-P3-007 retains **single-open by default** to preserve the shipped vertical-slice API and USWDS's default behavior. Opening one panel closes its siblings; every panel may also be closed. Add `data-cods-accordion-multiple` to opt into independent panels when people need to compare sections. The Multiple and Expanded stories show both panels open; Mixed shows one open and one closed, and Collapsed shows both closed. No arrow-key roving navigation is included in this release; native Tab navigation keeps every enabled header reachable.
 
 ## Keyboard and focus
 
@@ -71,7 +75,7 @@ Tab and Shift+Tab follow the native button/link order. Enter and Space toggle a 
 
 Without JavaScript, all panel content is visible and readable; the buttons do not collapse it. Without CSS, semantic headings, buttons, and content still work. Successful initialization applies the declared collapsed states. Destroy restores the original server-rendered presentation. Do not server-render `hidden` on content that needs to remain available without JavaScript.
 
-The controller wraps the pinned [USWDS accordion](https://designsystem.digital.gov/components/accordion/) state/exclusivity functions and adds the CoDS lifecycle, events, and focus safety.
+The controller wraps the pinned [USWDS accordion](https://designsystem.digital.gov/components/accordion/) `on`/`off` lifecycle and state/exclusivity functions and adds the CoDS lifecycle, events, and focus safety.
 
 ## Appearance and localization
 
@@ -87,9 +91,9 @@ The component supplies native button semantics, `aria-expanded`/`aria-controls` 
 
 ## Known limitations and implementation status
 
-- **Status:** implemented as a G2 vertical-slice component at **experimental** maturity. Automated browser, accessibility, and unit tests pass; the author reports completed manual accessibility review without detailed observations. Domain-owner acceptance and G2 sign-off are pending.
+- **Status:** P3-007 extends the G2 vertical slice at **experimental** maturity. Historical manual review is recorded in the evidence file; the lifecycle and style updates need fresh human verification. Domain-owner acceptance and G3 approval are pending. Figma access was unavailable during implementation; committed P3-001 measurements informed spacing, typography, and radii, and exact visual alignment still needs design review.
 - Configuration is read once at initialization; destroy and reinitialize after changing configuration or an existing root's items.
 - The controller does not observe the DOM; call `initAllAccordions()` after inserting new markup.
-- No custom arrow-key navigation, animation, or live-region announcements.
+- No nested accordions, custom arrow-key navigation, animation, or live-region announcements. State changes are immediate with either reduced-motion preference.
 - Approved visual regression baselines are not yet established.
 - Markup, custom properties, and controller APIs may change before `1.0`.

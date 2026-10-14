@@ -5,6 +5,64 @@
 - Automated implementation review: Codex, 2026-10-01. Manual accessibility lead acceptance and G2 approval are pending.
 - Basis: pinned USWDS 3.14.0 markup and toggle/exclusivity behavior, wrapped with the CoDS per-root lifecycle, events, and focus safety. Upstream accessibility claims do not establish acceptance of this wrapper.
 
+## CODS-P3-007 production update — 2026-10-14
+
+This update is stacked directly on CODS-P3-001. It retains experimental maturity
+and the historical G2 evidence below; those results do not approve the updated
+lifecycle or styles for G3.
+
+**Open-panel decision:** preserve the shipped single-open default and USWDS's
+legacy default. Every panel may be closed. `data-cods-accordion-multiple` opts
+into independent open panels. Expanded, Mixed, and Collapsed stories demonstrate
+the decisions explicitly. Native Tab, Shift+Tab, Enter, and Space are supported;
+arrow-key roving navigation and nested accordions are out of scope. Nested roots
+warn and remain unenhanced/readable.
+
+**Implementation basis:** pinned USWDS 3.14.0 `on(root)` installs the delegated
+click handler; `off(root)` removes it but leaves `aria-expanded` and `hidden`.
+The CoDS wrapper snapshots/restores those attributes and its integration markers.
+A MutationObserver derives CoDS change events from upstream changes; click and
+public-method paths flush settled states synchronously. No events fire during
+initialization or teardown. Initial exclusivity still chooses the last declared
+open item for compatibility with the shipped CoDS API. Closing focused content
+returns focus to its trigger before CoDS events fire.
+
+**Design evidence:** the spacing, heading/body typography, and corner radii use
+existing Git-authoritative tokens and the measured P3-001 inventory. Figma
+context and screenshot calls both failed because the connected account lacks
+file access. Exact icon/geometry/state alignment and the unresolved subtle-border
+mapping require design review; no new token values were inferred.
+
+Validation on macOS with Node 24.21.0, pnpm 12.4.2, Playwright 1.64.0:
+
+- [x] All 131 unit tests pass, including 19 controller tests for lifecycle,
+      focus restoration, exclusivity, independent roots, upstream change observation,
+      unsupported nesting, malformed markup, idempotency, and exact restoration.
+- [x] Workspace and fixture validation, token drift (352 tokens / 47 contrast
+      pairs), formatting, lint, root TypeScript, Astro/Storybook validation,
+      package/site/Storybook builds, generated fixture parity, and static consumer
+      drift checks pass.
+- [x] 28 browser checks pass: ten docs checks each in Chromium and WebKit,
+      and eight Storybook checks in Chromium. They cover keyboard/pointer operation,
+      focus, events, declared states, axe without exclusions, runtime token overrides,
+      no CSS/JavaScript, 320px reflow, localization, reduced motion, and forced colors.
+- [x] Built docs inspected with the pinned Playwright CLI in Chrome at
+      1280px and 320px: default/multiple expansion, keyboard activation, long-content
+      wrapping, and RTL indicators. Screenshots are local review captures, not
+      approved visual regression baselines. CodeRabbit reviewed 13 implementation
+      files and reported no findings.
+- [ ] Firefox's ten checks could not launch: the local Playwright Firefox
+      process exits with “Could not find profile folder.” They remain enabled for CI.
+- [ ] Fresh human screen-reader announcements, actual 400% zoom, Windows high
+      contrast, keyboard/localization review, and accessibility-owner acceptance.
+- [ ] Full preview-backed `pnpm check` browser stage: local servers were not
+      started under the user's server-management instruction. Compiled files were
+      served to the browser by request interception instead.
+
+Reproduce the focused browser suite after `pnpm build` with
+`pnpm exec playwright test --config config/playwright.accordion.ts`. It starts
+no local server and retains all three browser engines.
+
 ## Manual accessibility review
 
 Eric Swanson reported on 2026-10-01 that he completed all accessibility testing
