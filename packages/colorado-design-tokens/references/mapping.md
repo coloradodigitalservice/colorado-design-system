@@ -80,6 +80,56 @@ Every foundation token records its design-reference section in `src/foundations.
 | Section breaks     | `space-2xl` | 48px  |
 | Page margins       | `space-3xl` | 64px  |
 
+## Link component mappings (CODS-P3-004)
+
+Additive supplemental aliases from the Link page in
+[Colorado Design System Figma](https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=828-3253&m=dev).
+Inspected in Dev Mode on 2026-10-12; no published library version was shown.
+These component implementation mappings reuse the reviewed palette without
+changing the original 46 semantic mappings or `design-values.json`.
+
+| Figma role                           | Code name                                  | Palette            | Value     |
+| ------------------------------------ | ------------------------------------------ | ------------------ | --------- |
+| `text/action/link-inline`            | `color-text-action-link-inline`            | `co-blue-60v`      | `#173bb3` |
+| `text/action/link-inline/hover`      | `color-text-action-link-inline-hover`      | `co-blue-80-brand` | `#001970` |
+| `text/action/link-inline/active`     | `color-text-action-link-inline-active`     | `co-blue-90`       | `#001049` |
+| `text/action/link-inline/visited`    | `color-text-action-link-visited`           | `co-plum-80`       | `#491839` |
+| `text/action/link-standalone`        | `color-text-action-link-standalone`        | `co-blue-80-brand` | `#001970` |
+| `text/action/link-standalone/hover`  | `color-text-action-link-standalone-hover`  | `co-blue-60-brand` | `#2551a3` |
+| `text/action/link-standalone/active` | `color-text-action-link-standalone-active` | `co-blue-90`       | `#001049` |
+
+Link typography reuses desktop body (16/24), body small (14/20), body large
+(22/32), UI (16/16, semibold), and UI small (14/14, semibold) tokens.
+Inline underlines are 2px thick with 2px offset, increasing to 4px on hover;
+standalone hover has a 4px underline with 3px offset. These are recorded as `link-underline-thickness`,
+`link-underline-thickness-hover`, `link-underline-offset`, and
+`link-underline-offset-standalone-hover` foundation dimensions, without changing
+the spacing scale. Focus uses a 2px-radius shape,
+2px white spread, and 4px total blue spread (a 2px blue band), reusing radius,
+focus-gap, and spacing values. The Language Selector ring token stays unchanged.
+
+The new visited and standalone default/hover roles have contrast checks against
+the white/form surface. Design owner and accessibility review remain required
+for release acceptance; Git source and generated output are the release authority.
+
+### Change impact and reviewers
+
+The token catalog supplies the six public Link color names and the visited-link alias.
+This component adds four public underline dimension names;
+it does not rename, remove, or re-alias an existing token. CoDS Link consumes these shared colors and new dimensions. Sources and generated CSS/Sass/JSON/TypeScript must be reviewed
+together. The visited, standalone default, and standalone hover contrast pairs
+must pass 4.5:1 on the white/form surface; the existing inline/active and focus
+pairs continue to cover the reused colors.
+
+Request the Aten design lead and State design owner for design acceptance,
+the accessibility lead for contrast/focus review, and the Aten technical lead for
+naming and generated output. This implementation does not claim their sign-off.
+
+PR #38 compatibility: the six added inline/standalone color declarations match
+PR #38 exactly, including source metadata. Visited styling reuses its existing
+`color-text-action-link-visited` alias. The four underline dimensions are additive
+and do not rename or replace any PR #38 token.
+
 ## CODS-P3-001 catalog expansion
 
 See [catalog review and migration](catalog-review.md), [component dependency inventory](component-token-inventory.json), and [observed variable tables](figma-observed-2026-10-08.json). The proposal preserves the original reviewed mappings. Supplemental additions retain the Figma role names as flattened kebab-case public names, except the seven alert/visited roles aligned with PR #37 (see the naming table in catalog-review.md); source locations are recorded on each token. Tag, Modal and Toast component aliases point to semantic roles. Desktop/Mobile typography uses explicit names, with disputed existing values retained for design review. Spacing `4xl` adds 80px; existing 4/8/12px names remain `2xs`/`xs`/`sm` despite Figma xs/s/ms labels. Translucent bottom-border and shadow primitives preserve source alpha; elevation geometry is scalar. The inventory records exclusions and unresolved bindings rather than implying full component sign-off.

@@ -330,6 +330,20 @@
       "background": "color.bg-surface-secondary",
       "minimum": 3,
       "ratio": 7.675688037854085
+    },
+    {
+      "name": "Link standalone default",
+      "foreground": "color.text-action-link-standalone",
+      "background": "color.surface-form",
+      "minimum": 4.5,
+      "ratio": 15.294721516398141
+    },
+    {
+      "name": "Link standalone hover",
+      "foreground": "color.text-action-link-standalone-hover",
+      "background": "color.surface-form",
+      "minimum": 4.5,
+      "ratio": 7.541739415218818
     }
   ],
   "acceptedExceptions": [

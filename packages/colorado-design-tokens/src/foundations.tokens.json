@@ -2055,5 +2055,59 @@
         }
       }
     }
+  },
+  "link": {
+    "underline-thickness": {
+      "$type": "dimension",
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "underline-thickness",
+          "location": "Colorado Design System Figma / Link (828:3253) / text decoration; Dev Mode inspection 2026-10-12"
+        }
+      }
+    },
+    "underline-thickness-hover": {
+      "$type": "dimension",
+      "$value": {
+        "value": 4,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "underline-thickness-hover",
+          "location": "Colorado Design System Figma / Link (828:3253) / text decoration; Dev Mode inspection 2026-10-12"
+        }
+      }
+    },
+    "underline-offset": {
+      "$type": "dimension",
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "underline-offset",
+          "location": "Colorado Design System Figma / Link (828:3253) / text decoration; Dev Mode inspection 2026-10-12"
+        }
+      }
+    },
+    "underline-offset-standalone-hover": {
+      "$type": "dimension",
+      "$value": {
+        "value": 3,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "underline-offset-standalone-hover",
+          "location": "Colorado Design System Figma / Link (828:3253) / text decoration; Dev Mode inspection 2026-10-12"
+        }
+      }
+    }
   }
 }

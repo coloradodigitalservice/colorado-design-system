@@ -1,0 +1,10 @@
+---
+import examples from '@coloradodigitalservice/colorado-design-system/examples/link.json';
+import metadata from '@coloradodigitalservice/colorado-design-system/metadata/link.json';
+import CodeExamples from './CodeExamples.astro';
+---
+
+{examples.examples.map((example) => (
+  <div set:html={example.html} />
+))}
+<CodeExamples metadata={metadata} examples={examples.examples} />

@@ -57,6 +57,10 @@ The Language Selector notes explicitly describe a 4px blue trigger ring with a 2
 
 The seven alert and visited-link tokens record their Figma file nodes in `$extensions.org.colorado.source`, but the Figma variable names and library version were not supplied and are not recorded here. Design and accessibility review of these tokens is pending. Do not treat them as design-approved until a human records both.
 
+Link-specific supplemental aliases record the inline/standalone distinctions
+and visited color inspected in Figma. They retain the original 46 mappings;
+see the Link table in `references/mapping.md`.
+
 ## Contract sample reconciliation
 
 Both complete sample Sass files now compile in tests. The disclosure uses `color-border-subtle`, the existing `color-bg-action-focus`, and the documented trigger focus dimensions. The tag uses `color-bg-surface-secondary`, `color-bg-tag-info`, and `color-text-tag-info`.
@@ -65,7 +69,7 @@ Both complete sample Sass files now compile in tests. The disclosure uses `color
 
 ## Accessibility and troubleshooting
 
-`references/contrast-pairs.json` records the 47 selected text, tag, link, button, form-border, status-icon, alert, and focus-color pairs and their thresholds. The Warning alert border (`border-alert-warning` on `bg-alert-warning`, 1.37:1; 1.46:1 against the default surface) remains below the 3:1 threshold. On 2026-10-13, the CoDS technical lead accepted these known warning-accent contrast failures as documented decorative exceptions, limited to uses where the accent is not the sole control boundary or state cue. The report records their measured ratios separately from passing pairs; this is not a WCAG conformance claim or accessibility-owner approval. CDS-48's accessibility review remains outstanding; see the [catalog review](references/catalog-review.md#recorded-technical-lead-risk-acceptance-2026-10-13). Validation does not change the measured results to pass. Disabled states are excluded. These checks do not approve component accessibility or arbitrary token combinations.
+`references/contrast-pairs.json` records the 49 selected text, tag, link, button, form-border, status-icon, alert, and focus-color pairs and their thresholds. The Warning alert border (`border-alert-warning` on `bg-alert-warning`, 1.37:1; 1.46:1 against the default surface) remains below the 3:1 threshold. On 2026-10-13, the CoDS technical lead accepted these known warning-accent contrast failures as documented decorative exceptions, limited to uses where the accent is not the sole control boundary or state cue. The report records their measured ratios separately from passing pairs; this is not a WCAG conformance claim or accessibility-owner approval. CDS-48's accessibility review remains outstanding; see the [catalog review](references/catalog-review.md#recorded-technical-lead-risk-acceptance-2026-10-13). Validation does not change the measured results to pass. Disabled states are excluded. These checks do not approve component accessibility or arbitrary token combinations.
 
 Review full focus visibility and obscuration, reduced-motion behavior, typography at zoom/reflow and with fallback fonts, and forced-color rendering at component level. Preserve native semantics and test keyboard and assistive-technology behavior. The focus-color check against white does not establish a complete focus treatment.
 

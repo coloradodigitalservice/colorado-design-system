@@ -1,0 +1,144 @@
+@layer cods.components {
+  .cods-link {
+    font-family: var(--cods-font-family-body), sans-serif;
+    font-size: var(--cods-font-size-desktop-body);
+    font-weight: var(--cods-font-weight-desktop-body);
+    line-height: var(--cods-line-height-desktop-body);
+    overflow-wrap: anywhere;
+    text-decoration: underline solid;
+    text-decoration-thickness: var(--cods-link-underline-thickness);
+    text-underline-offset: var(--cods-link-underline-offset);
+    text-underline-position: from-font;
+  }
+
+  .cods-link:link {
+    color: var(--cods-color-text-action-link-inline);
+  }
+
+  .cods-link:visited {
+    color: var(--cods-color-text-action-link-visited);
+  }
+
+  .cods-link:hover {
+    color: var(--cods-color-text-action-link-inline-hover);
+    text-decoration-thickness: var(--cods-link-underline-thickness-hover);
+  }
+
+  .cods-link:active {
+    color: var(--cods-color-text-action-link-inline-active);
+    text-decoration-thickness: var(--cods-link-underline-thickness);
+  }
+
+  // Standalone navigation is separate from prose; Figma underlines it on hover.
+  .cods-link--standalone {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--cods-space-2xs);
+    max-inline-size: 100%;
+    font-size: var(--cods-font-size-desktop-ui);
+    font-weight: var(--cods-font-weight-desktop-ui);
+    line-height: var(--cods-line-height-desktop-ui);
+    text-decoration: none;
+  }
+
+  .cods-link--standalone:link,
+  .cods-link--standalone:visited {
+    color: var(--cods-color-text-action-link-standalone);
+  }
+
+  .cods-link--standalone:hover {
+    color: var(--cods-color-text-action-link-standalone-hover);
+    text-decoration-line: underline;
+    text-decoration-thickness: var(--cods-link-underline-thickness-hover);
+    text-underline-offset: var(--cods-link-underline-offset-standalone-hover);
+  }
+
+  .cods-link--standalone:active {
+    color: var(--cods-color-text-action-link-standalone-active);
+    text-decoration: none;
+  }
+
+  .cods-link--small {
+    font-size: var(--cods-font-size-desktop-body-sm);
+    line-height: var(--cods-line-height-desktop-body-sm);
+  }
+
+  .cods-link--standalone.cods-link--small {
+    font-size: var(--cods-font-size-desktop-ui-sm);
+    line-height: var(--cods-line-height-desktop-ui-sm);
+  }
+
+  .cods-link--large {
+    font-size: var(--cods-font-size-desktop-body-lg);
+    line-height: var(--cods-line-height-desktop-body-lg);
+  }
+
+  .cods-link:focus-visible {
+    // Shadows paint the Figma 2px white gap plus 2px blue band; the transparent
+    // outline preserves a focus indicator when forced colors suppress shadows.
+    border-radius: var(--cods-radius-sm);
+    outline: var(--cods-focus-ring-offset) solid transparent;
+    outline-offset: var(--cods-focus-ring-offset);
+    box-shadow:
+      0 0 0 var(--cods-focus-ring-offset) var(--cods-color-focus-gap),
+      0 0 0 var(--cods-space-2xs) var(--cods-color-bg-action-focus);
+  }
+
+  .cods-link__icon {
+    display: inline-block;
+    width: var(--cods-space-md);
+    height: var(--cods-space-md);
+    vertical-align: middle;
+    margin-inline-start: var(--cods-space-2xs);
+  }
+
+  .cods-link__icon--arrow {
+    background-color: currentcolor;
+    mask: url('./assets/arrow-right.svg') center / contain no-repeat;
+  }
+
+  .cods-link__icon--external {
+    background-color: currentcolor;
+    mask: url('./assets/external-link.svg') center / contain no-repeat;
+  }
+
+  .cods-link__icon--globe {
+    background-color: currentcolor;
+    mask: url('./assets/globe.svg') center / contain no-repeat;
+  }
+
+  .cods-link__icon--prefix {
+    margin-inline: 0 var(--cods-space-2xs);
+  }
+
+  .cods-link--standalone .cods-link__icon {
+    margin-inline: 0;
+  }
+
+  // Only directional arrows mirror, using the link's resolved direction.
+  .cods-link:dir(rtl) .cods-link__icon--arrow {
+    transform: scaleX(-1);
+  }
+
+  @media (forced-colors: active) {
+    .cods-link__icon {
+      // Preserve a mask painted in the inherited system link color.
+      forced-color-adjust: none;
+    }
+
+    .cods-link:link,
+    .cods-link:hover,
+    .cods-link:active {
+      color: LinkText;
+    }
+
+    .cods-link:visited {
+      color: VisitedText;
+    }
+
+    .cods-link:focus-visible {
+      outline-color: Highlight;
+    }
+  }
+}
