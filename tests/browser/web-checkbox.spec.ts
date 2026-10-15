@@ -91,25 +91,52 @@ test('focus, token defaults, reflow, RTL, and reduced motion', async ({
   ).toBe('none');
 });
 
-test('forced colors preserves boundary, focus, and state glyphs', async ({
+test('forced colors uses visible native checked, mixed, and disabled controls', async ({
   page,
 }) => {
   await page.emulateMedia({ forcedColors: 'active' });
-  await page.locator('#checkbox-default').focus();
+  const input = page.locator('#checkbox-default');
+  await input.focus();
   await page.keyboard.press('Space');
-  const style = await page
-    .locator('label[for="checkbox-default"]')
-    .evaluate((el) => {
-      const box = getComputedStyle(el, '::before');
-      return {
-        border: box.borderTopStyle,
-        outline: box.outlineStyle,
-        image: box.backgroundImage,
-      };
-    });
-  expect(style.border).toBe('solid');
-  expect(style.outline).toBe('solid');
-  expect(style.image).not.toBe('none');
+  await expect(input).toBeChecked();
+  await expect(input).toBeInViewport();
+  const style = await input.evaluate((el) => {
+    const control = getComputedStyle(el);
+    const decoration = getComputedStyle(el.nextElementSibling!, '::before');
+    const box = el.getBoundingClientRect();
+    return {
+      appearance: control.appearance,
+      position: control.position,
+      outline: control.outlineStyle,
+      outlineWidth: control.outlineWidth,
+      width: box.width,
+      height: box.height,
+      decoration: decoration.display,
+    };
+  });
+  expect(style).toMatchObject({
+    appearance: 'auto',
+    position: 'static',
+    outline: 'solid',
+    outlineWidth: '4px',
+    width: 16,
+    height: 16,
+    decoration: 'none',
+  });
+  const mixed = page.locator('#checkbox-indeterminate');
+  await expect(mixed).toBeChecked({ indeterminate: true });
+  await mixed.scrollIntoViewIfNeeded();
+  await expect(mixed).toBeInViewport();
+  await mixed.focus();
+  await page.keyboard.press('Space');
+  await expect(mixed).not.toBeChecked({ indeterminate: true });
+  const disabled = page.locator('#checkbox-disabled-checked');
+  await disabled.scrollIntoViewIfNeeded();
+  await expect(disabled).toBeInViewport();
+  await expect(disabled).toBeDisabled();
+  await expect(disabled).toBeChecked();
+  await page.locator('label[for="checkbox-default"]').click();
+  await expect(input).not.toBeChecked();
 });
 
 test('works with JavaScript and CSS disabled', async ({ browser }) => {
@@ -118,10 +145,9 @@ test('works with JavaScript and CSS disabled', async ({ browser }) => {
   await page.goto('http://127.0.0.1:4321/checkbox/');
   await page.locator('label[for="checkbox-default"]').click();
   await expect(page.locator('#checkbox-default')).toBeChecked();
-  await expect(page.locator('#checkbox-indeterminate')).toHaveJSProperty(
-    'indeterminate',
-    false,
-  );
+  await expect(page.locator('#checkbox-indeterminate')).not.toBeChecked({
+    indeterminate: true,
+  });
   await page.route('**/*.css', (route) => route.abort());
   await page.reload();
   await expect(page.locator('#checkbox-default')).toBeVisible();

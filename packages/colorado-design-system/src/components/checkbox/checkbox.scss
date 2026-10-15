@@ -96,36 +96,48 @@
   }
 
   @media (forced-colors: active) {
-    .cods-checkbox__label {
-      color: CanvasText;
-
-      &::before {
-        border: calc(var(--cods-space-2xs) / 2) solid CanvasText;
-        background-color: Canvas;
-        box-shadow: none;
-      }
+    // Let the browser draw native state indicators when background images
+    // and shadows are suppressed by the user's contrast settings.
+    .cods-checkbox {
+      display: grid;
+      grid-template-columns: var(--cods-space-md) minmax(0, 1fr);
+      column-gap: var(--cods-space-md);
     }
 
     .cods-checkbox__input {
-      &:is(:checked, :indeterminate) + .cods-checkbox__label::before {
-        background-color: Highlight;
-        border-color: Highlight;
-      }
+      position: static;
+      appearance: auto;
+      inline-size: var(--cods-space-md);
+      block-size: var(--cods-space-md);
+      margin: 0;
+      align-self: center;
 
-      &:focus-visible + .cods-checkbox__label::before {
-        outline-color: Highlight;
+      &:focus-visible {
+        outline: var(--cods-focus-ring-width, tokens.$focus-ring-width) solid
+          Highlight;
+        outline-offset: var(
+          --cods-focus-ring-offset,
+          tokens.$focus-ring-offset
+        );
       }
 
       &:disabled + .cods-checkbox__label {
         color: GrayText;
+      }
+    }
 
-        &::before {
-          border-color: GrayText;
-        }
+    .cods-checkbox__label {
+      color: CanvasText;
+      padding-inline: 0;
+
+      &::before {
+        display: none;
+        content: none;
       }
     }
 
     .cods-checkbox__error {
+      grid-column: 2;
       color: CanvasText;
     }
   }

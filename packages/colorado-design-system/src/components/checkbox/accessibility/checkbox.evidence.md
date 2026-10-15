@@ -52,7 +52,7 @@
 
 ## Forced colors / high contrast
 
-- [ ] Emulated boundaries, focus, and checked/mixed glyphs: Chromium and WebKit automated checks pass; Firefox cannot launch locally. Real Windows High Contrast review remains open.
+- [ ] Forced-colors mode now exposes the native input and removes the decorative pseudo-element. Regression tests check on-screen native controls, checked/mixed/disabled state, label activation, and visible focus rather than requiring SVG background images. Chromium/WebKit and Firefox CI results are recorded in PR #56; local Firefox cannot launch. Real Windows High Contrast review remains open.
 
 ## Localization
 
@@ -62,6 +62,8 @@
 ## Open items
 
 Automated results: 131 unit tests and all 82 Storybook tests pass. Interactive Chromium Playwright CLI inspection at desktop and 320px confirms visible focus, readable labels, and the native mixed accessibility state. Screenshots were inspected locally; they are not approved visual baselines.
+
+Review follow-up (2026-10-15): the initial forced-colors glyph-presence check missed poor Chromium contrast and Firefox image suppression. It is superseded by native-input rendering and the regression checks above. The no-JavaScript test uses the native checkbox-state assertion instead of a DOM-property evaluation that timed out in Firefox.
 
 Tracked under CDS-56 / CODS-P3-008:
 
