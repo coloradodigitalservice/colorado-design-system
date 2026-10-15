@@ -139,19 +139,26 @@ test('forced colors uses visible native checked, mixed, and disabled controls', 
   await expect(input).not.toBeChecked();
 });
 
-test('works with JavaScript and CSS disabled', async ({ browser }) => {
-  const context = await browser.newContext({ javaScriptEnabled: false });
-  const page = await context.newPage();
-  await page.goto('http://127.0.0.1:4321/checkbox/');
-  await page.locator('label[for="checkbox-default"]').click();
-  await expect(page.locator('#checkbox-default')).toBeChecked();
-  await expect(page.locator('#checkbox-indeterminate')).not.toBeChecked({
-    indeterminate: true,
+for (const withoutStyles of [false, true]) {
+  test(`works without JavaScript${withoutStyles ? ' or CSS' : ''}`, async ({
+    browser,
+  }) => {
+    // Separate contexts avoid Firefox restoring checked state on reload.
+    const context = await browser.newContext({ javaScriptEnabled: false });
+    try {
+      const page = await context.newPage();
+      if (withoutStyles) await page.route('**/*.css', (route) => route.abort());
+      await page.goto('http://127.0.0.1:4321/checkbox/');
+      const input = page.locator('#checkbox-default');
+      if (withoutStyles) await expect(input).toBeVisible();
+      await expect(input).not.toBeChecked();
+      await page.locator('label[for="checkbox-default"]').click();
+      await expect(input).toBeChecked();
+      await expect(page.locator('#checkbox-indeterminate')).not.toBeChecked({
+        indeterminate: true,
+      });
+    } finally {
+      await context.close();
+    }
   });
-  await page.route('**/*.css', (route) => route.abort());
-  await page.reload();
-  await expect(page.locator('#checkbox-default')).toBeVisible();
-  await page.locator('label[for="checkbox-default"]').click();
-  await expect(page.locator('#checkbox-default')).toBeChecked();
-  await context.close();
-});
+}
