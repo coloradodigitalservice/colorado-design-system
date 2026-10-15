@@ -23,10 +23,10 @@ Each fixture block has a unique `data-cods-fixture-state` value. Metadata
 }
 ```
 
-`setup` is `none`, `focus`, `expand`, or `collapse`. Runtime states may reference
+`setup` is `none`, `focus`, `expand`, `collapse`, or `indeterminate`. Runtime states may reference
 another authored block, preserving the no-JavaScript fixture. Their code is
 flagged `review-required` with instructions: HTML alone cannot demonstrate
-keyboard focus or an enhanced controller state. Authored states are marked
+keyboard focus or an enhanced controller state. The `indeterminate` setup sets the native checkbox DOM property; it does not imply a packaged controller. Authored states are marked
 `valid` after structural checks (IDs, ARIA targets, meaningful interactive names,
 component roots, supported-state coverage). This label is not a full HTML
 conformance, accessibility, or contract-approval certification.
