@@ -42,7 +42,7 @@ test('unenhanced Storybook story uses the complete package fixture', async ({
       .evaluateAll((panels) => panels.map((panel) => panel.id)),
   ).toEqual(expectedIds);
   await expect(root.locator('[data-cods-accordion-panel]:visible')).toHaveCount(
-    9,
+    10,
   );
   await expect(root.locator('[data-cods-accordion-enhanced]')).toHaveCount(0);
 });
@@ -67,8 +67,11 @@ test('focused accordion trigger shows the Colorado focus ring', async ({
   );
   await expect(trigger).toBeFocused();
   await expect(trigger).toHaveCSS('outline-style', 'solid');
-  await expect(trigger).toHaveCSS('outline-width', '4px');
-  await expect(trigger).toHaveCSS('outline-color', 'rgb(23, 59, 179)');
+  await expect(trigger).toHaveCSS('outline-width', '2px');
+  await expect(trigger).toHaveCSS(
+    'box-shadow',
+    'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(23, 59, 179) 0px 0px 0px 4px',
+  );
 });
 
 test('focused accordion trigger uses the system highlight in forced colors', async ({
@@ -147,4 +150,106 @@ test('approved typography and spacing tokens can be customized at runtime', asyn
   await expect(trigger).toHaveCSS('font-size', '22px');
   await expect(trigger).toHaveCSS('padding-top', '20px');
   await expect(panel).toHaveCSS('padding-top', '20px');
+});
+
+for (const [variant, border, color] of [
+  ['bordered', '4px', 'rgb(235, 236, 237)'],
+  ['white', '1px', 'rgb(196, 197, 201)'],
+] as const) {
+  test(`${variant} matches Figma panel borders and header geometry`, async ({
+    page,
+  }, testInfo) => {
+    await page.goto(
+      `/iframe.html?id=components-accordion--${variant}&viewMode=story&globals=a11y.manual:!true`,
+    );
+    const root = page.locator('#storybook-root [data-cods-accordion]');
+    const trigger = root.getByRole('button').first();
+    const panel = root.locator('[data-cods-accordion-panel]').first();
+    await expect(panel).toBeVisible();
+    const geometry = await root.evaluate((el) => {
+      const button = el.querySelector('button')!;
+      const panel = el.querySelector('[data-cods-accordion-panel]')!;
+      const text = panel.querySelector('p')!;
+      return {
+        headerHeight: button.getBoundingClientRect().height,
+        textInset:
+          text.getBoundingClientRect().left -
+          panel.getBoundingClientRect().left,
+      };
+    });
+    expect(geometry.headerHeight).toBe(56);
+    expect(geometry.textInset).toBe(16);
+    await expect(panel).toHaveCSS('border-left-width', border);
+    await expect(panel).toHaveCSS('border-right-width', border);
+    await expect(panel).toHaveCSS('border-bottom-width', border);
+    await expect(panel).toHaveCSS('border-top-width', '0px');
+    await expect(panel).toHaveCSS('border-bottom-color', color);
+    if (variant === 'white') {
+      await expect(trigger).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+      await expect(trigger).toHaveCSS('border-top-color', color);
+      await expect(trigger).toHaveCSS('border-top-width', '1px');
+    }
+    const expanded = await trigger.evaluate((el) => {
+      const icon = getComputedStyle(el, '::after');
+      return { width: icon.width, height: icon.height, mask: icon.maskImage };
+    });
+    expect(expanded.width).toBe('24px');
+    expect(expanded.height).toBe('24px');
+    expect(expanded.mask).toContain('data:image/svg+xml');
+    await trigger.click();
+    await expect(panel).toBeHidden();
+    const collapsed = await trigger.evaluate(
+      (el) => getComputedStyle(el, '::after').maskImage,
+    );
+    expect(collapsed).not.toBe(expanded.mask);
+    await expectAccessible(page, testInfo, '#storybook-root');
+  });
+}
+
+test('chevrons retain the exported Figma artwork and forced-color visibility', async ({
+  page,
+}) => {
+  await page.goto(defaultStory);
+  const trigger = page.locator('#storybook-root button').first();
+  for (const [expanded, direction] of [
+    [true, 'up'],
+    [false, 'down'],
+  ] as const) {
+    if (!expanded) await trigger.click();
+    const renderedSvg = await trigger.evaluate((el) => {
+      const url = getComputedStyle(el, '::after').maskImage.slice(5, -2);
+      const body = url.slice(url.indexOf(',') + 1);
+      return url.includes(';base64,') ? atob(body) : decodeURIComponent(body);
+    });
+    const source = readFileSync(
+      `packages/colorado-design-system/src/components/accordion/assets/icon-medium-chevron-${direction}.svg`,
+      'utf8',
+    );
+    const same = await page.evaluate(
+      ({ renderedSvg, source }) => {
+        const parser = new DOMParser();
+        const a = parser.parseFromString(renderedSvg, 'image/svg+xml');
+        const b = parser.parseFromString(source, 'image/svg+xml');
+        return (
+          a.documentElement.getAttribute('viewBox') ===
+            b.documentElement.getAttribute('viewBox') &&
+          a.querySelector('path')?.getAttribute('d') ===
+            b.querySelector('path')?.getAttribute('d')
+        );
+      },
+      { renderedSvg, source },
+    );
+    expect(same).toBe(true);
+  }
+  await page.emulateMedia({ forcedColors: 'active' });
+  expect(
+    await trigger.evaluate(
+      (el) => getComputedStyle(el, '::after').forcedColorAdjust,
+    ),
+  ).toBe('none');
+  expect(
+    await trigger.evaluate(
+      (el) => getComputedStyle(el, '::after').backgroundColor,
+    ),
+  ).not.toBe('rgba(0, 0, 0, 0)');
 });

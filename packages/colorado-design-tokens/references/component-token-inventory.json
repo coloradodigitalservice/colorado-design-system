@@ -819,8 +819,10 @@
         "text/default"
       ],
       "tokens": [
+        "border.accordion-width",
         "color.bg-action-focus",
         "color.bg-surface-secondary",
+        "color.border-accordion-subtle",
         "color.border-default",
         "color.border-subtle",
         "color.focus-gap",
@@ -829,6 +831,7 @@
         "color.text-disabled",
         "color.text-primary",
         "color.white",
+        "focus.accordion-outer-spread",
         "focus.ring-offset",
         "focus.ring-width",
         "font.family-body",
@@ -840,6 +843,7 @@
         "line-height.desktop-h6",
         "paragraph-space.desktop-body",
         "radius.md",
+        "space.lg",
         "space.md",
         "space.sm"
       ],
@@ -848,15 +852,18 @@
       "directPaletteReferences": [],
       "implementationDirectory": "accordion",
       "implementationTokens": [
+        "border.accordion-width",
         "color.bg-action-focus",
         "color.bg-surface-secondary",
-        "color.border-subtle",
+        "color.border-accordion-subtle",
+        "color.border-default",
         "color.focus-gap",
+        "color.surface-default",
         "color.text-disabled",
         "color.text-primary",
         "color.white",
+        "focus.accordion-outer-spread",
         "focus.ring-offset",
-        "focus.ring-width",
         "font.family-body",
         "font.size-desktop-body",
         "font.size-desktop-h6",
@@ -865,6 +872,7 @@
         "line-height.desktop-body",
         "line-height.desktop-h6",
         "radius.md",
+        "space.lg",
         "space.md"
       ],
       "foundationBindings": {
@@ -1267,7 +1275,8 @@
         }
       ],
       "measurementEvidence": "figma-variants-observed-2026-10-08.json",
-      "designCoverage": "measured"
+      "designCoverage": "measured",
+      "implementationNotes": "Accordion alignment authorized by Eric 2026-10-16: dedicated gray/10 border mapping and 4px panel width; focus uses 2px white and 4px blue outer spread. Shared border-subtle and global focus contract unchanged."
     },
     {
       "name": "Breadcrumbs",

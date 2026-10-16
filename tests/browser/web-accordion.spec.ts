@@ -220,7 +220,7 @@ test('all server-rendered panels remain readable without CSS or JavaScript', asy
   if (process.env.CODS_BUILT_FILES === '1') await routeBuiltFiles(page, 'web');
   await page.goto('http://127.0.0.1:4321/accordion/');
   await expect(page.locator('[data-cods-accordion-panel]:visible')).toHaveCount(
-    9,
+    10,
   );
   await expect(page.locator('[data-cods-accordion-enhanced]')).toHaveCount(0);
   await page.evaluate(() =>
@@ -229,7 +229,7 @@ test('all server-rendered panels remain readable without CSS or JavaScript', asy
       .forEach((element) => element.remove()),
   );
   await expect(page.locator('[data-cods-accordion-panel]:visible')).toHaveCount(
-    9,
+    10,
   );
   await testInfo.attach('accordion-unenhanced', {
     body: await page.screenshot({ fullPage: true }),
@@ -274,8 +274,11 @@ test('focused trigger shows the Colorado focus ring', async ({ page }) => {
   await trigger.focus();
   await expect(trigger).toBeFocused();
   await expect(trigger).toHaveCSS('outline-style', 'solid');
-  await expect(trigger).toHaveCSS('outline-width', '4px');
-  await expect(trigger).toHaveCSS('outline-color', 'rgb(23, 59, 179)');
+  await expect(trigger).toHaveCSS('outline-width', '2px');
+  await expect(trigger).toHaveCSS(
+    'box-shadow',
+    'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(23, 59, 179) 0px 0px 0px 4px',
+  );
 });
 
 test('focused trigger uses the system highlight in forced colors', async ({

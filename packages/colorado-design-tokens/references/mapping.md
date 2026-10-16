@@ -85,3 +85,25 @@ Every foundation token records its design-reference section in `src/foundations.
 See [catalog review and migration](catalog-review.md), [component dependency inventory](component-token-inventory.json), and [observed variable tables](figma-observed-2026-10-08.json). The proposal preserves the original reviewed mappings. Supplemental additions retain the Figma role names as flattened kebab-case public names, except the seven alert/visited roles aligned with PR #37 (see the naming table in catalog-review.md); source locations are recorded on each token. Tag, Modal and Toast component aliases point to semantic roles. Desktop/Mobile typography uses explicit names, with disputed existing values retained for design review. Spacing `4xl` adds 80px; existing 4/8/12px names remain `2xs`/`xs`/`sm` despite Figma xs/s/ms labels. Translucent bottom-border and shadow primitives preserve source alpha; elevation geometry is scalar. The inventory records exclusions and unresolved bindings rather than implying full component sign-off.
 
 Gray and yellow tag text preserve the observed `text/default` alias through `color.text-primary`, rather than resolving straight to the palette. The dependency inventory now specifies measured foundation bindings with value checks against the [export evidence](figma-variants-observed-2026-10-08.json), alongside independently verified Git stylesheet dependencies. Token validation rejects undocumented implementation tokens and mappings whose values differ from either Git or the source measurement. Maps and Videos retain explicit design coverage gaps. Measured properties and source conflicts remain subject to design review.
+
+## Accordion alignment — October 16, 2026 (CODS-P3-007)
+
+Live Figma inspection in Chrome's Aten profile found that Accordion's
+`border/subtle` is `color/co-gray/10` (`#EBECED`), while the shared reviewed
+`color.border-subtle` remains gray/20. The additive supplemental role
+`color.border-accordion-subtle` aliases gray/10 for this component only. White
+uses the existing `color.border-default` (gray/20) and `color.surface-default`.
+`border.accordion-width` is the measured 4px side/bottom border at
+[Figma panel 1447:268](https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=1447-268&m=dev).
+
+The Accordion focus effect has a 2px white spread and 4px blue outer spread;
+`focus.accordion-outer-spread` records the latter. This is not a 4px
+blue band: the component retains a 2px outline for forced colors. Shared focus
+width/offset and the original 46 semantic mappings are unchanged. Eric authorized
+these four component alignment fixes on October 16; no immutable library version
+was available, and implementation authorization does not establish State approval.
+
+The pale panel/white borders are decorative; meaningful text, chevrons, native
+button semantics, and `aria-expanded` carry the control/state information. Existing
+contrast pairs cover dark text and blue focus against white/secondary surfaces;
+no failing pale-border ratio is reclassified as passing.

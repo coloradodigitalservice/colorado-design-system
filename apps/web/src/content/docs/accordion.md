@@ -79,7 +79,11 @@ The controller wraps the pinned [USWDS accordion](https://designsystem.digital.g
 
 ## Appearance and localization
 
-Public classes are `cods-accordion`, `cods-accordion--bordered`, `cods-accordion__heading`, `cods-accordion__trigger`, and `cods-accordion__panel`. Keep the corresponding `usa-*` classes as the private upstream integration markup. Set `--cods-accordion-background`, `--cods-accordion-text`, and `--cods-accordion-border` on a root to customize approved token-based defaults. Preserve readable contrast and visible focus.
+Public classes are `cods-accordion`, `cods-accordion--bordered`, `cods-accordion--white`, `cods-accordion__heading`, `cods-accordion__trigger`, and `cods-accordion__panel`. Keep the corresponding `usa-*` classes as the private upstream integration markup. Use `cods-accordion--bordered` for a gray header and 4px pale panel border, the default class for a borderless panel, and `cods-accordion--white` for white headers and 1px borders. Each appears in the canonical examples and Storybook.
+
+Set `--cods-accordion-background`, `--cods-accordion-text`, and `--cods-accordion-border` on a root to customize approved token-based defaults. The Accordion-specific border mapping uses `color.border-accordion-subtle` (gray/10) without changing the shared `color.border-subtle` (gray/20). White uses `color.border-default`. The pale border is decorative; the text, native button state, and up/down chevron convey the control and state.
+
+Focus follows the inspected Accordion effect: a 2px white gap with blue extending to 4px from the control edge (a 2px blue band). `focus.accordion-outer-spread` controls that extent; it does not redefine the shared focus-ring width used by other components. Forced colors retain a system-color outline and the chevron mask. Preserve readable contrast and visible focus.
 
 Translate heading/body text, set the appropriate `lang`, and use `dir="rtl"` for right-to-left content. Padding and icons use logical positioning. Content wraps without a fixed height; do not place unresponsive tables or media inside panels. Error, loading, and empty states belong to the content rather than this disclosure control.
 
@@ -87,11 +91,11 @@ The shipped fixture is available at `@coloradodigitalservice/colorado-design-sys
 
 ## Accessibility responsibilities
 
-The component supplies native button semantics, `aria-expanded`/`aria-controls` state, visible focus, reflow, reduced-motion, and forced-colors support. Authors remain responsible for unique panel IDs, heading levels that fit the page outline, meaningful trigger text, translated content, and keeping panel content accessible. Do not hide content that must remain available without JavaScript. Manual screen-reader, actual zoom, and Windows forced-colors observations are not fully recorded in the evidence file, so accessibility lead acceptance is pending.
+The component supplies native button semantics, `aria-expanded`/`aria-controls` state, visible focus, reflow, reduced-motion, and forced-colors support. Authors remain responsible for unique panel IDs, heading levels that fit the page outline, meaningful trigger text, translated content, and keeping panel content accessible. Do not hide content that must remain available without JavaScript. Eric reported completing fresh screen-reader, actual 400% zoom, and Windows High Contrast checks on October 16, 2026. Specific environments and announcements were not supplied; the evidence distinguishes that report from automated checks and owner acceptance.
 
 ## Known limitations and implementation status
 
-- **Status:** P3-007 extends the G2 vertical slice at **experimental** maturity. Historical manual review is recorded in the evidence file; the lifecycle and style updates need fresh human verification. Domain-owner acceptance and G3 approval are pending. Figma access was unavailable during implementation; committed P3-001 measurements informed spacing, typography, and radii, and exact visual alignment still needs design review.
+- **Status:** P3-007 extends the G2 vertical slice at **experimental** maturity. Historical manual review is recorded in the evidence file; the lifecycle and style updates need fresh human verification. Domain-owner acceptance and G3 approval are pending. The live Figma file was inspected in Chrome’s Aten profile on October 16, 2026. Chevron artwork, borders, focus geometry, and the white variant follow that observation; Git remains authoritative for released token values.
 - Configuration is read once at initialization; destroy and reinitialize after changing configuration or an existing root's items.
 - The controller does not observe the DOM; call `initAllAccordions()` after inserting new markup.
 - No nested accordions, custom arrow-key navigation, animation, or live-region announcements. State changes are immediate with either reduced-motion preference.

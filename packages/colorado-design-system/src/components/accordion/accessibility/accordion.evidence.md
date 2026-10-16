@@ -5,6 +5,41 @@
 - Automated implementation review: Codex, 2026-10-01. Manual accessibility lead acceptance and G2 approval are pending.
 - Basis: pinned USWDS 3.14.0 markup and toggle/exclusivity behavior, wrapped with the CoDS per-root lifecycle, events, and focus safety. Upstream accessibility claims do not establish acceptance of this wrapper.
 
+## Figma alignment update — 2026-10-16
+
+Eric authorized fixing chevrons, borders, focus, and the missing white variant.
+The live file was inspected and icons exported in Chrome's **Aten** profile.
+The Figma connector still lacks access, so these observations come from the
+browser Inspect panels and original SVG downloads, not a connector response.
+
+- Header/body: 16px padding, 18px/600/24px Open Sans summary, 16px/400/24px body;
+  4px header radius and the existing dark text/secondary-surface roles.
+- Icons: original 24×24 up/down SVGs, used as masks with `currentColor` so
+  disabled, consumer color, and forced-color treatments remain available.
+- Bordered panel: 4px sides/bottom, no top border, gray/10 (`#EBECED`). A new
+  component-specific color role preserves the shared gray/20 semantic mapping.
+- White: white surface, 1px gray/20 header and panel borders, shared lifecycle.
+- Focus: 2px white spread and blue outer spread of 4px. A transparent 2px outline
+  becomes system Highlight under forced colors; the global 4px focus-width token
+  used elsewhere is unchanged. No expand/collapse transition is added.
+
+Eric reported completing fresh human screen-reader, actual 400% zoom, and Windows
+High Contrast checks on October 16, before this visual follow-up. Environments,
+versions, individual announcements, and outcome details were not supplied. This
+records reported completion without inventing observations or State sign-off.
+
+Current verification: 133 unit tests pass, including 19 controller tests. Token
+validation covers 355 tokens and 47 contrast pairs. The focused browser suite
+passes 31 checks in Chromium/WebKit, including exact exported SVG paths, border
+and inset geometry, white states, axe, focus, and forced colors. Firefox's ten
+checks remain enabled but fail locally before running because its browser process
+cannot find its temporary profile. Built desktop, white focus/collapsed, 320px,
+and RTL examples were inspected using the pinned Playwright CLI without starting
+a local server. CodeRabbit identified missing Sass token fallbacks; those were
+added. Its follow-up review could not authenticate (provider identity error).
+
+The sections below retain historical validation and review context.
+
 ## CODS-P3-007 production update — 2026-10-14
 
 This update is stacked directly on CODS-P3-001. It retains experimental maturity
@@ -113,11 +148,11 @@ Automated checks use a 320px viewport, long headings/body text, and panel overfl
 
 ## Motion
 
-The component adds no animation, transition, or automatic scrolling. Browser checks run with reduced motion. The focus ring and plus/minus state indicators do not depend on motion. Eric reports the manual accessibility checks passed; detailed motion observations are not recorded.
+The component adds no animation, transition, or automatic scrolling. Browser checks run with reduced motion. The historical plus/minus indicators and current chevrons do not depend on motion. Eric reports the manual accessibility checks passed; detailed motion observations are not recorded.
 
 ## Forced colors
 
-Native system colors, borders, and outline retain state/focus indicators; the plus/minus icons use borders rather than background images. Browser checks emulate forced colors, verify keyboard outlines, and capture narrow screenshots. Eric reports the manual accessibility checks passed; the operating system and high-contrast settings were not supplied. macOS emulation alone does not establish Windows High Contrast verification.
+Native system colors, borders, and outline retain state/focus indicators; the original icons used borders; the current chevrons use SVG masks with system colors and `forced-color-adjust: none`. Browser checks emulate forced colors, verify keyboard outlines, and capture narrow screenshots. Eric reports the manual accessibility checks passed; the operating system and high-contrast settings were not supplied. macOS emulation alone does not establish Windows High Contrast verification.
 
 ## Localization
 

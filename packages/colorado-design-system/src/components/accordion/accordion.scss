@@ -1,10 +1,15 @@
 @use '@coloradodigitalservice/colorado-design-tokens' as tokens;
 
+// Short Sass fallback names keep runtime spacing calculations readable.
+$md: tokens.$space-md;
+$lg: tokens.$space-lg;
+$stroke: tokens.$border-accordion-width;
+
 @layer cods.components {
   .cods-accordion {
     --cods-accordion-background: var(--cods-color-bg-surface-secondary);
     --cods-accordion-text: var(--cods-color-text-primary);
-    --cods-accordion-border: var(--cods-color-border-subtle);
+    --cods-accordion-border: var(--cods-color-border-accordion-subtle);
 
     color: var(--cods-accordion-text);
     width: 100%;
@@ -21,7 +26,7 @@
     position: relative;
     padding-block: var(--cods-space-md, tokens.$space-md);
     padding-inline: var(--cods-space-md, tokens.$space-md)
-      calc(3 * var(--cods-space-md, tokens.$space-md));
+      calc(2 * var(--cods-space-md, $md) + var(--cods-space-lg, $lg));
     border-radius: var(--cods-radius-md, tokens.$radius-md);
     background: var(--cods-accordion-background);
     color: var(--cods-accordion-text);
@@ -37,37 +42,43 @@
     overflow-wrap: anywhere;
 
     &:focus-visible {
-      outline: var(--cods-focus-ring-width, tokens.$focus-ring-width) solid
-        var(--cods-color-bg-action-focus);
+      // The design's 4px is an outer spread: 2px white + 2px blue.
+      // Keep an outline for forced-colors modes where shadows are suppressed.
+      outline: var(--cods-focus-ring-offset, tokens.$focus-ring-offset) solid
+        transparent;
       outline-offset: var(--cods-focus-ring-offset, tokens.$focus-ring-offset);
-      box-shadow: 0 0 0 tokens.$focus-ring-offset var(--cods-color-focus-gap);
+      box-shadow:
+        0 0 0 var(--cods-focus-ring-offset, tokens.$focus-ring-offset)
+          var(--cods-color-focus-gap),
+        0 0 0
+          var(
+            --cods-focus-accordion-outer-spread,
+            tokens.$focus-accordion-outer-spread
+          )
+          var(--cods-color-bg-action-focus);
       z-index: 1;
     }
 
-    &::before,
     &::after {
       content: '';
       position: absolute;
       inset-inline-end: var(--cods-space-md, tokens.$space-md);
       top: 50%;
-      background: none;
-      mask: none;
-      width: var(--cods-space-md, tokens.$space-md);
-      height: 0;
-      border-block-start: 2px solid currentcolor;
+      transform: translateY(-50%);
+      width: var(--cods-space-lg, tokens.$space-lg);
+      height: var(--cods-space-lg, tokens.$space-lg);
+      background: currentcolor;
+      mask: url('./assets/icon-medium-chevron-down.svg') center / contain
+        no-repeat;
     }
 
-    &::before {
-      transform: rotate(90deg);
+    &[aria-expanded='true']::after {
+      mask-image: url('./assets/icon-medium-chevron-up.svg');
     }
 
     &[aria-expanded='true'] {
       border-end-start-radius: 0;
       border-end-end-radius: 0;
-    }
-
-    &[aria-expanded='true']::before {
-      content: none;
     }
 
     &:disabled {
@@ -80,7 +91,6 @@
     > .cods-accordion__heading > .cods-accordion__trigger {
       cursor: default;
 
-      &::before,
       &::after {
         content: none;
       }
@@ -110,10 +120,40 @@
   }
 
   .cods-accordion--bordered > .cods-accordion__panel {
+    border: var(--cods-border-accordion-width, tokens.$border-accordion-width)
+      solid var(--cods-accordion-border);
+    border-block-start: 0;
+
+    // Figma strokes sit inside the frame and overlap its padding.
+    padding-inline: calc(
+      var(--cods-space-md, $md) - var(--cods-border-accordion-width, $stroke)
+    );
+    padding-block-end: calc(
+      var(--cods-space-md, $md) - var(--cods-border-accordion-width, $stroke)
+    );
+  }
+
+  .cods-accordion--white {
+    --cods-accordion-background: var(--cods-color-surface-default);
+    --cods-accordion-border: var(--cods-color-border-default);
+  }
+
+  .cods-accordion--white > .cods-accordion__heading > .cods-accordion__trigger {
+    border: 1px solid var(--cods-accordion-border);
+    padding-block: calc(var(--cods-space-md, $md) - 1px);
+    padding-inline: calc(var(--cods-space-md, $md) - 1px)
+      calc(2 * var(--cods-space-md, $md) + var(--cods-space-lg, $lg) - 1px);
+
+    &::after {
+      inset-inline-end: calc(var(--cods-space-md, $md) - 1px);
+    }
+  }
+
+  .cods-accordion--white > .cods-accordion__panel {
     border: 1px solid var(--cods-accordion-border);
     border-block-start: 0;
-    border-end-start-radius: var(--cods-radius-md, tokens.$radius-md);
-    border-end-end-radius: var(--cods-radius-md, tokens.$radius-md);
+    padding-inline: calc(var(--cods-space-md, $md) - 1px);
+    padding-block-end: calc(var(--cods-space-md, $md) - 1px);
   }
 
   @media (forced-colors: active) {
@@ -126,6 +166,15 @@
 
     .cods-accordion__trigger:focus-visible {
       outline-color: Highlight;
+    }
+
+    .cods-accordion__trigger::after {
+      forced-color-adjust: none;
+      background: ButtonText;
+    }
+
+    .cods-accordion__trigger:disabled::after {
+      background: GrayText;
     }
 
     .cods-accordion__trigger:disabled {

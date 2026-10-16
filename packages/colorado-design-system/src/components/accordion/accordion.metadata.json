@@ -14,6 +14,7 @@
     "collapsed",
     "mixed",
     "bordered",
+    "white",
     "multiple",
     "disabled",
     "focus-visible",
@@ -51,6 +52,11 @@
     {
       "state": "bordered",
       "fixtureState": "bordered",
+      "setup": "none"
+    },
+    {
+      "state": "white",
+      "fixtureState": "white",
       "setup": "none"
     },
     {
