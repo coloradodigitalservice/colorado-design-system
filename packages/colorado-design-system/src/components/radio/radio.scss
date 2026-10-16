@@ -45,14 +45,16 @@
         inset 0 0 0 calc(var(--cods-space-2xs) / 2) var(--cods-radio-background);
     }
 
-    &:checked:hover:not(:disabled) + .cods-radio__label::before {
+    &:checked:hover:not(:disabled, [aria-invalid='true'])
+      + .cods-radio__label::before {
       box-shadow:
         0 0 0 calc(var(--cods-space-2xs) / 2)
           var(--cods-color-border-form-hover),
         inset 0 0 0 calc(var(--cods-space-2xs) / 2) var(--cods-radio-background);
     }
 
-    &:hover:not(:checked, :disabled) + .cods-radio__label::before {
+    &:hover:not(:checked, :disabled, [aria-invalid='true'])
+      + .cods-radio__label::before {
       box-shadow: 0 0 0 calc(var(--cods-space-2xs) / 2)
         var(--cods-color-border-form-hover);
     }

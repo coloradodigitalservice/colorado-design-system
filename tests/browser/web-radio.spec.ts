@@ -56,6 +56,28 @@ test('native grouping, labels, keyboard, disabled options and validation', async
   await expectAccessible(page, testInfo);
 });
 
+for (const selected of [false, true]) {
+  test(`invalid ${selected ? 'selected' : 'unselected'} radio keeps its error border on hover`, async ({
+    page,
+  }) => {
+    const input = page.locator('#radio-error-1');
+    const label = page.locator('label[for="radio-error-1"]');
+    await label.scrollIntoViewIfNeeded();
+    if (selected) await label.click();
+    await page.mouse.move(0, 0);
+    const before = await label.evaluate(
+      (el) => getComputedStyle(el, '::before').boxShadow,
+    );
+    expect(before).toContain('rgb(181, 9, 9)');
+    await label.hover();
+    expect(await input.evaluate((el) => el.matches(':hover'))).toBe(true);
+    expect(
+      await label.evaluate((el) => getComputedStyle(el, '::before').boxShadow),
+    ).toBe(before);
+    await expect(input).toBeChecked({ checked: selected });
+  });
+}
+
 test('visible selection, focus, body typography, RTL, reflow and reduced motion', async ({
   page,
 }) => {
