@@ -1,20 +1,35 @@
 import type { Page } from '@playwright/test';
-import { readFileSync, existsSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { readFileSync, realpathSync, statSync } from 'node:fs';
+import { relative, resolve, isAbsolute, sep } from 'node:path';
 
 // Browser routing checks compiled pages and assets without starting a server.
 export async function routeBuiltFiles(page: Page, app: 'web' | 'storybook') {
   await page.route(
     `http://127.0.0.1:${app === 'web' ? 4321 : 6006}/**`,
     async (route) => {
-      const pathname = decodeURIComponent(
-        new URL(route.request().url()).pathname,
-      );
-      const file = resolve(
-        app === 'web' ? 'apps/web/dist' : 'apps/storybook/storybook-static',
-        `.${pathname}${pathname.endsWith('/') ? 'index.html' : ''}`,
-      );
-      if (!existsSync(file)) {
+      let file: string;
+      try {
+        const buildRoot = realpathSync(
+          app === 'web' ? 'apps/web/dist' : 'apps/storybook/storybook-static',
+        );
+        const pathname = decodeURIComponent(
+          new URL(route.request().url()).pathname,
+        );
+        file = realpathSync(
+          resolve(
+            buildRoot,
+            `.${pathname}${pathname.endsWith('/') ? 'index.html' : ''}`,
+          ),
+        );
+        const withinRoot = relative(buildRoot, file);
+        if (
+          withinRoot === '..' ||
+          withinRoot.startsWith(`..${sep}`) ||
+          isAbsolute(withinRoot) ||
+          !statSync(file).isFile()
+        )
+          throw new Error('Not a build file');
+      } catch {
         await route.fulfill({ status: 404, body: '' });
         return;
       }

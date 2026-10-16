@@ -69,7 +69,7 @@ CODS-P3-007 retains **single-open by default** to preserve the shipped vertical-
 
 ## Keyboard and focus
 
-Tab and Shift+Tab follow the native button/link order. Enter and Space toggle a focused enabled trigger. Focus stays on that trigger after activation. If initialization or a public method collapses a panel containing focus, focus returns to its trigger. Initialization leaves focus in content that remains open. Escape and arrow keys retain their ordinary browser behavior; there is no modal state, focus trap, or custom arrow navigation.
+Tab and Shift+Tab follow the native button/link order. Enter and Space toggle a focused enabled trigger. Focus stays on that trigger after activation. If initialization or a public method collapses a panel containing focus, focus returns to its trigger. Initialization leaves focus in content that remains open. When opening a panel leaves its trigger outside the viewport (for example, after a sibling closes), the delegated USWDS click handler may scroll it into view. This also applies with reduced motion; the wrapper does not request smooth scrolling, but page CSS can affect scrolling behavior. Escape and arrow keys retain their ordinary browser behavior; there is no modal state, focus trap, or custom arrow navigation.
 
 ## Progressive enhancement
 

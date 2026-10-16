@@ -148,7 +148,7 @@ Automated checks use a 320px viewport, long headings/body text, and panel overfl
 
 ## Motion
 
-The component adds no animation, transition, or automatic scrolling. Browser checks run with reduced motion. The historical plus/minus indicators and current chevrons do not depend on motion. Eric reports the manual accessibility checks passed; detailed motion observations are not recorded.
+The component adds no animation or transition. The delegated USWDS click handler may call `scrollIntoView()` when opening a panel leaves its trigger outside the viewport, including after a sibling closes. This behavior also applies with reduced motion; the wrapper does not request smooth scrolling, but author CSS can affect scrolling behavior. Browser checks run with reduced motion. The historical plus/minus indicators and current chevrons do not depend on motion. Eric reports the manual accessibility checks passed; detailed motion observations are not recorded.
 
 ## Forced colors
 
