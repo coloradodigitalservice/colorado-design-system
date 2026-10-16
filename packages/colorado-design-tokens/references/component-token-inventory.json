@@ -9403,21 +9403,30 @@
         "text/default"
       ],
       "tokens": [
+        "color.bg-action-focus",
         "color.bg-action-primary",
         "color.bg-disabled",
         "color.border-action-secondary",
         "color.border-disabled",
+        "color.border-form-danger",
         "color.border-form-default",
         "color.border-form-hover",
         "color.surface-form",
         "color.surface-form-selected",
+        "color.text-danger",
+        "color.text-disabled",
         "color.text-primary",
+        "focus.ring-offset",
+        "focus.ring-width",
         "font.family-body",
         "font.size-desktop-body",
         "font.weight-regular",
+        "font.weight-semibold",
         "line-height.desktop-body",
         "paragraph-space.desktop-body",
         "radius.md",
+        "space.2xs",
+        "space.lg",
         "space.md",
         "space.sm",
         "space.xs"
@@ -9450,7 +9459,30 @@
         "rectangleBottomRightCornerRadius:radius.md": ["radius.md"]
       },
       "mappingStatus": "Measured source properties mapped only when the reviewed catalog value matches; design acceptance pending.",
-      "implementationTokens": [],
+      "implementationTokens": [
+        "color.bg-action-focus",
+        "color.bg-action-primary",
+        "color.bg-disabled",
+        "color.border-disabled",
+        "color.border-form-danger",
+        "color.border-form-default",
+        "color.border-form-hover",
+        "color.surface-form",
+        "color.text-danger",
+        "color.text-disabled",
+        "color.text-primary",
+        "focus.ring-offset",
+        "focus.ring-width",
+        "font.family-body",
+        "font.size-desktop-body",
+        "font.weight-regular",
+        "font.weight-semibold",
+        "line-height.desktop-body",
+        "space.2xs",
+        "space.lg",
+        "space.md",
+        "space.xs"
+      ],
       "foundationNotes": "Mappings identify measured properties, not implementation requirements. Explicit mode is recorded in source bindings; unbound typography uses Desktop only when its full signature matches. Unmapped values and inherited library styles need design review. Git implementation dependencies remain independently recorded.",
       "foundationTokens": [
         "font.family-body",
@@ -9812,7 +9844,8 @@
         }
       ],
       "measurementEvidence": "figma-variants-observed-2026-10-08.json",
-      "designCoverage": "measured"
+      "designCoverage": "measured",
+      "implementationDirectory": "radio"
     },
     {
       "name": "Search",
