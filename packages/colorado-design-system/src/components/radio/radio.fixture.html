@@ -1,0 +1,350 @@
+<section
+  data-cods-fixture-state="default"
+  aria-labelledby="radio-default-heading"
+>
+  <h2 id="radio-default-heading">Default</h2>
+  <fieldset class="usa-fieldset cods-radio__group">
+    <legend class="usa-legend cods-radio__legend">
+      How should we contact you?
+    </legend>
+
+    <div class="usa-radio cods-radio">
+      <input
+        class="usa-radio__input cods-radio__input"
+        id="radio-default-1"
+        type="radio"
+        name="radio-default"
+        value="option-1"
+      />
+      <label class="usa-radio__label cods-radio__label" for="radio-default-1"
+        >Email</label
+      >
+    </div>
+    <div class="usa-radio cods-radio">
+      <input
+        class="usa-radio__input cods-radio__input"
+        id="radio-default-2"
+        type="radio"
+        name="radio-default"
+        value="option-2"
+      />
+      <label class="usa-radio__label cods-radio__label" for="radio-default-2"
+        >Phone</label
+      >
+    </div>
+    <div class="usa-radio cods-radio">
+      <input
+        class="usa-radio__input cods-radio__input"
+        id="radio-default-3"
+        type="radio"
+        name="radio-default"
+        value="option-3"
+      />
+      <label class="usa-radio__label cods-radio__label" for="radio-default-3"
+        >Postal mail</label
+      >
+    </div>
+  </fieldset>
+</section>
+
+<section
+  data-cods-fixture-state="selected"
+  aria-labelledby="radio-selected-heading"
+>
+  <h2 id="radio-selected-heading">Selected</h2>
+  <fieldset class="usa-fieldset cods-radio__group">
+    <legend class="usa-legend cods-radio__legend">
+      Choose a reminder method
+    </legend>
+
+    <div class="usa-radio cods-radio">
+      <input
+        class="usa-radio__input cods-radio__input"
+        id="radio-selected-1"
+        type="radio"
+        name="radio-selected"
+        value="option-1"
+        checked
+      />
+      <label class="usa-radio__label cods-radio__label" for="radio-selected-1"
+        >Email</label
+      >
+    </div>
+    <div class="usa-radio cods-radio">
+      <input
+        class="usa-radio__input cods-radio__input"
+        id="radio-selected-2"
+        type="radio"
+        name="radio-selected"
+        value="option-2"
+      />
+      <label class="usa-radio__label cods-radio__label" for="radio-selected-2"
+        >Text message</label
+      >
+    </div>
+  </fieldset>
+</section>
+
+<section
+  data-cods-fixture-state="disabled"
+  aria-labelledby="radio-disabled-heading"
+>
+  <h2 id="radio-disabled-heading">Disabled option</h2>
+  <fieldset class="usa-fieldset cods-radio__group">
+    <legend class="usa-legend cods-radio__legend">
+      Choose a delivery method
+    </legend>
+
+    <div class="usa-radio cods-radio">
+      <input
+        class="usa-radio__input cods-radio__input"
+        id="radio-disabled-1"
+        type="radio"
+        name="radio-disabled"
+        value="option-1"
+        checked
+      />
+      <label class="usa-radio__label cods-radio__label" for="radio-disabled-1"
+        >Email</label
+      >
+    </div>
+    <div class="usa-radio cods-radio">
+      <input
+        class="usa-radio__input cods-radio__input"
+        id="radio-disabled-2"
+        type="radio"
+        name="radio-disabled"
+        value="option-2"
+        disabled
+      />
+      <label class="usa-radio__label cods-radio__label" for="radio-disabled-2"
+        >Postal mail (unavailable)</label
+      >
+    </div>
+    <div class="usa-radio cods-radio">
+      <input
+        class="usa-radio__input cods-radio__input"
+        id="radio-disabled-3"
+        type="radio"
+        name="radio-disabled"
+        value="option-3"
+      />
+      <label class="usa-radio__label cods-radio__label" for="radio-disabled-3"
+        >Phone</label
+      >
+    </div>
+  </fieldset>
+</section>
+
+<section
+  data-cods-fixture-state="disabled-group"
+  aria-labelledby="radio-disabled-group-heading"
+>
+  <h2 id="radio-disabled-group-heading">Disabled group</h2>
+  <fieldset class="usa-fieldset cods-radio__group" disabled>
+    <legend class="usa-legend cods-radio__legend">
+      Delivery method (unavailable)
+    </legend>
+
+    <div class="usa-radio cods-radio">
+      <input
+        class="usa-radio__input cods-radio__input"
+        id="radio-disabled-group-1"
+        type="radio"
+        name="radio-disabled-group"
+        value="option-1"
+        checked
+      />
+      <label
+        class="usa-radio__label cods-radio__label"
+        for="radio-disabled-group-1"
+        >Email</label
+      >
+    </div>
+    <div class="usa-radio cods-radio">
+      <input
+        class="usa-radio__input cods-radio__input"
+        id="radio-disabled-group-2"
+        type="radio"
+        name="radio-disabled-group"
+        value="option-2"
+      />
+      <label
+        class="usa-radio__label cods-radio__label"
+        for="radio-disabled-group-2"
+        >Postal mail</label
+      >
+    </div>
+  </fieldset>
+</section>
+
+<section data-cods-fixture-state="error" aria-labelledby="radio-error-heading">
+  <h2 id="radio-error-heading">Error</h2>
+  <fieldset
+    class="usa-fieldset cods-radio__group"
+    aria-describedby="radio-error-message"
+  >
+    <legend class="usa-legend cods-radio__legend">
+      Choose an application type
+    </legend>
+    <p class="cods-radio__error" id="radio-error-message">
+      Error: Select an application type before continuing.
+    </p>
+    <div class="usa-radio cods-radio">
+      <input
+        class="usa-radio__input cods-radio__input"
+        id="radio-error-1"
+        type="radio"
+        name="radio-error"
+        value="option-1"
+        aria-invalid="true"
+        required
+      />
+      <label class="usa-radio__label cods-radio__label" for="radio-error-1"
+        >New application</label
+      >
+    </div>
+    <div class="usa-radio cods-radio">
+      <input
+        class="usa-radio__input cods-radio__input"
+        id="radio-error-2"
+        type="radio"
+        name="radio-error"
+        value="option-2"
+        aria-invalid="true"
+        required
+      />
+      <label class="usa-radio__label cods-radio__label" for="radio-error-2"
+        >Renewal</label
+      >
+    </div>
+  </fieldset>
+</section>
+
+<section
+  data-cods-fixture-state="long-content"
+  aria-labelledby="radio-long-content-heading"
+>
+  <h2 id="radio-long-content-heading">Long content</h2>
+  <fieldset class="usa-fieldset cods-radio__group">
+    <legend class="usa-legend cods-radio__legend">
+      Choose how to receive detailed information about your application and the
+      supporting documents you may need to provide
+    </legend>
+
+    <div class="usa-radio cods-radio">
+      <input
+        class="usa-radio__input cods-radio__input"
+        id="radio-long-content-1"
+        type="radio"
+        name="radio-long-content"
+        value="option-1"
+      />
+      <label
+        class="usa-radio__label cods-radio__label"
+        for="radio-long-content-1"
+        >Send information by email, including application instructions,
+        eligibility requirements, deadlines, and details about supporting
+        documents.</label
+      >
+    </div>
+    <div class="usa-radio cods-radio">
+      <input
+        class="usa-radio__input cods-radio__input"
+        id="radio-long-content-2"
+        type="radio"
+        name="radio-long-content"
+        value="option-2"
+      />
+      <label
+        class="usa-radio__label cods-radio__label"
+        for="radio-long-content-2"
+        >Discuss the information with a member of the service team by
+        phone.</label
+      >
+    </div>
+  </fieldset>
+</section>
+
+<section
+  data-cods-fixture-state="localization"
+  aria-labelledby="radio-localization-heading"
+  lang="es"
+>
+  <h2 id="radio-localization-heading">Español</h2>
+  <fieldset class="usa-fieldset cods-radio__group">
+    <legend class="usa-legend cods-radio__legend">
+      ¿Cómo desea recibir información sobre su solicitud?
+    </legend>
+
+    <div class="usa-radio cods-radio">
+      <input
+        class="usa-radio__input cods-radio__input"
+        id="radio-localization-1"
+        type="radio"
+        name="radio-localization"
+        value="option-1"
+      />
+      <label
+        class="usa-radio__label cods-radio__label"
+        for="radio-localization-1"
+        >Por correo electrónico, incluidas las instrucciones y los documentos
+        necesarios.</label
+      >
+    </div>
+    <div class="usa-radio cods-radio">
+      <input
+        class="usa-radio__input cods-radio__input"
+        id="radio-localization-2"
+        type="radio"
+        name="radio-localization"
+        value="option-2"
+      />
+      <label
+        class="usa-radio__label cods-radio__label"
+        for="radio-localization-2"
+        >Por teléfono</label
+      >
+    </div>
+  </fieldset>
+</section>
+
+<section
+  data-cods-fixture-state="rtl"
+  aria-labelledby="radio-rtl-heading"
+  lang="ar"
+  dir="rtl"
+>
+  <h2 id="radio-rtl-heading">من اليمين إلى اليسار</h2>
+  <fieldset class="usa-fieldset cods-radio__group">
+    <legend class="usa-legend cods-radio__legend">
+      كيف تفضل أن نتواصل معك؟
+    </legend>
+
+    <div class="usa-radio cods-radio">
+      <input
+        class="usa-radio__input cods-radio__input"
+        id="radio-rtl-1"
+        type="radio"
+        name="radio-rtl"
+        value="option-1"
+        checked
+      />
+      <label class="usa-radio__label cods-radio__label" for="radio-rtl-1"
+        >البريد الإلكتروني</label
+      >
+    </div>
+    <div class="usa-radio cods-radio">
+      <input
+        class="usa-radio__input cods-radio__input"
+        id="radio-rtl-2"
+        type="radio"
+        name="radio-rtl"
+        value="option-2"
+      />
+      <label class="usa-radio__label cods-radio__label" for="radio-rtl-2"
+        >الهاتف</label
+      >
+    </div>
+  </fieldset>
+</section>
