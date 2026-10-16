@@ -1271,10 +1271,18 @@
         "text/secondary"
       ],
       "tokens": [
+        "color.bg-action-focus",
+        "color.focus-gap",
+        "color.icon-default",
+        "color.text-action-link-active",
+        "color.text-action-link-hover",
         "color.text-action-link-inline",
         "color.text-action-link-standalone",
+        "color.text-action-link-visited",
         "color.text-action-primary",
         "color.text-secondary",
+        "focus.ring-offset",
+        "focus.ring-width",
         "font.family-body",
         "font.size-desktop-supporting",
         "font.size-desktop-ui",
@@ -1316,7 +1324,26 @@
         "stackPaddingBottom:space.sm": ["space.sm"]
       },
       "mappingStatus": "Measured source properties mapped only when the reviewed catalog value matches; design acceptance pending.",
-      "implementationTokens": [],
+      "implementationTokens": [
+        "color.bg-action-focus",
+        "color.focus-gap",
+        "color.icon-default",
+        "color.text-action-link-active",
+        "color.text-action-link-hover",
+        "color.text-action-link-standalone",
+        "color.text-action-link-visited",
+        "color.text-action-primary",
+        "color.text-secondary",
+        "focus.ring-offset",
+        "focus.ring-width",
+        "font.family-body",
+        "font.size-desktop-ui",
+        "font.weight-regular",
+        "line-height.desktop-ui",
+        "radius.sm",
+        "space.2xs",
+        "space.sm"
+      ],
       "foundationNotes": "Mappings identify measured properties, not implementation requirements. Explicit mode is recorded in source bindings; unbound typography uses Desktop only when its full signature matches. Unmapped values and inherited library styles need design review. Git implementation dependencies remain independently recorded.",
       "foundationTokens": [
         "font.family-body",
@@ -1580,7 +1607,8 @@
         }
       ],
       "measurementEvidence": "figma-variants-observed-2026-10-08.json",
-      "designCoverage": "measured"
+      "designCoverage": "measured",
+      "implementationDirectory": "breadcrumbs"
     },
     {
       "name": "Card - Default",
