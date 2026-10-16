@@ -1,0 +1,79 @@
+{
+  "name": "select",
+  "displayName": "Select (Dropdown)",
+  "maturity": "experimental",
+  "type": "static",
+  "uswdsEquivalent": "select",
+  "uswdsVersion": "3.14.0",
+  "componentType": "A",
+  "owners": {
+    "responsible": "Aten component lead",
+    "accountable": "State technical owner",
+    "consulted": "State design owner, accessibility lead",
+    "informed": "Component contributors, product owner"
+  },
+  "divergenceApproved": false,
+  "divergenceNotes": null,
+  "states": [
+    "default",
+    "focus-visible",
+    "disabled",
+    "success",
+    "error",
+    "placeholder",
+    "long-content",
+    "localization",
+    "rtl"
+  ],
+  "progressiveEnhancement": "full",
+  "localization": "layout-sensitive",
+  "description": "Native single-choice Select using themed USWDS markup and browser keyboard behavior. No controller; searchable Combo Box, multi-select, and custom popups are out of scope.",
+  "examples": [
+    {
+      "state": "default",
+      "fixtureState": "default",
+      "setup": "none"
+    },
+    {
+      "state": "focus-visible",
+      "fixtureState": "focus-visible",
+      "setup": "focus",
+      "instructions": "Use keyboard navigation to focus the native select."
+    },
+    {
+      "state": "disabled",
+      "fixtureState": "disabled",
+      "setup": "none"
+    },
+    {
+      "state": "success",
+      "fixtureState": "success",
+      "setup": "none"
+    },
+    {
+      "state": "error",
+      "fixtureState": "error",
+      "setup": "none"
+    },
+    {
+      "state": "placeholder",
+      "fixtureState": "placeholder",
+      "setup": "none"
+    },
+    {
+      "state": "long-content",
+      "fixtureState": "long-content",
+      "setup": "none"
+    },
+    {
+      "state": "localization",
+      "fixtureState": "localization",
+      "setup": "none"
+    },
+    {
+      "state": "rtl",
+      "fixtureState": "rtl",
+      "setup": "none"
+    }
+  ]
+}
