@@ -495,7 +495,9 @@ describe('component inventory completeness', () => {
       ),
     );
   it.each([
-    ['Accordion', 'focus.ring-width'],
+    ['Accordion', 'focus.accordion-outer-spread'],
+    ['Accordion', 'border.accordion-width'],
+    ['Accordion', 'color.border-accordion-subtle'],
     ['Site Alert', 'font.size-mobile-h3'],
   ])(
     'detects omitted %s stylesheet dependencies independently of the inventory',

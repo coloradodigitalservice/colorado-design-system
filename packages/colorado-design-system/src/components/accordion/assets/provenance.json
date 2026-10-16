@@ -1,0 +1,19 @@
+{
+  "source": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=1387-388&m=dev",
+  "observedOn": "2026-10-16",
+  "export": "Download all icons, Chrome Aten profile; original SVGs, no path/size edits",
+  "assets": [
+    {
+      "file": "icon-medium-chevron-up.svg",
+      "width": 24,
+      "height": 24,
+      "sha256": "f5c5bf5e07e8c3ff3a7aa276ca31cd082d850180e07fd37b5c19a2db8366def6"
+    },
+    {
+      "file": "icon-medium-chevron-down.svg",
+      "width": 24,
+      "height": 24,
+      "sha256": "2a11c5ab19ce8310c027dca9c465c2315e77ca0911d8e50fb783e20dfa408aa3"
+    }
+  ]
+}

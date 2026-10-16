@@ -80,3 +80,13 @@ For CSS customization, import `tokens.css` and override semantic properties on `
 P2-007 / CDS-46 still supplies the State approval dependency. [P2-010 PR #37](https://github.com/coloradodigitalservice/colorado-design-system/pull/37) adds the USWDS-specific alert/visited aliases and core overrides. The seven overlapping roles use the exact names and declarations from PR #37, with the same visited-link contrast pair. There is one name per shared role; the inventory maps the observed Figma names to these existing implementation conventions. Core USWDS override changes remain in PR #37. Reconcile shared files and regenerate outputs when it merges. No public component stylesheet is changed here.
 
 Record a patch changeset for the development series. A locally packed token archive can support review, but is not an official published beta or approval. After review, resolve the recorded value conflicts, obtain design/accessibility sign-off, merge dependencies, pass the full gate, and cut the beta through the repository release process. Do not close CDS-48 based solely on passing automation.
+
+## Accordion follow-up (CODS-P3-007, October 16)
+
+Eric authorized the component alignment described in `mapping.md`. Accordion now
+uses a dedicated gray/10 supplemental border and explicit border-width/focus-
+spread dimensions. The earlier preserve-gray/20 guidance still applies to the
+shared `color.border-subtle` and contract samples; no global re-alias occurs.
+The existing global focus contract is unchanged. Review the additive component
+mappings, actual focus geometry, and decorative border treatment with the Aten
+technical/design leads and accessibility lead; State approval is separate.
