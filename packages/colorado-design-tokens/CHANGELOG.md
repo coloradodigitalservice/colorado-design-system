@@ -1,5 +1,11 @@
 # @coloradodigitalservice/colorado-design-tokens
 
+## 0.2.0
+
+### Minor Changes
+
+- e02000c: Refresh the development dependency lockfile, upgrade the internal web app to Astro 7.4.0, update the GitHub Pages artifact action, and align workspace validation with Turbo 2.11.8.
+
 ## 0.1.7
 
 ### Patch Changes
