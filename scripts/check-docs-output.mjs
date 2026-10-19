@@ -9,6 +9,7 @@ import { loadComponents, checkComponentAssets } from './component-fixtures.mjs';
 const root = resolve(
   fileURLToPath(new URL('../apps/web/dist/', import.meta.url)),
 );
+const basePath = (process.env.PUBLIC_BASE_PATH ?? '').replace(/\/$/, '');
 const designSystemVersion = JSON.parse(
   readFileSync(
     new URL('../packages/colorado-design-system/package.json', import.meta.url),
@@ -77,9 +78,38 @@ for (const page of pages) {
         failures.push(`${label}: broken ${href}`);
     } else if (href.startsWith('/')) {
       const target = new URL(href, 'https://docs.example.gov');
-      const output = join(root, target.pathname, 'index.html');
+      if (basePath && !target.pathname.startsWith(`${basePath}/`)) {
+        failures.push(
+          `${label}: link is missing the deployment base path: ${href}`,
+        );
+        continue;
+      }
+      const targetPath = basePath
+        ? target.pathname.slice(basePath.length)
+        : target.pathname;
+      const output = join(root, targetPath.replace(/^\/+/, ''), 'index.html');
       if (!existsSync(output)) failures.push(`${label}: broken ${href}`);
     }
+  }
+
+  for (const resource of document.querySelectorAll(
+    'link[href], script[src], img[src]',
+  )) {
+    const attribute = resource.hasAttribute('href') ? 'href' : 'src';
+    const href = resource.getAttribute(attribute);
+    if (!href?.startsWith('/')) continue;
+    const target = new URL(href, 'https://docs.example.gov');
+    if (basePath && !target.pathname.startsWith(`${basePath}/`)) {
+      failures.push(
+        `${label}: asset is missing the deployment base path: ${href}`,
+      );
+      continue;
+    }
+    const targetPath = basePath
+      ? target.pathname.slice(basePath.length)
+      : target.pathname;
+    const output = join(root, targetPath.replace(/^\/+/, ''));
+    if (!existsSync(output)) failures.push(`${label}: missing asset ${href}`);
   }
 }
 
