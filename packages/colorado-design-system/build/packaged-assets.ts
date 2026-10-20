@@ -10,6 +10,7 @@ import { resolve, relative, sep } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { generate, parse, walk } from 'css-tree';
 import type { Plugin } from 'vite';
+import iconVariants from './uswds-icon-variants.json' with { type: 'json' };
 
 const excludedDirectory =
   /(?:^|[/\\])(?:favicons|material-icons(?:-deprecated)?|usa-icons(?:-bg)?|uswds-icons)(?:[/\\]|$)/;
@@ -31,19 +32,10 @@ const excludedRootIcons = new Set([
   'sprite.svg',
 ]);
 const phosphorReplacements = new Map([
-  ['checkbox-indeterminate-alt.svg', 'minus'],
-  ['checkbox-indeterminate.svg', 'minus'],
-  ['correct8-alt.svg', 'check'],
-  ['correct8.svg', 'check'],
-  ['file-excel.svg', 'file-xls'],
-  ['file-pdf.svg', 'file-pdf'],
-  ['file-video.svg', 'video-camera'],
-  ['file-word.svg', 'file-text'],
-  ['file.svg', 'file'],
+  ...Object.entries(iconVariants).map(
+    ([source, { id, color }]): [string, string] => [source, `${id}--${color}`],
+  ),
   ['loader.svg', 'arrows-clockwise'],
-  ['usa-icons-bg/check--blue-60v.svg', 'check'],
-  ['usa-icons-bg/error--white.svg', 'x-circle'],
-  ['usa-icons-bg/launch--white.svg', 'arrow-square-out'],
   ['usa-icons/add.svg', 'plus'],
   ['usa-icons/arrow_back.svg', 'arrow-left'],
   ['usa-icons/calendar_today.svg', 'calendar-dots'],

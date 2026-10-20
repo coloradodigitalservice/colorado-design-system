@@ -139,6 +139,12 @@ the sprite, one `<id>.svg` per approved icon, the catalog, and the upstream
 Packaged CSS does not ship USWDS, USA, or Material icon image collections.
 Icons referenced by included USWDS CSS are redirected to equivalent approved
 Phosphor files in `dist/icons/`; non-icon USWDS images remain under `dist/img/`.
+Color-sensitive replacements use generated `<id>--<hex>.svg` variants to
+preserve USWDS foreground colors, including light and dark checkbox marks.
+Standalone SVGs used as CSS backgrounds or `<img>` do not inherit the
+consumer's `currentColor`; use sprite `<use>` references for themeable icons,
+or a CSS mask for icons drawn from CSS. See
+[Choosing a technique](../../apps/web/src/content/docs/icon.md#choosing-a-technique).
 
 Package exports include `./icons/sprite.svg`, `./icons/*.svg`,
 `./icons/catalog.json`, and `./icons/LICENSE`. Use SVG `<use>` references with

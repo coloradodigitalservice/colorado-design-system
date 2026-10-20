@@ -13,6 +13,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { build, createLogger, type InlineConfig } from 'vite';
+import iconVariants from '../packages/colorado-design-system/build/uswds-icon-variants.json' with { type: 'json' };
 import {
   cssAssetReferences,
   copiedAssets,
@@ -76,6 +77,16 @@ describe('written CSS asset validation', () => {
       ),
     ).toThrow('No Phosphor replacement configured for USWDS icon');
   });
+
+  it('preserves each color-sensitive USWDS asset as an explicit-color variant', () => {
+    for (const [source, { id, color }] of Object.entries(iconVariants)) {
+      expect(
+        replaceUswdsIconUrls(
+          `.icon{background:url("./img/${source}?v=1#icon")}`,
+        ),
+      ).toContain(`./icons/${id}--${color}.svg?v=1#icon`);
+    }
+  });
 });
 
 function fixture(
@@ -118,7 +129,11 @@ function fixture(
     writeBundle(options: { dir?: string }) {
       const icons = join(options.dir ?? 'dist', 'icons');
       mkdirSync(icons, { recursive: true });
-      for (const id of ['magnifying-glass', 'arrow-square-out', 'file-pdf'])
+      for (const id of [
+        'magnifying-glass',
+        'arrow-square-out--ffffff',
+        'file-pdf--07648d',
+      ])
         writeFileSync(join(icons, `${id}.svg`), '<svg/>');
     },
   };
@@ -199,14 +214,14 @@ describe('Vite packaged assets integration', () => {
     expect(warnings).toEqual([]);
     const output = readFileSync(join(root, 'dist/fixture.css'), 'utf8');
     expect(output).toContain('./icons/magnifying-glass.svg');
-    expect(output).toContain('./icons/arrow-square-out.svg');
-    expect(output).toContain('./icons/file-pdf.svg');
+    expect(output).toContain('./icons/arrow-square-out--ffffff.svg');
+    expect(output).toContain('./icons/file-pdf--07648d.svg');
     expect(output).not.toContain('./img/usa-icons');
     expect(output).not.toContain('./img/file-pdf.svg');
     expect(cssAssetReferences(output, 'fixture.css')).toEqual([
       'fonts/probe.woff2',
-      'icons/arrow-square-out.svg',
-      'icons/file-pdf.svg',
+      'icons/arrow-square-out--ffffff.svg',
+      'icons/file-pdf--07648d.svg',
       'icons/magnifying-glass.svg',
     ]);
   });

@@ -28,6 +28,11 @@ copies or substantial portions of the licensed software. If you redistribute
 these icon assets or copies of them, retain the included license notice with
 your distribution.
 
+Inline SVG `<use>` icons inherit `currentColor` from the page; standalone SVGs
+loaded through `<img>` or CSS `background-image` do not. See
+[Choosing a technique](#choosing-a-technique) before using an icon outside the
+sprite.
+
 Phosphor and Phosphor Icons identify the upstream icon project; their use here
 does not imply affiliation with or endorsement by Phosphor. The Phosphor name
 and branding are not CoDS marks.
@@ -90,6 +95,77 @@ an icon-only control. The consuming button or link must provide its own
 adequate hit area and spacing (at least 24 × 24 CSS pixels unless an exception
 in [WCAG 2.2 SC 2.5.8](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html)
 applies); verify that target on the consuming component.
+
+## Choosing a technique
+
+How an icon is drawn decides whether it can follow the page's color. Choose in
+this order:
+
+1. **Icons in markup: use the sprite.** Inline `<svg>` with `<use>` inherits
+   `currentColor`, so it follows semantic icon tokens, hover and disabled
+   states, and forced colors. This is the default for every component.
+2. **Icons drawn from CSS (for example a `::before` or `::after`): use a
+   mask.** A mask uses only the shape of the SVG; the color comes from
+   `background-color`, so it can follow tokens and `currentColor`.
+3. **A fixed-color image only when a mask does not fit:** a glyph whose color
+   differs from the layer it sits on (such as the white check on a selected
+   checkbox), or artwork with more than one color.
+
+Standalone SVGs loaded through `<img>` or CSS `background-image` are separate
+images and do not inherit the consuming element's `currentColor`; unmasked, a
+Phosphor file renders in the browser's default dark color. Do not use them for
+themeable icons.
+
+### CSS masks
+
+Use the per-icon file from the package. The `url()` must be relative to the
+stylesheet (see [Sprite URL and deployment path](#sprite-url-and-deployment-path)
+for hosting).
+
+```css
+.example::before {
+  content: '';
+  display: inline-block;
+  inline-size: var(--cods-icon-size-medium);
+  block-size: var(--cods-icon-size-medium);
+  background-color: currentColor;
+  mask: url('./icons/caret-down.svg') center / contain no-repeat;
+}
+
+@media (forced-colors: active) {
+  .example::before {
+    background-color: ButtonText;
+  }
+}
+```
+
+- Keep a square box and `contain` so the artwork is not stretched.
+- Set a system color in `forced-colors: active`. Forced colors overrides
+  author `background-color`, so name a system color such as `ButtonText`
+  (or `CanvasText` for non-control content) explicitly.
+- Include the `-webkit-mask` equivalent if the supported-browser list requires
+  it; check current support before relying on the unprefixed property.
+- An external image used as a mask is fetched with CORS rules, unlike a plain
+  background image. Serve it from the same origin as the stylesheet, or send
+  the appropriate CORS headers from the asset origin.
+- Mask-based icons are decorative by default: keep the meaning in text or in
+  the control's accessible name.
+
+### Explicit-color variants
+
+The package generates `<id>--<hex>.svg` variants (for example
+`check--ffffff.svg`) only for the USWDS CSS replacements listed in
+`build/uswds-icon-variants.json`. They keep the foreground colors of the pinned
+USWDS assets, including the separate light and dark checkbox marks. They are
+integration assets, not additional approved icon IDs and not a general theming
+mechanism.
+
+Before adding a variant for a new component, confirm a mask cannot do the job.
+If a variant is needed, add it to the variants file with the color taken from
+the source asset and cover the rendered result: assert the exact variant file
+is used and sample the pixels on the real background for each state (checked,
+indeterminate, disabled, forced colors). Existing examples are in
+`tests/browser/checkbox-assets.ts`.
 
 ## Right-to-left layouts
 

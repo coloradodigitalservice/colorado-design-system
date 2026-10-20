@@ -2,7 +2,9 @@ import { mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
+import { createRequire } from 'node:module';
 import { afterEach, describe, expect, it } from 'vitest';
+import iconVariants from './uswds-icon-variants.json' with { type: 'json' };
 import {
   checkIcons,
   generatedDir,
@@ -31,6 +33,25 @@ afterEach(async () => {
 });
 
 describe('Phosphor icon generation', () => {
+  it('matches variant foreground colors to the pinned USWDS source assets', async () => {
+    const require = createRequire(import.meta.url);
+    for (const [name, { color }] of Object.entries(iconVariants)) {
+      const source = await readFile(
+        require.resolve(`@uswds/uswds/img/${name}`),
+        'utf8',
+      );
+      const colors = [...source.matchAll(/\bfill="(#[a-f\d]+)"/gi)].map(
+        ([, hex]) => {
+          const value = hex.slice(1).toLowerCase();
+          return value.length === 3
+            ? [...value].map((digit) => digit + digit).join('')
+            : value;
+        },
+      );
+      expect(colors.length ? colors : ['000000'], name).toContain(color);
+    }
+  });
+
   it('requires manifest provenance to match the pinned Phosphor source', () => {
     const manifest = JSON.parse(
       readFileSync(
@@ -111,7 +132,9 @@ describe('Phosphor icon generation', () => {
     await writeDistIcons(distDir);
 
     const names = await readdir(distDir);
-    expect(names).toHaveLength(approved.length + 3);
+    expect(names).toHaveLength(
+      approved.length + 3 + Object.keys(iconVariants).length,
+    );
     for (const name of ['sprite.svg', 'catalog.json', 'LICENSE'])
       expect(names).toContain(name);
     expect(await readFile(resolve(distDir, 'cursor.svg'), 'utf8')).toContain(
@@ -123,6 +146,16 @@ describe('Phosphor icon generation', () => {
     expect(await readFile(resolve(distDir, 'LICENSE'), 'utf8')).toContain(
       'MIT License',
     );
+    for (const { id, color } of Object.values(iconVariants)) {
+      const original = await readFile(resolve(distDir, `${id}.svg`), 'utf8');
+      const variant = await readFile(
+        resolve(distDir, `${id}--${color}.svg`),
+        'utf8',
+      );
+      expect(original).toContain('currentColor');
+      expect(variant).toBe(original.replaceAll('currentColor', `#${color}`));
+      expect(variant).not.toContain('currentColor');
+    }
   });
 
   it('refuses to write dist when a committed hash no longer matches the source', async () => {

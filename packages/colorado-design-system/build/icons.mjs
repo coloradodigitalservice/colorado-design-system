@@ -11,6 +11,7 @@ import {
 } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import iconVariants from './uswds-icon-variants.json' with { type: 'json' };
 
 const packageRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const manifestPath = resolve(packageRoot, 'src/icons/approved-icons.json');
@@ -149,11 +150,23 @@ export async function writeDistIcons(distIconsDir, sourceDir = generatedDir) {
       throw new Error(
         `Phosphor icon ${id} does not match the committed hash. Run \`pnpm icons:build\` and commit the result.`,
       );
-    await writeFile(
-      resolve(distIconsDir, `${id}.svg`),
-      source.replace(/^<svg\b/, '<svg width="24" height="24"'),
-    );
+    const sized = source.replace(/^<svg\b/, '<svg width="24" height="24"');
+    await writeFile(resolve(distIconsDir, `${id}.svg`), sized);
+    for (const variant of Object.values(iconVariants)) {
+      if (variant.id !== id) continue;
+      if (!/\bfill="currentColor"/.test(sized))
+        throw new Error(`Phosphor icon ${id} has no currentColor fill`);
+      await writeFile(
+        resolve(distIconsDir, `${id}--${variant.color}.svg`),
+        sized.replaceAll('currentColor', `#${variant.color}`),
+      );
+    }
   }
+  for (const { id } of Object.values(iconVariants))
+    if (!catalog.icons.some((icon) => icon.id === id))
+      throw new Error(
+        `USWDS icon replacement ${id} is not in the approved catalog`,
+      );
   for (const name of committedFiles)
     await copyFile(resolve(sourceDir, name), resolve(distIconsDir, name));
   await copyFile(

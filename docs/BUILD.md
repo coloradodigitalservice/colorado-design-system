@@ -79,6 +79,13 @@ plus `sprite.svg`, `catalog.json`, and the upstream `LICENSE`. `dist/` itself
 stays untracked; releases build it in CI. The package exports these at
 `./icons/*.svg`, `./icons/catalog.json`, and `./icons/LICENSE`.
 
+The build also generates explicit-color `<id>--<hex>.svg` variants for the
+USWDS CSS replacements listed in `build/uswds-icon-variants.json`. These retain
+the pinned USWDS assets' foreground colors (including distinct light and dark
+checkbox state marks). SVGs loaded as background images cannot inherit the
+control's `currentColor`. The normal sprite and per-ID SVGs remain unchanged;
+the variants do not add IDs to the approved catalog.
+
 ### Entry Points
 
 - **TypeScript source**: `src/index.ts` → `dist/colorado-design-system.mjs`
