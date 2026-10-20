@@ -1,5 +1,11 @@
 # @coloradodigitalservice/colorado-design-tokens
 
+## 0.2.1
+
+### Patch Changes
+
+- 54440e1: Use a relative documentation link in the accordion fixture so it resolves correctly when the documentation site is hosted at the domain root or under the GitHub Pages repository path.
+
 ## 0.2.0
 
 ### Minor Changes
