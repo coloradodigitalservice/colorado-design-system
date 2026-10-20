@@ -190,6 +190,8 @@
   --cods-font-weight-mobile-h6: var(--cods-font-weight-semibold);
   --cods-font-weight-regular: 400;
   --cods-font-weight-semibold: 600;
+  --cods-icon-size-medium: 24px;
+  --cods-icon-size-small: 16px;
   --cods-line-height-desktop-body: 24px;
   --cods-line-height-desktop-body-lg: 32px;
   --cods-line-height-desktop-body-sm: 20px;

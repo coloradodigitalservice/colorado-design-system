@@ -49,7 +49,7 @@ Use semantic colors in components. Palette tokens exist to supply aliases. Deskt
 
 See [design-to-code mapping](references/mapping.md) and `references/design-values.json` for the 54 palette colors and all 46 source roles, including roles with identical values. The reference JSON records the source rows and serves as an independent test reference, not generator input. Changing it requires explicit design review of the replacement source, not merely updating a failing test.
 
-Spacing is 4, 8, 12, 16, 24, 32, 48, and 64px, mapped to the `2xs` through `3xl` scale. Radius is none=0, sm=2, md=4, lg=8px. Typography uses the desktop and mobile design-reference tables, retaining their explicit line heights and paragraph spacing even where they differ from font size. Families are Museo Slab, Open Sans, and Source Code Pro; font binaries and licenses are not distributed here. `font-size-sm` aliases desktop body small (14px).
+Spacing is 4, 8, 12, 16, 24, 32, 48, and 64px, mapped to the `2xs` through `3xl` scale. Dedicated icon-size tokens map Small to 16px and Medium to 24px, matching the Figma icon specification. Radius is none=0, sm=2, md=4, lg=8px. Typography uses the desktop and mobile design-reference tables, retaining their explicit line heights and paragraph spacing even where they differ from font size. Families are Museo Slab, Open Sans, and Source Code Pro; font binaries and licenses are not distributed here. `font-size-sm` aliases desktop body small (14px).
 
 `radius-full` is 9999px, following the written radius specification rather than the alternate variable-panel value of 999. `color-shadow` is defined as black (#000000) for the base color only; shadow opacity and geometry remain unspecified.
 
@@ -65,7 +65,7 @@ Both complete sample Sass files now compile in tests. The disclosure uses `color
 
 ## Accessibility and troubleshooting
 
-`references/contrast-pairs.json` records the 29 selected text, link, button, form-border, status-icon, alert, and focus-color pairs and their thresholds. The Warning alert border (`border-alert-warning` on `bg-alert-warning`, 1.37:1) has no pair because it is below the 3:1 threshold. It was waived as decorative by the Aten Senior Developer on 2026-10-08, pending accessibility-lead confirmation (see ADR-002). Validation fails rather than changing supplied values. Disabled states are excluded. These checks do not approve component accessibility or arbitrary token combinations.
+`references/contrast-pairs.json` records the 40 selected text, link, button, form-border, icon, alert, and focus-color pairs and their thresholds. The icon pairs cover documented foreground/background combinations; they do not approve arbitrary `currentColor` combinations. The Warning alert border (`border-alert-warning` on `bg-alert-warning`, 1.37:1) has no pair because it is below the 3:1 threshold. It was waived as decorative by the Aten Senior Developer on 2026-10-08, pending accessibility-lead confirmation (see ADR-002). Validation fails rather than changing supplied values. Disabled states are excluded. These checks do not approve component accessibility.
 
 Review full focus visibility and obscuration, reduced-motion behavior, typography at zoom/reflow and with fallback fonts, and forced-color rendering at component level. Preserve native semantics and test keyboard and assistive-technology behavior. The focus-color check against white does not establish a complete focus treatment.
 

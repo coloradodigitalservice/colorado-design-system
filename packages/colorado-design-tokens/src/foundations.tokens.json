@@ -105,6 +105,34 @@
       }
     }
   },
+  "icon-size": {
+    "small": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Small / 16px",
+          "location": "Colorado Design System Figma / Icons / design reference (node 235-551)"
+        }
+      }
+    },
+    "medium": {
+      "$type": "dimension",
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Medium / 24px",
+          "location": "Colorado Design System Figma / Icons / design reference (node 235-551)"
+        }
+      }
+    }
+  },
   "radius": {
     "none": {
       "$type": "dimension",

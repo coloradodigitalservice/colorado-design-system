@@ -1,13 +1,99 @@
-import { readFileSync, readdirSync, realpathSync, statSync } from 'node:fs';
+import {
+  readFileSync,
+  readdirSync,
+  realpathSync,
+  statSync,
+  writeFileSync,
+} from 'node:fs';
 import { cp, rm } from 'node:fs/promises';
 import { resolve, relative, sep } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { parse, walk } from 'css-tree';
+import { generate, parse, walk } from 'css-tree';
 import type { Plugin } from 'vite';
 
-const excluded = /(?:^|[/\\])(material-icons|favicons)(?:[/\\]|$)/;
+const excludedDirectory =
+  /(?:^|[/\\])(?:favicons|material-icons(?:-deprecated)?|usa-icons(?:-bg)?|uswds-icons)(?:[/\\]|$)/;
+const excludedRootIcons = new Set([
+  'checkbox-indeterminate-alt.svg',
+  'checkbox-indeterminate.svg',
+  'correct8-alt.svg',
+  'correct8.svg',
+  'file-excel.svg',
+  'file-pdf.svg',
+  'file-video.svg',
+  'file-word.svg',
+  'file.svg',
+  'icon-dot-gov.svg',
+  'icon-https.svg',
+  'loader.gif',
+  'loader.svg',
+  'lock.svg',
+  'sprite.svg',
+]);
+const phosphorReplacements = new Map([
+  ['checkbox-indeterminate-alt.svg', 'minus'],
+  ['checkbox-indeterminate.svg', 'minus'],
+  ['correct8-alt.svg', 'check'],
+  ['correct8.svg', 'check'],
+  ['file-excel.svg', 'file-xls'],
+  ['file-pdf.svg', 'file-pdf'],
+  ['file-video.svg', 'video-camera'],
+  ['file-word.svg', 'file-text'],
+  ['file.svg', 'file'],
+  ['loader.svg', 'arrows-clockwise'],
+  ['usa-icons-bg/check--blue-60v.svg', 'check'],
+  ['usa-icons-bg/error--white.svg', 'x-circle'],
+  ['usa-icons-bg/launch--white.svg', 'arrow-square-out'],
+  ['usa-icons/add.svg', 'plus'],
+  ['usa-icons/arrow_back.svg', 'arrow-left'],
+  ['usa-icons/calendar_today.svg', 'calendar-dots'],
+  ['usa-icons/check_circle.svg', 'check-circle'],
+  ['usa-icons/close.svg', 'x'],
+  ['usa-icons/error.svg', 'x-circle'],
+  ['usa-icons/expand_less.svg', 'caret-up'],
+  ['usa-icons/expand_more.svg', 'caret-down'],
+  ['usa-icons/info.svg', 'info'],
+  ['usa-icons/launch.svg', 'arrow-square-out'],
+  ['usa-icons/navigate_before.svg', 'caret-left'],
+  ['usa-icons/navigate_far_before.svg', 'arrow-circle-left'],
+  ['usa-icons/navigate_far_next.svg', 'caret-double-right'],
+  ['usa-icons/navigate_next.svg', 'caret-right'],
+  ['usa-icons/remove.svg', 'minus'],
+  ['usa-icons/search.svg', 'magnifying-glass'],
+  ['usa-icons/unfold_more.svg', 'arrows-vertical'],
+  ['usa-icons/warning.svg', 'warning'],
+]);
+const excludedAsset = (path: string) => {
+  const normalized = path.replaceAll('\\', '/');
+  return (
+    excludedDirectory.test(normalized) ||
+    (!normalized.includes('/') && excludedRootIcons.has(normalized))
+  );
+};
 const isFile = (file: string) =>
   statSync(file, { throwIfNoEntry: false })?.isFile() === true;
+
+export function replaceUswdsIconUrls(css: string): string {
+  const ast = parse(css, { parseCustomProperty: true });
+  walk(ast, {
+    visit: 'Url',
+    enter(node) {
+      const match = /^\.\/img\/(.+?)([?#].*)?$/.exec(node.value);
+      if (!match) return;
+      const [, assetPath, suffix = ''] = match;
+      const phosphorId = phosphorReplacements.get(assetPath!);
+      if (!phosphorId) {
+        if (excludedAsset(assetPath!))
+          throw new Error(
+            `No Phosphor replacement configured for USWDS icon: ${assetPath}`,
+          );
+        return;
+      }
+      node.value = `./icons/${phosphorId}.svg${suffix}`;
+    },
+  });
+  return generate(ast);
+}
 
 export function cssAssetReferences(css: string, stylesheet: string): string[] {
   const references = new Set<string>();
@@ -55,7 +141,12 @@ export function copiedAssets(
     if (!root) return;
     const file = resolve(root, decodeURIComponent(match[2]!));
     const local = relative(root, file);
-    if (local.startsWith(`..${sep}`) || local === '..' || excluded.test(local))
+    if (
+      local.startsWith(`..${sep}`) ||
+      local === '..' ||
+      (excludedAsset(local) &&
+        !(match[1] === 'img' && phosphorReplacements.has(local)))
+    )
       return;
     return file;
   }
@@ -77,23 +168,27 @@ export function copiedAssets(
             withFileTypes: true,
           })) {
             const file = resolve(entry.parentPath, entry.name);
-            if (!excluded.test(relative(root, file))) this.addWatchFile(file);
+            if (!excludedAsset(relative(root, file))) this.addWatchFile(file);
           }
         }
       },
       async writeBundle(options, bundle) {
+        const outputDirectory = resolve(options.dir!);
         for (const [name, directory] of Object.entries(sources)) {
-          const destination = resolve(options.dir!, name);
+          const destination = resolve(outputDirectory, name);
           // A deleted source must not survive as stale watch output.
           await rm(destination, { recursive: true, force: true });
           await cp(directory, destination, {
             recursive: true,
-            filter: (file) => !excluded.test(relative(directory, file)),
+            filter: (file) => !excludedAsset(relative(directory, file)),
           });
         }
-        for (const file of Object.keys(bundle)) {
-          if (file.endsWith('.css'))
-            validateCssAssets(resolve(options.dir!, file));
+        for (const name of Object.keys(bundle)) {
+          if (!name.endsWith('.css')) continue;
+          const stylesheet = resolve(outputDirectory, name);
+          const css = readFileSync(stylesheet, 'utf8');
+          writeFileSync(stylesheet, replaceUswdsIconUrls(css));
+          validateCssAssets(stylesheet);
         }
       },
     },

@@ -1,7 +1,7 @@
 import { test } from './fixtures.js';
 import { expectPackageAssets } from './package-assets.js';
 
-test('Storybook loads every packaged font face and both accordion icons', async ({
+test('Storybook loads packaged fonts and Phosphor accordion icons', async ({
   page,
 }) => {
   await expectPackageAssets(

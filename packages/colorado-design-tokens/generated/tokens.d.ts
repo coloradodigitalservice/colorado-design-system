@@ -190,6 +190,8 @@ export interface TokenDictionary {
   readonly "font-weight-mobile-h6": number;
   readonly "font-weight-regular": number;
   readonly "font-weight-semibold": number;
+  readonly "icon-size-medium": string;
+  readonly "icon-size-small": string;
   readonly "line-height-desktop-body": string;
   readonly "line-height-desktop-body-lg": string;
   readonly "line-height-desktop-body-sm": string;

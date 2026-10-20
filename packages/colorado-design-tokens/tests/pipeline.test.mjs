@@ -165,6 +165,8 @@ describe('State design references and consumers', () => {
     expect(output).toMatchObject({
       'space-2xs': '4px',
       'space-sm': '12px',
+      'icon-size-small': '16px',
+      'icon-size-medium': '24px',
       'radius-sm': '2px',
       'font-size-sm': '14px',
       'font-size-desktop-h4': '28px',
@@ -281,7 +283,7 @@ describe('reproducibility and non-mutating drift detection', () => {
 
 describe('contrast checks', () => {
   it('checks the initial text, action, border, icon and focus pairs', async () => {
-    expect(await checkContrast(catalog)).toHaveLength(29);
+    expect(await checkContrast(catalog)).toHaveLength(40);
   });
   it('uses unrounded contrast ratios and rejects transparent pairs', () => {
     const white = { colorSpace: 'srgb', components: [1, 1, 1], alpha: 1 };

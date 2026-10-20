@@ -2,7 +2,7 @@ import { resolve, sep } from 'node:path';
 import { test } from './fixtures.js';
 import { expectPackageAssets } from './package-assets.js';
 
-test('Astro loads every packaged font face and both accordion icons', async ({
+test('Astro loads packaged fonts and Phosphor accordion icons', async ({
   page,
 }) => {
   await expectPackageAssets(page, '/accordion/');
