@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
-import { join, resolve } from 'node:path';
+import { join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath, URL } from 'node:url';
 import { JSDOM } from 'jsdom';
 import { loadComponents, checkComponentAssets } from './component-fixtures.mjs';
@@ -52,6 +52,11 @@ if (!pages.length) failures.push('No static HTML pages were generated');
 for (const page of pages) {
   const document = new JSDOM(readFileSync(page, 'utf8')).window.document;
   const label = page.slice(root.length + 1);
+  const pagePath = relative(root, page).split(sep).join('/');
+  const pageUrl = new URL(
+    `${basePath}/${pagePath.replace(/index\.html$/, '')}`,
+    'https://docs.example.gov',
+  );
   if (document.documentElement.lang !== 'en')
     failures.push(`${label}: missing language`);
   for (const landmark of ['header', 'main', 'footer']) {
@@ -76,8 +81,9 @@ for (const page of pages) {
     if (href.startsWith('#')) {
       if (!document.getElementById(href.slice(1)))
         failures.push(`${label}: broken ${href}`);
-    } else if (href.startsWith('/')) {
-      const target = new URL(href, 'https://docs.example.gov');
+    } else {
+      const target = new URL(href, pageUrl);
+      if (target.origin !== pageUrl.origin) continue;
       if (basePath && !target.pathname.startsWith(`${basePath}/`)) {
         failures.push(
           `${label}: link is missing the deployment base path: ${href}`,
@@ -87,7 +93,11 @@ for (const page of pages) {
       const targetPath = basePath
         ? target.pathname.slice(basePath.length)
         : target.pathname;
-      const output = join(root, targetPath.replace(/^\/+/, ''), 'index.html');
+      const output = join(
+        root,
+        decodeURIComponent(targetPath).replace(/^\/+/, ''),
+        targetPath.endsWith('/') ? 'index.html' : '',
+      );
       if (!existsSync(output)) failures.push(`${label}: broken ${href}`);
     }
   }
@@ -97,8 +107,9 @@ for (const page of pages) {
   )) {
     const attribute = resource.hasAttribute('href') ? 'href' : 'src';
     const href = resource.getAttribute(attribute);
-    if (!href?.startsWith('/')) continue;
-    const target = new URL(href, 'https://docs.example.gov');
+    if (!href) continue;
+    const target = new URL(href, pageUrl);
+    if (target.origin !== pageUrl.origin) continue;
     if (basePath && !target.pathname.startsWith(`${basePath}/`)) {
       failures.push(
         `${label}: asset is missing the deployment base path: ${href}`,
@@ -108,7 +119,10 @@ for (const page of pages) {
     const targetPath = basePath
       ? target.pathname.slice(basePath.length)
       : target.pathname;
-    const output = join(root, targetPath.replace(/^\/+/, ''));
+    const output = join(
+      root,
+      decodeURIComponent(targetPath).replace(/^\/+/, ''),
+    );
     if (!existsSync(output)) failures.push(`${label}: missing asset ${href}`);
   }
 }
