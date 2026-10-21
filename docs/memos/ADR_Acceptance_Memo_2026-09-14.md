@@ -34,11 +34,11 @@ The accepted direction is a State-owned, framework-agnostic design system delive
 **Amendment date:** September 16, 2026  
 **Decision owner:** State product owner, with client-directed scope confirmation
 
-The client supplied a complete Figma inventory of components and foundations and directed that the full inventory be included in `1.0.x`. This amendment supersedes the previously assumed cap of approximately 8-12 priority components and closes the open scoring and selection work for the final inventory. No component in the final inventory is deferred.
+The client supplied a complete Figma inventory of components and foundations and directed that the full inventory be included in `1.0.x`. This amendment supersedes the previously assumed cap of approximately 8-12 priority components and closes the open scoring and selection work for the final inventory. No component in the final inventory is deferred. The foundation-page delivery scope was subsequently amended on October 13, 2026, below.
 
-### Approved foundations
+### Approved foundation inventory
 
-The approved `1.0.x` foundations are:
+The approved foundation inventory is:
 
 - Color
 - Elevation
@@ -49,7 +49,7 @@ The approved `1.0.x` foundations are:
 - Typography
 - Logos (added October 2, 2026)
 
-Logos was a foundation candidate in the original proposal and was not in the client's list of September 16. It is approved as a foundation as of October 2, 2026. Whether it is a separate foundation page or folds into brand or Icons guidance is settled by its own task.
+Logos was a foundation candidate in the original proposal and was not in the client's list of September 16. It was approved as a foundation on October 2, 2026. On October 13, 2026, the client confirmed that a Logos Foundation page is out of scope for the `1.x` launch and should not be included at this time. The launch therefore includes seven foundation pages; the Logos page and its guidance are deferred. This changes the page-delivery scope, not the historical October 2 foundation approval. Do not fold Logos guidance into Brand or Icons content for this launch.
 
 ### Approved components
 
