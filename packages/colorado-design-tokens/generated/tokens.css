@@ -286,6 +286,8 @@
   --cods-font-weight-mobile-ui-sm: var(--cods-font-weight-desktop-ui-sm);
   --cods-font-weight-regular: 400;
   --cods-font-weight-semibold: 600;
+  --cods-icon-size-medium: 24px;
+  --cods-icon-size-small: 16px;
   --cods-line-height-desktop-body: 24px;
   --cods-line-height-desktop-body-lg: 32px;
   --cods-line-height-desktop-body-sm: 20px;

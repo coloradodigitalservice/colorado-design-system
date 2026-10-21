@@ -29,6 +29,15 @@ ports and disabled server reuse prevent accidentally testing a development serve
 
 For a faster scoped run:
 
+To exercise built pages without starting preview servers, use
+`pnpm exec playwright test --config config/playwright.built-files.ts` after
+`pnpm build`. This opts into local request routing for the same browser projects,
+console-error checks, and accessibility assertions. It does not verify HTTP-server
+behavior; the default suite remains the server-backed CI gate.
+Select the relevant tests with `--grep` or file paths: cases that use the API
+request fixture, create their own unrouted context, or explicitly continue a
+network request still require the default preview configuration.
+
 ```sh
 pnpm exec turbo run build --filter=@cods-internal/web...
 CODS_BROWSER_TARGET=web pnpm test:browser
@@ -228,23 +237,3 @@ capture, and render an image without alt text in a real loaded page to check axe
 output. Confirm a nonzero exit and attachments, then remove the temporary spec.
 
 See [Foundation CI](../docs/CI.md) for job selection and artifacts.
-
-## Firefox startup on macOS 27
-
-The pinned Firefox 157 build can exit with `Could not find profile folder` even
-when Playwright's temporary profile exists. Firefox also reads its app-data
-root under `~/Library/Application Support/Firefox`, which macOS 27 can protect
-from the process launching the browser. See
-[Playwright issue #42768](https://github.com/microsoft/playwright/issues/42768).
-
-The shared test fixture gives each macOS Firefox worker a separate temporary
-app-data home through the browser-scoped `CFFIXED_USER_HOME` environment variable.
-It preserves other launch options and environment settings, pre-creates the
-temporary standard home folders so macOS does not add delete-denying
-ACLs, and removes the directory after the browser closes, retrying transient
-native-helper writes.
-Chromium, WebKit, and non-macOS Firefox keep their existing launch configuration.
-The user's home and installed Firefox profile are unchanged. Browser tests must
-import `test` from `tests/browser/fixtures.ts` to receive this setup and the
-console-error checks. Reassess the workaround when upgrading to a Firefox build
-with the upstream fix; do not grant broader disk access to run the tests.
