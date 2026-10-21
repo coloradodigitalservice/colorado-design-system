@@ -1,3 +1,4 @@
+import { routeBuiltFiles } from './built-files.js';
 import { readFileSync } from 'node:fs';
 import type { Page } from '@playwright/test';
 import { test, expect, expectAccessible } from './fixtures.js';
@@ -85,7 +86,7 @@ test('delayed enhancement preserves focus when initial state hides content', asy
   });
   await page.route('**/*.js', async (route) => {
     await scriptsReady;
-    await route.continue();
+    await route.fallback();
   });
   try {
     await page.goto('/accordion/', { waitUntil: 'commit' });
@@ -216,9 +217,10 @@ test('all server-rendered panels remain readable without CSS or JavaScript', asy
 }, testInfo) => {
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
+  if (process.env.CODS_BUILT_FILES === '1') await routeBuiltFiles(page, 'web');
   await page.goto('http://127.0.0.1:4321/accordion/');
   await expect(page.locator('[data-cods-accordion-panel]:visible')).toHaveCount(
-    9,
+    10,
   );
   await expect(page.locator('[data-cods-accordion-enhanced]')).toHaveCount(0);
   await page.evaluate(() =>
@@ -227,7 +229,7 @@ test('all server-rendered panels remain readable without CSS or JavaScript', asy
       .forEach((element) => element.remove()),
   );
   await expect(page.locator('[data-cods-accordion-panel]:visible')).toHaveCount(
-    9,
+    10,
   );
   await testInfo.attach('accordion-unenhanced', {
     body: await page.screenshot({ fullPage: true }),
@@ -272,8 +274,11 @@ test('focused trigger shows the Colorado focus ring', async ({ page }) => {
   await trigger.focus();
   await expect(trigger).toBeFocused();
   await expect(trigger).toHaveCSS('outline-style', 'solid');
-  await expect(trigger).toHaveCSS('outline-width', '4px');
-  await expect(trigger).toHaveCSS('outline-color', 'rgb(23, 59, 179)');
+  await expect(trigger).toHaveCSS('outline-width', '2px');
+  await expect(trigger).toHaveCSS(
+    'box-shadow',
+    'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(23, 59, 179) 0px 0px 0px 4px',
+  );
 });
 
 test('focused trigger uses the system highlight in forced colors', async ({
@@ -297,4 +302,8 @@ test('focused trigger uses the system highlight in forced colors', async ({
   ]);
   expect(outline).toBe(highlight);
   await expect(trigger).toHaveCSS('outline-style', 'solid');
+});
+
+test.beforeEach(async ({ page }) => {
+  if (process.env.CODS_BUILT_FILES === '1') await routeBuiltFiles(page, 'web');
 });

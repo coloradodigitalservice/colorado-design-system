@@ -1,5 +1,6 @@
 /* Generated from reviewed DTCG sources. Do not edit; run pnpm tokens:build. */
 :root {
+  --cods-border-accordion-width: 4px;
   --cods-color-bg-action-danger: var(--cods-color-co-red-60-brand);
   --cods-color-bg-action-danger-active: var(--cods-color-co-red-90);
   --cods-color-bg-action-danger-hover: var(--cods-color-co-red-80);
@@ -26,6 +27,7 @@
   --cods-color-bg-surface-secondary: var(--cods-color-co-gray-10);
   --cods-color-bg-tag-info: var(--cods-color-co-blue-20);
   --cods-color-black-alpha-12: #0000001f;
+  --cods-color-border-accordion-subtle: var(--cods-color-co-gray-10);
   --cods-color-border-action-secondary: var(--cods-color-co-blue-80-brand);
   --cods-color-border-action-secondary-active: var(--cods-color-co-blue-60-brand);
   --cods-color-border-action-secondary-hover: var(--cods-color-co-blue-90);
@@ -198,6 +200,7 @@
   --cods-elevation-mid-x: 0px;
   --cods-elevation-mid-y: 8px;
   --cods-elevation-opacity: 0.12;
+  --cods-focus-accordion-outer-spread: 4px;
   --cods-focus-ring-offset: 2px;
   --cods-focus-ring-width: 4px;
   --cods-focus-row-width: 2px;
