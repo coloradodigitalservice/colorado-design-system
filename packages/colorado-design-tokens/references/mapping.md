@@ -80,6 +80,11 @@ Every foundation token records its design-reference section in `src/foundations.
 | Section breaks     | `space-2xl` | 48px  |
 | Page margins       | `space-3xl` | 64px  |
 
+| Icon size | Code name          | Value |
+| --------- | ------------------ | ----- |
+| Small     | `icon-size-small`  | 16px  |
+| Medium    | `icon-size-medium` | 24px  |
+
 ## Catalog expansion
 
 See [catalog review and migration](catalog-review.md), the [component dependency inventory](component-token-inventory.json), and [observed variable tables](figma-observed-2026-10-08.json). Git token sources define the catalog; the variable table is reference material, not a validation input. Supplemental additions use flattened kebab-case public names, except the seven alert/visited roles aligned with PR #37 (see the naming table in catalog-review.md). Tag, Modal and Toast component aliases point to semantic roles. Desktop/Mobile typography uses explicit names, with disputed existing values retained for design review. Spacing `4xl` adds 80px; existing 4/8/12px names remain `2xs`/`xs`/`sm`. Translucent bottom-border and shadow primitives preserve their alpha; elevation geometry is scalar. The inventory records component dependencies and explicit Maps/Videos design gaps, not Figma measurements or design sign-off.

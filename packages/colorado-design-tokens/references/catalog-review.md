@@ -8,7 +8,7 @@ The [Colorado Design System Figma file](https://www.figma.com/design/jQ3EiYqe3uE
 
 The [dependency inventory](component-token-inventory.json) covers all 28 approved components and records their documented token dependencies. Accordion and Site Alert separately retain independently scanned Git stylesheet dependencies. Table, Side Navigation and Step Indicator remain outside the approved scope.
 
-Maps and Videos remain in the inventory with explicit design coverage gaps; no token dependencies are invented for them. The inventory documents planned token dependencies and implementation dependencies, not an exhaustive audit of every Figma instance or proof of design approval. Open value conflicts and component treatments are listed below for human review. No token value is changed solely to match Figma.
+Maps and Videos remain in the inventory with explicit design coverage gaps; no token dependencies are invented for them. The shared Icon foundation is recorded separately in `sharedFoundations`, outside the approved 28-component inventory, with the same stylesheet-dependency validation. Its size tokens and Phosphor assets are supplied by merged PR #67. The inventory documents planned token dependencies and implementation dependencies, not an exhaustive audit of every Figma instance or proof of design approval. Open value conflicts and component treatments are listed below for human review. No token value is changed solely to match Figma.
 
 ## Implementation and profile decision
 
@@ -39,7 +39,7 @@ The footer spelling `surface/nav/social-container` maps to the same observed `su
 
 ## Contrast evidence
 
-[Contrast report](catalog-contrast-report.json) contains 47 passing opaque pairs: existing controls/focus, all seven tag variants, inline/standalone link states, tinted surfaces, inverse Toast text, visited links on alert tints, and focus colors on alert and secondary surfaces. Ratios are unrounded; the tests regenerate and compare the report and reject a deliberately failing tag foreground.
+[Contrast report](catalog-contrast-report.json) contains 58 passing opaque pairs: existing controls/focus, the approved icon foreground/surface combinations, all seven tag variants, inline/standalone link states, tinted surfaces, inverse Toast text, visited links on alert tints, and focus colors on alert and secondary surfaces. Ratios are unrounded; the tests regenerate and compare the report and reject a deliberately failing tag foreground.
 
 The yellow warning accent has only **1.37:1** against the warning tint and **1.46:1** against white. It must not serve as the sole visual control boundary or state cue where 3:1 is required. The report retains the ratios as accepted decorative exceptions, not passing pairs; the ratios are not converted into passing thresholds. Components need accompanying text/icons, and pale decorative borders do not imply accessible control boundaries.
 

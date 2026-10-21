@@ -952,5 +952,16 @@
   "transparentRoles": {
     "border/bottom": "Decorative separator. Contrast depends on the actual underlying surface; opaque pair checks do not approve it.",
     "color/shadow": "Light-theme elevation; decorative, not a substitute for control boundaries or focus."
-  }
+  },
+  "sharedFoundations": [
+    {
+      "name": "Icon",
+      "source": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=235-551",
+      "designCoverage": "shared-foundation",
+      "tokens": ["icon-size.medium", "icon-size.small"],
+      "componentTokens": [],
+      "implementationDirectory": "icon",
+      "implementationTokens": ["icon-size.medium", "icon-size.small"]
+    }
+  ]
 }

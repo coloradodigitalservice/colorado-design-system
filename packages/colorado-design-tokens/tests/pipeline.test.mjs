@@ -170,6 +170,8 @@ describe('State design references and consumers', () => {
     expect(output).toMatchObject({
       'space-2xs': '4px',
       'space-sm': '12px',
+      'icon-size-small': '16px',
+      'icon-size-medium': '24px',
       'radius-sm': '2px',
       'font-size-sm': '14px',
       'font-size-desktop-h4': '28px',
@@ -296,6 +298,10 @@ describe('contrast checks', () => {
     expect(report).toHaveLength(reference.pairs.length);
     expect(report.map((pair) => pair.name)).toContain('Tag teal');
     expect(report.map((pair) => pair.name)).toContain('Link visited');
+    expect(report.map((pair) => pair.name)).toContain(
+      'Default icon on form surface',
+    );
+    expect(report.map((pair) => pair.name)).toContain('Primary action icon');
   });
   it('uses unrounded contrast ratios and rejects transparent pairs', () => {
     const white = { colorSpace: 'srgb', components: [1, 1, 1], alpha: 1 };
@@ -516,6 +522,24 @@ describe('component inventory completeness', () => {
   let implementations;
   beforeAll(async () => {
     implementations = await loadImplementationDependencies(catalog);
+  });
+  it('validates shared foundation dependencies without expanding the component scope', async () => {
+    const inventory = await readInventory();
+    expect(inventory.components).toHaveLength(28);
+    const icon = inventory.sharedFoundations.find(
+      (entry) => entry.name === 'Icon',
+    );
+    expect(icon.implementationTokens).toEqual([
+      'icon-size.medium',
+      'icon-size.small',
+    ]);
+    icon.tokens = icon.tokens.filter((path) => path !== 'icon-size.small');
+    icon.implementationTokens = icon.implementationTokens.filter(
+      (path) => path !== 'icon-size.small',
+    );
+    expect(() =>
+      validateComponentInventory(inventory, catalog, implementations),
+    ).toThrow('Icon: stylesheet dependency icon-size.small is undocumented');
   });
   it('rejects empty token coverage without an explicit design gap', async () => {
     const inventory = await readInventory();

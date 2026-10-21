@@ -72,7 +72,12 @@ export function validateComponentInventory(
   implementations,
 ) {
   const names = new Set();
-  for (const component of inventory.components) {
+  // Shared foundations are validated just like components, but do not expand
+  // the approved 28-component delivery scope.
+  for (const component of [
+    ...inventory.components,
+    ...(inventory.sharedFoundations ?? []),
+  ]) {
     if (names.has(component.name))
       throw new Error(`Duplicate inventory component: ${component.name}`);
     names.add(component.name);
