@@ -51,6 +51,20 @@ Source: the reviewed semantic-color mapping, rows 2–47. `text/default` is the 
 | 46           | `surface / nav / active`               | `color-surface-nav-active`             | `color/co-blue/80-brand` | `#001970` |
 | 47           | `state / success`                      | `color-state-success`                  | `color/co-green/60v`     | `#026f28` |
 
+## Supplemental mapping
+
+These implementation mappings live in `src/supplemental.tokens.json`, outside the 46 source roles. They have no workbook row. Success alerts, the Accordion focus ring (`color-bg-action-focus`), and the disabled button border add no token; see the tokens README.
+
+| Use                      | Code name                        | Palette                    | Value     |
+| ------------------------ | -------------------------------- | -------------------------- | --------- |
+| Visited link text        | `color-text-action-link-visited` | `color/co-plum/80`         | `#491839` |
+| Info alert background    | `color-bg-alert-info`            | `color/co-blue/10`         | `#d9e8f6` |
+| Info alert border        | `color-border-alert-info`        | `color/co-blue/60-brand`   | `#2551a3` |
+| Warning alert background | `color-bg-alert-warning`         | `color/co-yellow/10`       | `#fcf9d9` |
+| Warning alert border     | `color-border-alert-warning`     | `color/co-yellow/30-brand` | `#ffd100` |
+| Urgent alert background  | `color-bg-alert-urgent`          | `color/co-red/10`          | `#f8dede` |
+| Urgent alert border      | `color-border-alert-urgent`      | `color/co-red/60-brand`    | `#b50909` |
+
 ## Foundation mapping
 
 Every foundation token records its design-reference section in `src/foundations.tokens.json`. The spacing, typography, radius, and palette references establish the source values, while the semantic-color mapping establishes aliases. Supporting planning documents provide context but are not generator inputs.
@@ -65,3 +79,14 @@ Every foundation token records its design-reference section in `src/foundations.
 | Content blocks     | `space-xl`  | 32px  |
 | Section breaks     | `space-2xl` | 48px  |
 | Page margins       | `space-3xl` | 64px  |
+
+| Icon size | Code name          | Value |
+| --------- | ------------------ | ----- |
+| Small     | `icon-size-small`  | 16px  |
+| Medium    | `icon-size-medium` | 24px  |
+
+## Catalog expansion
+
+See [catalog review and migration](catalog-review.md), the [component dependency inventory](component-token-inventory.json), and [observed variable tables](figma-observed-2026-10-08.json). Git token sources define the catalog; the variable table is reference material, not a validation input. Supplemental additions use flattened kebab-case public names, except the seven alert/visited roles aligned with PR #37 (see the naming table in catalog-review.md). Tag, Modal and Toast component aliases point to semantic roles. Desktop/Mobile typography uses explicit names, with disputed existing values retained for design review. Spacing `4xl` adds 80px; existing 4/8/12px names remain `2xs`/`xs`/`sm`. Translucent bottom-border and shadow primitives preserve their alpha; elevation geometry is scalar. The inventory records component dependencies and explicit Maps/Videos design gaps, not Figma measurements or design sign-off.
+
+Gray and yellow tag text preserve the `text/default` alias through `color.text-primary`, rather than resolving straight to the palette. The dependency inventory lists component token dependencies alongside independently verified Git stylesheet dependencies. Token validation rejects unknown catalog paths and undocumented or stale stylesheet dependencies. Maps and Videos retain explicit design coverage gaps. Figma-derived design decisions and unresolved source conflicts remain subject to design review; exported measurements are not checked by the build.

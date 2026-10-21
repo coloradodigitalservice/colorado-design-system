@@ -1,5 +1,102 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.2
+
+### Patch Changes
+
+- ace85bc: Add a Phosphor-based icon foundation, including approved icon assets, catalog, and size tokens. Replace packaged USWDS icon assets with equivalent Phosphor icons while retaining non-icon assets.
+- Updated dependencies [ace85bc]
+  - @coloradodigitalservice/colorado-design-tokens@0.2.2
+
+## 0.2.1
+
+### Patch Changes
+
+- 54440e1: Use a relative documentation link in the accordion fixture so it resolves correctly when the documentation site is hosted at the domain root or under the GitHub Pages repository path.
+- Updated dependencies [54440e1]
+  - @coloradodigitalservice/colorado-design-tokens@0.2.1
+
+## 0.2.0
+
+### Minor Changes
+
+- e02000c: Refresh the development dependency lockfile, upgrade the internal web app to Astro 7.4.0, update the GitHub Pages artifact action, and align workspace validation with Turbo 2.11.8.
+
+### Patch Changes
+
+- Updated dependencies [e02000c]
+  - @coloradodigitalservice/colorado-design-tokens@0.2.0
+
+## 0.1.7
+
+### Patch Changes
+
+- f85b635: Add supplemental color tokens for USWDS-theming roles (visited-link, alert tints) and wire overrides in the uswds layer.
+
+  All Figma-supplied values map to existing palette primitives:
+
+  - `text-action-link-visited` → co-plum-80 (#491839)
+  - `bg-alert-info` / `border-alert-info` → co-blue-10 / co-blue-60-brand
+  - `bg-alert-warning` / `border-alert-warning` → co-yellow-10 / co-yellow-30-brand
+  - `bg-alert-urgent` / `border-alert-urgent` → co-red-10 / co-red-60-brand
+
+  No new tokens: Success alerts retain USWDS defaults, Accordion focus reuses color-bg-action-focus, and disabled buttons need no border override.
+
+  Add Link visited contrast pair (17 pairs total). Overrides in _cods-color-overrides.scss are layer-aware and avoid !important. See CODS-P2-010 and ADR-002.
+
+- ff3fa08: Keep TypeScript on 6.x and defer Dependabot updates to 7.x and later until compiler API compatibility is restored.
+- Updated dependencies [f85b635]
+- Updated dependencies [ff3fa08]
+  - @coloradodigitalservice/colorado-design-tokens@0.1.7
+
+## 0.1.6
+
+### Patch Changes
+
+- f7e0b57: Add supplemental color tokens for USWDS-theming roles (visited-link, alert tints) and wire overrides in the uswds layer.
+
+  All Figma-supplied values map to existing palette primitives:
+
+  - `text-action-link-visited` → co-plum-80 (#491839)
+  - `bg-alert-info` / `border-alert-info` → co-blue-10 / co-blue-60-brand
+  - `bg-alert-warning` / `border-alert-warning` → co-yellow-10 / co-yellow-30-brand
+  - `bg-alert-urgent` / `border-alert-urgent` → co-red-10 / co-red-60-brand
+
+  No new tokens: Success alerts retain USWDS defaults, Accordion focus reuses color-bg-action-focus, and disabled buttons need no border override.
+
+  Add Link visited contrast pair (17 pairs total). Overrides in _cods-color-overrides.scss are layer-aware and avoid !important. See CODS-P2-010 and ADR-002.
+
+- Updated dependencies [f7e0b57]
+  - @coloradodigitalservice/colorado-design-tokens@0.1.6
+
+## 0.1.5
+
+### Patch Changes
+
+- 4d94782: Add GitHub Pages deployment workflow to automatically build and deploy the reference site (`apps/web`) to GitHub Pages on pushes to `main` and manual workflow dispatch.
+- Updated dependencies [4d94782]
+  - @coloradodigitalservice/colorado-design-tokens@0.1.5
+
+## 0.1.4
+
+### Patch Changes
+
+- 31ab558: Add the `/styles.css` stylesheet export and retain `/styles` as a compatibility
+  alias to the same built CSS file. Update repository imports and documentation
+  to prefer `/styles.css`, removing the dedicated ambient declarations in the
+  web and Storybook apps.
+- @coloradodigitalservice/colorado-design-tokens@0.1.4
+
+## 0.1.3
+
+### Patch Changes
+
+- 3f21b23: Validate copied fonts and images while preserving their
+  filenames, bytes, and relative CSS URLs. Eliminate expected unresolved-asset
+  warnings and fail builds when a stylesheet references a missing packaged file,
+  including during watch rebuilds.
+- @coloradodigitalservice/colorado-design-tokens@0.1.3
+
 ## 0.1.2
 
 ### Patch Changes

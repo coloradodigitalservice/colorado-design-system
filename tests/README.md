@@ -29,6 +29,15 @@ ports and disabled server reuse prevent accidentally testing a development serve
 
 For a faster scoped run:
 
+To exercise built pages without starting preview servers, use
+`pnpm exec playwright test --config config/playwright.built-files.ts` after
+`pnpm build`. This opts into local request routing for the same browser projects,
+console-error checks, and accessibility assertions. It does not verify HTTP-server
+behavior; the default suite remains the server-backed CI gate.
+Select the relevant tests with `--grep` or file paths: cases that use the API
+request fixture, create their own unrouted context, or explicitly continue a
+network request still require the default preview configuration.
+
 ```sh
 pnpm exec turbo run build --filter=@cods-internal/web...
 CODS_BROWSER_TARGET=web pnpm test:browser
@@ -171,8 +180,13 @@ through a routed fixture and proves the cascade layer order with computed styles
 in all three browsers: the order statement leads the stylesheet, a low-specificity
 `cods.components` rule beats USWDS, a consumer's unlayered rule beats CoDS, the
 color overrides beat USWDS, inverse and disabled outline buttons keep USWDS's
-variant colors, no `.usa-*` rule sits outside the `uswds` layer (computed style
-cannot see `:visited`), and USWDS fonts still load. Build the design
+variant colors, no `.usa-*` rule sits outside the `uswds` layer, USWDS fonts
+still load, and Info, Warning, and Urgent alerts match their tokens (Success keeps
+USWDS defaults, including in forced colors). Computed style cannot see `:visited`,
+so the visited-link rule is verified by reading the compiled rule: the last
+`.usa-link:visited` rule must sit in the `uswds` layer and use
+`--cods-color-text-action-link-visited`. `storybook-accordion.spec.ts` checks the
+focused trigger's ring and its forced-colors system highlight. Build the design
 system (`pnpm build`) before running it. See [ADR-007](../docs/adrs/007-cascade-layer-order.md).
 
 ## Visual regression conventions

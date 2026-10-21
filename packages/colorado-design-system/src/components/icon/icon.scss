@@ -1,0 +1,30 @@
+@layer cods.components {
+  .cods-icon {
+    display: inline-block;
+    inline-size: var(--cods-icon-size-medium);
+    block-size: auto;
+    aspect-ratio: 1;
+    fill: currentcolor;
+    vertical-align: middle;
+  }
+
+  .cods-icon--small {
+    inline-size: var(--cods-icon-size-small);
+  }
+
+  .cods-icon--medium {
+    inline-size: var(--cods-icon-size-medium);
+  }
+
+  [dir='rtl'] {
+    --cods-icon-rtl-transform: scaleX(-1);
+  }
+
+  [dir='ltr'] {
+    --cods-icon-rtl-transform: none;
+  }
+
+  .cods-icon--mirror-in-rtl {
+    transform: var(--cods-icon-rtl-transform, none);
+  }
+}

@@ -12,6 +12,11 @@ import {
   validateDocuments,
 } from '../scripts/validate.mjs';
 import { checkContrast, contrastRatio } from '../scripts/contrast.mjs';
+import {
+  extractTokenDependencies,
+  loadImplementationDependencies,
+  validateComponentInventory,
+} from '../scripts/inventory.mjs';
 import { compareOutputs, formatValue, generate } from '../scripts/build.mjs';
 
 const source = {
@@ -165,6 +170,8 @@ describe('State design references and consumers', () => {
     expect(output).toMatchObject({
       'space-2xs': '4px',
       'space-sm': '12px',
+      'icon-size-small': '16px',
+      'icon-size-medium': '24px',
       'radius-sm': '2px',
       'font-size-sm': '14px',
       'font-size-desktop-h4': '28px',
@@ -280,8 +287,21 @@ describe('reproducibility and non-mutating drift detection', () => {
 });
 
 describe('contrast checks', () => {
-  it('checks the initial text, action, border, icon and focus pairs', async () => {
-    expect(await checkContrast(catalog)).toHaveLength(16);
+  it('checks all documented text, tag, link, action, border, icon and focus pairs', async () => {
+    const reference = JSON.parse(
+      await readFile(
+        join(packageRoot, 'references/contrast-pairs.json'),
+        'utf8',
+      ),
+    );
+    const report = await checkContrast(catalog);
+    expect(report).toHaveLength(reference.pairs.length);
+    expect(report.map((pair) => pair.name)).toContain('Tag teal');
+    expect(report.map((pair) => pair.name)).toContain('Link visited');
+    expect(report.map((pair) => pair.name)).toContain(
+      'Default icon on form surface',
+    );
+    expect(report.map((pair) => pair.name)).toContain('Primary action icon');
   });
   it('uses unrounded contrast ratios and rejects transparent pairs', () => {
     const white = { colorSpace: 'srgb', components: [1, 1, 1], alpha: 1 };
@@ -299,5 +319,288 @@ describe('contrast checks', () => {
       catalog.resolved.get('color.surface-form'),
     );
     await expect(checkContrast(altered)).rejects.toThrow('below 4.5:1');
+  });
+});
+
+describe('Phase 3 catalog dependencies', () => {
+  it('covers every approved component and resolves its recorded dependencies', async () => {
+    const inventory = JSON.parse(
+      await readFile(
+        join(packageRoot, 'references/component-token-inventory.json'),
+        'utf8',
+      ),
+    );
+    validateComponentInventory(
+      inventory,
+      catalog,
+      await loadImplementationDependencies(catalog),
+    );
+    const approved = [
+      'Accordion',
+      'Breadcrumbs',
+      'Button',
+      'Card - Default',
+      'Card - Icon',
+      'Checkbox',
+      'Combo Box',
+      'Divider',
+      'Footer',
+      'Header',
+      'Hero',
+      'Icon List',
+      'Input',
+      'In-Page Alert',
+      'In-Page Navigation',
+      'Language Selector',
+      'Link',
+      'Maps',
+      'Modal',
+      'Process List',
+      'Radio Buttons',
+      'Search',
+      'Select (Dropdown)',
+      'Site Alert',
+      'Tags',
+      'Toasts/Snackbars',
+      'Tooltip',
+      'Videos',
+    ];
+    expect(
+      inventory.components.map((component) => component.name).sort(),
+    ).toEqual(approved.sort());
+    for (const component of inventory.components) {
+      expect(component.source).toContain(inventory.figmaFileId);
+      for (const path of [...component.tokens, ...component.componentTokens]) {
+        expect(catalog.tokens.has(path), `${component.name}: ${path}`).toBe(
+          true,
+        );
+        expect(catalog.resolved.has(path), `${component.name}: ${path}`).toBe(
+          true,
+        );
+      }
+    }
+    for (const [path, entry] of catalog.tokens) {
+      if (!path.startsWith('component.')) continue;
+      expect(entry.$value).toMatch(
+        /^\{color\.(?!co-|white|shadow)[a-z0-9-]+\}$/,
+      );
+    }
+  });
+  it('retains source distinctions, responsive units and existing disputed values', () => {
+    expect(output).toMatchObject({
+      'color-text-action-link-inline': '#173bb3',
+      'color-text-action-link-standalone': '#001970',
+      'color-text-action-link-standalone-hover': '#2551a3',
+      'color-text-action-link-visited': '#491839',
+      'component-tag-teal-background': '#aeced4',
+      'component-tag-teal-text': '#1a323f',
+      'space-4xl': '80px',
+      'font-size-mobile-body-sm': '13px',
+      'line-height-mobile-body-sm': '18px',
+      'paragraph-space-mobile-body-sm': '18px',
+      'font-size-mobile-ui': '16px',
+      'elevation-low-y': '4px',
+      'elevation-high-blur': '32px',
+      'elevation-opacity': 0.12,
+      'color-border-subtle': '#c4c5c9',
+      'font-size-mobile-h3': '28px',
+      'font-size-mobile-body-lg': '24px',
+    });
+    expect(output['color-border-bottom']).toBe('#1b1b1b14');
+    expect(output['color-elevation-shadow']).toBe('#0000001f');
+    expect(output).not.toHaveProperty('color-surface-table-row-sorted');
+  });
+  it('rejects a catalog whose tag foreground loses contrast', async () => {
+    const resolved = new Map(catalog.resolved);
+    resolved.set('color.text-tag-teal', resolved.get('color.surface-tag-teal'));
+    await expect(checkContrast({ ...catalog, resolved })).rejects.toThrow(
+      'Tag teal: contrast 1.00:1 is below 4.5:1',
+    );
+  });
+});
+
+it('keeps the contrast report reproducible, including accepted warning accent exceptions', async () => {
+  const report = JSON.parse(
+    await readFile(
+      join(packageRoot, 'references/catalog-contrast-report.json'),
+      'utf8',
+    ),
+  );
+  expect(await checkContrast(catalog)).toEqual(report.passingPairs);
+  expect(report.reviewIssues).toBeUndefined();
+  expect(report.acceptedExceptions).toHaveLength(2);
+  for (const exception of report.acceptedExceptions) {
+    const ratio = contrastRatio(
+      catalog.resolved.get(exception.foreground),
+      catalog.resolved.get(exception.background),
+    );
+    expect(ratio).toBe(exception.ratio);
+    expect(ratio).toBeLessThan(exception.requiredIfSoleVisualCue);
+    expect(exception.classification).toContain('Decorative');
+    expect(exception.acceptedBy).toBe('CoDS technical lead');
+    expect(exception.acceptedOn).toBe('2026-10-13');
+    expect(exception.status).toContain('not a WCAG conformance claim');
+  }
+});
+
+it('accounts for every observed semantic role and preserves its source alias', async () => {
+  const observation = JSON.parse(
+    await readFile(
+      join(packageRoot, 'references/figma-observed-2026-10-08.json'),
+      'utf8',
+    ),
+  );
+  const inventory = JSON.parse(
+    await readFile(
+      join(packageRoot, 'references/component-token-inventory.json'),
+      'utf8',
+    ),
+  );
+  let count = 0;
+  for (const category of ['text', 'bg', 'border', 'icon', 'state', 'surface']) {
+    let group = category;
+    for (const row of observation.tables[category]) {
+      if (row.length === 1) {
+        group = row[0].replaceAll('\n', '/');
+        continue;
+      }
+      if (row.length < 2 || row[0] === 'Name') continue;
+      count += 1;
+      const role = `${group}/${row[0]}`;
+      if (inventory.excludedRoles[role] || inventory.pendingRoles[role])
+        continue;
+      const path = inventory.sourceRoles[role];
+      expect(catalog.tokens.has(path), role).toBe(true);
+      if (role === 'border/bottom') {
+        expect(catalog.resolved.get(path).alpha).toBe(0.08);
+        continue;
+      }
+      if (row[1] === 'text/default') {
+        expect(catalog.tokens.get(path).$value, role).toBe(
+          '{color.text-primary}',
+        );
+      }
+      const target =
+        row[1] === 'text/default'
+          ? 'color.text-primary'
+          : row[1].replace(/^color\//, 'color.').replaceAll('/', '-');
+      expect(catalog.resolved.get(path), role).toEqual(
+        catalog.resolved.get(target),
+      );
+    }
+  }
+  expect(count).toBe(104);
+});
+
+describe('component inventory completeness', () => {
+  const readInventory = async () =>
+    JSON.parse(
+      await readFile(
+        join(packageRoot, 'references/component-token-inventory.json'),
+        'utf8',
+      ),
+    );
+  it.each([
+    ['Accordion', 'focus.ring-width'],
+    ['Site Alert', 'font.size-mobile-h3'],
+  ])(
+    'detects omitted %s stylesheet dependencies independently of the inventory',
+    async (name, missing) => {
+      const inventory = await readInventory();
+      const component = inventory.components.find(
+        (entry) => entry.name === name,
+      );
+      component.tokens = component.tokens.filter((path) => path !== missing);
+      component.implementationTokens = component.implementationTokens.filter(
+        (path) => path !== missing,
+      );
+      expect(() =>
+        validateComponentInventory(inventory, catalog, implementations),
+      ).toThrow(`stylesheet dependency ${missing} is undocumented`);
+    },
+  );
+  let implementations;
+  beforeAll(async () => {
+    implementations = await loadImplementationDependencies(catalog);
+  });
+  it('validates shared foundation dependencies without expanding the component scope', async () => {
+    const inventory = await readInventory();
+    expect(inventory.components).toHaveLength(28);
+    const icon = inventory.sharedFoundations.find(
+      (entry) => entry.name === 'Icon',
+    );
+    expect(icon.implementationTokens).toEqual([
+      'icon-size.medium',
+      'icon-size.small',
+    ]);
+    icon.tokens = icon.tokens.filter((path) => path !== 'icon-size.small');
+    icon.implementationTokens = icon.implementationTokens.filter(
+      (path) => path !== 'icon-size.small',
+    );
+    expect(() =>
+      validateComponentInventory(inventory, catalog, implementations),
+    ).toThrow('Icon: stylesheet dependency icon-size.small is undocumented');
+  });
+  it('rejects empty token coverage without an explicit design gap', async () => {
+    const inventory = await readInventory();
+    inventory.components.find((entry) => entry.name === 'Modal').tokens = [];
+    expect(() =>
+      validateComponentInventory(inventory, catalog, implementations),
+    ).toThrow('Modal: specify token dependencies or an explicit design gap');
+  });
+  it('rejects unknown token dependencies', async () => {
+    const inventory = await readInventory();
+    const component = inventory.components.find(
+      (entry) => entry.name === 'Modal',
+    );
+    component.tokens.push('space.missing');
+    expect(() =>
+      validateComponentInventory(inventory, catalog, implementations),
+    ).toThrow('Modal: missing catalog token space.missing');
+  });
+  it('keeps design gaps explicit instead of requiring invented tokens', async () => {
+    const inventory = await readInventory();
+    expect(() =>
+      validateComponentInventory(inventory, catalog, implementations),
+    ).not.toThrow();
+    expect(
+      inventory.components.find((entry) => entry.name === 'Videos'),
+    ).toMatchObject({
+      designCoverage: 'design-incomplete',
+      tokens: [],
+    });
+    inventory.components.find(
+      (entry) => entry.name === 'Videos',
+    ).designCoverage = 'documented';
+    expect(() =>
+      validateComponentInventory(inventory, catalog, implementations),
+    ).toThrow('Videos: specify token dependencies or an explicit design gap');
+  });
+  it('rejects newly introduced stylesheet dependencies until they are documented', async () => {
+    const inventory = await readInventory();
+    const updated = new Map(implementations);
+    const accordion = updated.get('Accordion');
+    updated.set('Accordion', {
+      ...accordion,
+      tokens: [...accordion.tokens, 'space.4xl'],
+    });
+    expect(() =>
+      validateComponentInventory(inventory, catalog, updated),
+    ).toThrow('Accordion: stylesheet dependency space.4xl is undocumented');
+  });
+  it('extracts CSS and namespaced Sass token references without including component properties or comments', () => {
+    const styles = `@use '@coloradodigitalservice/colorado-design-tokens' as ds;
+      .cods-probe { background: url(https://example.test/image.svg); padding: ds.$space-lg; font-size: var(--cods-font-size-mobile-body); --cods-probe-padding: 1px; }
+      /* --cods-space-unused */`;
+    expect(extractTokenDependencies(styles, catalog)).toEqual([
+      'font.size-mobile-body',
+      'space.lg',
+    ]);
+    expect(
+      extractTokenDependencies(
+        '.cods-probe { padding: var(--cods-space-missing); }',
+        catalog,
+      ),
+    ).toEqual(['space.missing']);
   });
 });

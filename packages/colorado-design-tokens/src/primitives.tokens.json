@@ -849,6 +849,36 @@
           "location": "Colorado Design System Figma / Color / Core Color Ramps"
         }
       }
+    },
+    "co-gray-90-alpha-8": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.10588235294117647, 0.10588235294117647, 0.10588235294117647
+        ],
+        "alpha": 0.08
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "border/bottom #1B1B1B 8%",
+          "location": "Colorado Design System Figma jQ3EiYqe3uEvFbid5ewc41 / Semantic Color Tokens; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "black-alpha-12": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [0, 0, 0],
+        "alpha": 0.12
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "color/shadow #000000 12%",
+          "location": "Colorado Design System Figma jQ3EiYqe3uEvFbid5ewc41 / _Primitives and Elevation; observed 2026-10-08; proposed for design review"
+        }
+      }
     }
   }
 }

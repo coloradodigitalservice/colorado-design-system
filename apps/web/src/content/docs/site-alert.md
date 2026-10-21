@@ -30,9 +30,9 @@ The example above shows the default notice. More examples below cover the other 
 
 ## Use the package
 
-Follow [Getting started](/getting-started/) to install the development release
+Follow [Getting started](../getting-started/) to install the development release
 and load `@coloradodigitalservice/colorado-design-tokens/tokens.css` and
-`@coloradodigitalservice/colorado-design-system/styles` once. Author the
+`@coloradodigitalservice/colorado-design-system/styles.css` once. Author the
 USWDS section → alert surface → alert body structure shown in the canonical
 fixture, retaining both the `usa-` structural classes and the `cods-` public
 classes. There is no JavaScript import, controller, dismissal, or custom event.
