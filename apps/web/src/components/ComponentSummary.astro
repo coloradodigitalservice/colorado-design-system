@@ -1,18 +1,13 @@
 ---
-import inPageAlert from '@coloradodigitalservice/colorado-design-system/metadata/in-page-alert.json';
 import siteAlert from '@coloradodigitalservice/colorado-design-system/metadata/site-alert.json';
 import accordion from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
 
 interface Props {
-  component: 'site-alert' | 'accordion' | 'in-page-alert';
+  component: 'site-alert' | 'accordion';
   figma?: string;
 }
 
-const metadata = {
-  'site-alert': siteAlert,
-  accordion,
-  'in-page-alert': inPageAlert,
-}[Astro.props.component];
+const metadata = { 'site-alert': siteAlert, accordion }[Astro.props.component];
 const { figma } = Astro.props;
 const repository =
   'https://github.com/coloradodigitalservice/colorado-design-system/tree/main/packages/colorado-design-system/src/components';

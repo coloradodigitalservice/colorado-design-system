@@ -115,6 +115,83 @@
       "ratio": 6.981914771853206
     },
     {
+      "name": "Default icon on form surface",
+      "foreground": "color.icon-default",
+      "background": "color.surface-form",
+      "minimum": 3,
+      "ratio": 17.224382887077635
+    },
+    {
+      "name": "Primary action icon",
+      "foreground": "color.icon-on-primary",
+      "background": "color.bg-action-primary",
+      "minimum": 3,
+      "ratio": 15.294721516398141
+    },
+    {
+      "name": "Primary action icon hover",
+      "foreground": "color.icon-on-primary-hover",
+      "background": "color.bg-action-primary-hover",
+      "minimum": 3,
+      "ratio": 17.94374476605884
+    },
+    {
+      "name": "Primary action icon active",
+      "foreground": "color.icon-on-primary-active",
+      "background": "color.bg-action-primary-active",
+      "minimum": 3,
+      "ratio": 7.541739415218818
+    },
+    {
+      "name": "Link icon",
+      "foreground": "color.icon-action-link",
+      "background": "color.surface-form",
+      "minimum": 3,
+      "ratio": 9.0793056634429
+    },
+    {
+      "name": "Link icon hover",
+      "foreground": "color.icon-action-link-hover",
+      "background": "color.surface-form",
+      "minimum": 3,
+      "ratio": 15.294721516398141
+    },
+    {
+      "name": "Link icon active",
+      "foreground": "color.icon-action-link-active",
+      "background": "color.surface-form",
+      "minimum": 3,
+      "ratio": 17.94374476605884
+    },
+    {
+      "name": "Secondary action icon",
+      "foreground": "color.icon-action-secondary",
+      "background": "color.surface-form",
+      "minimum": 3,
+      "ratio": 15.294721516398141
+    },
+    {
+      "name": "Secondary action icon hover",
+      "foreground": "color.icon-action-secondary-hover",
+      "background": "color.bg-action-secondary-hover",
+      "minimum": 3,
+      "ratio": 10.811502639575428
+    },
+    {
+      "name": "Secondary action icon active",
+      "foreground": "color.icon-action-secondary-active",
+      "background": "color.surface-form",
+      "minimum": 3,
+      "ratio": 7.541739415218818
+    },
+    {
+      "name": "Secondary form icon",
+      "foreground": "color.icon-form-secondary",
+      "background": "color.surface-form",
+      "minimum": 3,
+      "ratio": 6.742737054449583
+    },
+    {
       "name": "Focus color against white only",
       "foreground": "color.bg-action-focus",
       "background": "color.surface-form",

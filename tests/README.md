@@ -29,6 +29,15 @@ ports and disabled server reuse prevent accidentally testing a development serve
 
 For a faster scoped run:
 
+To exercise built pages without starting preview servers, use
+`pnpm exec playwright test --config config/playwright.built-files.ts` after
+`pnpm build`. This opts into local request routing for the same browser projects,
+console-error checks, and accessibility assertions. It does not verify HTTP-server
+behavior; the default suite remains the server-backed CI gate.
+Select the relevant tests with `--grep` or file paths: cases that use the API
+request fixture, create their own unrouted context, or explicitly continue a
+network request still require the default preview configuration.
+
 ```sh
 pnpm exec turbo run build --filter=@cods-internal/web...
 CODS_BROWSER_TARGET=web pnpm test:browser
@@ -228,12 +237,3 @@ capture, and render an image without alt text in a real loaded page to check axe
 output. Confirm a nonzero exit and attachments, then remove the temporary spec.
 
 See [Foundation CI](../docs/CI.md) for job selection and artifacts.
-
-### In-Page Alert without local servers
-
-After `pnpm build`, run
-`pnpm exec playwright test --config config/playwright.in-page-alert.ts`.
-This component suite routes the built Astro/Storybook files and assets through
-Playwright instead of opening preview ports. It covers the docs in Chromium,
-Firefox, and WebKit plus the Storybook examples in Chromium. It supplements the
-full browser suite; it does not replace that release gate.

@@ -32,13 +32,14 @@ pnpm build  # Via Turbo
 
 After build, the `dist/` directory contains:
 
-| File                         | Purpose                                     |
-| ---------------------------- | ------------------------------------------- |
-| `colorado-design-system.mjs` | ESM bundle with all components and exports  |
-| `colorado-design-system.css` | Compiled CSS from `src/styles/index.scss`   |
-| `fonts/`, `img/`             | Fonts and USWDS icons the CSS references    |
-| `index.d.ts`                 | TypeScript type declarations for main entry |
-| `components/*.d.ts`          | Component-specific type declarations        |
+| File                         | Purpose                                                           |
+| ---------------------------- | ----------------------------------------------------------------- |
+| `colorado-design-system.mjs` | ESM bundle with all components and exports                        |
+| `colorado-design-system.css` | Compiled CSS from `src/styles/index.scss`                         |
+| `fonts/`, `img/`             | Fonts and non-icon images referenced by the CSS                   |
+| `icons/`                     | Generated Phosphor sprite, approved SVGs, catalog, and MIT notice |
+| `index.d.ts`                 | TypeScript type declarations for main entry                       |
+| `components/*.d.ts`          | Component-specific type declarations                              |
 
 ### Package Exports
 
@@ -59,6 +60,31 @@ Consumers must not rely on undeclared export paths. The `./fixtures/*.html` and
 `./metadata/*.json` patterns export every component's fixture and metadata,
 including experimental components. These paths do not imply stable maturity;
 check the component metadata. Per-component controller subpaths are not exported.
+
+The Icon foundation uses the pinned `@phosphor-icons/core` development
+dependency as a build-time source. Its approved IDs are listed in
+`src/icons/approved-icons.json`, alongside the pinned source package, version,
+license, and Regular weight. `pnpm icons:build` writes the deterministic
+`generated/icons/sprite.svg` and `generated/icons/catalog.json` (with a SHA-256
+per source icon and Phosphor taxonomy metadata), which
+are committed like the token output; never edit them by hand.
+`pnpm icons:check` regenerates them in memory and fails when the
+committed files differ, for example after changing the approved list or the
+pinned Phosphor version without rerunning `icons:build`.
+
+The `build` script runs `icons:check` before Vite. A Vite plugin then writes
+`dist/icons/` from the committed files: it copies one Regular-weight SVG per
+ID from the pinned package (failing if any differs from its committed hash),
+plus `sprite.svg`, `catalog.json`, and the upstream `LICENSE`. `dist/` itself
+stays untracked; releases build it in CI. The package exports these at
+`./icons/*.svg`, `./icons/catalog.json`, and `./icons/LICENSE`.
+
+The build also generates explicit-color `<id>--<hex>.svg` variants for the
+USWDS CSS replacements listed in `build/uswds-icon-variants.json`. These retain
+the pinned USWDS assets' foreground colors (including distinct light and dark
+checkbox state marks). SVGs loaded as background images cannot inherit the
+control's `currentColor`. The normal sprite and per-ID SVGs remain unchanged;
+the variants do not add IDs to the approved catalog.
 
 ### Entry Points
 
@@ -102,14 +128,21 @@ Interactive Type A components import the single USWDS behavior they wrap (for ex
 
 USWDS's CSS references fonts and icons by relative `url()`. `_uswds-theme.scss`
 sets `$theme-font-path` and `$theme-image-path` to `./fonts` and `./img`.
-The Vite asset plugin keeps the existing copy layout under `dist/fonts` and
-`dist/img`, excluding unused `material-icons` and `favicons`. It declares a CSS
-URL external only when its corresponding source file exists and will be copied.
-Expected warnings disappear; unknown references retain Vite's normal warnings.
+The Vite asset plugin keeps the existing layout for required non-icon assets in
+`dist/fonts` and `dist/img`. It excludes USWDS icon collections (USA, USWDS,
+Material, and deprecated Material icons) and replaces CSS references to used
+USWDS icons with equivalent approved Phosphor SVGs under `dist/icons`. The
+remaining non-icon image assets are copied unchanged. A CSS URL is externalized
+only when its source exists. Component CSS masks can reference
+`./icons/<approved-id>.svg` directly: approved IDs and the explicit USWDS color
+variants are externalized for the shared icon pipeline to write, and the final
+CSS check verifies those files exist. An unrecognized URL into an excluded icon
+collection fails the build instead of repackaging that icon. Expected warnings
+disappear, and unknown non-icon references retain Vite's normal warnings.
 
-In `writeBundle`, the plugin refreshes the copied directories and parses the
-written CSS with CSS-tree to check every local URL. Missing files fail the build
-with the stylesheet and asset path; root-relative and escaping paths also fail.
+In `writeBundle`, the plugin refreshes the copied directories, remaps icon URLs,
+and parses the written CSS with CSS-tree to check every local URL. Missing files
+fail the build with the stylesheet and asset path; root-relative and escaping paths also fail.
 Remote/data URLs and fragment references are skipped. Source directories and
 files are watched, and refreshing output prevents deleted sources from surviving
 as stale assets. Tests cover validation, unexpected warnings, watch changes and

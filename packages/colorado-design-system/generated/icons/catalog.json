@@ -1,0 +1,1883 @@
+{
+  "source": {
+    "package": "@phosphor-icons/core",
+    "version": "2.1.1",
+    "license": "MIT"
+  },
+  "weight": "regular",
+  "categoryMetadata": {
+    "phosphorCategories": "Phosphor taxonomy"
+  },
+  "icons": [
+    {
+      "id": "cursor",
+      "phosphorCategories": [
+        "design",
+        "system"
+      ],
+      "sha256": "67df1a1f6d7868c4eed4705775cafd972c19a3ff25f99b1b260b525b7c85d1e4"
+    },
+    {
+      "id": "file-arrow-down",
+      "phosphorCategories": [
+        "office",
+        "editor"
+      ],
+      "sha256": "b08faaac9a2dae480b6f1decd2133ee2489450393191b0eb9490d47aeabf6d91"
+    },
+    {
+      "id": "file",
+      "phosphorCategories": [
+        "office",
+        "editor"
+      ],
+      "sha256": "eb2dcc530fb0727a1718dfdc55a466479bb5ad7c8f0e45f1993541093c747e06"
+    },
+    {
+      "id": "info",
+      "phosphorCategories": [
+        "system"
+      ],
+      "sha256": "438a1f319d53d86e840af73fb7b1d224c9224a437b9fa449a4e2cb45a82a3552"
+    },
+    {
+      "id": "arrow-left",
+      "phosphorCategories": [
+        "arrows"
+      ],
+      "sha256": "3c2001cf957d182fc54927e4b286cc8cf66dd97830f441ca2650d42a63a9006a"
+    },
+    {
+      "id": "car",
+      "phosphorCategories": [
+        "maps & travel",
+        "objects"
+      ],
+      "sha256": "394e30a020b4e1dbe4dc789f0161e607142211b4b0f65f97855ec1de4ad2397b"
+    },
+    {
+      "id": "wine",
+      "phosphorCategories": [
+        "commerce",
+        "maps & travel",
+        "objects"
+      ],
+      "sha256": "b0978c00f0a02cbf6ea02cf7f12e6c5a6fa6621c1bcd6e20e8f72d83bc183ce1"
+    },
+    {
+      "id": "shopping-cart",
+      "phosphorCategories": [
+        "commerce",
+        "maps & travel",
+        "objects"
+      ],
+      "sha256": "c972c761af11dcf0308abedac84543d235062d073d11b2119d0da870465ad474"
+    },
+    {
+      "id": "heart",
+      "phosphorCategories": [
+        "communications",
+        "games",
+        "health & wellness"
+      ],
+      "sha256": "312dee73d1d969631d5498012f619ccf4edbdf31e1be3e65af4f4f1b3ac1b2dd"
+    },
+    {
+      "id": "question",
+      "phosphorCategories": [
+        "system"
+      ],
+      "sha256": "fd9a87cfce2abaa9113058be90e5281da58f665e2185974b80c7425d5c7fe2d6"
+    },
+    {
+      "id": "clipboard",
+      "phosphorCategories": [
+        "office",
+        "editor",
+        "system"
+      ],
+      "sha256": "c6ff70834d8f50867b8ad1e48a3951f9ed132b4477dd8797115ceb528e105f84"
+    },
+    {
+      "id": "laptop",
+      "phosphorCategories": [
+        "technology & development",
+        "objects"
+      ],
+      "sha256": "761f9e8d8a9db3e28adf8a6287016a47302f8fb629dfa355372d3835681b506f"
+    },
+    {
+      "id": "money",
+      "phosphorCategories": [
+        "commerce",
+        "finances"
+      ],
+      "sha256": "85f2ee45c76bff8ea4c35170e4c962ec7169bbb0ca8fc98a56a759087a7f045b"
+    },
+    {
+      "id": "identification-card",
+      "phosphorCategories": [
+        "people"
+      ],
+      "sha256": "be9c729c7a8d0de193c513a0524fdccc8b16716f35531c2b28235307d7e7e8bf"
+    },
+    {
+      "id": "check-square",
+      "phosphorCategories": [
+        "system"
+      ],
+      "sha256": "69fc9a39cab4af71874d4cc56eaa6d8943962f2619f5c9a7e2e38d01e232c928"
+    },
+    {
+      "id": "briefcase",
+      "phosphorCategories": [
+        "office",
+        "objects"
+      ],
+      "sha256": "c908360aa8ffeff3b78be469066aa9faf7df2eda8f34a3596c44157dddc96453"
+    },
+    {
+      "id": "house",
+      "phosphorCategories": [
+        "maps & travel",
+        "system"
+      ],
+      "sha256": "180e9259e99e23da197b59b19394d006d6a5d33e384cc2b9c8381cb0214a5716"
+    },
+    {
+      "id": "ticket",
+      "phosphorCategories": [
+        "commerce",
+        "maps & travel",
+        "objects"
+      ],
+      "sha256": "1e168a9edcbdda845cbc2a9a1eb5dfa1499bf7974351750e81ea142ecdde7335"
+    },
+    {
+      "id": "signature",
+      "phosphorCategories": [
+        "communications",
+        "office"
+      ],
+      "sha256": "f21b5238263ae7eb30f16a34beb504446af824276e2b6b697d9867a8e009efce"
+    },
+    {
+      "id": "warning-diamond",
+      "phosphorCategories": [
+        "system"
+      ],
+      "sha256": "7d7898a10627b68826585aaab8e7a5eb219bc12622bd3335dcc83ebd730b5643"
+    },
+    {
+      "id": "graduation-cap",
+      "phosphorCategories": [
+        "maps & travel",
+        "objects"
+      ],
+      "sha256": "855b9f61c75900768c0265f671456554215e37b5bf15af9afa7acef36ec31c48"
+    },
+    {
+      "id": "user",
+      "phosphorCategories": [
+        "people"
+      ],
+      "sha256": "787434f7fef95f20e137d309d3c6b8b471548c55c9dfc137ae10625d70959d11"
+    },
+    {
+      "id": "detective",
+      "phosphorCategories": [
+        "people",
+        "system"
+      ],
+      "sha256": "17e3e462bbedf5b8b6b56cb7cbfab11a083b74b0fbe7597def16d1930e93efa2"
+    },
+    {
+      "id": "paper-plane-tilt",
+      "phosphorCategories": [
+        "communications",
+        "maps & travel",
+        "objects"
+      ],
+      "sha256": "0dbff2ada31c963dfd95bfe2ab2cb39a90fe7100eb7c1724577444a1d8a7c26d"
+    },
+    {
+      "id": "gavel",
+      "phosphorCategories": [
+        "commerce",
+        "objects"
+      ],
+      "sha256": "71c56cbf809f14a0609f0d9369b2d43ad353f276c65a12fe3f8862e83f47ce48"
+    },
+    {
+      "id": "file-text",
+      "phosphorCategories": [
+        "office",
+        "editor"
+      ],
+      "sha256": "9a580a038cce9f6dd223597864abe1b5c5c03bf8176d2f7171574598468b16f7"
+    },
+    {
+      "id": "user-plus",
+      "phosphorCategories": [
+        "people"
+      ],
+      "sha256": "02197487a2b9ba649efc90baa79e2868bed55c1050a7f7130d348f1a4e2c8678"
+    },
+    {
+      "id": "truck",
+      "phosphorCategories": [
+        "commerce",
+        "maps & travel",
+        "objects"
+      ],
+      "sha256": "bd8d8f6c139f016398677ad6d724f10f714b0a9908dd7eeed479e5c9e6561dde"
+    },
+    {
+      "id": "motorcycle",
+      "phosphorCategories": [
+        "maps & travel",
+        "objects"
+      ],
+      "sha256": "984ece942155405c6578eb78b322e74e9ba5d89618d19441f18577a56f3118be"
+    },
+    {
+      "id": "question-mark",
+      "phosphorCategories": [
+        "system"
+      ],
+      "sha256": "74b780ed771a478161c04088ca8ca5a232749491cf71ecd9402122bfabf11781"
+    },
+    {
+      "id": "folder-open",
+      "phosphorCategories": [
+        "office",
+        "editor",
+        "system"
+      ],
+      "sha256": "9157518d00547242d3986c4fdaaf44a62ef056caf3ecee0c88137529947170ea"
+    },
+    {
+      "id": "gas-pump",
+      "phosphorCategories": [
+        "maps & travel",
+        "objects"
+      ],
+      "sha256": "e5a8f2ae08bf8f21f6c92f1b271d3cbca1602950c1a03d3a7aefb2d093aac445"
+    },
+    {
+      "id": "copy",
+      "phosphorCategories": [
+        "editor",
+        "system"
+      ],
+      "sha256": "5a892fc6a72866e60c67db2088a87653cf44b57b1a5d183b36e950cdc5dd66b3"
+    },
+    {
+      "id": "bank",
+      "phosphorCategories": [
+        "finances",
+        "maps & travel"
+      ],
+      "sha256": "d52f812b44373ca15c1a8050ba27b35b8f4e014f1fcfe5fbaf9ee84d736b0c43"
+    },
+    {
+      "id": "gas-can",
+      "phosphorCategories": [
+        "maps & travel",
+        "objects"
+      ],
+      "sha256": "7c709c68d8be043e946142cafba9a5911efabf546c1eb1011fa4e44bef1302f0"
+    },
+    {
+      "id": "percent",
+      "phosphorCategories": [
+        "technology & development",
+        "finances"
+      ],
+      "sha256": "cecdfcc7cd23ecb3bf55290121336c081762dc1bfee7dab42c0f28646271e0e7"
+    },
+    {
+      "id": "pencil",
+      "phosphorCategories": [
+        "design",
+        "editor",
+        "office"
+      ],
+      "sha256": "59c456fd1164519962c4828df6bc803e9659800c1ca478bac2ad477b220a79ec"
+    },
+    {
+      "id": "map-pin",
+      "phosphorCategories": [
+        "maps & travel"
+      ],
+      "sha256": "523f024fa467fc285d95c1db4ed6c32b640513c79780d14310bebf342b6f94fb"
+    },
+    {
+      "id": "arrow-right",
+      "phosphorCategories": [
+        "arrows"
+      ],
+      "sha256": "e45bc4a12592b8723110db42c6deffdf177e4fe7704cf50324963fa0a59b2d74"
+    },
+    {
+      "id": "phone",
+      "phosphorCategories": [
+        "communications",
+        "system"
+      ],
+      "sha256": "a6eaa18b76ebeff885aad0eff89dc286a659f263bea801359a6fe2d15cde24f8"
+    },
+    {
+      "id": "money-wavy",
+      "phosphorCategories": [
+        "finances",
+        "commerce"
+      ],
+      "sha256": "2c5d3dd610130db24aa979b7121d0dc44e6257a7a7026a848f5c1ecef64ac902"
+    },
+    {
+      "id": "currency-dollar",
+      "phosphorCategories": [
+        "commerce",
+        "finances"
+      ],
+      "sha256": "6520e0ca3d29f5a86f849fb9b00671f8180f7e8eb8efdcc1df47ab7b0e61d39c"
+    },
+    {
+      "id": "download",
+      "phosphorCategories": [
+        "system"
+      ],
+      "sha256": "af9fcd16c155e5c113bdebe14790ccdf28738d06acd39da936bf33b4721c09d5"
+    },
+    {
+      "id": "note",
+      "phosphorCategories": [
+        "office",
+        "editor"
+      ],
+      "sha256": "8dad2e545c79b0d8eb121a80296053238691af688afae4d1d7629e6c300f3904"
+    },
+    {
+      "id": "globe",
+      "phosphorCategories": [
+        "maps & travel"
+      ],
+      "sha256": "3b53d207c09fc72de699c8b2149892e065b570b3ae144412ae53244b0a0f7977"
+    },
+    {
+      "id": "ambulance",
+      "phosphorCategories": [
+        "health & wellness",
+        "maps & travel",
+        "objects"
+      ],
+      "sha256": "1ae30705aa7b5339a13594ed4e0985e94ce956f65e03e8feea29a4d0756a20d4"
+    },
+    {
+      "id": "chart-pie",
+      "phosphorCategories": [
+        "finances",
+        "office"
+      ],
+      "sha256": "3ec2472d4542f8a07825f4497101beb5564a37c147ad1d3e40cf2ea27f48c585"
+    },
+    {
+      "id": "car-profile",
+      "phosphorCategories": [
+        "maps & travel",
+        "objects"
+      ],
+      "sha256": "be8757b255ba0294ae73f6b79d0ab823efb3589be7333c83d525b677b01b47af"
+    },
+    {
+      "id": "note-pencil",
+      "phosphorCategories": [
+        "office",
+        "editor"
+      ],
+      "sha256": "85f05d1a02f8d808ca9b023e765e7dec7ec2d706313dddf464010f35c9469264"
+    },
+    {
+      "id": "check",
+      "phosphorCategories": [
+        "system"
+      ],
+      "sha256": "cbb89a8c42f283d4f846eb935e05d88c1be04462f16480e068c0f82b9ce40b12"
+    },
+    {
+      "id": "wheelchair-motion",
+      "phosphorCategories": [
+        "health & wellness",
+        "maps & travel",
+        "people"
+      ],
+      "sha256": "4c6e27b727b2b0b1cb44ab881cf1aa098e9205f982f20bde79b54b024f7d9a2f"
+    },
+    {
+      "id": "video-camera",
+      "phosphorCategories": [
+        "media",
+        "system",
+        "objects"
+      ],
+      "sha256": "3c9eaa197d77d45496d35be0a750095b643cf7a3685e3b067049b587368acce2"
+    },
+    {
+      "id": "potted-plant",
+      "phosphorCategories": [
+        "commerce",
+        "nature"
+      ],
+      "sha256": "57907cd65b5b18ea7330e8c4ad70341fcde3d5d56bb791cf05239294f81aae19"
+    },
+    {
+      "id": "calendar-dots",
+      "phosphorCategories": [
+        "office",
+        "system"
+      ],
+      "sha256": "7911ba8e60afd4506bdc5fcef0549a9c1bc22c0439d1d946507116dfd8acf3d9"
+    },
+    {
+      "id": "building",
+      "phosphorCategories": [
+        "commerce",
+        "maps & travel"
+      ],
+      "sha256": "79544e1c7e1addef1c167708f5e1119946d912fc4ee2d64bd510ffd256c6ab0b"
+    },
+    {
+      "id": "currency-circle-dollar",
+      "phosphorCategories": [
+        "commerce",
+        "finances"
+      ],
+      "sha256": "141a655b6e67fb160c04cf2115fdfe1d2ee2296ad903030262c53dc70edfb95d"
+    },
+    {
+      "id": "magnifying-glass",
+      "phosphorCategories": [
+        "editor",
+        "system"
+      ],
+      "sha256": "f9fa2561978a9a3291e8ae0ebfcb651104f5069fade8f84871627bca68889cde"
+    },
+    {
+      "id": "plus",
+      "phosphorCategories": [
+        "technology & development",
+        "finances",
+        "system"
+      ],
+      "sha256": "d688feb9dd2e41c1721d6906a05a2a42e18cd774762fe706d72b2bdfd91cddc4"
+    },
+    {
+      "id": "file-xls",
+      "phosphorCategories": [
+        "office",
+        "editor"
+      ],
+      "sha256": "c370ac77a9f4f10a04d0e5c929b4ffaab1a850b7e72d67d2cd8bb7a9ee5c6259"
+    },
+    {
+      "id": "credit-card",
+      "phosphorCategories": [
+        "commerce",
+        "finances"
+      ],
+      "sha256": "15aa383eedde1f3d95df3749b30ad1ba986f0522ef8784a68f9039f18efdc5eb"
+    },
+    {
+      "id": "buildings",
+      "phosphorCategories": [
+        "commerce",
+        "maps & travel"
+      ],
+      "sha256": "76f3325b87588fc6786953e8b964d5b7cae58983b3dc1399f7b7a672a6c1b553"
+    },
+    {
+      "id": "chart-line",
+      "phosphorCategories": [
+        "finances",
+        "office"
+      ],
+      "sha256": "8a432fac53ae887b1726a96462aa8ea285e714b8e480261751361e4d6b2b226f"
+    },
+    {
+      "id": "bus",
+      "phosphorCategories": [
+        "maps & travel",
+        "objects"
+      ],
+      "sha256": "f9305d6a46e3e4e0844e1d92be64e47294654c2e70beab1afae0b26a84cc8477"
+    },
+    {
+      "id": "calendar-check",
+      "phosphorCategories": [
+        "office",
+        "system"
+      ],
+      "sha256": "94a43416ea1c0db010e860b1b63a668834c99629c4a0b2ea3a4179876e60f622"
+    },
+    {
+      "id": "steering-wheel",
+      "phosphorCategories": [
+        "maps & travel",
+        "objects"
+      ],
+      "sha256": "64b540806a248ba3906210cfb9348655cab32345a847fccff8715c2761915cb4"
+    },
+    {
+      "id": "check-circle",
+      "phosphorCategories": [
+        "system"
+      ],
+      "sha256": "e02a080c3d1a758de5c5fd41abd913dec4cffbc70fe1e9637dbf7ce35f377055"
+    },
+    {
+      "id": "arrow-line-up",
+      "phosphorCategories": [
+        "arrows"
+      ],
+      "sha256": "ad57c6bf088a57595fc8f37928cf3d8793ca38ec01e4e9aeb7acb155ec2e1d3a"
+    },
+    {
+      "id": "tree-evergreen",
+      "phosphorCategories": [
+        "nature"
+      ],
+      "sha256": "a93aba980e2fe9dadca7d18abae744c6150e27096dfd21793e2164ce953b67fe"
+    },
+    {
+      "id": "play",
+      "phosphorCategories": [
+        "media",
+        "system"
+      ],
+      "sha256": "885b3ed2095889c4ff063dac35dc424cb9f6c00273ab44e2f90dc9dadbee661a"
+    },
+    {
+      "id": "list-bullets",
+      "phosphorCategories": [
+        "editor"
+      ],
+      "sha256": "5c685a673fbd053a3c548039725d1a9f902938fbcddaef3c5f958f0a64c19341"
+    },
+    {
+      "id": "lightbulb",
+      "phosphorCategories": [
+        "system",
+        "objects"
+      ],
+      "sha256": "b61e4d9685a1d74e579a7dbbe0d5222bdf8dcdcaf5b67825a17ff45363e4fadd"
+    },
+    {
+      "id": "leaf",
+      "phosphorCategories": [
+        "nature"
+      ],
+      "sha256": "688976d4921d67d44b766542d36c4d20f553babaf74db8e43f4ef012e658d884"
+    },
+    {
+      "id": "handshake",
+      "phosphorCategories": [
+        "people",
+        "commerce"
+      ],
+      "sha256": "620a2394b8ea5a146bc73997872e7a6479cda2c452ea3dba56fba0b1181dd341"
+    },
+    {
+      "id": "invoice",
+      "phosphorCategories": [
+        "commerce",
+        "finances",
+        "office"
+      ],
+      "sha256": "f51c2c4b5c63ba6dc40ab81413946531b2443f23741283572b64df5d6fde536e"
+    },
+    {
+      "id": "users-three",
+      "phosphorCategories": [
+        "people"
+      ],
+      "sha256": "0e326e4ef7d1ae16f9988791f68fde7bae513bdc8c06db437cfd55bf13670bcf"
+    },
+    {
+      "id": "exclamation-mark",
+      "phosphorCategories": [
+        "system"
+      ],
+      "sha256": "cf71cf4605b70245a4d203979e0f83085ac83826dc7b4901672383a1dcebdb14"
+    },
+    {
+      "id": "scales",
+      "phosphorCategories": [
+        "commerce",
+        "maps & travel",
+        "objects"
+      ],
+      "sha256": "0352fc7a9115929af431f42b12ffb3fbc5e23420a712bf4ec922ec1f591f870f"
+    },
+    {
+      "id": "map-trifold",
+      "phosphorCategories": [
+        "maps & travel"
+      ],
+      "sha256": "2de856029430ca68cfd9c1d8c8c45255c8d998d7716630d362c1eec153548da6"
+    },
+    {
+      "id": "thumbs-up",
+      "phosphorCategories": [
+        "communications",
+        "people"
+      ],
+      "sha256": "6894fd629b39ad47220d5e8e847e497aa7a889501e1f0dd0ffd8a82af4f06cc0"
+    },
+    {
+      "id": "piggy-bank",
+      "phosphorCategories": [
+        "finances",
+        "objects"
+      ],
+      "sha256": "ffecc04ef732ba0076c16dee46de1a1df09576bf1763a43f209beab519e10ed7"
+    },
+    {
+      "id": "book-open",
+      "phosphorCategories": [
+        "office",
+        "media",
+        "objects"
+      ],
+      "sha256": "b38cdb3a15dcf00cfa4811e318b021e25c6a87b47acbb11888e16d107a5642da"
+    },
+    {
+      "id": "palette",
+      "phosphorCategories": [
+        "design",
+        "editor",
+        "objects"
+      ],
+      "sha256": "f16925171ff434d8e8768da0d06867d77cd50d9e78932ab12af65bccac7a1375"
+    },
+    {
+      "id": "file-arrow-up",
+      "phosphorCategories": [
+        "office",
+        "editor"
+      ],
+      "sha256": "b7127fb44729f481bb574b3e3ddfff1085de38bfe82d112c743f887ba7352da2"
+    },
+    {
+      "id": "caret-double-up",
+      "phosphorCategories": [
+        "arrows"
+      ],
+      "sha256": "0d849b560445d7ddf88375460ee76746f327b0d48bd96549479f7105d5db480d"
+    },
+    {
+      "id": "chats-circle",
+      "phosphorCategories": [
+        "communications"
+      ],
+      "sha256": "672fea51548c727b020bf6532d2e350fb0189c8fe36725f2127530f11868a8ec"
+    },
+    {
+      "id": "beer-stein",
+      "phosphorCategories": [
+        "commerce",
+        "maps & travel",
+        "objects"
+      ],
+      "sha256": "917abd5aa9922fe46b776086cc7073e475c4747a9bf06af33bd34a15e4feb415"
+    },
+    {
+      "id": "table",
+      "phosphorCategories": [
+        "finances",
+        "office",
+        "editor"
+      ],
+      "sha256": "2ab06ee519b223e43937aa6f632dd89b08caa9ef28477d04b59f137e3e65029c"
+    },
+    {
+      "id": "list-checks",
+      "phosphorCategories": [
+        "office",
+        "editor"
+      ],
+      "sha256": "b2d11fc95de627d6abe9feeced5f7e0cdce3ccdf8d9f9d2334d596b8b5cc5cc4"
+    },
+    {
+      "id": "gauge",
+      "phosphorCategories": [
+        "technology & development",
+        "objects",
+        "system"
+      ],
+      "sha256": "053e22a3b54c3baa7997bd0fddbf2cc35cbdd2662842b553d13d9f2a58c67f4a"
+    },
+    {
+      "id": "receipt",
+      "phosphorCategories": [
+        "commerce",
+        "finances"
+      ],
+      "sha256": "7e3473e35fc2b7b9b66032aef0b19fc22e947d10472b67da0b38fb29d84af7ea"
+    },
+    {
+      "id": "newspaper",
+      "phosphorCategories": [
+        "media",
+        "objects"
+      ],
+      "sha256": "edd422b8baf7fcbe2e4ee511b7926f1b92d40e344115fd1ae816d3ff37edab5b"
+    },
+    {
+      "id": "envelope",
+      "phosphorCategories": [
+        "communications"
+      ],
+      "sha256": "1cacf2964607ad27bcb6c55117e5c7275cfb3c206f799b720f095b63965efdc4"
+    },
+    {
+      "id": "link",
+      "phosphorCategories": [
+        "communications",
+        "objects"
+      ],
+      "sha256": "526d89480e3064c614b7d46a93888c187696d7776f684527d48eb94e2d7cd5d4"
+    },
+    {
+      "id": "house-line",
+      "phosphorCategories": [
+        "maps & travel",
+        "system"
+      ],
+      "sha256": "5fc13c768e88725c7075dedc9c7e5df1a7d2c1aa603ffa071f36cbeec09656e5"
+    },
+    {
+      "id": "hand-heart",
+      "phosphorCategories": [
+        "people"
+      ],
+      "sha256": "8797f9ca2bc8620c56c9dead90c047724176a611d52e613c6412aa16745bf93e"
+    },
+    {
+      "id": "files",
+      "phosphorCategories": [
+        "office",
+        "editor"
+      ],
+      "sha256": "bb4cec5fc4ae78d9bfc38378db6d991a4f9b89e0e58db97a95a083b68a4c5a9e"
+    },
+    {
+      "id": "envelope-open",
+      "phosphorCategories": [
+        "communications"
+      ],
+      "sha256": "538aa142c231df1b004e7dfd2c709be06a3be062adf7a24f0ff52f31e5de3a87"
+    },
+    {
+      "id": "door-open",
+      "phosphorCategories": [
+        "objects"
+      ],
+      "sha256": "d5868e10dbf1c1ae216c4ccbf489cdc98fb91a7886da470e3e7126c1c9a7d6b5"
+    },
+    {
+      "id": "code",
+      "phosphorCategories": [
+        "technology & development",
+        "editor"
+      ],
+      "sha256": "882462ff89cc7b864cb2af1a3a2660bd796f01bdac35b6d4cff7c131fb74e3dc"
+    },
+    {
+      "id": "play-circle",
+      "phosphorCategories": [
+        "media",
+        "system"
+      ],
+      "sha256": "378c08eea12bc0dc63ee7914bcfe8b9764716abb7f760fe044c90381a3e9c3c2"
+    },
+    {
+      "id": "book",
+      "phosphorCategories": [
+        "office",
+        "media",
+        "objects"
+      ],
+      "sha256": "7936a8bee1cb7dbfe0737ba0bc6d65c0ee8b73debf68a67331ef817017ec1ade"
+    },
+    {
+      "id": "prohibit",
+      "phosphorCategories": [
+        "maps & travel",
+        "system"
+      ],
+      "sha256": "7dab6c9d295b578a7ec5df0b21c2e5ee56869ccd76ea23e2696d74fa7ae5be59"
+    },
+    {
+      "id": "at",
+      "phosphorCategories": [
+        "communications"
+      ],
+      "sha256": "d61f51a200f052e438f081f5e1969ba272c0bb53dacc8a04d9f9b293f91dd1bf"
+    },
+    {
+      "id": "arrows-left-right",
+      "phosphorCategories": [
+        "arrows"
+      ],
+      "sha256": "84c43373542a3ac2e7de3d22ddef0c8eb61ef6ba7a270c6aca5aa493dd40f8b4"
+    },
+    {
+      "id": "cigarette",
+      "phosphorCategories": [
+        "commerce",
+        "health & wellness"
+      ],
+      "sha256": "b6dbdeba5a16dad6a8c9963069de90b70b323053df54814952c6cee77b5f8c09"
+    },
+    {
+      "id": "hand-coins",
+      "phosphorCategories": [
+        "people",
+        "commerce",
+        "finances"
+      ],
+      "sha256": "8ac61eda6d2e2f893d7113a734ea12b50316c7ff51a3f5270c3a4cd9b1734add"
+    },
+    {
+      "id": "medal-military",
+      "phosphorCategories": [
+        "objects",
+        "games"
+      ],
+      "sha256": "f093480525d217ecc918d930ab11c24c479555115c3c71d84f242e5cd8551f88"
+    },
+    {
+      "id": "envelope-simple",
+      "phosphorCategories": [
+        "communications"
+      ],
+      "sha256": "f114441afbd3c3da8aee24ba4cddea1576cf55aa304eb507410fca494c8ee169"
+    },
+    {
+      "id": "compass",
+      "phosphorCategories": [
+        "maps & travel",
+        "objects"
+      ],
+      "sha256": "00c7e42415f795fcea90bd9dc0b2c8266b4e9601d2937cb122cd03b7e9e9e198"
+    },
+    {
+      "id": "calendar-blank",
+      "phosphorCategories": [
+        "office",
+        "system"
+      ],
+      "sha256": "6268583ae0ea04e93fd24f1e70d47a8e8d79c88fc304af397b95b318980215d6"
+    },
+    {
+      "id": "x",
+      "phosphorCategories": [
+        "technology & development",
+        "finances",
+        "system"
+      ],
+      "sha256": "7397b15e1fa66eaf6ff9b59fe91d483cb5c3bcf75b2fe052097ab6f0593b513a"
+    },
+    {
+      "id": "mountains",
+      "phosphorCategories": [
+        "nature",
+        "maps & travel"
+      ],
+      "sha256": "dd6ccafa3d1cf2b38aa72158279e0d090ede7ae2ec278c6358ea98581f660448"
+    },
+    {
+      "id": "device-mobile",
+      "phosphorCategories": [
+        "objects"
+      ],
+      "sha256": "db1f74b205590c98d61f61dff7b1f702eddd5a9e15eec7d9681798054ccb757a"
+    },
+    {
+      "id": "siren",
+      "phosphorCategories": [
+        "objects",
+        "maps & travel"
+      ],
+      "sha256": "2296e671635ab7fe8c3b0e13d5e2c41bb01f7b2bbaf9abfd68717725afbd6714"
+    },
+    {
+      "id": "clock",
+      "phosphorCategories": [
+        "system",
+        "objects"
+      ],
+      "sha256": "b8c6c2899d2b9af48a55ba02ba6d7faf89b757915772dd24f5397f7b0d02aa5c"
+    },
+    {
+      "id": "clipboard-text",
+      "phosphorCategories": [
+        "office",
+        "editor",
+        "system"
+      ],
+      "sha256": "1b1116133ad78d227c8d77f52856bde049dc02a351a1810d5dc91b2475cb873f"
+    },
+    {
+      "id": "arrow-square-out",
+      "phosphorCategories": [
+        "arrows"
+      ],
+      "sha256": "8610e8f5c7d4952ae1ada34ef56fa7cbab1780bc85f25a5c9482b74144790fc8"
+    },
+    {
+      "id": "coins",
+      "phosphorCategories": [
+        "commerce",
+        "finances"
+      ],
+      "sha256": "3f29a7e8d121120ea73dd4db9b323f0bff63298ddf1f47a95f8a507023720e5d"
+    },
+    {
+      "id": "plant",
+      "phosphorCategories": [
+        "commerce",
+        "nature"
+      ],
+      "sha256": "1201f75dac2090de7327228c7413471488d9ecf70ccf438801f1f14796cf4eaa"
+    },
+    {
+      "id": "megaphone",
+      "phosphorCategories": [
+        "communications",
+        "objects"
+      ],
+      "sha256": "6bb3638fd7d8988bc449638293566ac2d978307357675d46c37f6a04a814006e"
+    },
+    {
+      "id": "horse",
+      "phosphorCategories": [
+        "games",
+        "health & wellness",
+        "nature"
+      ],
+      "sha256": "396c7c701474b4b77c36490dc7676d4ef6d8a8626688c728b7c795fb7aeb2c70"
+    },
+    {
+      "id": "hockey",
+      "phosphorCategories": [
+        "games",
+        "health & wellness",
+        "objects"
+      ],
+      "sha256": "266dcefc74e9173d993df5727b4fb635781f9646e15f3432f5a32ee6cba218cd"
+    },
+    {
+      "id": "dice-five",
+      "phosphorCategories": [
+        "games",
+        "objects"
+      ],
+      "sha256": "0cff2538c9941f52defbf9da109204d46f648aec7c0420fe1d5511f718a45087"
+    },
+    {
+      "id": "cash-register",
+      "phosphorCategories": [
+        "commerce",
+        "objects"
+      ],
+      "sha256": "864a2c6aa0963179e612aba4be13b334136cf593abd4181bd61984478eab4699"
+    },
+    {
+      "id": "chat",
+      "phosphorCategories": [
+        "communications"
+      ],
+      "sha256": "1b8e07e27bf357e6497a5db06dd4ea17bcac4577a63756ac38b4149b507a3f44"
+    },
+    {
+      "id": "file-plus",
+      "phosphorCategories": [
+        "office",
+        "editor"
+      ],
+      "sha256": "3b8413ff4a86a81cc9b32b2fa49c7088eaf40637637b7c18dc35c08b880eb56a"
+    },
+    {
+      "id": "signpost",
+      "phosphorCategories": [
+        "maps & travel"
+      ],
+      "sha256": "f9b4d04cc8d4ff89a83630c8782b625a200762d94ce982da9bb31246d5df32ff"
+    },
+    {
+      "id": "minus-circle",
+      "phosphorCategories": [
+        "technology & development",
+        "finances",
+        "system"
+      ],
+      "sha256": "969de9cfae81e75d377f932733c8d003e1ad7903afe7fee67b8aecccb0c08d4d"
+    },
+    {
+      "id": "printer",
+      "phosphorCategories": [
+        "editor",
+        "office"
+      ],
+      "sha256": "398705192743d7ced5da5ca18f2b9e69759284276596f3dd3787720093d3f57e"
+    },
+    {
+      "id": "student",
+      "phosphorCategories": [
+        "people"
+      ],
+      "sha256": "bbc93acf83948884c13217d4fe68bc6dc54832128bdd89a25d1e8b1289ff0b4a"
+    },
+    {
+      "id": "stethoscope",
+      "phosphorCategories": [
+        "health & wellness",
+        "objects"
+      ],
+      "sha256": "93d2d423bba239d0927dd810f34d42508480d2d41bca7949d12a060b9216f8c1"
+    },
+    {
+      "id": "youtube-logo",
+      "phosphorCategories": [
+        "brands",
+        "communications",
+        "media"
+      ],
+      "sha256": "36a9a9189833c1b5bc53e2c165a58605d1e07383e2535ea633c5c1355b849550"
+    },
+    {
+      "id": "arrow-circle-left",
+      "phosphorCategories": [
+        "arrows"
+      ],
+      "sha256": "9acd368441a60399210143e0de02a86dc4c04af8e70f314359bdc41effa80b18"
+    },
+    {
+      "id": "plug",
+      "phosphorCategories": [
+        "system",
+        "objects"
+      ],
+      "sha256": "513534dd9665042bfed73c669130a904a0ab17df06cc8c0e4a717721474839d9"
+    },
+    {
+      "id": "wallet",
+      "phosphorCategories": [
+        "commerce",
+        "finances",
+        "objects"
+      ],
+      "sha256": "9ae5c252608e1bda6dfe75f23599b1881a9476f8cc2069cd9083136fafe664f0"
+    },
+    {
+      "id": "person-simple-walk",
+      "phosphorCategories": [
+        "maps & travel",
+        "people",
+        "health & wellness"
+      ],
+      "sha256": "c64cd5214dd7c4821582d24e2bc21d18e8d0058b77ee0eb3f3f17c0043c635e5"
+    },
+    {
+      "id": "shield-chevron",
+      "phosphorCategories": [
+        "system",
+        "objects"
+      ],
+      "sha256": "50375eb695e37f0ca8887528cd89438bb67417920f6e8be08582dc601649a5cd"
+    },
+    {
+      "id": "user-circle",
+      "phosphorCategories": [
+        "people"
+      ],
+      "sha256": "5aee25838c1915058940900df322afc36b76f4ea7e48499c33603cf121258b2a"
+    },
+    {
+      "id": "user-check",
+      "phosphorCategories": [
+        "people"
+      ],
+      "sha256": "39b6cda4c963ef987a4998a9c9becb2e5edcacb327346b44b2b945f11e1f93e8"
+    },
+    {
+      "id": "tractor",
+      "phosphorCategories": [
+        "commerce",
+        "objects"
+      ],
+      "sha256": "920e06db547d4ff3ce7158866a9531ce31ca8a89ed28f173baf0a04af3bad6dd"
+    },
+    {
+      "id": "cell-tower",
+      "phosphorCategories": [
+        "system"
+      ],
+      "sha256": "d6fdf8c3987ee9253cc890f4abbc0a28e792d6c96504a1ac5452e75afea5a941"
+    },
+    {
+      "id": "tent",
+      "phosphorCategories": [
+        "health & wellness",
+        "objects",
+        "nature",
+        "maps & travel"
+      ],
+      "sha256": "118b39a6dda9cd590e4ff7ab832264fb7301a9f496eed1cba86fd17d2b78526e"
+    },
+    {
+      "id": "sticker",
+      "phosphorCategories": [
+        "communications"
+      ],
+      "sha256": "7379d82ae678fe74e65cb01680c5df319e8b4aa05f5ecc02f3c483c681962faf"
+    },
+    {
+      "id": "x-circle",
+      "phosphorCategories": [
+        "system"
+      ],
+      "sha256": "cff9cacbd83ab11a01585dc63af07d289479bdb332708b0de2ad4c953f67d223"
+    },
+    {
+      "id": "storefront",
+      "phosphorCategories": [
+        "commerce",
+        "maps & travel"
+      ],
+      "sha256": "b1e1288fc8b38ddf011dfc23a5f1754d30c296a56d143c67b4ed710ff58d8a62"
+    },
+    {
+      "id": "battery-charging",
+      "phosphorCategories": [
+        "system"
+      ],
+      "sha256": "5e2b18c3c8d1012e9345fbf45271dc8e42056b09a68617d7f1d5c88fc917e3bf"
+    },
+    {
+      "id": "sign-in",
+      "phosphorCategories": [
+        "system"
+      ],
+      "sha256": "4f9ac62582c9319778af5aef0865ba15b777378d222f4475be72ba1115bba076"
+    },
+    {
+      "id": "magnifying-glass-minus",
+      "phosphorCategories": [
+        "editor",
+        "system"
+      ],
+      "sha256": "a8478832f12a7a5a231e1ffb1b987fe45f9e1508570b98046e7ff51db7eb1043"
+    },
+    {
+      "id": "video-conference",
+      "phosphorCategories": [
+        "media",
+        "system",
+        "communications"
+      ],
+      "sha256": "8c5ef871d8c7b8c91823591256aef2368924e734810c43dfdafb5588446a7cf4"
+    },
+    {
+      "id": "arrow-clockwise",
+      "phosphorCategories": [
+        "arrows"
+      ],
+      "sha256": "4a78a777b692cb74826e3071ae7049cc0d3927e68a7b8272e7251b1760cd771f"
+    },
+    {
+      "id": "airplane",
+      "phosphorCategories": [
+        "maps & travel",
+        "objects"
+      ],
+      "sha256": "994c490f47f61ab5e61889c2b451e95552d333299b5eb4cbf02c9e6d875f27b0"
+    },
+    {
+      "id": "person",
+      "phosphorCategories": [
+        "maps & travel",
+        "people"
+      ],
+      "sha256": "70d9a2f32b1f160ea4079d9e00add3eab1241b98c1d259cc935606bed88e422e"
+    },
+    {
+      "id": "parachute",
+      "phosphorCategories": [
+        "objects",
+        "technology & development"
+      ],
+      "sha256": "489df7df398349a510b3f819b607b3328f4fdeced1e42fc6f09f787898e54b44"
+    },
+    {
+      "id": "paperclip",
+      "phosphorCategories": [
+        "communications",
+        "editor",
+        "office",
+        "objects"
+      ],
+      "sha256": "b60210f558fb4693a083ed563af191709a7cafcbc8fb0d1d083db9ef9c2412ac"
+    },
+    {
+      "id": "notepad",
+      "phosphorCategories": [
+        "office",
+        "editor"
+      ],
+      "sha256": "65f069445f9cbf08b9dbbcab5069512095d25c4b0a17113cf98ca9fdc380cf82"
+    },
+    {
+      "id": "gps-slash",
+      "phosphorCategories": [
+        "maps & travel",
+        "system"
+      ],
+      "sha256": "474efdb8607f0ba7724eedf1c7b50c1f7590c62a872b0c6d19f871ca60cf5080"
+    },
+    {
+      "id": "devices",
+      "phosphorCategories": [
+        "objects"
+      ],
+      "sha256": "eef33b37db84ff5ab0e69570cd82363e27f015f90a7307ac918193c6c7b122e8"
+    },
+    {
+      "id": "fire",
+      "phosphorCategories": [
+        "nature",
+        "weather"
+      ],
+      "sha256": "1b51020c2c8bc045e707453553753daeda2afc754375f93344d97898774a0234"
+    },
+    {
+      "id": "eyeglasses",
+      "phosphorCategories": [
+        "health & wellness",
+        "objects"
+      ],
+      "sha256": "c9239db69e71d7f196de0df1c48dc24dc2f8b73b83474d644c562657c116297c"
+    },
+    {
+      "id": "flag",
+      "phosphorCategories": [
+        "objects",
+        "maps & travel",
+        "system"
+      ],
+      "sha256": "2460f65cc31b6c3ab52ff936b56cfd38b3f179aab5c27fbd810f177d0c7ad24d"
+    },
+    {
+      "id": "file-zip",
+      "phosphorCategories": [
+        "office",
+        "editor",
+        "system"
+      ],
+      "sha256": "f0a32504218438968347f06762eab67a88f9fc87f6d69e6a71e81da00680f135"
+    },
+    {
+      "id": "file-pdf",
+      "phosphorCategories": [
+        "office",
+        "editor"
+      ],
+      "sha256": "a8fb648659a7af4093f00b87a4f054e00da9ff0d2563ce598067a19057225a0a"
+    },
+    {
+      "id": "file-code",
+      "phosphorCategories": [
+        "office",
+        "editor",
+        "technology & development"
+      ],
+      "sha256": "41566f7e1917e5d6d7520fd133a5905bd6b809453acca2d1203600a531a57180"
+    },
+    {
+      "id": "warning-circle",
+      "phosphorCategories": [
+        "system"
+      ],
+      "sha256": "e48a90760a68659fd3f06dd9187e471aead4877c72e915339071b2c7f7bd714c"
+    },
+    {
+      "id": "package",
+      "phosphorCategories": [
+        "technology & development",
+        "objects"
+      ],
+      "sha256": "b190e7e8f5c6e68be08e9fca1310d0f2c341aa7f1384aa99457206fab755e1f6"
+    },
+    {
+      "id": "shipping-container",
+      "phosphorCategories": [
+        "maps & travel",
+        "objects",
+        "commerce"
+      ],
+      "sha256": "0f70a9d8534e0c16af425fa03a4282372da2c2a0101049d088e0e913ea8c8d5c"
+    },
+    {
+      "id": "chat-circle",
+      "phosphorCategories": [
+        "communications"
+      ],
+      "sha256": "09e36aa820a39bbc8cffe705ad84c836d1e5733f83dc1d2212a965fdacdf4a67"
+    },
+    {
+      "id": "git-branch",
+      "phosphorCategories": [
+        "technology & development"
+      ],
+      "sha256": "3aaa3ec833418cdce445f8e1f901ab4021a9de02264610563e51e7109511b816"
+    },
+    {
+      "id": "person-arms-spread",
+      "phosphorCategories": [
+        "health & wellness",
+        "maps & travel",
+        "people"
+      ],
+      "sha256": "2b77ca4124fd33b1125981ee0cdb9dff6383ab886d33f24a9ad994826a31d0f9"
+    },
+    {
+      "id": "charging-station",
+      "phosphorCategories": [
+        "maps & travel",
+        "objects"
+      ],
+      "sha256": "2bfb435eb07c6facd40bb93313af561e7302e73e0470e3f140963a993787cdfe"
+    },
+    {
+      "id": "chalkboard-teacher",
+      "phosphorCategories": [
+        "maps & travel",
+        "objects",
+        "people"
+      ],
+      "sha256": "d8c1d88f30260ce8cdf465e7d0804caee9b996932c23cc240ed9652ad9fc750f"
+    },
+    {
+      "id": "calendar-plus",
+      "phosphorCategories": [
+        "office",
+        "system"
+      ],
+      "sha256": "c9799e0708c591545412e9bd75f1c014a2de6da91e363b38f30c6ac37bb9432e"
+    },
+    {
+      "id": "bicycle",
+      "phosphorCategories": [
+        "health & wellness",
+        "maps & travel",
+        "objects"
+      ],
+      "sha256": "5830a596814df4e9ac4298e5889b8a6a7a2c56a49018f4faf1f1e2f8f824c14f"
+    },
+    {
+      "id": "shopping-bag",
+      "phosphorCategories": [
+        "commerce",
+        "maps & travel",
+        "objects"
+      ],
+      "sha256": "cd1027fea55e6d35ac9a3f9b6c657fdd9b56775609d925ae3a903fcf369c68f0"
+    },
+    {
+      "id": "baby-carriage",
+      "phosphorCategories": [
+        "commerce",
+        "people"
+      ],
+      "sha256": "799b351dce15c4158b0f7b5f3809d7844d7a77ab5c8cc79cc1196951e2e68938"
+    },
+    {
+      "id": "ear",
+      "phosphorCategories": [
+        "media",
+        "system"
+      ],
+      "sha256": "b24f627dc1ae21b8ac991e6921f1ea85fff81052caa68c591ca75f3f4eb44a7b"
+    },
+    {
+      "id": "caret-double-right",
+      "phosphorCategories": [
+        "arrows"
+      ],
+      "sha256": "dfd87c77636b787a76f9fc3882b1ab4858440e6aa5890a4c02852374e8a9c362"
+    },
+    {
+      "id": "wheelchair",
+      "phosphorCategories": [
+        "health & wellness",
+        "maps & travel",
+        "people"
+      ],
+      "sha256": "f213d5296f1c651800e336ac30b83db3d7f8b4b5665a580adef888cb1218807a"
+    },
+    {
+      "id": "planet",
+      "phosphorCategories": [
+        "nature"
+      ],
+      "sha256": "6debb1f42963ba6e1095d993253d2a558c2badb03cadc654e16f2e98dcaefb3d"
+    },
+    {
+      "id": "cloud-fog",
+      "phosphorCategories": [
+        "weather"
+      ],
+      "sha256": "718e2223a5fd5b074b94731c09e7a41ef74434e38505ce184a9725cf57c14ee0"
+    },
+    {
+      "id": "road-horizon",
+      "phosphorCategories": [
+        "maps & travel"
+      ],
+      "sha256": "ccb5c1d0595d2131b4ae97690a4e980b3a562378fc400ac3b61995c8b8c53948"
+    },
+    {
+      "id": "images",
+      "phosphorCategories": [
+        "media",
+        "system"
+      ],
+      "sha256": "7e8e0035864a6cc3e0ea1e0441d073b582001b74c374939fd8ece6ff55101a2b"
+    },
+    {
+      "id": "paint-brush",
+      "phosphorCategories": [
+        "design",
+        "editor",
+        "objects"
+      ],
+      "sha256": "71f96a0b1a20e671a4af66d3b6bfaa41cf01778ad858193515d0268f07666972"
+    },
+    {
+      "id": "globe-hemisphere-west",
+      "phosphorCategories": [
+        "maps & travel"
+      ],
+      "sha256": "f3bfb061f4b5229afd1101c2b96aaffac3fae84c01d92fc6a22fba9437c1f99a"
+    },
+    {
+      "id": "folder-plus",
+      "phosphorCategories": [
+        "office",
+        "editor",
+        "system"
+      ],
+      "sha256": "576f2e68f6adf880e3334363b1d3baa2bd07ef41b7ae04a77cbe4eea240e62df"
+    },
+    {
+      "id": "warning",
+      "phosphorCategories": [
+        "system"
+      ],
+      "sha256": "047c8edbdfddb9f1692bbf56acc85b7e4649b567c60eb39470e98e4f9ddc6a2e"
+    },
+    {
+      "id": "upload",
+      "phosphorCategories": [
+        "system"
+      ],
+      "sha256": "1eb0b28a83b27652083a20a12b4e9867108a0a407feb41c8b4965a5862f7b26a"
+    },
+    {
+      "id": "asterisk",
+      "phosphorCategories": [
+        "communications"
+      ],
+      "sha256": "ca0c85d270d8cd048d6ab61ce1e954eeb2b55732fef29cfe8b51ab3c8e72ba3a"
+    },
+    {
+      "id": "basket",
+      "phosphorCategories": [
+        "commerce",
+        "objects"
+      ],
+      "sha256": "4f528e76cfdb32ac5fa660505ac161fef775f52c3e4832554f1d0557d67ddd4a"
+    },
+    {
+      "id": "robot",
+      "phosphorCategories": [
+        "technology & development",
+        "objects"
+      ],
+      "sha256": "defac7635fe4235e3b6c8a1edabca345ac9dc2e8a2ec79ec82088845562a8128"
+    },
+    {
+      "id": "person-simple-hike",
+      "phosphorCategories": [
+        "nature",
+        "health & wellness",
+        "maps & travel",
+        "people"
+      ],
+      "sha256": "8115e5ee08c252698326219205e1e8a6b5af0493831b3ab571951fe177bef701"
+    },
+    {
+      "id": "headset",
+      "phosphorCategories": [
+        "media",
+        "games",
+        "objects"
+      ],
+      "sha256": "7f2efeda2bd797c8112ca8502582cd4df82da9aef0953540805debbc337c63a3"
+    },
+    {
+      "id": "football",
+      "phosphorCategories": [
+        "games",
+        "health & wellness",
+        "objects"
+      ],
+      "sha256": "61771bbacdf2283bbbab0aec8e65724dcc016fce810e80ea900d3a9e6d67532d"
+    },
+    {
+      "id": "file-audio",
+      "phosphorCategories": [
+        "office",
+        "editor",
+        "media"
+      ],
+      "sha256": "adcacce695f7bc28beabe2de74a532344b38ab51936d8fb197f7302cb8a3ce40"
+    },
+    {
+      "id": "monitor",
+      "phosphorCategories": [
+        "system"
+      ],
+      "sha256": "ac9005f7dd981b06b7c029b3625bf908ded63e0dc52e781ad550ae2ef621f86a"
+    },
+    {
+      "id": "crosshair",
+      "phosphorCategories": [
+        "maps & travel",
+        "system"
+      ],
+      "sha256": "c67106293edf30ae075fcff13042179a201afc4b9f1abd4ed541000507de3cc0"
+    },
+    {
+      "id": "bed",
+      "phosphorCategories": [
+        "health & wellness",
+        "maps & travel",
+        "objects"
+      ],
+      "sha256": "b65defed2f5352ecd9f4583efba5108b646386c46f7a549d1c0cdbfd9d56372e"
+    },
+    {
+      "id": "broadcast",
+      "phosphorCategories": [
+        "communications",
+        "media",
+        "system"
+      ],
+      "sha256": "e8377f3bf952fc637ca1ca31d5ea6f0917f9195d0bca9b2bfa3d6201b09c59e9"
+    },
+    {
+      "id": "chat-circle-dots",
+      "phosphorCategories": [
+        "communications"
+      ],
+      "sha256": "2af44e36757c90c999e070065ae61c495c66c8e88f43c5f07964dc3367cad60d"
+    },
+    {
+      "id": "chats",
+      "phosphorCategories": [
+        "communications"
+      ],
+      "sha256": "246d81e02c169c439a73d212bf28d4068cc727a6a527663e568f5c7da547aed3"
+    },
+    {
+      "id": "facebook-logo",
+      "phosphorCategories": [
+        "brands",
+        "communications"
+      ],
+      "sha256": "c20dcb87161eb2d79a6bb9726c995d895da6d0df54a3b17aaaa829800baef90f"
+    },
+    {
+      "id": "cheers",
+      "phosphorCategories": [
+        "commerce",
+        "maps & travel"
+      ],
+      "sha256": "0a5936502aaac9d7e5db2adae7c53922c70e2df69eea3ba262f81b4660f9905d"
+    },
+    {
+      "id": "heartbeat",
+      "phosphorCategories": [
+        "health & wellness",
+        "system"
+      ],
+      "sha256": "1b3225bb7cbc6a8fe3dd6f5013b61484f59cdfae3bd19120197eff0db362f9cc"
+    },
+    {
+      "id": "linkedin-logo",
+      "phosphorCategories": [
+        "brands",
+        "communications"
+      ],
+      "sha256": "e8f573d6b822de2befad63e797e06cd2676b13674052bba2f95c81b748ee0ad0"
+    },
+    {
+      "id": "minus",
+      "phosphorCategories": [
+        "technology & development",
+        "finances",
+        "system"
+      ],
+      "sha256": "5a068d1cfd707fde5ddb0ce0623958123b6a5afba98401318983aeb0fdad6382"
+    },
+    {
+      "id": "share",
+      "phosphorCategories": [
+        "communications",
+        "system"
+      ],
+      "sha256": "67744f00a4c2a78e57a8a165a8b6d31659a1d924d4369f926ecf653b0008dceb"
+    },
+    {
+      "id": "trash-simple",
+      "phosphorCategories": [
+        "office",
+        "system"
+      ],
+      "sha256": "4bba1f6bd6a5b969a1ddca0bddfd5a68764b29c7c7b9600251e96f551ade1171"
+    },
+    {
+      "id": "phone-list",
+      "phosphorCategories": [
+        "communications",
+        "system"
+      ],
+      "sha256": "fd150dfc4426c48d1998570551f0ba597e0e3d58191084d35e47bb9abdd3f6b5"
+    },
+    {
+      "id": "x-logo",
+      "phosphorCategories": [
+        "brands",
+        "communications"
+      ],
+      "sha256": "e3e1e72236735343f3f6b47c89e92b965a06c37a2ba047566f929152acde9cbd"
+    },
+    {
+      "id": "person-simple-circle",
+      "phosphorCategories": [
+        "people"
+      ],
+      "sha256": "86b8d051d29713555f2b01801c38361a605a11e41ef06248065c39f06ae0da05"
+    },
+    {
+      "id": "virus",
+      "phosphorCategories": [
+        "health & wellness"
+      ],
+      "sha256": "8c5669c67f17045ac009c1d2136174d8a994116d900e4847fdfec92f623af19e"
+    },
+    {
+      "id": "wifi-high",
+      "phosphorCategories": [
+        "system"
+      ],
+      "sha256": "d11ce9b83f063b6d12d3c8ff93cce7d601fe19ee1d6e5ba828b4a764b100519f"
+    },
+    {
+      "id": "export",
+      "phosphorCategories": [
+        "communications",
+        "system"
+      ],
+      "sha256": "b3323cae86c93d7a4d344e921dc1500f97a73c66e5d9f0e6c46aab64e4a6f616"
+    },
+    {
+      "id": "list",
+      "phosphorCategories": [
+        "system",
+        "editor"
+      ],
+      "sha256": "fb1851842c74b40a3f42ce3d6ae0e67ede556b624218e79c0f4ead7d9ceec51f"
+    },
+    {
+      "id": "eye",
+      "phosphorCategories": [
+        "design",
+        "editor"
+      ],
+      "sha256": "91d39f20bf95e0f36c07bd79b83a85fe6ff4ca20e2759c4afee7419ef80403fe"
+    },
+    {
+      "id": "arrow-up",
+      "phosphorCategories": [
+        "arrows"
+      ],
+      "sha256": "361aa9f9c52a759bf598faf6ed38ccd426f949f541d662c65b5b5d868fa76980"
+    },
+    {
+      "id": "arrow-down",
+      "phosphorCategories": [
+        "arrows"
+      ],
+      "sha256": "cc6416ae83e20660f14b11f5525c6d05ee679c3f26cee41b696cb37aa905d4f5"
+    },
+    {
+      "id": "image",
+      "phosphorCategories": [
+        "media",
+        "system"
+      ],
+      "sha256": "642a0575f7b5a7ea2f5fefa6f27a5dc57683911845b85213a7e33652c2a3179d"
+    },
+    {
+      "id": "caret-up",
+      "phosphorCategories": [
+        "arrows"
+      ],
+      "sha256": "bccc26004e73e5de783ac6dde607e3671e776261d81972ccdbd296b4aca21ca9"
+    },
+    {
+      "id": "caret-right",
+      "phosphorCategories": [
+        "arrows"
+      ],
+      "sha256": "e6dec01e074807965b7f3146b976a9b5e82c31d9c2c88aeb52e77cc2ab16c1d7"
+    },
+    {
+      "id": "caret-down",
+      "phosphorCategories": [
+        "arrows"
+      ],
+      "sha256": "53f0cf2d0b144ac3cb07e353e0cd0853ffb3ed432d741460ce288edfcb0924b1"
+    },
+    {
+      "id": "caret-left",
+      "phosphorCategories": [
+        "arrows"
+      ],
+      "sha256": "623bf248fe21a8170344e168aaac2e174119cea5d7c5d0fb0dc84f581009475f"
+    },
+    {
+      "id": "hammer",
+      "phosphorCategories": [
+        "objects",
+        "system",
+        "commerce"
+      ],
+      "sha256": "286bddc0b30f4b0b0864cf8ca871b07a9c0a16d1df1f743b2cbabb15b6d9140d"
+    },
+    {
+      "id": "certificate",
+      "phosphorCategories": [
+        "objects"
+      ],
+      "sha256": "a38d489cbad88ce595fbf5236651b7f9430ec9b007996edfba9a2fbcd2d2f5d6"
+    },
+    {
+      "id": "number-circle-one",
+      "phosphorCategories": [
+        "finances"
+      ],
+      "sha256": "083b3e1441c20721fbbc4a7a56773d777b67e615eeb2aaec001a7084a0611172"
+    },
+    {
+      "id": "number-circle-two",
+      "phosphorCategories": [
+        "finances"
+      ],
+      "sha256": "4f6f71e4d4338fa2d3079001a110cb4743e382acfe2bc48880bf7fe57e35e471"
+    },
+    {
+      "id": "number-circle-three",
+      "phosphorCategories": [
+        "finances"
+      ],
+      "sha256": "1e5aa7891b9e48f37362f8776461cd9eb03e5843084ad611ae4f63d11c90b096"
+    },
+    {
+      "id": "number-circle-four",
+      "phosphorCategories": [
+        "finances"
+      ],
+      "sha256": "ceb97c4bd1b26608a025d81fbf48cf2f21f375bcf529cc74cf505e4a309b72ce"
+    },
+    {
+      "id": "number-circle-five",
+      "phosphorCategories": [
+        "finances"
+      ],
+      "sha256": "0946a3f21a502b08089bbc48763e2b4d9695d06a10faae6afd166118af46b668"
+    },
+    {
+      "id": "number-circle-six",
+      "phosphorCategories": [
+        "finances"
+      ],
+      "sha256": "d6673e6054ccdc0cd94a7189275ffeb52444e928584c6ca5b63a1ae062232e62"
+    },
+    {
+      "id": "number-circle-seven",
+      "phosphorCategories": [
+        "finances"
+      ],
+      "sha256": "9b5d257b99e21619fc2c928f50d0f67258eb5bd25c98a865bf5b2e6776f40a93"
+    },
+    {
+      "id": "number-circle-eight",
+      "phosphorCategories": [
+        "finances"
+      ],
+      "sha256": "43e12a554e735a35ca08ff75620466cee44142b1fac362196ebeb01dc570c250"
+    },
+    {
+      "id": "number-circle-nine",
+      "phosphorCategories": [
+        "finances"
+      ],
+      "sha256": "da06cf2b764d1df19956dabfabeaa172278f1a48c60d6a261f784dae054fd524"
+    },
+    {
+      "id": "folder",
+      "phosphorCategories": [
+        "office",
+        "editor",
+        "system"
+      ],
+      "sha256": "4a882bcd4a91ae0a01887024f08d358932f183b6b171e87a3e48c5910364d507"
+    },
+    {
+      "id": "address-book",
+      "phosphorCategories": [
+        "communications"
+      ],
+      "sha256": "5fc4bb47b2d193e3b7239ce2fec26a97f2675ea21dab502e3207df6bbe6c849d"
+    },
+    {
+      "id": "arrows-clockwise",
+      "phosphorCategories": [
+        "arrows"
+      ],
+      "sha256": "2e80fbc9c5c37553934c9ebbd6324bf7fabe9a4b4d7c2445d99edfce55cc22df"
+    },
+    {
+      "id": "arrows-vertical",
+      "phosphorCategories": [
+        "arrows"
+      ],
+      "sha256": "986995d65122f130dac1f37d9b07bce44ec132301a0d4795c7765edeb6785ec8"
+    }
+  ]
+}

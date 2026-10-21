@@ -1,0 +1,60 @@
+---
+import catalog from '@coloradodigitalservice/colorado-design-system/icons/catalog.json';
+import spriteUrl from '@coloradodigitalservice/colorado-design-system/icons/sprite.svg?url';
+
+const icons = catalog.icons;
+
+const groups = [...new Set(icons.flatMap((icon) => icon.phosphorCategories))]
+  .map((category) => ({
+    label: category.charAt(0).toUpperCase() + category.slice(1),
+    slug: category.replace(/[^a-z0-9]+/g, '-'),
+    icons: icons.filter((icon) => icon.phosphorCategories.includes(category)),
+  }))
+  .sort((a, b) => a.label.localeCompare(b.label));
+
+function usage(id: string) {
+  return `<svg
+  class="cods-icon cods-icon--medium"
+  aria-hidden="true"
+  focusable="false"
+  width="24"
+  height="24"
+  viewBox="0 0 256 256"
+>
+  <use href="/icons/sprite.svg#${id}"></use>
+</svg>`;
+}
+---
+
+<p>
+  {icons.length} approved Regular-weight Phosphor icons in {groups.length}{' '}
+  categories.
+</p>
+{groups.map((group) => (
+  <section class="cods-icon-catalog-group">
+    <h3 id={`icon-category-${group.slug}`}>
+      Phosphor category: {group.label} ({group.icons.length})
+    </h3>
+    <ul
+      class="cods-icon-catalog"
+      aria-labelledby={`icon-category-${group.slug}`}
+    >
+      {group.icons.map((icon) => (
+        <li>
+          <svg
+            class="cods-icon cods-icon--medium"
+            aria-hidden="true"
+            focusable="false"
+            width="24"
+            height="24"
+            viewBox="0 0 256 256"
+          >
+            <use href={`${spriteUrl}#${icon.id}`} />
+          </svg>
+          <code>{icon.id}</code>
+          <pre class="cods-icon-catalog__usage"><code>{usage(icon.id)}</code></pre>
+        </li>
+      ))}
+    </ul>
+  </section>
+))}
