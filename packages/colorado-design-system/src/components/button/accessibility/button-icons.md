@@ -5,7 +5,7 @@ sprite. The canonical fixture references `/icons/sprite.svg#plus`; the docs and
 Storybook bind that reference to the bundled asset URL, and the static example
 binds it to its deployed `assets/icons/` directory.
 
-![Handwritten before and shared Phosphor after, at 24px and enlarged](button-icons-comparison.png)
+![Live Figma reference and closest Phosphor Regular equivalent](button-icons-comparison.png)
 
 ![Live Figma Icon Only examples, inspected in the Aten Chrome profile](button-figma-reference.png)
 
