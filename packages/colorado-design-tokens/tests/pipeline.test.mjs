@@ -502,7 +502,7 @@ describe('component inventory completeness', () => {
     );
   it.each([
     ['Accordion', 'focus.ring-width'],
-    ['Site Alert', 'font.size-mobile-h3'],
+    ['Site Alert', 'color.icon-default'],
   ])(
     'detects omitted %s stylesheet dependencies independently of the inventory',
     async (name, missing) => {

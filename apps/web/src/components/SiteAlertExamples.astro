@@ -17,3 +17,8 @@ const selected = examples.examples.filter((example) =>
   <div set:html={example.html} />
 ))}
 <CodeExamples metadata={metadata} examples={selected} />
+
+<script>
+  import { initAllSiteAlerts } from '@coloradodigitalservice/colorado-design-system';
+  initAllSiteAlerts();
+</script>

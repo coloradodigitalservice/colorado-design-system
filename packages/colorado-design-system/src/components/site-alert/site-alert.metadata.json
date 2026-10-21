@@ -2,7 +2,7 @@
   "name": "site-alert",
   "displayName": "Site Alert",
   "maturity": "experimental",
-  "type": "static",
+  "type": "interactive",
   "uswdsEquivalent": "site-alert",
   "owners": {
     "responsible": "Aten component engineer",
@@ -15,11 +15,13 @@
     "long-content",
     "localization",
     "rtl",
-    "focus-visible"
+    "focus-visible",
+    "informational-dismissible",
+    "emergency-dismissible"
   ],
   "progressiveEnhancement": "full",
   "localization": "layout-sensitive",
-  "description": "A static sitewide informational or emergency notice using themed USWDS markup; no JavaScript required.",
+  "description": "A full-width USWDS sitewide informational or emergency banner with distinct severity icons and optional page-local dismissal. Content remains readable without JavaScript.",
   "examples": [
     {
       "state": "default",
@@ -56,6 +58,16 @@
       "fixtureState": "focus-visible",
       "setup": "focus",
       "instructions": "Use keyboard navigation to verify visible focus on the first interactive element."
+    },
+    {
+      "state": "informational-dismissible",
+      "fixtureState": "informational-dismissible",
+      "setup": "none"
+    },
+    {
+      "state": "emergency-dismissible",
+      "fixtureState": "emergency-dismissible",
+      "setup": "none"
     }
   ],
   "uswdsVersion": "3.14.0",
