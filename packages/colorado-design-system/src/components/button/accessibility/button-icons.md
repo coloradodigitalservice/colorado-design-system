@@ -5,11 +5,13 @@ sprite. The canonical fixture references `/icons/sprite.svg#plus`; the docs and
 Storybook bind that reference to the bundled asset URL, and the static example
 binds it to its deployed `assets/icons/` directory.
 
-![Live Figma reference and closest Phosphor Regular equivalent](button-icons-comparison.png)
+![Figma SVG and closest Phosphor Regular equivalent](button-icons-comparison.png)
 
 ![Live Figma Icon Only examples, inspected in the Aten Chrome profile](button-figma-reference.png)
 
-The crop is a live visual reference, not a numeric geometry export.
+The comparison is rendered from the Figma plus vector layer and the shared
+Phosphor SVG, normalized to the same visible width. The full-frame screenshot
+below is supporting context.
 
 ## Comparison and decision
 
@@ -33,3 +35,8 @@ The native button retains its accessible name, a decorative and unfocusable SVG,
 state colors, and forced-colors system colors. The symmetric plus needs no RTL
 mirroring. Source values remain in the pinned package and generated shared
 sprite; no component-local path is maintained.
+
+The Figma plus SVG was copied from its vector layer on 2026-10-21:
+[Button plus source](https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=1377-1611&m=dev).
+Its native bounds are 12×12; the SVG path describes 1px bars with rounded ends.
+The comparison uses the exported geometry directly, rather than enlarging a raster crop.
