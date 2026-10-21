@@ -118,6 +118,34 @@
       }
     }
   },
+  "icon-size": {
+    "small": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Small / 16px",
+          "location": "Colorado Design System Figma / Icons / design reference (node 235-551)"
+        }
+      }
+    },
+    "medium": {
+      "$type": "dimension",
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Medium / 24px",
+          "location": "Colorado Design System Figma / Icons / design reference (node 235-551)"
+        }
+      }
+    }
+  },
   "radius": {
     "none": {
       "$type": "dimension",
@@ -1834,19 +1862,6 @@
           "location": "Language Selector accessibility specification: trigger white 2px gap + blue 4px ring; rows 2px navy outline"
         }
       }
-    },
-    "accordion-outer-spread": {
-      "$type": "dimension",
-      "$value": {
-        "value": 4,
-        "unit": "px"
-      },
-      "$extensions": {
-        "org.colorado.source": {
-          "name": "Accordion / focus-ring / outer spread",
-          "location": "Figma jQ3EiYqe3uEvFbid5ewc41 Accordion Item bordered focus variant; 2px white spread plus 4px blue spread; Chrome observation 2026-10-16; Accordion alignment authorized by Eric"
-        }
-      }
     }
   },
   "elevation": {
@@ -2065,21 +2080,6 @@
         "org.colorado.source": {
           "name": "color/shadow opacity",
           "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / _Primitives and Elevation; combine with the existing black color-shadow; observed 2026-10-08; proposed for design review"
-        }
-      }
-    }
-  },
-  "border": {
-    "accordion-width": {
-      "$type": "dimension",
-      "$value": {
-        "value": 4,
-        "unit": "px"
-      },
-      "$extensions": {
-        "org.colorado.source": {
-          "name": "Accordion / bordered panel / border width",
-          "location": "Figma jQ3EiYqe3uEvFbid5ewc41 node 1447:268; USWDS Theme @-component/accordion/border/width; Chrome observation 2026-10-16; Accordion alignment authorized by Eric"
         }
       }
     }

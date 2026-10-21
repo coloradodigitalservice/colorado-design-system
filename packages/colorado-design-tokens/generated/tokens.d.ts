@@ -1,6 +1,5 @@
 // Generated from reviewed DTCG sources. Do not edit; run pnpm tokens:build.
 export interface TokenDictionary {
-  readonly "border-accordion-width": string;
   readonly "color-bg-action-danger": string;
   readonly "color-bg-action-danger-active": string;
   readonly "color-bg-action-danger-hover": string;
@@ -27,7 +26,6 @@ export interface TokenDictionary {
   readonly "color-bg-surface-secondary": string;
   readonly "color-bg-tag-info": string;
   readonly "color-black-alpha-12": string;
-  readonly "color-border-accordion-subtle": string;
   readonly "color-border-action-secondary": string;
   readonly "color-border-action-secondary-active": string;
   readonly "color-border-action-secondary-hover": string;
@@ -200,7 +198,6 @@ export interface TokenDictionary {
   readonly "elevation-mid-x": string;
   readonly "elevation-mid-y": string;
   readonly "elevation-opacity": number;
-  readonly "focus-accordion-outer-spread": string;
   readonly "focus-ring-offset": string;
   readonly "focus-ring-width": string;
   readonly "focus-row-width": string;
@@ -289,6 +286,8 @@ export interface TokenDictionary {
   readonly "font-weight-mobile-ui-sm": number;
   readonly "font-weight-regular": number;
   readonly "font-weight-semibold": number;
+  readonly "icon-size-medium": string;
+  readonly "icon-size-small": string;
   readonly "line-height-desktop-body": string;
   readonly "line-height-desktop-body-lg": string;
   readonly "line-height-desktop-body-sm": string;

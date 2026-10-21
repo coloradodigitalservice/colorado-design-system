@@ -12,9 +12,7 @@
     "default",
     "expanded",
     "collapsed",
-    "mixed",
     "bordered",
-    "white",
     "multiple",
     "disabled",
     "focus-visible",
@@ -33,9 +31,9 @@
     },
     {
       "state": "expanded",
-      "fixtureState": "multiple",
+      "fixtureState": "default",
       "setup": "expand",
-      "instructions": "Initialize the accordion and expand the first panel; the remaining panel keeps its declared initial state."
+      "instructions": "Initialize the accordion and expand its first panel."
     },
     {
       "state": "collapsed",
@@ -44,19 +42,8 @@
       "instructions": "Initialize the accordion and collapse its first panel."
     },
     {
-      "state": "mixed",
-      "fixtureState": "default",
-      "setup": "expand",
-      "instructions": "Initialize the accordion and expand the first panel; the remaining panel keeps its declared initial state."
-    },
-    {
       "state": "bordered",
       "fixtureState": "bordered",
-      "setup": "none"
-    },
-    {
-      "state": "white",
-      "fixtureState": "white",
       "setup": "none"
     },
     {

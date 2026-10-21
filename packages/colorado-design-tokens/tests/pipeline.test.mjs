@@ -170,6 +170,8 @@ describe('State design references and consumers', () => {
     expect(output).toMatchObject({
       'space-2xs': '4px',
       'space-sm': '12px',
+      'icon-size-small': '16px',
+      'icon-size-medium': '24px',
       'radius-sm': '2px',
       'font-size-sm': '14px',
       'font-size-desktop-h4': '28px',
@@ -296,6 +298,10 @@ describe('contrast checks', () => {
     expect(report).toHaveLength(reference.pairs.length);
     expect(report.map((pair) => pair.name)).toContain('Tag teal');
     expect(report.map((pair) => pair.name)).toContain('Link visited');
+    expect(report.map((pair) => pair.name)).toContain(
+      'Default icon on form surface',
+    );
+    expect(report.map((pair) => pair.name)).toContain('Primary action icon');
   });
   it('uses unrounded contrast ratios and rejects transparent pairs', () => {
     const white = { colorSpace: 'srgb', components: [1, 1, 1], alpha: 1 };
@@ -495,9 +501,7 @@ describe('component inventory completeness', () => {
       ),
     );
   it.each([
-    ['Accordion', 'focus.accordion-outer-spread'],
-    ['Accordion', 'border.accordion-width'],
-    ['Accordion', 'color.border-accordion-subtle'],
+    ['Accordion', 'focus.ring-width'],
     ['Site Alert', 'font.size-mobile-h3'],
   ])(
     'detects omitted %s stylesheet dependencies independently of the inventory',
@@ -510,16 +514,6 @@ describe('component inventory completeness', () => {
       component.implementationTokens = component.implementationTokens.filter(
         (path) => path !== missing,
       );
-      component.foundationTokens = component.foundationTokens.filter(
-        (path) => path !== missing,
-      );
-      for (const [part, paths] of Object.entries(
-        component.foundationBindings,
-      )) {
-        component.foundationBindings[part] = paths.filter(
-          (path) => path !== missing,
-        );
-      }
       expect(() =>
         validateComponentInventory(inventory, catalog, implementations),
       ).toThrow(`stylesheet dependency ${missing} is undocumented`);
@@ -529,97 +523,58 @@ describe('component inventory completeness', () => {
   beforeAll(async () => {
     implementations = await loadImplementationDependencies(catalog);
   });
-  it('rejects generic or empty foundation coverage', async () => {
+  it('validates shared foundation dependencies without expanding the component scope', async () => {
     const inventory = await readInventory();
-    inventory.components.find(
-      (entry) => entry.name === 'Modal',
-    ).foundationBindings = {};
+    expect(inventory.components).toHaveLength(28);
+    const icon = inventory.sharedFoundations.find(
+      (entry) => entry.name === 'Icon',
+    );
+    expect(icon.implementationTokens).toEqual([
+      'icon-size.medium',
+      'icon-size.small',
+    ]);
+    icon.tokens = icon.tokens.filter((path) => path !== 'icon-size.small');
+    icon.implementationTokens = icon.implementationTokens.filter(
+      (path) => path !== 'icon-size.small',
+    );
     expect(() =>
       validateComponentInventory(inventory, catalog, implementations),
-    ).toThrow('Modal: specify concrete foundation bindings');
+    ).toThrow('Icon: stylesheet dependency icon-size.small is undocumented');
   });
-  it('rejects unknown proposed foundation dependencies', async () => {
+  it('rejects empty token coverage without an explicit design gap', async () => {
+    const inventory = await readInventory();
+    inventory.components.find((entry) => entry.name === 'Modal').tokens = [];
+    expect(() =>
+      validateComponentInventory(inventory, catalog, implementations),
+    ).toThrow('Modal: specify token dependencies or an explicit design gap');
+  });
+  it('rejects unknown token dependencies', async () => {
     const inventory = await readInventory();
     const component = inventory.components.find(
       (entry) => entry.name === 'Modal',
     );
-    component.foundationBindings.padding = ['space.missing'];
     component.tokens.push('space.missing');
-    component.foundationTokens = [
-      ...new Set(
-        Object.values(component.foundationBindings)
-          .flat()
-          .filter((path) => !path.startsWith('color.')),
-      ),
-    ].sort();
     expect(() =>
       validateComponentInventory(inventory, catalog, implementations),
     ).toThrow('Modal: missing catalog token space.missing');
   });
-  it('rejects a numerically wrong measured token mapping', async () => {
+  it('keeps design gaps explicit instead of requiring invented tokens', async () => {
     const inventory = await readInventory();
-    const button = inventory.components.find(
-      (entry) => entry.name === 'Button',
-    );
-    const measurement = button.foundationMeasurements.find(
-      (entry) =>
-        entry.property === 'stackHorizontalPadding' &&
-        entry.token === 'space.md',
-    );
-    measurement.value = { value: 24, unit: 'px' };
     expect(() =>
       validateComponentInventory(inventory, catalog, implementations),
-    ).toThrow('Button: measured value differs from space.md');
-  });
-  it('rejects invented measurements even when their token values match', async () => {
-    const inventory = await readInventory();
-    const evidence = JSON.parse(
-      await readFile(
-        join(packageRoot, 'references/figma-variants-observed-2026-10-08.json'),
-        'utf8',
-      ),
-    );
-    const button = inventory.components.find(
-      (entry) => entry.name === 'Button',
-    );
-    const measurement = button.foundationMeasurements.find(
-      (entry) =>
-        entry.property === 'stackHorizontalPadding' &&
-        entry.token === 'space.md',
-    );
-    evidence.components.find((entry) => entry.name === 'Button').measurements[
-      measurement.measurement
-    ].properties.stackHorizontalPadding = 24;
-    expect(() =>
-      validateComponentInventory(inventory, catalog, implementations, evidence),
-    ).toThrow(
-      `Button: binding ${measurement.binding} differs from source measurement`,
-    );
-  });
-  it('keeps incomplete design coverage explicit instead of requiring invented tokens', async () => {
-    const inventory = await readInventory();
-    const evidence = JSON.parse(
-      await readFile(
-        join(packageRoot, 'references/figma-variants-observed-2026-10-08.json'),
-        'utf8',
-      ),
-    );
-    expect(() =>
-      validateComponentInventory(inventory, catalog, implementations, evidence),
     ).not.toThrow();
     expect(
       inventory.components.find((entry) => entry.name === 'Videos'),
     ).toMatchObject({
       designCoverage: 'design-incomplete',
-      foundationTokens: [],
       tokens: [],
     });
     inventory.components.find(
       (entry) => entry.name === 'Videos',
-    ).designCoverage = 'measured';
+    ).designCoverage = 'documented';
     expect(() =>
-      validateComponentInventory(inventory, catalog, implementations, evidence),
-    ).toThrow('Videos: source coverage differs from measurement evidence');
+      validateComponentInventory(inventory, catalog, implementations),
+    ).toThrow('Videos: specify token dependencies or an explicit design gap');
   });
   it('rejects newly introduced stylesheet dependencies until they are documented', async () => {
     const inventory = await readInventory();

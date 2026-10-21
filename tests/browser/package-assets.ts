@@ -14,7 +14,7 @@ export async function expectPackageAssets(page: Page, url: string) {
       ),
     );
     const icons: string[] = [];
-    // Use the real USWDS accordion selectors to exercise both icon states.
+    // Use the real USWDS accordion selectors to exercise both Phosphor icon states.
     for (const expanded of ['false', 'true']) {
       const button = document.createElement('button');
       button.className = 'usa-accordion__button';
@@ -40,6 +40,9 @@ export async function expectPackageAssets(page: Page, url: string) {
       loaded:
         faces.length > 0 && faces.every((face) => face.status === 'loaded'),
       icons,
+      inlineSvgs: icons
+        .filter((url) => url.startsWith('data:image/svg+xml,'))
+        .map((url) => decodeURIComponent(url.slice(url.indexOf(',') + 1))),
     };
   });
   expect(result.families).toEqual([
@@ -49,4 +52,17 @@ export async function expectPackageAssets(page: Page, url: string) {
   ]);
   expect(result.loaded).toBe(true);
   expect(new Set(result.icons).size).toBe(2);
+  expect(
+    result.icons.every(
+      (url) => url.includes('/icons/') || url.startsWith('data:image/svg+xml,'),
+    ),
+  ).toBe(true);
+  expect(result.inlineSvgs).toHaveLength(
+    result.icons.filter((url) => url.startsWith('data:image/svg+xml,')).length,
+  );
+  for (const svg of result.inlineSvgs) {
+    expect(svg).toMatch(/^<svg\b/);
+    expect(svg).toContain('<path');
+  }
+  expect(result.icons.some((url) => url.includes('/img/'))).toBe(false);
 }

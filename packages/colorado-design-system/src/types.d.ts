@@ -19,10 +19,6 @@ declare module '*.sass' {
 
 declare module '@uswds/uswds/js/usa-accordion' {
   const accordion: {
-    BUTTON: string;
-    ACCORDION: string;
-    on(root: HTMLElement): void;
-    off(root: HTMLElement): void;
     toggle(button: HTMLButtonElement, expanded: boolean): void;
   };
   export default accordion;
