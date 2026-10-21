@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import '@coloradodigitalservice/colorado-design-system/styles.css';
 import SiteAlertExamples from '../components/SiteAlertExamples.astro';
 import AccordionExamples from '../components/AccordionExamples.astro';
+import RadioExamples from '../components/RadioExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
 import IconCatalog from '../components/IconCatalog.astro';
 import IconExamples from '../components/IconExamples.astro';
@@ -43,7 +44,10 @@ const { Content } = await render(entry);
         <AccordionExamples />
       </>
     )}
-    {(entry.id === 'site-alert' || entry.id === 'accordion') && (
+    {entry.id === 'radio' && <RadioExamples />}
+    {(entry.id === 'radio' ||
+      entry.id === 'site-alert' ||
+      entry.id === 'accordion') && (
       <ComponentSummary component={entry.id} figma={entry.data.figma} />
     )}
     <Content />
