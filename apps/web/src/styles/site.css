@@ -166,6 +166,47 @@ main h1 {
   overflow-wrap: anywhere;
 }
 
+.cods-icon-catalog-group {
+  margin-block-end: var(--cods-space-lg);
+}
+
+.cods-icon-catalog-group h3 {
+  margin-block-end: var(--cods-space-sm);
+}
+
+.cods-icon-catalog {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  gap: var(--cods-space-sm);
+  padding: 0;
+  list-style: none;
+}
+
+.cods-icon-catalog__tags {
+  color: var(--cods-color-text-secondary);
+}
+
+.cods-icon-catalog li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--cods-space-xs) var(--cods-space-sm);
+  min-width: 0;
+  padding: var(--cods-space-sm);
+  border: 1px solid var(--cods-color-border-subtle);
+}
+
+.cods-icon-catalog__usage {
+  grid-column: 1 / -1;
+  min-width: 0;
+  margin: 0;
+  padding: var(--cods-space-sm);
+  user-select: text;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background: var(--cods-color-bg-surface-secondary);
+}
+
 .cods-docs-example-source pre {
   max-width: 100%;
   padding: var(--cods-space-md);

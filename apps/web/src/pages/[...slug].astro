@@ -3,9 +3,10 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '@coloradodigitalservice/colorado-design-system/styles.css';
 import SiteAlertExamples from '../components/SiteAlertExamples.astro';
-import CheckboxExamples from '../components/CheckboxExamples.astro';
 import AccordionExamples from '../components/AccordionExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
+import IconCatalog from '../components/IconCatalog.astro';
+import IconExamples from '../components/IconExamples.astro';
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs');
@@ -42,14 +43,12 @@ const { Content } = await render(entry);
         <AccordionExamples />
       </>
     )}
-    {entry.id === 'checkbox' && <CheckboxExamples />}
-    {['site-alert', 'accordion', 'checkbox'].includes(entry.id) && (
-      <ComponentSummary
-        component={entry.id as 'site-alert' | 'accordion' | 'checkbox'}
-        figma={entry.data.figma}
-      />
+    {(entry.id === 'site-alert' || entry.id === 'accordion') && (
+      <ComponentSummary component={entry.id} figma={entry.data.figma} />
     )}
     <Content />
+    {entry.id === 'icon' && <IconExamples />}
+    {entry.id === 'icon' && <IconCatalog />}
     {entry.id === 'site-alert' && <SiteAlertExamples mode="remaining" />}
   </article>
 </BaseLayout>

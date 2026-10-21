@@ -31,7 +31,11 @@ export function exampleHTML() {
         resolve(packageRoot, 'dist/fixtures', `${component.name}.html`),
         'utf8',
       );
-      return `<article><h2>${escape(metadata.displayName)} (${metadata.maturity})</h2>${fixture}</article>`;
+      const html =
+        component.name === 'icon'
+          ? fixture.replaceAll('/icons/sprite.svg', './assets/icons/sprite.svg')
+          : fixture;
+      return `<article><h2>${escape(metadata.displayName)} (${metadata.maturity})</h2>${html}</article>`;
     })
     .join(
       '',

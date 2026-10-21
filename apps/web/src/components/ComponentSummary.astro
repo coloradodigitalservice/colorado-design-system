@@ -2,16 +2,12 @@
 import siteAlert from '@coloradodigitalservice/colorado-design-system/metadata/site-alert.json';
 import accordion from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
 
-import checkbox from '@coloradodigitalservice/colorado-design-system/metadata/checkbox.json';
-
 interface Props {
-  component: 'site-alert' | 'accordion' | 'checkbox';
+  component: 'site-alert' | 'accordion';
   figma?: string;
 }
 
-const metadata = { 'site-alert': siteAlert, accordion, checkbox }[
-  Astro.props.component
-];
+const metadata = { 'site-alert': siteAlert, accordion }[Astro.props.component];
 const { figma } = Astro.props;
 const repository =
   'https://github.com/coloradodigitalservice/colorado-design-system/tree/main/packages/colorado-design-system/src/components';
@@ -31,7 +27,7 @@ const upstream = `https://designsystem.digital.gov/components/${metadata.uswdsEq
       <dt>Type</dt>
       <dd>
         {metadata.type === 'static'
-          ? 'No component controller; native controls work without JavaScript'
+          ? 'Static, no JavaScript'
           : 'Interactive, progressively enhanced'}
       </dd>
     </div>

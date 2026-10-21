@@ -68,31 +68,6 @@ describe('canonical component examples', () => {
     });
   }
 
-  it('requires a native checkbox and review instructions for mixed-state setup', () => {
-    const checkbox = components.find(
-      (component) => component.name === 'checkbox',
-    )!;
-    const mixed = checkbox.examples.examples.find(
-      (example) => example.state === 'indeterminate',
-    )!;
-    expect(mixed.status).toBe('review-required');
-    expect(mixed.code).not.toContain('data-indeterminate');
-    const metadata = structuredClone(checkbox.metadata);
-    const example = metadata.examples.find(
-      (example) => example.state === 'indeterminate',
-    )!;
-    example.instructions = '';
-    expect(() => generateExamples(metadata, checkbox.fixture)).toThrow(
-      'runtime state needs review instructions',
-    );
-    expect(() =>
-      generateExamples(
-        checkbox.metadata,
-        checkbox.fixture.replaceAll('type="checkbox"', 'type="text"'),
-      ),
-    ).toThrow('indeterminate setup needs a native checkbox');
-  });
-
   it('rejects USWDS pin drift and unapproved component divergence', () => {
     const root = mkdtempSync(join(tmpdir(), 'cods-metadata-'));
     temporary.push(root);
