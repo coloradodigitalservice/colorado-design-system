@@ -1,0 +1,140 @@
+@layer cods.components {
+  .cods-button {
+    --cods-button-background: var(--cods-color-bg-action-primary);
+    --cods-button-color: var(--cods-color-text-action-primary);
+    --cods-button-hover: var(--cods-color-bg-action-primary-hover);
+    --cods-button-active: var(--cods-color-bg-action-primary-active);
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    inline-size: auto;
+    max-width: 100%;
+    min-block-size: var(--cods-space-2xl);
+    padding: var(--cods-space-sm) var(--cods-space-lg);
+    margin: var(--cods-space-2xs) 0;
+    border: var(--cods-focus-ring-offset) solid transparent;
+    border-radius: var(--cods-radius-md);
+    background: var(--cods-button-background);
+    color: var(--cods-button-color);
+    box-shadow: none;
+    font-family: var(--cods-font-family-body);
+    font-size: var(--cods-font-size-desktop-ui);
+    font-weight: var(--cods-font-weight-desktop-ui);
+    line-height: var(--cods-line-height-desktop-body);
+    text-align: center;
+    text-decoration: none;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    cursor: pointer;
+  }
+
+  .cods-button:visited {
+    color: var(--cods-button-color);
+  }
+
+  .cods-button:hover,
+  .cods-button.cods-button--hover {
+    background: var(--cods-button-hover);
+    color: var(--cods-button-color);
+    text-decoration: none;
+  }
+
+  .cods-button:active,
+  .cods-button.cods-button--active {
+    background: var(--cods-button-active);
+    color: var(--cods-button-color);
+  }
+
+  .cods-button--secondary,
+  .cods-button--outline,
+  .cods-button--ghost {
+    --cods-button-background: var(--cods-color-surface-form);
+    --cods-button-color: var(--cods-color-text-action-secondary);
+    --cods-button-hover: var(--cods-color-bg-action-secondary-hover);
+    --cods-button-active: var(--cods-color-bg-action-secondary-hover);
+
+    border-color: var(--cods-color-border-action-secondary);
+  }
+
+  .cods-button--outline,
+  .cods-button--ghost {
+    --cods-button-background: transparent;
+  }
+
+  .cods-button--ghost {
+    border-color: transparent;
+  }
+
+  .cods-button--secondary:is(:hover, .cods-button--hover),
+  .cods-button--outline:is(:hover, .cods-button--hover),
+  .cods-button--ghost:is(:hover, .cods-button--hover) {
+    color: var(--cods-color-text-action-secondary-hover);
+    border-color: var(--cods-color-border-action-secondary-hover);
+  }
+
+  .cods-button--secondary:is(:active, .cods-button--active),
+  .cods-button--outline:is(:active, .cods-button--active),
+  .cods-button--ghost:is(:active, .cods-button--active) {
+    color: var(--cods-color-text-action-secondary-active);
+    border-color: var(--cods-color-border-action-secondary-active);
+  }
+
+  .cods-button--danger {
+    --cods-button-background: var(--cods-color-bg-action-danger);
+    --cods-button-hover: var(--cods-color-bg-action-danger-hover);
+    --cods-button-active: var(--cods-color-bg-action-danger-active);
+  }
+
+  .cods-button--small {
+    min-block-size: var(--cods-space-xl);
+    padding: var(--cods-space-2xs) var(--cods-space-sm);
+    font-size: var(--cods-font-size-desktop-ui-sm);
+    line-height: var(--cods-line-height-desktop-body-sm);
+  }
+
+  .cods-button--icon-only {
+    min-inline-size: var(--cods-space-2xl);
+    padding: var(--cods-space-xs);
+  }
+
+  .cods-button__icon {
+    inline-size: var(--cods-space-lg);
+    block-size: var(--cods-space-lg);
+    flex-shrink: 0;
+  }
+
+  .cods-button:focus-visible {
+    outline: var(--cods-focus-ring-width) solid
+      var(--cods-color-bg-action-focus);
+    outline-offset: var(--cods-focus-ring-offset);
+    box-shadow: 0 0 0 var(--cods-focus-ring-offset) var(--cods-color-focus-gap);
+  }
+
+  .cods-button:disabled {
+    background: var(--cods-color-bg-disabled);
+    color: var(--cods-color-text-disabled);
+    border-color: var(--cods-color-border-disabled);
+    box-shadow: none;
+    cursor: not-allowed;
+    opacity: 1;
+  }
+
+  @media (forced-colors: active) {
+    .cods-button {
+      border-color: ButtonText;
+      background: ButtonFace;
+      color: ButtonText;
+    }
+
+    .cods-button:disabled {
+      color: GrayText;
+      border-color: GrayText;
+    }
+
+    .cods-button:focus-visible {
+      outline-color: Highlight;
+    }
+  }
+}
