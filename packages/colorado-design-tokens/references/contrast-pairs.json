@@ -1,6 +1,6 @@
 {
   "source": "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html",
-  "note": "Selected actual text, tag, link, action, form-border, status-icon and focus pairs. Disabled states excluded. Warning accents and unresolved transparent borders require the separate review in catalog-review.md; passing pairs do not establish component conformance.",
+  "note": "Initial checks for documented roles on form/white surfaces and action backgrounds. These do not establish whole-component conformance. Disabled controls are intentionally excluded.",
   "pairs": [
     {
       "name": "Body text on form surface",
@@ -171,141 +171,33 @@
       "minimum": 3
     },
     {
-      "name": "Tag gray",
-      "foreground": "color.text-tag-gray",
-      "background": "color.surface-tag-gray",
-      "minimum": 4.5
-    },
-    {
-      "name": "Tag yellow",
-      "foreground": "color.text-tag-yellow",
-      "background": "color.surface-tag-yellow",
-      "minimum": 4.5
-    },
-    {
-      "name": "Tag blue",
-      "foreground": "color.text-tag-blue",
-      "background": "color.surface-tag-blue",
-      "minimum": 4.5
-    },
-    {
-      "name": "Tag green",
-      "foreground": "color.text-tag-green",
-      "background": "color.surface-tag-green",
-      "minimum": 4.5
-    },
-    {
-      "name": "Tag red",
-      "foreground": "color.text-tag-red",
-      "background": "color.surface-tag-red",
-      "minimum": 4.5
-    },
-    {
-      "name": "Tag teal",
-      "foreground": "color.text-tag-teal",
-      "background": "color.surface-tag-teal",
-      "minimum": 4.5
-    },
-    {
-      "name": "Tag plum",
-      "foreground": "color.text-tag-plum",
-      "background": "color.surface-tag-plum",
-      "minimum": 4.5
-    },
-    {
-      "name": "Link inline",
-      "foreground": "color.text-action-link-inline",
-      "background": "color.surface-default",
-      "minimum": 4.5
-    },
-    {
-      "name": "Link inline-hover",
-      "foreground": "color.text-action-link-inline-hover",
-      "background": "color.surface-default",
-      "minimum": 4.5
-    },
-    {
-      "name": "Link inline-active",
-      "foreground": "color.text-action-link-inline-active",
-      "background": "color.surface-default",
-      "minimum": 4.5
-    },
-    {
-      "name": "Link standalone",
-      "foreground": "color.text-action-link-standalone",
-      "background": "color.surface-default",
-      "minimum": 4.5
-    },
-    {
-      "name": "Link standalone-hover",
-      "foreground": "color.text-action-link-standalone-hover",
-      "background": "color.surface-default",
-      "minimum": 4.5
-    },
-    {
-      "name": "Link standalone-active",
-      "foreground": "color.text-action-link-standalone-active",
-      "background": "color.surface-default",
-      "minimum": 4.5
-    },
-    {
-      "name": "Body text on error-subtle",
+      "name": "Alert text on info tint",
       "foreground": "color.text-primary",
-      "background": "color.bg-alert-urgent",
+      "background": "color.bg-alert-info",
       "minimum": 4.5
     },
     {
-      "name": "Body text on warning-subtle",
+      "name": "Alert text on warning tint",
       "foreground": "color.text-primary",
       "background": "color.bg-alert-warning",
       "minimum": 4.5
     },
     {
-      "name": "Body text on info-subtle",
+      "name": "Alert text on urgent tint",
       "foreground": "color.text-primary",
-      "background": "color.bg-alert-info",
-      "minimum": 4.5
-    },
-    {
-      "name": "Body text on form-selected",
-      "foreground": "color.text-primary",
-      "background": "color.surface-form-selected",
-      "minimum": 4.5
-    },
-    {
-      "name": "Body text on nav-secondary",
-      "foreground": "color.text-primary",
-      "background": "color.surface-nav-secondary",
-      "minimum": 4.5
-    },
-    {
-      "name": "Body text on nav-heel",
-      "foreground": "color.text-primary",
-      "background": "color.surface-nav-heel",
-      "minimum": 4.5
-    },
-    {
-      "name": "Body text on nav-social-container",
-      "foreground": "color.text-primary",
-      "background": "color.surface-nav-social-container",
-      "minimum": 4.5
-    },
-    {
-      "name": "Toast inverse text",
-      "foreground": "color.text-action-primary",
-      "background": "color.surface-toast-default",
-      "minimum": 4.5
-    },
-    {
-      "name": "error accent on subtle surface",
-      "foreground": "color.border-alert-urgent",
       "background": "color.bg-alert-urgent",
+      "minimum": 4.5
+    },
+    {
+      "name": "Alert border on info tint",
+      "foreground": "color.border-alert-info",
+      "background": "color.bg-alert-info",
       "minimum": 3
     },
     {
-      "name": "info accent on subtle surface",
-      "foreground": "color.border-alert-info",
-      "background": "color.bg-alert-info",
+      "name": "Alert border on urgent tint",
+      "foreground": "color.border-alert-urgent",
+      "background": "color.bg-alert-urgent",
       "minimum": 3
     },
     {

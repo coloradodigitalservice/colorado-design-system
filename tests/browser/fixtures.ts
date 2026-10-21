@@ -1,16 +1,10 @@
 import { test as base, expect } from '@playwright/test';
 import type { Page, TestInfo } from '@playwright/test';
 import { AxeBuilder } from '@axe-core/playwright';
-import { routeBuiltFiles } from './built-files.js';
 
 export const test = base.extend<{ consoleErrors: void }>({
   consoleErrors: [
     async ({ page }, use, testInfo) => {
-      if (process.env.CODS_BUILT_FILES === '1')
-        await routeBuiltFiles(
-          page,
-          testInfo.project.name === 'storybook' ? 'storybook' : 'web',
-        );
       const errors: string[] = [];
       page.on('console', (message) => {
         if (message.type() === 'error') errors.push(message.text());

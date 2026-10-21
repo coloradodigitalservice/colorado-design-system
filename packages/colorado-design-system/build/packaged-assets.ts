@@ -11,12 +11,6 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { generate, parse, walk } from 'css-tree';
 import type { Plugin } from 'vite';
 import iconVariants from './uswds-icon-variants.json' with { type: 'json' };
-import approvedIcons from '../src/icons/approved-icons.json' with { type: 'json' };
-
-const packagedIconIds = new Set([
-  ...approvedIcons.icons,
-  ...Object.values(iconVariants).map(({ id, color }) => `${id}--${color}`),
-]);
 
 const excludedDirectory =
   /(?:^|[/\\])(?:favicons|material-icons(?:-deprecated)?|usa-icons(?:-bg)?|uswds-icons)(?:[/\\]|$)/;
@@ -150,10 +144,6 @@ export function copiedAssets(
   }
   return {
     isExternal(id) {
-      // Component masks reference the same generated files as the public icon
-      // pipeline. They are written by the icon plugin before CSS validation.
-      const icon = /^\.\/icons\/([a-z\d-]+)\.svg(?:[?#].*)?$/.exec(id);
-      if (icon) return packagedIconIds.has(icon[1]!);
       const file = sourceFile(id);
       return file !== undefined && isFile(file);
     },

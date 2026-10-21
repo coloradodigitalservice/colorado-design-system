@@ -133,10 +133,7 @@ The Vite asset plugin keeps the existing layout for required non-icon assets in
 Material, and deprecated Material icons) and replaces CSS references to used
 USWDS icons with equivalent approved Phosphor SVGs under `dist/icons`. The
 remaining non-icon image assets are copied unchanged. A CSS URL is externalized
-only when its source exists. Component CSS masks can reference
-`./icons/<approved-id>.svg` directly: approved IDs and the explicit USWDS color
-variants are externalized for the shared icon pipeline to write, and the final
-CSS check verifies those files exist. An unrecognized URL into an excluded icon
+only when its source exists; an unrecognized URL into an excluded icon
 collection fails the build instead of repackaging that icon. Expected warnings
 disappear, and unknown non-icon references retain Vite's normal warnings.
 
