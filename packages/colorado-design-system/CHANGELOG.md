@@ -1,5 +1,14 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.3
+
+### Patch Changes
+
+- 5557d0b: Support component CSS masks that reference approved generated Phosphor icon files, with missing-asset validation. Reconcile the shared Icon foundation's token dependencies separately from the approved 28-component inventory and retain both the expanded catalog and icon contrast coverage.
+- Updated dependencies [5557d0b]
+- Updated dependencies [5557d0b]
+  - @coloradodigitalservice/colorado-design-tokens@0.2.3
+
 ## 0.2.2
 
 ### Patch Changes
