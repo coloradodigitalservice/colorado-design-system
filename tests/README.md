@@ -29,6 +29,15 @@ ports and disabled server reuse prevent accidentally testing a development serve
 
 For a faster scoped run:
 
+To exercise built pages without starting preview servers, use
+`pnpm exec playwright test --config config/playwright.built-files.ts` after
+`pnpm build`. This opts into local request routing for the same browser projects,
+console-error checks, and accessibility assertions. It does not verify HTTP-server
+behavior; the default suite remains the server-backed CI gate.
+Select the relevant tests with `--grep` or file paths: cases that use the API
+request fixture, create their own unrouted context, or explicitly continue a
+network request still require the default preview configuration.
+
 ```sh
 pnpm exec turbo run build --filter=@cods-internal/web...
 CODS_BROWSER_TARGET=web pnpm test:browser

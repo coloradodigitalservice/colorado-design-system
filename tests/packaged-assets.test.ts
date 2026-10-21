@@ -133,6 +133,7 @@ function fixture(
         'magnifying-glass',
         'arrow-square-out--ffffff',
         'file-pdf--07648d',
+        'caret-down',
       ])
         writeFileSync(join(icons, `${id}.svg`), '<svg/>');
     },
@@ -224,6 +225,30 @@ describe('Vite packaged assets integration', () => {
       'icons/file-pdf--07648d.svg',
       'icons/magnifying-glass.svg',
     ]);
+  });
+
+  it('preserves approved component mask URLs as shared generated assets', async () => {
+    const { root, assets, warnings, config } = fixture(
+      '.caret{mask:url(./icons/caret-down.svg) center/contain no-repeat}',
+    );
+    await build(config);
+    expect(warnings).toEqual([]);
+    const output = readFileSync(join(root, 'dist/fixture.css'), 'utf8');
+    expect(output).toContain('./icons/caret-down.svg');
+    expect(output).not.toContain('data:');
+    expect(cssAssetReferences(output, 'fixture.css')).toEqual([
+      'icons/caret-down.svg',
+    ]);
+    expect(assets.isExternal('./icons/caret-down.svg?v=1#icon')).toBe(true);
+    expect(assets.isExternal('./icons/not-approved.svg')).toBe(false);
+    expect(assets.isExternal('./icons/../fonts/probe.woff2')).toBe(false);
+  });
+
+  it('rejects an approved icon reference when its generated file is missing', async () => {
+    const { config } = fixture('.caret{mask:url(./icons/caret-up.svg)}');
+    await expect(build(config)).rejects.toThrow(
+      'missing packaged asset: icons/caret-up.svg',
+    );
   });
 
   it('keeps the Vite warning for an undeclared URL and fails even when a stale output file exists', async () => {
