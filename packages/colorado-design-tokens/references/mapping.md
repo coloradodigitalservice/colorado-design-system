@@ -79,3 +79,8 @@ Every foundation token records its design-reference section in `src/foundations.
 | Content blocks     | `space-xl`  | 32px  |
 | Section breaks     | `space-2xl` | 48px  |
 | Page margins       | `space-3xl` | 64px  |
+
+| Icon size | Code name          | Value |
+| --------- | ------------------ | ----- |
+| Small     | `icon-size-small`  | 16px  |
+| Medium    | `icon-size-medium` | 24px  |
