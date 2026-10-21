@@ -1,0 +1,124 @@
+// Resolve alongside the compiled package CSS, like USWDS's theme image path.
+$separator-path: './icons/caret-right.svg';
+
+@layer cods.components {
+  .cods-breadcrumbs {
+    --cods-breadcrumbs-color: var(--cods-color-text-secondary);
+    --cods-breadcrumbs-link-color: var(
+      --cods-color-text-action-link-standalone
+    );
+    --cods-breadcrumbs-separator-color: var(--cods-color-icon-default);
+    --cods-breadcrumbs-gap: var(--cods-space-2xs);
+
+    padding: var(--cods-space-sm) 0;
+    background: transparent;
+    color: var(--cods-breadcrumbs-color);
+    font-family: var(--cods-font-family-body);
+    font-size: var(--cods-font-size-desktop-ui);
+    font-weight: var(--cods-font-weight-regular);
+    line-height: var(--cods-line-height-desktop-ui);
+  }
+
+  .cods-breadcrumbs__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--cods-space-sm) var(--cods-breadcrumbs-gap);
+    margin: 0;
+    padding: var(--cods-focus-ring-offset);
+    list-style: none;
+  }
+
+  // Undo USWDS's mobile parent-only presentation: all links stay visible.
+  .cods-breadcrumbs__item {
+    position: static;
+    display: inline-flex;
+    align-items: flex-start;
+    gap: var(--cods-breadcrumbs-gap);
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    font-weight: inherit;
+  }
+
+  // Empty generated content is decorative; use the shared Phosphor Regular caret.
+  .cods-breadcrumbs__item:not(:last-child)::after {
+    content: '';
+    position: static;
+    display: block;
+    flex: none;
+    width: var(--cods-font-size-desktop-ui);
+    height: var(--cods-line-height-desktop-ui);
+    margin: 0;
+    background: var(--cods-breadcrumbs-separator-color);
+    mask: url($separator-path) center / contain no-repeat;
+  }
+
+  .cods-breadcrumbs__item:dir(rtl)::after {
+    transform: scaleX(-1);
+  }
+
+  .cods-breadcrumbs__link {
+    display: inline;
+    min-width: 0;
+    padding: 0;
+    color: var(--cods-breadcrumbs-link-color);
+    text-indent: 0;
+    text-decoration: underline;
+    overflow-wrap: anywhere;
+  }
+
+  .cods-breadcrumbs__link::before {
+    content: none;
+  }
+
+  .cods-breadcrumbs__link:visited {
+    color: var(--cods-color-text-action-link-visited);
+  }
+
+  .cods-breadcrumbs__link:hover {
+    color: var(--cods-color-text-action-link-hover);
+  }
+
+  .cods-breadcrumbs__link:active {
+    color: var(--cods-color-text-action-link-active);
+  }
+
+  .cods-breadcrumbs__link:focus-visible {
+    color: var(--cods-color-text-action-primary);
+    outline: var(--cods-focus-ring-width) solid
+      var(--cods-color-bg-action-focus);
+    outline-offset: var(--cods-focus-ring-offset);
+    border-radius: var(--cods-radius-sm);
+    box-shadow: 0 0 0 var(--cods-focus-ring-offset) var(--cods-color-focus-gap);
+  }
+
+  @media (forced-colors: active) {
+    .cods-breadcrumbs {
+      color: CanvasText;
+    }
+
+    .cods-breadcrumbs__link {
+      color: LinkText;
+    }
+
+    .cods-breadcrumbs__link:visited {
+      color: VisitedText;
+    }
+
+    .cods-breadcrumbs__link:focus-visible {
+      color: LinkText;
+      outline-color: Highlight;
+    }
+
+    .cods-breadcrumbs__item:not(:last-child)::after {
+      background: CanvasText;
+      forced-color-adjust: none;
+    }
+  }
+}
