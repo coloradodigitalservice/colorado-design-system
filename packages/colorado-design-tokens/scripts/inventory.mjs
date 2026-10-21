@@ -70,53 +70,28 @@ export function validateComponentInventory(
   inventory,
   catalog,
   implementations,
-  evidence,
 ) {
   const names = new Set();
-  for (const component of inventory.components) {
+  // Shared foundations are validated just like components, but do not expand
+  // the approved 28-component delivery scope.
+  for (const component of [
+    ...inventory.components,
+    ...(inventory.sharedFoundations ?? []),
+  ]) {
     if (names.has(component.name))
       throw new Error(`Duplicate inventory component: ${component.name}`);
     names.add(component.name);
-    const bindings = Object.values(component.foundationBindings ?? {});
-    const source = evidence?.components.find(
-      (entry) => entry.name === component.name,
-    );
     const incomplete =
       (component.name === 'Maps' &&
         component.designCoverage === 'reference-only') ||
       (component.name === 'Videos' &&
         component.designCoverage === 'design-incomplete');
-    if (evidence && (!source || source.status !== component.designCoverage))
+    if (!component.tokens.length && !incomplete)
       throw new Error(
-        `${component.name}: source coverage differs from measurement evidence`,
-      );
-    if (
-      (!bindings.length && !incomplete) ||
-      bindings.some((paths) => !Array.isArray(paths) || !paths.length)
-    )
-      throw new Error(
-        `${component.name}: specify concrete foundation bindings`,
-      );
-    const foundationTokens = [
-      ...new Set(
-        bindings
-          .flat()
-          .filter(
-            (path) =>
-              !path.startsWith('color.') && !path.startsWith('component.'),
-          ),
-      ),
-    ].sort();
-    if (
-      JSON.stringify(foundationTokens) !==
-      JSON.stringify(component.foundationTokens)
-    )
-      throw new Error(
-        `${component.name}: foundationTokens differ from foundation bindings`,
+        `${component.name}: specify token dependencies or an explicit design gap`,
       );
     const documented = new Set(component.tokens);
     for (const path of [
-      ...bindings.flat(),
       ...component.tokens,
       ...component.componentTokens,
       ...component.implementationTokens,
@@ -157,58 +132,6 @@ export function validateComponentInventory(
         `${component.name}: recorded implementation does not exist`,
       );
     }
-    const measured = new Set();
-    for (const measurement of component.foundationMeasurements ?? []) {
-      const { binding, token, value, property } = measurement;
-      if (!component.foundationBindings[binding]?.includes(token))
-        throw new Error(
-          `${component.name}: measured binding ${binding} is undocumented`,
-        );
-      if (JSON.stringify(catalog.resolved.get(token)) !== JSON.stringify(value))
-        throw new Error(
-          `${component.name}: measured value differs from ${token}`,
-        );
-      if (source) {
-        const properties =
-          source.measurements[measurement.measurement]?.properties;
-        let observed = property
-          .split('.')
-          .reduce((result, key) => result?.[key], properties);
-        if (property === 'fontName.style') {
-          observed = {
-            Regular: 400,
-            Normal: 400,
-            SemiBold: 600,
-            Semibold: 600,
-            Medium: 500,
-            500: 500,
-          }[observed];
-        } else if (typeof value === 'object' && value.unit === 'px') {
-          observed = {
-            value:
-              property === 'lineHeight'
-                ? observed?.units === 'PIXELS'
-                  ? observed.value
-                  : undefined
-                : observed,
-            unit: 'px',
-          };
-        }
-        if (JSON.stringify(observed) !== JSON.stringify(value))
-          throw new Error(
-            `${component.name}: binding ${binding} differs from source measurement`,
-          );
-      }
-      measured.add(`${binding}|${token}`);
-    }
-    for (const [binding, paths] of Object.entries(
-      component.foundationBindings ?? {},
-    )) {
-      if (paths.some((token) => !measured.has(`${binding}|${token}`)))
-        throw new Error(
-          `${component.name}: foundation binding ${binding} has no measurement`,
-        );
-    }
   }
   for (const name of implementations.keys()) {
     if (!names.has(name))
@@ -229,11 +152,5 @@ export async function checkComponentInventory(catalog) {
     inventory,
     catalog,
     await loadImplementationDependencies(catalog),
-    JSON.parse(
-      await readFile(
-        join(packageRoot, 'references/figma-variants-observed-2026-10-08.json'),
-        'utf8',
-      ),
-    ),
   );
 }

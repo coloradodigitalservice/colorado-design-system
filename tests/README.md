@@ -29,6 +29,15 @@ ports and disabled server reuse prevent accidentally testing a development serve
 
 For a faster scoped run:
 
+To exercise built pages without starting preview servers, use
+`pnpm exec playwright test --config config/playwright.built-files.ts` after
+`pnpm build`. This opts into local request routing for the same browser projects,
+console-error checks, and accessibility assertions. It does not verify HTTP-server
+behavior; the default suite remains the server-backed CI gate.
+Select the relevant tests with `--grep` or file paths: cases that use the API
+request fixture, create their own unrouted context, or explicitly continue a
+network request still require the default preview configuration.
+
 ```sh
 pnpm exec turbo run build --filter=@cods-internal/web...
 CODS_BROWSER_TARGET=web pnpm test:browser
@@ -228,12 +237,3 @@ capture, and render an image without alt text in a real loaded page to check axe
 output. Confirm a nonzero exit and attachments, then remove the temporary spec.
 
 See [Foundation CI](../docs/CI.md) for job selection and artifacts.
-
-### Site Alert verification without preview servers
-
-After `pnpm build`, run
-`pnpm exec playwright test --config config/playwright.site-alert.ts` to check
-Site Alert's built documentation and Storybook examples through request routing.
-The config starts no local server and retains the normal Chromium, Firefox,
-WebKit, and Storybook projects. This supplements the full `pnpm check` gate;
-it does not replace the full browser suite.

@@ -1,5 +1,32 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.2
+
+### Patch Changes
+
+- ace85bc: Add a Phosphor-based icon foundation, including approved icon assets, catalog, and size tokens. Replace packaged USWDS icon assets with equivalent Phosphor icons while retaining non-icon assets.
+- Updated dependencies [ace85bc]
+  - @coloradodigitalservice/colorado-design-tokens@0.2.2
+
+## 0.2.1
+
+### Patch Changes
+
+- 54440e1: Use a relative documentation link in the accordion fixture so it resolves correctly when the documentation site is hosted at the domain root or under the GitHub Pages repository path.
+- Updated dependencies [54440e1]
+  - @coloradodigitalservice/colorado-design-tokens@0.2.1
+
+## 0.2.0
+
+### Minor Changes
+
+- e02000c: Refresh the development dependency lockfile, upgrade the internal web app to Astro 7.4.0, update the GitHub Pages artifact action, and align workspace validation with Turbo 2.11.8.
+
+### Patch Changes
+
+- Updated dependencies [e02000c]
+  - @coloradodigitalservice/colorado-design-tokens@0.2.0
+
 ## 0.1.7
 
 ### Patch Changes
