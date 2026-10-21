@@ -1,0 +1,242 @@
+<!-- State: default -->
+<div data-cods-select-fixture="default" data-cods-fixture-state="default">
+  <h2>Default</h2>
+  <div class="usa-form-group cods-select">
+    <label class="usa-label cods-select__label" for="select-default"
+      >County</label
+    >
+    <span class="usa-hint cods-select__hint" id="select-default-hint"
+      >Choose the county where you live.</span
+    >
+
+    <select
+      class="usa-select cods-select__control"
+      id="select-default"
+      name="county-default"
+      aria-describedby="select-default-hint"
+    >
+      <option value="adams">Adams</option>
+      <option value="boulder">Boulder</option>
+      <option value="denver">Denver</option>
+    </select>
+  </div>
+</div>
+
+<!-- State: focus-visible -->
+<div
+  data-cods-select-fixture="focus-visible"
+  data-cods-fixture-state="focus-visible"
+>
+  <h2>Focus visible</h2>
+  <div class="usa-form-group cods-select">
+    <label class="usa-label cods-select__label" for="select-focus-visible"
+      >County</label
+    >
+    <span class="usa-hint cods-select__hint" id="select-focus-visible-hint"
+      >Choose the county where you live.</span
+    >
+
+    <select
+      class="usa-select cods-select__control"
+      id="select-focus-visible"
+      name="county-focus-visible"
+      aria-describedby="select-focus-visible-hint"
+    >
+      <option value="adams">Adams</option>
+      <option value="boulder">Boulder</option>
+      <option value="denver">Denver</option>
+    </select>
+  </div>
+</div>
+
+<!-- State: disabled -->
+<div data-cods-select-fixture="disabled" data-cods-fixture-state="disabled">
+  <h2>Disabled</h2>
+  <div class="usa-form-group cods-select">
+    <label class="usa-label cods-select__label" for="select-disabled"
+      >County</label
+    >
+    <span class="usa-hint cods-select__hint" id="select-disabled-hint"
+      >County selection is unavailable until you choose a state.</span
+    >
+
+    <select
+      class="usa-select cods-select__control"
+      id="select-disabled"
+      name="county-disabled"
+      aria-describedby="select-disabled-hint"
+      disabled
+    >
+      <option value="adams">Adams</option>
+      <option value="boulder">Boulder</option>
+      <option value="denver">Denver</option>
+    </select>
+  </div>
+</div>
+
+<!-- State: success -->
+<div data-cods-select-fixture="success" data-cods-fixture-state="success">
+  <h2>Success</h2>
+  <div class="usa-form-group cods-select cods-select--success">
+    <label class="usa-label cods-select__label" for="select-success"
+      >County</label
+    >
+    <span class="usa-hint cods-select__hint" id="select-success-hint"
+      >Success: County selection is valid.</span
+    >
+
+    <select
+      class="usa-select cods-select__control"
+      id="select-success"
+      name="county-success"
+      aria-describedby="select-success-hint"
+    >
+      <option value="adams">Adams</option>
+      <option value="boulder">Boulder</option>
+      <option value="denver">Denver</option>
+    </select>
+  </div>
+</div>
+
+<!-- State: error -->
+<div data-cods-select-fixture="error" data-cods-fixture-state="error">
+  <h2>Error</h2>
+  <div class="usa-form-group usa-form-group--error cods-select">
+    <label class="usa-label cods-select__label" for="select-error"
+      >County (required)</label
+    >
+    <span class="usa-hint cods-select__hint" id="select-error-hint"
+      >Choose the county where you live.</span
+    >
+    <span class="usa-error-message cods-select__error" id="select-error-error"
+      >Error: Choose a county.</span
+    >
+    <select
+      class="usa-select usa-select--error cods-select__control"
+      id="select-error"
+      name="county-error"
+      aria-describedby="select-error-hint select-error-error"
+      required
+      aria-invalid="true"
+    >
+      <option value="" selected>- Select a county -</option>
+      <option value="adams">Adams</option>
+      <option value="boulder">Boulder</option>
+      <option value="denver">Denver</option>
+    </select>
+  </div>
+</div>
+
+<!-- State: placeholder -->
+<div
+  data-cods-select-fixture="placeholder"
+  data-cods-fixture-state="placeholder"
+>
+  <h2>Placeholder</h2>
+  <div class="usa-form-group cods-select">
+    <label class="usa-label cods-select__label" for="select-placeholder"
+      >County</label
+    >
+    <span class="usa-hint cods-select__hint" id="select-placeholder-hint"
+      >Choose the county where you live.</span
+    >
+
+    <select
+      class="usa-select cods-select__control"
+      id="select-placeholder"
+      name="county-placeholder"
+      aria-describedby="select-placeholder-hint"
+    >
+      <option value="" selected>- Select a county -</option>
+      <option value="adams">Adams</option>
+      <option value="boulder">Boulder</option>
+      <option value="denver">Denver</option>
+    </select>
+  </div>
+</div>
+
+<!-- State: long-content -->
+<div
+  data-cods-select-fixture="long-content"
+  data-cods-fixture-state="long-content"
+>
+  <h2>Long content</h2>
+  <div class="usa-form-group cods-select">
+    <label class="usa-label cods-select__label" for="select-long-content"
+      >County where you would like to receive help with your application and
+      supporting documents</label
+    >
+    <span class="usa-hint cods-select__hint" id="select-long-content-hint"
+      >Choose the county that will review your application, including requests
+      for accessible services and translated information.</span
+    >
+
+    <select
+      class="usa-select cods-select__control"
+      id="select-long-content"
+      name="county-long-content"
+      aria-describedby="select-long-content-hint"
+    >
+      <option value="adams">
+        Adams — application support and language assistance
+      </option>
+      <option value="boulder">
+        Boulder — application support and language assistance
+      </option>
+      <option value="denver">
+        Denver — application support and language assistance
+      </option>
+    </select>
+  </div>
+</div>
+
+<!-- State: localization -->
+<div
+  data-cods-select-fixture="localization"
+  data-cods-fixture-state="localization"
+>
+  <h2>Localization</h2>
+  <div class="usa-form-group cods-select" lang="es">
+    <label class="usa-label cods-select__label" for="select-localization"
+      >Condado</label
+    >
+    <span class="usa-hint cods-select__hint" id="select-localization-hint"
+      >Seleccione el condado donde vive.</span
+    >
+
+    <select
+      class="usa-select cods-select__control"
+      id="select-localization"
+      name="county-localization"
+      aria-describedby="select-localization-hint"
+    >
+      <option value="adams">Adams</option>
+      <option value="boulder">Boulder</option>
+      <option value="denver">Denver</option>
+    </select>
+  </div>
+</div>
+
+<!-- State: rtl -->
+<div data-cods-select-fixture="rtl" data-cods-fixture-state="rtl">
+  <h2>Rtl</h2>
+  <div class="usa-form-group cods-select" lang="ar" dir="rtl">
+    <label class="usa-label cods-select__label" for="select-rtl"
+      >المقاطعة</label
+    >
+    <span class="usa-hint cods-select__hint" id="select-rtl-hint"
+      >اختر المقاطعة التي تعيش فيها.</span
+    >
+
+    <select
+      class="usa-select cods-select__control"
+      id="select-rtl"
+      name="county-rtl"
+      aria-describedby="select-rtl-hint"
+    >
+      <option value="adams">آدامز</option>
+      <option value="boulder">بولدر</option>
+      <option value="denver">دنفر</option>
+    </select>
+  </div>
+</div>
