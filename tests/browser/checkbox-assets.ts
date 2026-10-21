@@ -7,9 +7,10 @@ export async function expectCheckboxAssets(
   page: Page,
   url: string,
   forcedColors: 'none' | 'active' = 'none',
+  options: { cods?: boolean } = {},
 ) {
   await page.goto(url);
-  await page.evaluate(() => {
+  await page.evaluate((cods) => {
     const probe = document.createElement('fieldset');
     probe.id = 'checkbox-asset-probe';
     const legend = document.createElement('legend');
@@ -18,16 +19,22 @@ export async function expectCheckboxAssets(
     for (const state of ['checked', 'indeterminate', 'unchecked']) {
       for (const disabled of [false, true]) {
         const container = document.createElement('div');
-        container.className = 'usa-checkbox';
+        container.className = cods
+          ? 'usa-checkbox cods-checkbox'
+          : 'usa-checkbox';
         const input = document.createElement('input');
         input.type = 'checkbox';
-        input.className = 'usa-checkbox__input';
+        input.className = cods
+          ? 'usa-checkbox__input cods-checkbox__input'
+          : 'usa-checkbox__input';
         input.id = `probe-${state}-${disabled}`;
         input.checked = state === 'checked';
         input.indeterminate = state === 'indeterminate';
         input.disabled = disabled;
         const label = document.createElement('label');
-        label.className = 'usa-checkbox__label';
+        label.className = cods
+          ? 'usa-checkbox__label cods-checkbox__label'
+          : 'usa-checkbox__label';
         label.htmlFor = input.id;
         label.textContent = `${state}${disabled ? ' disabled' : ''}`;
         container.append(input, label);
@@ -35,7 +42,7 @@ export async function expectCheckboxAssets(
       }
     }
     (document.querySelector('main') ?? document.body).append(probe);
-  });
+  }, options.cods ?? false);
   await page.evaluate(() => document.fonts.ready);
 
   await page.emulateMedia({ forcedColors });
@@ -90,7 +97,7 @@ export async function expectCheckboxAssets(
         continue;
       }
       const color =
-        forcedColors === 'none'
+        forcedColors === 'none' && !(options.cods && disabled)
           ? 'ffffff'
           : state === 'checked'
             ? '171717'
@@ -211,7 +218,7 @@ export async function expectCheckboxAssets(
       expect(rendered.foregroundPixels, description).toBeGreaterThan(0);
       expect(rendered.backgroundPixels, description).toBeGreaterThan(0);
       // Disabled controls are contrast-exempt, but their glyph must still render.
-      if (!disabled)
+      if (!disabled || options.cods)
         expect(rendered.contrast, description).toBeGreaterThanOrEqual(3);
     }
   }
