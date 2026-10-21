@@ -1,5 +1,11 @@
 # @coloradodigitalservice/colorado-design-tokens
 
+## 0.2.2
+
+### Patch Changes
+
+- ace85bc: Add a Phosphor-based icon foundation, including approved icon assets, catalog, and size tokens. Replace packaged USWDS icon assets with equivalent Phosphor icons while retaining non-icon assets.
+
 ## 0.2.1
 
 ### Patch Changes
