@@ -1,6 +1,6 @@
 {
   "name": "@coloradodigitalservice/colorado-design-system",
-  "version": "0.1.7",
+  "version": "0.2.2",
   "private": true,
   "repository": {
     "type": "git",
@@ -35,15 +35,29 @@
     },
     "./examples/*.json": {
       "default": "./dist/examples/*.json"
+    },
+    "./icons/*.svg": {
+      "default": "./dist/icons/*.svg"
+    },
+    "./icons/catalog.json": {
+      "default": "./dist/icons/catalog.json"
+    },
+    "./icons/LICENSE": {
+      "default": "./dist/icons/LICENSE"
     }
   },
   "scripts": {
     "validate": "node ../../scripts/check-workspace.mjs --workspace packages/colorado-design-system",
-    "build": "vite build",
+    "build": "pnpm icons:check && vite build",
+    "icons:build": "node ./build/icons.mjs",
+    "icons:check": "node ./build/icons.mjs --check",
     "build:watch": "vite build --watch"
   },
   "dependencies": {
     "@coloradodigitalservice/colorado-design-tokens": "workspace:*",
     "@uswds/uswds": "3.14.0"
+  },
+  "devDependencies": {
+    "@phosphor-icons/core": "2.1.1"
   }
 }

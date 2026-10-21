@@ -4,8 +4,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import '@coloradodigitalservice/colorado-design-system/styles.css';
 import SiteAlertExamples from '../components/SiteAlertExamples.astro';
 import AccordionExamples from '../components/AccordionExamples.astro';
-import BreadcrumbsExamples from '../components/BreadcrumbsExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
+import IconCatalog from '../components/IconCatalog.astro';
+import IconExamples from '../components/IconExamples.astro';
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs');
@@ -42,13 +43,12 @@ const { Content } = await render(entry);
         <AccordionExamples />
       </>
     )}
-    {entry.id === 'breadcrumbs' && <BreadcrumbsExamples />}
-    {(entry.id === 'site-alert' ||
-      entry.id === 'accordion' ||
-      entry.id === 'breadcrumbs') && (
+    {(entry.id === 'site-alert' || entry.id === 'accordion') && (
       <ComponentSummary component={entry.id} figma={entry.data.figma} />
     )}
     <Content />
+    {entry.id === 'icon' && <IconExamples />}
+    {entry.id === 'icon' && <IconCatalog />}
     {entry.id === 'site-alert' && <SiteAlertExamples mode="remaining" />}
   </article>
 </BaseLayout>

@@ -1,0 +1,28 @@
+{
+  "name": "icon",
+  "displayName": "Icon",
+  "maturity": "experimental",
+  "type": "static",
+  "uswdsEquivalent": null,
+  "uswdsVersion": null,
+  "componentType": "B",
+  "owners": {
+    "responsible": "Aten design-system engineer",
+    "accountable": "State design owner",
+    "consulted": "Design, accessibility, and component-engineering roles",
+    "informed": "Documentation and release roles"
+  },
+  "divergenceApproved": false,
+  "divergenceNotes": null,
+  "states": ["default"],
+  "progressiveEnhancement": "full",
+  "localization": "text-content-only",
+  "examples": [
+    {
+      "state": "default",
+      "fixtureState": "default",
+      "setup": "none"
+    }
+  ],
+  "description": "A static SVG icon pattern backed by the approved Phosphor sprite."
+}

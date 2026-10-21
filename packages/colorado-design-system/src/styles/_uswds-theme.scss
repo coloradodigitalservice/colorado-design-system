@@ -59,8 +59,8 @@
   // "../fonts" assumes a nested css/ output directory, which we don't have.
   $theme-font-path: './fonts',
 
-  // Icons referenced by url() are copied into dist/img the same way, for the
-  // same reason (USWDS defaults to "../img").
+  // Non-icon images use this path (USWDS defaults to "../img"). CSS references
+  // to USWDS icons are remapped to the equivalent approved Phosphor assets.
   $theme-image-path: './img',
 
   // Register Colorado's non-built-in brand fonts. "open-sans" is already a
