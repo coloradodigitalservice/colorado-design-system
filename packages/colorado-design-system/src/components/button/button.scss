@@ -11,23 +11,30 @@
     box-sizing: border-box;
     inline-size: auto;
     max-width: 100%;
-    min-block-size: var(--cods-space-2xl);
-    padding: var(--cods-space-sm) var(--cods-space-lg);
-    margin: var(--cods-space-2xs) 0;
-    border: var(--cods-focus-ring-offset) solid transparent;
+    gap: var(--cods-space-xs);
+    padding: var(--cods-space-sm) var(--cods-space-md);
+    border: 0;
     border-radius: var(--cods-radius-md);
     background: var(--cods-button-background);
     color: var(--cods-button-color);
-    box-shadow: none;
+
+    // Token gap: border thickness temporarily shares the 2px focus offset.
+    // An inset stroke matches Figma without adding to the outer dimensions.
+    box-shadow: inset 0 0 0 var(--cods-focus-ring-offset)
+      var(--cods-button-border, transparent);
     font-family: var(--cods-font-family-body);
     font-size: var(--cods-font-size-desktop-ui);
     font-weight: var(--cods-font-weight-desktop-ui);
-    line-height: var(--cods-line-height-desktop-body);
+    line-height: var(--cods-line-height-desktop-ui);
     text-align: center;
     text-decoration: none;
     white-space: normal;
     overflow-wrap: anywhere;
     cursor: pointer;
+  }
+
+  .cods-button > span {
+    min-inline-size: 0;
   }
 
   .cods-button:visited {
@@ -47,38 +54,24 @@
     color: var(--cods-button-color);
   }
 
-  .cods-button--secondary,
-  .cods-button--outline,
-  .cods-button--ghost {
-    --cods-button-background: var(--cods-color-surface-form);
+  .cods-button--secondary {
+    --cods-button-background: transparent;
     --cods-button-color: var(--cods-color-text-action-secondary);
     --cods-button-hover: var(--cods-color-bg-action-secondary-hover);
-    --cods-button-active: var(--cods-color-bg-action-secondary-hover);
-
-    border-color: var(--cods-color-border-action-secondary);
+    --cods-button-active: transparent;
+    --cods-button-border: var(--cods-color-border-action-secondary);
   }
 
-  .cods-button--outline,
-  .cods-button--ghost {
-    --cods-button-background: transparent;
-  }
-
-  .cods-button--ghost {
-    border-color: transparent;
-  }
-
-  .cods-button--secondary:is(:hover, .cods-button--hover),
-  .cods-button--outline:is(:hover, .cods-button--hover),
-  .cods-button--ghost:is(:hover, .cods-button--hover) {
+  .cods-button--secondary:is(:hover, .cods-button--hover) {
     color: var(--cods-color-text-action-secondary-hover);
-    border-color: var(--cods-color-border-action-secondary-hover);
+
+    --cods-button-border: var(--cods-color-border-action-secondary-hover);
   }
 
-  .cods-button--secondary:is(:active, .cods-button--active),
-  .cods-button--outline:is(:active, .cods-button--active),
-  .cods-button--ghost:is(:active, .cods-button--active) {
+  .cods-button--secondary:is(:active, .cods-button--active) {
     color: var(--cods-color-text-action-secondary-active);
-    border-color: var(--cods-color-border-action-secondary-active);
+
+    --cods-button-border: var(--cods-color-border-action-secondary-active);
   }
 
   .cods-button--danger {
@@ -87,21 +80,20 @@
     --cods-button-active: var(--cods-color-bg-action-danger-active);
   }
 
-  .cods-button--small {
+  .cods-button--slim {
+    // Figma specifies 32px height AND 12px + 16px + 12px content.
+    // Keep content usable at its intrinsic height pending the design decision.
+    // See accessibility/button-design-review.md; do not force clipping at 32px.
     min-block-size: var(--cods-space-xl);
-    padding: var(--cods-space-2xs) var(--cods-space-sm);
-    font-size: var(--cods-font-size-desktop-ui-sm);
-    line-height: var(--cods-line-height-desktop-body-sm);
   }
 
   .cods-button--icon-only {
-    min-inline-size: var(--cods-space-2xl);
-    padding: var(--cods-space-xs);
+    padding: var(--cods-space-sm);
   }
 
   .cods-button__icon {
-    inline-size: var(--cods-space-lg);
-    block-size: var(--cods-space-lg);
+    inline-size: var(--cods-icon-size-small);
+    block-size: var(--cods-icon-size-small);
     flex-shrink: 0;
   }
 
@@ -109,23 +101,36 @@
     outline: var(--cods-focus-ring-width) solid
       var(--cods-color-bg-action-focus);
     outline-offset: var(--cods-focus-ring-offset);
-    box-shadow: 0 0 0 var(--cods-focus-ring-offset) var(--cods-color-focus-gap);
+    box-shadow:
+      inset 0 0 0 var(--cods-focus-ring-offset)
+        var(--cods-button-border, transparent),
+      0 0 0 var(--cods-focus-ring-offset) var(--cods-color-focus-gap);
   }
 
   .cods-button:disabled {
     background: var(--cods-color-bg-disabled);
     color: var(--cods-color-text-disabled);
-    border-color: var(--cods-color-border-disabled);
-    box-shadow: none;
+
+    --cods-button-border: var(--cods-color-border-disabled);
+
     cursor: not-allowed;
     opacity: 1;
   }
 
   @media (forced-colors: active) {
     .cods-button {
-      border-color: ButtonText;
+      // System borders remain visible when forced colors suppresses shadows.
+      border: var(--cods-focus-ring-offset) solid ButtonText;
+      padding: calc(var(--cods-space-sm) - var(--cods-focus-ring-offset))
+        calc(var(--cods-space-md) - var(--cods-focus-ring-offset));
       background: ButtonFace;
       color: ButtonText;
+    }
+
+    .cods-button--icon-only {
+      padding-inline: calc(
+        var(--cods-space-sm) - var(--cods-focus-ring-offset)
+      );
     }
 
     .cods-button:disabled {

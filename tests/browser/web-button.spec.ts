@@ -1,5 +1,14 @@
 import { buttonChecks } from './button-checks.js';
 import { test, expect } from './fixtures.js';
+import { readFileSync } from 'node:fs';
+const fixture = readFileSync(
+  new URL(
+    '../../packages/colorado-design-system/src/components/button/button.fixture.html',
+    import.meta.url,
+  ),
+  'utf8',
+);
+const disabledCount = [...fixture.matchAll(/<button\b[^>]*\bdisabled/g)].length;
 buttonChecks('/button/');
 
 test.describe('without enhancement', () => {
@@ -32,7 +41,9 @@ test.describe('without enhancement', () => {
           );
         }),
     ).toBe(true);
-    await expect(page.locator('.cods-button:disabled')).toHaveCount(7);
+    await expect(page.locator('.cods-button:disabled')).toHaveCount(
+      disabledCount,
+    );
     await page.locator('[data-cods-button-fixture="link"] a').focus();
     await page.keyboard.press('Enter');
     await expect(page).toHaveURL(/\/getting-started\/$/);

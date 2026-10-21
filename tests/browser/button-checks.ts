@@ -1,4 +1,5 @@
 import { test, expect, expectAccessible } from './fixtures.js';
+import metadata from '../../packages/colorado-design-system/src/components/button/button.metadata.json' with { type: 'json' };
 
 export function buttonChecks(url: string, story = false) {
   test.beforeEach(async ({ page }) => {
@@ -11,7 +12,9 @@ export function buttonChecks(url: string, story = false) {
   test('all canonical states have accessible names and contrast', async ({
     page,
   }, testInfo) => {
-    await expect(page.locator('[data-cods-button-fixture]')).toHaveCount(14);
+    await expect(page.locator('[data-cods-button-fixture]')).toHaveCount(
+      metadata.states.length,
+    );
     await expect(
       page
         .getByRole('button', { name: 'Add application', exact: true })
@@ -19,12 +22,19 @@ export function buttonChecks(url: string, story = false) {
     ).toBeVisible();
     await expect(
       page.locator('[data-cods-button-fixture="link"] a'),
-    ).toHaveAttribute('href', '/getting-started/');
+    ).toHaveAttribute('href', /(?:^|\/)getting-started\/$/);
+    const href = await page
+      .locator('[data-cods-button-fixture="link"] a')
+      .getAttribute('href');
+    expect(
+      new URL(href!, 'https://example.test/colorado-design-system/button/')
+        .pathname,
+    ).toBe('/colorado-design-system/getting-started/');
     for (const icon of await page.locator('.cods-button__icon').all()) {
       await expect(icon).toHaveAttribute('aria-hidden', 'true');
       await expect(icon).toHaveAttribute('focusable', 'false');
-      await expect(icon).toHaveCSS('width', '24px');
-      await expect(icon).toHaveCSS('height', '24px');
+      await expect(icon).toHaveCSS('width', '16px');
+      await expect(icon).toHaveCSS('height', '16px');
       expect(
         await icon.evaluate((element) => {
           const svg = element as SVGSVGElement;
@@ -39,13 +49,13 @@ export function buttonChecks(url: string, story = false) {
       ).toBe(true);
       await expect(icon.locator('use')).toHaveAttribute(
         'href',
-        /sprite[^/]*\.svg#plus$/,
+        /sprite[^/]*\.svg#(?:plus|upload|arrow-right)$/,
       );
       expect(
         await icon.evaluate((element) => {
           return (
             getComputedStyle(element).color ===
-            getComputedStyle(element.closest('button')!).color
+            getComputedStyle(element.closest('.cods-button')!).color
           );
         }),
       ).toBe(true);
@@ -134,21 +144,30 @@ export function buttonChecks(url: string, story = false) {
   test('real hover and active states use the action palette', async ({
     page,
   }) => {
-    const button = page.locator('[data-cods-button-fixture="danger"] button');
-    const before = await button.evaluate(
-      (el) => getComputedStyle(el).backgroundColor,
-    );
-    await button.hover();
-    const hovered = await button.evaluate(
-      (el) => getComputedStyle(el).backgroundColor,
-    );
-    expect(hovered).not.toBe(before);
-    await page.mouse.down();
-    const active = await button.evaluate(
-      (el) => getComputedStyle(el).backgroundColor,
-    );
-    expect(active).not.toBe(hovered);
-    await page.mouse.up();
+    for (const selector of [
+      '[data-cods-button-fixture="danger"] button',
+      '[data-cods-button-fixture="icon-only"] button',
+      '[data-cods-button-fixture="icon-only-secondary"] button',
+      '[data-cods-button-fixture="link"] a',
+    ]) {
+      const button = page.locator(selector);
+      const before = await button.evaluate(
+        (el) => getComputedStyle(el).backgroundColor,
+      );
+      await button.hover();
+      const hovered = await button.evaluate(
+        (el) => getComputedStyle(el).backgroundColor,
+      );
+      expect(hovered).not.toBe(before);
+      await page.mouse.down();
+      const active = await button.evaluate(
+        (el) => getComputedStyle(el).backgroundColor,
+      );
+      expect(active).not.toBe(hovered);
+      // Move away before releasing so navigation links do not leave the fixture.
+      await page.mouse.move(0, 0);
+      await page.mouse.up();
+    }
     await page
       .locator('[data-cods-button-fixture="disabled"] button')
       .first()
@@ -156,6 +175,92 @@ export function buttonChecks(url: string, story = false) {
     await expect(
       page.locator('[data-cods-button-fixture="disabled"] button').first(),
     ).toBeDisabled();
+  });
+
+  test('Medium dimensions and unresolved Slim arithmetic are explicit', async ({
+    page,
+  }) => {
+    for (const state of ['default', 'secondary', 'danger', 'slim']) {
+      const button = page.locator(
+        `[data-cods-button-fixture="${state}"] button`,
+      );
+      await expect(button).toHaveCSS('height', '40px');
+      await expect(button).toHaveCSS('line-height', '16px');
+      await expect(button).toHaveCSS('padding-top', '12px');
+      await expect(button).toHaveCSS('padding-inline-start', '16px');
+    }
+    for (const state of [
+      'icon-only',
+      'icon-only-secondary',
+      'icon-only-slim',
+      'icon-only-secondary-slim',
+    ]) {
+      const button = page.locator(
+        `[data-cods-button-fixture="${state}"] button`,
+      );
+      await expect(button).toHaveCSS('width', '40px');
+      await expect(button).toHaveCSS('height', '40px');
+    }
+    // Reproduce the literal Figma constraints without shipping the conflict.
+    const conflict = await page
+      .locator('[data-cods-button-fixture="slim"] button')
+      .evaluate((el) => {
+        const probe = el.cloneNode(true) as HTMLElement;
+        probe.style.blockSize = '32px';
+        el.after(probe);
+        const css = getComputedStyle(probe);
+        const available =
+          probe.clientHeight -
+          parseFloat(css.paddingTop) -
+          parseFloat(css.paddingBottom);
+        const required = parseFloat(css.lineHeight);
+        probe.remove();
+        return { available, required };
+      });
+    expect(conflict).toEqual({ available: 8, required: 16 });
+  });
+
+  test('decorative label icons keep their names, logical order, and RTL mirroring', async ({
+    page,
+  }) => {
+    for (const kind of ['primary', 'secondary', 'danger']) {
+      for (const size of ['medium', 'slim']) {
+        for (const placement of ['start', 'end', 'both']) {
+          const button = page.locator(
+            `[data-cods-button-fixture="${kind}-${size}-icon-${placement}"] button`,
+          );
+          await expect(button).toHaveAccessibleName(
+            placement === 'end' ? 'Get started' : 'Upload',
+          );
+          await expect(button.locator('svg')).toHaveCount(
+            placement === 'both' ? 2 : 1,
+          );
+          await expect(button).toHaveCSS('gap', '8px');
+        }
+      }
+    }
+    const rtl = page.locator('[data-cods-button-fixture="rtl"] button');
+    for (const button of await rtl.all()) {
+      await expect(button).toHaveAccessibleName('حفظ الطلب والمتابعة');
+      const geometry = await button.evaluate((el) => {
+        const label = el.querySelector('span')!.getBoundingClientRect();
+        return [...el.querySelectorAll('svg')].map((svg) => ({
+          name: svg.querySelector('use')!.getAttribute('href')!.split('#')[1],
+          x: svg.getBoundingClientRect().x,
+          labelX: label.x,
+          transform: getComputedStyle(svg).transform,
+        }));
+      });
+      for (const icon of geometry) {
+        if (icon.name === 'arrow-right') {
+          expect(icon.x).toBeLessThan(icon.labelX);
+          expect(icon.transform).toBe('matrix(-1, 0, 0, 1, 0, 0)');
+        } else {
+          expect(icon.x).toBeGreaterThan(icon.labelX);
+          expect(icon.transform).toBe('none');
+        }
+      }
+    }
   });
 
   test('320px reflow, RTL, reduced motion, and forced colors remain usable', async ({
@@ -169,7 +274,11 @@ export function buttonChecks(url: string, story = false) {
     expect(icon?.width).toBe(icon?.height);
     for (const button of await page.locator('.cods-button').all()) {
       expect(
-        await button.evaluate((el) => el.scrollWidth <= el.clientWidth),
+        await button.evaluate(
+          (el) =>
+            el.scrollWidth <= el.clientWidth &&
+            el.scrollHeight <= el.clientHeight,
+        ),
       ).toBe(true);
       const box = await button.boundingBox();
       expect(box?.width).toBeLessThanOrEqual(320);
@@ -180,6 +289,7 @@ export function buttonChecks(url: string, story = false) {
     expect(
       await page
         .locator('[data-cods-button-fixture="rtl"] button')
+        .first()
         .evaluate((el) => getComputedStyle(el).direction),
     ).toBe('rtl');
     await expectAccessible(

@@ -31,7 +31,7 @@ with this thinner rounded plus after reviewing the comparison. This records
 that implementation decision; it does not assert design-owner or stable sign-off.
 
 The native button retains its accessible name, a decorative and unfocusable SVG,
-24px square icon geometry, default 48px minimum target, native disabled behavior,
+16px square icon geometry, default 40px target, native disabled behavior,
 state colors, and forced-colors system colors. The symmetric plus needs no RTL
 mirroring. Source values remain in the pinned package and generated shared
 sprite; no component-local path is maintained.
@@ -40,3 +40,16 @@ The Figma plus SVG was copied from its vector layer on 2026-10-21:
 [Button plus source](https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=1377-1611&m=dev).
 Its native bounds are 12×12; the SVG path describes 1px bars with rounded ends.
 The comparison uses the exported geometry directly, rather than enlarging a raster crop.
+
+## Review at the specified 16px slot — 2026-10-21
+
+![Figma and shared plus at actual 16px slot size and 8× enlargement](button-icons-16px-comparison.png)
+
+The Figma plus vector has a 12px visible span with 1px rounded bars. The shared
+Phosphor Regular plus has a 192-unit visible span and 16-unit bars in its 256-unit
+viewBox: at a 16px slot these render as 12px and 1px respectively. The previous
+24px slot enlarged both by 1.5×. The fixture now uses the 16px slot.
+
+New label examples consume shared `upload` and `arrow-right`. The arrow mirrors
+in RTL; upload and plus do not. Upload is a provisional choice, pending design
+confirmation against the Figma artwork. No new component-local paths are shipped.

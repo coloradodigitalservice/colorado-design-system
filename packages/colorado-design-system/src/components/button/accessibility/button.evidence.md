@@ -2,7 +2,7 @@
 
 **Component maturity at time of review:** experimental (`0.x`)  
 **Reviewer:** Codex, automated/developer verification; human review pending  
-**Date:** 2026-10-06  
+**Date:** 2026-10-21
 **Related component metadata:** `button.metadata.json`  
 **Ticket:** [CDS-50 / CODS-P3-003](https://atendesign.atlassian.net/browse/CDS-50)
 
@@ -25,14 +25,14 @@ toggle state, loading state, or animation is shipped.
 
 - [x] Accessible name and role documented for each interactive element; native roles/names appeared in the interactive snapshot; all canonical states passed axe in all three engines on 2026-10-06.
 
-  | Element                                           | Role              | Accessible name source                                            |
-  | ------------------------------------------------- | ----------------- | ----------------------------------------------------------------- |
-  | Primary, secondary, outline, ghost, danger, small | button            | Visible action text                                               |
-  | Hover, active, focus examples                     | button            | Same visible action text as each variant                          |
-  | Disabled variants                                 | button (disabled) | Same visible action text; native disabled state                   |
-  | Icon-only, including disabled icon                | button            | `aria-label="Add application"`; SVG is decorative                 |
-  | Navigation example                                | link              | Visible text “Start an application”                               |
-  | Expanded English, Spanish, Arabic labels          | button            | Visible localized text; Spanish/Arabic `lang`, Arabic `dir="rtl"` |
+  | Element                                  | Role              | Accessible name source                                            |
+  | ---------------------------------------- | ----------------- | ----------------------------------------------------------------- |
+  | Primary, secondary, danger, slim         | button            | Visible action text                                               |
+  | Hover, active, focus examples            | button            | Same visible action text as each variant                          |
+  | Disabled variants                        | button (disabled) | Same visible action text; native disabled state                   |
+  | Icon-only, including disabled icon       | button            | `aria-label="Add application"`; SVG is decorative                 |
+  | Navigation example                       | link              | Visible text “Start an application”                               |
+  | Expanded English, Spanish, Arabic labels | button            | Visible localized text; Spanish/Arabic `lang`, Arabic `dir="rtl"` |
 
 - [x] Accessible name/role documented for each state variation. Visual and size variants retain native roles; no toggle or pressed state is implied. Disabled state is native `disabled`, not `aria-disabled`.
 
@@ -43,7 +43,7 @@ toggle state, loading state, or animation is shipped.
 
 ## Zoom and reflow
 
-- [x] Verified usable at 400% zoom / 320px-equivalent reflow without loss of content or function. Automated 320px coverage passed in all three engines, and developer screenshots confirmed expanded/translated label wrapping and square icon targets. Actual 400% browser zoom remains a human follow-up. Default minimum target height is 48px; small is 32px and must have adequate surrounding spacing.
+- [ ] Verified usable at 400% zoom / 320px-equivalent reflow without loss of content or function. Automated 320px coverage passed in all three engines, and developer screenshots confirmed expanded/translated label wrapping and square icon targets. Actual 400% browser zoom remains a human follow-up. Medium is now 40px; the Slim 32px target is pending a design decision.
 
 ## Motion
 
@@ -66,7 +66,10 @@ toggle state, loading state, or animation is shipped.
 - CDS-50: reviewers must approve fixture, documentation, and implementation before G3 sign-off. No stable maturity or gate approval is asserted.
 - Visual regression baselines need a matching Linux runner/container workflow before they can gate CI; this repository currently has no Linux baseline generation workflow. Developer screenshots supplement computed-style checks and axe scans.
 
-## Validation
+## Validation — historical results, superseded
+
+The October 6 counts below describe the earlier revision. They do not validate
+the October 21 review fixes. See the current validation section below.
 
 `pnpm check` passed on 2026-10-06 with Node 24.21.0 and pnpm 12.4.2:
 workspace/app validation, 240 tokens and 16 contrast pairs with no generated
@@ -103,3 +106,43 @@ match to the live Figma treatment. [The comparison and decision](button-icons.md
 record the geometry difference and source inspection. This does not establish
 design-owner or accessibility-owner sign-off; the existing human-review items
 remain open. The icon remains decorative, unfocusable, and named by its button.
+
+## Phil review follow-up — 2026-10-21
+
+Added decorative start/end/both-icon label examples across Primary, Secondary,
+Danger and Medium/Slim, disabled icon-label examples, secondary icon-only,
+icon-only/link hover/active/focus, and RTL placement/mirroring coverage.
+Icons use the shared sprite with 16px slots and 8px gaps. Secondary boundaries
+are inset, so the 2px stroke does not add to the 40px outer dimensions.
+
+Open design items: [Slim sizing conflict and discussion](button-design-review.md),
+and confirmation of the shared `upload` glyph. Slim remains content-sized at
+40px for a single line until design resolves its conflicting 32px height.
+Screen-reader, actual 400% browser zoom, Windows high contrast, and owner sign-off
+remain human checks. Earlier automated results must be revalidated after changes.
+
+## Current validation
+
+On 2026-10-21 with Node 24.21.0 and pnpm 12.4.2:
+
+- Passed workspace checks, fixture validation, workspace/app validation, token
+  drift/inventory checks (354 tokens, 58 contrast pairs), formatting, lint,
+  typechecking, all 145 unit tests, production builds, generated fixture/export
+  checks, and static-consumer drift checks.
+- Passed 182 browser checks: Button regressions, shared fixture parity, all
+  documentation smoke/axe scans, and all Storybook smoke/axe scans. The web
+  checks ran in Chromium, Firefox, and WebKit; Storybook ran in Chromium.
+  This includes 16px loaded sprite artwork, 40px single-line dimensions,
+  the reproduced Slim conflict, disabled activation, visible focus, actual
+  hover/active styles, RTL order/mirroring, 320px overflow, and forced-colors
+  emulation. No axe rules were suppressed.
+- Used the repository's built-file routing config without starting servers.
+  The server-backed `pnpm check` and HTTP-preview-specific cases were not run.
+- Inspected the built local Button page in Firefox via the pinned Playwright
+  CLI with file routing; the default button measured 40px high and the console
+  had no errors or warnings.
+
+The first unit run's file-watcher timeout passed outside the filesystem sandbox.
+The initial browser run exposed a stale single-element RTL locator and the
+expected Right to Left Storybook name; both were corrected before the passing
+182-test run. Human checks and the two design decisions above remain open.

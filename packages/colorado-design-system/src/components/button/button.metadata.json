@@ -7,8 +7,8 @@
   "uswdsVersion": "3.14.0",
   "componentType": "A",
   "owners": {
-    "responsible": "Aten component lead",
-    "accountable": "State technical owner",
+    "responsible": "Aten component engineer",
+    "accountable": "Aten technical lead",
     "consulted": "State design owner, accessibility lead",
     "informed": "Component contributors, product owner"
   },
@@ -17,12 +17,31 @@
   "states": [
     "default",
     "secondary",
-    "outline",
-    "ghost",
     "danger",
-    "small",
+    "slim",
     "icon-only",
+    "icon-only-secondary",
+    "icon-only-slim",
+    "icon-only-secondary-slim",
     "link",
+    "primary-medium-icon-start",
+    "primary-medium-icon-end",
+    "primary-medium-icon-both",
+    "primary-slim-icon-start",
+    "primary-slim-icon-end",
+    "primary-slim-icon-both",
+    "secondary-medium-icon-start",
+    "secondary-medium-icon-end",
+    "secondary-medium-icon-both",
+    "secondary-slim-icon-start",
+    "secondary-slim-icon-end",
+    "secondary-slim-icon-both",
+    "danger-medium-icon-start",
+    "danger-medium-icon-end",
+    "danger-medium-icon-both",
+    "danger-slim-icon-start",
+    "danger-slim-icon-end",
+    "danger-slim-icon-both",
     "hover",
     "active",
     "focus-visible",
@@ -45,23 +64,13 @@
       "setup": "none"
     },
     {
-      "state": "outline",
-      "fixtureState": "outline",
-      "setup": "none"
-    },
-    {
-      "state": "ghost",
-      "fixtureState": "ghost",
-      "setup": "none"
-    },
-    {
       "state": "danger",
       "fixtureState": "danger",
       "setup": "none"
     },
     {
-      "state": "small",
-      "fixtureState": "small",
+      "state": "slim",
+      "fixtureState": "slim",
       "setup": "none"
     },
     {
@@ -70,8 +79,113 @@
       "setup": "none"
     },
     {
+      "state": "icon-only-secondary",
+      "fixtureState": "icon-only-secondary",
+      "setup": "none"
+    },
+    {
+      "state": "icon-only-slim",
+      "fixtureState": "icon-only-slim",
+      "setup": "none"
+    },
+    {
+      "state": "icon-only-secondary-slim",
+      "fixtureState": "icon-only-secondary-slim",
+      "setup": "none"
+    },
+    {
       "state": "link",
       "fixtureState": "link",
+      "setup": "none"
+    },
+    {
+      "state": "primary-medium-icon-start",
+      "fixtureState": "primary-medium-icon-start",
+      "setup": "none"
+    },
+    {
+      "state": "primary-medium-icon-end",
+      "fixtureState": "primary-medium-icon-end",
+      "setup": "none"
+    },
+    {
+      "state": "primary-medium-icon-both",
+      "fixtureState": "primary-medium-icon-both",
+      "setup": "none"
+    },
+    {
+      "state": "primary-slim-icon-start",
+      "fixtureState": "primary-slim-icon-start",
+      "setup": "none"
+    },
+    {
+      "state": "primary-slim-icon-end",
+      "fixtureState": "primary-slim-icon-end",
+      "setup": "none"
+    },
+    {
+      "state": "primary-slim-icon-both",
+      "fixtureState": "primary-slim-icon-both",
+      "setup": "none"
+    },
+    {
+      "state": "secondary-medium-icon-start",
+      "fixtureState": "secondary-medium-icon-start",
+      "setup": "none"
+    },
+    {
+      "state": "secondary-medium-icon-end",
+      "fixtureState": "secondary-medium-icon-end",
+      "setup": "none"
+    },
+    {
+      "state": "secondary-medium-icon-both",
+      "fixtureState": "secondary-medium-icon-both",
+      "setup": "none"
+    },
+    {
+      "state": "secondary-slim-icon-start",
+      "fixtureState": "secondary-slim-icon-start",
+      "setup": "none"
+    },
+    {
+      "state": "secondary-slim-icon-end",
+      "fixtureState": "secondary-slim-icon-end",
+      "setup": "none"
+    },
+    {
+      "state": "secondary-slim-icon-both",
+      "fixtureState": "secondary-slim-icon-both",
+      "setup": "none"
+    },
+    {
+      "state": "danger-medium-icon-start",
+      "fixtureState": "danger-medium-icon-start",
+      "setup": "none"
+    },
+    {
+      "state": "danger-medium-icon-end",
+      "fixtureState": "danger-medium-icon-end",
+      "setup": "none"
+    },
+    {
+      "state": "danger-medium-icon-both",
+      "fixtureState": "danger-medium-icon-both",
+      "setup": "none"
+    },
+    {
+      "state": "danger-slim-icon-start",
+      "fixtureState": "danger-slim-icon-start",
+      "setup": "none"
+    },
+    {
+      "state": "danger-slim-icon-end",
+      "fixtureState": "danger-slim-icon-end",
+      "setup": "none"
+    },
+    {
+      "state": "danger-slim-icon-both",
+      "fixtureState": "danger-slim-icon-both",
       "setup": "none"
     },
     {
@@ -88,7 +202,7 @@
       "state": "focus-visible",
       "fixtureState": "focus-visible",
       "setup": "focus",
-      "instructions": "Use keyboard navigation to verify visible focus on each button variant."
+      "instructions": "Use keyboard navigation to verify visible focus on each button and navigation link."
     },
     {
       "state": "disabled",
