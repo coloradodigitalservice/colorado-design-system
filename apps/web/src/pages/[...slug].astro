@@ -7,6 +7,7 @@ import AccordionExamples from '../components/AccordionExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
 import IconCatalog from '../components/IconCatalog.astro';
 import IconExamples from '../components/IconExamples.astro';
+import FooterExamples from '../components/FooterExamples.astro';
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs');
@@ -43,7 +44,19 @@ const { Content } = await render(entry);
         <AccordionExamples />
       </>
     )}
-    {(entry.id === 'site-alert' || entry.id === 'accordion') && (
+    {entry.id === 'footer' && (
+      <>
+        <p>
+          Footer provides full and compact Colorado-themed site navigation. Its
+          maturity is <strong>experimental</strong> in the <code>0.x</code>{' '}
+          development series.
+        </p>
+        <FooterExamples />
+      </>
+    )}
+    {(entry.id === 'site-alert' ||
+      entry.id === 'accordion' ||
+      entry.id === 'footer') && (
       <ComponentSummary component={entry.id} figma={entry.data.figma} />
     )}
     <Content />

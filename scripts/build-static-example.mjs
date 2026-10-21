@@ -31,10 +31,10 @@ export function exampleHTML() {
         resolve(packageRoot, 'dist/fixtures', `${component.name}.html`),
         'utf8',
       );
-      const html =
-        component.name === 'icon'
-          ? fixture.replaceAll('/icons/sprite.svg', './assets/icons/sprite.svg')
-          : fixture;
+      const html = fixture.replaceAll(
+        '/icons/sprite.svg',
+        './assets/icons/sprite.svg',
+      );
       return `<article><h2>${escape(metadata.displayName)} (${metadata.maturity})</h2>${html}</article>`;
     })
     .join(

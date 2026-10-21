@@ -1611,6 +1611,14 @@
       "sha256": "c20dcb87161eb2d79a6bb9726c995d895da6d0df54a3b17aaaa829800baef90f"
     },
     {
+      "id": "instagram-logo",
+      "phosphorCategories": [
+        "brands",
+        "communications"
+      ],
+      "sha256": "a08dcda4ded4c6bd00c234085604d9547f03dc9f7f385f3d175bd280714848da"
+    },
+    {
       "id": "cheers",
       "phosphorCategories": [
         "commerce",

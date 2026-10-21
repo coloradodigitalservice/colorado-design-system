@@ -1,0 +1,172 @@
+@layer cods.components {
+  .cods-footer {
+    color: var(--cods-color-text-primary);
+    font-family: var(--cods-font-family-body);
+    font-size: var(--cods-font-size-desktop-body);
+    line-height: var(--cods-line-height-desktop-body);
+  }
+
+  .cods-footer__return-to-top {
+    padding-block: var(--cods-space-md);
+  }
+
+  .cods-footer__primary-section {
+    background-color: var(--cods-color-co-gray-5);
+    padding-block: var(--cods-space-lg);
+  }
+
+  .cods-footer__nav {
+    border: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  .cods-footer__heading[class~='usa-footer__primary-link--button'] {
+    align-items: center;
+    background: transparent;
+    display: flex;
+    min-block-size: var(--cods-space-2xl);
+    text-align: start;
+    inline-size: 100%;
+  }
+
+  .cods-footer__group {
+    line-height: inherit;
+    min-inline-size: 0;
+  }
+
+  .cods-footer__heading {
+    border: 0;
+    color: var(--cods-color-text-primary);
+    display: block;
+    font-family: var(--cods-font-family-desktop-h6);
+    font-size: var(--cods-font-size-desktop-h6);
+    font-weight: var(--cods-font-weight-desktop-h6);
+    line-height: var(--cods-line-height-desktop-h6);
+    margin: 0 0 var(--cods-space-xs);
+    padding: 0;
+  }
+
+  .cods-footer__links,
+  .cods-footer__legal-list,
+  .cods-footer__social-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .cods-footer__links a,
+  .cods-footer__legal-list a,
+  .cods-footer__return-to-top a {
+    align-items: center;
+    color: var(--cods-color-text-action-secondary);
+    display: inline-flex;
+    font-weight: var(--cods-font-weight-semibold);
+    min-block-size: var(--cods-space-2xl);
+    text-decoration: none;
+  }
+
+  .cods-footer__return-to-top a {
+    gap: var(--cods-space-2xs);
+  }
+
+  .cods-footer__links a:hover,
+  .cods-footer__legal-list a:hover,
+  .cods-footer__return-to-top a:hover {
+    color: var(--cods-color-text-action-secondary-hover);
+    text-decoration: underline;
+  }
+
+  .cods-footer__links a:active,
+  .cods-footer__legal-list a:active,
+  .cods-footer__return-to-top a:active {
+    color: var(--cods-color-text-action-secondary-active);
+  }
+
+  .cods-footer__contact .cods-footer__social {
+    margin-block-start: var(--cods-space-sm);
+  }
+
+  .cods-footer__links a:focus-visible,
+  .cods-footer__legal-list a:focus-visible,
+  .cods-footer__return-to-top a:focus-visible,
+  .cods-footer__heading:focus-visible,
+  .cods-footer__social-link:focus-visible {
+    outline: var(--cods-focus-ring-width) solid
+      var(--cods-color-bg-action-focus);
+    outline-offset: var(--cods-focus-ring-offset);
+    box-shadow: 0 0 0 var(--cods-focus-ring-offset) var(--cods-color-focus-gap);
+  }
+
+  .cods-footer__secondary-section {
+    background-color: var(--cods-color-bg-surface-secondary);
+    color: var(--cods-color-text-primary);
+    padding-block: var(--cods-space-lg);
+  }
+
+  .cods-footer__legal {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--cods-space-md);
+    justify-content: space-between;
+  }
+
+  .cods-footer__copyright {
+    margin: 0;
+  }
+
+  .cods-footer__social-list,
+  .cods-footer__legal-list {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--cods-space-xs);
+  }
+
+  .cods-footer__social-link {
+    align-items: center;
+    background-color: var(--cods-color-bg-surface-secondary);
+    color: var(--cods-color-icon-action-secondary);
+    display: inline-flex;
+    justify-content: center;
+    min-block-size: var(--cods-space-2xl);
+    min-inline-size: var(--cods-space-2xl);
+  }
+
+  .cods-footer__social-link:hover {
+    background-color: var(--cods-color-bg-action-secondary-hover);
+    color: var(--cods-color-icon-action-secondary-hover);
+  }
+
+  .cods-footer__social-link:active {
+    color: var(--cods-color-icon-action-secondary-active);
+  }
+
+  @media (forced-colors: active) {
+    .cods-footer__primary-section,
+    .cods-footer__secondary-section {
+      border-block-start: 1px solid CanvasText;
+      background: Canvas;
+      color: CanvasText;
+    }
+
+    .cods-footer__links a,
+    .cods-footer__legal-list a,
+    .cods-footer__return-to-top a {
+      color: LinkText;
+    }
+
+    .cods-footer__social-link {
+      color: LinkText;
+    }
+
+    .cods-footer__links a:focus-visible,
+    .cods-footer__legal-list a:focus-visible,
+    .cods-footer__return-to-top a:focus-visible,
+    .cods-footer__heading:focus-visible,
+    .cods-footer__social-link:focus-visible {
+      outline-color: Highlight;
+    }
+  }
+}

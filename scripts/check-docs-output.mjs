@@ -60,7 +60,10 @@ for (const page of pages) {
   if (document.documentElement.lang !== 'en')
     failures.push(`${label}: missing language`);
   for (const landmark of ['header', 'main', 'footer']) {
-    if (document.querySelectorAll(landmark).length !== 1)
+    const pageLandmarks = Array.from(
+      document.querySelectorAll(landmark),
+    ).filter((element) => !element.closest('[data-cods-docs-preview]'));
+    if (pageLandmarks.length !== 1)
       failures.push(`${label}: expected exactly one ${landmark} landmark`);
   }
   if (document.querySelectorAll('nav[aria-label="Documentation"]').length !== 1)
@@ -77,7 +80,12 @@ for (const page of pages) {
   for (const anchor of document.querySelectorAll('a[href]')) {
     const href = anchor.getAttribute('href');
     if (!href) continue;
-    if (!anchor.textContent?.trim()) failures.push(`${label}: empty link text`);
+    if (
+      !anchor.textContent?.trim() &&
+      !anchor.getAttribute('aria-label')?.trim()
+    ) {
+      failures.push(`${label}: empty link text`);
+    }
     if (href.startsWith('#')) {
       if (!document.getElementById(href.slice(1)))
         failures.push(`${label}: broken ${href}`);

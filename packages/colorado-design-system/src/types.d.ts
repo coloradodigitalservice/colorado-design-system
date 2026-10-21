@@ -23,3 +23,11 @@ declare module '@uswds/uswds/js/usa-accordion' {
   };
   export default accordion;
 }
+
+declare module '@uswds/uswds/js/usa-footer' {
+  const footer: {
+    on(root: HTMLElement): void;
+    off(root: HTMLElement): void;
+  };
+  export default footer;
+}

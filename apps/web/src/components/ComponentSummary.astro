@@ -1,19 +1,24 @@
 ---
 import siteAlert from '@coloradodigitalservice/colorado-design-system/metadata/site-alert.json';
 import accordion from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
+import footer from '@coloradodigitalservice/colorado-design-system/metadata/footer.json';
 
 interface Props {
-  component: 'site-alert' | 'accordion';
+  component: 'site-alert' | 'accordion' | 'footer';
   figma?: string;
 }
 
-const metadata = { 'site-alert': siteAlert, accordion }[Astro.props.component];
+const metadata = { 'site-alert': siteAlert, accordion, footer }[
+  Astro.props.component
+];
 const { figma } = Astro.props;
 const repository =
   'https://github.com/coloradodigitalservice/colorado-design-system/tree/main/packages/colorado-design-system/src/components';
 const source = `${repository}/${metadata.name}`;
 const evidence = `${source}/accessibility/${metadata.name}.evidence.md`;
-const upstream = `https://designsystem.digital.gov/components/${metadata.uswdsEquivalent}/`;
+const upstream = metadata.uswdsEquivalent
+  ? `https://designsystem.digital.gov/components/${metadata.uswdsEquivalent}/`
+  : undefined;
 ---
 
 <section class="cods-docs-summary" aria-labelledby="component-summary-heading">
@@ -34,7 +39,13 @@ const upstream = `https://designsystem.digital.gov/components/${metadata.uswdsEq
     <div>
       <dt>Upstream</dt>
       <dd>
-        <a href={upstream}>USWDS {metadata.uswdsEquivalent}</a>, themed
+        {upstream ? (
+          <>
+            <a href={upstream}>USWDS {metadata.uswdsEquivalent}</a>, themed
+          </>
+        ) : (
+          'CoDS-authored'
+        )}
       </dd>
     </div>
     <div>
