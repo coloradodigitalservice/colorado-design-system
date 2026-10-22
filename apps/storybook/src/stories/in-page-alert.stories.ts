@@ -68,3 +68,29 @@ function dynamicStory(state: 'dynamic-status' | 'dynamic-alert'): Story {
 }
 export const DynamicStatus: Story = dynamicStory('dynamic-status');
 export const DynamicAlert: Story = dynamicStory('dynamic-alert');
+
+export const InfoNoIcon: Story = { render: () => renderState('info-no-icon') };
+
+export const SuccessCompact: Story = {
+  render: () => renderState('success-compact'),
+};
+
+export const SuccessNoIcon: Story = {
+  render: () => renderState('success-no-icon'),
+};
+
+export const WarningCompact: Story = {
+  render: () => renderState('warning-compact'),
+};
+
+export const WarningNoIcon: Story = {
+  render: () => renderState('warning-no-icon'),
+};
+
+export const ErrorCompact: Story = {
+  render: () => renderState('error-compact'),
+};
+
+export const ErrorNoIcon: Story = {
+  render: () => renderState('error-no-icon'),
+};

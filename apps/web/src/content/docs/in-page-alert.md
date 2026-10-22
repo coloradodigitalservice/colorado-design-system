@@ -17,7 +17,7 @@ controller, timeout, persistence, or custom events.
 Info explains requirements; success confirms completion; warning describes a
 condition requiring attention; error explains what failed and how to recover.
 Always state severity in text, even when omitting the heading. Four distinct
-Phosphor Regular icons (`info`, `check-circle`, `warning`, and `x-circle`) and
+Phosphor Regular icons (`info`, `check-circle`, `warning`, and `warning-circle`) and
 token colors supplement that wording. USWDS still supplies the alert structure; the
 shared CoDS icon pipeline supplies the artwork. Icons are decorative CSS masks: the message remains
 understandable with styles disabled.
@@ -71,7 +71,8 @@ Fixture data attributes are review labels, not controller hooks.
 | `--cods-in-page-alert-accent`     | `--cods-color-border-alert-info` |
 | `--cods-in-page-alert-color`      | `--cods-color-text-primary`      |
 | `--cods-in-page-alert-padding`    | `--cods-space-md`                |
-| `--cods-in-page-alert-icon-size`  | `--cods-space-lg`                |
+| `--cods-in-page-alert-icon-size`  | `--cods-space-xl`                |
+| `--cods-in-page-alert-inset`      | `--cods-space-sm`                |
 
 Warning uses `bg-alert-warning` / `border-alert-warning`; error uses
 `bg-alert-urgent` / `border-alert-urgent`. Success uses the existing
@@ -81,7 +82,7 @@ the root or classes in consumer CSS, keeping text, links, icons, and focus reada
 The shipped stylesheet references the shared Phosphor Regular assets; preserve the
 package's `icons/`, `img/`, and `fonts/` directories beside the stylesheet when
 copying release assets. Severity artwork remains decorative and uses the existing
-24px icon box, logical placement, and foreground tokens.
+32px headed icon box, 24px compact icon box, logical placement, and foreground tokens.
 
 ## Accessibility and review status
 
@@ -90,8 +91,14 @@ supports RTL; long words wrap at narrow widths. No animation is introduced.
 Forced colors use system colors for boundaries, icons, text, and links.
 Spanish and Arabic examples are illustrative and need content review.
 
-Maturity remains **experimental**. Exact Figma alignment is unverified because
-the connected accounts cannot read the design. Manual static and dynamic
+Maturity remains **experimental**. Figma was inspected on 2026-10-21 (frame
+3583:10290). Headed alerts use 32px icons, 12px leading inset, and 16px vertical
+padding; without headings they use 24px icons and 8px vertical padding. The
+`cods-in-page-alert--no-icon` modifier removes the decorative icon and its
+reserved space; pair it with `usa-alert--no-icon`. The ticket-required success
+variant extends the three variants shown in Figma and still needs design review.
+Keep messages short and plain; add a heading when the message exceeds roughly
+two lines. Avoid stacking notices or showing the same notice on every page. Manual static and dynamic
 screen-reader announcements, actual 400% browser zoom, OS high contrast, translated
 content, and design/accessibility owner approval remain open. See the component
 summary for the evidence file. Dismissal is optional in CDS-52 and is deferred.

@@ -9,7 +9,7 @@ test('canonical contextual examples and copyable source ship in the built docs',
   page,
 }, testInfo) => {
   await page.goto('/in-page-alert/');
-  await expect(page.locator('.cods-in-page-alert')).toHaveCount(13);
+  await expect(page.locator('.cods-in-page-alert')).toHaveCount(20);
   await expect(
     page.getByRole('heading', { name: 'Live regions and dynamic updates' }),
   ).toBeVisible();
@@ -60,9 +60,9 @@ test('four severity colors, distinct shipped icons, and keyboard focus', async (
         info: 'info',
         success: 'check-circle',
         warning: 'warning',
-        error: 'x-circle',
+        error: 'warning-circle',
       }[variant]!,
-      { size: 24, inset: 16, top: 16, color: 'rgb(27, 27, 27)' },
+      { size: 32, inset: 12, top: 16, color: 'rgb(27, 27, 27)' },
     );
     const style = await alert
       .locator('.cods-in-page-alert__body')
@@ -78,7 +78,7 @@ test('four severity colors, distinct shipped icons, and keyboard focus', async (
         };
       });
     expect(style.mask).not.toBe('none');
-    expect(style.width).toBe('24px');
+    expect(style.width).toBe('32px');
     expect(style.color).toBe('rgb(27, 27, 27)');
     expect(style.margin).toBe('0px');
     masks.push(style.mask);
@@ -129,14 +129,14 @@ test('320px reflow, RTL icon placement, forced colors, and reduced motion', asyn
     ['info', 'info'],
     ['success', 'check-circle'],
     ['warning', 'warning'],
-    ['error', 'x-circle'],
+    ['error', 'warning-circle'],
   ]) {
     await expectPhosphorMask(
       page.locator(
         `[data-cods-fixture-state=${state}] .cods-in-page-alert__body`,
       ),
       icon!,
-      { size: 24, inset: 16, top: 16 },
+      { size: 32, inset: 12, top: 16 },
     );
   }
   const rtl = page.locator('[dir=rtl].cods-in-page-alert');
@@ -145,7 +145,7 @@ test('320px reflow, RTL icon placement, forced colors, and reduced motion', asyn
     await rtl
       .locator('.cods-in-page-alert__body')
       .evaluate((element) => getComputedStyle(element, '::before').right),
-  ).toBe('16px');
+  ).toBe('12px');
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= innerWidth,
@@ -182,4 +182,42 @@ test('message remains understandable without styles or JavaScript', async ({
     'https://www.colorado.gov/',
   );
   await context.close();
+});
+
+test('headed, compact and icon-free geometry matches the Figma variants', async ({
+  page,
+}) => {
+  await page.goto('/in-page-alert/');
+  const headed = page.locator(
+    '[data-cods-fixture-state=info] .cods-in-page-alert__body',
+  );
+  await expect(headed).toHaveCSS('padding-inline-start', '56px');
+  await expect(headed).toHaveCSS('padding-block-start', '16px');
+  await expect(headed.locator('.cods-in-page-alert__heading')).toHaveCSS(
+    'margin-bottom',
+    '8px',
+  );
+  for (const [state, icon] of [
+    ['without-heading', 'info'],
+    ['success-compact', 'check-circle'],
+    ['warning-compact', 'warning'],
+    ['error-compact', 'warning-circle'],
+  ]) {
+    const body = page.locator(
+      `[data-cods-fixture-state=${state}] .cods-in-page-alert__body`,
+    );
+    await expect(body).toHaveCSS('padding-inline-start', '48px');
+    await expect(body).toHaveCSS('padding-block-start', '8px');
+    await expectPhosphorMask(body, icon!, { size: 24, inset: 12, top: 8 });
+  }
+  for (const variant of ['info', 'success', 'warning', 'error']) {
+    const body = page.locator(
+      `[data-cods-fixture-state=${variant}-no-icon] .cods-in-page-alert__body`,
+    );
+    await expect(body).toHaveCSS('padding-inline-start', '12px');
+    await expect(body).toHaveCSS('padding-block-start', '8px');
+    expect(
+      await body.evaluate((el) => getComputedStyle(el, '::before').display),
+    ).toBe('none');
+  }
 });

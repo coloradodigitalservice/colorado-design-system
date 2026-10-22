@@ -1,10 +1,13 @@
+$in-page-alert-urgent-icon: './icons/warning-circle.svg';
+
 @layer cods.components {
   .cods-in-page-alert {
     --cods-in-page-alert-background: var(--cods-color-bg-alert-info);
     --cods-in-page-alert-accent: var(--cods-color-border-alert-info);
     --cods-in-page-alert-color: var(--cods-color-text-primary);
     --cods-in-page-alert-padding: var(--cods-space-md);
-    --cods-in-page-alert-icon-size: var(--cods-space-lg);
+    --cods-in-page-alert-icon-size: var(--cods-space-xl);
+    --cods-in-page-alert-inset: var(--cods-space-sm);
 
     margin: 0;
     border: 0;
@@ -36,7 +39,7 @@
     padding: var(--cods-in-page-alert-padding);
 
     // prettier-ignore
-    padding-inline-start: calc(var(--cods-in-page-alert-padding) + var(--cods-in-page-alert-icon-size) + var(--cods-space-sm));
+    padding-inline-start: calc(var(--cods-in-page-alert-inset) + var(--cods-in-page-alert-icon-size) + var(--cods-space-sm));
     background: inherit;
     color: inherit;
     font-family: var(--cods-font-family-body);
@@ -47,11 +50,32 @@
   .cods-in-page-alert__body::before {
     top: var(--cods-in-page-alert-padding);
     left: auto;
-    inset-inline-start: var(--cods-in-page-alert-padding);
+    inset-inline-start: var(--cods-in-page-alert-inset);
     width: var(--cods-in-page-alert-icon-size);
     height: var(--cods-in-page-alert-icon-size);
     mask-size: contain;
     background-color: currentcolor;
+  }
+
+  .cods-in-page-alert:not(:has(.cods-in-page-alert__heading)) {
+    --cods-in-page-alert-padding: var(--cods-space-xs);
+    --cods-in-page-alert-icon-size: var(--cods-space-lg);
+  }
+
+  .cods-in-page-alert__body:not(:has(.cods-in-page-alert__heading)) {
+    padding-inline-end: var(--cods-space-sm);
+  }
+
+  .cods-in-page-alert--no-icon .cods-in-page-alert__body {
+    padding-inline-start: var(--cods-in-page-alert-inset);
+  }
+
+  .cods-in-page-alert--no-icon .cods-in-page-alert__body::before {
+    display: none;
+  }
+
+  .cods-in-page-alert--error .cods-in-page-alert__body::before {
+    mask-image: url($in-page-alert-urgent-icon);
   }
 
   .cods-in-page-alert__heading {

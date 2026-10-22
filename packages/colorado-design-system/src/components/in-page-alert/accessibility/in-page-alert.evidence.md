@@ -73,3 +73,23 @@ All items are tracked by CDS-52; this component is not ready for stable maturity
 - Exact Figma alignment and State design review. Both connected Figma accounts failed access/reauthentication. Existing repository measurements informed 8px indicator width, 24px icons, and heading/body typography; pinned USWDS supplies the icon assets.
 - Success uses existing `bg-page-surface-green` and `state-success` tokens. Confirm that implementation mapping with the design owner.
 - Optional dismissal is deferred; no dismissal or persistence is claimed.
+
+## Follow-up review — 2026-10-21
+
+This section supersedes the earlier Figma-access and Firefox limitations. Figma
+frame 3583:10290 and urgent component 3583:10317 were inspected. Headed notices
+now use 32px icons with a 12px inset and 12px text gap; compact notices use
+24px icons and 8px vertical padding. Heading/body gap remains 8px. The urgent
+exclamation-circle now uses shared `warning-circle` rather than `x-circle`.
+Four optional icon-free examples and three additional compact examples cover
+the Figma structure while retaining explicit severity text. Success remains a
+ticket-required extension to Figma's info/warning/urgent set and needs review.
+Metadata ownership now follows CDS-52's Aten engineer/technical lead roles.
+
+145 unit tests and 29 component browser checks passed, including Chromium,
+Firefox, WebKit, and Storybook Chromium. New checks assert headed/compact
+padding and icon sizes and icon-free spacing. Builds, token drift, workspace
+and Astro/Storybook validation, lint, type checks, fixture and static-consumer
+checks passed. Formatting passed excluding the pre-existing unrelated AGENTS.md
+change in this review worktree; that file was preserved and not committed.
+No local servers were started. Human checks and design approval remain open.

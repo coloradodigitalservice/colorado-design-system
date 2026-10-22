@@ -566,7 +566,8 @@
         "space.lg",
         "space.md",
         "space.sm",
-        "space.xs"
+        "space.xs",
+        "space.xl"
       ],
       "componentTokens": [],
       "unresolvedRoles": [],
@@ -621,7 +622,8 @@
         "space.lg",
         "space.md",
         "space.sm",
-        "space.xs"
+        "space.xs",
+        "space.xl"
       ],
       "foundationNotes": "Mappings identify measured properties, not implementation requirements. Explicit mode is recorded in source bindings; unbound typography uses Desktop only when its full signature matches. Unmapped values and inherited library styles need design review. Git implementation dependencies remain independently recorded.",
       "foundationTokens": [

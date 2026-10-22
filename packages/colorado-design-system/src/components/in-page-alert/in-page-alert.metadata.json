@@ -7,10 +7,10 @@
   "uswdsVersion": "3.14.0",
   "componentType": "A",
   "owners": {
-    "responsible": "Aten component lead",
-    "accountable": "State technical owner",
-    "consulted": "State design owner, accessibility lead",
-    "informed": "Component contributors, product owner"
+    "responsible": "Aten component engineer",
+    "accountable": "Aten technical lead",
+    "consulted": "Design, accessibility, and content roles",
+    "informed": "State product owner"
   },
   "divergenceApproved": false,
   "divergenceNotes": null,
@@ -27,7 +27,14 @@
     "rtl",
     "focus-visible",
     "dynamic-status",
-    "dynamic-alert"
+    "dynamic-alert",
+    "info-no-icon",
+    "success-compact",
+    "success-no-icon",
+    "warning-compact",
+    "warning-no-icon",
+    "error-compact",
+    "error-no-icon"
   ],
   "progressiveEnhancement": "full",
   "localization": "layout-sensitive",
@@ -97,6 +104,41 @@
     {
       "state": "dynamic-alert",
       "fixtureState": "dynamic-alert",
+      "setup": "none"
+    },
+    {
+      "state": "info-no-icon",
+      "fixtureState": "info-no-icon",
+      "setup": "none"
+    },
+    {
+      "state": "success-compact",
+      "fixtureState": "success-compact",
+      "setup": "none"
+    },
+    {
+      "state": "success-no-icon",
+      "fixtureState": "success-no-icon",
+      "setup": "none"
+    },
+    {
+      "state": "warning-compact",
+      "fixtureState": "warning-compact",
+      "setup": "none"
+    },
+    {
+      "state": "warning-no-icon",
+      "fixtureState": "warning-no-icon",
+      "setup": "none"
+    },
+    {
+      "state": "error-compact",
+      "fixtureState": "error-compact",
+      "setup": "none"
+    },
+    {
+      "state": "error-no-icon",
+      "fixtureState": "error-no-icon",
       "setup": "none"
     }
   ]

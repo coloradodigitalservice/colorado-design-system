@@ -33,7 +33,7 @@ test('all canonical states render without accessibility violations', async ({
   await page.goto(
     '/iframe.html?id=components-in-page-alert--all-states&viewMode=story&globals=a11y.manual:!true',
   );
-  await expect(page.locator('.cods-in-page-alert')).toHaveCount(13);
+  await expect(page.locator('.cods-in-page-alert')).toHaveCount(20);
   await expectAccessible(page, testInfo, '#storybook-root');
 });
 
