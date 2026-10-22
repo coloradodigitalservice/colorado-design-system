@@ -32,3 +32,5 @@ export const FocusVisible: Story = {
   },
 };
 export const WithoutJavaScript: Story = { play: () => {} };
+
+export const Tile: Story = { render: () => state('tile') };

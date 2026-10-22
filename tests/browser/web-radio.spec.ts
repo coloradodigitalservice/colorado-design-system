@@ -67,13 +67,15 @@ for (const selected of [false, true]) {
     if (selected) await label.click();
     await page.mouse.move(0, 0);
     const before = await label.evaluate(
-      (el) => getComputedStyle(el, '::before').boxShadow,
+      (el) => getComputedStyle(el, '::before').borderColor,
     );
     expect(before).toContain('rgb(181, 9, 9)');
     await label.hover();
     expect(await input.evaluate((el) => el.matches(':hover'))).toBe(true);
     expect(
-      await label.evaluate((el) => getComputedStyle(el, '::before').boxShadow),
+      await label.evaluate(
+        (el) => getComputedStyle(el, '::before').borderColor,
+      ),
     ).toBe(before);
     await expect(input).toBeChecked({ checked: selected });
   });
@@ -106,7 +108,7 @@ test('visible selection, focus, body typography, RTL, reflow and reduced motion'
     height: '24px',
     radius: '50%',
     outline: 'solid',
-    width: '4px',
+    width: '2px',
     background: 'rgb(0, 25, 112)',
   });
   expect(style.shadow).toContain('inset');
@@ -125,10 +127,10 @@ test('visible selection, focus, body typography, RTL, reflow and reduced motion'
   }
   const rtl = page.locator('label[for="radio-rtl-1"]');
   expect(await rtl.evaluate((el) => getComputedStyle(el).paddingRight)).toBe(
-    '32px',
+    '36px',
   );
   expect(await rtl.evaluate((el) => getComputedStyle(el).paddingLeft)).toBe(
-    '0px',
+    '8px',
   );
   await page.emulateMedia({ reducedMotion: 'reduce' });
   expect(
@@ -194,3 +196,35 @@ for (const withoutStyles of [false, true]) {
     }
   });
 }
+
+test('Figma radio geometry and tile labels preserve native group selection', async ({
+  page,
+}) => {
+  const label = page.locator('label[for=radio-default-1]');
+  await expect(label).toHaveCSS('padding-inline-start', '36px');
+  expect(
+    await label.evaluate((el) => {
+      const style = getComputedStyle(el, '::before');
+      return {
+        width: style.width,
+        border: style.borderWidth,
+        inset: style.marginInlineStart,
+      };
+    }),
+  ).toEqual({ width: '20px', border: '2px', inset: '8px' });
+  const tile = page.locator('label[for=radio-tile-post]');
+  await expect(tile).toHaveCSS('padding-block-start', '12px');
+  await expect(page.locator('.cods-radio--tile').first()).toHaveCSS(
+    'width',
+    '240px',
+  );
+  await expect(tile).toHaveCSS('padding-inline-start', '44px');
+  await tile.click();
+  await expect(page.locator('#radio-tile-post')).toBeChecked();
+  await expect(page.locator('#radio-tile-email')).not.toBeChecked();
+  await expect(tile).toHaveCSS('background-color', 'rgb(217, 232, 246)');
+  await page.locator('#radio-tile-post').focus();
+  await page.keyboard.press('ArrowUp');
+  await expect(page.locator('#radio-tile-email')).toBeChecked();
+  await expect(page.locator('#radio-tile-phone')).toBeDisabled();
+});

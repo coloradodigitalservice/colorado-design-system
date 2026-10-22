@@ -732,7 +732,9 @@
         "space.lg",
         "space.md",
         "space.sm",
-        "space.xs"
+        "space.xs",
+        "color.border-form-subtle",
+        "color.focus-gap"
       ],
       "componentTokens": [],
       "implementationTokens": [
@@ -757,7 +759,12 @@
         "space.2xs",
         "space.lg",
         "space.md",
-        "space.xs"
+        "space.xs",
+        "color.surface-form-selected",
+        "color.border-form-subtle",
+        "radius.md",
+        "space.sm",
+        "color.focus-gap"
       ],
       "designCoverage": "documented",
       "implementationDirectory": "radio"

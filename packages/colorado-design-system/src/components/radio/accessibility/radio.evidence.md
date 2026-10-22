@@ -68,3 +68,21 @@ Only checks actually run and passed are checked. Browser emulation and accessibl
 The updated shared token/icon base is integrated. The native radio indicator remains CSS-drawn; no Figma SVG or USWDS icon is substituted. Native grouping, selected/disabled/error states, keyboard operation, reflow, RTL and forced-colors coverage remain required.
 
 Human screen-reader, actual 400% zoom, Windows High Contrast and design/accessibility acceptance remain open; this update does not change experimental maturity.
+
+## Follow-up review — 2026-10-21
+
+Figma nodes 4060:906, 4060:957 and 4060:975 were inspected. Default rows now
+use a 20px border-box control with an 8px inset and 8px label gap. The selected
+dot retains its white inner separation. Focus matches the 2px white gap and
+2px blue band; invalid borders remain red on hover. The Figma tile example
+uses full associated labels in a native fieldset/name group, 240px default
+width constrained to its container, and existing form selected/disabled tokens.
+It is a card-row treatment, not a segmented button group. Ownership follows
+CDS-57 and the Getting Started link preserves the deployment prefix.
+
+145 unit tests and 25 browser checks passed across Chromium, Firefox, WebKit
+and Storybook Chromium, covering label activation, native arrows, errors on
+hover, tile geometry, group exclusivity, disabled options, no CSS/JavaScript,
+forced colors, RTL and reflow. Workspace, Astro/Storybook validation, tokens,
+builds, formatting, lint, type checks, fixture/static output checks passed.
+Tests routed built files without servers. Human and design approval remain open.

@@ -7,10 +7,10 @@
   "uswdsVersion": "3.14.0",
   "componentType": "A",
   "owners": {
-    "responsible": "Aten component lead",
-    "accountable": "State technical owner",
-    "consulted": "State design owner, accessibility lead",
-    "informed": "Component contributors, product owner"
+    "responsible": "Aten component engineer",
+    "accountable": "Aten technical lead",
+    "consulted": "Design, accessibility, and content roles",
+    "informed": "State product owner"
   },
   "divergenceApproved": false,
   "divergenceNotes": null,
@@ -23,7 +23,8 @@
     "focus-visible",
     "long-content",
     "localization",
-    "rtl"
+    "rtl",
+    "tile"
   ],
   "progressiveEnhancement": "full",
   "localization": "layout-sensitive",
@@ -73,6 +74,11 @@
     {
       "state": "rtl",
       "fixtureState": "rtl",
+      "setup": "none"
+    },
+    {
+      "state": "tile",
+      "fixtureState": "tile",
       "setup": "none"
     }
   ]

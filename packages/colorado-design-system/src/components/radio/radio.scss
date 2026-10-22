@@ -19,7 +19,10 @@
     line-height: var(--cods-line-height-desktop-body);
     margin-block: var(--cods-space-xs);
     padding-left: 0;
-    padding-inline: calc(var(--cods-space-lg) + var(--cods-space-xs)) 0;
+    padding-inline: calc(
+        var(--cods-space-xs) + var(--cods-space-lg) + var(--cods-space-2xs)
+      )
+      var(--cods-space-xs);
     text-align: start;
     overflow-wrap: anywhere;
     max-inline-size: 100%;
@@ -27,43 +30,32 @@
     &::before {
       left: auto;
       inset-inline-start: 0;
-      margin-inline: calc(var(--cods-space-2xs) / 2) 0;
-      margin-block-start: var(--cods-space-2xs);
-      inline-size: var(--cods-space-md);
-      block-size: var(--cods-space-md);
+      margin-inline: var(--cods-space-xs) 0;
+      margin-block-start: calc(var(--cods-space-2xs) / 2);
+      box-sizing: border-box;
+      inline-size: calc(var(--cods-space-md) + var(--cods-space-2xs));
+      block-size: calc(var(--cods-space-md) + var(--cods-space-2xs));
+      border: calc(var(--cods-space-2xs) / 2) solid var(--cods-radio-border);
       border-radius: 50%;
       background-color: var(--cods-radio-background);
-      box-shadow: 0 0 0 calc(var(--cods-space-2xs) / 2) var(--cods-radio-border);
+      box-shadow: none;
     }
   }
 
   .cods-radio__input {
     &:checked + .cods-radio__label::before {
       background-color: var(--cods-radio-selected);
-      box-shadow:
-        0 0 0 calc(var(--cods-space-2xs) / 2) var(--cods-radio-selected),
-        inset 0 0 0 calc(var(--cods-space-2xs) / 2) var(--cods-radio-background);
+      border-color: var(--cods-radio-selected);
+      box-shadow: inset 0 0 0 var(--cods-focus-ring-offset)
+        var(--cods-radio-background);
     }
 
-    &:checked:hover:not(:disabled, [aria-invalid='true'])
-      + .cods-radio__label::before {
-      box-shadow:
-        0 0 0 calc(var(--cods-space-2xs) / 2)
-          var(--cods-color-border-form-hover),
-        inset 0 0 0 calc(var(--cods-space-2xs) / 2) var(--cods-radio-background);
-    }
-
-    &:hover:not(:checked, :disabled, [aria-invalid='true'])
-      + .cods-radio__label::before {
-      box-shadow: 0 0 0 calc(var(--cods-space-2xs) / 2)
-        var(--cods-color-border-form-hover);
+    &:hover:not(:disabled, [aria-invalid='true']) + .cods-radio__label::before {
+      border-color: var(--cods-color-border-form-hover);
     }
 
     &[aria-invalid='true'] + .cods-radio__label::before {
-      box-shadow:
-        0 0 0 calc(var(--cods-space-2xs) / 2)
-          var(--cods-color-border-form-danger),
-        inset 0 0 0 calc(var(--cods-space-2xs) / 2) var(--cods-radio-background);
+      border-color: var(--cods-color-border-form-danger);
     }
 
     &:focus + .cods-radio__label::before {
@@ -71,9 +63,12 @@
     }
 
     &:focus-visible + .cods-radio__label::before {
-      outline: var(--cods-focus-ring-width, tokens.$focus-ring-width) solid
-        var(--cods-color-bg-action-focus);
-      outline-offset: var(--cods-focus-ring-offset, tokens.$focus-ring-offset);
+      outline: var(--cods-focus-ring-offset) solid transparent;
+      outline-offset: var(--cods-focus-ring-offset);
+      box-shadow:
+        inset 0 0 0 var(--cods-focus-ring-offset) var(--cods-radio-background),
+        0 0 0 var(--cods-focus-ring-offset) var(--cods-color-focus-gap),
+        0 0 0 var(--cods-space-2xs) var(--cods-color-bg-action-focus);
     }
 
     &:disabled + .cods-radio__label {
@@ -82,17 +77,76 @@
 
       &::before {
         background-color: var(--cods-color-bg-disabled);
-        box-shadow: 0 0 0 calc(var(--cods-space-2xs) / 2)
-          var(--cods-color-border-disabled);
+        border-color: var(--cods-color-border-disabled);
       }
     }
   }
 
   .cods-radio__input:checked:disabled + .cods-radio__label::before {
     background-color: var(--cods-color-text-disabled);
+    border-color: var(--cods-color-border-disabled);
+    box-shadow: inset 0 0 0 var(--cods-focus-ring-offset)
+      var(--cods-color-bg-disabled);
+  }
+
+  .cods-radio--tile {
+    inline-size: var(--cods-radio-tile-width, 15rem);
+    max-inline-size: 100%;
+  }
+
+  .cods-radio--tile .cods-radio__label {
+    display: block;
+    inline-size: 100%;
+    margin-block: 0 var(--cods-space-xs);
+    padding-block: var(--cods-space-sm);
+    padding-inline: calc(
+        var(--cods-space-md) + var(--cods-space-lg) + var(--cods-space-2xs)
+      )
+      var(--cods-space-md);
+    border-radius: var(--cods-radius-md);
+    box-shadow: inset 0 0 0 var(--cods-focus-ring-offset)
+      var(--cods-color-border-form-subtle);
+    background: var(--cods-radio-background);
+  }
+
+  .cods-radio--tile .cods-radio__label::before {
+    margin-inline-start: var(--cods-space-md);
+  }
+
+  .cods-radio--tile:has(.cods-radio__input:checked) .cods-radio__label {
+    background: var(--cods-color-surface-form-selected);
+    box-shadow: inset 0 0 0 var(--cods-focus-ring-offset)
+      var(--cods-radio-selected);
+  }
+
+  .cods-radio--tile:hover:has(.cods-radio__input:not(:disabled))
+    .cods-radio__label {
+    box-shadow: inset 0 0 0 var(--cods-focus-ring-offset)
+      var(--cods-color-border-form-hover);
+  }
+
+  .cods-radio--tile .cods-radio__input:focus-visible + .cods-radio__label {
+    outline: var(--cods-focus-ring-offset) solid transparent;
+    outline-offset: var(--cods-focus-ring-offset);
     box-shadow:
-      0 0 0 calc(var(--cods-space-2xs) / 2) var(--cods-color-border-disabled),
-      inset 0 0 0 calc(var(--cods-space-2xs) / 2) var(--cods-color-bg-disabled);
+      inset 0 0 0 var(--cods-focus-ring-offset)
+        var(--cods-color-border-form-default),
+      0 0 0 var(--cods-focus-ring-offset) var(--cods-color-focus-gap),
+      0 0 0 var(--cods-space-2xs) var(--cods-color-bg-action-focus);
+  }
+
+  .cods-radio--tile
+    .cods-radio__input:focus-visible
+    + .cods-radio__label::before {
+    box-shadow: inset 0 0 0 var(--cods-focus-ring-offset)
+      var(--cods-radio-background);
+    outline: none;
+  }
+
+  .cods-radio--tile .cods-radio__input:disabled + .cods-radio__label {
+    background: var(--cods-color-bg-disabled);
+    box-shadow: inset 0 0 0 var(--cods-focus-ring-offset)
+      var(--cods-color-border-disabled);
   }
 
   .cods-radio__error {
@@ -142,6 +196,15 @@
       &:disabled + .cods-radio__label {
         color: GrayText;
       }
+    }
+
+    .cods-radio--tile .cods-radio__label {
+      padding: var(--cods-space-xs);
+      border: 1px solid CanvasText;
+    }
+
+    .cods-radio--tile .cods-radio__input:focus-visible + .cods-radio__label {
+      outline-color: Highlight;
     }
 
     .cods-radio__label {

@@ -14,7 +14,7 @@ Radio Buttons is **experimental** in the `0.x` development series. The examples 
 
 ## Markup and grouping
 
-Load the token stylesheet and the design system stylesheet as described in [Getting started](/getting-started/). No JavaScript initialization or controller is needed.
+Load the token stylesheet and the design system stylesheet as described in [Getting started](../getting-started/). No JavaScript initialization or controller is needed.
 
 Wrap every group in a `fieldset` with a visible `legend`. Give each input a document-unique `id`, a meaningful `value`, and an explicitly associated visible `label`. All options in one group share a `name`; unrelated groups must use different names. Preserve the `usa-radio`, `usa-radio__input`, `usa-radio__label`, `usa-fieldset`, and `usa-legend` classes alongside the CoDS classes.
 
@@ -45,3 +45,16 @@ Canonical assets are exported as `@coloradodigitalservice/colorado-design-system
 ## Accessibility responsibilities and status
 
 Authors own meaningful group legends, label association, unique IDs and names, required-state instructions, server validation, and dynamic error handling. Screen-reader group/legend and error announcements, actual 400% zoom, and human forced-colors review remain open in the evidence file. This component must remain experimental until the accessibility owner approves that evidence. P0-006 scope confirmation and P2-007 design acceptance remain dependencies.
+
+### Figma tile treatment
+
+Use `cods-radio--tile` on each native radio wrapper for the separate bordered
+card rows shown in Figma. The full label is clickable; native group selection
+and arrow-key behavior are preserved. This does not introduce a segmented
+button group. Tiles use existing form surfaces, 12px vertical padding, 16px
+horizontal inset and an 8px control-to-label gap. Default rows use an 8px inset
+and the same 8px gap. Focus uses the observed 2px white gap and 2px blue band.
+
+The tile width defaults to Figma’s 240px (15rem), constrained to its container.
+Override `--cods-radio-tile-width` to fit the service layout; labels
+wrap and height grows with the content.
