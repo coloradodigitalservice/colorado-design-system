@@ -49,7 +49,7 @@ export function buttonChecks(url: string, story = false) {
       ).toBe(true);
       await expect(icon.locator('use')).toHaveAttribute(
         'href',
-        /sprite[^/]*\.svg#(?:plus|upload|arrow-right)$/,
+        /sprite[^/]*\.svg#(?:plus|export|arrow-right)$/,
       );
       expect(
         await icon.evaluate((element) => {
@@ -235,6 +235,12 @@ export function buttonChecks(url: string, story = false) {
           await expect(button.locator('svg')).toHaveCount(
             placement === 'both' ? 2 : 1,
           );
+          if (placement !== 'end') {
+            await expect(button.locator('use').first()).toHaveAttribute(
+              'href',
+              /#export$/,
+            );
+          }
           await expect(button).toHaveCSS('gap', '8px');
         }
       }

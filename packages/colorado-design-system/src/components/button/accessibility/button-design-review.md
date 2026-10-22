@@ -32,8 +32,8 @@ confirmed design scope and sizing rather than leaving two competing references.
 - Figma includes use/don't-use guidance and Writing for Buttons. These are now
   reflected in the reference documentation.
 - The shared plus at a 16px slot has a 12px visible span and 1px bars, matching
-  the recorded Figma vector dimensions. The shared upload choice still needs
-  design confirmation; its legacy Figma name alone does not prove parity.
+  the recorded Figma vector dimensions. The user selected shared Phosphor `export` for Upload on 2026-10-21 after
+  comparing the Figma artwork; `upload` has an extra dot.
 
 ## Why the Slim settings conflict
 
@@ -82,7 +82,8 @@ confirm 8px vertical padding and a 32px minimum height, with room to grow for
 longer labels? That also gives the requested 40×32px icon-only size. Until that
 is confirmed, I have preserved the shared padding and kept content visible.”
 
-Also request confirmation that Phosphor Regular `upload` is the intended glyph.
+The Upload artwork choice was subsequently resolved by the user: use Phosphor
+Regular `export`, which matches the Figma box/arrow treatment without a dot.
 
 ## How to close the decision
 
@@ -94,7 +95,8 @@ Also request confirmation that Phosphor Regular `upload` is the intended glyph.
    later implementations.
 3. Apply the agreed Slim treatment using the approved spacing tokens, update
    the dimension/overflow tests and docs, and rerun the relevant checks.
-4. Separately confirm the shared upload icon's appearance with design.
+4. Upload artwork is resolved for implementation: the user selected `export`
+   after comparing it with Figma. Formal owner sign-off remains separate.
 
 This commit records the proposal and completed review fixes. It does not treat
 the proposal as approved or assert that the pending human checks are complete.

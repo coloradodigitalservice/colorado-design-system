@@ -115,8 +115,8 @@ icon-only/link hover/active/focus, and RTL placement/mirroring coverage.
 Icons use the shared sprite with 16px slots and 8px gaps. Secondary boundaries
 are inset, so the 2px stroke does not add to the 40px outer dimensions.
 
-Open design items: [Slim sizing conflict and discussion](button-design-review.md),
-and confirmation of the shared `upload` glyph. Slim remains content-sized at
+Open design item: [Slim sizing conflict and discussion](button-design-review.md).
+The shared `export` artwork was selected by the user for Upload. Slim remains content-sized at
 40px for a single line until design resolves its conflicting 32px height.
 Screen-reader, actual 400% browser zoom, Windows high contrast, and owner sign-off
 remain human checks. Earlier automated results must be revalidated after changes.
@@ -145,4 +145,16 @@ On 2026-10-21 with Node 24.21.0 and pnpm 12.4.2:
 The first unit run's file-watcher timeout passed outside the filesystem sandbox.
 The initial browser run exposed a stale single-element RTL locator and the
 expected Right to Left Storybook name; both were corrected before the passing
-182-test run. Human checks and the two design decisions above remain open.
+182-test run. Human checks and the Slim sizing decision remain open.
+
+## Upload artwork correction — 2026-10-21
+
+The user selected Phosphor Regular `export` after identifying the extra dot in
+`upload`. Fixture and copyable markup now use `sprite.svg#export`; naming stays
+“Upload,” icons stay decorative at 16px, and non-directional artwork is not
+mirrored. The Figma Upload vector (1377:959) has the same box/arrow treatment.
+
+The correction passed production builds, fixture/export/static-consumer checks,
+formatting, lint, typechecking, and all 27 Button browser regressions in
+Chromium, Firefox, WebKit, and the Chromium Storybook surface on 2026-10-21.
+The label-icon checks now specifically require the shared `export` reference.

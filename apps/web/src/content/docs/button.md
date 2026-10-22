@@ -86,7 +86,7 @@ icons use `aria-hidden="true"` and `focusable="false"`.
     height="16"
     viewBox="0 0 256 256"
   >
-    <use href="/icons/sprite.svg#upload"></use>
+    <use href="/icons/sprite.svg#export"></use>
   </svg>
   <span>Upload</span>
   <svg
@@ -104,8 +104,8 @@ icons use `aria-hidden="true"` and `focusable="false"`.
 
 Omit either icon for start-only or end-only placement. The canonical examples
 below include all three placements for Primary, Secondary, and Danger in both
-sizes, with copyable markup. The shared Phosphor `upload` glyph is provisional
-pending design confirmation against Figma's legacy icon.
+sizes, with copyable markup. The Upload action uses shared Phosphor `export`, matching the open-top box
+and upward arrow in Figma without the extra dot in Phosphor `upload`.
 
 Icon-only buttons **require** an `aria-label` or visually hidden action label.
 A tooltip alone is insufficient. Translate the name with the UI. The canonical

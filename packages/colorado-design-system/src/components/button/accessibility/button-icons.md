@@ -50,6 +50,9 @@ Phosphor Regular plus has a 192-unit visible span and 16-unit bars in its 256-un
 viewBox: at a 16px slot these render as 12px and 1px respectively. The previous
 24px slot enlarged both by 1.5×. The fixture now uses the 16px slot.
 
-New label examples consume shared `upload` and `arrow-right`. The arrow mirrors
-in RTL; upload and plus do not. Upload is a provisional choice, pending design
-confirmation against the Figma artwork. No new component-local paths are shipped.
+New label examples consume shared `export` and `arrow-right`. The arrow mirrors
+in RTL; export and plus do not. The Upload action uses `export`: its open-top
+box and upward arrow match the Figma Upload example (node 1377:959), without
+the extra dot in Phosphor `upload`. The user selected this artwork on 2026-10-21
+after comparison with Figma. This records the implementation choice, not formal
+design-owner or accessibility sign-off.
