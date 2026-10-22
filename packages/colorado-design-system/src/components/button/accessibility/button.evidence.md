@@ -43,7 +43,7 @@ toggle state, loading state, or animation is shipped.
 
 ## Zoom and reflow
 
-- [ ] Verified usable at 400% zoom / 320px-equivalent reflow without loss of content or function. Automated 320px coverage passed in all three engines, and developer screenshots confirmed expanded/translated label wrapping and square icon targets. Actual 400% browser zoom remains a human follow-up. Medium is now 40px; the Slim 32px target is pending a design decision.
+- [ ] Verified usable at 400% zoom / 320px-equivalent reflow without loss of content or function. Automated 320px coverage passed in all three engines, and developer screenshots confirmed expanded/translated label wrapping and square icon targets. Actual 400% browser zoom remains a human follow-up. Medium is now 40px; Slim has a 32px minimum height with wrapping.
 
 ## Motion
 
@@ -115,9 +115,8 @@ icon-only/link hover/active/focus, and RTL placement/mirroring coverage.
 Icons use the shared sprite with 16px slots and 8px gaps. Secondary boundaries
 are inset, so the 2px stroke does not add to the 40px outer dimensions.
 
-Open design item: [Slim sizing conflict and discussion](button-design-review.md).
-The shared `export` artwork was selected by the user for Upload. Slim remains content-sized at
-40px for a single line until design resolves its conflicting 32px height.
+The [Slim sizing resolution](button-design-review.md) records the user-authorized correction.
+The shared `export` artwork was selected by the user for Upload. Slim now uses 8px vertical padding and a 32px minimum height.
 Screen-reader, actual 400% browser zoom, Windows high contrast, and owner sign-off
 remain human checks. Earlier automated results must be revalidated after changes.
 
@@ -145,7 +144,7 @@ On 2026-10-21 with Node 24.21.0 and pnpm 12.4.2:
 The first unit run's file-watcher timeout passed outside the filesystem sandbox.
 The initial browser run exposed a stale single-element RTL locator and the
 expected Right to Left Storybook name; both were corrected before the passing
-182-test run. Human checks and the Slim sizing decision remain open.
+182-test run. Human checks and formal reviewer approval remain open.
 
 ## Upload artwork correction — 2026-10-21
 
@@ -158,3 +157,17 @@ The correction passed production builds, fixture/export/static-consumer checks,
 formatting, lint, typechecking, and all 27 Button browser regressions in
 Chromium, Firefox, WebKit, and the Chromium Storybook surface on 2026-10-21.
 The label-icon checks now specifically require the shared `export` reference.
+
+## Slim sizing correction — 2026-10-21
+
+The user authorized 8px vertical padding to preserve the intended 32px Slim
+height. Label text and icons remain 16px; wrapped content can grow. Icon-only
+Slim is 40×32px. Regression coverage includes expanded/Spanish Slim labels and
+forced-colors dimensions. This records implementation authorization, not formal
+State design or accessibility sign-off.
+
+The Slim correction passed all 145 unit tests and 27 Button browser checks in
+Chromium, Firefox, WebKit, and Chromium Storybook on 2026-10-21, including
+32px single-line height, 40×32px icon-only targets, translated/expanded wrapping,
+and forced-colors dimensions. Production builds, fixture/static-consumer checks,
+formatting, lint, and typechecking passed with Node 24.21.0 / pnpm 12.4.2.

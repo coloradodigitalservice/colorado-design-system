@@ -177,10 +177,10 @@ export function buttonChecks(url: string, story = false) {
     ).toBeDisabled();
   });
 
-  test('Medium dimensions and unresolved Slim arithmetic are explicit', async ({
+  test('Medium and Slim dimensions preserve content and grow for wrapping', async ({
     page,
   }) => {
-    for (const state of ['default', 'secondary', 'danger', 'slim']) {
+    for (const state of ['default', 'secondary', 'danger']) {
       const button = page.locator(
         `[data-cods-button-fixture="${state}"] button`,
       );
@@ -199,25 +199,39 @@ export function buttonChecks(url: string, story = false) {
         `[data-cods-button-fixture="${state}"] button`,
       );
       await expect(button).toHaveCSS('width', '40px');
-      await expect(button).toHaveCSS('height', '40px');
+      await expect(button).toHaveCSS(
+        'height',
+        state.endsWith('slim') ? '32px' : '40px',
+      );
     }
-    // Reproduce the literal Figma constraints without shipping the conflict.
-    const conflict = await page
-      .locator('[data-cods-button-fixture="slim"] button')
-      .evaluate((el) => {
-        const probe = el.cloneNode(true) as HTMLElement;
-        probe.style.blockSize = '32px';
-        el.after(probe);
-        const css = getComputedStyle(probe);
-        const available =
-          probe.clientHeight -
-          parseFloat(css.paddingTop) -
-          parseFloat(css.paddingBottom);
-        const required = parseFloat(css.lineHeight);
-        probe.remove();
-        return { available, required };
-      });
-    expect(conflict).toEqual({ available: 8, required: 16 });
+    const slim = page.locator('[data-cods-button-fixture="slim"] button');
+    await expect(slim).toHaveCSS('height', '32px');
+    await expect(slim).toHaveCSS('padding-top', '8px');
+    await expect(slim).toHaveCSS('padding-bottom', '8px');
+    await expect(slim).toHaveCSS('line-height', '16px');
+    await expect(slim).toHaveCSS('padding-inline-start', '16px');
+    await page.setViewportSize({ width: 320, height: 800 });
+    for (const button of await page
+      .locator('[data-cods-button-fixture="long-content"] .cods-button--slim')
+      .all()) {
+      expect((await button.boundingBox())!.height).toBeGreaterThan(32);
+      expect(
+        await button.evaluate(
+          (el) =>
+            el.scrollWidth <= el.clientWidth &&
+            el.scrollHeight <= el.clientHeight,
+        ),
+      ).toBe(true);
+    }
+    await page.emulateMedia({ forcedColors: 'active' });
+    await expect(slim).toHaveCSS('height', '32px');
+    for (const state of ['icon-only-slim', 'icon-only-secondary-slim']) {
+      const button = page.locator(
+        `[data-cods-button-fixture="${state}"] button`,
+      );
+      await expect(button).toHaveCSS('width', '40px');
+      await expect(button).toHaveCSS('height', '32px');
+    }
   });
 
   test('decorative label icons keep their names, logical order, and RTL mirroring', async ({
@@ -242,6 +256,10 @@ export function buttonChecks(url: string, story = false) {
             );
           }
           await expect(button).toHaveCSS('gap', '8px');
+          await expect(button).toHaveCSS(
+            'height',
+            size === 'slim' ? '32px' : '40px',
+          );
         }
       }
     }

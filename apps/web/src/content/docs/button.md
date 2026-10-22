@@ -36,7 +36,7 @@ from the fixture and metadata; focus examples include runtime review instruction
 | `cods-button`            | Primary action; pair with `usa-button`                            |
 | `cods-button--secondary` | Transparent outlined alternative; pair with `usa-button--outline` |
 | `cods-button--danger`    | Destructive action; pair with `usa-button--secondary`             |
-| `cods-button--slim`      | Compact size modifier; final height awaits a design decision      |
+| `cods-button--slim`      | Compact size modifier; 32px minimum height                        |
 | `cods-button--icon-only` | Icon action requiring an accessible name                          |
 | `cods-button__icon`      | Decorative shared sprite icon, 16px square                        |
 
@@ -46,13 +46,10 @@ padding is 16px. An inset 2px boundary preserves those outer dimensions.
 Medium icon-only buttons are 40×40px, with 12px padding around a 16px icon.
 Text can wrap and buttons grow; do not truncate action labels.
 
-**Slim sizing decision pending:** Figma specifies a 32px height with the same
-12px vertical padding and 16px line-height. These requirements conflict. Until
-design confirms the intended padding, Slim keeps the shared padding and grows
-to 40px for a single line; icon-only Slim currently measures 40×40px rather than
-the intended 40×32px. Do not rely on it to align with 32px inputs yet.
-The proposed resolution is 8px vertical padding with a 32px minimum height,
-allowing translated labels to grow. This proposal has not been approved.
+Slim label buttons use 8px vertical padding, 16px horizontal padding, and the
+same 16px text line and icons: 8 + 16 + 8 = 32px. The 32px height is a minimum;
+long or translated labels wrap and increase the height. Slim icon-only buttons
+are 40×32px, keeping 12px horizontal padding around the 16px icon.
 
 ### Choosing a button
 
@@ -65,8 +62,7 @@ allowing translated labels to grow. This proposal has not been approved.
 | Slim      | Space is constrained in headers or utility bars                            | The action is the main page call to action or needs a large touch target |
 
 Allow space between targets and prefer Medium for touch-heavy interfaces.
-The design's Slim recommendation includes alignment with 32px inputs, which
-remains pending the sizing decision above.
+Slim aligns with 32px inputs for single-line labels.
 
 ### Icons before and after labels
 
@@ -141,13 +137,14 @@ and disabled tokens. Secondary uses the secondary action palette; danger uses th
 real pointer and keyboard interactions in production. `data-cods-button-fixture`
 labels examples for review and is not a behavior API.
 
-| Custom property            | Default token                                                   |
-| -------------------------- | --------------------------------------------------------------- |
-| `--cods-button-background` | `--cods-color-bg-action-primary`                                |
-| `--cods-button-color`      | `--cods-color-text-action-primary`                              |
-| `--cods-button-hover`      | `--cods-color-bg-action-primary-hover`                          |
-| `--cods-button-active`     | `--cods-color-bg-action-primary-active`                         |
-| `--cods-button-border`     | Transparent; secondary and disabled states select border tokens |
+| Custom property               | Default token                                                   |
+| ----------------------------- | --------------------------------------------------------------- |
+| `--cods-button-background`    | `--cods-color-bg-action-primary`                                |
+| `--cods-button-color`         | `--cods-color-text-action-primary`                              |
+| `--cods-button-hover`         | `--cods-color-bg-action-primary-hover`                          |
+| `--cods-button-active`        | `--cods-color-bg-action-primary-active`                         |
+| `--cods-button-padding-block` | `--cods-space-sm`; Slim uses `--cods-space-xs`                  |
+| `--cods-button-border`        | Transparent; secondary and disabled states select border tokens |
 
 Variant classes select corresponding palette tokens. Consumer overrides must
 preserve text, boundary, and focus contrast on the actual containing surface.

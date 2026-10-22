@@ -55,48 +55,23 @@ inside stroke is instead represented by an inset shadow, preserving Medium's
 The 2px stroke temporarily shares the focus-offset token; that coupling is
 explicitly recorded in Sass pending a dedicated boundary-thickness token.
 
-## Current implementation and open decision
+## Implementation resolution — 2026-10-21
 
-Medium is 40px tall for one line; icon-only Medium is 40×40px. Slim retains
-12px vertical padding and a 16px line-height, growing to 40px instead of forcing
-32px. Its requested 32px height and 40×32px icon-only dimensions remain open.
-No smaller padding or clipped label is silently substituted. Regression tests
-cover the current dimensions, overflow, and the literal 32px conflict.
+The user authorized resolving the conflicting measurements by retaining Figma's
+intended 32px Slim height and using 8px top/bottom padding with the 16px text line
+and icons. This is an explicit deviation from Figma's 12px padding setting,
+which appears inconsistent with its height. Formal reviewer approval remains
+separate; the Figma file and ticket have not been edited by this change.
 
-Recommended proposal: approve **8px vertical padding for Slim**, retain 16px
-line-height and 16px icons, and use a **32px minimum height**, allowing multiline
-labels to grow. Keep horizontal padding at 16px for label buttons and 12px for
-icon-only buttons; this yields 40×32px icon-only targets. This is a proposal,
-not an approved design change.
+Medium stays 40px high with 12px vertical padding. Slim uses a 32px minimum
+height and 8px vertical padding; wrapped labels grow instead of clipping.
+Label buttons retain 16px horizontal padding. Icon-only Slim retains 12px
+horizontal padding, producing 40×32px targets. Forced-colors borders preserve
+the same outer dimensions through compensated padding.
 
-Alternative: keep 12px vertical padding and accept 40px Slim, revising the design
-and its guidance about alignment with 32px inputs. Fixed 32px height plus shared
-12px padding cannot satisfy all the requirements together.
+Upload uses shared Phosphor Regular `export`, selected by the user after
+comparison with the Figma artwork. No upload-icon decision remains open.
 
-## Suggested discussion wording
-
-“Thanks, Phil — I checked the live Figma component and confirmed the mismatch.
-Slim is set to 32px, but it also has 12px top and bottom padding around a 16px
-line. That needs 40px. Medium now matches the 40px dimensions. For Slim, can we
-confirm 8px vertical padding and a 32px minimum height, with room to grow for
-longer labels? That also gives the requested 40×32px icon-only size. Until that
-is confirmed, I have preserved the shared padding and kept content visible.”
-
-The Upload artwork choice was subsequently resolved by the user: use Phosphor
-Regular `export`, which matches the Figma box/arrow treatment without a dot.
-
-## How to close the decision
-
-1. Present the conflicting Figma settings and the 8px-padding proposal to Phil
-   and the design owner. Request confirmation of the intended padding and
-   whether 32px is a minimum height that can grow for wrapped labels.
-2. Once confirmed, record the Medium/Slim measurements in Figma and the CDS-50
-   ticket, including icon-only dimensions. This prevents the same ambiguity in
-   later implementations.
-3. Apply the agreed Slim treatment using the approved spacing tokens, update
-   the dimension/overflow tests and docs, and rerun the relevant checks.
-4. Upload artwork is resolved for implementation: the user selected `export`
-   after comparing it with Figma. Formal owner sign-off remains separate.
-
-This commit records the proposal and completed review fixes. It does not treat
-the proposal as approved or assert that the pending human checks are complete.
+Regression checks cover Medium/Slim dimensions, expanded and translated Slim
+labels at 320px, and the same Slim dimensions under forced colors. Human
+accessibility checks and formal design review remain open.
