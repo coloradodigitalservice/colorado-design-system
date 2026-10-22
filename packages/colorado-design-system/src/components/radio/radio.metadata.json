@@ -1,0 +1,85 @@
+{
+  "name": "radio",
+  "displayName": "Radio Buttons",
+  "maturity": "experimental",
+  "type": "static",
+  "uswdsEquivalent": "radio-buttons",
+  "uswdsVersion": "3.14.0",
+  "componentType": "A",
+  "owners": {
+    "responsible": "Aten component engineer",
+    "accountable": "Aten technical lead",
+    "consulted": "Design, accessibility, and content roles",
+    "informed": "State product owner"
+  },
+  "divergenceApproved": false,
+  "divergenceNotes": null,
+  "states": [
+    "default",
+    "selected",
+    "disabled",
+    "disabled-group",
+    "error",
+    "focus-visible",
+    "long-content",
+    "localization",
+    "rtl",
+    "tile"
+  ],
+  "progressiveEnhancement": "full",
+  "localization": "layout-sensitive",
+  "description": "Native USWDS radio groups themed with CoDS tokens. Fieldset/legend groups, selection, validation and disabling work without JavaScript.",
+  "examples": [
+    {
+      "state": "default",
+      "fixtureState": "default",
+      "setup": "none"
+    },
+    {
+      "state": "selected",
+      "fixtureState": "selected",
+      "setup": "none"
+    },
+    {
+      "state": "disabled",
+      "fixtureState": "disabled",
+      "setup": "none"
+    },
+    {
+      "state": "disabled-group",
+      "fixtureState": "disabled-group",
+      "setup": "none"
+    },
+    {
+      "state": "error",
+      "fixtureState": "error",
+      "setup": "none"
+    },
+    {
+      "state": "focus-visible",
+      "fixtureState": "default",
+      "setup": "focus",
+      "instructions": "Use Tab to enter the group and arrow keys to move selection; inspect the focus ring."
+    },
+    {
+      "state": "long-content",
+      "fixtureState": "long-content",
+      "setup": "none"
+    },
+    {
+      "state": "localization",
+      "fixtureState": "localization",
+      "setup": "none"
+    },
+    {
+      "state": "rtl",
+      "fixtureState": "rtl",
+      "setup": "none"
+    },
+    {
+      "state": "tile",
+      "fixtureState": "tile",
+      "setup": "none"
+    }
+  ]
+}
