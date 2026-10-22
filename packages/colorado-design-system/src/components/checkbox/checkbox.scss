@@ -1,0 +1,236 @@
+@use '@coloradodigitalservice/colorado-design-tokens' as tokens;
+
+// Variables preserve output-relative URLs through Vite's Sass import rebasing.
+$disabled-check-path: './icons/check--171717.svg';
+$disabled-mixed-path: './icons/minus--000000.svg';
+
+@layer cods.components {
+  .cods-checkbox {
+    --cods-checkbox-background: var(--cods-color-surface-form);
+    --cods-checkbox-text: var(--cods-color-text-primary);
+    --cods-checkbox-border: var(--cods-color-border-form-default);
+    --cods-checkbox-selected: var(--cods-color-bg-action-primary);
+
+    background: var(--cods-checkbox-background);
+    min-inline-size: 0;
+  }
+
+  .cods-checkbox__label {
+    color: var(--cods-checkbox-text);
+    font-family: var(--cods-font-family-body), sans-serif;
+    font-size: var(--cods-font-size-desktop-body);
+    font-weight: var(--cods-font-weight-regular);
+    line-height: var(--cods-line-height-desktop-body);
+    margin-block: var(--cods-space-xs);
+    padding-left: 0;
+    padding-inline: calc(
+        var(--cods-space-xs) + var(--cods-space-lg) + var(--cods-space-2xs)
+      )
+      var(--cods-space-xs);
+    text-align: start;
+    overflow-wrap: anywhere;
+    max-inline-size: 100%;
+
+    &::before {
+      left: auto;
+      inset-inline-start: 0;
+      margin-inline: var(--cods-space-xs) 0;
+      margin-block-start: calc(var(--cods-space-2xs) / 2);
+      box-sizing: border-box;
+      inline-size: calc(var(--cods-space-md) + var(--cods-space-2xs));
+      block-size: calc(var(--cods-space-md) + var(--cods-space-2xs));
+      border: calc(var(--cods-space-2xs) / 2) solid var(--cods-checkbox-border);
+      background-size: var(--cods-space-md) var(--cods-space-md);
+      border-radius: var(--cods-radius-sm);
+      background-color: var(--cods-checkbox-background);
+      box-shadow: none;
+    }
+  }
+
+  .cods-checkbox__input {
+    &:is(:checked, :indeterminate) + .cods-checkbox__label::before {
+      background-color: var(--cods-checkbox-selected);
+      border-color: var(--cods-checkbox-selected);
+    }
+
+    &:hover:not(:disabled) + .cods-checkbox__label::before {
+      border-color: var(--cods-color-border-form-hover);
+    }
+
+    &[aria-invalid='true'] + .cods-checkbox__label::before {
+      border-color: var(--cods-color-border-form-danger);
+    }
+
+    &:focus + .cods-checkbox__label::before {
+      outline: none;
+    }
+
+    &:focus-visible + .cods-checkbox__label::before {
+      outline: var(--cods-focus-ring-offset) solid transparent;
+      box-shadow:
+        0 0 0 var(--cods-focus-ring-offset) var(--cods-color-focus-gap),
+        0 0 0 var(--cods-space-2xs) var(--cods-color-bg-action-focus);
+      outline-offset: var(--cods-focus-ring-offset, tokens.$focus-ring-offset);
+    }
+
+    &:disabled + .cods-checkbox__label {
+      color: var(--cods-color-text-disabled);
+      cursor: not-allowed;
+
+      &::before {
+        background-color: var(--cods-color-bg-disabled);
+        border-color: var(--cods-color-border-disabled);
+      }
+    }
+  }
+
+  // Use the shared Phosphor variants for the light disabled surface.
+  // Disabled controls use a light surface, so retain a dark state indicator.
+  .cods-checkbox__input:checked:disabled + .cods-checkbox__label::before {
+    background-image: url($disabled-check-path);
+  }
+
+  .cods-checkbox__input:indeterminate:disabled + .cods-checkbox__label::before {
+    background-image: url($disabled-mixed-path);
+  }
+
+  .cods-checkbox--card {
+    inline-size: var(--cods-checkbox-card-width, 15rem);
+    max-inline-size: 100%;
+  }
+
+  .cods-checkbox--card .cods-checkbox__label {
+    display: block;
+    inline-size: 100%;
+    margin-block: 0 var(--cods-space-xs);
+    padding-block: var(--cods-space-sm);
+    padding-inline: calc(
+        var(--cods-space-md) + var(--cods-space-lg) + var(--cods-space-2xs)
+      )
+      var(--cods-space-md);
+    border-radius: var(--cods-radius-md);
+    box-shadow: inset 0 0 0 var(--cods-focus-ring-offset)
+      var(--cods-color-border-form-subtle);
+    background: var(--cods-checkbox-background);
+  }
+
+  .cods-checkbox--card .cods-checkbox__label::before {
+    margin-inline-start: var(--cods-space-md);
+  }
+
+  .cods-checkbox--card:has(.cods-checkbox__input:checked)
+    .cods-checkbox__label {
+    background: var(--cods-color-surface-form-selected);
+    box-shadow: inset 0 0 0 var(--cods-focus-ring-offset)
+      var(--cods-checkbox-selected);
+  }
+
+  .cods-checkbox--card:hover:has(
+      .cods-checkbox__input:not(:disabled, :focus-visible)
+    )
+    .cods-checkbox__label {
+    box-shadow: inset 0 0 0 var(--cods-focus-ring-offset)
+      var(--cods-color-border-form-hover);
+  }
+
+  .cods-checkbox--card
+    .cods-checkbox__input:focus-visible
+    + .cods-checkbox__label {
+    outline: var(--cods-focus-ring-offset) solid transparent;
+    outline-offset: var(--cods-focus-ring-offset);
+    box-shadow:
+      inset 0 0 0 var(--cods-focus-ring-offset)
+        var(--cods-color-border-form-subtle),
+      0 0 0 var(--cods-focus-ring-offset) var(--cods-color-focus-gap),
+      0 0 0 var(--cods-space-2xs) var(--cods-color-bg-action-focus);
+  }
+
+  .cods-checkbox--card
+    .cods-checkbox__input:focus-visible
+    + .cods-checkbox__label::before {
+    box-shadow: none;
+    outline: none;
+  }
+
+  .cods-checkbox--card .cods-checkbox__input:disabled + .cods-checkbox__label {
+    background: var(--cods-color-bg-disabled);
+    box-shadow: inset 0 0 0 var(--cods-focus-ring-offset)
+      var(--cods-color-border-disabled);
+  }
+
+  .cods-checkbox__error {
+    color: var(--cods-color-text-danger);
+    margin-block: var(--cods-space-xs);
+    overflow-wrap: anywhere;
+  }
+
+  .cods-checkbox__group {
+    min-inline-size: 0;
+  }
+
+  .cods-checkbox__legend {
+    font-family: var(--cods-font-family-body), sans-serif;
+    font-size: var(--cods-font-size-desktop-body);
+    font-weight: var(--cods-font-weight-semibold);
+    line-height: var(--cods-line-height-desktop-body);
+    overflow-wrap: anywhere;
+  }
+
+  @media (forced-colors: active) {
+    // Let the browser draw native state indicators when background images
+    // and shadows are suppressed by the user's contrast settings.
+    .cods-checkbox {
+      display: grid;
+      grid-template-columns: var(--cods-space-md) minmax(0, 1fr);
+      column-gap: var(--cods-space-md);
+    }
+
+    .cods-checkbox__input {
+      position: static;
+      appearance: auto;
+      inline-size: var(--cods-space-md);
+      block-size: var(--cods-space-md);
+      margin: 0;
+      align-self: center;
+
+      &:focus-visible {
+        outline: var(--cods-focus-ring-width, tokens.$focus-ring-width) solid
+          Highlight;
+        outline-offset: var(
+          --cods-focus-ring-offset,
+          tokens.$focus-ring-offset
+        );
+      }
+
+      &:disabled + .cods-checkbox__label {
+        color: GrayText;
+      }
+    }
+
+    .cods-checkbox--card .cods-checkbox__label {
+      padding: var(--cods-space-xs);
+      border: 1px solid CanvasText;
+    }
+
+    .cods-checkbox--card
+      .cods-checkbox__input:focus-visible
+      + .cods-checkbox__label {
+      outline-color: Highlight;
+    }
+
+    .cods-checkbox__label {
+      color: CanvasText;
+      padding-inline: 0;
+
+      &::before {
+        display: none;
+        content: none;
+      }
+    }
+
+    .cods-checkbox__error {
+      grid-column: 2;
+      color: CanvasText;
+    }
+  }
+}

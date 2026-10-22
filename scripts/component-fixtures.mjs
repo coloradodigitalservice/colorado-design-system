@@ -145,8 +145,17 @@ export function generateExamples(metadata, fixture) {
           example.fixtureState,
       );
       if (!block) fail(`missing fixture state: ${example.fixtureState}`);
-      if (!['none', 'focus', 'expand', 'collapse'].includes(example.setup))
+      if (
+        !['none', 'focus', 'expand', 'collapse', 'indeterminate'].includes(
+          example.setup,
+        )
+      )
         fail(`invalid setup: ${example.state}`);
+      if (
+        example.setup === 'indeterminate' &&
+        !block.querySelector('input[type=checkbox]')
+      )
+        fail(`indeterminate setup needs a native checkbox: ${example.state}`);
       if (example.setup !== 'none' && !example.instructions?.trim())
         fail(`runtime state needs review instructions: ${example.state}`);
       if (!block.querySelector(`.cods-${metadata.name}`))

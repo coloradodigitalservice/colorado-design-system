@@ -1,0 +1,15 @@
+---
+import metadata from '@coloradodigitalservice/colorado-design-system/metadata/checkbox.json';
+import examples from '@coloradodigitalservice/colorado-design-system/examples/checkbox.json';
+import fixture from '@coloradodigitalservice/colorado-design-system/fixtures/checkbox.html?raw';
+import CodeExamples from './CodeExamples.astro';
+---
+
+<div class="cods-docs-checkbox-examples" set:html={fixture} />
+<CodeExamples metadata={metadata} examples={examples.examples} />
+<script>
+  const input = document.querySelector<HTMLInputElement>(
+    '#checkbox-indeterminate',
+  );
+  if (input) input.indeterminate = true;
+</script>
