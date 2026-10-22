@@ -94,7 +94,14 @@ $disabled-mixed-path: './icons/minus--000000.svg';
     background-image: url($disabled-mixed-path);
   }
 
+  .cods-checkbox--card {
+    inline-size: var(--cods-checkbox-card-width, 15rem);
+    max-inline-size: 100%;
+  }
+
   .cods-checkbox--card .cods-checkbox__label {
+    display: block;
+    inline-size: 100%;
     margin-block: 0 var(--cods-space-xs);
     padding-block: var(--cods-space-sm);
     padding-inline: calc(

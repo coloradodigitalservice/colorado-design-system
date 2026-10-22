@@ -57,3 +57,7 @@ is not included.
 ## Accessibility review
 
 Native input semantics provide checked, disabled, invalid, and mixed states. Authors supply meaningful names, unique IDs, related group legends, error associations, and form validation behavior. Automated checks supplement human review; screen-reader announcements, actual 400% zoom, and platform forced-colors review remain acceptance items in the [evidence file](https://github.com/coloradodigitalservice/colorado-design-system/blob/main/packages/colorado-design-system/src/components/checkbox/accessibility/checkbox.evidence.md). The component remains experimental pending review.
+
+The card width defaults to Figma’s 240px (15rem), constrained to its container.
+Override `--cods-checkbox-card-width` to fit the service layout; labels
+wrap and height grows with the content.

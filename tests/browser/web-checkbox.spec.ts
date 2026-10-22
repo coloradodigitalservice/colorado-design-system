@@ -202,6 +202,10 @@ test('Figma control geometry, label gap and card selection remain native', async
   );
   const card = page.locator('label[for=checkbox-card]');
   await expect(card).toHaveCSS('padding-block-start', '12px');
+  await expect(page.locator('.cods-checkbox--card').first()).toHaveCSS(
+    'width',
+    '240px',
+  );
   await expect(card).toHaveCSS('padding-inline-start', '44px');
   await card.click();
   await expect(page.locator('#checkbox-card')).toBeChecked();
