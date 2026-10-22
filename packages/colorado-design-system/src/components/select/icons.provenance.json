@@ -1,0 +1,31 @@
+{
+  "source": {
+    "package": "@phosphor-icons/core",
+    "version": "2.1.1",
+    "license": "MIT"
+  },
+  "weight": "regular",
+  "id": "caret-down",
+  "sha256": "53f0cf2d0b144ac3cb07e353e0cd0853ffb3ed432d741460ce288edfcb0924b1",
+  "cssUrl": "./icons/caret-down--1b1b1b.svg",
+  "foreground": {
+    "hex": "#1b1b1b",
+    "token": "color-text-primary",
+    "reason": "Background SVG currentColor is standalone black, not the select text color. Preserve the original export foreground through a shared generated token-verified variant; native select cannot host a reliable pseudo-element mask."
+  },
+  "previousFigmaExport": {
+    "source": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=272-55576",
+    "observedOn": "2026-10-16",
+    "commit": "736b77dda54ff26c752805ad0d8b5d51679370b4",
+    "file": "assets/icon-medium-chevron-down.svg",
+    "sha256": "032c77f7fbef49471653b3905275292acc2b13ba4df3491a19a39dfe302c7bd5",
+    "width": 24,
+    "height": 24
+  },
+  "comparison": {
+    "date": "2026-10-21",
+    "sizesPx": [16, 24],
+    "result": "Visual parity in Regular weight, silhouette, optical alignment, viewBox scaling and control spacing. Normalized bounds differ by less than 0.0007px at 24px due to export precision. Cubic/arc edge antialiasing differs on 8/14 pixels at 16/24px; no pixel-identity claim.",
+    "liveFigma": "Current Select page viewed in Chrome Aten profile at node718-2821; recorded original export supplies precise geometry."
+  }
+}

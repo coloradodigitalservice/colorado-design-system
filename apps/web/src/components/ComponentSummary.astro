@@ -1,13 +1,16 @@
 ---
 import siteAlert from '@coloradodigitalservice/colorado-design-system/metadata/site-alert.json';
+import select from '@coloradodigitalservice/colorado-design-system/metadata/select.json';
 import accordion from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
 
 interface Props {
-  component: 'site-alert' | 'accordion';
+  component: 'site-alert' | 'accordion' | 'select';
   figma?: string;
 }
 
-const metadata = { 'site-alert': siteAlert, accordion }[Astro.props.component];
+const metadata = { 'site-alert': siteAlert, accordion, select }[
+  Astro.props.component
+];
 const { figma } = Astro.props;
 const repository =
   'https://github.com/coloradodigitalservice/colorado-design-system/tree/main/packages/colorado-design-system/src/components';

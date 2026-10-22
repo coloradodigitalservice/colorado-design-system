@@ -1,0 +1,122 @@
+// Resolve beside the compiled package stylesheet, not this Sass partial.
+$caret-path: './icons/caret-down--1b1b1b.svg';
+
+@layer cods.components {
+  .cods-select {
+    --cods-select-background: var(--cods-color-surface-form);
+    --cods-select-color: var(--cods-color-text-primary);
+    --cods-select-border: var(--cods-color-border-form-default);
+    --cods-select-radius: var(--cods-radius-md);
+
+    min-width: 0;
+    margin-block: var(--cods-space-lg);
+    font-family: var(--cods-font-family-body);
+    font-size: var(--cods-font-size-desktop-body);
+    line-height: var(--cods-line-height-desktop-body);
+    overflow-wrap: anywhere;
+  }
+
+  .cods-select__label {
+    display: block;
+    max-width: none;
+    margin: 0 0 var(--cods-space-sm);
+    color: var(--cods-select-color);
+    font-family: inherit;
+    font-size: var(--cods-font-size-desktop-ui);
+    font-weight: var(--cods-font-weight-desktop-ui);
+    line-height: var(--cods-line-height-desktop-ui);
+  }
+
+  .cods-select__hint,
+  .cods-select__error {
+    display: block;
+    margin: 0 0 var(--cods-space-xs);
+    color: var(--cods-color-text-secondary);
+    font: inherit;
+  }
+
+  .cods-select__error {
+    color: var(--cods-color-text-danger);
+  }
+
+  .cods-select__control {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    height: auto;
+    min-height: calc(var(--cods-space-xl) + var(--cods-space-xs));
+    margin: 0;
+    border: 1px solid var(--cods-select-border);
+    border-radius: var(--cods-select-radius);
+    background-color: var(--cods-select-background);
+    background-image: url($caret-path);
+    background-size: var(--cods-space-lg) var(--cods-space-lg);
+    color: var(--cods-select-color);
+
+    // Figma paints its 1px stroke inside the 40px frame.
+    padding-block: calc(var(--cods-space-xs) - 1px);
+    padding-inline: calc(var(--cods-space-xs) - 1px)
+      calc(var(--cods-space-xl) + var(--cods-space-xs) - 1px);
+    background-position: right var(--cods-space-xs) center;
+    font: inherit;
+    text-overflow: ellipsis;
+  }
+
+  .cods-select__control:hover:not(:disabled) {
+    border-color: var(--cods-color-border-form-hover);
+    background-color: var(--cods-color-surface-form-hover);
+  }
+
+  .cods-select--success .cods-select__control {
+    border-color: var(--cods-color-state-success);
+  }
+
+  .cods-select__control[aria-invalid='true'] {
+    border-color: var(--cods-color-border-form-danger);
+  }
+
+  .cods-select__control:disabled {
+    border-color: transparent;
+    background-color: var(--cods-color-bg-disabled);
+    color: var(--cods-color-text-disabled);
+    cursor: not-allowed;
+    opacity: 1;
+  }
+
+  .cods-select__control:focus-visible {
+    outline: var(--cods-focus-ring-offset) solid transparent;
+    outline-offset: var(--cods-focus-ring-offset);
+    box-shadow:
+      0 0 0 var(--cods-focus-ring-offset) var(--cods-color-focus-gap),
+      0 0 0 var(--cods-space-2xs) var(--cods-color-bg-action-focus);
+  }
+
+  .cods-select__control:dir(rtl) {
+    background-position: left var(--cods-space-xs) center;
+  }
+
+  @media (forced-colors: active) {
+    .cods-select__control {
+      appearance: auto;
+      background-image: none;
+      background-color: Canvas;
+      color: CanvasText;
+      border-color: ButtonText;
+      padding-inline: var(--cods-space-sm);
+    }
+
+    .cods-select__control:disabled {
+      color: GrayText;
+      border-color: GrayText;
+    }
+
+    .cods-select__control[aria-invalid='true'] {
+      border-color: CanvasText;
+    }
+
+    .cods-select__control:focus-visible {
+      outline-color: Highlight;
+    }
+  }
+}

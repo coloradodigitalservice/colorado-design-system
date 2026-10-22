@@ -134,6 +134,7 @@ function fixture(
         'arrow-square-out--ffffff',
         'file-pdf--07648d',
         'caret-down',
+        'caret-down--1b1b1b',
       ])
         writeFileSync(join(icons, `${id}.svg`), '<svg/>');
     },
@@ -242,6 +243,18 @@ describe('Vite packaged assets integration', () => {
     expect(assets.isExternal('./icons/caret-down.svg?v=1#icon')).toBe(true);
     expect(assets.isExternal('./icons/not-approved.svg')).toBe(false);
     expect(assets.isExternal('./icons/../fonts/probe.woff2')).toBe(false);
+  });
+
+  it('preserves the Select token-colored shared background image', async () => {
+    const { root, assets, config } = fixture(
+      '.select{background-image:url(./icons/caret-down--1b1b1b.svg)}',
+    );
+    await build(config);
+    expect(readFileSync(join(root, 'dist/fixture.css'), 'utf8')).toContain(
+      './icons/caret-down--1b1b1b.svg',
+    );
+    expect(assets.isExternal('./icons/caret-down--1b1b1b.svg')).toBe(true);
+    expect(assets.isExternal('./icons/caret-down--000000.svg')).toBe(false);
   });
 
   it('rejects an approved icon reference when its generated file is missing', async () => {

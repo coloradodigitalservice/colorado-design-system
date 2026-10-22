@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import '@coloradodigitalservice/colorado-design-system/styles.css';
 import SiteAlertExamples from '../components/SiteAlertExamples.astro';
 import AccordionExamples from '../components/AccordionExamples.astro';
+import SelectExamples from '../components/SelectExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
 import IconCatalog from '../components/IconCatalog.astro';
 import IconExamples from '../components/IconExamples.astro';
@@ -43,10 +44,13 @@ const { Content } = await render(entry);
         <AccordionExamples />
       </>
     )}
-    {(entry.id === 'site-alert' || entry.id === 'accordion') && (
+    {(entry.id === 'site-alert' ||
+      entry.id === 'accordion' ||
+      entry.id === 'select') && (
       <ComponentSummary component={entry.id} figma={entry.data.figma} />
     )}
     <Content />
+    {entry.id === 'select' && <SelectExamples />}
     {entry.id === 'icon' && <IconExamples />}
     {entry.id === 'icon' && <IconCatalog />}
     {entry.id === 'site-alert' && <SiteAlertExamples mode="remaining" />}
