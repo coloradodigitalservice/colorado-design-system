@@ -76,3 +76,22 @@ Tracked with CDS-66 / CODS-P3-018:
 The former USWDS `navigate_next.svg` separator now uses shared Phosphor Regular `caret-right` from the approved generated pipeline. The original 16px decorative mask box, current-color semantic token, wrapping, link names and RTL mirroring are retained. This is USWDS-to-Phosphor adoption; no component-local Figma export existed to remove.
 
 Human screen-reader, actual 400% zoom, Windows High Contrast and design/accessibility acceptance remain open; this update does not change experimental maturity.
+
+## Follow-up review — 2026-10-21
+
+Figma light/dark nodes 6209:517 and 5054:1737 were inspected. Removing extra
+list padding restores the 40px one-line height (12px + 16px + 12px). Links
+retain 1px underlines. A keyboard-focus contrast bug was fixed: light-surface
+links now keep blue text rather than becoming white on a light background.
+Focus uses the observed 2px white gap and 2px blue band. The docs site's generic
+anchor focus rule excludes component links so it cannot override that ring.
+An inverse example supplies white links/separators on a primary navy surface.
+
+145 unit tests and 22 browser checks passed across Chromium, Firefox, WebKit
+and Storybook Chromium, including axe while links are focused on both surfaces.
+Workspace, Astro/Storybook validation, token drift, builds, formatting, lint,
+type checks, fixture/static output checks passed. Browser tests used built files
+without servers. The Getting Started docs link preserves deployment prefixes.
+Figma's parent-only mobile trail still differs from the ticket-preserving
+implementation, which wraps every ancestor so no link access is lost. That
+presentation needs design-owner reconciliation; human acceptance remains open.

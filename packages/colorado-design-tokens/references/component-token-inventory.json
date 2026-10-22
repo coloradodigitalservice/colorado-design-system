@@ -227,7 +227,8 @@
         "paragraph-space.desktop-ui",
         "radius.sm",
         "space.2xs",
-        "space.sm"
+        "space.sm",
+        "color.bg-action-primary"
       ],
       "componentTokens": [],
       "implementationTokens": [
@@ -241,14 +242,15 @@
         "color.text-action-primary",
         "color.text-secondary",
         "focus.ring-offset",
-        "focus.ring-width",
         "font.family-body",
         "font.size-desktop-ui",
         "font.weight-regular",
         "line-height.desktop-ui",
         "radius.sm",
         "space.2xs",
-        "space.sm"
+        "space.sm",
+        "color.bg-action-primary",
+        "color.text-action-link-inline"
       ],
       "designCoverage": "documented",
       "implementationDirectory": "breadcrumbs"

@@ -21,7 +21,7 @@ a production trail can use `aria-label="Breadcrumbs"` (translate that label).
 
 ## Use the package
 
-Load the token and component stylesheets as described in [Getting started](/getting-started/).
+Load the token and component stylesheets as described in [Getting started](../getting-started/).
 No JavaScript is needed. Retain both the `usa-breadcrumb*` structural classes and
 `cods-breadcrumbs*` classes shown in the copyable markup above.
 
@@ -96,3 +96,18 @@ Human screen-reader verification (current-page announcement, reading order and
 separator exclusion), real browser 400% zoom, Windows high-contrast review, and
 translated-content review remain open. Accessibility-owner approval is required
 before stable maturity. Record results in the component's accessibility evidence.
+
+### Figma follow-up
+
+Light and dark treatments were inspected at nodes 6209:517 and 5054:1737.
+The single-line trail uses 12px vertical padding around 16px text, giving a
+40px height. Underlines are 1px, with 16px separators and 4px gaps. Use
+`cods-breadcrumbs--inverse` for the dark treatment; it supplies a primary navy
+background and white text/separators. The background is customizable with
+`--cods-breadcrumbs-background`; verify contrast for every interaction state.
+Focused links on light surfaces keep blue text and the white-gap/blue-band ring.
+
+Figma also illustrates a parent-only mobile treatment. This implementation
+continues to wrap every ancestor, preserving the ticket's requirement that
+narrow layouts retain access to all links. Design-owner reconciliation of that
+responsive presentation remains open.

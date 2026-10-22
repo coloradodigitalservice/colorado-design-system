@@ -20,7 +20,8 @@
     "single-level",
     "localization",
     "rtl",
-    "focus-visible"
+    "focus-visible",
+    "inverse"
   ],
   "progressiveEnhancement": "full",
   "localization": "layout-sensitive",
@@ -56,6 +57,11 @@
       "fixtureState": "focus-visible",
       "setup": "focus",
       "instructions": "Tab through the ancestor links and verify a visible focus ring."
+    },
+    {
+      "state": "inverse",
+      "fixtureState": "inverse",
+      "setup": "none"
     }
   ]
 }

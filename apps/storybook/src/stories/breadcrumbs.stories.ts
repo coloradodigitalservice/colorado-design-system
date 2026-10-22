@@ -34,3 +34,5 @@ export const FocusVisible: Story = {
       ?.focus();
   },
 };
+
+export const Inverse: Story = { render: () => renderState('inverse') };

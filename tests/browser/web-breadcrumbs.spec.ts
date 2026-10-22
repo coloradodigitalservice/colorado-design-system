@@ -59,7 +59,7 @@ test('ordered ancestors end with an unlinked current page and copyable canonical
 }, testInfo) => {
   await page.goto('/breadcrumbs/');
   const trails = page.locator('.cods-breadcrumbs');
-  await expect(trails).toHaveCount(6);
+  await expect(trails).toHaveCount(7);
   for (const trail of await trails.all()) {
     await expect(trail).toHaveAccessibleName(/.+/);
     await expect(trail.locator('ol')).toHaveCount(1);
@@ -151,7 +151,7 @@ test('keyboard order, focus tokens, and link activation work without a controlle
     await links.first().evaluate((el) => {
       const s = getComputedStyle(el);
       const token = getComputedStyle(document.documentElement)
-        .getPropertyValue('--cods-focus-ring-width')
+        .getPropertyValue('--cods-focus-ring-offset')
         .trim();
       return s.outlineStyle === 'solid' && s.outlineWidth === token;
     }),
@@ -217,8 +217,39 @@ test('all ancestors and current text remain available without CSS and JavaScript
       await expect(item).toBeVisible();
     await expect(
       page.locator('.cods-breadcrumbs [aria-current="page"]'),
-    ).toHaveCount(6);
+    ).toHaveCount(7);
   } finally {
     await context.close();
   }
+});
+
+test('Figma light and dark trails retain readable keyboard focus and 40px height', async ({
+  page,
+}, testInfo) => {
+  await page.goto('/breadcrumbs/');
+  const light = page.locator(
+    '[data-cods-fixture-state=default] .cods-breadcrumbs',
+  );
+  const dark = page.locator(
+    '[data-cods-fixture-state=inverse] .cods-breadcrumbs',
+  );
+  await expect(light).toHaveCSS('height', '40px');
+  await expect(light.locator('a').first()).toHaveCSS(
+    'text-decoration-thickness',
+    '1px',
+  );
+  await page.keyboard.press('Tab');
+  await light.locator('a').first().focus();
+  await expect(light.locator('a').first()).toHaveCSS(
+    'color',
+    'rgb(23, 59, 179)',
+  );
+  await expectAccessible(page, testInfo);
+  await dark.locator('a').first().focus();
+  await expect(dark.locator('a').first()).toHaveCSS(
+    'color',
+    'rgb(255, 255, 255)',
+  );
+  await expect(dark).toHaveCSS('background-color', 'rgb(0, 25, 112)');
+  await expectAccessible(page, testInfo);
 });
