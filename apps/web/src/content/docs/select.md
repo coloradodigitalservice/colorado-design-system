@@ -25,7 +25,7 @@ filter the list.
 
 ## Use the package
 
-Follow [Getting started](/getting-started/) to load the token and design-system
+Follow [Getting started](../getting-started/) to load the token and design-system
 stylesheets. Retain the USWDS `usa-form-group`, `usa-label`, `usa-hint`, and
 `usa-select` classes alongside the CoDS classes in the examples below. The
 chevron uses shared Phosphor Regular `caret-down` artwork, compared against the
@@ -121,3 +121,12 @@ the approved Git token catalog and pinned USWDS markup; final design acceptance
 remains pending. Maturity remains experimental.
 
 ## Canonical examples
+
+### Figma measurements
+
+The native field has a 40px minimum height, a 16px/16px semibold label, and
+12px between the label and field. The 1px field border is accounted for inside
+the padding so the outer height remains 40px. Keyboard focus uses the observed
+2px white gap and 2px blue band. Disabled fields retain transparent stroke space
+so text and the 24px arrow do not shift. Native popup appearance remains owned
+by the browser; the illustrated custom popup is not implemented.

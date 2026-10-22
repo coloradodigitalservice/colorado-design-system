@@ -75,8 +75,11 @@ test('native keyboard type-ahead, dismissal, focus ring, and disabled tab skip',
   await page.keyboard.press('Escape');
   await expect(control).toBeFocused();
   await expect(control).toHaveCSS('outline-style', 'solid');
-  await expect(control).toHaveCSS('outline-width', '4px');
-  await expect(control).toHaveCSS('outline-color', 'rgb(23, 59, 179)');
+  await expect(control).toHaveCSS('outline-width', '2px');
+  await expect(control).toHaveCSS(
+    'box-shadow',
+    'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(23, 59, 179) 0px 0px 0px 4px',
+  );
   await page.locator(`${state('focus-visible')} select`).focus();
   await page.keyboard.press(
     browserName === 'webkit' && process.platform === 'darwin'
@@ -174,4 +177,28 @@ test('Select uses the shared Phosphor caret with its original token foreground',
     }, source);
     expect(matches).toBe(true);
   }
+});
+
+test('Figma label and field measurements include the inside stroke', async ({
+  page,
+}) => {
+  await page.goto('/select/');
+  const control = page.locator('[data-cods-fixture-state=default] select');
+  const label = page.locator('[data-cods-fixture-state=default] label');
+  await expect(label).toHaveCSS('font-weight', '600');
+  await expect(label).toHaveCSS('line-height', '16px');
+  await expect(control).toHaveCSS('height', '40px');
+  await expect(control).toHaveCSS('padding-block-start', '7px');
+  await expect(control).toHaveCSS('padding-inline-start', '7px');
+  // Measure the label-only pattern shown in the Figma component.
+  await page
+    .locator('[data-cods-fixture-state=default] .cods-select__hint')
+    .evaluate((el) => el.remove());
+  const gap = await control.evaluate((el) => {
+    const label = el.closest('.cods-select')!.querySelector('label')!;
+    return (
+      el.getBoundingClientRect().top - label.getBoundingClientRect().bottom
+    );
+  });
+  expect(gap).toBe(12);
 });

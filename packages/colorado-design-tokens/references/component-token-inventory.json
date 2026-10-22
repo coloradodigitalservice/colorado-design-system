@@ -795,7 +795,8 @@
         "space.lg",
         "space.sm",
         "space.xl",
-        "space.xs"
+        "space.xs",
+        "font.weight-desktop-ui"
       ],
       "componentTokens": [],
       "implementationTokens": [
@@ -804,7 +805,6 @@
         "color.border-form-danger",
         "color.border-form-default",
         "color.border-form-hover",
-        "color.border-form-subtle",
         "color.focus-gap",
         "color.state-success",
         "color.surface-form",
@@ -814,7 +814,6 @@
         "color.text-primary",
         "color.text-secondary",
         "focus.ring-offset",
-        "focus.ring-width",
         "font.family-body",
         "font.size-desktop-body",
         "line-height.desktop-body",
@@ -823,7 +822,10 @@
         "space.lg",
         "space.sm",
         "space.xl",
-        "space.xs"
+        "space.xs",
+        "font.size-desktop-ui",
+        "font.weight-desktop-ui",
+        "line-height.desktop-ui"
       ],
       "designCoverage": "documented",
       "implementationDirectory": "select"

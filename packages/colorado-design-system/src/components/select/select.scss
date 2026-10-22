@@ -19,9 +19,12 @@ $caret-path: './icons/caret-down--1b1b1b.svg';
   .cods-select__label {
     display: block;
     max-width: none;
-    margin: 0 0 var(--cods-space-2xs);
+    margin: 0 0 var(--cods-space-sm);
     color: var(--cods-select-color);
-    font: inherit;
+    font-family: inherit;
+    font-size: var(--cods-font-size-desktop-ui);
+    font-weight: var(--cods-font-weight-desktop-ui);
+    line-height: var(--cods-line-height-desktop-ui);
   }
 
   .cods-select__hint,
@@ -43,15 +46,19 @@ $caret-path: './icons/caret-down--1b1b1b.svg';
     max-width: 100%;
     height: auto;
     min-height: calc(var(--cods-space-xl) + var(--cods-space-xs));
-    margin: var(--cods-space-xs) 0 0;
+    margin: 0;
     border: 1px solid var(--cods-select-border);
     border-radius: var(--cods-select-radius);
     background-color: var(--cods-select-background);
     background-image: url($caret-path);
     background-size: var(--cods-space-lg) var(--cods-space-lg);
     color: var(--cods-select-color);
-    padding-block: var(--cods-space-xs);
-    padding-inline: var(--cods-space-sm) var(--cods-space-xl);
+
+    // Figma paints its 1px stroke inside the 40px frame.
+    padding-block: calc(var(--cods-space-xs) - 1px);
+    padding-inline: calc(var(--cods-space-xs) - 1px)
+      calc(var(--cods-space-xl) + var(--cods-space-xs) - 1px);
+    background-position: right var(--cods-space-xs) center;
     font: inherit;
     text-overflow: ellipsis;
   }
@@ -70,7 +77,7 @@ $caret-path: './icons/caret-down--1b1b1b.svg';
   }
 
   .cods-select__control:disabled {
-    border-color: var(--cods-color-border-form-subtle);
+    border-color: transparent;
     background-color: var(--cods-color-bg-disabled);
     color: var(--cods-color-text-disabled);
     cursor: not-allowed;
@@ -78,10 +85,11 @@ $caret-path: './icons/caret-down--1b1b1b.svg';
   }
 
   .cods-select__control:focus-visible {
-    outline: var(--cods-focus-ring-width) solid
-      var(--cods-color-bg-action-focus);
+    outline: var(--cods-focus-ring-offset) solid transparent;
     outline-offset: var(--cods-focus-ring-offset);
-    box-shadow: 0 0 0 var(--cods-focus-ring-offset) var(--cods-color-focus-gap);
+    box-shadow:
+      0 0 0 var(--cods-focus-ring-offset) var(--cods-color-focus-gap),
+      0 0 0 var(--cods-space-2xs) var(--cods-color-bg-action-focus);
   }
 
   .cods-select__control:dir(rtl) {

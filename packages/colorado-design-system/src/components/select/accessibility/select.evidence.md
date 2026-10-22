@@ -111,3 +111,21 @@ is claimed.
 - CDS-58: human screen-reader review with recorded browser/AT versions and observed announcements.
 - CDS-58: native popup arrow/open/close review on supported OS/browser combinations; actual 400% zoom; Windows high contrast; long-option readability and translated-content review.
 - CDS-58: design review and accessibility-owner sign-off. Experimental maturity is retained; this file does not grant stable or gate approval.
+
+## Follow-up review — 2026-10-21
+
+Figma default/focus/disabled nodes 718:2821, 718:2853 and 718:2952 were
+inspected. Labels now use the existing 16px/16px semibold UI roles. The
+label-only pattern has a 12px field gap. A 1px border plus 7px block padding
+and a 24px line produces the requested 40px outer height; disabled controls
+retain transparent border space to avoid shifting. Focus now matches the
+2px white gap and 2px blue band. Native popup and keyboard behavior remain
+unchanged. Metadata ownership follows CDS-58. The docs Getting Started link
+now preserves deployment prefixes through a sibling-relative URL.
+
+147 unit tests and 19 browser checks passed across Chromium, Firefox, WebKit,
+and Storybook Chromium, including measured field height, label typography,
+native keyboard/selection, real caret assets, no CSS/JavaScript and forced
+colors. Workspace, Astro/Storybook validation, token drift, builds, format,
+lint, type checks, fixture/static output checks passed. Tests routed built files
+without starting servers. Human and design acceptance remain open.

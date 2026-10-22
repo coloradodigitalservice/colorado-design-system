@@ -27,7 +27,10 @@ test('Storybook Select uses the canonical fixture and native input', async ({
   await control.selectOption('denver');
   await expect(control).toHaveValue('denver');
   await control.focus();
-  await expect(control).toHaveCSS('outline-color', 'rgb(23, 59, 179)');
+  await expect(control).toHaveCSS(
+    'box-shadow',
+    'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(23, 59, 179) 0px 0px 0px 4px',
+  );
   await expectAccessible(page, testInfo, '#storybook-root');
   await page.evaluate(() => document.fonts.ready);
   await testInfo.attach('select-all-states', {
