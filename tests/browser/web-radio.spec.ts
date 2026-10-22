@@ -223,7 +223,13 @@ test('Figma radio geometry and tile labels preserve native group selection', asy
   await expect(page.locator('#radio-tile-post')).toBeChecked();
   await expect(page.locator('#radio-tile-email')).not.toBeChecked();
   await expect(tile).toHaveCSS('background-color', 'rgb(217, 232, 246)');
+  await page.keyboard.press('Tab');
   await page.locator('#radio-tile-post').focus();
+  await page.keyboard.press('Space');
+  await expect(tile).toHaveCSS(
+    'box-shadow',
+    'rgb(196, 197, 201) 0px 0px 0px 2px inset, rgb(255, 255, 255) 0px 0px 0px 2px, rgb(23, 59, 179) 0px 0px 0px 4px',
+  );
   await page.keyboard.press('ArrowUp');
   await expect(page.locator('#radio-tile-email')).toBeChecked();
   await expect(page.locator('#radio-tile-phone')).toBeDisabled();

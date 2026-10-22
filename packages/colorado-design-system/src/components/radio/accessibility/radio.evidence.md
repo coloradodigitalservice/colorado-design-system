@@ -86,3 +86,9 @@ hover, tile geometry, group exclusivity, disabled options, no CSS/JavaScript,
 forced colors, RTL and reflow. Workspace, Astro/Storybook validation, tokens,
 builds, formatting, lint, type checks, fixture/static output checks passed.
 Tests routed built files without servers. Human and design approval remain open.
+
+The final focus review also checked the Figma card/tile focus frame (659:3313
+for Checkbox; 4060:1294 for Radio). The subtle inset border and outer focus ring
+now remain visible when the pointer stays over the focused card. The hover rule
+excludes keyboard-focused inputs so it cannot suppress that indicator; the
+regression asserts the combined border, white gap and blue band.

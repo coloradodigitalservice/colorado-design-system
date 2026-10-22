@@ -119,7 +119,7 @@
       var(--cods-radio-selected);
   }
 
-  .cods-radio--tile:hover:has(.cods-radio__input:not(:disabled))
+  .cods-radio--tile:hover:has(.cods-radio__input:not(:disabled, :focus-visible))
     .cods-radio__label {
     box-shadow: inset 0 0 0 var(--cods-focus-ring-offset)
       var(--cods-color-border-form-hover);
@@ -130,7 +130,7 @@
     outline-offset: var(--cods-focus-ring-offset);
     box-shadow:
       inset 0 0 0 var(--cods-focus-ring-offset)
-        var(--cods-color-border-form-default),
+        var(--cods-color-border-form-subtle),
       0 0 0 var(--cods-focus-ring-offset) var(--cods-color-focus-gap),
       0 0 0 var(--cods-space-2xs) var(--cods-color-bg-action-focus);
   }
