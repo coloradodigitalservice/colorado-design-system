@@ -213,5 +213,11 @@ test('Figma control geometry, label gap and card selection remain native', async
   await page.locator('#checkbox-card').focus();
   await page.keyboard.press('Space');
   await expect(page.locator('#checkbox-card')).not.toBeChecked();
+  await page.keyboard.press('Tab');
+  await page.locator('#checkbox-card').focus();
+  await expect(card).toHaveCSS(
+    'box-shadow',
+    'rgb(196, 197, 201) 0px 0px 0px 2px inset, rgb(255, 255, 255) 0px 0px 0px 2px, rgb(23, 59, 179) 0px 0px 0px 4px',
+  );
   await expect(page.locator('#checkbox-card-disabled')).toBeDisabled();
 });

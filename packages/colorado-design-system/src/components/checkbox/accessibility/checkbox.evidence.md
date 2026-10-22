@@ -90,3 +90,9 @@ validation, token drift, builds, lint, type checks, fixture/static output checks
 passed. Formatting passed excluding the pre-existing unrelated AGENTS.md change,
 which remains untouched. Tests used built-file routing without servers. Human
 and design acceptance remain open.
+
+The final focus review also checked the Figma card/tile focus frame (659:3313
+for Checkbox; 4060:1294 for Radio). The subtle inset border and outer focus ring
+now remain visible when the pointer stays over the focused card. The hover rule
+excludes keyboard-focused inputs so it cannot suppress that indicator; the
+regression asserts the combined border, white gap and blue band.
