@@ -535,14 +535,98 @@
       "name": "In-Page Alert",
       "source": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=2769-6573&p=f&m=dev",
       "tokens": [
+        "color.bg-action-focus",
         "color.bg-alert-info",
         "color.bg-alert-urgent",
         "color.bg-alert-warning",
+        "color.bg-page-surface-green",
         "color.border-alert-info",
         "color.border-alert-urgent",
         "color.border-alert-warning",
+        "color.focus-gap",
         "color.icon-default",
+        "color.state-success",
+        "color.text-action-link",
+        "color.text-action-link-active",
+        "color.text-action-link-hover",
+        "color.text-action-link-visited",
         "color.text-primary",
+        "focus.ring-offset",
+        "focus.ring-width",
+        "font.family-body",
+        "font.family-desktop-h5",
+        "font.size-desktop-body",
+        "font.size-desktop-h5",
+        "font.weight-desktop-h5",
+        "font.weight-regular",
+        "font.weight-semibold",
+        "line-height.desktop-body",
+        "line-height.desktop-h5",
+        "paragraph-space.desktop-body",
+        "space.lg",
+        "space.md",
+        "space.sm",
+        "space.xs",
+        "space.xl"
+      ],
+      "componentTokens": [],
+      "unresolvedRoles": [],
+      "directPaletteReferences": [],
+      "foundationBindings": {
+        "stackSpacing:space.sm": ["space.sm"],
+        "stackHorizontalPadding:space.sm": ["space.sm"],
+        "stackVerticalPadding:space.md": ["space.md"],
+        "stackPaddingRight:space.md": ["space.md"],
+        "stackPaddingBottom:space.md": ["space.md"],
+        "stackSpacing:space.xs": ["space.xs"],
+        "fontName.family:font.family-body": ["font.family-body"],
+        "fontName.style:font.weight-semibold": ["font.weight-semibold"],
+        "fontSize:font.size-desktop-h5": ["font.size-desktop-h5"],
+        "lineHeight:line-height.desktop-h5": ["line-height.desktop-h5"],
+        "fontName.style:font.weight-regular": ["font.weight-regular"],
+        "fontSize:font.size-desktop-body": ["font.size-desktop-body"],
+        "lineHeight:line-height.desktop-body": ["line-height.desktop-body"],
+        "paragraphSpacing:paragraph-space.desktop-body": [
+          "paragraph-space.desktop-body"
+        ],
+        "stackVerticalPadding:space.xs": ["space.xs"],
+        "stackPaddingRight:space.sm": ["space.sm"],
+        "stackPaddingBottom:space.xs": ["space.xs"]
+      },
+      "mappingStatus": "Measured source properties mapped only when the reviewed catalog value matches; design acceptance pending.",
+      "implementationTokens": [
+        "color.bg-action-focus",
+        "color.bg-alert-info",
+        "color.bg-alert-urgent",
+        "color.bg-alert-warning",
+        "color.bg-page-surface-green",
+        "color.border-alert-info",
+        "color.border-alert-urgent",
+        "color.border-alert-warning",
+        "color.focus-gap",
+        "color.state-success",
+        "color.text-action-link",
+        "color.text-action-link-active",
+        "color.text-action-link-hover",
+        "color.text-action-link-visited",
+        "color.text-primary",
+        "focus.ring-offset",
+        "focus.ring-width",
+        "font.family-body",
+        "font.family-desktop-h5",
+        "font.size-desktop-body",
+        "font.size-desktop-h5",
+        "font.weight-desktop-h5",
+        "line-height.desktop-body",
+        "line-height.desktop-h5",
+        "space.lg",
+        "space.md",
+        "space.sm",
+        "space.xs",
+        "space.xl"
+      ],
+      "foundationNotes": "Mappings identify measured properties, not implementation requirements. Explicit mode is recorded in source bindings; unbound typography uses Desktop only when its full signature matches. Unmapped values and inherited library styles need design review. Git implementation dependencies remain independently recorded.",
+      "foundationTokens": [
         "font.family-body",
         "font.size-desktop-body",
         "font.size-desktop-h5",
@@ -555,9 +639,217 @@
         "space.sm",
         "space.xs"
       ],
-      "componentTokens": [],
-      "implementationTokens": [],
-      "designCoverage": "documented"
+      "pageObservedRoles": [
+        "border/error/accent",
+        "border/info/accent",
+        "border/warning/accent",
+        "icon/default",
+        "surface/error/subtle",
+        "surface/info/subtle",
+        "surface/warning/subtle",
+        "text/action/link-inline",
+        "text/default",
+        "text/secondary"
+      ],
+      "foundationMeasurements": [
+        {
+          "binding": "stackSpacing:space.sm",
+          "token": "space.sm",
+          "value": {
+            "value": 12,
+            "unit": "px"
+          },
+          "measurement": 2,
+          "property": "stackSpacing",
+          "occurrenceCount": 3
+        },
+        {
+          "binding": "stackHorizontalPadding:space.sm",
+          "token": "space.sm",
+          "value": {
+            "value": 12,
+            "unit": "px"
+          },
+          "measurement": 2,
+          "property": "stackHorizontalPadding",
+          "occurrenceCount": 3
+        },
+        {
+          "binding": "stackVerticalPadding:space.md",
+          "token": "space.md",
+          "value": {
+            "value": 16,
+            "unit": "px"
+          },
+          "measurement": 2,
+          "property": "stackVerticalPadding",
+          "occurrenceCount": 1
+        },
+        {
+          "binding": "stackPaddingRight:space.md",
+          "token": "space.md",
+          "value": {
+            "value": 16,
+            "unit": "px"
+          },
+          "measurement": 2,
+          "property": "stackPaddingRight",
+          "occurrenceCount": 1
+        },
+        {
+          "binding": "stackPaddingBottom:space.md",
+          "token": "space.md",
+          "value": {
+            "value": 16,
+            "unit": "px"
+          },
+          "measurement": 2,
+          "property": "stackPaddingBottom",
+          "occurrenceCount": 1
+        },
+        {
+          "binding": "stackSpacing:space.xs",
+          "token": "space.xs",
+          "value": {
+            "value": 8,
+            "unit": "px"
+          },
+          "measurement": 5,
+          "property": "stackSpacing",
+          "occurrenceCount": 1
+        },
+        {
+          "binding": "fontName.family:font.family-body",
+          "token": "font.family-body",
+          "value": "Open Sans",
+          "measurement": 6,
+          "property": "fontName.family",
+          "occurrenceCount": 2
+        },
+        {
+          "binding": "fontName.style:font.weight-semibold",
+          "token": "font.weight-semibold",
+          "value": 600,
+          "measurement": 6,
+          "property": "fontName.style",
+          "occurrenceCount": 1
+        },
+        {
+          "binding": "fontSize:font.size-desktop-h5",
+          "token": "font.size-desktop-h5",
+          "value": {
+            "value": 22,
+            "unit": "px"
+          },
+          "measurement": 6,
+          "property": "fontSize",
+          "occurrenceCount": 1
+        },
+        {
+          "binding": "lineHeight:line-height.desktop-h5",
+          "token": "line-height.desktop-h5",
+          "value": {
+            "value": 28,
+            "unit": "px"
+          },
+          "measurement": 6,
+          "property": "lineHeight",
+          "occurrenceCount": 1
+        },
+        {
+          "binding": "fontName.style:font.weight-regular",
+          "token": "font.weight-regular",
+          "value": 400,
+          "measurement": 7,
+          "property": "fontName.style",
+          "occurrenceCount": 1
+        },
+        {
+          "binding": "fontSize:font.size-desktop-body",
+          "token": "font.size-desktop-body",
+          "value": {
+            "value": 16,
+            "unit": "px"
+          },
+          "measurement": 7,
+          "property": "fontSize",
+          "occurrenceCount": 1
+        },
+        {
+          "binding": "lineHeight:line-height.desktop-body",
+          "token": "line-height.desktop-body",
+          "value": {
+            "value": 24,
+            "unit": "px"
+          },
+          "measurement": 7,
+          "property": "lineHeight",
+          "occurrenceCount": 1
+        },
+        {
+          "binding": "paragraphSpacing:paragraph-space.desktop-body",
+          "token": "paragraph-space.desktop-body",
+          "value": {
+            "value": 16,
+            "unit": "px"
+          },
+          "measurement": 7,
+          "property": "paragraphSpacing",
+          "occurrenceCount": 1
+        },
+        {
+          "binding": "stackVerticalPadding:space.xs",
+          "token": "space.xs",
+          "value": {
+            "value": 8,
+            "unit": "px"
+          },
+          "measurement": 13,
+          "property": "stackVerticalPadding",
+          "occurrenceCount": 2
+        },
+        {
+          "binding": "stackPaddingRight:space.sm",
+          "token": "space.sm",
+          "value": {
+            "value": 12,
+            "unit": "px"
+          },
+          "measurement": 13,
+          "property": "stackPaddingRight",
+          "occurrenceCount": 2
+        },
+        {
+          "binding": "stackPaddingBottom:space.xs",
+          "token": "space.xs",
+          "value": {
+            "value": 8,
+            "unit": "px"
+          },
+          "measurement": 13,
+          "property": "stackPaddingBottom",
+          "occurrenceCount": 2
+        }
+      ],
+      "unmappedMeasurements": [
+        {
+          "measurement": 6,
+          "property": "paragraphSpacing",
+          "observed": {
+            "value": 24,
+            "unit": "px"
+          },
+          "candidateToken": "paragraph-space.desktop-h5",
+          "catalogValue": {
+            "value": 22,
+            "unit": "px"
+          },
+          "reason": "Source differs from reviewed Git value"
+        }
+      ],
+      "measurementEvidence": "figma-variants-observed-2026-10-08.json",
+      "designCoverage": "measured",
+      "implementationDirectory": "in-page-alert"
     },
     {
       "name": "In-Page Navigation",
