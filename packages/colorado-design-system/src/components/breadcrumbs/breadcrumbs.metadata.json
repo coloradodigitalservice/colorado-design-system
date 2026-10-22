@@ -1,0 +1,67 @@
+{
+  "name": "breadcrumbs",
+  "displayName": "Breadcrumbs",
+  "maturity": "experimental",
+  "type": "static",
+  "uswdsEquivalent": "breadcrumb",
+  "uswdsVersion": "3.14.0",
+  "componentType": "A",
+  "owners": {
+    "responsible": "Aten component engineer",
+    "accountable": "Aten technical lead",
+    "consulted": "State design owner, accessibility lead",
+    "informed": "State product owner"
+  },
+  "divergenceApproved": false,
+  "divergenceNotes": null,
+  "states": [
+    "default",
+    "long-content",
+    "single-level",
+    "localization",
+    "rtl",
+    "focus-visible",
+    "inverse"
+  ],
+  "progressiveEnhancement": "full",
+  "localization": "layout-sensitive",
+  "description": "A static ordered trail of ancestor links ending in the non-linked current page; wraps without hiding links at narrow widths.",
+  "examples": [
+    {
+      "state": "default",
+      "fixtureState": "default",
+      "setup": "none"
+    },
+    {
+      "state": "long-content",
+      "fixtureState": "long-content",
+      "setup": "none"
+    },
+    {
+      "state": "single-level",
+      "fixtureState": "single-level",
+      "setup": "none"
+    },
+    {
+      "state": "localization",
+      "fixtureState": "localization",
+      "setup": "none"
+    },
+    {
+      "state": "rtl",
+      "fixtureState": "rtl",
+      "setup": "none"
+    },
+    {
+      "state": "focus-visible",
+      "fixtureState": "focus-visible",
+      "setup": "focus",
+      "instructions": "Tab through the ancestor links and verify a visible focus ring."
+    },
+    {
+      "state": "inverse",
+      "fixtureState": "inverse",
+      "setup": "none"
+    }
+  ]
+}
