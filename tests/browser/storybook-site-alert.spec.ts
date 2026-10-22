@@ -21,7 +21,7 @@ test('package and Storybook preserve the canonical fixture and token styles', as
   ).toBe(fixture);
   await page.goto(story);
   const root = page.locator('#storybook-root');
-  await expect(root.locator('.cods-site-alert')).toHaveCount(9);
+  await expect(root.locator('.cods-site-alert')).toHaveCount(11);
   const equivalent = await root.evaluate((element, html) => {
     const template = document.createElement('template');
     template.innerHTML = html;
@@ -45,15 +45,12 @@ test('package and Storybook preserve the canonical fixture and token styles', as
     'background-color',
     'rgb(217, 232, 246)',
   );
-  await expect(defaultSurface).toHaveCSS(
-    'border-top-color',
-    'rgb(37, 81, 163)',
-  );
+  await expect(defaultSurface).toHaveCSS('border-top-width', '0px');
   await expect(
     root
       .locator('.cods-site-alert--emergency .cods-site-alert__surface')
       .first(),
-  ).toHaveCSS('border-top-color', 'rgb(181, 9, 9)');
+  ).toHaveCSS('border-top-width', '0px');
   await expect(root.locator('.cods-site-alert__body').first()).toHaveCSS(
     'background-color',
     'rgb(217, 232, 246)',
@@ -89,7 +86,7 @@ test('320px reflow, localization, reduced motion, and forced colors', async ({
   await page.setViewportSize({ width: 320, height: 800 });
   await page.emulateMedia({ reducedMotion: 'reduce', forcedColors: 'active' });
   await page.goto(story);
-  await expect(page.locator('.cods-site-alert')).toHaveCount(9);
+  await expect(page.locator('.cods-site-alert')).toHaveCount(11);
   for (const alert of await page.locator('.cods-site-alert').all()) {
     await expect(alert).toBeVisible();
     expect(
@@ -147,7 +144,7 @@ test('all fixture landmarks have distinct accessible names', async ({
   page,
 }, testInfo) => {
   await page.goto(story);
-  await expect(page.locator('.cods-site-alert')).toHaveCount(9);
+  await expect(page.locator('.cods-site-alert')).toHaveCount(11);
   // This best-practice rule is not covered by the shared WCAG tag filter.
   const results = await new AxeBuilder({ page })
     .include('#storybook-root')
@@ -230,7 +227,7 @@ test('severity icons load from the shipped package and banner fills its containe
   await page.goto(story);
   for (const [state, icon, background] of [
     ['informational', 'info.svg', 'rgb(217, 232, 246)'],
-    ['emergency', 'x-circle.svg', 'rgb(181, 9, 9)'],
+    ['emergency', 'warning.svg', 'rgb(181, 9, 9)'],
   ] as const) {
     const alert = page.locator(
       `[data-cods-fixture-state="${state}"] .cods-site-alert`,

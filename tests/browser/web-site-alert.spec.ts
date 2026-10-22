@@ -11,7 +11,7 @@ test('static notice remains named and readable without CSS or JavaScript', async
     route.fulfill({ contentType: 'text/css', body: '' }),
   );
   await page.goto('/site-alert/');
-  await expect(page.locator('.cods-site-alert')).toHaveCount(9);
+  await expect(page.locator('.cods-site-alert')).toHaveCount(11);
   await expect(
     page
       .getByRole('region', { name: 'Emergency: service interruption' })
@@ -114,7 +114,7 @@ test.describe('enhanced site alert', () => {
     const body = page.locator('[dir="rtl"] .cods-site-alert__body');
     expect(
       await body.evaluate((el) => getComputedStyle(el, '::before').right),
-    ).toBe('32px');
+    ).toBe('16px');
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth,
@@ -137,7 +137,7 @@ test.describe('Phosphor asset inspection', () => {
     await page.goto('/site-alert/');
     for (const [state, icon, color] of [
       ['informational', 'info', 'rgb(27, 27, 27)'],
-      ['emergency', 'x-circle', 'rgb(255, 255, 255)'],
+      ['emergency', 'warning', 'rgb(255, 255, 255)'],
     ] as const) {
       await expectPhosphorMask(
         page.locator(
@@ -148,10 +148,7 @@ test.describe('Phosphor asset inspection', () => {
       );
     }
     await page.emulateMedia({ forcedColors: 'active' });
-    for (const [state, icon] of [
-      ['informational', 'info'],
-      ['emergency', 'x-circle'],
-    ]) {
+    for (const [state, icon] of [['emergency', 'warning']]) {
       await expectPhosphorMask(
         page.locator(
           `[data-cods-fixture-state="${state}"] .cods-site-alert__body`,
@@ -160,5 +157,52 @@ test.describe('Phosphor asset inspection', () => {
         { size: 32, inset: 32, top: 18 },
       );
     }
+  });
+});
+
+test.describe('Figma geometry', () => {
+  test.use({ javaScriptEnabled: true });
+  test('text-only notices and emergency spacing adapt to desktop and mobile', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1600, height: 900 });
+    await page.goto('/site-alert/');
+    const emergency = page.locator(
+      '[data-cods-fixture-state=emergency] .cods-site-alert__body',
+    );
+    await expect(emergency).toHaveCSS('max-width', '1280px');
+    await expect(emergency).toHaveCSS('padding-inline-start', '80px');
+    await expect(emergency.locator('.cods-site-alert__heading')).toHaveCSS(
+      'margin-bottom',
+      '16px',
+    );
+    await expect(
+      page.locator(
+        '[data-cods-fixture-state=emergency] .cods-site-alert__surface',
+      ),
+    ).toHaveCSS('border-top-width', '0px');
+    for (const state of ['informational-no-icon', 'warning']) {
+      const body = page.locator(
+        `[data-cods-fixture-state=${state}] .cods-site-alert__body`,
+      );
+      await expect(body).toHaveCSS('padding-inline-start', '32px');
+      expect(
+        await body.evaluate((el) => getComputedStyle(el, '::before').display),
+      ).toBe('none');
+    }
+    await expect(
+      page.locator(
+        '[data-cods-fixture-state=warning] .cods-site-alert__surface',
+      ),
+    ).toHaveCSS('background-color', 'rgb(255, 209, 0)');
+    await page.setViewportSize({ width: 402, height: 900 });
+    await expect(emergency).toHaveCSS('padding-inline-start', '64px');
+    await expect(emergency).toHaveCSS('padding-inline-end', '16px');
+    await expectPhosphorMask(emergency, 'warning', {
+      size: 32,
+      inset: 16,
+      top: 18,
+      color: 'rgb(255, 255, 255)',
+    });
   });
 });

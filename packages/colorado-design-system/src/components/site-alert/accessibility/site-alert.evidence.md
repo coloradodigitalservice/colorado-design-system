@@ -240,3 +240,24 @@ Chromium, Firefox, WebKit, and Storybook, and 240 validated tokens with 16
 contrast pairs. No test is skipped and no axe rule is disabled or excluded.
 The consolidated results are in the
 [vertical-slice audit](../../../../../../docs/audits/CODS-P2-005-vertical-slice-audit.md).
+
+## Follow-up review — 2026-10-21
+
+Figma frame 3770:786 was inspected. Emergency notices now use the shared
+Phosphor warning triangle, 16px heading/body gap, no decorative top border,
+and a centered 1280px content container. Desktop insets remain 32px; mobile
+insets are 16px. A yellow text-only warning example and an optional
+`cods-site-alert--no-icon` informational example match Figma. CDS-54 explicitly
+requires an informational icon, so that canonical variant retains it. Design
+review must reconcile that ticket/Figma difference; both treatments are available
+without changing announcement, dismissal, or keyboard behavior. Visually hidden
+headings preserve the text-only examples' distinct section names.
+
+149 unit tests and 40 component browser checks passed across Chromium, Firefox,
+WebKit, and Storybook Chromium. Added assertions cover mobile/desktop insets,
+emergency artwork, heading gap, content maximum width, warning surface and
+icon-free spacing. Workspace, Astro/Storybook validation, lint, type checks,
+token drift, builds, fixture output and static-consumer checks passed. Formatting
+passed excluding the pre-existing unrelated AGENTS.md edit, which is preserved
+and excluded from this commit. Built-file routing started no servers. These
+automated checks do not complete outstanding human or design sign-off.

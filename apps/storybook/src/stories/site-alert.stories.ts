@@ -64,3 +64,9 @@ export const PagePlacement: Story = {
       <main id="site-alert-demo-main" tabindex="-1"><h1>Example service</h1><p>Page content follows the sitewide notice and header.</p></main>`;
   },
 };
+
+export const Warning: Story = { render: () => renderState('warning') };
+
+export const InformationalNoIcon: Story = {
+  render: () => renderState('informational-no-icon'),
+};

@@ -16,9 +16,9 @@ alert per page. Multiple-alert stacking and cross-page dismissal persistence
 are outside this component's scope.
 
 Informational notices use the shared Phosphor Regular `info` icon and pale blue
-surface. Emergency notices use `x-circle` and a bold red surface with white text.
+surface. Emergency notices use `warning` and a bold red surface with white text.
 USWDS supplies the alert structure; the CoDS pipeline supplies the decorative SVG
-masks in the existing 32px icon boxes. Write an explicit
+masks in 32px icon boxes. Warning notices use a yellow surface without an icon. Write a clear
 “Information” or “Emergency” heading so severity remains understandable without
 color or icons. Use specific service copy and useful action links.
 
@@ -164,7 +164,26 @@ colors, retaining both severity wording and the decorative icons.
 
 Exact current Figma alignment remains a design review item: both connected
 accounts were blocked during this task. Repository measurements informed the
-32px icon and inset, 16px icon gap, 18px vertical padding, and H5 heading. State
+32px emergency icon and desktop inset, 16px icon gap, 18px vertical padding,
+and H5 emergency heading with a 16px text gap. Mobile insets are 16px;
+content is centered within a 1280px container. An optional `cods-site-alert--no-icon` modifier supplies Figma’s text-only
+informational treatment. Warning notices are text-only; no variant has a top border. State
 design, content, and accessibility owners must review the final examples.
 
 ## More examples
+
+### Figma follow-up (2026-10-21)
+
+The Site Alert frame (3770:786) includes informational, warning and emergency
+variants. The warning example and responsive spacing now follow that frame.
+Emergency artwork uses the shared Phosphor `warning` triangle. The ticket
+requires an informational icon, while Figma shows text-only information. Both
+are supported: the canonical informational example retains its required icon;
+`cods-site-alert--no-icon` removes it and its reserved space. The text-only
+examples retain named sections through visually hidden headings. This ticket/Figma
+difference still requires design-owner reconciliation; neither source is silently
+redefined. Optional dismissal
+continues to use the ticket's accessible text button and explicit focus target;
+Figma does not define a dismissal control. Keep notices short, use plain language,
+and remove expired notices. Avoid stacking notices and generic labels such as
+“Important” or “Note.”

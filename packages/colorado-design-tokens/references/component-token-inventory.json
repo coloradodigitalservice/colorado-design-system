@@ -857,7 +857,8 @@
         "space.2xs",
         "space.md",
         "space.xl",
-        "space.xs"
+        "space.xs",
+        "color.surface-warning-bold"
       ],
       "designCoverage": "documented"
     },

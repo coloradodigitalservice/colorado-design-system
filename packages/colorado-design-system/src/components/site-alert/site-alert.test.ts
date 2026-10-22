@@ -23,7 +23,7 @@ afterEach(() => {
 
 describe('optional site alert dismissal', () => {
   it('keeps both variants readable and enhancement buttons hidden without JavaScript', () => {
-    expect(roots()).toHaveLength(9);
+    expect(roots()).toHaveLength(11);
     expect(roots().every((root) => !root.hidden)).toBe(true);
     expect(
       [...document.querySelectorAll('button')].every((button) => button.hidden),
