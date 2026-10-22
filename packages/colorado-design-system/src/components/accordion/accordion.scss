@@ -22,8 +22,12 @@ $caret-up-path: './icons/caret-up.svg';
 
   .cods-accordion__heading {
     margin: 0;
-    margin-block-start: var(--cods-space-md, tokens.$space-md);
+    margin-block-start: var(--cods-space-sm, tokens.$space-sm);
     font-size: inherit;
+  }
+
+  .cods-accordion__heading:first-child {
+    margin-block-start: 0;
   }
 
   .cods-accordion__trigger {

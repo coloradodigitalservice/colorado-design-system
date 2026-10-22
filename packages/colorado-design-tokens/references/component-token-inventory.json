@@ -214,7 +214,8 @@
         "line-height.desktop-h6",
         "radius.md",
         "space.lg",
-        "space.md"
+        "space.md",
+        "space.sm"
       ],
       "designCoverage": "documented"
     },

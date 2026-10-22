@@ -307,3 +307,18 @@ test('focused trigger uses the system highlight in forced colors', async ({
 test.beforeEach(async ({ page }) => {
   if (process.env.CODS_BUILT_FILES === '1') await routeBuiltFiles(page, 'web');
 });
+
+test('accordion items keep the Figma 12px separation with no leading gap', async ({
+  page,
+}) => {
+  await page.goto('/accordion/');
+  const root = page.locator(
+    '[data-cods-fixture-state=default] [data-cods-accordion]',
+  );
+  await expect(root).toHaveAttribute('data-cods-accordion-enhanced', '');
+  const headings = root.locator(':scope > .cods-accordion__heading');
+  await expect(headings.first()).toHaveCSS('margin-block-start', '0px');
+  for (const heading of (await headings.all()).slice(1)) {
+    await expect(heading).toHaveCSS('margin-block-start', '12px');
+  }
+});

@@ -192,3 +192,16 @@ Browser tests attach expanded-focus, collapsed-focus, narrow forced-colors, and 
 - Controller and fixture review by the technical lead; accessibility lead acceptance; G2 sign-off and ticket evidence attachment.
 
 Keep maturity experimental. Implementation and automated results prepare G2 evidence; they do not constitute G2 approval.
+
+## Follow-up review — 2026-10-21
+
+Figma page 1387:254, bordered item 1447:263, and the list instance positions
+were inspected. The list places each successive header 12px after the previous
+item, with no leading margin. The stylesheet now uses `space.sm` for that gap
+and zero margin on the first heading. Existing 56px triggers, panel padding,
+inside strokes, chevrons, focus geometry, and controller behavior are preserved.
+148 unit tests and 44 browser checks passed across Chromium, Firefox, WebKit
+and Storybook Chromium; a new regression asserts first/subsequent heading
+spacing. Workspace, Astro/Storybook validation, token drift, format, lint, type
+checks, builds, fixture output and static consumer checks passed. Browser tests
+used built-file routing without servers. Human and design approval remain open.
