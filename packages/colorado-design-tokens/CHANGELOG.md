@@ -4,8 +4,8 @@
 
 ### Patch Changes
 
-- 5557d0b: Support component CSS masks that reference approved generated Phosphor icon files, with missing-asset validation. Reconcile the shared Icon foundation's token dependencies separately from the approved 28-component inventory and retain both the expanded catalog and icon contrast coverage.
-- 5557d0b: Expand the token catalog with observed semantic roles, translucent border/shadow primitives, mobile typography, spacing and elevation values, and limited Tag/Modal/Toast aliases. Preserve existing public values and document Figma conflicts, the 28-component dependency inventory, responsive mode selection, migration guidance, and contrast review issues.
+- 6205f04: Support component CSS masks that reference approved generated Phosphor icon files, with missing-asset validation. Reconcile the shared Icon foundation's token dependencies separately from the approved 28-component inventory and retain both the expanded catalog and icon contrast coverage.
+- 6205f04: Expand the token catalog with observed semantic roles, translucent border/shadow primitives, mobile typography, spacing and elevation values, and limited Tag/Modal/Toast aliases. Preserve existing public values and document Figma conflicts, the 28-component dependency inventory, responsive mode selection, migration guidance, and contrast review issues.
 
   Preserve shared default-text customization for gray/yellow tags. Document component token dependencies and current component stylesheet dependencies, and reject unknown catalog paths or undocumented dependencies during token validation. Git token sources are authoritative; Figma export measurements are not validation inputs.
 
