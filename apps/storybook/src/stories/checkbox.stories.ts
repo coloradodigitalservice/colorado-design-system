@@ -41,3 +41,11 @@ export const FocusVisible: Story = {
   },
 };
 export const WithoutJavaScript: Story = { play: () => {} };
+
+export const Card: Story = { render: () => state('card') };
+
+export const CardChecked: Story = { render: () => state('card-checked') };
+
+export const CardDisabled: Story = {
+  render: () => state('card-disabled'),
+};

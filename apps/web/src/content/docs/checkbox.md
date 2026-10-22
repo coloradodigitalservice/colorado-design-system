@@ -49,7 +49,10 @@ Single, grouped, checked, disabled, and invalid controls remain functional witho
 
 The public classes are `cods-checkbox`, `cods-checkbox__input`, `cods-checkbox__label`, `cods-checkbox__group`, `cods-checkbox__legend`, and `cods-checkbox__error`. Keep the corresponding `usa-*` integration classes. Public custom properties on the wrapper are `--cods-checkbox-background`, `--cods-checkbox-text`, `--cods-checkbox-border`, and `--cods-checkbox-selected`; their defaults reference semantic tokens. Preserve text, boundary, and focus contrast when overriding them. Check and mixed glyphs come from the shared Phosphor Regular pipeline in regular color modes. Selected controls use white `check`/`minus` artwork against the primary background; disabled selected controls use the shared dark variants against the light disabled background. Forced-colors mode displays the native input and hides the decorative glyph, so the browser supplies checked, mixed, disabled, and focus treatments.
 
-Labels use the measured regular body typography (16px/24px), rather than semibold UI text. Labels and errors wrap without a fixed height. Translate labels, legends, and errors; set the appropriate `lang` and `dir`. The Spanish, long-content, and Arabic RTL examples exercise these patterns. No animation is added. Card/tile styling and select-all behavior are not included.
+Labels use the measured regular body typography (16px/24px), rather than semibold UI text. Labels and errors wrap without a fixed height. Translate labels, legends, and errors; set the appropriate `lang` and `dir`. The Spanish, long-content, and Arabic RTL examples exercise these patterns. No animation is added. Use `cods-checkbox--card` on the wrapper for the Figma card treatment; the
+whole associated label remains clickable, selected cards use the existing form
+selected surface, and keyboard focus surrounds the card. Select-all behavior
+is not included.
 
 ## Accessibility review
 

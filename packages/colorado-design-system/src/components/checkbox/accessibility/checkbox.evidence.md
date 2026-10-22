@@ -71,3 +71,22 @@ Tracked under CDS-56 / CODS-P3-008:
 - Accessibility lead: human screen-reader observations for single/grouped/mixed/error/disabled states, actual 400% zoom, and Windows forced-colors verification.
 - Aten design lead / State design owner: visual acceptance of the standard checkbox treatment and focus/boundary contrast. P3-001 records unresolved design measurements; the implementation uses existing Git tokens and retains upstream glyph assets. Card/tile styling is not included.
 - Aten technical lead: review implementation and contract acceptance; stable sign-off remains with the State accessibility owner.
+
+## Follow-up review — 2026-10-21
+
+Figma nodes 639:10245, 659:3273, 659:3306, and 639:10195 were inspected.
+The visual control is now a 20px border box with a 2px radius and 2px border,
+matching Figma rather than expanding a 16px box with a shadow. Default rows
+have an 8px leading inset and 8px control/text gap; focus uses the observed
+2px white gap and 2px blue band. Card examples add full-label activation,
+selected surface and card focus without replacing the native input. Disabled
+checked/mixed artwork still uses the shared dark Phosphor variants, and forced
+colors still restores native controls.
+
+146 unit tests and 22 browser checks passed across Chromium, Firefox, WebKit
+and Storybook Chromium, including real glyph contrast on selected/disabled
+surfaces and card pointer/keyboard activation. Workspace, Astro/Storybook
+validation, token drift, builds, lint, type checks, fixture/static output checks
+passed. Formatting passed excluding the pre-existing unrelated AGENTS.md change,
+which remains untouched. Tests used built-file routing without servers. Human
+and design acceptance remain open.

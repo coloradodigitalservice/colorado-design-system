@@ -25,7 +25,10 @@
     "focus-visible",
     "long-content",
     "localization",
-    "rtl"
+    "rtl",
+    "card",
+    "card-checked",
+    "card-disabled"
   ],
   "progressiveEnhancement": "full",
   "localization": "layout-sensitive",
@@ -86,6 +89,21 @@
     {
       "state": "rtl",
       "fixtureState": "rtl",
+      "setup": "none"
+    },
+    {
+      "state": "card",
+      "fixtureState": "card",
+      "setup": "none"
+    },
+    {
+      "state": "card-checked",
+      "fixtureState": "card-checked",
+      "setup": "none"
+    },
+    {
+      "state": "card-disabled",
+      "fixtureState": "card-disabled",
       "setup": "none"
     }
   ]

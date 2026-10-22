@@ -301,7 +301,8 @@
         "space.lg",
         "space.md",
         "space.sm",
-        "space.xs"
+        "space.xs",
+        "color.focus-gap"
       ],
       "componentTokens": [],
       "unresolvedRoles": [],
@@ -358,7 +359,12 @@
         "space.2xs",
         "space.lg",
         "space.md",
-        "space.xs"
+        "space.xs",
+        "color.surface-form-selected",
+        "color.border-form-subtle",
+        "radius.md",
+        "space.sm",
+        "color.focus-gap"
       ],
       "foundationNotes": "Mappings identify measured properties, not implementation requirements. Explicit mode is recorded in source bindings; unbound typography uses Desktop only when its full signature matches. Unmapped values and inherited library styles need design review. Git implementation dependencies remain independently recorded.",
       "foundationTokens": [
