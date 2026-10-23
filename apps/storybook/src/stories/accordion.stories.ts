@@ -26,7 +26,9 @@ function state(name: string): string {
 
 export const AllStates: Story = {};
 export const Default: Story = { render: () => state('default') };
+export const Mixed: Story = { render: () => state('mixed') };
 export const Bordered: Story = { render: () => state('bordered') };
+export const White: Story = { render: () => state('white') };
 export const Multiple: Story = { render: () => state('multiple') };
 export const Disabled: Story = { render: () => state('disabled') };
 export const LongContent: Story = { render: () => state('long-content') };
@@ -43,22 +45,7 @@ export const FocusVisible: Story = {
 };
 export const WithoutJavaScript: Story = { play: () => {} };
 
-export const Expanded: Story = {
-  render: () => state('expanded'),
-  play: ({ canvasElement }) => {
-    initAllAccordions(canvasElement);
-    const root = canvasElement.querySelector<HTMLElement>(
-      '[data-cods-accordion]',
-    )!;
-    setAccordionExpanded(
-      root,
-      root
-        .querySelector<HTMLButtonElement>('button')!
-        .getAttribute('aria-controls')!,
-      true,
-    );
-  },
-};
+export const Expanded: Story = { render: () => state('expanded') };
 export const Collapsed: Story = {
   render: () => state('collapsed'),
   play: ({ canvasElement }) => {

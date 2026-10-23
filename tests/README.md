@@ -237,3 +237,11 @@ capture, and render an image without alt text in a real loaded page to check axe
 output. Confirm a nonzero exit and attachments, then remove the temporary spec.
 
 See [Foundation CI](../docs/CI.md) for job selection and artifacts.
+
+### Accordion verification without preview servers
+
+After `pnpm build`, run
+`pnpm exec playwright test --config config/playwright.accordion.ts` to verify
+the compiled Accordion documentation and Storybook stories through local request
+routing. This starts no preview server. Chromium, Firefox, and WebKit remain
+enabled; the normal `pnpm check` preview-based gate remains the full gate.
