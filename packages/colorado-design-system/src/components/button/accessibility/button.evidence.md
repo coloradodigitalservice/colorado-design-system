@@ -102,12 +102,12 @@ drift checks, static-consumer checks, and cross-surface example parity.
 
 The handwritten plus was replaced with the shared Phosphor Regular sprite after
 the user approved the visibly thinner rounded artwork as the closest shared
-match to the live Figma treatment. [The comparison and decision](button-icons.md)
+match to the live Figma treatment. [Icon sources and geometry](button-icons.md)
 record the geometry difference and source inspection. This does not establish
 design-owner or accessibility-owner sign-off; the existing human-review items
 remain open. The icon remains decorative, unfocusable, and named by its button.
 
-## Phil review follow-up — 2026-10-21
+## Variant coverage — 2026-10-21
 
 Added decorative start/end/both-icon label examples across Primary, Secondary,
 Danger and Medium/Slim, disabled icon-label examples, secondary icon-only,
