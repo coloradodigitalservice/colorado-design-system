@@ -56,11 +56,13 @@ const upstream = `https://designsystem.digital.gov/components/${metadata.uswdsEq
         <a href={evidence}>Evidence file</a>
       </dd>
     </div>
-    <div>
-      <dt>Figma</dt>
-      <dd>
-        {figma ? <a href={figma}>Design file</a> : 'Link not yet recorded'}
-      </dd>
-    </div>
+    {figma && (
+      <div>
+        <dt>Figma</dt>
+        <dd>
+          <a href={figma}>Design file</a>
+        </dd>
+      </div>
+    )}
   </dl>
 </section>

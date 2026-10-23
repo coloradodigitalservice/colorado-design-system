@@ -3,7 +3,6 @@ title: Link
 description: Native navigation links with inline, standalone, and external variants.
 navLabel: Link
 order: 50
-figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=828-3253&m=dev
 ---
 
 ## When to use
@@ -30,8 +29,7 @@ notice in their accessible name; icons alone do not supply that notice.
 ## Use the package
 
 Load the CSS as described in [Getting started](../getting-started/). Keep
-`usa-link cods-link` on enabled `<a href>` elements. The examples above use the
-shipped fixture and provide copyable HTML. Replace example text and destinations.
+`usa-link cods-link` on enabled `<a href>` elements. Copy the HTML examples above and replace their text and destinations.
 
 | Public class                            | Purpose                                      |
 | --------------------------------------- | -------------------------------------------- |
@@ -55,40 +53,32 @@ are required.
 The public property `--cods-link-rtl-transform` defaults to `none` on `.cods-link`
 and becomes `scaleX(-1)` with `.cods-link:dir(rtl)`. Only the navigation arrow
 consumes it. Native `:dir()` support is required, including `dir="auto"` and LTR
-overrides inside RTL content. Other icons do not mirror. Storybook preserves
-native selectors with `cssTarget: 'esnext'`.
+overrides inside RTL content. Other icons do not mirror.
 
-## Text and destinations
+## Link text
 
-Use descriptive text that makes sense alone. Follow Figma's wording:
-“Aim for 1–2 words; do not exceed 3–5 words.” Use sentence case, avoid unnecessary
-articles, and avoid “click here,” bare URLs or ambiguous repeated “read more”
-labels. Preserve essential file metadata. The long-content example is a stress
-test, not recommended production copy.
+Use short, descriptive text that identifies the destination. Aim for 1–2 words;
+do not exceed 3–5 words. Use sentence case and avoid “click here,” bare URLs or
+ambiguous “read more” labels. Include the file type and size when known for
+downloads, even when that makes the label longer.
 
-Prefer the current tab. For a required new tab, use `target="_blank"`,
-`rel="noopener noreferrer"`, a decorative external icon and localized text such
-as “(opens in a new tab).” An external destination alone does not require a new
-tab. The notice stays in the accessible name and becomes visible without CSS.
+Prefer opening links in the current tab. When a new tab is necessary, use
+`target="_blank"`, `rel="noopener noreferrer"` and a text notice such as
+“(opens in a new tab).” Include the notice in the accessible name and translate
+it along with the label. An external icon alone does not communicate this.
 
-Download labels name the file type and size when known. The canonical example
-saves the actual icon catalog (JSON, 47.3 KB) as `cods-icon-catalog.json` using
-`download`. Docs and Storybook resolve the package asset during build; consumers
-must deploy `icons/catalog.json` and adjust the relative fixture URL. The browser
-may restrict cross-origin downloads. The phone example uses a fictional number.
+For downloads, link to the file and add the `download` attribute. Use a
+same-origin file URL; browsers may restrict cross-origin downloads.
 
 ## States and accessibility
 
 Inline links stay underlined; standalone links gain an underline on hover.
-Default underlines are 2px, increasing to 4px on hover; Small uses 1px/3px.
-Inline offset is 2px; standalone hover offset is 3px. Active standalone links
-have no underline. Every size inherits leading from its surrounding content.
-Standalone visited links retain their default navy; inline visited links use
-the catalog's plum alias. Browser privacy prevents scripted visited-color checks.
+All sizes inherit line-height from the surrounding content. Inline visited
+links change color; standalone visited links retain their default color.
 
-Tab/Shift+Tab move through enabled links; Enter follows the destination.
-Keyboard focus uses a 2px white gap and 2px blue band with a 2px radius.
-Forced colors use system link, visited and focus colors. There is no animation.
+Tab and Shift+Tab move through enabled links; Enter follows the destination.
+Keyboard focus has a visible ring. Forced-colors mode uses system colors for
+links and focus. Decorative icons are hidden from assistive technology.
 
 ### Disabled links
 
@@ -105,14 +95,13 @@ semantics:
 `aria-disabled` alone does not prevent navigation. This static pattern has no
 destination or tab stop. Disabled inline links retain their default underline;
 standalone links have none, including hover/press. Text uses
-`--cods-color-text-disabled`, or `GrayText` in forced colors. Disabled text is
-contrast-exempt. Loading, error and empty states do not apply.
+`--cods-color-text-disabled`, or `GrayText` in forced colors.
 
 ## Known limitations and implementation status
 
-Link remains **experimental**. RTL mirroring requires native `:dir()` support.
-Human screen-reader, actual 400% zoom, Windows
-high-contrast and design/accessibility-owner sign-off remain open in the evidence
-file. Existing Spanish/Arabic translations are preserved pending language review;
-translate notices with the label. Review keyboard operation, descriptive names,
-wrapping, focus and translated content before using the component in a service.
+Link is **experimental**. Human screen-reader, 400% zoom, Windows high-contrast
+and language reviews remain incomplete. See the Evidence file in the Summary
+for current verification and outstanding checks.
+
+RTL arrow mirroring requires native `:dir()` support. Test keyboard navigation,
+focus, wrapping and translated content in your service before release.
