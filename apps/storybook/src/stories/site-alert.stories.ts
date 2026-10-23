@@ -1,3 +1,4 @@
+import { initAll } from '../../../../packages/colorado-design-system/src/components/site-alert/site-alert.js';
 import type { Meta, StoryObj } from '@storybook/html-vite';
 import examples from '@coloradodigitalservice/colorado-design-system/examples/site-alert.json';
 import metadata from '@coloradodigitalservice/colorado-design-system/metadata/site-alert.json';
@@ -12,6 +13,9 @@ function renderState(name: string): string {
 const meta = {
   title: 'Components/Site Alert',
   render: () => fixture,
+  play: ({ canvasElement }) => {
+    initAll(canvasElement);
+  },
   parameters: {
     componentMetadata: metadata,
     controls: { disable: true },
@@ -40,3 +44,29 @@ export const FocusVisible: Story = {
 };
 
 export const Default: Story = { render: () => renderState('default') };
+
+export const InformationalDismissible: Story = {
+  render: () => renderState('informational-dismissible'),
+};
+export const EmergencyDismissible: Story = {
+  render: () => renderState('emergency-dismissible'),
+};
+
+export const PagePlacement: Story = {
+  render: () => {
+    const template = document.createElement('template');
+    template.innerHTML = renderState('default');
+    const notice =
+      template.content.querySelector('.cods-site-alert')!.outerHTML;
+    return `<a href="#site-alert-demo-main">Skip to main content</a>
+      ${notice}
+      <header><a href="#site-alert-demo-main">Example service home</a></header>
+      <main id="site-alert-demo-main" tabindex="-1"><h1>Example service</h1><p>Page content follows the sitewide notice and header.</p></main>`;
+  },
+};
+
+export const Warning: Story = { render: () => renderState('warning') };
+
+export const InformationalNoIcon: Story = {
+  render: () => renderState('informational-no-icon'),
+};

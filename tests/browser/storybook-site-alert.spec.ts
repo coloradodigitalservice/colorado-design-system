@@ -1,3 +1,4 @@
+import { routeBuiltFiles } from './built-files.js';
 import { AxeBuilder } from '@axe-core/playwright';
 import { readFileSync } from 'node:fs';
 import { test, expect, expectAccessible } from './fixtures.js';
@@ -20,14 +21,19 @@ test('package and Storybook preserve the canonical fixture and token styles', as
   ).toBe(fixture);
   await page.goto(story);
   const root = page.locator('#storybook-root');
-  await expect(root.locator('.cods-site-alert')).toHaveCount(7);
+  await expect(root.locator('.cods-site-alert')).toHaveCount(11);
   const equivalent = await root.evaluate((element, html) => {
     const template = document.createElement('template');
     template.innerHTML = html;
-    const normalize = (node: ParentNode) =>
-      [...node.querySelectorAll('.cods-site-alert')].map(
+    const normalize = (node: ParentNode) => {
+      node = node.cloneNode(true) as ParentNode;
+      node
+        .querySelectorAll('[data-cods-site-alert-dismiss]')
+        .forEach((button) => button.removeAttribute('hidden'));
+      return [...node.querySelectorAll('.cods-site-alert')].map(
         (alert) => alert.outerHTML,
       );
+    };
     return (
       JSON.stringify(normalize(element)) ===
       JSON.stringify(normalize(template.content))
@@ -37,22 +43,21 @@ test('package and Storybook preserve the canonical fixture and token styles', as
   const defaultSurface = root.locator('.cods-site-alert__surface').first();
   await expect(defaultSurface).toHaveCSS(
     'background-color',
-    'rgb(235, 236, 237)',
+    'rgb(217, 232, 246)',
   );
-  await expect(defaultSurface).toHaveCSS(
-    'border-left-color',
-    'rgb(0, 25, 112)',
-  );
+  await expect(defaultSurface).toHaveCSS('border-top-width', '0px');
   await expect(
-    root.locator('.cods-site-alert--emergency .cods-site-alert__surface'),
-  ).toHaveCSS('border-left-color', 'rgb(181, 9, 9)');
+    root
+      .locator('.cods-site-alert--emergency .cods-site-alert__surface')
+      .first(),
+  ).toHaveCSS('border-top-width', '0px');
   await expect(root.locator('.cods-site-alert__body').first()).toHaveCSS(
     'background-color',
-    'rgb(235, 236, 237)',
+    'rgb(217, 232, 246)',
   );
   await expect(
-    root.locator('.cods-site-alert--emergency .cods-site-alert__body'),
-  ).toHaveCSS('color', 'rgb(27, 27, 27)');
+    root.locator('.cods-site-alert--emergency .cods-site-alert__body').first(),
+  ).toHaveCSS('color', 'rgb(255, 255, 255)');
   await expectAccessible(page, testInfo, '#storybook-root');
 });
 
@@ -81,7 +86,7 @@ test('320px reflow, localization, reduced motion, and forced colors', async ({
   await page.setViewportSize({ width: 320, height: 800 });
   await page.emulateMedia({ reducedMotion: 'reduce', forcedColors: 'active' });
   await page.goto(story);
-  await expect(page.locator('.cods-site-alert')).toHaveCount(7);
+  await expect(page.locator('.cods-site-alert')).toHaveCount(11);
   for (const alert of await page.locator('.cods-site-alert').all()) {
     await expect(alert).toBeVisible();
     expect(
@@ -91,8 +96,8 @@ test('320px reflow, localization, reduced motion, and forced colors', async ({
     ).toBe(true);
   }
   await expect(page.locator('[dir=rtl] .cods-site-alert__surface')).toHaveCSS(
-    'border-right-width',
-    '8px',
+    'border-top-width',
+    '4px',
   );
   await expectAccessible(page, testInfo, '#storybook-root');
 });
@@ -108,12 +113,12 @@ test('public customization wins without selector escalation', async ({
     .evaluate((element) => {
       (element as HTMLElement).style.setProperty(
         '--cods-site-alert-padding',
-        '32px',
+        '48px',
       );
     });
   await expect(page.locator('.cods-site-alert__body').first()).toHaveCSS(
-    'padding-top',
-    '32px',
+    'padding-right',
+    '48px',
   );
 });
 
@@ -139,7 +144,7 @@ test('all fixture landmarks have distinct accessible names', async ({
   page,
 }, testInfo) => {
   await page.goto(story);
-  await expect(page.locator('.cods-site-alert')).toHaveCount(7);
+  await expect(page.locator('.cods-site-alert')).toHaveCount(11);
   // This best-practice rule is not covered by the shared WCAG tag filter.
   const results = await new AxeBuilder({ page })
     .include('#storybook-root')
@@ -177,6 +182,8 @@ for (const [id, state] of [
   ['spanish', 'localization'],
   ['arabic-rtl', 'rtl'],
   ['focus-visible', 'focus-visible'],
+  ['informational-dismissible', 'informational-dismissible'],
+  ['emergency-dismissible', 'emergency-dismissible'],
 ] as const) {
   test(`isolated story reuses canonical state: ${state}`, async ({ page }) => {
     await page.goto(
@@ -190,6 +197,13 @@ for (const [id, state] of [
       (element, { html, state }) => {
         const template = document.createElement('template');
         template.innerHTML = html;
+        element = element.cloneNode(true) as typeof element;
+        element
+          .querySelectorAll('[data-cods-site-alert-dismiss]')
+          .forEach((button) => button.removeAttribute('hidden'));
+        template.content
+          .querySelectorAll('[data-cods-site-alert-dismiss]')
+          .forEach((button) => button.removeAttribute('hidden'));
         return (
           element.outerHTML ===
           template.content.querySelector(
@@ -202,3 +216,135 @@ for (const [id, state] of [
     expect(equivalent).toBe(true);
   });
 }
+
+test.beforeEach(async ({ page }) => {
+  await routeBuiltFiles(page, 'storybook');
+});
+
+test('severity icons load from the shipped package and banner fills its container', async ({
+  page,
+}) => {
+  await page.goto(story);
+  for (const [state, icon, background] of [
+    ['informational', 'info.svg', 'rgb(217, 232, 246)'],
+    ['emergency', 'warning.svg', 'rgb(181, 9, 9)'],
+  ] as const) {
+    const alert = page.locator(
+      `[data-cods-fixture-state="${state}"] .cods-site-alert`,
+    );
+    await expect(alert.locator('.cods-site-alert__surface')).toHaveCSS(
+      'background-color',
+      background,
+    );
+    const style = await alert
+      .locator('.cods-site-alert__body')
+      .evaluate((element) => {
+        const pseudo = getComputedStyle(element, '::before');
+        return {
+          mask: pseudo.maskImage,
+          width: pseudo.width,
+          height: pseudo.height,
+        };
+      });
+    expect(style.mask).not.toBe('none');
+    expect(style.width).toBe('32px');
+    expect(style.height).toBe('32px');
+    const url = style.mask.match(/url\("([^"]+)"\)/)?.[1];
+    expect(url).toBeTruthy();
+    const asset = await page.evaluate(async (url) => {
+      const response = await fetch(url!);
+      return { ok: response.ok, text: await response.text() };
+    }, url);
+    expect(asset.ok).toBe(true);
+    expect(asset.text).toContain('<svg');
+    const expectedSvg = readFileSync(
+      `packages/colorado-design-system/dist/icons/${icon}`,
+      'utf8',
+    );
+    expect(
+      await page.evaluate(
+        ({ actual, expected }) => {
+          const paths = (svg: string) =>
+            [
+              ...new DOMParser()
+                .parseFromString(svg, 'image/svg+xml')
+                .querySelectorAll('path'),
+            ].map((path) => path.getAttribute('d'));
+          return (
+            JSON.stringify(paths(actual)) === JSON.stringify(paths(expected))
+          );
+        },
+        { actual: asset.text, expected: expectedSvg },
+      ),
+    ).toBe(true);
+    expect(
+      await alert.evaluate(
+        (el) => el.clientWidth === el.parentElement!.clientWidth,
+      ),
+    ).toBe(true);
+  }
+});
+
+for (const state of ['informational', 'emergency']) {
+  test(`${state} optional dismissal handles keyboard, focus, event, and reload`, async ({
+    page,
+  }, testInfo) => {
+    await page.goto(
+      `/iframe.html?id=components-site-alert--${state}-dismissible&viewMode=story&globals=a11y.manual:!true`,
+    );
+    const root = page.locator('.cods-site-alert');
+    const button = root.getByRole('button');
+    await expect(button).toBeVisible();
+    await expectAccessible(page, testInfo, '#storybook-root');
+    await page.evaluate(() => {
+      document.addEventListener(
+        'cods-site-alert:dismiss',
+        (event) => {
+          document.body.dataset.dismissTarget = (
+            event as CustomEvent
+          ).detail.focusTargetId;
+        },
+        { once: true },
+      );
+    });
+    await page.keyboard.press('Tab');
+    await expect(root.getByRole('link')).toBeFocused();
+    await page.keyboard.press('Tab');
+    await expect(button).toBeFocused();
+    await expect(button).toHaveCSS('outline-width', '4px');
+    await page.keyboard.press('Enter');
+    await expect(root).toBeHidden();
+    const target = `site-alert-${state}-dismissible-destination`;
+    await expect(page.locator(`#${target}`)).toBeFocused();
+    await expect(page.locator('body')).toHaveAttribute(
+      'data-dismiss-target',
+      target,
+    );
+    await page.reload();
+    await expect(root).toBeVisible();
+    await expect(button).toBeVisible();
+    await button.click();
+    await expect(root).toBeHidden();
+  });
+}
+
+test('page placement keeps the skip link first and bypasses notice and header', async ({
+  page,
+}, testInfo) => {
+  await page.goto(
+    '/iframe.html?id=components-site-alert--page-placement&viewMode=story&globals=a11y.manual:!true',
+  );
+  const skip = page.getByRole('link', { name: 'Skip to main content' });
+  await expect(skip).toBeVisible();
+  expect(
+    await page
+      .locator('#storybook-root')
+      .evaluate((el) => [...el.children].map((child) => child.tagName)),
+  ).toEqual(['A', 'SECTION', 'HEADER', 'MAIN']);
+  await page.keyboard.press('Tab');
+  await expect(skip).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(page.getByRole('main')).toBeFocused();
+  await expect(page.locator('.cods-site-alert')).toBeVisible();
+  await expectAccessible(page, testInfo, '#storybook-root');
+});
