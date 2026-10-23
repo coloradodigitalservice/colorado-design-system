@@ -21,6 +21,12 @@ semantics; never add `role="button"` to it.
 | Prefix icon | The icon clarifies category or purpose            | It adds clutter or redundant information                  |
 | Suffix icon | An external destination or download needs context | Ordinary navigation needs no extra indication             |
 
+## Anatomy
+
+A link has descriptive text and a destination. An optional decorative icon
+appears before or after the text. Links that open a new tab include a text
+notice in their accessible name; icons alone do not supply that notice.
+
 ## Use the package
 
 Load the CSS as described in [Getting started](../getting-started/). Keep
@@ -102,7 +108,10 @@ standalone links have none, including hover/press. Text uses
 `--cods-color-text-disabled`, or `GrayText` in forced colors. Disabled text is
 contrast-exempt. Loading, error and empty states do not apply.
 
-Link remains **experimental**. Human screen-reader, actual 400% zoom, Windows
+## Known limitations and implementation status
+
+Link remains **experimental**. RTL mirroring requires native `:dir()` support.
+Human screen-reader, actual 400% zoom, Windows
 high-contrast and design/accessibility-owner sign-off remain open in the evidence
 file. Existing Spanish/Arabic translations are preserved pending language review;
 translate notices with the label. Review keyboard operation, descriptive names,
