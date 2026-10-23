@@ -39,18 +39,18 @@ browser gate runs in CI; no local server was started or restarted for this work.
 Decorative icons are `aria-hidden="true"`. Names come from visible text except
 for the visually hidden new-tab notice.
 
-| State                               | Role           | Name                                                          |
-| ----------------------------------- | -------------- | ------------------------------------------------------------- |
-| Default / visited                   | link           | Get started                                                   |
-| Standalone / Small / Large / prefix | link           | Read the guide                                                |
-| More / hover / active / focus       | link           | Installation guide                                            |
-| External                            | link           | U.S. Web Design System (opens in a new tab)                   |
-| Phone                               | link           | Contact us; fictional `tel:+13035550123`                      |
-| Download                            | link           | Icon catalog (JSON, 47.3 KB)                                  |
-| Disabled, five variants             | link, disabled | Installation guide                                            |
-| Long content                        | link           | Complete guide description, without truncation                |
-| Spanish                             | link           | Leer la guía de instalación del sistema de diseño de Colorado |
-| Arabic                              | link           | اقرأ دليل التثبيت                                             |
+| State                               | Role           | Name                                           |
+| ----------------------------------- | -------------- | ---------------------------------------------- |
+| Default / visited                   | link           | Get started                                    |
+| Standalone / Small / Large / prefix | link           | Read the guide                                 |
+| More / hover / active / focus       | link           | Installation guide                             |
+| External                            | link           | U.S. Web Design System (opens in a new tab)    |
+| Phone                               | link           | Contact us; fictional `tel:+13035550123`       |
+| Download                            | link           | Icon catalog (JSON, 47.3 KB)                   |
+| Disabled, five variants             | link, disabled | Installation guide                             |
+| Long content                        | link           | Complete guide description, without truncation |
+| Spanish                             | link           | Guía de instalación                            |
+| Arabic                              | link           | دليل التثبيت                                   |
 
 - [x] Accessible names, roles and disabled semantics checked automatically; browser snapshots do not establish spoken announcements.
 
@@ -67,7 +67,7 @@ or enabled-state contrast checks are excluded.
 ## Localization and design
 
 - [x] Long, Spanish and Arabic content wraps at 320px. Resolved RTL tests cover direct RTL, an LTR override and Arabic `dir="auto"`; only the navigation arrow mirrors.
-- [ ] Spanish/Arabic copy and shortened replacements need language review. Existing translations were preserved; no reviewer approval is claimed.
+- [x] Example labels shortened to Spanish “Guía de instalación” and Arabic “دليل التثبيت”, both meaning “Installation guide”. Wording checked by the AI assistant; no independent human language review is claimed.
 
 Disabled Figma nodes `38:7910`, `38:7930`, `2630:16281`, `5307:9147` and
 `5307:9172` were inspected on 2026-10-22. Inline retains 2px underlines (Small:

@@ -18,6 +18,14 @@ export function linkChecks(url: string, scope: string) {
         /^"?Open Sans"?, sans-serif$/,
       );
     }
+    for (const [state, name] of [
+      ['localization', 'Guía de instalación'],
+      ['rtl', 'دليل التثبيت'],
+    ] as const) {
+      await expect(
+        page.locator(`${scope} [data-cods-fixture-state="${state}"] a`),
+      ).toHaveAccessibleName(name);
+    }
     const inline = page.locator(
       `${scope} [data-cods-fixture-state="default"] a`,
     );

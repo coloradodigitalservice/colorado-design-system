@@ -99,8 +99,8 @@ standalone links have none, including hover/press. Text uses
 
 ## Known limitations and implementation status
 
-Link is **experimental**. Human screen-reader, 400% zoom, Windows high-contrast
-and language reviews remain incomplete. See the Evidence file in the Summary
+Link is **experimental**. Human screen-reader, 400% zoom and Windows high-contrast
+checks remain incomplete. See the Evidence file in the Summary
 for current verification and outstanding checks.
 
 RTL arrow mirroring requires native `:dir()` support. Test keyboard navigation,
