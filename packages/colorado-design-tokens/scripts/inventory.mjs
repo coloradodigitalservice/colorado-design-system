@@ -14,9 +14,17 @@ export function extractTokenDependencies(styles, catalog) {
     (match) => (match.startsWith('/*') || match.startsWith('//') ? ' ' : match),
   );
   const dependencies = new Set();
+  const localProperties = new Set(
+    [...source.matchAll(/--cods-([a-z0-9-]+)\s*:/g)].map((match) => match[1]),
+  );
   const collect = (name) => {
     const group = groups.find((candidate) => name.startsWith(`${candidate}-`));
-    if (group) dependencies.add(`${group}.${name.slice(group.length + 1)}`);
+    if (!group) return;
+    const path = `${group}.${name.slice(group.length + 1)}`;
+    // A component property may share a catalog prefix, e.g. Link's RTL API.
+    // Real catalog tokens still count even when declared as local overrides.
+    if (!localProperties.has(name) || catalog.tokens.has(path))
+      dependencies.add(path);
   };
   for (const match of source.matchAll(/--cods-([a-z0-9-]+)/g))
     collect(match[1]);

@@ -1,0 +1,133 @@
+{
+  "name": "link",
+  "displayName": "Link",
+  "maturity": "experimental",
+  "type": "static",
+  "uswdsEquivalent": "link",
+  "uswdsVersion": "3.14.0",
+  "componentType": "A",
+  "owners": {
+    "responsible": "Aten component engineer",
+    "accountable": "Aten technical lead",
+    "consulted": "Design, accessibility, and content roles",
+    "informed": "State product owner"
+  },
+  "divergenceApproved": false,
+  "divergenceNotes": null,
+  "states": [
+    "default",
+    "disabled",
+    "standalone",
+    "more-link",
+    "external",
+    "hover",
+    "active",
+    "visited",
+    "focus-visible",
+    "long-content",
+    "localization",
+    "rtl",
+    "inline-small",
+    "inline-large",
+    "standalone-small",
+    "prefix-icon",
+    "phone",
+    "download"
+  ],
+  "progressiveEnhancement": "full",
+  "localization": "layout-sensitive",
+  "description": "A native navigation link with Figma-aligned inline and standalone color, typography, size, decoration, and focus treatments; no JavaScript required.",
+  "examples": [
+    {
+      "state": "default",
+      "fixtureState": "default",
+      "setup": "none"
+    },
+    {
+      "state": "disabled",
+      "fixtureState": "disabled",
+      "setup": "none"
+    },
+    {
+      "state": "standalone",
+      "fixtureState": "standalone",
+      "setup": "none"
+    },
+    {
+      "state": "more-link",
+      "fixtureState": "more-link",
+      "setup": "none"
+    },
+    {
+      "state": "external",
+      "fixtureState": "external",
+      "setup": "none"
+    },
+    {
+      "state": "hover",
+      "fixtureState": "hover",
+      "setup": "none"
+    },
+    {
+      "state": "active",
+      "fixtureState": "active",
+      "setup": "none"
+    },
+    {
+      "state": "visited",
+      "fixtureState": "visited",
+      "setup": "none"
+    },
+    {
+      "state": "focus-visible",
+      "fixtureState": "focus-visible",
+      "setup": "focus",
+      "instructions": "Use keyboard navigation to verify the native focus-visible state."
+    },
+    {
+      "state": "long-content",
+      "fixtureState": "long-content",
+      "setup": "none"
+    },
+    {
+      "state": "localization",
+      "fixtureState": "localization",
+      "setup": "none"
+    },
+    {
+      "state": "rtl",
+      "fixtureState": "rtl",
+      "setup": "none"
+    },
+    {
+      "state": "inline-small",
+      "fixtureState": "inline-small",
+      "setup": "none"
+    },
+    {
+      "state": "inline-large",
+      "fixtureState": "inline-large",
+      "setup": "none"
+    },
+    {
+      "state": "standalone-small",
+      "fixtureState": "standalone-small",
+      "setup": "none"
+    },
+    {
+      "state": "prefix-icon",
+      "fixtureState": "prefix-icon",
+      "setup": "none"
+    },
+    {
+      "state": "phone",
+      "fixtureState": "phone",
+      "setup": "none"
+    },
+    {
+      "state": "download",
+      "fixtureState": "download",
+      "setup": "none"
+    }
+  ]
+}
