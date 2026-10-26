@@ -2083,5 +2083,85 @@
         }
       }
     }
+  },
+  "link": {
+    "underline-thickness": {
+      "$type": "dimension",
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "underline-thickness",
+          "location": "Colorado Design System Figma / Link (828:3253) / text decoration; Dev Mode inspection 2026-10-12"
+        }
+      }
+    },
+    "underline-thickness-hover": {
+      "$type": "dimension",
+      "$value": {
+        "value": 4,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "underline-thickness-hover",
+          "location": "Colorado Design System Figma / Link (828:3253) / text decoration; Dev Mode inspection 2026-10-12"
+        }
+      }
+    },
+    "underline-offset": {
+      "$type": "dimension",
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "underline-offset",
+          "location": "Colorado Design System Figma / Link (828:3253) / text decoration; Dev Mode inspection 2026-10-12"
+        }
+      }
+    },
+    "underline-offset-standalone-hover": {
+      "$type": "dimension",
+      "$value": {
+        "value": 3,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "underline-offset-standalone-hover",
+          "location": "Colorado Design System Figma / Link (828:3253) / text decoration; Dev Mode inspection 2026-10-12"
+        }
+      }
+    },
+    "underline-thickness-small": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "underline-thickness-small",
+          "location": "Colorado Design System Figma / Link (5307:9112); observed 2026-10-21; technical lead approval: 2026-10-22 (PR #41 review); design/accessibility owner acceptance remains open"
+        }
+      }
+    },
+    "underline-thickness-small-hover": {
+      "$type": "dimension",
+      "$value": {
+        "value": 3,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "underline-thickness-small-hover",
+          "location": "Colorado Design System Figma / Link (2630:15458); observed 2026-10-21; technical lead approval: 2026-10-22 (PR #41 review); design/accessibility owner acceptance remains open"
+        }
+      }
+    }
   }
 }

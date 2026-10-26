@@ -77,8 +77,8 @@ $site-alert-emergency-icon: './icons/warning.svg';
     padding-inline: var(--cods-site-alert-padding);
   }
 
-  .cods-site-alert:not(.cods-site-alert--emergency)
-    .cods-site-alert__body::before {
+  .cods-site-alert--no-icon .cods-site-alert__body::before,
+  .cods-site-alert--warning .cods-site-alert__body::before {
     display: none;
   }
 

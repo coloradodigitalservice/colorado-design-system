@@ -261,3 +261,9 @@ token drift, builds, fixture output and static-consumer checks passed. Formattin
 passed excluding the pre-existing unrelated AGENTS.md edit, which is preserved
 and excluded from this commit. Built-file routing started no servers. These
 automated checks do not complete outstanding human or design sign-off.
+
+### Review update — 2026-10-26
+
+The Site Alert Figma page (1809:10566) was inspected in the Aten Chrome profile. Info and Warning are text-only; Emergency uses a warning triangle. CDS-54 requires distinct Info and Emergency icons, so the default Info example retains its info icon and a text-only Info example is provided. This difference requires design-owner and ticket-owner reconciliation; it is not a claim of design approval. The emergency comparison image now shows the packaged Phosphor warning triangle.
+
+The built-file Site Alert suite passed 40 checks on 2026-10-26 across Chromium, Firefox, WebKit, and Storybook Chromium, including visible default Info and Emergency icons, text-only examples, forced-color emulation, dismissal, and focus handoff. Firefox used an isolated temporary application profile. A separate build with the proposed PR #53 shared error-icon mapping passed the same 40 checks; PR #53 itself remains unmerged. Human screen-reader, actual 400% zoom, operating-system high contrast, localization, and design/accessibility review remain open.

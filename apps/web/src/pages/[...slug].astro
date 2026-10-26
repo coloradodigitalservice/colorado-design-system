@@ -3,7 +3,9 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '@coloradodigitalservice/colorado-design-system/styles.css';
 import SiteAlertExamples from '../components/SiteAlertExamples.astro';
+import ButtonExamples from '../components/ButtonExamples.astro';
 import AccordionExamples from '../components/AccordionExamples.astro';
+import LinkExamples from '../components/LinkExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
 import IconCatalog from '../components/IconCatalog.astro';
 import IconExamples from '../components/IconExamples.astro';
@@ -33,6 +35,7 @@ const { Content } = await render(entry);
         <SiteAlertExamples mode="default" />
       </>
     )}
+    {entry.id === 'button' && <ButtonExamples mode="default" />}
     {entry.id === 'accordion' && (
       <>
         <p>
@@ -43,10 +46,14 @@ const { Content } = await render(entry);
         <AccordionExamples />
       </>
     )}
-    {(entry.id === 'site-alert' || entry.id === 'accordion') && (
+    {entry.id === 'link' && <LinkExamples />}
+    {(entry.id === 'site-alert' ||
+      entry.id === 'accordion' ||
+      entry.id === 'link') && (
       <ComponentSummary component={entry.id} figma={entry.data.figma} />
     )}
     <Content />
+    {entry.id === 'button' && <ButtonExamples mode="remaining" />}
     {entry.id === 'icon' && <IconExamples />}
     {entry.id === 'icon' && <IconCatalog />}
     {entry.id === 'site-alert' && <SiteAlertExamples mode="remaining" />}

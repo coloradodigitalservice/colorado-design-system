@@ -50,7 +50,7 @@ per-state examples are available under `fixtures/site-alert.html`,
 `metadata/site-alert.json`, and `examples/site-alert.json` in
 `@coloradodigitalservice/colorado-design-system`.
 
-The stylesheet uses shared Phosphor Regular `info.svg` and `x-circle.svg` masks.
+The stylesheet uses shared Phosphor Regular `info.svg` and `warning.svg` masks.
 Preserve the package's `icons/`, `img/`, and `fonts/` layout when serving CSS directly.
 Icons are decorative CSS masks; the visible severity wording communicates meaning
 with CSS or JavaScript disabled.
@@ -127,8 +127,8 @@ button follow the text.
 | `cods-site-alert__link`      | Action link with visible focus                                                 |
 | `cods-site-alert__dismiss`   | Optional native dismissal button                                               |
 
-Informational/default examples pair with `usa-site-alert--info`. Do not use
-`usa-site-alert--no-icon` in these examples. Long content, Spanish, Arabic/RTL,
+Informational/default examples pair with `usa-site-alert--info`. For the text-only
+variant, add both `usa-site-alert--no-icon` and `cods-site-alert--no-icon`. Long content, Spanish, Arabic/RTL,
 keyboard focus, and dismissible variants are included. Disabled, loading, and
 empty notices have no useful message and are not component states.
 
@@ -162,8 +162,11 @@ colors, retaining both severity wording and the decorative icons.
 
 ## Known limitations and implementation status
 
-Exact current Figma alignment remains a design review item: both connected
-accounts were blocked during this task. Repository measurements informed the
+Exact Figma alignment remains a design review item. The Site Alert page was
+inspected on 2026-10-26 in the Aten Chrome profile; it shows text-only Info and
+Warning notices and a warning triangle for Emergency. The ticket requires an
+Info icon, so both icon-bearing and text-only Info examples remain available.
+Measurements informed the
 32px emergency icon and desktop inset, 16px icon gap, 18px vertical padding,
 and H5 emergency heading with a 16px text gap. Mobile insets are 16px;
 content is centered within a 1280px container. An optional `cods-site-alert--no-icon` modifier supplies Figma’s text-only

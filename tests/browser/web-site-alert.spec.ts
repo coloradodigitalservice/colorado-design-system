@@ -148,7 +148,10 @@ test.describe('Phosphor asset inspection', () => {
       );
     }
     await page.emulateMedia({ forcedColors: 'active' });
-    for (const [state, icon] of [['emergency', 'warning']]) {
+    for (const [state, icon] of [
+      ['informational', 'info'],
+      ['emergency', 'warning'],
+    ]) {
       await expectPhosphorMask(
         page.locator(
           `[data-cods-fixture-state="${state}"] .cods-site-alert__body`,
