@@ -8,8 +8,7 @@ const storyNames: Record<string, string> = {
 for (const component of loadComponents()) {
   for (const example of component.examples.examples) {
     const story =
-      ['site-alert', 'in-page-alert'].includes(component.name) &&
-      example.state === 'rtl'
+      component.name === 'site-alert' && example.state === 'rtl'
         ? 'arabic-rtl'
         : (storyNames[example.state] ?? example.state);
     test(`${component.name}/${example.state} Storybook renders the current canonical content`, async ({
@@ -22,13 +21,6 @@ for (const component of loadComponents()) {
         `#storybook-root [data-cods-fixture-state="${example.fixtureState}"]`,
       );
       await expect(block).toBeVisible();
-      if (
-        component.name === 'in-page-alert' &&
-        ['dynamic-status', 'dynamic-alert'].includes(example.state)
-      )
-        await page
-          .getByRole('button', { name: 'Show contextual message' })
-          .click();
       const contentMatches = await block.evaluate((element, html) => {
         const template = document.createElement('template');
         template.innerHTML = html;
