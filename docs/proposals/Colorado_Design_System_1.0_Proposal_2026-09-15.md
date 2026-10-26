@@ -103,7 +103,7 @@ This is a material addition to the architecture accepted in the [ADR Acceptance 
 - Publish the initial site content architecture supplied by the client, with final navigation and page placement subject to design review.
 - Publish a home page with the CoDS description, key resource links, implementation highlights, and getting-started paths.
 - Publish the four design principles: Accessible, Trustworthy, Empowering, and Adaptable, including their supporting statements.
-- Publish foundations for Color, Elevation, Focus States, Grids & Spacing, Icons, Radius, and Typography, matching the client's final confirmed foundations inventory (2026-09-16), plus Logos, which was approved as a foundation on 2026-10-02; a dedicated task decides whether it is a separate foundation page or folds into brand/Icons guidance before Phase 3 website content work locks its navigation.
+- Publish foundation pages for Color, Elevation, Focus States, Grids & Spacing, Icons, Radius, and Typography. The client confirmed on 2026-10-13 that the Logos Foundation page is out of scope for the `1.x` launch; do not publish a Logos page or fold Logos guidance into Brand/Icons content for this launch. The October 2 approval of Logos as a foundation remains in the decision history; see the [ADR Acceptance Memo](../memos/ADR_Acceptance_Memo_2026-09-14.md).
 - Publish component pages for the full approved 1.0 component set, confirmed against the client's complete Figma inventory (2026-09-16): Accordion, Breadcrumbs, Button, Card - Default, Card - Icon, Checkbox, Combo Box, Divider, Footer, Header, Hero, Icon List, Input, In-Page Alert, In-Page Navigation, Language Selector, Link, Maps, Modal, Process List, Radio Buttons, Search, Select (dropdown), Site Alert, Tags, Toasts/Snackbars, Videos, and Tooltip.
 - Publish implementation guidance and an implementations gallery for known CoDS consumers, including Colorado Department of Revenue and other approved examples such as Colorado Tax Division and Colorado DMV when their content and imagery are available.
 - Publish About content covering who we are, State ownership and stewardship, contact routes, contribution guidance, community links, policies, and attributions.
@@ -113,7 +113,7 @@ This is a material addition to the architecture accepted in the [ADR Acceptance 
 - Provide copyable markup, package guidance, maturity status, Figma/source links, known limitations, audit status, and implementation status.
 - Configure static previews and production deployment to State-approved hosting/CDN.
 
-The client's content inventory was originally a content and information-architecture baseline rather than a component-implementation commitment. As of the 2026-09-16 final decision, the full inventory of 28 components and 8 foundations (Logos added 2026-10-02) is the confirmed `1.0.x` component list, closed at G0 per CODS-P0-006, and remains capped at this set unless the client explicitly changes the launch scope or date.
+The client's content inventory was originally a content and information-architecture baseline rather than a component-implementation commitment. The 2026-09-16 final decision closed the 28-component inventory and seven foundation pages at G0 per CODS-P0-006. Logos was approved as an eighth foundation on 2026-10-02, but the client confirmed on 2026-10-13 that its Foundation page is out of scope for the `1.x` launch. The launch scope is therefore 28 components and seven foundation pages unless the client explicitly changes it again.
 
 #### Storybook workbench
 
@@ -366,7 +366,7 @@ The backlog should be organized by outcomes and vertical slices rather than by t
 - Add site navigation and layouts.
 - Add the home page with key resources, implementation highlights, and getting-started entry points.
 - Add Design Principles content for Accessible, Trustworthy, Empowering, and Adaptable.
-- Add foundation pages for Color, Elevation, Focus States, Grids & Spacing, Icons, Radius, and Typography, and Logos (approved 2026-10-02; see section 3.1).
+- Add foundation pages for Color, Elevation, Focus States, Grids & Spacing, Icons, Radius, and Typography. The Logos Foundation page is deferred from the `1.x` launch by the client's 2026-10-13 decision (see section 3.1).
 - Add component pages for the full approved 1.0 component set confirmed on 2026-09-16 (28 components; see section 3.1), themed from USWDS equivalents where one exists.
 - Add implementations, About/Who We Are, Contact, Contribute, policies, and attributions sections.
 - Add developer and designer getting-started content, with TBD areas tracked as client content dependencies until approved.
@@ -393,7 +393,7 @@ The backlog should be organized by outcomes and vertical slices rather than by t
 
 ### Epic H: Full component set
 
-CODS-P0-006 closed its final decision on 2026-09-16 against the client's complete Figma inventory: all 28 components and the 7 foundations listed in section 3.1 are approved for `1.0.x`. Logos was approved as an eighth foundation on 2026-10-02. This replaces the original approach of prioritizing a reduced 8-12 component subset by service need and architectural risk.
+CODS-P0-006 closed its final decision on 2026-09-16 against the client's complete Figma inventory: all 28 components and the 7 foundations listed in section 3.1 are approved for `1.0.x`. Logos was approved as an eighth foundation on 2026-10-02, then its Foundation page was deferred from the launch by the client on 2026-10-13. This replaces the original approach of prioritizing a reduced 8-12 component subset by service need and architectural risk; the current page scope is 28 components and seven foundations.
 
 Because this is a scope expansion rather than a reduction, the remaining risk-management lever is sequencing and schedule, not component selection: build the highest-risk and most-reused items first (the USWDS foundational dependency, the icon system, and the Phase 2 vertical-slice pair), then the fifteen static-tier and twelve interactive-tier components in parallel, per the Phase 3 backlog. The capacity review was completed on 2026-10-02 and supports the date. If later delivery shows the full set cannot meet the November 30 gate, the appropriate response is the same one described in section 2: preserve `0.0.x` and move the supported release date, rather than silently drop components without a recorded change decision.
 
@@ -407,12 +407,14 @@ This schedule depends on the following assumptions:
 - The npm scope is set up and held by the project team; publishing moves to the client team later.
 - Figma access and qualified design resources are available by the start of Phase 1.
 - USWDS's public-domain licensing terms are compatible with CoDS's own release, attribution, and State-ownership requirements, and a pinned USWDS dependency version can be adopted without introducing unreviewed security or accessibility regressions.
-- The expanded 28-component, 8-foundation scope (confirmed on 2026-09-16, with Logos added on 2026-10-02) can be delivered by November 30 given USWDS reuse; the project owner validated this assumption in a capacity review on 2026-10-02, and the fallback if it later fails is a preserved `0.0.x` channel and a revised supported-release date rather than a silent scope reduction.
+- The 2026-10-02 capacity review covered 28 components and eight foundations, including the Logos page. The client's 2026-10-13 decision removes that page from the `1.x` launch, leaving 28 components and seven published foundation pages. If the remaining scope cannot meet the November 30 gate, preserve the `0.0.x` channel and revise the supported-release date rather than making an unrecorded scope change.
 - A mapping-provider and accessible-fallback decision for the Maps component is made by the State early in Phase 1/2, since it is the one component in the confirmed set with no USWDS equivalent and a third-party runtime dependency risk.
 
 ## 7. Scope change and schedule risk
 
 This proposal originally capped the `1.0.x` component set at approximately 8-12 components, selected for architectural risk and service value rather than Figma completeness. The client's 2026-09-16 direction to include the full 28-component inventory and 7 foundations (Logos was added later) is accepted here as an explicit scope change, on the following conditions:
+
+- **Logos page deferred from launch.** On 2026-10-13, the client confirmed that the Logos Foundation page is out of scope for the `1.x` launch and should not be included at this time. The launch includes seven foundation pages; the October 2 approval of Logos as a foundation remains in the decision history. Do not publish a Logos page or fold its guidance into Brand/Icons content for this launch.
 
 - **USWDS reuse is the schedule mitigation.** The expanded scope is only realistic within the November 30 gate because most of the added components already exist as USWDS patterns that can be themed rather than built from scratch (see the USWDS foundational-dependency section above and CODS-P1-015). Components with no USWDS equivalent (Hero, Maps, Videos, Toasts/Snackbars, Divider) carry disproportionately higher schedule and accessibility risk per component and should be sequenced early enough to surface problems before the release-candidate gate.
 - **This requires an ADR amendment.** The accepted ADR (2026-09-14) did not name USWDS as a dependency or approve a 28-component set. Both should be recorded as an ADR amendment, submitted alongside CODS-P1-015, before Phase 1 closes.
