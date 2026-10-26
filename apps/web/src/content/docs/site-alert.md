@@ -128,7 +128,7 @@ button follow the text.
 | `cods-site-alert__dismiss`   | Optional native dismissal button                                               |
 
 Informational/default examples pair with `usa-site-alert--info`. For the text-only
-variant, add both `usa-site-alert--no-icon` and `cods-site-alert--no-icon`. Long content, Spanish, Arabic/RTL,
+variant, add `cods-site-alert--no-icon`. Long content, Spanish, Arabic/RTL,
 keyboard focus, and dismissible variants are included. Disabled, loading, and
 empty notices have no useful message and are not component states.
 
