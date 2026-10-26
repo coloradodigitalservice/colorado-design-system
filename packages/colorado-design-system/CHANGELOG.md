@@ -1,5 +1,13 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.4
+
+### Patch Changes
+
+- a47e224: Add the experimental static Link component with inline, standalone, disabled, phone, download, and new-tab examples, documentation, and accessibility regressions. Inherit content leading, expose Link-scoped RTL mirroring, and use shared Phosphor masks. Add six underline foundation dimensions while preserving the catalog's existing Link color aliases.
+- Updated dependencies [a47e224]
+  - @coloradodigitalservice/colorado-design-tokens@0.2.4
+
 ## 0.2.3
 
 ### Patch Changes

@@ -6,10 +6,10 @@ order: 40
 ---
 
 Use a Button to perform an action: submit a form, save changes, or open a dialog.
-Use a Link to navigate to another page. A button-styled `<a href>` is appropriate
+Use a [Link](../link/) to navigate to another page. A button-styled `<a href>` is appropriate
 for a prominent navigation call to action, such as starting an application; it
 retains link semantics and Enter activation. Never put `role="button"` on that
-anchor. Ordinary navigation belongs to the Link component.
+anchor. Ordinary navigation belongs to the [Link component](../link/).
 
 Button is **experimental** in the `0.x` series. It is a static USWDS 3.14.0 themed
 component; no controller or JavaScript import is required. Native browser behavior
