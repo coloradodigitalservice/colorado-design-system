@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '@coloradodigitalservice/colorado-design-system/styles.css';
+import InPageAlertExamples from '../components/InPageAlertExamples.astro';
 import SiteAlertExamples from '../components/SiteAlertExamples.astro';
 import ButtonExamples from '../components/ButtonExamples.astro';
 import AccordionExamples from '../components/AccordionExamples.astro';
@@ -52,7 +53,14 @@ const { Content } = await render(entry);
       entry.id === 'link') && (
       <ComponentSummary component={entry.id} figma={entry.data.figma} />
     )}
+    {entry.id === 'in-page-alert' && (
+      <>
+        <InPageAlertExamples mode="default" />
+        <ComponentSummary component="in-page-alert" figma={entry.data.figma} />
+      </>
+    )}
     <Content />
+    {entry.id === 'in-page-alert' && <InPageAlertExamples mode="remaining" />}
     {entry.id === 'button' && <ButtonExamples mode="remaining" />}
     {entry.id === 'icon' && <IconExamples />}
     {entry.id === 'icon' && <IconCatalog />}
