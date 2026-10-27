@@ -10,20 +10,22 @@ figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-Syste
 
 Use accordions when:
 
-- Content can be grouped into related, optional sections, such as supporting details or frequently asked questions.
+- Content can be grouped into related, optional sections, such as supporting details.
 - People need to scan the available topics and open the sections relevant to them.
 
 Don't use accordions when:
 
 - Everyone needs to see the information, or people must read it in full to complete a task. Keep crucial information visible.
-- There is only one block of content or the goal is navigation. Use headings, links, or another page structure instead.
+- There are three or fewer sections or not enough content to warrant condensing. Use headings and keep the content visible.
+- The goal is navigation. Use links or another page structure instead.
+- You are writing FAQs. Consider organizing the information around what people need to do instead.
 
 ### Writing for accordions
 
-- Keep the hierarchy flat. Avoid nesting accordions inside accordions.
-- Write clear, descriptive headings of fewer than seven words.
 - Keep crucial information outside collapsed panels.
-- Consider alternatives, such as headings and links, when they make content easier to scan or find.
+- Keep the hierarchy flat: use simple content and links, and avoid tables, subheadings, complex structures, and nested accordions inside panels.
+- Write clear, descriptive headings in sentence case and use fewer than seven words. Keep them short enough to avoid wrapping.
+- Consider simplifying the content, separating it with headings, splitting it across pages, or using links to sections on the same page.
 
 Choose heading levels to fit the page outline. The examples above use the package's canonical fixture.
 
@@ -100,9 +102,9 @@ Public classes are `cods-accordion`, `cods-accordion--borderless`, `cods-accordi
 
 Choose a variant that fits the surrounding page:
 
-- **Bordered (default):** Use when the panel needs a clear visual boundary.
-- **Borderless:** Use when the panel should blend into the surrounding background.
-- **White:** Use when a white container and subtle outline fit the page.
+- **Bordered (default):** Use for a standalone container, especially on dense pages or when content needs to be distinct from the background. It can suit complex forms or data-heavy content.
+- **Borderless:** Use for a minimal, integrated look when the accordion is the main content on a clean page. It can suit sidebars or marketing pages where open space matters.
+- **White:** Use on a section or page with a background other than white.
 
 Set `--cods-accordion-background`, `--cods-accordion-text`, and `--cods-accordion-border` on a root to customize approved token-based defaults. The Accordion-specific border mapping uses `color.border-accordion-subtle` (gray/10) without changing the shared `color.border-subtle` (gray/20). White uses `color.border-default`. The pale border is decorative; the text, native button state, and up/down chevron convey the control and state.
 
