@@ -76,7 +76,7 @@ Authors own meaningful group legends, label association, unique IDs and names, r
 - The choice is trivial: If the question is as simple as "Do you agree to the terms?", a tile adds unnecessary visual weight and "noise" to the page.
 - Consistency is broken: If every other selection in your form uses default radio buttons, switching to a tile for a simple question can confuse the user's mental model of the interface.
 
-Apply `cods-radio--tile` to each option. Place optional supporting text in a `cods-radio__description` span within the label so it remains part of the clickable option. Decorative icons should be hidden from assistive technology; include any meaning in text. The tile defaults to 15rem wide, constrained to its container; set `--cods-radio-tile-width` to fit the layout.
+Apply `cods-radio--tile` to each option. Place optional supporting text in a `cods-radio__description` span within the label so it remains part of the clickable option. Decorative icons should be hidden from assistive technology; include any meaning in text. For the icon in the Tile example, deploy the sprite and replace the example URL with its public URL, as described in [Sprite URL and deployment path](../icon/#sprite-url-and-deployment-path). The tile defaults to 15rem wide, constrained to its container; set `--cods-radio-tile-width` to fit the layout.
 
 ## Compare Similar Components
 

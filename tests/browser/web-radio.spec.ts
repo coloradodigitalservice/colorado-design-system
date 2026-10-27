@@ -281,6 +281,13 @@ test('tile supporting content, errors and disabled groups preserve native behavi
     expect(await block.evaluate((el) => el.scrollWidth <= el.clientWidth)).toBe(
       true,
     );
+    const options = block.getByRole('radio');
+    await expect(options).toHaveCount(2);
+    const labels = block.locator('.cods-radio__label');
+    await labels.nth(0).click();
+    await labels.nth(1).click();
+    await expect(options.nth(0)).not.toBeChecked();
+    await expect(options.nth(1)).toBeChecked();
   }
   await expectAccessible(page, testInfo);
 });
