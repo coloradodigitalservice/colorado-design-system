@@ -1,5 +1,13 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.8
+
+### Patch Changes
+
+- 69181c0: Add experimental native Checkbox and card styling, canonical single and grouped fixtures, mixed-state guidance, Storybook stories, and reference-site documentation.
+- Updated dependencies [69181c0]
+  - @coloradodigitalservice/colorado-design-tokens@0.2.8
+
 ## 0.2.7
 
 ### Patch Changes
