@@ -75,6 +75,9 @@ requirements.
 
 The Linux `--with-deps` command is for local host setup only; the containerized
 Foundation web job must not run browser or system-dependency installation.
+The web browser-test step sets `HOME=/root` because GitHub Actions runs
+container steps as root but provides a `HOME` directory owned by the image's
+`pwuser`; Firefox refuses to launch when those users do not match.
 
 ## Inspect failures and artifacts
 
@@ -122,7 +125,8 @@ digest, and verify that the digest resolves to the intended Linux runner
 architecture. The image is pulled before the web job's steps begin: pull or
 registry errors indicate container setup trouble, while browser launch and test
 errors occur in the browser-test step after the image and dependencies are
-available. Local Linux runs still install dependencies with
+available. If Firefox reports that its `HOME` directory is owned by a different
+user, verify the web browser-test step retains `HOME=/root`. Local Linux runs still install dependencies with
 `playwright install --with-deps`; that command does not belong in the container
 job.
 
