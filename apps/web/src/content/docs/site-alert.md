@@ -26,6 +26,10 @@ The emergency icon uses the packaged Phosphor Regular `warning.svg` as a decorat
 
 Notices present on page load are named regions without a live-region role. They do not move focus or force an announcement. For notices updated after load, mount an empty live region first, then populate it. Use `role="status"` for nonurgent updates and `role="alert"` only for urgent information requiring immediate awareness. Test announcements with the application's screen-reader and browser combinations.
 
+## Anatomy
+
+A named section contains the alert surface and body. Informational and warning alerts have an inline lead-in and message; emergency alerts have a heading, message, and decorative icon. An alert may include a link.
+
 ## Public styling and states
 
 | Class                        | Purpose                               |
@@ -46,5 +50,9 @@ The root exposes `--cods-site-alert-background`, `--cods-site-alert-color`, `--c
 ## Accessibility and localization
 
 **Experimental, `0.x`.** Human screen-reader, keyboard, actual 400% zoom, operating-system high-contrast, localization, and design review remain open for this revision. Use descriptive links, translate the full notice, and verify bidirectional content with representative readers. Forced colors use system colors; text communicates the notice meaning without relying on color.
+
+## Known limitations and implementation status
+
+Site Alert is static and does not include a close button. Showing multiple alerts together is not supported. Human design and accessibility review remains open.
 
 ## More examples
