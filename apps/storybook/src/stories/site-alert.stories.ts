@@ -1,4 +1,3 @@
-import { initAll } from '../../../../packages/colorado-design-system/src/components/site-alert/site-alert.js';
 import type { Meta, StoryObj } from '@storybook/html-vite';
 import examples from '@coloradodigitalservice/colorado-design-system/examples/site-alert.json';
 import metadata from '@coloradodigitalservice/colorado-design-system/metadata/site-alert.json';
@@ -13,9 +12,6 @@ function renderState(name: string): string {
 const meta = {
   title: 'Components/Site Alert',
   render: () => fixture,
-  play: ({ canvasElement }) => {
-    initAll(canvasElement);
-  },
   parameters: {
     componentMetadata: metadata,
     controls: { disable: true },
@@ -45,13 +41,6 @@ export const FocusVisible: Story = {
 
 export const Default: Story = { render: () => renderState('default') };
 
-export const InformationalDismissible: Story = {
-  render: () => renderState('informational-dismissible'),
-};
-export const EmergencyDismissible: Story = {
-  render: () => renderState('emergency-dismissible'),
-};
-
 export const PagePlacement: Story = {
   render: () => {
     const template = document.createElement('template');
@@ -66,7 +55,3 @@ export const PagePlacement: Story = {
 };
 
 export const Warning: Story = { render: () => renderState('warning') };
-
-export const InformationalNoIcon: Story = {
-  render: () => renderState('informational-no-icon'),
-};

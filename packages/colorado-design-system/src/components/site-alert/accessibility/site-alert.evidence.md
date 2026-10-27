@@ -1,106 +1,24 @@
 # Accessibility evidence: `cods-site-alert`
 
-## CODS-P3-006 review — October 14, 2026
+## CODS-P3-006 revision — October 27, 2026
 
-- **Maturity:** experimental (`0.x`); stable and gate approval are pending.
+- **Maturity:** experimental; stable and gate approval are pending.
 - **Tracking:** [CDS-54 / CODS-P3-006](https://atendesign.atlassian.net/browse/CDS-54).
-- **Reviewer:** Codex, developer/automated verification. Human review is pending.
-- **Source:** pinned USWDS 3.14.0 Site Alert markup and information/error icons.
-- **Changes requiring renewed review:** severity surfaces/icons, H5 headings,
-  top boundary and logical spacing, optional page-local dismissal and focus handoff.
-  The historical G2 manual findings below describe the older no-icon static
-  implementation and do not establish conformance of this revision.
+- **Reviewer:** developer and automated verification. Human review is pending.
+- **Source:** pinned USWDS 3.14.0 Site Alert markup; emergency uses the shared Phosphor warning icon.
+- **Scope:** static informational, warning, and emergency notices. Informational and warning notices are text-only; sections use unique names from their visible lead-ins or headings. Emergency uses a visible heading and decorative icon. Native links are the only interactive elements. No controller or dismissal is shipped.
 
-### Keyboard and focus
+### Checklist and open items
 
-- [ ] Native links and dismissal buttons follow document order without traps.
-      Chromium Storybook checks passed for Tab/Enter, pointer dismissal, link/button
-      focus rings, and the page-placement skip link. Human review and Firefox remain open.
-- [ ] Dismissal moves focus to an explicit external destination before hiding
-      the notice. Chromium and WebKit docs assertions passed. Missing, removed,
-      disabled, internal, or unfocusable destinations leave content readable;
-      failure paths and instance isolation are covered by unit tests. Initialization
-      does not move focus. Human keyboard/obscuration review remains open.
-- Keyboard model: Tab/Shift-Tab traverse native links/buttons; Enter activates
-  links and native dismissal buttons; Space also activates native buttons.
-  No custom key handling, global listener, or focus trap is introduced.
+- [ ] Keyboard and focus: verify native links, visible focus, skip-link order and no obscured content with a keyboard.
+- [ ] Naming and screen reader: verify region names, reading order and links with a named screen-reader/browser pairing. No human announcement result is claimed for this revision.
+- [ ] Zoom and reflow: verify actual 400% zoom and long, translated and RTL content without clipping.
+- [ ] Forced colors: verify readability, emergency icon and focus with an operating-system high-contrast setting.
+- [ ] Localization: review translations, language scoping and bidirectional text with representative readers.
+- N/A — no motion or scripted interaction.
+- [ ] Design and accessibility owner review remains open. The emergency-only icon direction was requested in PR #54; CDS-54's distinct-icons criterion has not been amended here. Dismissal is deferred until a client need is confirmed; follow-up: [CDS-116](https://atendesign.atlassian.net/browse/CDS-116).
 
-### Names, roles, and announcements
-
-- [x] Accessible names/roles are documented and asserted by browser checks:
-
-  | Element                   | Role   | Name source                                                                                                                  |
-  | ------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------- |
-  | Notice section            | region | Visible heading via unique `aria-labelledby`                                                                                 |
-  | Service action link       | link   | Visible service-specific text                                                                                                |
-  | Optional dismissal button | button | `aria-label="Dismiss informational site notice"` or `"Dismiss emergency site notice"`, containing the visible “Dismiss” text |
-  | Example focus destination | link   | Visible “Continue to service content” text                                                                                   |
-  | Placement skip link       | link   | Visible “Skip to main content” text                                                                                          |
-
-- [x] Static notices have no live-region role. Icons are decorative CSS masks;
-      explicit severity headings convey meaning without CSS or color. Each example
-      region has a unique name; the dedicated axe landmark-unique check passed.
-- [ ] Human VoiceOver/Safari and NVDA/Firefox verification of initial reading,
-      skip-link navigation, and dismissal focus is required. No audible announcement
-      is claimed. Docs distinguish initially rendered regions from pre-mounted
-      `role="status"` or `role="alert"` regions updated by the consuming application.
-
-### Reflow, motion, forced colors, and localization
-
-- [ ] 320px-equivalent reflow passed for all nine examples in Chromium and
-      WebKit, including long text, Spanish, Arabic/RTL, and dismissal. Actual 400%
-      browser zoom, Firefox, and human readability/obscuration review remain open.
-- N/A — no motion, transition, timer, timeout, or auto-dismiss. Reduced-motion
-  emulation accompanies narrow-width checks.
-- [ ] Forced-colors emulation passed in Chromium and WebKit. System Canvas,
-      CanvasText, LinkText, and Highlight preserve boundaries, wording, icons, and
-      focus. Actual Windows high contrast and Firefox remain open.
-- [ ] Spanish and Arabic language scoping and RTL wrapping passed automated
-      checks. RTL icons move to the logical start (32px right inset). Human translation,
-      bidirectional-content review, and Firefox remain open.
-
-### Progressive enhancement and lifecycle
-
-- [x] No CSS/JavaScript checks passed in Chromium and WebKit: messages stay
-      named/readable, links remain usable, and both enhancement buttons stay hidden.
-- [x] Unit tests cover repeated initialization/destruction, restored authored DOM,
-      fresh-page visibility, missing targets, failed focus, disabled dismissal, and
-      independent instances. Dismissal uses no storage or cross-page persistence.
-- [x] `cods-site-alert:dismiss` bubbles with `composed: false` and
-      `{ focusTargetId }`; browser checks cover events, focus handoff, and reload.
-- USWDS Site Alert has no JavaScript behavior to wrap. CoDS supplies only the
-  optional dismissal lifecycle; markup/style remain based on the pinned source.
-
-### Validation and open items
-
-- Node 24.21.0, pnpm 12.4.2, Playwright 1.64.0, USWDS 3.14.0.
-  `nvm` was unavailable; the existing pinned Node binary was placed on PATH.
-- Workspace/fixture validation, Astro/Storybook validation, token drift
-  (352 tokens / 47 contrast pairs), formatting, lint, typecheck, 134 unit tests,
-  package/app builds, packaged examples, and static consumer checks passed.
-- 29 browser checks passed: 19 Chromium Storybook checks and five docs checks
-  each in Chromium and WebKit, including axe with no exclusions/disabled rules.
-  Rendered masks were compared with the packaged information/error SVG paths.
-- Firefox 157 exits before tests with “Could not find profile folder,” including
-  a fresh `/private/tmp` retry. Its five docs checks remain unverified and enabled.
-- Browser tests route built files without a local server. Reproduce after
-  `pnpm build` with `pnpm exec playwright test --config config/playwright.site-alert.ts`.
-  Full `pnpm check` browser-stage execution was not run because it starts preview
-  servers, prohibited by the user's instructions. CI retains the full gate.
-- Playwright CLI inspected built-file-routed docs at desktop and 320px widths.
-  Emergency and RTL screenshots were reviewed for readable text, icon placement,
-  and dismissal controls; keyboard dismissal returned focus to the documented
-  destination. This is developer verification, not human screen-reader evidence.
-- CodeRabbit review reported no findings. Developer source/lifecycle review
-  supplements browser checks.
-- Exact Figma alignment and State design/content review remain open. One connected
-  Figma account lacked file access; the other required reauthentication. Existing
-  repository measurements informed 32px icons/insets, a 16px gap, 18px vertical
-  padding, H5 typography, and the emergency surface token. No new token values
-  were introduced.
-- Human screen-reader, actual zoom, keyboard/obscuration, Windows high-contrast,
-  localization, and accessibility-owner approval remain required. No stable
-  maturity, G3 approval, multiple-alert stacking, or dismissal persistence is claimed.
+On October 27, 2026, 30 built-file browser checks passed in Chromium, Firefox, WebKit, and Storybook Chromium, including axe, 320px reflow, and forced-colors emulation. Firefox used an isolated temporary application profile. These automated checks do not replace human review. Earlier manual evidence below applies to the previous implementation, not this revision.
 
 ---
 
@@ -240,30 +158,3 @@ Chromium, Firefox, WebKit, and Storybook, and 240 validated tokens with 16
 contrast pairs. No test is skipped and no axe rule is disabled or excluded.
 The consolidated results are in the
 [vertical-slice audit](../../../../../../docs/audits/CODS-P2-005-vertical-slice-audit.md).
-
-## Follow-up review — 2026-10-21
-
-Figma frame 3770:786 was inspected. Emergency notices now use the shared
-Phosphor warning triangle, 16px heading/body gap, no decorative top border,
-and a centered 1280px content container. Desktop insets remain 32px; mobile
-insets are 16px. A yellow text-only warning example and an optional
-`cods-site-alert--no-icon` informational example match Figma. CDS-54 explicitly
-requires an informational icon, so that canonical variant retains it. Design
-review must reconcile that ticket/Figma difference; both treatments are available
-without changing announcement, dismissal, or keyboard behavior. Visually hidden
-headings preserve the text-only examples' distinct section names.
-
-149 unit tests and 40 component browser checks passed across Chromium, Firefox,
-WebKit, and Storybook Chromium. Added assertions cover mobile/desktop insets,
-emergency artwork, heading gap, content maximum width, warning surface and
-icon-free spacing. Workspace, Astro/Storybook validation, lint, type checks,
-token drift, builds, fixture output and static-consumer checks passed. Formatting
-passed excluding the pre-existing unrelated AGENTS.md edit, which is preserved
-and excluded from this commit. Built-file routing started no servers. These
-automated checks do not complete outstanding human or design sign-off.
-
-### Review update — 2026-10-26
-
-The Site Alert Figma page (1809:10566) was inspected in the Aten Chrome profile. Info and Warning are text-only; Emergency uses a warning triangle. CDS-54 requires distinct Info and Emergency icons, so the default Info example retains its info icon and a text-only Info example is provided. This difference requires design-owner and ticket-owner reconciliation; it is not a claim of design approval. The emergency comparison image now shows the packaged Phosphor warning triangle.
-
-The built-file Site Alert suite passed 40 checks on 2026-10-26 across Chromium, Firefox, WebKit, and Storybook Chromium, including visible default Info and Emergency icons, text-only examples, forced-color emulation, dismissal, and focus handoff. Firefox used an isolated temporary application profile. A separate build with the proposed PR #53 shared error-icon mapping passed the same 40 checks; PR #53 itself remains unmerged. Human screen-reader, actual 400% zoom, operating-system high contrast, localization, and design/accessibility review remain open.

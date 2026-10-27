@@ -988,8 +988,7 @@
         "paragraph-space.desktop-h6",
         "space.2xs",
         "space.md",
-        "space.xl",
-        "space.xs"
+        "space.xl"
       ],
       "designCoverage": "documented"
     },

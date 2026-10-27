@@ -21,15 +21,12 @@ test('package and Storybook preserve the canonical fixture and token styles', as
   ).toBe(fixture);
   await page.goto(story);
   const root = page.locator('#storybook-root');
-  await expect(root.locator('.cods-site-alert')).toHaveCount(11);
+  await expect(root.locator('.cods-site-alert')).toHaveCount(8);
   const equivalent = await root.evaluate((element, html) => {
     const template = document.createElement('template');
     template.innerHTML = html;
     const normalize = (node: ParentNode) => {
       node = node.cloneNode(true) as ParentNode;
-      node
-        .querySelectorAll('[data-cods-site-alert-dismiss]')
-        .forEach((button) => button.removeAttribute('hidden'));
       return [...node.querySelectorAll('.cods-site-alert')].map(
         (alert) => alert.outerHTML,
       );
@@ -86,7 +83,7 @@ test('320px reflow, localization, reduced motion, and forced colors', async ({
   await page.setViewportSize({ width: 320, height: 800 });
   await page.emulateMedia({ reducedMotion: 'reduce', forcedColors: 'active' });
   await page.goto(story);
-  await expect(page.locator('.cods-site-alert')).toHaveCount(11);
+  await expect(page.locator('.cods-site-alert')).toHaveCount(8);
   for (const alert of await page.locator('.cods-site-alert').all()) {
     await expect(alert).toBeVisible();
     expect(
@@ -144,7 +141,7 @@ test('all fixture landmarks have distinct accessible names', async ({
   page,
 }, testInfo) => {
   await page.goto(story);
-  await expect(page.locator('.cods-site-alert')).toHaveCount(11);
+  await expect(page.locator('.cods-site-alert')).toHaveCount(8);
   // This best-practice rule is not covered by the shared WCAG tag filter.
   const results = await new AxeBuilder({ page })
     .include('#storybook-root')
@@ -182,8 +179,6 @@ for (const [id, state] of [
   ['spanish', 'localization'],
   ['arabic-rtl', 'rtl'],
   ['focus-visible', 'focus-visible'],
-  ['informational-dismissible', 'informational-dismissible'],
-  ['emergency-dismissible', 'emergency-dismissible'],
 ] as const) {
   test(`isolated story reuses canonical state: ${state}`, async ({ page }) => {
     await page.goto(
@@ -198,12 +193,6 @@ for (const [id, state] of [
         const template = document.createElement('template');
         template.innerHTML = html;
         element = element.cloneNode(true) as typeof element;
-        element
-          .querySelectorAll('[data-cods-site-alert-dismiss]')
-          .forEach((button) => button.removeAttribute('hidden'));
-        template.content
-          .querySelectorAll('[data-cods-site-alert-dismiss]')
-          .forEach((button) => button.removeAttribute('hidden'));
         return (
           element.outerHTML ===
           template.content.querySelector(
@@ -226,7 +215,6 @@ test('severity icons load from the shipped package and banner fills its containe
 }) => {
   await page.goto(story);
   for (const [state, icon, background] of [
-    ['informational', 'info.svg', 'rgb(217, 232, 246)'],
     ['emergency', 'warning.svg', 'rgb(181, 9, 9)'],
   ] as const) {
     const alert = page.locator(
@@ -284,49 +272,6 @@ test('severity icons load from the shipped package and banner fills its containe
     ).toBe(true);
   }
 });
-
-for (const state of ['informational', 'emergency']) {
-  test(`${state} optional dismissal handles keyboard, focus, event, and reload`, async ({
-    page,
-  }, testInfo) => {
-    await page.goto(
-      `/iframe.html?id=components-site-alert--${state}-dismissible&viewMode=story&globals=a11y.manual:!true`,
-    );
-    const root = page.locator('.cods-site-alert');
-    const button = root.getByRole('button');
-    await expect(button).toBeVisible();
-    await expectAccessible(page, testInfo, '#storybook-root');
-    await page.evaluate(() => {
-      document.addEventListener(
-        'cods-site-alert:dismiss',
-        (event) => {
-          document.body.dataset.dismissTarget = (
-            event as CustomEvent
-          ).detail.focusTargetId;
-        },
-        { once: true },
-      );
-    });
-    await page.keyboard.press('Tab');
-    await expect(root.getByRole('link')).toBeFocused();
-    await page.keyboard.press('Tab');
-    await expect(button).toBeFocused();
-    await expect(button).toHaveCSS('outline-width', '4px');
-    await page.keyboard.press('Enter');
-    await expect(root).toBeHidden();
-    const target = `site-alert-${state}-dismissible-destination`;
-    await expect(page.locator(`#${target}`)).toBeFocused();
-    await expect(page.locator('body')).toHaveAttribute(
-      'data-dismiss-target',
-      target,
-    );
-    await page.reload();
-    await expect(root).toBeVisible();
-    await expect(button).toBeVisible();
-    await button.click();
-    await expect(root).toBeHidden();
-  });
-}
 
 test('page placement keeps the skip link first and bypasses notice and header', async ({
   page,

@@ -34,7 +34,7 @@ The stylesheet places USWDS in the lowest cascade layer and CoDS rules in the `c
 
 ## Choose a component
 
-- [Site Alert](../site-alert/): a sitewide notice with optional page-local dismissal. Its message needs no JavaScript; dismissal uses `initAllSiteAlerts()`.
+- [Site Alert](../site-alert/): a static sitewide notice that needs no JavaScript.
 - [Accordion](../accordion/): related collapsible sections. Import and initialize the controller as described on its page.
 
 Each component page links to its canonical HTML fixture and metadata, which are the same files used by Storybook and the automated tests.
