@@ -966,7 +966,6 @@
       "implementationTokens": [
         "color.bg-action-focus",
         "color.bg-alert-info",
-        "color.border-alert-info",
         "color.focus-gap",
         "color.icon-default",
         "color.icon-on-primary",

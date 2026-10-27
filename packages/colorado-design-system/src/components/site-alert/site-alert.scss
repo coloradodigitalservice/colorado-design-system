@@ -4,7 +4,6 @@ $site-alert-emergency-icon: './icons/warning.svg';
   .cods-site-alert {
     --cods-site-alert-background: var(--cods-color-bg-alert-info);
     --cods-site-alert-color: var(--cods-color-text-primary);
-    --cods-site-alert-accent: var(--cods-color-border-alert-info);
     --cods-site-alert-link: var(--cods-color-text-action-link);
     --cods-site-alert-link-hover: var(--cods-color-text-action-link-hover);
     --cods-site-alert-link-active: var(--cods-color-text-action-link-active);
@@ -26,7 +25,6 @@ $site-alert-emergency-icon: './icons/warning.svg';
   .cods-site-alert--emergency {
     --cods-site-alert-background: var(--cods-color-surface-error-bold);
     --cods-site-alert-color: var(--cods-color-text-action-primary);
-    --cods-site-alert-accent: var(--cods-color-surface-error-bold);
     --cods-site-alert-link: var(--cods-color-text-action-primary);
     --cods-site-alert-link-hover: var(--cods-color-text-action-primary);
     --cods-site-alert-link-active: var(--cods-color-text-action-primary);
