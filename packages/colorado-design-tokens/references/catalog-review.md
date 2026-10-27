@@ -74,13 +74,3 @@ For CSS customization, import `tokens.css` and override semantic properties on `
 State approval remains a dependency. [PR #37](https://github.com/coloradodigitalservice/colorado-design-system/pull/37) merged with the USWDS-specific alert/visited aliases and core overrides. The seven overlapping roles use those existing names and declarations, with the same visited-link contrast pair; no shared-file reconciliation is pending. No public component stylesheet is changed here.
 
 Record a patch changeset for the development series. A locally packed token archive can support review, but is not an official published beta or approval. Before beta, resolve the recorded value conflicts, obtain design/accessibility sign-off, merge required dependencies, pass the full gate, and cut the release through the repository process. Passing automation alone is not sufficient for acceptance.
-
-## Accordion follow-up (CODS-P3-007, October 16)
-
-Eric authorized the component alignment described in `mapping.md`. Accordion now
-uses a dedicated gray/10 supplemental border and explicit border-width/focus-
-spread dimensions. The earlier preserve-gray/20 guidance still applies to the
-shared `color.border-subtle` and contract samples; no global re-alias occurs.
-The existing global focus contract is unchanged. Review the additive component
-mappings, actual focus geometry, and decorative border treatment with the Aten
-technical/design leads and accessibility lead; State approval is separate.

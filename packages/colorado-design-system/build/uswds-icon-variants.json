@@ -9,7 +9,10 @@
   "file-word.svg": { "id": "file-text", "color": "07648d" },
   "file.svg": { "id": "file", "color": "07648d" },
   "usa-icons-bg/check--blue-60v.svg": { "id": "check", "color": "005ea2" },
-  "usa-icons-bg/error--white.svg": { "id": "x-circle", "color": "ffffff" },
+  "usa-icons-bg/error--white.svg": {
+    "id": "warning-circle",
+    "color": "ffffff"
+  },
   "usa-icons-bg/launch--white.svg": {
     "id": "arrow-square-out",
     "color": "ffffff"

@@ -636,6 +636,26 @@
         }
       }
     },
+    "bg-alert-success": {
+      "$type": "color",
+      "$value": "{color.bg-page-surface-green}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "bg-alert-success",
+          "location": "CDS-52 Success alert extension; existing palette mapping proposed for design and accessibility review 2026-10-26"
+        }
+      }
+    },
+    "border-alert-success": {
+      "$type": "color",
+      "$value": "{color.state-success}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "border-alert-success",
+          "location": "CDS-52 Success alert extension; existing palette mapping proposed for design and accessibility review 2026-10-26"
+        }
+      }
+    },
     "border-accordion-subtle": {
       "$type": "color",
       "$value": "{color.co-gray-10}",
