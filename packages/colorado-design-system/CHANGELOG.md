@@ -1,5 +1,12 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.6
+
+### Patch Changes
+
+- f2f31e9: Update Site Alert with informational, warning, and emergency surfaces, an emergency icon, and placement guidance.
+- @coloradodigitalservice/colorado-design-tokens@0.2.6
+
 ## 0.2.5
 
 ### Patch Changes

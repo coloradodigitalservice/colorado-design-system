@@ -524,7 +524,7 @@ describe('component inventory completeness', () => {
     ['Accordion', 'focus.accordion-outer-spread'],
     ['Accordion', 'border.accordion-width'],
     ['Accordion', 'color.border-accordion-subtle'],
-    ['Site Alert', 'font.size-mobile-h3'],
+    ['Site Alert', 'color.icon-default'],
   ])(
     'detects omitted %s stylesheet dependencies independently of the inventory',
     async (name, missing) => {
