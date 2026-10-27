@@ -8,7 +8,24 @@ figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-Syste
 
 ## When to use
 
-Use an accordion to organize related, optional sections, such as supporting details or frequently asked questions. Keep information everyone needs visible outside it. Do not use it for a single block of content, for navigation, or for content people must read in full to complete a task. Choose heading levels to fit the page outline. The examples above use the package's canonical fixture.
+Use accordions when:
+
+- Content can be grouped into related, optional sections, such as supporting details or frequently asked questions.
+- People need to scan the available topics and open the sections relevant to them.
+
+Don't use accordions when:
+
+- Everyone needs to see the information, or people must read it in full to complete a task. Keep crucial information visible.
+- There is only one block of content or the goal is navigation. Use headings, links, or another page structure instead.
+
+### Writing for accordions
+
+- Keep the hierarchy flat. Avoid nesting accordions inside accordions.
+- Write clear, descriptive headings of fewer than seven words.
+- Keep crucial information outside collapsed panels.
+- Consider alternatives, such as headings and links, when they make content easier to scan or find.
+
+Choose heading levels to fit the page outline. The examples above use the package's canonical fixture.
 
 Accordion is **experimental** in the `0.x` development series. P3-007 builds on the G2 vertical slice; design review, detailed manual accessibility evidence, and owner acceptance remain open.
 
@@ -80,6 +97,12 @@ The controller wraps the pinned [USWDS accordion](https://designsystem.digital.g
 ## Appearance and localization
 
 Public classes are `cods-accordion`, `cods-accordion--borderless`, `cods-accordion--white`, `cods-accordion__heading`, `cods-accordion__trigger`, and `cods-accordion__panel`. Keep the corresponding `usa-*` classes as the private upstream integration markup. The default has a gray header and 4px pale panel border. Use `cods-accordion--borderless` for a transparent panel without a border, or `cods-accordion--white` for white headers and 1px borders. Each appears in the canonical examples and Storybook.
+
+Choose a variant that fits the surrounding page:
+
+- **Bordered (default):** Use when the panel needs a clear visual boundary.
+- **Borderless:** Use when the panel should blend into the surrounding background.
+- **White:** Use when a white container and subtle outline fit the page.
 
 Set `--cods-accordion-background`, `--cods-accordion-text`, and `--cods-accordion-border` on a root to customize approved token-based defaults. The Accordion-specific border mapping uses `color.border-accordion-subtle` (gray/10) without changing the shared `color.border-subtle` (gray/20). White uses `color.border-default`. The pale border is decorative; the text, native button state, and up/down chevron convey the control and state.
 
