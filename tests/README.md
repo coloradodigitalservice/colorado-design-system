@@ -238,6 +238,23 @@ output. Confirm a nonzero exit and attachments, then remove the temporary spec.
 
 See [Foundation CI](../docs/CI.md) for job selection and artifacts.
 
+### Accordion verification without preview servers
+
+After `pnpm build`, run
+`pnpm exec playwright test --config config/playwright.accordion.ts` to verify
+the compiled Accordion documentation and Storybook stories through local request
+routing. This starts no preview server. Chromium, Firefox, and WebKit remain
+enabled; the normal `pnpm check` preview-based gate remains the full gate.
+
+### In-Page Alert without local servers
+
+After `pnpm build`, run
+`pnpm exec playwright test --config config/playwright.in-page-alert.ts`.
+This component suite routes the built Astro/Storybook files and assets through
+Playwright instead of opening preview ports. It covers the docs in Chromium,
+Firefox, and WebKit plus the Storybook examples in Chromium. It supplements the
+full browser suite; it does not replace that release gate.
+
 ### Site Alert verification without preview servers
 
 After `pnpm build`, run

@@ -1,4 +1,5 @@
 // Generated from reviewed DTCG sources. Do not edit; run pnpm tokens:build.
+$border-accordion-width: 4px;
 $color-bg-action-danger: #b50909;
 $color-bg-action-danger-active: #6f0101;
 $color-bg-action-danger-hover: #950707;
@@ -26,6 +27,7 @@ $color-bg-page-surface-yellow: #fdfcf0;
 $color-bg-surface-secondary: #ebeced;
 $color-bg-tag-info: #aacdec;
 $color-black-alpha-12: #0000001f;
+$color-border-accordion-subtle: #ebeced;
 $color-border-action-secondary: #001970;
 $color-border-action-secondary-active: #2551a3;
 $color-border-action-secondary-hover: #001049;
@@ -199,6 +201,7 @@ $elevation-mid-spread: 0px;
 $elevation-mid-x: 0px;
 $elevation-mid-y: 8px;
 $elevation-opacity: 0.12;
+$focus-accordion-outer-spread: 4px;
 $focus-ring-offset: 2px;
 $focus-ring-width: 4px;
 $focus-row-width: 2px;

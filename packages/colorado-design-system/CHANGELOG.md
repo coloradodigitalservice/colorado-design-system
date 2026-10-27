@@ -1,5 +1,15 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.7
+
+### Patch Changes
+
+- 8dc4e46: Align Accordion chevrons, focus spread, and variants with Figma. Make bordered the default and provide an explicit transparent borderless variant. Add isolated Accordion border/focus tokens while preserving shared semantic colors and global focus geometry.
+- 8dc4e46: Source Accordion caret masks from the shared pinned Phosphor pipeline after comparing the original Figma exports, preserving size, color, spacing, and forced-color behavior.
+- 8dc4e46: Complete Accordion production states and usage guidance, consume approved spacing and typography tokens, and wrap the USWDS lifecycle with state observation and focus-safe teardown. Nested accordions remain unenhanced and readable.
+- Updated dependencies [8dc4e46]
+  - @coloradodigitalservice/colorado-design-tokens@0.2.7
+
 ## 0.2.6
 
 ### Patch Changes
