@@ -43,5 +43,11 @@ export const TileDisabledGroup: Story = {
 export const TileLongContent: Story = {
   render: () => state('tile-long-content'),
 };
-export const TileSpanish: Story = { render: () => state('tile-localization') };
-export const TileRightToLeft: Story = { render: () => state('tile-rtl') };
+export const TileLocalization: Story = {
+  name: 'Tile Spanish',
+  render: () => state('tile-localization'),
+};
+export const TileRtl: Story = {
+  name: 'Tile Right To Left',
+  render: () => state('tile-rtl'),
+};
