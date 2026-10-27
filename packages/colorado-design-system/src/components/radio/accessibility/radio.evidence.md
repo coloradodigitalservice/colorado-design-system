@@ -92,3 +92,9 @@ for Checkbox; 4060:1294 for Radio). The subtle inset border and outer focus ring
 now remain visible when the pointer stays over the focused card. The hover rule
 excludes keyboard-focused inputs so it cannot suppress that indicator; the
 regression asserts the combined border, white gap and blue band.
+
+## Tile review follow-up — 2026-10-27
+
+Tile examples now include supporting text and a decorative icon, invalid and disabled groups, and long, Spanish and Arabic content. Browser checks cover native selection, error and hover borders, disabled selection, 320px reflow and axe in Chromium and WebKit; the Storybook fixture also passes axe in Chromium (19 checks total). Firefox failed before navigation with the existing profile-folder error. These automated results do not replace the open human reviews above.
+
+Figma's Default guidance recommends more than five options, while its comparison table gives Radio Buttons two to five. Both are reproduced in the documentation for design-owner review.

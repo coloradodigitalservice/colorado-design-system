@@ -234,3 +234,53 @@ test('Figma radio geometry and tile labels preserve native group selection', asy
   await expect(page.locator('#radio-tile-email')).toBeChecked();
   await expect(page.locator('#radio-tile-phone')).toBeDisabled();
 });
+
+test('tile supporting content, errors and disabled groups preserve native behavior', async ({
+  page,
+}, testInfo) => {
+  const email = page.locator('#radio-tile-email');
+  await expect(email).toHaveAccessibleName(
+    'Email Receive updates in your inbox.',
+  );
+  await page
+    .locator('label[for=radio-tile-email] .cods-radio__description')
+    .click();
+  await expect(email).toBeChecked();
+  const normalTile = page.locator('label[for=radio-tile-post]');
+  await page.mouse.move(0, 0);
+  const normalBorder = await normalTile.evaluate(
+    (el) => getComputedStyle(el).boxShadow,
+  );
+  await normalTile.hover();
+  expect(
+    await normalTile.evaluate((el) => getComputedStyle(el).boxShadow),
+  ).not.toBe(normalBorder);
+  const error = page.getByRole('group', { name: 'Choose a service' });
+  await expect(error).toHaveAccessibleDescription('Error: Select a service.');
+  const label = page.locator('label[for="radio-tile-error-1"]');
+  await label.hover();
+  expect(
+    await label.evaluate((el) => getComputedStyle(el).boxShadow),
+  ).toContain('rgb(181, 9, 9)');
+  await label.click();
+  await expect(page.locator('#radio-tile-error-1')).toBeChecked();
+  await page.keyboard.press('Tab');
+  await page.locator('#radio-tile-error-1').focus();
+  expect(
+    await label.evaluate((el) => getComputedStyle(el).boxShadow),
+  ).toContain('rgb(181, 9, 9)');
+  expect(
+    await label.evaluate((el) => getComputedStyle(el).boxShadow),
+  ).toContain('rgb(23, 59, 179)');
+  await expect(page.locator('#radio-tile-disabled-1')).toBeDisabled();
+  await expect(page.locator('#radio-tile-disabled-1')).toBeChecked();
+  await expect(page.locator('#radio-tile-disabled-2')).toBeDisabled();
+  await page.setViewportSize({ width: 320, height: 900 });
+  for (const state of ['tile-long-content', 'tile-localization', 'tile-rtl']) {
+    const block = page.locator(`[data-cods-fixture-state="${state}"]`);
+    expect(await block.evaluate((el) => el.scrollWidth <= el.clientWidth)).toBe(
+      true,
+    );
+  }
+  await expectAccessible(page, testInfo);
+});

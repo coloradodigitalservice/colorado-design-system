@@ -1,7 +1,4 @@
-<section
-  data-cods-fixture-state="default"
-  aria-labelledby="radio-default-heading"
->
+<div data-cods-fixture-state="default" aria-labelledby="radio-default-heading">
   <h2 id="radio-default-heading">Default</h2>
   <fieldset class="usa-fieldset cods-radio__group">
     <legend class="usa-legend cods-radio__legend">
@@ -45,9 +42,9 @@
       >
     </div>
   </fieldset>
-</section>
+</div>
 
-<section
+<div
   data-cods-fixture-state="selected"
   aria-labelledby="radio-selected-heading"
 >
@@ -83,9 +80,9 @@
       >
     </div>
   </fieldset>
-</section>
+</div>
 
-<section
+<div
   data-cods-fixture-state="disabled"
   aria-labelledby="radio-disabled-heading"
 >
@@ -134,9 +131,9 @@
       >
     </div>
   </fieldset>
-</section>
+</div>
 
-<section
+<div
   data-cods-fixture-state="disabled-group"
   aria-labelledby="radio-disabled-group-heading"
 >
@@ -176,9 +173,9 @@
       >
     </div>
   </fieldset>
-</section>
+</div>
 
-<section data-cods-fixture-state="error" aria-labelledby="radio-error-heading">
+<div data-cods-fixture-state="error" aria-labelledby="radio-error-heading">
   <h2 id="radio-error-heading">Error</h2>
   <fieldset
     class="usa-fieldset cods-radio__group"
@@ -219,9 +216,9 @@
       >
     </div>
   </fieldset>
-</section>
+</div>
 
-<section
+<div
   data-cods-fixture-state="long-content"
   aria-labelledby="radio-long-content-heading"
 >
@@ -264,9 +261,9 @@
       >
     </div>
   </fieldset>
-</section>
+</div>
 
-<section
+<div
   data-cods-fixture-state="localization"
   aria-labelledby="radio-localization-heading"
   lang="es"
@@ -307,9 +304,9 @@
       >
     </div>
   </fieldset>
-</section>
+</div>
 
-<section
+<div
   data-cods-fixture-state="rtl"
   aria-labelledby="radio-rtl-heading"
   lang="ar"
@@ -347,7 +344,7 @@
       >
     </div>
   </fieldset>
-</section>
+</div>
 
 <div data-cods-fixture-state="tile">
   <h2>Tile</h2>
@@ -364,7 +361,19 @@
         value="email"
         checked
       /><label class="usa-radio__label cods-radio__label" for="radio-tile-email"
-        >Email</label
+        ><svg
+          class="cods-icon cods-icon--small"
+          width="16"
+          height="16"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <use href="/icons/sprite.svg#envelope"></use>
+        </svg>
+        Email
+        <span class="cods-radio__description"
+          >Receive updates in your inbox.</span
+        ></label
       >
     </div>
     <div class="usa-radio cods-radio cods-radio--tile">
@@ -388,6 +397,154 @@
         disabled
       /><label class="usa-radio__label cods-radio__label" for="radio-tile-phone"
         >Phone</label
+      >
+    </div>
+  </fieldset>
+</div>
+
+<div data-cods-fixture-state="tile-error">
+  <h2>Tile error</h2>
+  <fieldset
+    class="usa-fieldset cods-radio__group"
+    aria-describedby="radio-tile-error-message"
+  >
+    <legend class="usa-legend cods-radio__legend">Choose a service</legend>
+    <p class="cods-radio__error" id="radio-tile-error-message">
+      Error: Select a service.
+    </p>
+    <div class="usa-radio cods-radio cods-radio--tile">
+      <input
+        class="usa-radio__input cods-radio__input"
+        id="radio-tile-error-1"
+        name="tile-error"
+        type="radio"
+        value="online"
+        aria-invalid="true"
+        required
+      /><label
+        class="usa-radio__label cods-radio__label"
+        for="radio-tile-error-1"
+        >Online
+        <span class="cods-radio__description">Apply on the web.</span></label
+      >
+    </div>
+    <div class="usa-radio cods-radio cods-radio--tile">
+      <input
+        class="usa-radio__input cods-radio__input"
+        id="radio-tile-error-2"
+        name="tile-error"
+        type="radio"
+        value="office"
+        aria-invalid="true"
+        required
+      /><label
+        class="usa-radio__label cods-radio__label"
+        for="radio-tile-error-2"
+        >In person</label
+      >
+    </div>
+  </fieldset>
+</div>
+<div data-cods-fixture-state="tile-disabled-group">
+  <h2>Disabled tiles</h2>
+  <fieldset class="usa-fieldset cods-radio__group" disabled>
+    <legend class="usa-legend cods-radio__legend">Service unavailable</legend>
+    <div class="usa-radio cods-radio cods-radio--tile">
+      <input
+        class="usa-radio__input cods-radio__input"
+        id="radio-tile-disabled-1"
+        name="tile-disabled"
+        type="radio"
+        value="online"
+        checked
+      /><label
+        class="usa-radio__label cods-radio__label"
+        for="radio-tile-disabled-1"
+        >Online
+        <span class="cods-radio__description"
+          >Currently unavailable.</span
+        ></label
+      >
+    </div>
+    <div class="usa-radio cods-radio cods-radio--tile">
+      <input
+        class="usa-radio__input cods-radio__input"
+        id="radio-tile-disabled-2"
+        name="tile-disabled"
+        type="radio"
+        value="office"
+      /><label
+        class="usa-radio__label cods-radio__label"
+        for="radio-tile-disabled-2"
+        >In person</label
+      >
+    </div>
+  </fieldset>
+</div>
+<div data-cods-fixture-state="tile-long-content">
+  <h2>Tile long content</h2>
+  <fieldset class="usa-fieldset cods-radio__group">
+    <legend class="usa-legend cods-radio__legend">
+      Choose a way to receive detailed information
+    </legend>
+    <div class="usa-radio cods-radio cods-radio--tile">
+      <input
+        class="usa-radio__input cods-radio__input"
+        id="radio-tile-long"
+        name="tile-long"
+        type="radio"
+        value="email"
+      /><label class="usa-radio__label cods-radio__label" for="radio-tile-long"
+        >Email updates
+        <span class="cods-radio__description"
+          >Receive application instructions, eligibility requirements,
+          deadlines, and details about supporting documents.</span
+        ></label
+      >
+    </div>
+  </fieldset>
+</div>
+<div data-cods-fixture-state="tile-localization" lang="es">
+  <h2>Tile en español</h2>
+  <fieldset class="usa-fieldset cods-radio__group">
+    <legend class="usa-legend cods-radio__legend">
+      ¿Cómo desea recibir información?
+    </legend>
+    <div class="usa-radio cods-radio cods-radio--tile">
+      <input
+        class="usa-radio__input cods-radio__input"
+        id="radio-tile-es"
+        name="tile-es"
+        type="radio"
+        value="email"
+      /><label class="usa-radio__label cods-radio__label" for="radio-tile-es"
+        >Correo electrónico
+        <span class="cods-radio__description"
+          >Reciba instrucciones y detalles sobre los documentos
+          necesarios.</span
+        ></label
+      >
+    </div>
+  </fieldset>
+</div>
+<div data-cods-fixture-state="tile-rtl" lang="ar" dir="rtl">
+  <h2>بلاطات من اليمين إلى اليسار</h2>
+  <fieldset class="usa-fieldset cods-radio__group">
+    <legend class="usa-legend cods-radio__legend">
+      كيف تفضل أن نتواصل معك؟
+    </legend>
+    <div class="usa-radio cods-radio cods-radio--tile">
+      <input
+        class="usa-radio__input cods-radio__input"
+        id="radio-tile-ar"
+        name="tile-ar"
+        type="radio"
+        value="email"
+      /><label class="usa-radio__label cods-radio__label" for="radio-tile-ar"
+        >البريد الإلكتروني
+        <span class="cods-radio__description"
+          >تلقي التعليمات والتحديثات عبر البريد الإلكتروني.</span
+        ></label
       >
     </div>
   </fieldset>

@@ -24,7 +24,12 @@
     "long-content",
     "localization",
     "rtl",
-    "tile"
+    "tile",
+    "tile-error",
+    "tile-disabled-group",
+    "tile-long-content",
+    "tile-localization",
+    "tile-rtl"
   ],
   "progressiveEnhancement": "full",
   "localization": "layout-sensitive",
@@ -79,6 +84,31 @@
     {
       "state": "tile",
       "fixtureState": "tile",
+      "setup": "none"
+    },
+    {
+      "state": "tile-error",
+      "fixtureState": "tile-error",
+      "setup": "none"
+    },
+    {
+      "state": "tile-disabled-group",
+      "fixtureState": "tile-disabled-group",
+      "setup": "none"
+    },
+    {
+      "state": "tile-long-content",
+      "fixtureState": "tile-long-content",
+      "setup": "none"
+    },
+    {
+      "state": "tile-localization",
+      "fixtureState": "tile-localization",
+      "setup": "none"
+    },
+    {
+      "state": "tile-rtl",
+      "fixtureState": "tile-rtl",
       "setup": "none"
     }
   ]

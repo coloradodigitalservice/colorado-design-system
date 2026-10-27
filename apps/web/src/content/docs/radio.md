@@ -46,15 +46,57 @@ Canonical assets are exported as `@coloradodigitalservice/colorado-design-system
 
 Authors own meaningful group legends, label association, unique IDs and names, required-state instructions, server validation, and dynamic error handling. Screen-reader group/legend and error announcements, actual 400% zoom, and human forced-colors review remain open in the evidence file. This component must remain experimental until the accessibility owner approves that evidence. P0-006 scope confirmation and P2-007 design acceptance remain dependencies.
 
-### Figma tile treatment
+## Default
 
-Use `cods-radio--tile` on each native radio wrapper for the separate bordered
-card rows shown in Figma. The full label is clickable; native group selection
-and arrow-key behavior are preserved. This does not introduce a segmented
-button group. Tiles use existing form surfaces, 12px vertical padding, 16px
-horizontal inset and an 8px control-to-label gap. Default rows use an 8px inset
-and the same 8px gap. Focus uses the observed 2px white gap and 2px blue band.
+**Use when:**
 
-The tile width defaults to Figma’s 240px (15rem), constrained to its container.
-Override `--cods-radio-tile-width` to fit the service layout; labels
-wrap and height grows with the content.
+- Space is limited: You have a long list of options (more than 5) and need to minimize vertical scrolling.
+- Simple attributes: You are asking for simple data points like gender, suffix, or basic "Yes/No" preferences.
+- Scanning is priority: The user needs to quickly scan through several options to find the one that applies to them.
+- Low-risk decisions: The choices are familiar, easy to understand, and do not require extensive supporting text or iconography to explain.
+
+**Don’t use when:**
+
+- Complex consequences: The choice leads to a significant change in the user's path or eligibility that requires detailed explanation.
+- Touch targets need to be large: The interface is primarily used on mobile devices where a larger "tap" area (like a tile) would improve accessibility.
+- Visual distinction is needed: You want to emphasize the importance of the choice or make it feel like a "product selection" rather than a form field.
+
+## Tile
+
+**Use when:**
+
+- High-impact decisions: You want the user to slow down and carefully consider a small set of meaningful options (usually 2–4).
+- Supporting content is required: Each option needs a sub-label, description, or icon to help the user distinguish between choices (e.g., selecting a pricing tier or a service plan).
+- Enhanced accessibility: You want to provide a larger click/touch target for users with limited motor skills.
+- Visual Hierarchy: You want to make the selection process feel more modern, interactive, and distinct from the rest of a standard text-heavy form.
+
+**Don’t use when:**
+
+- Large lists: Using tiles for a list of 10 items will create "wall of boxes" that is visually overwhelming and difficult to scan.
+- The choice is trivial: If the question is as simple as "Do you agree to the terms?", a tile adds unnecessary visual weight and "noise" to the page.
+- Consistency is broken: If every other selection in your form uses default radio buttons, switching to a tile for a simple question can confuse the user's mental model of the interface.
+
+Apply `cods-radio--tile` to each option. Place optional supporting text in a `cods-radio__description` span within the label so it remains part of the clickable option. Decorative icons should be hidden from assistive technology; include any meaning in text. The tile defaults to 15rem wide, constrained to its container; set `--cods-radio-tile-width` to fit the layout.
+
+## Compare Similar Components
+
+| Component     | Use case                                                               | Number of options   | Selection type                        |
+| ------------- | ---------------------------------------------------------------------- | ------------------- | ------------------------------------- |
+| Checkboxes    | Independent choices, or a single binary toggle (e.g., "Accept terms"). | 1 to many options   | Multiple selection (or single toggle) |
+| Radio buttons | Mutually exclusive choices; all options must be visible at a glance.   | 2 to 5 options      | Single selection                      |
+| Dropdowns     | Conserves screen space; hides options until clicked.                   | More than 5 options | Single selection (typically)          |
+
+The option counts in this table differ from the Default guidance above. This discrepancy needs design review.
+
+## Writing for Radio Buttons
+
+Radio button labels should:
+
+- Be introduced with a colon or a heading.
+- Start with a capital letter.
+- Not end in punctuation if it’s a single sentence, word, or a fragment.
+
+| Do       | Don’t    |
+| -------- | -------- |
+| Option 1 | option 1 |
+| Red      | Red;     |
