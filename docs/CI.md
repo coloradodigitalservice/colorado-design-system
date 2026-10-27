@@ -31,6 +31,14 @@ jobs. The selected jobs add these checks:
 - `storybook`: token drift, lint, Storybook and dependency builds (including its
   own TypeScript project), and Chromium smoke/axe checks of every built story.
 
+The `web` job runs on `ubuntu-24.04` in the official Playwright image matching
+the repository's pinned `@playwright/test` version. Its image tag is also pinned
+by the registry's immutable manifest digest, providing Chromium, Firefox,
+WebKit, and their system dependencies without installing browsers or APT
+packages during each run. The `scope`, `repository`, `code`, `storybook`, and
+`foundation` jobs remain host-based; their behavior and runner selection are
+unchanged.
+
 `foundation` always runs after the other jobs. It fails if any selected job fails
 or is cancelled. Configure **foundation** as the required status check in the
 repository ruleset; conditional jobs can legitimately be skipped. Workflow-level
@@ -64,6 +72,9 @@ verify that behavior. Ports 4321/6006 must be free; existing servers are not reu
 Browser checks run against built static files, not development or deployed pages.
 Automated axe results supplement the component contract's manual accessibility
 requirements.
+
+The Linux `--with-deps` command is for local host setup only; the containerized
+Foundation web job must not run browser or system-dependency installation.
 
 ## Inspect failures and artifacts
 
@@ -102,6 +113,18 @@ actual upload in a PR run. `upload-artifact` v7.0.1 uses Node 24 and retains ZIP
 archive behavior by default, compatible with these hosted runners and directory
 uploads ([upstream action](https://github.com/actions/upload-artifact/tree/v7.0.1)).
 Keep artifact names unique and retention explicit.
+
+When updating `@playwright/test`, update the web job's official
+[Playwright image](https://playwright.dev/docs/docker) to the same version and
+matching Ubuntu base tag, then verify and pin the image manifest digest from
+Microsoft Container Registry. Keep the readable version tag alongside the
+digest, and verify that the digest resolves to the intended Linux runner
+architecture. The image is pulled before the web job's steps begin: pull or
+registry errors indicate container setup trouble, while browser launch and test
+errors occur in the browser-test step after the image and dependencies are
+available. Local Linux runs still install dependencies with
+`playwright install --with-deps`; that command does not belong in the container
+job.
 
 Scope selection is covered by both path unit tests and temporary-Git-repository
 regression tests for cross-area renames. When changing path rules, extend those

@@ -89,8 +89,10 @@ jobs:
   web:
     needs: scope
     if: needs.scope.outputs.web == 'true'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
+    container:
+      image: mcr.microsoft.com/playwright:v1.64.1-noble@sha256:47b510dd9230bf0b9bfc9b20102241e577ea7a99334ab4c3ca19f19770e9b8ea
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -107,7 +109,6 @@ jobs:
       - run: pnpm lint
       - run: pnpm exec turbo run build --filter=@cods-internal/web... --filter=@cods-internal/example-static-html...
       - run: pnpm fixtures:check
-      - run: pnpm exec playwright install --with-deps chromium firefox webkit
       - run: pnpm test:browser --project='web*'
         env:
           CODS_BROWSER_TARGET: web
