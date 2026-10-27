@@ -56,3 +56,5 @@ The root exposes `--cods-site-alert-background`, `--cods-site-alert-color`, `--c
 Site Alert is static and does not include a close button. Showing multiple alerts together is not supported. Human design and accessibility review remains open.
 
 ## More examples
+
+The examples below show each alert type, long content, translated content, and keyboard focus.

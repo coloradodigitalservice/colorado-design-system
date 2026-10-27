@@ -96,6 +96,10 @@ No local servers were started. Human checks and design approval remain open.
 
 ## Review update — 2026-10-26
 
-The CoDS variant is named Urgent and retains the USWDS error class. The shared USWDS error artwork now maps to Phosphor `warning-circle`; the comparison image was refreshed. Site Alert's shipped examples use `usa-site-alert--no-icon` and their icons remain hidden in Chromium and WebKit. Success uses supplemental aliases for the existing green surface and state colors. Text, links, and the accent pass the recorded contrast checks; design and accessibility owner review remains open.
+The CoDS variant is named Urgent and retains the USWDS error class. The shared USWDS error artwork now maps to Phosphor `warning-circle`; the comparison image was refreshed. At the time of this review, Site Alert examples used `usa-site-alert--no-icon` and their icons were hidden in Chromium and WebKit. Success uses supplemental aliases for the existing green surface and state colors. Text, links, and the accent pass the recorded contrast checks; design and accessibility owner review remains open.
 
 The built-file suite passed 26 checks in Chromium, WebKit, and Storybook Chromium, including forced-color emulation. Firefox could not launch because it could not find its profile folder; its six checks remain open for this revision. Manual screen-reader, real 400% zoom, OS high contrast, localization, and visual design review remain open. Dismiss-control examples are not applicable until dismissal is implemented.
+
+## Site Alert update — 2026-10-27
+
+Site Alert now uses a visible emergency icon. Informational and warning alerts are text-only; the `usa-site-alert--no-icon` class is no longer used in its examples. See [Site Alert evidence](../../site-alert/accessibility/site-alert.evidence.md) for the current review.
