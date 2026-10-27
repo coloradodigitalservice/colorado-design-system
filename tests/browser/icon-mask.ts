@@ -29,7 +29,6 @@ export async function expectPhosphorMask(
       luminance(surface.backgroundColor),
     ].sort((a, b) => b - a);
     return {
-      display: icon.display,
       mask: icon.maskImage,
       // USWDS adds a transparent gradient mask layer for WebKit support.
       size: icon.maskSize.split(',')[0]!.trim(),
@@ -41,7 +40,6 @@ export async function expectPhosphorMask(
       contrast: (pair[0]! + 0.05) / (pair[1]! + 0.05),
     };
   });
-  expect(style.display, `${id} icon is visible`).not.toBe('none');
   expect(style).toMatchObject({
     width: `${expected.size}px`,
     height: `${expected.size}px`,

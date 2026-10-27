@@ -1,5 +1,11 @@
 # @coloradodigitalservice/colorado-design-tokens
 
+## 0.2.5
+
+### Patch Changes
+
+- b73c24c: Add experimental In-Page Alert with four severity variants, canonical examples, contextual usage and live-region guidance.
+
 ## 0.2.4
 
 ### Patch Changes
