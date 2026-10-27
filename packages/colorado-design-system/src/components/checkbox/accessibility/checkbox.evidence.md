@@ -50,7 +50,7 @@
 
 On 2026-10-27, the updated Checkbox suite passed locally in Chromium (8 tests), WebKit (8 tests), and Storybook Chromium (1 test), using built files. Firefox could not launch locally, so its 8 tests did not run.
 
-The previous PR head passed GitHub CI: 192 web tests across Chromium, Firefox, and WebKit, and 95 Storybook Chromium tests. Those results predate these changes. The updated head needs CI verification in all browsers. Automated checks do not establish human screen-reader, zoom, or Windows High Contrast results.
+GitHub Actions run 40584208267 passed for commit `6249542`: 312 web tests across Chromium, Firefox, and WebKit, and 277 Storybook Chromium tests. This run precedes the focused-card and error-alignment follow-up; those changes need CI verification. Automated checks do not establish human screen-reader, zoom, or Windows High Contrast results.
 
 ## Open items
 

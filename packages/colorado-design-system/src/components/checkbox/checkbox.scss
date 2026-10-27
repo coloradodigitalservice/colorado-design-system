@@ -95,6 +95,8 @@ $disabled-mixed-path: './icons/minus--171717.svg';
   }
 
   .cods-checkbox--card {
+    --cods-checkbox-card-border: var(--cods-color-border-form-subtle);
+
     inline-size: var(--cods-checkbox-card-width, 15rem);
     max-inline-size: 100%;
   }
@@ -110,7 +112,7 @@ $disabled-mixed-path: './icons/minus--171717.svg';
       var(--cods-space-md);
     border-radius: var(--cods-radius-md);
     box-shadow: inset 0 0 0 var(--cods-control-checkbox-border-width)
-      var(--cods-color-border-form-subtle);
+      var(--cods-checkbox-card-border);
     background: var(--cods-checkbox-background);
   }
 
@@ -120,9 +122,9 @@ $disabled-mixed-path: './icons/minus--171717.svg';
 
   .cods-checkbox--card:has(.cods-checkbox__input:is(:checked, :indeterminate))
     .cods-checkbox__label {
+    --cods-checkbox-card-border: var(--cods-checkbox-selected);
+
     background: var(--cods-color-surface-form-selected);
-    box-shadow: inset 0 0 0 var(--cods-control-checkbox-border-width)
-      var(--cods-checkbox-selected);
   }
 
   .cods-checkbox--card:hover:has(
@@ -146,7 +148,7 @@ $disabled-mixed-path: './icons/minus--171717.svg';
     outline-offset: var(--cods-focus-ring-offset);
     box-shadow:
       inset 0 0 0 var(--cods-control-checkbox-border-width)
-        var(--cods-color-border-form-subtle),
+        var(--cods-checkbox-card-border),
       0 0 0 var(--cods-focus-ring-offset) var(--cods-color-focus-gap),
       0 0 0 var(--cods-space-2xs) var(--cods-color-bg-action-focus);
   }
@@ -171,6 +173,12 @@ $disabled-mixed-path: './icons/minus--171717.svg';
     );
     margin-block: var(--cods-space-xs);
     overflow-wrap: anywhere;
+  }
+
+  .cods-checkbox--card .cods-checkbox__error {
+    padding-inline-start: calc(
+      var(--cods-space-md) + var(--cods-space-lg) + var(--cods-space-2xs)
+    );
   }
 
   .cods-checkbox__group {
@@ -241,6 +249,10 @@ $disabled-mixed-path: './icons/minus--171717.svg';
       grid-column: 2;
       padding-inline-start: 0;
       color: CanvasText;
+    }
+
+    .cods-checkbox--card .cods-checkbox__error {
+      padding-inline-start: 0;
     }
   }
 }

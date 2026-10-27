@@ -274,3 +274,39 @@ test('hover preserves selected and invalid borders and mixed card surface', asyn
     page.locator('label[for=checkbox-card-disabled-checked]'),
   ).toHaveCSS('box-shadow', 'none');
 });
+
+test('focused selected cards retain their border and card errors align with labels', async ({
+  page,
+}) => {
+  for (const id of ['checkbox-card-checked', 'checkbox-card-indeterminate']) {
+    const input = page.locator(`#${id}`);
+    const label = page.locator(`label[for=${id}]`);
+    await page.keyboard.press('Tab');
+    await input.focus();
+    await label.hover();
+    await expect(label).toHaveCSS(
+      'box-shadow',
+      'rgb(0, 25, 112) 0px 0px 0px 2px inset, rgb(255, 255, 255) 0px 0px 0px 2px, rgb(23, 59, 179) 0px 0px 0px 4px',
+    );
+  }
+  const alignment = await page.locator('#checkbox-card').evaluate((input) => {
+    const label = input.nextElementSibling!;
+    const error = document.createElement('p');
+    error.className = 'cods-checkbox__error';
+    error.textContent = 'Error: Select an option.';
+    input.parentElement!.append(error);
+    return {
+      label:
+        label.getBoundingClientRect().left +
+        parseFloat(getComputedStyle(label).paddingLeft),
+      error:
+        error.getBoundingClientRect().left +
+        parseFloat(getComputedStyle(error).paddingLeft),
+    };
+  });
+  expect(alignment.error).toBe(alignment.label);
+  await page.emulateMedia({ forcedColors: 'active' });
+  await expect(
+    page.locator('#checkbox-card + label + .cods-checkbox__error'),
+  ).toHaveCSS('padding-inline-start', '0px');
+});
