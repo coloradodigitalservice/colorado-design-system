@@ -9,6 +9,7 @@ export interface TokenDictionary {
   readonly "color-bg-action-primary-hover": string;
   readonly "color-bg-action-secondary-hover": string;
   readonly "color-bg-alert-info": string;
+  readonly "color-bg-alert-success": string;
   readonly "color-bg-alert-urgent": string;
   readonly "color-bg-alert-warning": string;
   readonly "color-bg-disabled": string;
@@ -30,6 +31,7 @@ export interface TokenDictionary {
   readonly "color-border-action-secondary-active": string;
   readonly "color-border-action-secondary-hover": string;
   readonly "color-border-alert-info": string;
+  readonly "color-border-alert-success": string;
   readonly "color-border-alert-urgent": string;
   readonly "color-border-alert-warning": string;
   readonly "color-border-bottom": string;

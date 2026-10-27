@@ -421,6 +421,48 @@
       "background": "color.surface-form",
       "minimum": 4.5,
       "ratio": 7.541739415218818
+    },
+    {
+      "name": "Body text on Success alert",
+      "foreground": "color.text-primary",
+      "background": "color.bg-alert-success",
+      "minimum": 4.5,
+      "ratio": 16.121549071232977
+    },
+    {
+      "name": "Link on Success alert",
+      "foreground": "color.text-action-link",
+      "background": "color.bg-alert-success",
+      "minimum": 4.5,
+      "ratio": 8.497980609553924
+    },
+    {
+      "name": "Visited link on Success alert",
+      "foreground": "color.text-action-link-visited",
+      "background": "color.bg-alert-success",
+      "minimum": 4.5,
+      "ratio": 13.343544578717706
+    },
+    {
+      "name": "Hover link on Success alert",
+      "foreground": "color.text-action-link-hover",
+      "background": "color.bg-alert-success",
+      "minimum": 4.5,
+      "ratio": 14.31543905369433
+    },
+    {
+      "name": "Active link on Success alert",
+      "foreground": "color.text-action-link-active",
+      "background": "color.bg-alert-success",
+      "minimum": 4.5,
+      "ratio": 16.79485202252016
+    },
+    {
+      "name": "Accent on Success alert",
+      "foreground": "color.border-alert-success",
+      "background": "color.bg-alert-success",
+      "minimum": 3,
+      "ratio": 5.943586152696274
     }
   ],
   "acceptedExceptions": [

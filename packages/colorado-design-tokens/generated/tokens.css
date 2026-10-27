@@ -9,6 +9,7 @@
   --cods-color-bg-action-primary-hover: var(--cods-color-co-blue-90);
   --cods-color-bg-action-secondary-hover: var(--cods-color-co-blue-20);
   --cods-color-bg-alert-info: var(--cods-color-co-blue-10);
+  --cods-color-bg-alert-success: var(--cods-color-bg-page-surface-green);
   --cods-color-bg-alert-urgent: var(--cods-color-co-red-10);
   --cods-color-bg-alert-warning: var(--cods-color-co-yellow-10);
   --cods-color-bg-disabled: var(--cods-color-co-gray-10);
@@ -30,6 +31,7 @@
   --cods-color-border-action-secondary-active: var(--cods-color-co-blue-60-brand);
   --cods-color-border-action-secondary-hover: var(--cods-color-co-blue-90);
   --cods-color-border-alert-info: var(--cods-color-co-blue-60-brand);
+  --cods-color-border-alert-success: var(--cods-color-state-success);
   --cods-color-border-alert-urgent: var(--cods-color-co-red-60-brand);
   --cods-color-border-alert-warning: var(--cods-color-co-yellow-30-brand);
   --cods-color-border-bottom: var(--cods-color-co-gray-90-alpha-8);
