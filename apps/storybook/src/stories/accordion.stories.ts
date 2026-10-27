@@ -27,7 +27,7 @@ function state(name: string): string {
 export const AllStates: Story = {};
 export const Default: Story = { render: () => state('default') };
 export const Mixed: Story = { render: () => state('mixed') };
-export const Bordered: Story = { render: () => state('bordered') };
+export const Borderless: Story = { render: () => state('borderless') };
 export const White: Story = { render: () => state('white') };
 export const Multiple: Story = { render: () => state('multiple') };
 export const Disabled: Story = { render: () => state('disabled') };

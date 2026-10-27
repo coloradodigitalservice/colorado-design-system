@@ -79,7 +79,7 @@ The controller wraps the pinned [USWDS accordion](https://designsystem.digital.g
 
 ## Appearance and localization
 
-Public classes are `cods-accordion`, `cods-accordion--bordered`, `cods-accordion--white`, `cods-accordion__heading`, `cods-accordion__trigger`, and `cods-accordion__panel`. Keep the corresponding `usa-*` classes as the private upstream integration markup. Use `cods-accordion--bordered` for a gray header and 4px pale panel border, the default class for a borderless panel, and `cods-accordion--white` for white headers and 1px borders. Each appears in the canonical examples and Storybook.
+Public classes are `cods-accordion`, `cods-accordion--borderless`, `cods-accordion--white`, `cods-accordion__heading`, `cods-accordion__trigger`, and `cods-accordion__panel`. Keep the corresponding `usa-*` classes as the private upstream integration markup. The default has a gray header and 4px pale panel border. Use `cods-accordion--borderless` for a transparent panel without a border, or `cods-accordion--white` for white headers and 1px borders. Each appears in the canonical examples and Storybook.
 
 Set `--cods-accordion-background`, `--cods-accordion-text`, and `--cods-accordion-border` on a root to customize approved token-based defaults. The Accordion-specific border mapping uses `color.border-accordion-subtle` (gray/10) without changing the shared `color.border-subtle` (gray/20). White uses `color.border-default`. The pale border is decorative; the text, native button state, and up/down chevron convey the control and state.
 

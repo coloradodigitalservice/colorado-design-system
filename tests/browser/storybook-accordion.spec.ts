@@ -153,7 +153,7 @@ test('approved typography and spacing tokens can be customized at runtime', asyn
 });
 
 for (const [variant, border, color] of [
-  ['bordered', '4px', 'rgb(235, 236, 237)'],
+  ['default', '4px', 'rgb(235, 236, 237)'],
   ['white', '1px', 'rgb(196, 197, 201)'],
 ] as const) {
   test(`${variant} matches Figma panel borders and header geometry`, async ({
@@ -179,6 +179,7 @@ for (const [variant, border, color] of [
     });
     expect(geometry.headerHeight).toBe(56);
     expect(geometry.textInset).toBe(16);
+    await expect(panel).toHaveCSS('background-color', 'rgb(255, 255, 255)');
     await expect(panel).toHaveCSS('border-left-width', border);
     await expect(panel).toHaveCSS('border-right-width', border);
     await expect(panel).toHaveCSS('border-bottom-width', border);
@@ -205,6 +206,21 @@ for (const [variant, border, color] of [
     await expectAccessible(page, testInfo, '#storybook-root');
   });
 }
+
+test('borderless panel reveals the page background', async ({ page }) => {
+  await page.goto(
+    '/iframe.html?id=components-accordion--borderless&viewMode=story&globals=a11y.manual:!true',
+  );
+  const root = page.locator('#storybook-root [data-cods-accordion]');
+  await root.evaluate((element) => {
+    element.style.backgroundColor = 'rgb(210, 210, 210)';
+  });
+  const panel = root.locator('[data-cods-accordion-panel]');
+  await expect(panel).toBeVisible();
+  await expect(panel).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+  await expect(panel).toHaveCSS('border-left-width', '0px');
+  await expect(panel).toHaveCSS('border-bottom-width', '0px');
+});
 
 test('chevrons use shared Phosphor artwork and retain forced-color visibility', async ({
   page,

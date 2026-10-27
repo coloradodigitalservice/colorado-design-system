@@ -13,7 +13,7 @@
     "expanded",
     "collapsed",
     "mixed",
-    "bordered",
+    "borderless",
     "white",
     "multiple",
     "disabled",
@@ -50,8 +50,8 @@
       "instructions": "Initialize the accordion and expand the first panel; the remaining panel keeps its declared initial state."
     },
     {
-      "state": "bordered",
-      "fixtureState": "bordered",
+      "state": "borderless",
+      "fixtureState": "borderless",
       "setup": "none"
     },
     {
