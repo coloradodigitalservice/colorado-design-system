@@ -147,3 +147,7 @@ The pale panel/white borders are decorative; meaningful text, chevrons, native
 button semantics, and `aria-expanded` carry the control/state information. Existing
 contrast pairs cover dark text and blue focus against white/secondary surfaces;
 no failing pale-border ratio is reclassified as passing.
+
+### Checkbox geometry
+
+`control-checkbox-size` (20px) and `control-checkbox-border-width` (2px) reflect the Checkbox control and card frames in Figma (639:10184 and 659:3273), observed 2026-10-27 and proposed for design review.

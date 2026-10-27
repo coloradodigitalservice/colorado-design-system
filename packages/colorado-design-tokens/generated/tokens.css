@@ -185,6 +185,8 @@
   --cods-component-tag-yellow-background: var(--cods-color-surface-tag-yellow);
   --cods-component-tag-yellow-text: var(--cods-color-text-tag-yellow);
   --cods-component-toast-background: var(--cods-color-surface-toast-default);
+  --cods-control-checkbox-border-width: 2px;
+  --cods-control-checkbox-size: 20px;
   --cods-elevation-flat-blur: 0px;
   --cods-elevation-flat-spread: 0px;
   --cods-elevation-flat-x: 0px;

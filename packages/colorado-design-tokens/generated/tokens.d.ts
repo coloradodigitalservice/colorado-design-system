@@ -185,6 +185,8 @@ export interface TokenDictionary {
   readonly "component-tag-yellow-background": string;
   readonly "component-tag-yellow-text": string;
   readonly "component-toast-background": string;
+  readonly "control-checkbox-border-width": string;
+  readonly "control-checkbox-size": string;
   readonly "elevation-flat-blur": string;
   readonly "elevation-flat-spread": string;
   readonly "elevation-flat-x": string;

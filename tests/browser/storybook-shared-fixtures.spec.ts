@@ -39,6 +39,11 @@ for (const component of loadComponents()) {
         );
       }, example.html);
       expect(contentMatches).toBe(true);
+      if (example.setup === 'indeterminate')
+        await expect(block.locator('input[type=checkbox]')).toHaveJSProperty(
+          'indeterminate',
+          true,
+        );
       if (example.setup === 'expand' || example.setup === 'collapse')
         await expect(block.locator('button').first()).toHaveAttribute(
           'aria-expanded',
