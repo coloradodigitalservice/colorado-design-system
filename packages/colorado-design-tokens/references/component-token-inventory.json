@@ -127,36 +127,85 @@
         "color.bg-action-danger",
         "color.bg-action-danger-active",
         "color.bg-action-danger-hover",
+        "color.bg-action-focus",
         "color.bg-action-primary",
         "color.bg-action-primary-active",
         "color.bg-action-primary-hover",
         "color.bg-action-secondary-hover",
         "color.bg-disabled",
         "color.border-action-secondary",
+        "color.border-action-secondary-active",
         "color.border-action-secondary-hover",
+        "color.border-disabled",
+        "color.focus-gap",
         "color.icon-action-secondary",
         "color.icon-action-secondary-active",
         "color.icon-action-secondary-hover",
         "color.icon-disabled",
         "color.icon-on-primary",
+        "color.surface-form",
         "color.text-action-primary",
         "color.text-action-secondary",
         "color.text-action-secondary-active",
         "color.text-action-secondary-hover",
         "color.text-disabled",
+        "focus.ring-offset",
+        "focus.ring-width",
         "font.family-body",
         "font.size-desktop-ui",
+        "font.size-desktop-ui-sm",
+        "font.weight-desktop-ui",
         "font.weight-semibold",
+        "icon-size.small",
+        "line-height.desktop-body",
+        "line-height.desktop-body-sm",
         "line-height.desktop-ui",
         "paragraph-space.desktop-ui",
         "radius.md",
+        "space.2xl",
+        "space.2xs",
+        "space.lg",
         "space.md",
         "space.sm",
+        "space.xl",
         "space.xs"
       ],
       "componentTokens": [],
-      "implementationTokens": [],
-      "designCoverage": "documented"
+      "implementationTokens": [
+        "color.bg-action-danger",
+        "color.bg-action-danger-active",
+        "color.bg-action-danger-hover",
+        "color.bg-action-focus",
+        "color.bg-action-primary",
+        "color.bg-action-primary-active",
+        "color.bg-action-primary-hover",
+        "color.bg-action-secondary-hover",
+        "color.bg-disabled",
+        "color.border-action-secondary",
+        "color.border-action-secondary-active",
+        "color.border-action-secondary-hover",
+        "color.border-disabled",
+        "color.focus-gap",
+        "color.text-action-primary",
+        "color.text-action-secondary",
+        "color.text-action-secondary-active",
+        "color.text-action-secondary-hover",
+        "color.text-disabled",
+        "focus.ring-offset",
+        "focus.ring-width",
+        "font.family-body",
+        "font.size-desktop-ui",
+        "font.weight-desktop-ui",
+        "icon-size.small",
+        "line-height.desktop-ui",
+        "radius.md",
+        "space.md",
+        "space.sm",
+        "space.xl",
+        "space.xs"
+      ],
+      "designCoverage": "documented",
+      "implementationDirectory": "button"
     },
     {
       "name": "Accordion",
@@ -282,11 +331,14 @@
         "color.border-form-default",
         "color.border-form-hover",
         "color.border-form-subtle",
+        "color.focus-gap",
         "color.surface-form",
         "color.surface-form-selected",
         "color.text-danger",
         "color.text-disabled",
         "color.text-primary",
+        "control.checkbox-border-width",
+        "control.checkbox-size",
         "focus.ring-offset",
         "focus.ring-width",
         "font.family-body",
@@ -301,41 +353,9 @@
         "space.lg",
         "space.md",
         "space.sm",
-        "space.xs",
-        "color.focus-gap"
+        "space.xs"
       ],
       "componentTokens": [],
-      "unresolvedRoles": [],
-      "directPaletteReferences": [],
-      "foundationBindings": {
-        "stackSpacing:space.xs": ["space.xs"],
-        "stackHorizontalPadding:space.xs": ["space.xs"],
-        "stackVerticalPadding:space.xs": ["space.xs"],
-        "stackPaddingRight:space.xs": ["space.xs"],
-        "stackPaddingBottom:space.xs": ["space.xs"],
-        "rectangleTopLeftCornerRadius:radius.sm": ["radius.sm"],
-        "rectangleTopRightCornerRadius:radius.sm": ["radius.sm"],
-        "rectangleBottomLeftCornerRadius:radius.sm": ["radius.sm"],
-        "rectangleBottomRightCornerRadius:radius.sm": ["radius.sm"],
-        "stackSpacing:space.sm": ["space.sm"],
-        "fontName.family:font.family-body": ["font.family-body"],
-        "fontName.style:font.weight-regular": ["font.weight-regular"],
-        "fontSize:font.size-desktop-body": ["font.size-desktop-body"],
-        "lineHeight:line-height.desktop-body": ["line-height.desktop-body"],
-        "paragraphSpacing:paragraph-space.desktop-body": [
-          "paragraph-space.desktop-body"
-        ],
-        "stackHorizontalPadding:space.md": ["space.md"],
-        "stackVerticalPadding:space.sm": ["space.sm"],
-        "stackPaddingRight:space.md": ["space.md"],
-        "stackPaddingBottom:space.sm": ["space.sm"],
-        "cornerRadius:radius.md": ["radius.md"],
-        "rectangleTopLeftCornerRadius:radius.md": ["radius.md"],
-        "rectangleTopRightCornerRadius:radius.md": ["radius.md"],
-        "rectangleBottomLeftCornerRadius:radius.md": ["radius.md"],
-        "rectangleBottomRightCornerRadius:radius.md": ["radius.md"]
-      },
-      "mappingStatus": "Measured source properties mapped only when the reviewed catalog value matches; design acceptance pending.",
       "implementationTokens": [
         "color.bg-action-focus",
         "color.bg-action-primary",
@@ -344,10 +364,15 @@
         "color.border-form-danger",
         "color.border-form-default",
         "color.border-form-hover",
+        "color.border-form-subtle",
+        "color.focus-gap",
         "color.surface-form",
+        "color.surface-form-selected",
         "color.text-danger",
         "color.text-disabled",
         "color.text-primary",
+        "control.checkbox-border-width",
+        "control.checkbox-size",
         "focus.ring-offset",
         "focus.ring-width",
         "font.family-body",
@@ -355,411 +380,15 @@
         "font.weight-regular",
         "font.weight-semibold",
         "line-height.desktop-body",
+        "radius.md",
         "radius.sm",
         "space.2xs",
         "space.lg",
         "space.md",
-        "space.xs",
-        "color.surface-form-selected",
-        "color.border-form-subtle",
-        "radius.md",
-        "space.sm",
-        "color.focus-gap"
-      ],
-      "foundationNotes": "Mappings identify measured properties, not implementation requirements. Explicit mode is recorded in source bindings; unbound typography uses Desktop only when its full signature matches. Unmapped values and inherited library styles need design review. Git implementation dependencies remain independently recorded.",
-      "foundationTokens": [
-        "font.family-body",
-        "font.size-desktop-body",
-        "font.weight-regular",
-        "line-height.desktop-body",
-        "paragraph-space.desktop-body",
-        "radius.md",
-        "radius.sm",
-        "space.md",
         "space.sm",
         "space.xs"
       ],
-      "pageObservedRoles": [
-        "bg/action/primary",
-        "bg/disabled",
-        "border/action/secondary",
-        "border/default",
-        "border/disabled",
-        "border/form/default",
-        "border/form/hover",
-        "border/form/subtle",
-        "icon/default",
-        "icon/on-primary/active",
-        "surface/form",
-        "surface/form/selected",
-        "text/default",
-        "text/disabled",
-        "text/secondary"
-      ],
-      "foundationMeasurements": [
-        {
-          "binding": "stackSpacing:space.xs",
-          "token": "space.xs",
-          "value": {
-            "value": 8,
-            "unit": "px"
-          },
-          "measurement": 0,
-          "property": "stackSpacing",
-          "occurrenceCount": 7
-        },
-        {
-          "binding": "stackHorizontalPadding:space.xs",
-          "token": "space.xs",
-          "value": {
-            "value": 8,
-            "unit": "px"
-          },
-          "measurement": 0,
-          "property": "stackHorizontalPadding",
-          "occurrenceCount": 4
-        },
-        {
-          "binding": "stackVerticalPadding:space.xs",
-          "token": "space.xs",
-          "value": {
-            "value": 8,
-            "unit": "px"
-          },
-          "measurement": 0,
-          "property": "stackVerticalPadding",
-          "occurrenceCount": 4
-        },
-        {
-          "binding": "stackPaddingRight:space.xs",
-          "token": "space.xs",
-          "value": {
-            "value": 8,
-            "unit": "px"
-          },
-          "measurement": 0,
-          "property": "stackPaddingRight",
-          "occurrenceCount": 4
-        },
-        {
-          "binding": "stackPaddingBottom:space.xs",
-          "token": "space.xs",
-          "value": {
-            "value": 8,
-            "unit": "px"
-          },
-          "measurement": 0,
-          "property": "stackPaddingBottom",
-          "occurrenceCount": 4
-        },
-        {
-          "binding": "rectangleTopLeftCornerRadius:radius.sm",
-          "token": "radius.sm",
-          "value": {
-            "value": 2,
-            "unit": "px"
-          },
-          "measurement": 0,
-          "property": "rectangleTopLeftCornerRadius",
-          "occurrenceCount": 5
-        },
-        {
-          "binding": "rectangleTopRightCornerRadius:radius.sm",
-          "token": "radius.sm",
-          "value": {
-            "value": 2,
-            "unit": "px"
-          },
-          "measurement": 0,
-          "property": "rectangleTopRightCornerRadius",
-          "occurrenceCount": 5
-        },
-        {
-          "binding": "rectangleBottomLeftCornerRadius:radius.sm",
-          "token": "radius.sm",
-          "value": {
-            "value": 2,
-            "unit": "px"
-          },
-          "measurement": 0,
-          "property": "rectangleBottomLeftCornerRadius",
-          "occurrenceCount": 5
-        },
-        {
-          "binding": "rectangleBottomRightCornerRadius:radius.sm",
-          "token": "radius.sm",
-          "value": {
-            "value": 2,
-            "unit": "px"
-          },
-          "measurement": 0,
-          "property": "rectangleBottomRightCornerRadius",
-          "occurrenceCount": 5
-        },
-        {
-          "binding": "stackSpacing:space.sm",
-          "token": "space.sm",
-          "value": {
-            "value": 12,
-            "unit": "px"
-          },
-          "measurement": 5,
-          "property": "stackSpacing",
-          "occurrenceCount": 6
-        },
-        {
-          "binding": "fontName.family:font.family-body",
-          "token": "font.family-body",
-          "value": "Open Sans",
-          "measurement": 8,
-          "property": "fontName.family",
-          "occurrenceCount": 2
-        },
-        {
-          "binding": "fontName.style:font.weight-regular",
-          "token": "font.weight-regular",
-          "value": 400,
-          "measurement": 8,
-          "property": "fontName.style",
-          "occurrenceCount": 2
-        },
-        {
-          "binding": "fontSize:font.size-desktop-body",
-          "token": "font.size-desktop-body",
-          "value": {
-            "value": 16,
-            "unit": "px"
-          },
-          "measurement": 8,
-          "property": "fontSize",
-          "occurrenceCount": 2
-        },
-        {
-          "binding": "lineHeight:line-height.desktop-body",
-          "token": "line-height.desktop-body",
-          "value": {
-            "value": 24,
-            "unit": "px"
-          },
-          "measurement": 8,
-          "property": "lineHeight",
-          "occurrenceCount": 2
-        },
-        {
-          "binding": "paragraphSpacing:paragraph-space.desktop-body",
-          "token": "paragraph-space.desktop-body",
-          "value": {
-            "value": 16,
-            "unit": "px"
-          },
-          "measurement": 8,
-          "property": "paragraphSpacing",
-          "occurrenceCount": 2
-        },
-        {
-          "binding": "stackHorizontalPadding:space.md",
-          "token": "space.md",
-          "value": {
-            "value": 16,
-            "unit": "px"
-          },
-          "measurement": 9,
-          "property": "stackHorizontalPadding",
-          "occurrenceCount": 5
-        },
-        {
-          "binding": "stackVerticalPadding:space.sm",
-          "token": "space.sm",
-          "value": {
-            "value": 12,
-            "unit": "px"
-          },
-          "measurement": 9,
-          "property": "stackVerticalPadding",
-          "occurrenceCount": 5
-        },
-        {
-          "binding": "stackPaddingRight:space.md",
-          "token": "space.md",
-          "value": {
-            "value": 16,
-            "unit": "px"
-          },
-          "measurement": 9,
-          "property": "stackPaddingRight",
-          "occurrenceCount": 5
-        },
-        {
-          "binding": "stackPaddingBottom:space.sm",
-          "token": "space.sm",
-          "value": {
-            "value": 12,
-            "unit": "px"
-          },
-          "measurement": 9,
-          "property": "stackPaddingBottom",
-          "occurrenceCount": 5
-        },
-        {
-          "binding": "cornerRadius:radius.md",
-          "token": "radius.md",
-          "value": {
-            "value": 4,
-            "unit": "px"
-          },
-          "measurement": 9,
-          "property": "cornerRadius",
-          "occurrenceCount": 5
-        },
-        {
-          "binding": "rectangleTopLeftCornerRadius:radius.md",
-          "token": "radius.md",
-          "value": {
-            "value": 4,
-            "unit": "px"
-          },
-          "measurement": 9,
-          "property": "rectangleTopLeftCornerRadius",
-          "occurrenceCount": 5
-        },
-        {
-          "binding": "rectangleTopRightCornerRadius:radius.md",
-          "token": "radius.md",
-          "value": {
-            "value": 4,
-            "unit": "px"
-          },
-          "measurement": 9,
-          "property": "rectangleTopRightCornerRadius",
-          "occurrenceCount": 5
-        },
-        {
-          "binding": "rectangleBottomLeftCornerRadius:radius.md",
-          "token": "radius.md",
-          "value": {
-            "value": 4,
-            "unit": "px"
-          },
-          "measurement": 9,
-          "property": "rectangleBottomLeftCornerRadius",
-          "occurrenceCount": 5
-        },
-        {
-          "binding": "rectangleBottomRightCornerRadius:radius.md",
-          "token": "radius.md",
-          "value": {
-            "value": 4,
-            "unit": "px"
-          },
-          "measurement": 9,
-          "property": "rectangleBottomRightCornerRadius",
-          "occurrenceCount": 5
-        }
-      ],
-      "unmappedMeasurements": [
-        {
-          "measurement": 1,
-          "property": "stackHorizontalPadding",
-          "observed": 2,
-          "reason": "Literal component geometry; no matching global spacing token"
-        },
-        {
-          "measurement": 1,
-          "property": "stackVerticalPadding",
-          "observed": 2,
-          "reason": "Literal component geometry; no matching global spacing token"
-        },
-        {
-          "measurement": 1,
-          "property": "stackPaddingRight",
-          "observed": 2,
-          "reason": "Literal component geometry; no matching global spacing token"
-        },
-        {
-          "measurement": 1,
-          "property": "stackPaddingBottom",
-          "observed": 2,
-          "reason": "Literal component geometry; no matching global spacing token"
-        },
-        {
-          "measurement": 3,
-          "property": "effects",
-          "observed": {
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "radius": 0,
-            "spread": 4,
-            "color": {
-              "r": 0.09019608050584793,
-              "g": 0.23137255012989044,
-              "b": 0.7019608020782471,
-              "a": 1
-            }
-          },
-          "reason": "Component effect retained for review; not inferred to match the global elevation or focus contract"
-        },
-        {
-          "measurement": 3,
-          "property": "effects",
-          "observed": {
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "radius": 0,
-            "spread": 2,
-            "color": {
-              "r": 1,
-              "g": 1,
-              "b": 1,
-              "a": 1
-            }
-          },
-          "reason": "Component effect retained for review; not inferred to match the global elevation or focus contract"
-        },
-        {
-          "measurement": 13,
-          "property": "effects",
-          "observed": {
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "radius": 0,
-            "spread": 4,
-            "color": {
-              "r": 0.09019608050584793,
-              "g": 0.23137255012989044,
-              "b": 0.7019608020782471,
-              "a": 1
-            }
-          },
-          "reason": "Component effect retained for review; not inferred to match the global elevation or focus contract"
-        },
-        {
-          "measurement": 13,
-          "property": "effects",
-          "observed": {
-            "offset": {
-              "x": 0,
-              "y": 0
-            },
-            "radius": 0,
-            "spread": 2,
-            "color": {
-              "r": 1,
-              "g": 1,
-              "b": 1,
-              "a": 1
-            }
-          },
-          "reason": "Component effect retained for review; not inferred to match the global elevation or focus contract"
-        }
-      ],
-      "measurementEvidence": "figma-variants-observed-2026-10-08.json",
-      "designCoverage": "measured",
+      "designCoverage": "documented",
       "implementationDirectory": "checkbox"
     },
     {
@@ -1001,29 +630,74 @@
       "name": "In-Page Alert",
       "source": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=2769-6573&p=f&m=dev",
       "tokens": [
+        "color.bg-action-focus",
         "color.bg-alert-info",
+        "color.bg-alert-success",
         "color.bg-alert-urgent",
         "color.bg-alert-warning",
         "color.border-alert-info",
+        "color.border-alert-success",
         "color.border-alert-urgent",
         "color.border-alert-warning",
+        "color.focus-gap",
         "color.icon-default",
+        "color.text-action-link",
+        "color.text-action-link-active",
+        "color.text-action-link-hover",
+        "color.text-action-link-visited",
         "color.text-primary",
+        "focus.ring-offset",
+        "focus.ring-width",
         "font.family-body",
+        "font.family-desktop-h5",
         "font.size-desktop-body",
         "font.size-desktop-h5",
+        "font.weight-desktop-h5",
         "font.weight-regular",
         "font.weight-semibold",
         "line-height.desktop-body",
         "line-height.desktop-h5",
         "paragraph-space.desktop-body",
+        "space.lg",
         "space.md",
         "space.sm",
+        "space.xl",
         "space.xs"
       ],
       "componentTokens": [],
-      "implementationTokens": [],
-      "designCoverage": "documented"
+      "implementationTokens": [
+        "color.bg-action-focus",
+        "color.bg-alert-info",
+        "color.bg-alert-success",
+        "color.bg-alert-urgent",
+        "color.bg-alert-warning",
+        "color.border-alert-info",
+        "color.border-alert-success",
+        "color.border-alert-urgent",
+        "color.border-alert-warning",
+        "color.focus-gap",
+        "color.text-action-link",
+        "color.text-action-link-active",
+        "color.text-action-link-hover",
+        "color.text-action-link-visited",
+        "color.text-primary",
+        "focus.ring-offset",
+        "focus.ring-width",
+        "font.family-body",
+        "font.family-desktop-h5",
+        "font.size-desktop-body",
+        "font.size-desktop-h5",
+        "font.weight-desktop-h5",
+        "line-height.desktop-body",
+        "line-height.desktop-h5",
+        "space.lg",
+        "space.md",
+        "space.sm",
+        "space.xl",
+        "space.xs"
+      ],
+      "designCoverage": "documented",
+      "implementationDirectory": "in-page-alert"
     },
     {
       "name": "In-Page Navigation",
@@ -1076,6 +750,8 @@
       "name": "Link",
       "source": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=828-3253&m=dev",
       "tokens": [
+        "color.bg-action-focus",
+        "color.focus-gap",
         "color.text-action-link-inline",
         "color.text-action-link-inline-active",
         "color.text-action-link-inline-hover",
@@ -1084,19 +760,24 @@
         "color.text-action-link-standalone-hover",
         "color.text-action-link-visited",
         "color.text-disabled",
+        "focus.ring-offset",
         "font.family-body",
         "font.size-desktop-body",
         "font.size-desktop-body-lg",
         "font.size-desktop-body-sm",
         "font.size-desktop-ui",
         "font.size-desktop-ui-sm",
+        "font.weight-desktop-body",
+        "font.weight-desktop-ui",
         "font.weight-regular",
         "font.weight-semibold",
-        "line-height.desktop-body",
-        "line-height.desktop-body-lg",
-        "line-height.desktop-body-sm",
-        "line-height.desktop-ui",
-        "line-height.desktop-ui-sm",
+        "icon-size.small",
+        "link.underline-offset",
+        "link.underline-offset-standalone-hover",
+        "link.underline-thickness",
+        "link.underline-thickness-hover",
+        "link.underline-thickness-small",
+        "link.underline-thickness-small-hover",
         "paragraph-space.desktop-body",
         "paragraph-space.desktop-body-sm",
         "paragraph-space.desktop-ui",
@@ -1106,8 +787,38 @@
         "space.xs"
       ],
       "componentTokens": [],
-      "implementationTokens": [],
-      "designCoverage": "documented"
+      "implementationTokens": [
+        "color.bg-action-focus",
+        "color.focus-gap",
+        "color.text-action-link-inline",
+        "color.text-action-link-inline-active",
+        "color.text-action-link-inline-hover",
+        "color.text-action-link-standalone",
+        "color.text-action-link-standalone-active",
+        "color.text-action-link-standalone-hover",
+        "color.text-action-link-visited",
+        "color.text-disabled",
+        "focus.ring-offset",
+        "font.family-body",
+        "font.size-desktop-body",
+        "font.size-desktop-body-lg",
+        "font.size-desktop-body-sm",
+        "font.size-desktop-ui",
+        "font.size-desktop-ui-sm",
+        "font.weight-desktop-body",
+        "font.weight-desktop-ui",
+        "icon-size.small",
+        "link.underline-offset",
+        "link.underline-offset-standalone-hover",
+        "link.underline-thickness",
+        "link.underline-thickness-hover",
+        "link.underline-thickness-small",
+        "link.underline-thickness-small-hover",
+        "radius.sm",
+        "space.2xs"
+      ],
+      "designCoverage": "documented",
+      "implementationDirectory": "link"
     },
     {
       "name": "Modal",
@@ -1262,8 +973,10 @@
         "color.bg-alert-info",
         "color.bg-surface-secondary",
         "color.border-action-secondary",
+        "color.border-alert-info",
         "color.border-form-danger",
         "color.focus-gap",
+        "color.icon-default",
         "color.icon-on-primary",
         "color.surface-error-bold",
         "color.surface-warning-bold",
@@ -1279,6 +992,7 @@
         "font.size-desktop-body",
         "font.size-desktop-h5",
         "font.size-mobile-h3",
+        "font.weight-desktop-h5",
         "font.weight-mobile-h3",
         "font.weight-regular",
         "font.weight-semibold",
@@ -1286,6 +1000,8 @@
         "line-height.desktop-h5",
         "line-height.mobile-h3",
         "paragraph-space.desktop-body",
+        "paragraph-space.desktop-h6",
+        "space.2xs",
         "space.lg",
         "space.md",
         "space.xl",
@@ -1295,25 +1011,29 @@
       "implementationDirectory": "site-alert",
       "implementationTokens": [
         "color.bg-action-focus",
-        "color.bg-surface-secondary",
-        "color.border-action-secondary",
-        "color.border-form-danger",
+        "color.bg-alert-info",
         "color.focus-gap",
+        "color.icon-default",
+        "color.icon-on-primary",
+        "color.surface-error-bold",
+        "color.surface-warning-bold",
         "color.text-action-link",
         "color.text-action-link-active",
         "color.text-action-link-hover",
+        "color.text-action-primary",
         "color.text-primary",
         "focus.ring-offset",
         "focus.ring-width",
         "font.family-body",
-        "font.family-mobile-h3",
         "font.size-desktop-body",
-        "font.size-mobile-h3",
-        "font.weight-mobile-h3",
+        "font.size-desktop-h5",
+        "font.weight-desktop-h5",
         "line-height.desktop-body",
-        "line-height.mobile-h3",
-        "space.lg",
-        "space.xs"
+        "line-height.desktop-h5",
+        "paragraph-space.desktop-h6",
+        "space.2xs",
+        "space.md",
+        "space.xl"
       ],
       "designCoverage": "documented"
     },

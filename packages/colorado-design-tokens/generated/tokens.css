@@ -9,6 +9,7 @@
   --cods-color-bg-action-primary-hover: var(--cods-color-co-blue-90);
   --cods-color-bg-action-secondary-hover: var(--cods-color-co-blue-20);
   --cods-color-bg-alert-info: var(--cods-color-co-blue-10);
+  --cods-color-bg-alert-success: var(--cods-color-bg-page-surface-green);
   --cods-color-bg-alert-urgent: var(--cods-color-co-red-10);
   --cods-color-bg-alert-warning: var(--cods-color-co-yellow-10);
   --cods-color-bg-disabled: var(--cods-color-co-gray-10);
@@ -30,6 +31,7 @@
   --cods-color-border-action-secondary-active: var(--cods-color-co-blue-60-brand);
   --cods-color-border-action-secondary-hover: var(--cods-color-co-blue-90);
   --cods-color-border-alert-info: var(--cods-color-co-blue-60-brand);
+  --cods-color-border-alert-success: var(--cods-color-state-success);
   --cods-color-border-alert-urgent: var(--cods-color-co-red-60-brand);
   --cods-color-border-alert-warning: var(--cods-color-co-yellow-30-brand);
   --cods-color-border-bottom: var(--cods-color-co-gray-90-alpha-8);
@@ -181,6 +183,8 @@
   --cods-component-tag-yellow-background: var(--cods-color-surface-tag-yellow);
   --cods-component-tag-yellow-text: var(--cods-color-text-tag-yellow);
   --cods-component-toast-background: var(--cods-color-surface-toast-default);
+  --cods-control-checkbox-border-width: 2px;
+  --cods-control-checkbox-size: 20px;
   --cods-elevation-flat-blur: 0px;
   --cods-elevation-flat-spread: 0px;
   --cods-elevation-flat-x: 0px;
@@ -314,6 +318,12 @@
   --cods-line-height-mobile-supporting: 16px;
   --cods-line-height-mobile-ui: 16px;
   --cods-line-height-mobile-ui-sm: 14px;
+  --cods-link-underline-offset: 2px;
+  --cods-link-underline-offset-standalone-hover: 3px;
+  --cods-link-underline-thickness: 2px;
+  --cods-link-underline-thickness-hover: 4px;
+  --cods-link-underline-thickness-small: 1px;
+  --cods-link-underline-thickness-small-hover: 3px;
   --cods-paragraph-space-desktop-body: 16px;
   --cods-paragraph-space-desktop-body-lg: 22px;
   --cods-paragraph-space-desktop-body-sm: 14px;

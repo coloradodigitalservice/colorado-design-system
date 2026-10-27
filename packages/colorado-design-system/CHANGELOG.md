@@ -1,5 +1,40 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.6
+
+### Patch Changes
+
+- f2f31e9: Update Site Alert with informational, warning, and emergency surfaces, an emergency icon, and placement guidance.
+- @coloradodigitalservice/colorado-design-tokens@0.2.6
+
+## 0.2.5
+
+### Patch Changes
+
+- b73c24c: Add experimental In-Page Alert with four severity variants, canonical examples, contextual usage and live-region guidance.
+- Updated dependencies [b73c24c]
+  - @coloradodigitalservice/colorado-design-tokens@0.2.5
+
+## 0.2.4
+
+### Patch Changes
+
+- a47e224: Add the experimental static Link component with inline, standalone, disabled, phone, download, and new-tab examples, documentation, and accessibility regressions. Inherit content leading, expose Link-scoped RTL mirroring, and use shared Phosphor masks. Add six underline foundation dimensions while preserving the catalog's existing Link color aliases.
+- Updated dependencies [a47e224]
+  - @coloradodigitalservice/colorado-design-tokens@0.2.4
+
+## 0.2.3
+
+### Patch Changes
+
+- 6205f04: Support component CSS masks that reference approved generated Phosphor icon files, with missing-asset validation. Reconcile the shared Icon foundation's token dependencies separately from the approved 28-component inventory and retain both the expanded catalog and icon contrast coverage.
+- 3cf641b: Add the experimental static Button component with Primary, Secondary, and Danger
+  variants, decorative start/end icons, native disabled behavior, and accessible
+  icon-only and navigation examples.
+- Updated dependencies [6205f04]
+- Updated dependencies [6205f04]
+  - @coloradodigitalservice/colorado-design-tokens@0.2.3
+
 ## 0.2.2
 
 ### Patch Changes

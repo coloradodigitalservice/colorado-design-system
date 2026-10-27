@@ -28,7 +28,9 @@
     "rtl",
     "card",
     "card-checked",
-    "card-disabled"
+    "card-disabled",
+    "card-indeterminate",
+    "card-disabled-checked"
   ],
   "progressiveEnhancement": "full",
   "localization": "layout-sensitive",
@@ -48,7 +50,7 @@
       "state": "indeterminate",
       "fixtureState": "indeterminate",
       "setup": "indeterminate",
-      "instructions": "Set the checkbox input\u2019s indeterminate DOM property to true with JavaScript; HTML alone leaves it unchecked."
+      "instructions": "Set the checkbox input’s indeterminate DOM property to true with JavaScript; HTML alone leaves it unchecked."
     },
     {
       "state": "disabled",
@@ -104,6 +106,17 @@
     {
       "state": "card-disabled",
       "fixtureState": "card-disabled",
+      "setup": "none"
+    },
+    {
+      "state": "card-indeterminate",
+      "fixtureState": "card-indeterminate",
+      "setup": "indeterminate",
+      "instructions": "Set the checkbox input’s indeterminate DOM property to true with JavaScript; HTML alone leaves it unchecked."
+    },
+    {
+      "state": "card-disabled-checked",
+      "fixtureState": "card-disabled-checked",
       "setup": "none"
     }
   ]

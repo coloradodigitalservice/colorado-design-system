@@ -1,17 +1,23 @@
 ---
+import inPageAlert from '@coloradodigitalservice/colorado-design-system/metadata/in-page-alert.json';
 import siteAlert from '@coloradodigitalservice/colorado-design-system/metadata/site-alert.json';
 import accordion from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
+import link from '@coloradodigitalservice/colorado-design-system/metadata/link.json';
 
 import checkbox from '@coloradodigitalservice/colorado-design-system/metadata/checkbox.json';
 
 interface Props {
-  component: 'site-alert' | 'accordion' | 'checkbox';
+  component: 'site-alert' | 'accordion' | 'in-page-alert' | 'link' | 'checkbox';
   figma?: string;
 }
 
-const metadata = { 'site-alert': siteAlert, accordion, checkbox }[
-  Astro.props.component
-];
+const metadata = {
+  'site-alert': siteAlert,
+  accordion,
+  'in-page-alert': inPageAlert,
+  link,
+  checkbox,
+}[Astro.props.component];
 const { figma } = Astro.props;
 const repository =
   'https://github.com/coloradodigitalservice/colorado-design-system/tree/main/packages/colorado-design-system/src/components';
@@ -57,11 +63,13 @@ const upstream = `https://designsystem.digital.gov/components/${metadata.uswdsEq
         <a href={evidence}>Evidence file</a>
       </dd>
     </div>
-    <div>
-      <dt>Figma</dt>
-      <dd>
-        {figma ? <a href={figma}>Design file</a> : 'Link not yet recorded'}
-      </dd>
-    </div>
+    {figma && (
+      <div>
+        <dt>Figma</dt>
+        <dd>
+          <a href={figma}>Design file</a>
+        </dd>
+      </div>
+    )}
   </dl>
 </section>

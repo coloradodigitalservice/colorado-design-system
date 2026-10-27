@@ -8,8 +8,11 @@ import CodeExamples from './CodeExamples.astro';
 <div class="cods-docs-checkbox-examples" set:html={fixture} />
 <CodeExamples metadata={metadata} examples={examples.examples} />
 <script>
-  const input = document.querySelector<HTMLInputElement>(
-    '#checkbox-indeterminate',
-  );
-  if (input) input.indeterminate = true;
+  document
+    .querySelectorAll<HTMLInputElement>(
+      '#checkbox-indeterminate, #checkbox-card-indeterminate',
+    )
+    .forEach((input) => {
+      input.indeterminate = true;
+    });
 </script>

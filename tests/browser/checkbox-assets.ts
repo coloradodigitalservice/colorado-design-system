@@ -99,9 +99,7 @@ export async function expectCheckboxAssets(
       const color =
         forcedColors === 'none' && !(options.cods && disabled)
           ? 'ffffff'
-          : state === 'checked'
-            ? '171717'
-            : '000000';
+          : '171717';
       const icon = state === 'checked' ? 'check' : 'minus';
       const expectedPath = resolve(
         'packages/colorado-design-system/dist/icons',

@@ -2,7 +2,7 @@
 
 // Variables preserve output-relative URLs through Vite's Sass import rebasing.
 $disabled-check-path: './icons/check--171717.svg';
-$disabled-mixed-path: './icons/minus--000000.svg';
+$disabled-mixed-path: './icons/minus--171717.svg';
 
 @layer cods.components {
   .cods-checkbox {
@@ -22,7 +22,6 @@ $disabled-mixed-path: './icons/minus--000000.svg';
     font-weight: var(--cods-font-weight-regular);
     line-height: var(--cods-line-height-desktop-body);
     margin-block: var(--cods-space-xs);
-    padding-left: 0;
     padding-inline: calc(
         var(--cods-space-xs) + var(--cods-space-lg) + var(--cods-space-2xs)
       )
@@ -32,14 +31,14 @@ $disabled-mixed-path: './icons/minus--000000.svg';
     max-inline-size: 100%;
 
     &::before {
-      left: auto;
-      inset-inline-start: 0;
+      inset-inline: 0 auto;
       margin-inline: var(--cods-space-xs) 0;
       margin-block-start: calc(var(--cods-space-2xs) / 2);
       box-sizing: border-box;
-      inline-size: calc(var(--cods-space-md) + var(--cods-space-2xs));
-      block-size: calc(var(--cods-space-md) + var(--cods-space-2xs));
-      border: calc(var(--cods-space-2xs) / 2) solid var(--cods-checkbox-border);
+      inline-size: var(--cods-control-checkbox-size);
+      block-size: var(--cods-control-checkbox-size);
+      border: var(--cods-control-checkbox-border-width) solid
+        var(--cods-checkbox-border);
       background-size: var(--cods-space-md) var(--cods-space-md);
       border-radius: var(--cods-radius-sm);
       background-color: var(--cods-checkbox-background);
@@ -53,7 +52,8 @@ $disabled-mixed-path: './icons/minus--000000.svg';
       border-color: var(--cods-checkbox-selected);
     }
 
-    &:hover:not(:disabled) + .cods-checkbox__label::before {
+    &:hover:not(:disabled, :checked, :indeterminate, [aria-invalid='true'])
+      + .cods-checkbox__label::before {
       border-color: var(--cods-color-border-form-hover);
     }
 
@@ -109,7 +109,7 @@ $disabled-mixed-path: './icons/minus--000000.svg';
       )
       var(--cods-space-md);
     border-radius: var(--cods-radius-md);
-    box-shadow: inset 0 0 0 var(--cods-focus-ring-offset)
+    box-shadow: inset 0 0 0 var(--cods-control-checkbox-border-width)
       var(--cods-color-border-form-subtle);
     background: var(--cods-checkbox-background);
   }
@@ -118,18 +118,24 @@ $disabled-mixed-path: './icons/minus--000000.svg';
     margin-inline-start: var(--cods-space-md);
   }
 
-  .cods-checkbox--card:has(.cods-checkbox__input:checked)
+  .cods-checkbox--card:has(.cods-checkbox__input:is(:checked, :indeterminate))
     .cods-checkbox__label {
     background: var(--cods-color-surface-form-selected);
-    box-shadow: inset 0 0 0 var(--cods-focus-ring-offset)
+    box-shadow: inset 0 0 0 var(--cods-control-checkbox-border-width)
       var(--cods-checkbox-selected);
   }
 
   .cods-checkbox--card:hover:has(
-      .cods-checkbox__input:not(:disabled, :focus-visible)
+      .cods-checkbox__input:not(
+        :disabled,
+        :focus-visible,
+        :checked,
+        :indeterminate,
+        [aria-invalid='true']
+      )
     )
     .cods-checkbox__label {
-    box-shadow: inset 0 0 0 var(--cods-focus-ring-offset)
+    box-shadow: inset 0 0 0 var(--cods-control-checkbox-border-width)
       var(--cods-color-border-form-hover);
   }
 
@@ -139,7 +145,7 @@ $disabled-mixed-path: './icons/minus--000000.svg';
     outline: var(--cods-focus-ring-offset) solid transparent;
     outline-offset: var(--cods-focus-ring-offset);
     box-shadow:
-      inset 0 0 0 var(--cods-focus-ring-offset)
+      inset 0 0 0 var(--cods-control-checkbox-border-width)
         var(--cods-color-border-form-subtle),
       0 0 0 var(--cods-focus-ring-offset) var(--cods-color-focus-gap),
       0 0 0 var(--cods-space-2xs) var(--cods-color-bg-action-focus);
@@ -154,12 +160,15 @@ $disabled-mixed-path: './icons/minus--000000.svg';
 
   .cods-checkbox--card .cods-checkbox__input:disabled + .cods-checkbox__label {
     background: var(--cods-color-bg-disabled);
-    box-shadow: inset 0 0 0 var(--cods-focus-ring-offset)
-      var(--cods-color-border-disabled);
+    box-shadow: none;
   }
 
   .cods-checkbox__error {
     color: var(--cods-color-text-danger);
+    line-height: var(--cods-line-height-desktop-body);
+    padding-inline-start: calc(
+      var(--cods-space-xs) + var(--cods-space-lg) + var(--cods-space-2xs)
+    );
     margin-block: var(--cods-space-xs);
     overflow-wrap: anywhere;
   }
@@ -230,6 +239,7 @@ $disabled-mixed-path: './icons/minus--000000.svg';
 
     .cods-checkbox__error {
       grid-column: 2;
+      padding-inline-start: 0;
       color: CanvasText;
     }
   }

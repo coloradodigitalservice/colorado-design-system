@@ -349,6 +349,54 @@
       "foreground": "color.bg-action-focus",
       "background": "color.bg-surface-secondary",
       "minimum": 3
+    },
+    {
+      "name": "Link standalone default",
+      "foreground": "color.text-action-link-standalone",
+      "background": "color.surface-form",
+      "minimum": 4.5
+    },
+    {
+      "name": "Link standalone hover",
+      "foreground": "color.text-action-link-standalone-hover",
+      "background": "color.surface-form",
+      "minimum": 4.5
+    },
+    {
+      "name": "Body text on Success alert",
+      "foreground": "color.text-primary",
+      "background": "color.bg-alert-success",
+      "minimum": 4.5
+    },
+    {
+      "name": "Link on Success alert",
+      "foreground": "color.text-action-link",
+      "background": "color.bg-alert-success",
+      "minimum": 4.5
+    },
+    {
+      "name": "Visited link on Success alert",
+      "foreground": "color.text-action-link-visited",
+      "background": "color.bg-alert-success",
+      "minimum": 4.5
+    },
+    {
+      "name": "Hover link on Success alert",
+      "foreground": "color.text-action-link-hover",
+      "background": "color.bg-alert-success",
+      "minimum": 4.5
+    },
+    {
+      "name": "Active link on Success alert",
+      "foreground": "color.text-action-link-active",
+      "background": "color.bg-alert-success",
+      "minimum": 4.5
+    },
+    {
+      "name": "Accent on Success alert",
+      "foreground": "color.border-alert-success",
+      "background": "color.bg-alert-success",
+      "minimum": 3
     }
   ]
 }

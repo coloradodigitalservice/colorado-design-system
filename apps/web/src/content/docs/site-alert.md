@@ -1,119 +1,60 @@
 ---
 title: Site Alert
-description: Static sitewide informational and emergency notices.
+description: Sitewide informational, warning, and emergency notices.
 navLabel: Site Alert
 order: 20
-figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=2769-6573
+figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=1809-10566
 ---
 
 ## When to use
 
-Use Site Alert for a sitewide service update or emergency that applies to every
-visitor, such as an outage or closure. Do not use it for messages about one form
-or task (put those near the content they affect), for confirmation of a user
-action, or for content people must dismiss or act on immediately; this static
-notice has no dismissal and is not announced automatically.
+Use a Site Alert for a sitewide outage, emergency, closure, or service update that applies to every visitor. Use [In-Page Alert](../in-page-alert/) for a message about a specific form, task, or page. Show one notice per page, keep it short and scannable, and remove it when it expires. The long-content example tests wrapping; it is not recommended production copy.
 
-Place the notice near the top of the page, after the skip link. Use one alert
-per page in production. Write a specific heading and a useful action link.
-Prefix urgent headings with “Emergency” so severity does not depend on color.
-The example above shows the default notice. More examples below cover the other fixture states.
+Informational notices use a pale blue surface; warnings use yellow. Both are text-only, with an inline bold lead-in. Emergency notices use a red surface, a visible heading, and a decorative warning icon. Use clear wording and useful action links so meaning does not depend on color or an icon.
 
-## Anatomy
+## Placement and landmarks
 
-1. **Root section** (`cods-site-alert`): a named region.
-2. **Surface** (`cods-site-alert__surface`): the inner USWDS alert container.
-3. **Body** (`cods-site-alert__body`): padding for the content.
-4. **Heading** (`cods-site-alert__heading`): visible name of the region; its ID is referenced by `aria-labelledby`.
-5. **Text** (`cods-site-alert__text`): the notice paragraph.
-6. **Link** (`cods-site-alert__link`): one native action link.
+Place the notice outside a narrow content column, between the skip link and the page header. Keep the skip link first so visitors can bypass the notice and navigation. The notice is a named section, not a second banner landmark. Give each section a unique `aria-labelledby` pointing to its visible lead-in or heading. Choose a heading level that fits the page.
 
 ## Use the package
 
-Follow [Getting started](../getting-started/) to install the development release
-and load `@coloradodigitalservice/colorado-design-tokens/tokens.css` and
-`@coloradodigitalservice/colorado-design-system/styles.css` once. Author the
-USWDS section → alert surface → alert body structure shown in the canonical
-fixture, retaining both the `usa-` structural classes and the `cods-` public
-classes. There is no JavaScript import, controller, dismissal, or custom event.
-Use `aria-labelledby` with a unique heading ID and choose the heading level
-that fits your page. The static region intentionally has no live-region role;
-if your application inserts urgent content at runtime, review announcement
-behavior separately with accessibility reviewers.
+Load token and component styles as described in [Getting started](../getting-started/). Keep the USWDS section, alert surface, and alert body structure and the `usa-` and `cods-` classes in the copyable examples. The fixture, metadata, and examples are available under `fixtures/site-alert.html`, `metadata/site-alert.json`, and `examples/site-alert.json` in the design-system package. No JavaScript is required.
 
-The shipped examples are available at
-`@coloradodigitalservice/colorado-design-system/fixtures/site-alert.html` and
-metadata at `@coloradodigitalservice/colorado-design-system/metadata/site-alert.json`.
-Storybook and this page import that same package fixture. Replace example
-content and links with service-specific copy; use unique IDs if repeating it.
+The emergency icon uses the packaged Phosphor Regular `warning.svg` as a decorative CSS mask. Preserve the package's `icons/`, `img/`, and `fonts/` layout when serving CSS directly.
 
-## States and public customization
+## Initial render and dynamic announcements
 
-Default and informational notices share the same presentation. Add
-`cods-site-alert--emergency` alongside `usa-site-alert--emergency` for an
-emergency; otherwise use `usa-site-alert--info`. This slice uses USWDS's
-`usa-site-alert--no-icon` option, avoiding a decorative asset dependency.
-Long content, Spanish, Arabic/right-to-left, and keyboard focus are included.
-Disabled, loading, empty, and dismissed states do not apply to this static notice.
+Notices present on page load are named regions without a live-region role. They do not move focus or force an announcement. For notices updated after load, mount an empty live region first, then populate it. Use `role="status"` for nonurgent updates and `role="alert"` only for urgent information requiring immediate awareness. Test announcements with the application's screen-reader and browser combinations.
 
-| Public class                 | Purpose                                                |
-| ---------------------------- | ------------------------------------------------------ |
-| `cods-site-alert`            | Root section                                           |
-| `cods-site-alert--emergency` | Emergency accent; pair with explicit emergency wording |
-| `cods-site-alert__surface`   | Inner USWDS alert container                            |
-| `cods-site-alert__body`      | Content padding                                        |
-| `cods-site-alert__heading`   | Visible region heading                                 |
-| `cods-site-alert__text`      | Notice paragraph                                       |
-| `cods-site-alert__link`      | Native action link with focus indication               |
+## Anatomy
 
-| Custom property                | Default approved token                                                                   |
-| ------------------------------ | ---------------------------------------------------------------------------------------- |
-| `--cods-site-alert-background` | `--cods-color-bg-surface-secondary`                                                      |
-| `--cods-site-alert-color`      | `--cods-color-text-primary`                                                              |
-| `--cods-site-alert-accent`     | `--cods-color-border-action-secondary`; emergency uses `--cods-color-border-form-danger` |
-| `--cods-site-alert-padding`    | `--cods-space-lg`                                                                        |
+A named section contains the alert surface and body. Informational and warning alerts have an inline lead-in and message; emergency alerts have a heading, message, and decorative icon. An alert may include a link.
 
-Set these properties on the root or override classes in `cods.utilities`.
-Keep customized text, links, and focus indicators accessible against the chosen
-background. Both severities use the approved neutral surface: no new severity
-color values are introduced. Internal `usa-` classes and the
-`data-cods-site-alert-fixture` review labels are not behavior APIs.
+## Public styling and states
+
+| Class                        | Purpose                               |
+| ---------------------------- | ------------------------------------- |
+| `cods-site-alert`            | Full-width named section              |
+| `cods-site-alert--warning`   | Warning surface                       |
+| `cods-site-alert--emergency` | Emergency surface and decorative icon |
+| `cods-site-alert__surface`   | Inner alert surface                   |
+| `cods-site-alert__body`      | Centered content and spacing          |
+| `cods-site-alert__heading`   | Visible emergency heading             |
+| `cods-site-alert__text`      | Notice text                           |
+| `cods-site-alert__link`      | Action link                           |
+
+The examples include long content, Spanish, Arabic/RTL, and keyboard focus. Disabled, loading, and empty notices are not useful states. The content container is centered with a maximum width of 1280px and has 32px desktop and 16px mobile insets.
+
+The root exposes `--cods-site-alert-background`, `--cods-site-alert-color`, `--cods-site-alert-icon-color`, `--cods-site-alert-padding`, `--cods-site-alert-link`, `--cods-site-alert-link-hover`, `--cods-site-alert-link-active`, and `--cods-site-alert-focus` for customization. Check text, link, icon, and focus contrast after customizing them.
 
 ## Accessibility and localization
 
-The named section remains readable with CSS and JavaScript disabled. Only links
-receive keyboard focus; the notice never takes focus automatically. There is no
-animation. Logical borders and wrapping support narrow widths, translated text,
-and right-to-left content. Forced colors use system text, link, and border colors.
-Manual screen-reader and actual 400% zoom verification, content/design review,
-and G2 approval remain required before stable maturity or gate sign-off.
+**Experimental, `0.x`.** Human screen-reader, keyboard, actual 400% zoom, operating-system high-contrast, localization, and design review remain open for this revision. Use descriptive links, translate the full notice, and verify bidirectional content with representative readers. Forced colors use system colors; text communicates the notice meaning without relying on color.
 
 ## Known limitations and implementation status
 
-- **Status:** implemented as a G2 vertical-slice component at **experimental**
-  maturity. Automated accessibility checks, Storybook parity checks, and the
-  author's manual keyboard, VoiceOver/Safari, Firefox zoom, and reduced-motion
-  reviews are recorded in the evidence file. Accessibility lead approval and G2
-  sign-off are pending.
-- No dismissal, icon, or live-region announcement. The no-icon USWDS option
-  avoids a decorative asset dependency.
-- No new severity colors: informational and emergency notices share the neutral
-  surface, so severity must be stated in the heading text.
-- Actual Windows forced-colors review and translated-content review are open.
-- Markup, custom properties, and package paths may change before `1.0`.
-
-## Manual review checklist
-
-Use the examples to complete the remaining accessibility review:
-
-- With VoiceOver/Safari or NVDA/Firefox, navigate by regions and headings, check
-  distinct names, and verify Spanish and Arabic content uses the expected language.
-- At actual 400% browser zoom, confirm all notice text and links remain usable.
-- In operating-system high contrast, check readable text, visible boundaries,
-  severity wording, and keyboard focus.
-- Confirm translated service copy and links with content reviewers.
-
-Record the browser/assistive-technology versions and observations in the
-component evidence file before accessibility approval.
+Site Alert is static and does not include a close button. Showing multiple alerts together is not supported. Human design and accessibility review remains open.
 
 ## More examples
+
+The examples below show each alert type, long content, translated content, and keyboard focus.

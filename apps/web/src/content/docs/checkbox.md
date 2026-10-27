@@ -47,17 +47,14 @@ Single, grouped, checked, disabled, and invalid controls remain functional witho
 
 ## Appearance and localization
 
-The public classes are `cods-checkbox`, `cods-checkbox__input`, `cods-checkbox__label`, `cods-checkbox__group`, `cods-checkbox__legend`, and `cods-checkbox__error`. Keep the corresponding `usa-*` integration classes. Public custom properties on the wrapper are `--cods-checkbox-background`, `--cods-checkbox-text`, `--cods-checkbox-border`, and `--cods-checkbox-selected`; their defaults reference semantic tokens. Preserve text, boundary, and focus contrast when overriding them. Check and mixed glyphs come from the shared Phosphor Regular pipeline in regular color modes. Selected controls use white `check`/`minus` artwork against the primary background; disabled selected controls use the shared dark variants against the light disabled background. Forced-colors mode displays the native input and hides the decorative glyph, so the browser supplies checked, mixed, disabled, and focus treatments.
+The public classes are `cods-checkbox`, `cods-checkbox__input`, `cods-checkbox__label`, `cods-checkbox__group`, `cods-checkbox__legend`, and `cods-checkbox__error`. Keep the corresponding `usa-*` integration classes. Public custom properties on the wrapper are `--cods-checkbox-background`, `--cods-checkbox-text`, `--cods-checkbox-border`, `--cods-checkbox-selected`, and `--cods-checkbox-card-width`; the color defaults reference semantic tokens. Preserve text, boundary, and focus contrast when overriding them. Check and mixed glyphs come from the shared Phosphor Regular pipeline in regular color modes. Selected controls use white `check`/`minus` artwork against the primary background; disabled selected controls use the shared dark variants against the light disabled background. Forced-colors mode displays the native input and hides the decorative glyph, so the browser supplies checked, mixed, disabled, and focus treatments.
 
-Labels use the measured regular body typography (16px/24px), rather than semibold UI text. Labels and errors wrap without a fixed height. Translate labels, legends, and errors; set the appropriate `lang` and `dir`. The Spanish, long-content, and Arabic RTL examples exercise these patterns. No animation is added. Use `cods-checkbox--card` on the wrapper for the Figma card treatment; the
-whole associated label remains clickable, selected cards use the existing form
-selected surface, and keyboard focus surrounds the card. Select-all behavior
-is not included.
+Labels use the measured regular body typography (16px/24px), rather than semibold UI text. Labels and errors wrap without a fixed height. Translate labels, legends, and errors; set the appropriate `lang` and `dir`. The Spanish, long-content, and Arabic RTL examples exercise these patterns. No animation is added.
+
+## Card style
+
+Use `cods-checkbox--card` on the wrapper for a card with a clickable label. Checked and mixed cards use the selected surface; keyboard focus surrounds the card. The card defaults to 240px (15rem) and is constrained to its container. Override `--cods-checkbox-card-width` to fit the layout; labels wrap and height grows with the content.
 
 ## Accessibility review
 
 Native input semantics provide checked, disabled, invalid, and mixed states. Authors supply meaningful names, unique IDs, related group legends, error associations, and form validation behavior. Automated checks supplement human review; screen-reader announcements, actual 400% zoom, and platform forced-colors review remain acceptance items in the [evidence file](https://github.com/coloradodigitalservice/colorado-design-system/blob/main/packages/colorado-design-system/src/components/checkbox/accessibility/checkbox.evidence.md). The component remains experimental pending review.
-
-The card width defaults to Figma’s 240px (15rem), constrained to its container.
-Override `--cods-checkbox-card-width` to fit the service layout; labels
-wrap and height grows with the content.

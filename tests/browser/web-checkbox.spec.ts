@@ -137,6 +137,11 @@ test('forced colors uses visible native checked, mixed, and disabled controls', 
   await expect(disabled).toBeInViewport();
   await expect(disabled).toBeDisabled();
   await expect(disabled).toBeChecked();
+  const cardMixed = page.locator('#checkbox-card-indeterminate');
+  await expect(cardMixed).toBeChecked({ indeterminate: true });
+  await cardMixed.scrollIntoViewIfNeeded();
+  await expect(cardMixed).toBeInViewport();
+  await expect(page.locator('#checkbox-card-disabled-checked')).toBeDisabled();
   await page.locator('label[for="checkbox-default"]').click();
   await expect(input).not.toBeChecked();
 });
@@ -220,4 +225,52 @@ test('Figma control geometry, label gap and card selection remain native', async
     'rgb(196, 197, 201) 0px 0px 0px 2px inset, rgb(255, 255, 255) 0px 0px 0px 2px, rgb(23, 59, 179) 0px 0px 0px 4px',
   );
   await expect(page.locator('#checkbox-card-disabled')).toBeDisabled();
+});
+
+test('hover preserves selected and invalid borders and mixed card surface', async ({
+  page,
+}) => {
+  for (const [id, color] of [
+    ['checkbox-checked', 'rgb(0, 25, 112)'],
+    ['checkbox-error', 'rgb(181, 9, 9)'],
+  ] as const) {
+    const input = page.locator(`#${id}`);
+    const label = page.locator(`label[for=${id}]`);
+    // Expose the native input so pointer hover exercises its CSS state.
+    await input.evaluate((element) => {
+      Object.assign(element.style, {
+        position: 'static',
+        clip: 'auto',
+        width: '20px',
+        height: '20px',
+      });
+    });
+    await input.hover();
+    expect(
+      await label.evaluate(
+        (element) => getComputedStyle(element, '::before').borderColor,
+      ),
+    ).toBe(color);
+  }
+  const selectedCard = page.locator('label[for=checkbox-card-checked]');
+  await selectedCard.hover();
+  await expect(selectedCard).toHaveCSS(
+    'box-shadow',
+    'rgb(0, 25, 112) 0px 0px 0px 2px inset',
+  );
+  const mixed = page.locator('#checkbox-card-indeterminate');
+  const card = page.locator('label[for=checkbox-card-indeterminate]');
+  await expect(mixed).toHaveJSProperty('indeterminate', true);
+  await card.hover();
+  await expect(card).toHaveCSS('background-color', 'rgb(217, 232, 246)');
+  await expect(card).toHaveCSS(
+    'box-shadow',
+    'rgb(0, 25, 112) 0px 0px 0px 2px inset',
+  );
+  const disabled = page.locator('#checkbox-card-disabled-checked');
+  await expect(disabled).toBeDisabled();
+  await expect(disabled).toBeChecked();
+  await expect(
+    page.locator('label[for=checkbox-card-disabled-checked]'),
+  ).toHaveCSS('box-shadow', 'none');
 });

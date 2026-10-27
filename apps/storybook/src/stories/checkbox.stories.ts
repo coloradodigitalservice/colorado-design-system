@@ -7,10 +7,13 @@ const meta = {
   title: 'Components/Checkbox',
   render: () => fixture,
   play: ({ canvasElement }) => {
-    const input = canvasElement.querySelector<HTMLInputElement>(
-      '#checkbox-indeterminate',
-    );
-    if (input) input.indeterminate = true;
+    canvasElement
+      .querySelectorAll<HTMLInputElement>(
+        '#checkbox-indeterminate, #checkbox-card-indeterminate',
+      )
+      .forEach((input) => {
+        input.indeterminate = true;
+      });
   },
   parameters: { componentMetadata: metadata, controls: { disable: true } },
 } satisfies Meta;
@@ -48,4 +51,11 @@ export const CardChecked: Story = { render: () => state('card-checked') };
 
 export const CardDisabled: Story = {
   render: () => state('card-disabled'),
+};
+
+export const CardIndeterminate: Story = {
+  render: () => state('card-indeterminate'),
+};
+export const CardDisabledChecked: Story = {
+  render: () => state('card-disabled-checked'),
 };

@@ -166,6 +166,26 @@ describe('State design references and consumers', () => {
     for (const [name, hex] of Object.entries(reference.palette))
       expect(output[`color-${name.replaceAll('/', '-')}`]).toBe(hex);
   });
+  it('maps Link variants to the inspected Figma palette without changing generic roles', () => {
+    expect(output).toMatchObject({
+      'color-text-action-link-inline': '#173bb3',
+      'color-text-action-link-inline-hover': '#001970',
+      'color-text-action-link-inline-active': '#001049',
+      'color-text-action-link-visited': '#491839',
+      'color-text-action-link-standalone': '#001970',
+      'color-text-action-link-standalone-hover': '#2551a3',
+      'color-text-action-link-standalone-active': '#001049',
+      'color-text-action-link': '#173bb3',
+      'color-text-action-link-hover': '#001970',
+      'color-text-action-link-active': '#001049',
+      'link-underline-thickness': '2px',
+      'link-underline-thickness-hover': '4px',
+      'link-underline-thickness-small': '1px',
+      'link-underline-thickness-small-hover': '3px',
+      'link-underline-offset': '2px',
+      'link-underline-offset-standalone-hover': '3px',
+    });
+  });
   it('preserves explicit foundation values and omits unresolved values', () => {
     expect(output).toMatchObject({
       'space-2xs': '4px',
@@ -502,7 +522,7 @@ describe('component inventory completeness', () => {
     );
   it.each([
     ['Accordion', 'focus.ring-width'],
-    ['Site Alert', 'font.size-mobile-h3'],
+    ['Site Alert', 'color.icon-default'],
   ])(
     'detects omitted %s stylesheet dependencies independently of the inventory',
     async (name, missing) => {
@@ -603,4 +623,23 @@ describe('component inventory completeness', () => {
       ),
     ).toEqual(['space.missing']);
   });
+});
+
+it('distinguishes locally declared component properties from catalog tokens sharing their prefix', async () => {
+  const catalog = await loadCatalog();
+  expect(
+    extractTokenDependencies(
+      `
+    .cods-link { --cods-link-rtl-transform: none; --cods-link-underline-thickness: 2px; }
+    .cods-link__icon { transform: var(--cods-link-rtl-transform); text-decoration-thickness: var(--cods-link-underline-thickness); }
+  `,
+      catalog,
+    ),
+  ).toEqual(['link.underline-thickness']);
+  expect(
+    extractTokenDependencies(
+      '.cods-link { color: var(--cods-link-unknown-token); }',
+      catalog,
+    ),
+  ).toEqual(['link.unknown-token']);
 });
