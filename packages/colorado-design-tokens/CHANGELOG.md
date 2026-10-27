@@ -1,5 +1,11 @@
 # @coloradodigitalservice/colorado-design-tokens
 
+## 0.2.7
+
+### Patch Changes
+
+- 8dc4e46: Align Accordion chevrons, focus spread, and variants with Figma. Make bordered the default and provide an explicit transparent borderless variant. Add isolated Accordion border/focus tokens while preserving shared semantic colors and global focus geometry.
+
 ## 0.2.6
 
 No changes in this release.

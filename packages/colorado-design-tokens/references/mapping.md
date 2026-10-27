@@ -126,6 +126,28 @@ Gray and yellow tag text preserve the `text/default` alias through `color.text-p
 
 CDS-52 requires Success in addition to the Info, Warning, and Urgent variants observed in the In-Page Alert Figma documentation. `bg-alert-success` aliases `bg-page-surface-green` and `border-alert-success` aliases `state-success`, preserving the existing implementation mapping. Proposed 2026-10-26; design and accessibility review remain open.
 
+## Accordion alignment — October 16, 2026 (CODS-P3-007)
+
+Live Figma inspection in Chrome's Aten profile found that Accordion's
+`border/subtle` is `color/co-gray/10` (`#EBECED`), while the shared reviewed
+`color.border-subtle` remains gray/20. The additive supplemental role
+`color.border-accordion-subtle` aliases gray/10 for this component only. White
+uses the existing `color.border-default` (gray/20) and `color.surface-default`.
+`border.accordion-width` is the measured 4px side/bottom border at
+[Figma panel 1447:268](https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=1447-268&m=dev).
+
+The Accordion focus effect has a 2px white spread and 4px blue outer spread;
+`focus.accordion-outer-spread` records the latter. This is not a 4px
+blue band: the component retains a 2px outline for forced colors. Shared focus
+width/offset and the original 46 semantic mappings are unchanged. Eric authorized
+these four component alignment fixes on October 16; no immutable library version
+was available, and implementation authorization does not establish State approval.
+
+The pale panel/white borders are decorative; meaningful text, chevrons, native
+button semantics, and `aria-expanded` carry the control/state information. Existing
+contrast pairs cover dark text and blue focus against white/secondary surfaces;
+no failing pale-border ratio is reclassified as passing.
+
 ### Checkbox geometry
 
 `control-checkbox-size` (20px) and `control-checkbox-border-width` (2px) reflect the Checkbox control and card frames in Figma (639:10184 and 659:3273), observed 2026-10-27 and proposed for design review.
