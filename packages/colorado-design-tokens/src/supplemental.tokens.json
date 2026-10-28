@@ -655,6 +655,16 @@
           "location": "CDS-52 Success alert extension; existing palette mapping proposed for design and accessibility review 2026-10-26"
         }
       }
+    },
+    "border-accordion-subtle": {
+      "$type": "color",
+      "$value": "{color.co-gray-10}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Accordion / border/subtle",
+          "location": "Figma jQ3EiYqe3uEvFbid5ewc41 node 1447:268; border/subtle aliases color/co-gray/10 (#EBECED); Chrome observation 2026-10-16; component mapping authorized by Eric; shared border-subtle remains unchanged"
+        }
+      }
     }
   },
   "component": {

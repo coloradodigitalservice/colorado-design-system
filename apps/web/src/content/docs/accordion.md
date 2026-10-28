@@ -8,9 +8,28 @@ figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-Syste
 
 ## When to use
 
-Use an accordion to organize related, optional sections, such as supporting details or frequently asked questions. Keep information everyone needs visible outside it. Do not use it for a single block of content, for navigation, or for content people must read in full to complete a task. Choose heading levels to fit the page outline. The examples above use the package's canonical fixture.
+Use accordions when:
 
-Accordion is **experimental** in the `0.0.x` development series. Manual accessibility review and G2 acceptance remain open.
+- Content can be grouped into related, optional sections, such as supporting details.
+- People need to scan the available topics and open the sections relevant to them.
+
+Don't use accordions when:
+
+- Everyone needs to see the information, or people must read it in full to complete a task. Keep crucial information visible.
+- There are three or fewer sections or not enough content to warrant condensing. Use headings and keep the content visible.
+- The goal is navigation. Use links or another page structure instead.
+- You are writing FAQs. Consider organizing the information around what people need to do instead.
+
+### Writing for accordions
+
+- Keep crucial information outside collapsed panels.
+- Keep the hierarchy flat: use simple content and links, and avoid tables, subheadings, complex structures, and nested accordions inside panels.
+- Write clear, descriptive headings in sentence case and use fewer than seven words. Keep them short enough to avoid wrapping.
+- Consider simplifying the content, separating it with headings, splitting it across pages, or using links to sections on the same page.
+
+Choose heading levels to fit the page outline. The examples above use the package's canonical fixture.
+
+Accordion is **experimental** in the `0.x` development series. P3-007 builds on the G2 vertical slice; design review, detailed manual accessibility evidence, and owner acceptance remain open.
 
 ## Anatomy
 
@@ -57,25 +76,45 @@ Use the built ES module in a `script type="module"` when consuming without a bun
 | `setAccordionExpanded(root, panelId, expanded)` | Set an owned panel's state. Unknown, uninitialized, and disabled targets are ignored.                              |
 | `destroyAccordion(root)`                        | Remove listeners and restore authored attributes. Safe before initialization or when called repeatedly.            |
 
-Initial configuration is read during initialization. Destroy and reinitialize after changing configuration or adding/removing items within an existing root. New roots can be initialized independently. Nested roots are isolated, but avoid nesting accordions when ordinary headings would be clearer.
+Initial configuration is read during initialization. Destroy and reinitialize after changing configuration or adding/removing items within an existing root. New roots can be initialized independently. Nested accordions are unsupported: initialization warns once per root and leaves nested markup readable without enhancement. Use ordinary headings instead.
 
 `aria-expanded` and `hidden` reflect the enhanced state. In single-open mode, the last initially expanded item wins if more than one is declared. Disabled triggers use the native `disabled` attribute, skip the tab order, and cannot be toggled by the public method. Their panel still remains readable without scripting.
 
 Every changed panel dispatches **`cods-accordion:change`** from its root with `bubbles: true`, `composed: false`, and `detail: { panelId: string, expanded: boolean }`. All affected states settle before the events fire. Opening a sibling therefore produces a closing event and an opening event; initialization, redundant operations, and teardown produce no events.
 
+## Open-panel decision
+
+CODS-P3-007 retains **single-open by default** to preserve the shipped vertical-slice API and USWDS's default behavior. Opening one panel closes its siblings; every panel may also be closed. Add `data-cods-accordion-multiple` to opt into independent panels when people need to compare sections. The Multiple and Expanded stories show both panels open; Mixed shows one open and one closed, and Collapsed shows both closed. No arrow-key roving navigation is included in this release; native Tab navigation keeps every enabled header reachable.
+
 ## Keyboard and focus
 
-Tab and Shift+Tab follow the native button/link order. Enter and Space toggle a focused enabled trigger. Focus stays on that trigger after activation. If initialization or a public method collapses a panel containing focus, focus returns to its trigger. Initialization leaves focus in content that remains open. Escape and arrow keys retain their ordinary browser behavior; there is no modal state, focus trap, or custom arrow navigation.
+Tab and Shift+Tab follow the native button/link order. Enter and Space toggle a focused enabled trigger. Focus stays on that trigger after activation. If initialization or a public method collapses a panel containing focus, focus returns to its trigger. Initialization leaves focus in content that remains open. When opening a panel leaves its trigger outside the viewport (for example, after a sibling closes), the delegated USWDS click handler may scroll it into view. This also applies with reduced motion; the wrapper does not request smooth scrolling, but page CSS can affect scrolling behavior. Escape and arrow keys retain their ordinary browser behavior; there is no modal state, focus trap, or custom arrow navigation.
 
 ## Progressive enhancement
 
 Without JavaScript, all panel content is visible and readable; the buttons do not collapse it. Without CSS, semantic headings, buttons, and content still work. Successful initialization applies the declared collapsed states. Destroy restores the original server-rendered presentation. Do not server-render `hidden` on content that needs to remain available without JavaScript.
 
-The controller wraps the pinned [USWDS accordion](https://designsystem.digital.gov/components/accordion/) state/exclusivity functions and adds the CoDS lifecycle, events, and focus safety.
+The controller wraps the pinned [USWDS accordion](https://designsystem.digital.gov/components/accordion/) `on`/`off` lifecycle and state/exclusivity functions and adds the CoDS lifecycle, events, and focus safety.
 
 ## Appearance and localization
 
-Public classes are `cods-accordion`, `cods-accordion--bordered`, `cods-accordion__heading`, `cods-accordion__trigger`, and `cods-accordion__panel`. Keep the corresponding `usa-*` classes as the private upstream integration markup. Set `--cods-accordion-background`, `--cods-accordion-text`, and `--cods-accordion-border` on a root to customize approved token-based defaults. Preserve readable contrast and visible focus.
+Public classes are `cods-accordion`, `cods-accordion--borderless`, `cods-accordion--white`, `cods-accordion__heading`, `cods-accordion__trigger`, and `cods-accordion__panel`. Keep the corresponding `usa-*` classes as the private upstream integration markup. The default has a gray header and 4px pale panel border. Use `cods-accordion--borderless` for a transparent panel without a border, or `cods-accordion--white` for white headers and 1px borders. Each appears in the canonical examples and Storybook.
+
+Choose a variant that fits the surrounding page:
+
+- **Bordered (default):** Use for a standalone container, especially on dense pages or when content needs to be distinct from the background. It can suit complex forms or data-heavy content.
+- **Borderless:** Use for a minimal, integrated look when the accordion is the main content on a clean page. It can suit sidebars or marketing pages where open space matters.
+- **White:** Use on a section or page with a background other than white.
+
+Set `--cods-accordion-background`, `--cods-accordion-text`, and `--cods-accordion-border` on a root to customize approved token-based defaults. The Accordion-specific border mapping uses `color.border-accordion-subtle` (gray/10) without changing the shared `color.border-subtle` (gray/20). White uses `color.border-default`. The pale border is decorative; the text, native button state, and up/down chevron convey the control and state.
+
+The decorative chevrons use shared Phosphor Regular `caret-up` and `caret-down`
+SVG masks from the pinned icon pipeline. The original Figma exports were compared
+at 16px and 24px: weight, silhouette, alignment, and spacing match; only export
+precision and edge antialiasing differ. Source hashes and the comparison are
+recorded in `icons.provenance.json`.
+
+Focus follows the inspected Accordion effect: a 2px white gap with blue extending to 4px from the control edge (a 2px blue band). `focus.accordion-outer-spread` controls that extent; it does not redefine the shared focus-ring width used by other components. Forced colors retain a system-color outline and the chevron mask. Preserve readable contrast and visible focus.
 
 Translate heading/body text, set the appropriate `lang`, and use `dir="rtl"` for right-to-left content. Padding and icons use logical positioning. Content wraps without a fixed height; do not place unresponsive tables or media inside panels. Error, loading, and empty states belong to the content rather than this disclosure control.
 
@@ -83,13 +122,13 @@ The shipped fixture is available at `@coloradodigitalservice/colorado-design-sys
 
 ## Accessibility responsibilities
 
-The component supplies native button semantics, `aria-expanded`/`aria-controls` state, visible focus, reflow, reduced-motion, and forced-colors support. Authors remain responsible for unique panel IDs, heading levels that fit the page outline, meaningful trigger text, translated content, and keeping panel content accessible. Do not hide content that must remain available without JavaScript. Manual screen-reader, actual zoom, and Windows forced-colors observations are not fully recorded in the evidence file, so accessibility lead acceptance is pending.
+The component supplies native button semantics, `aria-expanded`/`aria-controls` state, visible focus, reflow, reduced-motion, and forced-colors support. Authors remain responsible for unique panel IDs, heading levels that fit the page outline, meaningful trigger text, translated content, and keeping panel content accessible. Do not hide content that must remain available without JavaScript. Eric reported completing fresh screen-reader, actual 400% zoom, and Windows High Contrast checks on October 16, 2026. Specific environments and announcements were not supplied; the evidence distinguishes that report from automated checks and owner acceptance.
 
 ## Known limitations and implementation status
 
-- **Status:** implemented as a G2 vertical-slice component at **experimental** maturity. Automated browser, accessibility, and unit tests pass; the author reports completed manual accessibility review without detailed observations. Domain-owner acceptance and G2 sign-off are pending.
+- **Status:** P3-007 extends the G2 vertical slice at **experimental** maturity. Historical manual review is recorded in the evidence file; the lifecycle and style updates need fresh human verification. Domain-owner acceptance and G3 approval are pending. The live Figma file was inspected in Chrome’s Aten profile on October 16, 2026. Chevron artwork, borders, focus geometry, and the white variant follow that observation; Git remains authoritative for released token values.
 - Configuration is read once at initialization; destroy and reinitialize after changing configuration or an existing root's items.
 - The controller does not observe the DOM; call `initAllAccordions()` after inserting new markup.
-- No custom arrow-key navigation, animation, or live-region announcements.
+- No nested accordions, custom arrow-key navigation, animation, or live-region announcements. State changes are immediate with either reduced-motion preference.
 - Approved visual regression baselines are not yet established.
 - Markup, custom properties, and controller APIs may change before `1.0`.

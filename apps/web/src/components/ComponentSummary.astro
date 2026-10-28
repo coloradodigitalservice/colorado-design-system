@@ -5,9 +5,16 @@ import accordion from '@coloradodigitalservice/colorado-design-system/metadata/a
 import link from '@coloradodigitalservice/colorado-design-system/metadata/link.json';
 
 import radio from '@coloradodigitalservice/colorado-design-system/metadata/radio.json';
+import checkbox from '@coloradodigitalservice/colorado-design-system/metadata/checkbox.json';
 
 interface Props {
-  component: 'site-alert' | 'accordion' | 'in-page-alert' | 'link' | 'radio';
+  component:
+    | 'site-alert'
+    | 'accordion'
+    | 'in-page-alert'
+    | 'link'
+    | 'radio'
+    | 'checkbox';
   figma?: string;
 }
 
@@ -17,6 +24,7 @@ const metadata = {
   'in-page-alert': inPageAlert,
   link,
   radio,
+  checkbox,
 }[Astro.props.component];
 const { figma } = Astro.props;
 const repository =
@@ -37,7 +45,7 @@ const upstream = `https://designsystem.digital.gov/components/${metadata.uswdsEq
       <dt>Type</dt>
       <dd>
         {metadata.type === 'static'
-          ? 'Static, no JavaScript'
+          ? 'No component controller; native controls work without JavaScript'
           : 'Interactive, progressively enhanced'}
       </dd>
     </div>
