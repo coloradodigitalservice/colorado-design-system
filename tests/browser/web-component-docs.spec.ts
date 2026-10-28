@@ -2,6 +2,7 @@ import { test, expect } from './fixtures.js';
 
 const pages = [
   { path: '/breadcrumbs/', name: 'breadcrumbs' },
+  { path: '/link/', name: 'link' },
   { path: '/site-alert/', name: 'site-alert' },
   { path: '/accordion/', name: 'accordion' },
 ];

@@ -85,8 +85,69 @@ Every foundation token records its design-reference section in `src/foundations.
 | Small     | `icon-size-small`  | 16px  |
 | Medium    | `icon-size-medium` | 24px  |
 
+## Link component mappings
+
+Link adds six foundation dimensions for decorations observed on the
+[Link Figma page](https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=828-3253&m=dev).
+The catalog already supplies Link's color aliases and typography; this change
+preserves the original 46 semantic mappings and `design-values.json`.
+Link inherits line-height from its content context rather than treating Figma's
+single-line frame heights as wrapped-text leading.
+
+| Foundation dimension                     | Value | Treatment                   |
+| ---------------------------------------- | ----- | --------------------------- |
+| `link-underline-thickness`               | 2px   | Inline default/active       |
+| `link-underline-thickness-hover`         | 4px   | Default-size hover          |
+| `link-underline-thickness-small`         | 1px   | Small inline default/active |
+| `link-underline-thickness-small-hover`   | 3px   | Small hover                 |
+| `link-underline-offset`                  | 2px   | Inline underline offset     |
+| `link-underline-offset-standalone-hover` | 3px   | Standalone hover offset     |
+
+Default decorations were observed on 2026-10-12; Small decorations were observed
+on 2026-10-21 at nodes `5307:9112` and `2630:15458`. The technical lead recorded approval on 2026-10-22 in the [PR #41 review](https://github.com/coloradodigitalservice/colorado-design-system/pull/41#pullrequestreview-5621641029).
+This records technical approval, not design-owner or accessibility-owner sign-off.
+The Aten design lead and State design owner review visual acceptance; the
+accessibility lead reviews contrast/focus; technical maintainers review names
+and generated output. No token names, values, or aliases change in this review.
+
+Focus reuses the existing radius, focus-gap, ring-offset, and spacing roles:
+a 2px radius, 2px white gap, and 2px blue band. The Language Selector ring token
+is unchanged. Existing standalone contrast checks against the form surface
+remain in the reproducible report. Sources and all generated formats are
+reviewed together; Git sources remain authoritative.
+
 ## Catalog expansion
 
 See [catalog review and migration](catalog-review.md), the [component dependency inventory](component-token-inventory.json), and [observed variable tables](figma-observed-2026-10-08.json). Git token sources define the catalog; the variable table is reference material, not a validation input. Supplemental additions use flattened kebab-case public names, except the seven alert/visited roles aligned with PR #37 (see the naming table in catalog-review.md). Tag, Modal and Toast component aliases point to semantic roles. Desktop/Mobile typography uses explicit names, with disputed existing values retained for design review. Spacing `4xl` adds 80px; existing 4/8/12px names remain `2xs`/`xs`/`sm`. Translucent bottom-border and shadow primitives preserve their alpha; elevation geometry is scalar. The inventory records component dependencies and explicit Maps/Videos design gaps, not Figma measurements or design sign-off.
 
 Gray and yellow tag text preserve the `text/default` alias through `color.text-primary`, rather than resolving straight to the palette. The dependency inventory lists component token dependencies alongside independently verified Git stylesheet dependencies. Token validation rejects unknown catalog paths and undocumented or stale stylesheet dependencies. Maps and Videos retain explicit design coverage gaps. Figma-derived design decisions and unresolved source conflicts remain subject to design review; exported measurements are not checked by the build.
+
+## Success alert extension
+
+CDS-52 requires Success in addition to the Info, Warning, and Urgent variants observed in the In-Page Alert Figma documentation. `bg-alert-success` aliases `bg-page-surface-green` and `border-alert-success` aliases `state-success`, preserving the existing implementation mapping. Proposed 2026-10-26; design and accessibility review remain open.
+
+## Accordion alignment — October 16, 2026 (CODS-P3-007)
+
+Live Figma inspection in Chrome's Aten profile found that Accordion's
+`border/subtle` is `color/co-gray/10` (`#EBECED`), while the shared reviewed
+`color.border-subtle` remains gray/20. The additive supplemental role
+`color.border-accordion-subtle` aliases gray/10 for this component only. White
+uses the existing `color.border-default` (gray/20) and `color.surface-default`.
+`border.accordion-width` is the measured 4px side/bottom border at
+[Figma panel 1447:268](https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=1447-268&m=dev).
+
+The Accordion focus effect has a 2px white spread and 4px blue outer spread;
+`focus.accordion-outer-spread` records the latter. This is not a 4px
+blue band: the component retains a 2px outline for forced colors. Shared focus
+width/offset and the original 46 semantic mappings are unchanged. Eric authorized
+these four component alignment fixes on October 16; no immutable library version
+was available, and implementation authorization does not establish State approval.
+
+The pale panel/white borders are decorative; meaningful text, chevrons, native
+button semantics, and `aria-expanded` carry the control/state information. Existing
+contrast pairs cover dark text and blue focus against white/secondary surfaces;
+no failing pale-border ratio is reclassified as passing.
+
+### Checkbox geometry
+
+`control-checkbox-size` (20px) and `control-checkbox-border-width` (2px) reflect the Checkbox control and card frames in Figma (639:10184 and 659:3273), observed 2026-10-27 and proposed for design review.

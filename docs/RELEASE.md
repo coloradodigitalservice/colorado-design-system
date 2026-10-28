@@ -31,10 +31,17 @@ Release notes and assets are published as a GitHub **prerelease**. The workflow 
 ## Cutting a release
 
 1. **Record intent.** Run `pnpm changeset`, choose `patch` for a task release or `minor` to close a phase, and describe the change. Start the summary with `BREAKING:` for a breaking change; those are listed under "Known breaking changes". The two `@coloradodigitalservice` packages are a Changesets `fixed` group, so they always share one version. Internal `@cods-internal/*` workspaces are ignored.
-2. **Version.** On a branch containing only the changes intended for this release, run `pnpm release:version`. It consumes the changesets, bumps both packages, and writes each package's `CHANGELOG.md`. Commit the version changes. For phase-only releases, base `release/<version>` on the last commit included in that phase so later-phase work is excluded.
-3. **Validate.** Push `release/<version>` (for example `release/0.1.0`) and wait for the [Foundation workflow](CI.md) to pass on its tip. Keep the branch tip unchanged until release generation finishes.
-4. **Tag.** Create `v<version>` on that exact release-branch tip and push it. A tag may instead target a commit already on `main`. Pushing the tag is the approval; the release workflow accepts a release-branch tag only when its commit is still the branch tip.
+2. **Version before merge.** On the same task PR branch, run `pnpm release:version`. It consumes the changesets, bumps both packages, and writes each package's `CHANGELOG.md`. Commit all resulting changes before final approval. No separate release PR is required.
+3. **Validate and merge.** Wait for [Foundation](CI.md#release-readiness-and-merge-protection) to pass, obtain approval, and squash-merge the PR. Its release-readiness gate rejects pending changesets and published-package changes without an advancing shared version and changelog entries. Non-package maintenance can merge without a version bump. If another PR advances the version first, update from `main` and regenerate your release preparation.
+4. **Tag after merge.** Wait for Foundation and Pages to succeed on the resulting `main` commit. An authorized maintainer creates `v<version>` on that exact commit and pushes it. Confirm tag-creation permission before attempting a release. Pushing the tag is the publication approval; this PR gate does not create tags or publish releases automatically.
 5. **Generate and publish.** The `build` job runs the repository gate and generates the artifacts without any secret. The `publish` job then verifies `SHA256SUMS` and creates the GitHub release (a prerelease for any `0.x` version).
+
+The release tooling also accepts an exact `release/<version>` branch tip for
+isolated releases, but that is not the normal task-PR sequence. Squash merges do
+not preserve a release-branch tag's ancestry even when the merged file contents
+are identical. Tagging the verified merged `main` commit avoids that problem.
+Do not move published tags to compensate: release manifests and archives identify
+the original tagged commit.
 
 ## Gates enforced by the workflow
 

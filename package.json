@@ -25,6 +25,7 @@
     "prepare": "husky",
     "changeset": "changeset",
     "release:version": "changeset version",
+    "release:check": "node scripts/check-release-readiness.mjs",
     "release:artifacts": "node scripts/release.mjs",
     "tokens:validate": "pnpm --filter @coloradodigitalservice/colorado-design-tokens tokens:validate",
     "tokens:build": "pnpm --filter @coloradodigitalservice/colorado-design-tokens build",
