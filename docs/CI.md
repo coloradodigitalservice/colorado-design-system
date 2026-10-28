@@ -21,7 +21,7 @@ manual runs select all jobs.
 | Contract sample fixtures, packages, tests, config, lockfile, workflow, scripts, unknown paths | All jobs                     |
 
 Every run executes `repository`: frozen dependency installation, workspace
-boundaries, and formatting. Pushes to `main` and release branches select all
+boundaries, formatting, and release readiness. Pushes to `main` and release branches select all
 jobs. The selected jobs add these checks:
 
 - `code`: workspace validation, token drift, lint, root TypeScript checking,
@@ -45,6 +45,34 @@ or is cancelled. Configure **foundation** as the required status check in the
 repository ruleset; conditional jobs can legitimately be skipped. Workflow-level
 path exclusions are avoided so the required check receives a result on every PR.
 
+## Release readiness and merge protection
+
+The always-run `repository` job rejects unconsumed Markdown changesets (excluding
+`.changeset/README.md`). On PRs it also compares the checked-out merge commit
+against the event's base SHA. Changes anywhere under either published package
+require both packages to advance to the same `0.x.y` version, with a matching
+`## <version>` heading in each changelog. Existing release tags cannot be reused.
+Deleting or moving a package file also requires a bump. Docs, CI, tests, and
+internal apps outside those packages do not require a bump on their own.
+
+Run `pnpm changeset` and `pnpm release:version`, then commit all resulting changes
+before merging. Pending changesets block even non-package PRs. Push/manual runs
+have no PR base comparison but still check pending changesets and shared versions.
+The check validates preparation, not publication: create the release tag only
+after merging and verifying the resulting `main` commit.
+
+An administrator must configure the `main` ruleset to require the GitHub Actions
+check **foundation** and **require branches to be up to date before merging**.
+A failing workflow alone does not block merges without this setting. The existing
+aggregate propagates a release-readiness failure from `repository`, including for
+docs-only PRs. Keep PR/approval and squash-only protections in place; no emergency
+bypass or ruleset changes are made by this workflow.
+
+If another PR advances the package version first, update from `main`, regenerate
+the version/changelog changes, and rerun checks. Do not reuse the other PR's
+version. Regression tests exercise actual Git snapshots, moves, and synthetic
+merge commits to cover this case.
+
 ## Reproduce a run locally
 
 Use the pinned toolchain from the repository root:
@@ -56,6 +84,16 @@ pnpm install --frozen-lockfile
 pnpm test:browser:install
 pnpm check
 ```
+
+For the PR release-readiness check, commit your changes first, then run:
+
+```sh
+git fetch origin main --tags
+pnpm release:check origin/main
+```
+
+The script inspects committed `HEAD`, not unstaged or staged edits. Without a base
+argument, `pnpm release:check` checks the current snapshot only.
 
 On Linux, install browser system dependencies with
 `pnpm exec playwright install --with-deps chromium firefox webkit`. The full gate builds both
