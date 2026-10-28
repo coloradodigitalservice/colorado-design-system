@@ -21,13 +21,14 @@ manual runs select all jobs.
 | Contract sample fixtures, packages, tests, config, lockfile, workflow, scripts, unknown paths | All jobs                     |
 
 Every run executes `repository`: frozen dependency installation, workspace
-boundaries, and formatting. Pushes to `main` and release branches select all
+boundaries, formatting, and release readiness. Pushes to `main` and release branches select all
 jobs. The selected jobs add these checks:
 
 - `code`: workspace validation, token drift, lint, root TypeScript checking,
   Vitest, and package/static-consumer builds.
 - `web`: token drift, lint, the Astro site and dependency builds (including Astro
-  validation and generated internal links/anchors), and Chromium/Firefox/WebKit smoke/axe checks.
+  validation and generated internal links/anchors), Chromium/Firefox/WebKit smoke/axe checks,
+  and a second build with the GitHub Pages base path (`/colorado-design-system`).
 - `storybook`: token drift, lint, Storybook and dependency builds (including its
   own TypeScript project), and Chromium smoke/axe checks of every built story.
 
@@ -44,6 +45,34 @@ or is cancelled. Configure **foundation** as the required status check in the
 repository ruleset; conditional jobs can legitimately be skipped. Workflow-level
 path exclusions are avoided so the required check receives a result on every PR.
 
+## Release readiness and merge protection
+
+The always-run `repository` job rejects unconsumed Markdown changesets (excluding
+`.changeset/README.md`). On PRs it also compares the checked-out merge commit
+against the event's base SHA. Changes anywhere under either published package
+require both packages to advance to the same `0.x.y` version, with a matching
+`## <version>` heading in each changelog. Existing release tags cannot be reused.
+Deleting or moving a package file also requires a bump. Docs, CI, tests, and
+internal apps outside those packages do not require a bump on their own.
+
+Run `pnpm changeset` and `pnpm release:version`, then commit all resulting changes
+before merging. Pending changesets block even non-package PRs. Push/manual runs
+have no PR base comparison but still check pending changesets and shared versions.
+The check validates preparation, not publication: create the release tag only
+after merging and verifying the resulting `main` commit.
+
+An administrator must configure the `main` ruleset to require the GitHub Actions
+check **foundation** and **require branches to be up to date before merging**.
+A failing workflow alone does not block merges without this setting. The existing
+aggregate propagates a release-readiness failure from `repository`, including for
+docs-only PRs. Keep PR/approval and squash-only protections in place; no emergency
+bypass or ruleset changes are made by this workflow.
+
+If another PR advances the package version first, update from `main`, regenerate
+the version/changelog changes, and rerun checks. Do not reuse the other PR's
+version. Regression tests exercise actual Git snapshots, moves, and synthetic
+merge commits to cover this case.
+
 ## Reproduce a run locally
 
 Use the pinned toolchain from the repository root:
@@ -55,6 +84,16 @@ pnpm install --frozen-lockfile
 pnpm test:browser:install
 pnpm check
 ```
+
+For the PR release-readiness check, commit your changes first, then run:
+
+```sh
+git fetch origin main --tags
+pnpm release:check origin/main
+```
+
+The script inspects committed `HEAD`, not unstaged or staged edits. Without a base
+argument, `pnpm release:check` checks the current snapshot only.
 
 On Linux, install browser system dependencies with
 `pnpm exec playwright install --with-deps chromium firefox webkit`. The full gate builds both
@@ -98,6 +137,17 @@ ZIP artifacts contain `apps/web/dist` or `apps/storybook/storybook-static` conte
 extract a preview and serve its root with a local static HTTP server. Each job
 uploads to a distinct name. These are downloadable review builds. Hosted previews
 require a separately approved and connected static host.
+
+After uploading the root-path web preview, the web job rebuilds with
+`PUBLIC_BASE_PATH=/colorado-design-system` and checks generated links and assets.
+The web build declares this variable as a Turbo cache input so the root and
+Pages builds cannot reuse each other's output. This catches deployment-only
+path failures before merge without changing the root-path browser previews.
+To reproduce this check locally, run:
+
+```sh
+PUBLIC_BASE_PATH=/colorado-design-system pnpm exec turbo run build --filter=@cods-internal/web...
+```
 
 To rerun a failed workflow, use **Re-run failed jobs** on its Actions page; new
 commits also trigger fresh PR checks. Manual dispatch is available once the

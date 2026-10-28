@@ -1,0 +1,53 @@
+import type { Meta, StoryObj } from '@storybook/html-vite';
+import fixture from '@coloradodigitalservice/colorado-design-system/fixtures/radio.html?raw';
+import metadata from '@coloradodigitalservice/colorado-design-system/metadata/radio.json';
+import spriteUrl from '@coloradodigitalservice/colorado-design-system/icons/sprite.svg?url';
+import examples from '@coloradodigitalservice/colorado-design-system/examples/radio.json';
+
+const meta = {
+  title: 'Components/Radio Buttons',
+  id: 'components-radio',
+  render: () => fixture.replaceAll('/icons/sprite.svg', spriteUrl),
+  parameters: { componentMetadata: metadata, controls: { disable: true } },
+} satisfies Meta;
+export default meta;
+type Story = StoryObj<typeof meta>;
+function state(name: string): string {
+  const example = examples.examples.find((example) => example.state === name);
+  if (!example) throw new globalThis.Error(`Missing canonical state: ${name}`);
+  return example.html.replaceAll('/icons/sprite.svg', spriteUrl);
+}
+export const AllStates: Story = {};
+export const Default: Story = { render: () => state('default') };
+export const Selected: Story = { render: () => state('selected') };
+export const Disabled: Story = { render: () => state('disabled') };
+export const DisabledGroup: Story = { render: () => state('disabled-group') };
+export const Error: Story = { render: () => state('error') };
+export const LongContent: Story = { render: () => state('long-content') };
+export const Spanish: Story = { render: () => state('localization') };
+export const RightToLeft: Story = { render: () => state('rtl') };
+export const FocusVisible: Story = {
+  render: () => state('focus-visible'),
+  play: ({ canvasElement }) => {
+    canvasElement.querySelector<HTMLInputElement>('input')?.focus();
+  },
+};
+export const WithoutJavaScript: Story = { play: () => {} };
+
+export const Tile: Story = { render: () => state('tile') };
+
+export const TileError: Story = { render: () => state('tile-error') };
+export const TileDisabledGroup: Story = {
+  render: () => state('tile-disabled-group'),
+};
+export const TileLongContent: Story = {
+  render: () => state('tile-long-content'),
+};
+export const TileLocalization: Story = {
+  name: 'Tile Spanish',
+  render: () => state('tile-localization'),
+};
+export const TileRtl: Story = {
+  name: 'Tile Right To Left',
+  render: () => state('tile-rtl'),
+};

@@ -5,6 +5,7 @@ import select from '@coloradodigitalservice/colorado-design-system/metadata/sele
 import accordion from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
 import link from '@coloradodigitalservice/colorado-design-system/metadata/link.json';
 
+import radio from '@coloradodigitalservice/colorado-design-system/metadata/radio.json';
 import checkbox from '@coloradodigitalservice/colorado-design-system/metadata/checkbox.json';
 
 interface Props {
@@ -13,6 +14,7 @@ interface Props {
     | 'accordion'
     | 'in-page-alert'
     | 'link'
+    | 'radio'
     | 'checkbox'
     | 'select';
   figma?: string;
@@ -23,6 +25,7 @@ const metadata = {
   accordion,
   'in-page-alert': inPageAlert,
   link,
+  radio,
   checkbox,
   select,
 }[Astro.props.component];

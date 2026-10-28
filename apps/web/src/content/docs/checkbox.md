@@ -14,7 +14,7 @@ Checkbox is **experimental** in the `0.x` development series. It themes USWDS 3.
 
 ## Single checkbox
 
-Load the token and component styles as described in [Getting started](/getting-started/). Use `usa-checkbox cods-checkbox` on the wrapper, `usa-checkbox__input cods-checkbox__input` on the native input, and `usa-checkbox__label cods-checkbox__label` on its following label. Set a meaningful `name` and `value` for form submission. Use `checked` for the initial checked state and the DOM `checked` property for runtime state. Unchecked inputs are omitted from form submission.
+Load the token and component styles as described in [Getting started](../getting-started/). Use `usa-checkbox cods-checkbox` on the wrapper, `usa-checkbox__input cods-checkbox__input` on the native input, and `usa-checkbox__label cods-checkbox__label` on its following label. Set a meaningful `name` and `value` for form submission. Use `checked` for the initial checked state and the DOM `checked` property for runtime state. Unchecked inputs are omitted from form submission.
 
 ## Checkbox groups
 
