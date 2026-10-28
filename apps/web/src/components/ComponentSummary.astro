@@ -4,10 +4,17 @@ import siteAlert from '@coloradodigitalservice/colorado-design-system/metadata/s
 import accordion from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
 import link from '@coloradodigitalservice/colorado-design-system/metadata/link.json';
 
+import radio from '@coloradodigitalservice/colorado-design-system/metadata/radio.json';
 import checkbox from '@coloradodigitalservice/colorado-design-system/metadata/checkbox.json';
 
 interface Props {
-  component: 'site-alert' | 'accordion' | 'in-page-alert' | 'link' | 'checkbox';
+  component:
+    | 'site-alert'
+    | 'accordion'
+    | 'in-page-alert'
+    | 'link'
+    | 'radio'
+    | 'checkbox';
   figma?: string;
 }
 
@@ -16,6 +23,7 @@ const metadata = {
   accordion,
   'in-page-alert': inPageAlert,
   link,
+  radio,
   checkbox,
 }[Astro.props.component];
 const { figma } = Astro.props;
