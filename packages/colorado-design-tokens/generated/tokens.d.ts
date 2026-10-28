@@ -1,5 +1,6 @@
 // Generated from reviewed DTCG sources. Do not edit; run pnpm tokens:build.
 export interface TokenDictionary {
+  readonly "border-accordion-width": string;
   readonly "color-bg-action-danger": string;
   readonly "color-bg-action-danger-active": string;
   readonly "color-bg-action-danger-hover": string;
@@ -9,6 +10,7 @@ export interface TokenDictionary {
   readonly "color-bg-action-primary-hover": string;
   readonly "color-bg-action-secondary-hover": string;
   readonly "color-bg-alert-info": string;
+  readonly "color-bg-alert-success": string;
   readonly "color-bg-alert-urgent": string;
   readonly "color-bg-alert-warning": string;
   readonly "color-bg-disabled": string;
@@ -26,10 +28,12 @@ export interface TokenDictionary {
   readonly "color-bg-surface-secondary": string;
   readonly "color-bg-tag-info": string;
   readonly "color-black-alpha-12": string;
+  readonly "color-border-accordion-subtle": string;
   readonly "color-border-action-secondary": string;
   readonly "color-border-action-secondary-active": string;
   readonly "color-border-action-secondary-hover": string;
   readonly "color-border-alert-info": string;
+  readonly "color-border-alert-success": string;
   readonly "color-border-alert-urgent": string;
   readonly "color-border-alert-warning": string;
   readonly "color-border-bottom": string;
@@ -181,6 +185,8 @@ export interface TokenDictionary {
   readonly "component-tag-yellow-background": string;
   readonly "component-tag-yellow-text": string;
   readonly "component-toast-background": string;
+  readonly "control-checkbox-border-width": string;
+  readonly "control-checkbox-size": string;
   readonly "elevation-flat-blur": string;
   readonly "elevation-flat-spread": string;
   readonly "elevation-flat-x": string;
@@ -198,6 +204,7 @@ export interface TokenDictionary {
   readonly "elevation-mid-x": string;
   readonly "elevation-mid-y": string;
   readonly "elevation-opacity": number;
+  readonly "focus-accordion-outer-spread": string;
   readonly "focus-ring-offset": string;
   readonly "focus-ring-width": string;
   readonly "focus-row-width": string;
@@ -314,6 +321,12 @@ export interface TokenDictionary {
   readonly "line-height-mobile-supporting": string;
   readonly "line-height-mobile-ui": string;
   readonly "line-height-mobile-ui-sm": string;
+  readonly "link-underline-offset": string;
+  readonly "link-underline-offset-standalone-hover": string;
+  readonly "link-underline-thickness": string;
+  readonly "link-underline-thickness-hover": string;
+  readonly "link-underline-thickness-small": string;
+  readonly "link-underline-thickness-small-hover": string;
   readonly "paragraph-space-desktop-body": string;
   readonly "paragraph-space-desktop-body-lg": string;
   readonly "paragraph-space-desktop-body-sm": string;

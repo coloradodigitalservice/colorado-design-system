@@ -78,6 +78,17 @@ describe('written CSS asset validation', () => {
     ).toThrow('No Phosphor replacement configured for USWDS icon');
   });
 
+  it('maps both USWDS error icon assets to warning-circle', () => {
+    expect(
+      replaceUswdsIconUrls('.icon{mask:url(./img/usa-icons/error.svg)}'),
+    ).toContain('./icons/warning-circle.svg');
+    expect(
+      replaceUswdsIconUrls(
+        '.icon{background:url(./img/usa-icons-bg/error--white.svg)}',
+      ),
+    ).toContain('./icons/warning-circle--ffffff.svg');
+  });
+
   it('preserves each color-sensitive USWDS asset as an explicit-color variant', () => {
     for (const [source, { id, color }] of Object.entries(iconVariants)) {
       expect(

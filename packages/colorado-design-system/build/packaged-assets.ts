@@ -50,7 +50,7 @@ const phosphorReplacements = new Map([
   ['usa-icons/calendar_today.svg', 'calendar-dots'],
   ['usa-icons/check_circle.svg', 'check-circle'],
   ['usa-icons/close.svg', 'x'],
-  ['usa-icons/error.svg', 'x-circle'],
+  ['usa-icons/error.svg', 'warning-circle'],
   ['usa-icons/expand_less.svg', 'caret-up'],
   ['usa-icons/expand_more.svg', 'caret-down'],
   ['usa-icons/info.svg', 'info'],

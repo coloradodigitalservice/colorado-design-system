@@ -42,6 +42,11 @@ describe('Phosphor icon generation', () => {
   it('matches variant foreground colors to the pinned USWDS source assets', async () => {
     const require = createRequire(import.meta.url);
     for (const [name, { color }] of Object.entries(iconVariants)) {
+      // The disabled minus intentionally matches the disabled check.
+      if (name === 'checkbox-indeterminate-alt.svg') {
+        expect(color).toBe(iconVariants['correct8-alt.svg'].color);
+        continue;
+      }
       const source = await readFile(
         require.resolve(`@uswds/uswds/img/${name}`),
         'utf8',
