@@ -36,6 +36,13 @@ Release notes and assets are published as a GitHub **prerelease**. The workflow 
 4. **Tag.** Create `v<version>` on that exact release-branch tip and push it. A tag may instead target a commit already on `main`. Pushing the tag is the approval; the release workflow accepts a release-branch tag only when its commit is still the branch tip.
 5. **Generate and publish.** The `build` job runs the repository gate and generates the artifacts without any secret. The `publish` job then verifies `SHA256SUMS` and creates the GitHub release (a prerelease for any `0.x` version).
 
+If the release tag must be in `main`'s ancestry, merge the version PR first,
+wait for Foundation to pass on the merged commit, and tag that commit on `main`.
+The current branch rules require squash merges, which do not preserve a
+release-branch tag's ancestry even when the merged file contents are identical.
+Do not routinely move published tags to compensate: release manifests and
+archives identify the original tagged commit.
+
 ## Gates enforced by the workflow
 
 `scripts/release.mjs` fails the release if any of these do not hold:

@@ -27,7 +27,8 @@ jobs. The selected jobs add these checks:
 - `code`: workspace validation, token drift, lint, root TypeScript checking,
   Vitest, and package/static-consumer builds.
 - `web`: token drift, lint, the Astro site and dependency builds (including Astro
-  validation and generated internal links/anchors), and Chromium/Firefox/WebKit smoke/axe checks.
+  validation and generated internal links/anchors), Chromium/Firefox/WebKit smoke/axe checks,
+  and a second build with the GitHub Pages base path (`/colorado-design-system`).
 - `storybook`: token drift, lint, Storybook and dependency builds (including its
   own TypeScript project), and Chromium smoke/axe checks of every built story.
 
@@ -98,6 +99,17 @@ ZIP artifacts contain `apps/web/dist` or `apps/storybook/storybook-static` conte
 extract a preview and serve its root with a local static HTTP server. Each job
 uploads to a distinct name. These are downloadable review builds. Hosted previews
 require a separately approved and connected static host.
+
+After uploading the root-path web preview, the web job rebuilds with
+`PUBLIC_BASE_PATH=/colorado-design-system` and checks generated links and assets.
+The web build declares this variable as a Turbo cache input so the root and
+Pages builds cannot reuse each other's output. This catches deployment-only
+path failures before merge without changing the root-path browser previews.
+To reproduce this check locally, run:
+
+```sh
+PUBLIC_BASE_PATH=/colorado-design-system pnpm exec turbo run build --filter=@cods-internal/web...
+```
 
 To rerun a failed workflow, use **Re-run failed jobs** on its Actions page; new
 commits also trigger fresh PR checks. Manual dispatch is available once the
