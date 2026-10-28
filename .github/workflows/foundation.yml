@@ -128,6 +128,11 @@ jobs:
             playwright-report/
           retention-days: 7
 
+      - name: Validate GitHub Pages deployment paths
+        run: pnpm exec turbo run build --filter=@cods-internal/web...
+        env:
+          PUBLIC_BASE_PATH: /colorado-design-system
+
   storybook:
     needs: scope
     if: needs.scope.outputs.storybook == 'true'
