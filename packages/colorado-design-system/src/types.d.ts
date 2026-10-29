@@ -27,3 +27,12 @@ declare module '@uswds/uswds/js/usa-accordion' {
   };
   export default accordion;
 }
+
+declare module '@uswds/uswds/js/usa-combo-box' {
+  const comboBox: {
+    on(root: HTMLElement): void;
+    off(root: HTMLElement): void;
+    hideList(root: HTMLElement): void;
+  };
+  export default comboBox;
+}

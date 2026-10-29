@@ -1,0 +1,43 @@
+{
+  "name": "combo-box",
+  "displayName": "Combo Box",
+  "maturity": "experimental",
+  "type": "interactive",
+  "uswdsEquivalent": "combo-box",
+  "uswdsVersion": "3.14.0",
+  "componentType": "A",
+  "owners": {
+    "responsible": "Aten component lead",
+    "accountable": "State technical owner",
+    "consulted": "State design owner, accessibility lead",
+    "informed": "Component contributors, product owner"
+  },
+  "divergenceApproved": false,
+  "divergenceNotes": null,
+  "states": ["default", "disabled", "grouped", "error"],
+  "progressiveEnhancement": "full",
+  "localization": "layout-sensitive",
+  "description": "A native select enhanced with the USWDS filterable combo box.",
+  "examples": [
+    {
+      "state": "default",
+      "fixtureState": "default",
+      "setup": "none"
+    },
+    {
+      "state": "disabled",
+      "fixtureState": "disabled",
+      "setup": "none"
+    },
+    {
+      "state": "grouped",
+      "fixtureState": "grouped",
+      "setup": "none"
+    },
+    {
+      "state": "error",
+      "fixtureState": "error",
+      "setup": "none"
+    }
+  ]
+}

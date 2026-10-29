@@ -1,0 +1,143 @@
+@use '@coloradodigitalservice/colorado-design-tokens' as tokens;
+
+$search-icon: './icons/magnifying-glass.svg';
+$down-icon: './icons/caret-down.svg';
+$up-icon: './icons/caret-up.svg';
+$clear-icon: './icons/x.svg';
+
+@layer cods.components {
+  .cods-combo-box {
+    max-width: 100%;
+    color: var(--cods-color-text-primary);
+  }
+
+  .cods-combo-box[data-enhanced]::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: var(--cods-space-sm);
+    inset-block-start: 50%;
+    transform: translateY(-50%);
+    inline-size: var(--cods-space-lg);
+    block-size: var(--cods-space-lg);
+    background: var(--cods-color-border-form-default);
+    mask: url($search-icon) center / contain no-repeat;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .cods-combo-box__input {
+    height: calc(var(--cods-space-lg) + 2 * var(--cods-space-sm));
+    padding-inline-start: calc(var(--cods-space-lg) + 2 * var(--cods-space-sm));
+    border-color: var(--cods-color-border-form-default);
+    border-radius: var(--cods-radius-md);
+    background-color: var(--cods-color-surface-form);
+    color: var(--cods-color-text-primary);
+    font-family: var(--cods-font-family-body), sans-serif;
+    font-size: var(--cods-font-size-desktop-body);
+
+    &[aria-invalid='true'] {
+      border-color: var(--cods-color-border-form-danger);
+    }
+
+    &:disabled {
+      background-color: var(--cods-color-bg-disabled);
+      color: var(--cods-color-text-disabled);
+    }
+
+    &:focus-visible {
+      outline: var(--cods-focus-ring-offset, tokens.$focus-ring-offset) solid
+        transparent;
+      outline-offset: var(--cods-focus-ring-offset, tokens.$focus-ring-offset);
+      box-shadow:
+        0 0 0 var(--cods-focus-ring-offset) var(--cods-color-focus-gap),
+        0 0 0 var(--cods-space-2xs) var(--cods-color-bg-action-focus);
+    }
+  }
+
+  .cods-combo-box__toggle,
+  .cods-combo-box__clear {
+    background-image: none;
+    opacity: 1;
+    color: var(--cods-color-border-form-default);
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      inline-size: var(--cods-space-lg);
+      block-size: var(--cods-space-lg);
+      background: currentcolor;
+      mask: url($down-icon) center / contain no-repeat;
+    }
+  }
+
+  .cods-combo-box__clear::after {
+    mask-image: url($clear-icon);
+  }
+
+  .cods-combo-box:has(.cods-combo-box__input[aria-expanded='true'])
+    .cods-combo-box__toggle::after {
+    mask-image: url($up-icon);
+  }
+
+  .cods-combo-box__list {
+    margin-block-start: var(--cods-space-sm);
+    max-height: calc(10 * var(--cods-space-lg) + var(--cods-space-sm));
+    border: calc(var(--cods-focus-ring-offset) / 2) solid
+      var(--cods-color-border-form-default);
+    border-radius: var(--cods-radius-md);
+    background: var(--cods-color-surface-form);
+  }
+
+  .cods-combo-box__list [role='option'] {
+    padding: var(--cods-space-md);
+    border-color: var(--cods-color-border-default);
+    color: var(--cods-color-text-primary);
+  }
+
+  .cods-combo-box__list [data-cods-combo-box-group]::before {
+    content: attr(data-cods-combo-box-group);
+    display: block;
+    margin: calc(-1 * var(--cods-space-md));
+    margin-block-end: var(--cods-space-md);
+    padding: var(--cods-space-md);
+    background: var(--cods-color-surface-secondary);
+    color: var(--cods-color-text-primary);
+    font-weight: var(--cods-font-weight-semibold);
+  }
+
+  .cods-combo-box__list [role='option']:not(:focus) {
+    outline: none;
+  }
+
+  .cods-combo-box__list [role='option'][aria-selected='true'] {
+    background: var(--cods-color-surface-form-selected);
+  }
+
+  @media (forced-colors: active) {
+    .cods-combo-box[data-enhanced]::before,
+    .cods-combo-box__toggle::after,
+    .cods-combo-box__clear::after {
+      forced-color-adjust: none;
+      background: ButtonText;
+    }
+
+    .cods-combo-box__input:focus-visible {
+      outline-color: Highlight;
+      box-shadow: none;
+    }
+  }
+}
+
+@layer cods.components {
+  .cods-combo-box__label {
+    font-family: var(--cods-font-family-body), sans-serif;
+    font-weight: var(--cods-font-weight-semibold);
+  }
+
+  .cods-combo-box__error {
+    color: var(--cods-color-icon-form-danger);
+    margin-block-start: var(--cods-space-sm);
+  }
+}
