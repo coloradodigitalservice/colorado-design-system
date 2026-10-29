@@ -1,0 +1,67 @@
+{
+  "name": "card",
+  "displayName": "Card",
+  "maturity": "experimental",
+  "type": "static",
+  "uswdsEquivalent": "card",
+  "uswdsVersion": "3.14.0",
+  "componentType": "A",
+  "owners": {
+    "responsible": "Aten component engineer",
+    "accountable": "Aten technical lead",
+    "consulted": "Design, accessibility, and content roles",
+    "informed": "State product owner"
+  },
+  "divergenceApproved": false,
+  "divergenceNotes": null,
+  "states": [
+    "default",
+    "icon",
+    "with-media",
+    "internal-links",
+    "long-content",
+    "rtl",
+    "grid"
+  ],
+  "progressiveEnhancement": "full",
+  "localization": "layout-sensitive",
+  "description": "Static USWDS cards for content and navigation, including an icon-led link.",
+  "examples": [
+    {
+      "state": "default",
+      "fixtureState": "default",
+      "setup": "none"
+    },
+    {
+      "state": "icon",
+      "fixtureState": "icon",
+      "setup": "none"
+    },
+    {
+      "state": "with-media",
+      "fixtureState": "with-media",
+      "setup": "none"
+    },
+    {
+      "state": "internal-links",
+      "fixtureState": "internal-links",
+      "setup": "none"
+    },
+    {
+      "state": "long-content",
+      "fixtureState": "long-content",
+      "setup": "none"
+    },
+    {
+      "state": "rtl",
+      "fixtureState": "rtl",
+      "setup": "none"
+    },
+    {
+      "state": "grid",
+      "fixtureState": "grid",
+      "setup": "none"
+    }
+  ],
+  "inventoryNames": ["Card - Default", "Card - Icon"]
+}
