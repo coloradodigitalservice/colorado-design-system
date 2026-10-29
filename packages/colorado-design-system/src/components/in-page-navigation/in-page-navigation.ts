@@ -7,8 +7,9 @@ type LinkTarget = {
 };
 
 interface Instance {
-  observer: IntersectionObserver;
-  lastObserver: IntersectionObserver;
+  view: Window;
+  onScroll: () => void;
+  cancelPending: () => void;
   links: LinkTarget[];
 }
 
@@ -22,7 +23,7 @@ const instances = new WeakMap<HTMLElement, Instance>();
 export function init(root: HTMLElement): void {
   if (instances.has(root)) return;
   const view = root.ownerDocument.defaultView;
-  if (!view || !view.IntersectionObserver) return;
+  if (!view) return;
   const anchors = [...root.querySelectorAll<HTMLAnchorElement>('a[href]')];
   const links: LinkTarget[] = [];
   for (const link of anchors) {
@@ -100,15 +101,20 @@ export function init(root: HTMLElement): void {
     }
     setCurrent(next, notify);
   };
-  const observer = new view.IntersectionObserver(() => update(true), {
-    rootMargin: '0px 0px -75% 0px',
-  });
-  const lastObserver = new view.IntersectionObserver(() => update(true), {
-    threshold: 1,
-  });
-  instances.set(root, { observer, lastObserver, links });
-  for (const { target } of links) observer.observe(target);
-  lastObserver.observe(links[links.length - 1]!.target);
+  let pending: number | undefined;
+  const onScroll = () => {
+    if (pending !== undefined) return;
+    pending = view.requestAnimationFrame(() => {
+      pending = undefined;
+      update(true);
+    });
+  };
+  const cancelPending = () => {
+    if (pending !== undefined) view.cancelAnimationFrame(pending);
+  };
+  instances.set(root, { view, onScroll, cancelPending, links });
+  view.addEventListener('scroll', onScroll, { passive: true });
+  view.addEventListener('resize', onScroll);
   update(false);
 }
 
@@ -124,8 +130,9 @@ export function destroy(root: HTMLElement): void {
   const instance = instances.get(root);
   if (!instance) return;
   instances.delete(root);
-  instance.observer.disconnect();
-  instance.lastObserver.disconnect();
+  instance.view.removeEventListener('scroll', instance.onScroll);
+  instance.view.removeEventListener('resize', instance.onScroll);
+  instance.cancelPending();
   for (const { link, current } of instance.links) {
     if (current === null) link.removeAttribute('aria-current');
     else link.setAttribute('aria-current', current);

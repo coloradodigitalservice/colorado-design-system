@@ -9,6 +9,7 @@ test('links and current section work in the canonical story', async ({
   await page.goto(story);
   const root = page.locator('[data-cods-in-page-navigation]');
   const links = root.getByRole('link');
+  await expect(links.first()).toHaveAttribute('aria-current', 'location');
   await page.locator('#storybook-root section').evaluateAll((sections) => {
     sections.forEach((section) => {
       (section as HTMLElement).style.minHeight = '100vh';
@@ -61,6 +62,13 @@ test('a jump into a gap after a section keeps that section current', async ({
         requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
       ),
   );
+  await page.locator('#who-can-apply').evaluate((section) => {
+    window.scrollTo(
+      0,
+      window.scrollY + section.getBoundingClientRect().bottom + 300,
+    );
+  });
+  await expect(links.first()).toHaveAttribute('aria-current', 'location');
   await page.locator('#payment-amounts').evaluate((section) => {
     window.scrollTo(
       0,

@@ -54,11 +54,11 @@
 ## Automated checks
 
 - Isolated source-level axe checks passed in Chromium and WebKit on 2026-10-28. These did not exercise the built package or Storybook. Firefox failed to launch.
-- [ ] Run the repository Storybook and web accessibility suites against the built package.
+- The three focused Storybook interaction checks, including the scroll-gap regression and axe scan, passed in Chromium and WebKit on 2026-10-28 using preview-only assets. The preview bypassed the divergence approval check for example generation; the component metadata remains unapproved.
+- [ ] Run the repository Storybook and web accessibility suites against a normal built package.
 
 ## Open items
 
-- A large scroll jump into space between sections can leave an outdated current link. Reproduced in isolated Chromium and WebKit checks on 2026-10-28.
 - Human screen-reader, design, and accessibility reviews; State approval of the USWDS divergence.
 - Full built-package checks in Chromium, Firefox, and WebKit, including keyboard, focus, reduced motion, forced colors, zoom, and localization.
 - The component cannot be marked stable while these items remain open.
