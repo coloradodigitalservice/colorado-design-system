@@ -1,5 +1,12 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.10
+
+### Patch Changes
+
+- 205b059: Add experimental default and icon card variants.
+- @coloradodigitalservice/colorado-design-tokens@0.2.10
+
 ## 0.2.9
 
 ### Patch Changes
