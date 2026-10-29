@@ -1,0 +1,14 @@
+@use '@coloradodigitalservice/colorado-design-tokens' as tokens;
+
+@layer cods.components {
+  .cods-combo-box {
+    max-width: 100%;
+  }
+
+  .cods-combo-box__input:focus-visible {
+    outline: var(--cods-focus-ring-width, tokens.$focus-ring-width) solid
+      var(--cods-color-bg-action-focus, tokens.$color-bg-action-focus);
+    outline-offset: tokens.$focus-ring-offset;
+    box-shadow: 0 0 0 tokens.$focus-ring-offset tokens.$color-focus-gap;
+  }
+}

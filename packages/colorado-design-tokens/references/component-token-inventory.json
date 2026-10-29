@@ -414,16 +414,20 @@
       "source": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=5672-11905&m=dev",
       "tokens": [
         "color.bg-action-danger",
+        "color.bg-action-focus",
         "color.bg-action-secondary-hover",
         "color.bg-disabled",
         "color.border-default",
         "color.border-form-default",
+        "color.focus-gap",
         "color.icon-form-danger",
         "color.surface-form",
         "color.surface-form-hover",
         "color.surface-secondary",
         "color.text-disabled",
         "color.text-primary",
+        "focus.ring-offset",
+        "focus.ring-width",
         "font.family-body",
         "font.size-desktop-body",
         "font.size-desktop-h6",
@@ -444,8 +448,14 @@
         "space.xs"
       ],
       "componentTokens": [],
-      "implementationTokens": [],
-      "designCoverage": "documented"
+      "implementationTokens": [
+        "color.bg-action-focus",
+        "color.focus-gap",
+        "focus.ring-offset",
+        "focus.ring-width"
+      ],
+      "designCoverage": "documented",
+      "implementationDirectory": "combo-box"
     },
     {
       "name": "Divider",

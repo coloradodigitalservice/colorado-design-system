@@ -8,6 +8,7 @@ import CheckboxExamples from '../components/CheckboxExamples.astro';
 import ButtonExamples from '../components/ButtonExamples.astro';
 import AccordionExamples from '../components/AccordionExamples.astro';
 import RadioExamples from '../components/RadioExamples.astro';
+import ComboBoxExamples from '../components/ComboBoxExamples.astro';
 import LinkExamples from '../components/LinkExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
 import IconCatalog from '../components/IconCatalog.astro';
@@ -50,6 +51,7 @@ const { Content } = await render(entry);
       </>
     )}
     {entry.id === 'radio' && <RadioExamples />}
+    {entry.id === 'combo-box' && <ComboBoxExamples />}
     {entry.id === 'checkbox' && <CheckboxExamples />}
     {entry.id === 'link' && <LinkExamples />}
     {(entry.id === 'radio' ||
