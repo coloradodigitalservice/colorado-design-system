@@ -54,7 +54,7 @@ Interactive components ship a TypeScript controller in `<component-name>.ts`. St
 
 - The only public integration surface is: documented `data-cods-<component-name>-*` attributes read at initialization, documented public methods on the controller instance, and documented `CustomEvent`s namespaced as `cods-<component-name>:<event-name>` (for example `cods-combo-box:select`).
 - Events are dispatched with `bubbles: true` and `composed: false` (Shadow DOM is out of scope) and carry their payload in `event.detail`.
-- Controllers must not depend on global state, global event listeners outside their own root element, or a specific bundler/module system beyond a standard ES module export. Exception: In-Page Navigation may listen for page scroll and resize events to track the current section. Its listener must be scoped to each initialized instance, coalesce updates, and be removed on `destroy`.
+- Controllers must not depend on global state, global event listeners outside their own root element, or a specific bundler/module system beyond a standard ES module export.
 
 ### 4.2 Controller lifecycle
 
