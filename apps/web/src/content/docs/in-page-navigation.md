@@ -29,6 +29,6 @@ initAllInPageNavigation();
 // destroyInPageNavigation(navigation);
 ```
 
-The controller sets `aria-current="location"` on the current link and emits `cods-in-page-navigation:change` with `detail.id` when that section changes. It listens for page scroll and resize while initialized, and removes those listeners on destroy. It does not intercept links, change focus, or request animated scrolling. Destroying an instance restores the authored current states. After changing links or section IDs, call `destroyInPageNavigation` for that navigation before initializing it again.
+The controller sets `aria-current="location"` on the current link and emits `cods-in-page-navigation:change` with `detail.id` when that section changes. It tracks scrolling of the page, not independently scrolling containers. It listens for page scroll and resize while initialized, and removes those listeners on destroy. It does not intercept links, change focus, or request animated scrolling. Destroying an instance restores the authored current states. After changing links or section IDs, call `destroyInPageNavigation` for that navigation before initializing it again.
 
 The component is experimental. It uses an explicit list of links instead of USWDS's generated list; design and accessibility review of this divergence is pending.
