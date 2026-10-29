@@ -1,0 +1,28 @@
+{
+  "name": "in-page-navigation",
+  "displayName": "In-Page Navigation",
+  "maturity": "experimental",
+  "type": "interactive",
+  "uswdsEquivalent": "in-page-navigation",
+  "uswdsVersion": "3.14.0",
+  "componentType": "C",
+  "owners": {
+    "responsible": "Aten component lead",
+    "accountable": "State technical owner",
+    "consulted": "State design owner, accessibility lead",
+    "informed": "Component contributors, product owner"
+  },
+  "divergenceApproved": false,
+  "divergenceNotes": "The ticket requires authored jump links that work without JavaScript; USWDS generates links and intercepts navigation. The CoDS controller tracks the authored targets instead. State design and accessibility review is pending.",
+  "states": ["default"],
+  "progressiveEnhancement": "full",
+  "localization": "layout-sensitive",
+  "description": "A list of links to sections of the current page with optional current-section highlighting.",
+  "examples": [
+    {
+      "state": "default",
+      "fixtureState": "default",
+      "setup": "none"
+    }
+  ]
+}

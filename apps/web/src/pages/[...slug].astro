@@ -12,6 +12,7 @@ import LinkExamples from '../components/LinkExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
 import IconCatalog from '../components/IconCatalog.astro';
 import IconExamples from '../components/IconExamples.astro';
+import InPageNavigationExamples from '../components/InPageNavigationExamples.astro';
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs');
@@ -49,6 +50,7 @@ const { Content } = await render(entry);
         <AccordionExamples />
       </>
     )}
+    {entry.id === 'in-page-navigation' && <InPageNavigationExamples />}
     {entry.id === 'radio' && <RadioExamples />}
     {entry.id === 'checkbox' && <CheckboxExamples />}
     {entry.id === 'link' && <LinkExamples />}

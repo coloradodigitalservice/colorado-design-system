@@ -1,0 +1,14 @@
+---
+import fixture from '@coloradodigitalservice/colorado-design-system/fixtures/in-page-navigation.html?raw';
+import metadata from '@coloradodigitalservice/colorado-design-system/metadata/in-page-navigation.json';
+import examples from '@coloradodigitalservice/colorado-design-system/examples/in-page-navigation.json';
+import CodeExamples from './CodeExamples.astro';
+---
+
+<div set:html={fixture} />
+<CodeExamples metadata={metadata} examples={examples.examples} />
+
+<script>
+  import { initAllInPageNavigation } from '@coloradodigitalservice/colorado-design-system';
+  initAllInPageNavigation();
+</script>
