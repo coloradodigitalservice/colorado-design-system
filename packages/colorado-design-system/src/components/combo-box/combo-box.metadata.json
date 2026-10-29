@@ -14,9 +14,9 @@
   },
   "divergenceApproved": false,
   "divergenceNotes": null,
-  "states": ["default", "disabled"],
+  "states": ["default", "disabled", "grouped", "error"],
   "progressiveEnhancement": "full",
-  "localization": "text-content-only",
+  "localization": "layout-sensitive",
   "description": "A native select enhanced with the USWDS filterable combo box.",
   "examples": [
     {
@@ -27,6 +27,16 @@
     {
       "state": "disabled",
       "fixtureState": "disabled",
+      "setup": "none"
+    },
+    {
+      "state": "grouped",
+      "fixtureState": "grouped",
+      "setup": "none"
+    },
+    {
+      "state": "error",
+      "fixtureState": "error",
       "setup": "none"
     }
   ]

@@ -8,7 +8,7 @@ figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-Syste
 
 A combo box helps people find one option in a long list. Use a select for shorter lists and radio buttons when showing all choices helps people compare them.
 
-The component is experimental. Give the select a visible label and a unique ID. Include an empty option when the person must choose a value. Without JavaScript the select remains usable. This implementation does not enhance grouped or individually disabled options; use a native select for those cases.
+The component is experimental. Give the select a visible label and a unique ID. Include an empty option when the person must choose a value. Without JavaScript the select remains usable. Use native option groups to organize related choices. Individually disabled options are not enhanced; use a native select when individual options must be disabled.
 
 ## Initialize
 
@@ -30,3 +30,5 @@ The controller emits `cods-combo-box:change` with `detail.value` when the native
 ## Keyboard
 
 Type to filter, press Down Arrow to enter the results, use the arrow keys to move, and press Enter to select. Escape closes the list. The clear button removes the current choice.
+
+The component requires a unique ID made from letters, digits, hyphens, or underscores, beginning with a letter. Option values must be unique. The generated control and status messages are in English; translated messages require further work. Typing text that does not match the current selection prevents form submission until an option is selected. Resetting the form restores its original selection.

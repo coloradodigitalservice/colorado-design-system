@@ -33,3 +33,50 @@
     </select>
   </div>
 </div>
+<div data-cods-fixture-state="grouped">
+  <h2>Grouped options</h2>
+  <label class="usa-label cods-combo-box__label" for="combo-service"
+    >Choose a service</label
+  >
+  <div class="usa-combo-box cods-combo-box" data-cods-combo-box>
+    <select
+      class="usa-select cods-combo-box__select"
+      id="combo-service"
+      name="service"
+    >
+      <option value="">Select a service</option>
+      <optgroup label="Renew or replace">
+        <option value="renew">Renew license or ID</option>
+        <option value="replace">Replace a license or ID</option>
+      </optgroup>
+      <optgroup label="New license">
+        <option value="apply">Apply for a license</option>
+      </optgroup>
+    </select>
+  </div>
+</div>
+<div data-cods-fixture-state="error">
+  <h2>Required with error</h2>
+  <form>
+    <label class="usa-label cods-combo-box__label" for="combo-required"
+      >Select year <span aria-hidden="true">*</span></label
+    >
+    <div class="usa-combo-box cods-combo-box" data-cods-combo-box>
+      <select
+        class="usa-select cods-combo-box__select"
+        id="combo-required"
+        name="required-year"
+        required
+        aria-invalid="true"
+        aria-describedby="combo-error"
+      >
+        <option value="">Select a year</option>
+        <option value="2026">2026</option>
+        <option value="2025">2025</option>
+      </select>
+    </div>
+    <p class="cods-combo-box__error" id="combo-error">
+      Select a year to continue.
+    </p>
+  </form>
+</div>
