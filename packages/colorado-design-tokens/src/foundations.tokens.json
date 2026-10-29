@@ -2190,6 +2190,19 @@
           "location": "Figma jQ3EiYqe3uEvFbid5ewc41 node 1447:268; USWDS Theme @-component/accordion/border/width; Chrome observation 2026-10-16; Accordion alignment authorized by Eric"
         }
       }
+    },
+    "divider-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Divider line thickness",
+          "location": "Colorado Design System Figma / Divider (1527:643, 1527:645); observed 2026-10-29; proposed for design review"
+        }
+      }
     }
   },
   "control": {

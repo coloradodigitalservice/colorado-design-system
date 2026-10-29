@@ -1,5 +1,11 @@
 # @coloradodigitalservice/colorado-design-tokens
 
+## 0.2.10
+
+### Patch Changes
+
+- 994c219: Add experimental section and item dividers and a divider line-width token.
+
 ## 0.2.9
 
 No changes in this release.

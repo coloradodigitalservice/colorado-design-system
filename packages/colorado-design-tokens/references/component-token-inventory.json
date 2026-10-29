@@ -450,10 +450,21 @@
     {
       "name": "Divider",
       "source": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=1527-636&m=dev",
-      "tokens": ["color.border-default", "space.md", "space.xs"],
+      "tokens": [
+        "border.divider-width",
+        "color.border-default",
+        "space.md",
+        "space.xs"
+      ],
       "componentTokens": [],
-      "implementationTokens": [],
-      "designCoverage": "documented"
+      "implementationTokens": [
+        "border.divider-width",
+        "color.border-default",
+        "space.md",
+        "space.xs"
+      ],
+      "designCoverage": "documented",
+      "implementationDirectory": "divider"
     },
     {
       "name": "Footer",
