@@ -1,5 +1,12 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.10
+
+### Patch Changes
+
+- 72a9a8c: Add an experimental combo box with a native select fallback.
+- @coloradodigitalservice/colorado-design-tokens@0.2.10
+
 ## 0.2.9
 
 ### Patch Changes
