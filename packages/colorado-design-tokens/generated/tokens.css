@@ -1,6 +1,7 @@
 /* Generated from reviewed DTCG sources. Do not edit; run pnpm tokens:build. */
 :root {
   --cods-border-accordion-width: 4px;
+  --cods-border-divider-width: 1px;
   --cods-color-bg-action-danger: var(--cods-color-co-red-60-brand);
   --cods-color-bg-action-danger-active: var(--cods-color-co-red-90);
   --cods-color-bg-action-danger-hover: var(--cods-color-co-red-80);
