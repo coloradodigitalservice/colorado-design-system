@@ -46,14 +46,14 @@ review and sign-off items remain open.
 
 - [x] Accessible name and role documented for each interactive element. Fixture-derived DOM checks and axe pass in Chromium, Firefox, and WebKit.
 
-  | Element/state                                          | Role                                             | Accessible name source / description                                                         |
-  | ------------------------------------------------------ | ------------------------------------------------ | -------------------------------------------------------------------------------------------- |
-  | Default, focus-visible, disabled, placeholder, success | Native single-choice combobox                    | Visible “County” label via `for`/`id`; associated hint via `aria-describedby`                |
-  | Error                                                  | Native single-choice combobox, required, invalid | “County (required)” label; hint and “Error: Choose a county.” message via `aria-describedby` |
-  | Long content                                           | Native single-choice combobox                    | Expanded visible county label and explanatory hint                                           |
-  | Spanish                                                | Native single-choice combobox                    | Visible “Condado” label; Spanish hint; `lang="es"`                                           |
-  | Arabic                                                 | Native single-choice combobox                    | Visible Arabic label and hint; `lang="ar"`, `dir="rtl"`                                      |
-  | Options                                                | Native option                                    | Visible option text; browser exposes selected value                                          |
+  | Element/state                                          | Role                                             | Accessible name source / description                                                                     |
+  | ------------------------------------------------------ | ------------------------------------------------ | -------------------------------------------------------------------------------------------------------- |
+  | Default, focus-visible, disabled, placeholder, success | Native single-choice combobox                    | Visible “County” label via `for`/`id`; associated hint via `aria-describedby`                            |
+  | Error                                                  | Native single-choice combobox, required, invalid | “County” label, native `required`; hint and “Please select a county to continue.” via `aria-describedby` |
+  | Long content                                           | Native single-choice combobox                    | Expanded visible county label and explanatory hint                                                       |
+  | Spanish                                                | Native single-choice combobox                    | Visible “Condado” label; Spanish hint; `lang="es"`                                                       |
+  | Arabic                                                 | Native single-choice combobox                    | Visible Arabic label and hint; `lang="ar"`, `dir="rtl"`                                                  |
+  | Options                                                | Native option                                    | Visible option text; browser exposes selected value                                                      |
 
 - [x] Naming across state variations: disabled remains named, placeholder retains the visible label, error has both description references, success uses an explicit success hint. Chromium, Firefox, and WebKit checks pass; Screen-reader announcements remain open.
 
@@ -83,49 +83,14 @@ review and sign-off items remain open.
 
 `tests/browser/web-select.spec.ts` covers label/hint/error associations, required validation, placeholder clearing, disabled form submission, native selection, keyboard type-ahead, focus, tab order, narrow reflow, RTL, forced colors, and operation without CSS/JavaScript. `storybook-select.spec.ts` checks fixture parity and axe; the discovered-story suite scans each state. Axe uses the shared WCAG 2.0/2.1/2.2 A/AA helper without rule exclusions.
 
-Final validation: `pnpm check` passes, including 130 unit tests and all 236
-Chromium, Firefox, WebKit, and Storybook browser tests. Workspace/fixture validation, app validation, token drift,
-formatting, lint, typecheck, builds, generated examples, and static consumer
-checks pass. The final Storybook all-states screenshot was visually inspected: the chevron,
-focus ring, disabled surface, validation borders, and RTL placement render
-correctly.
+## Final validation
 
-Interactive Playwright CLI inspection confirmed native roles/names and type-ahead in Chromium. Its only console error was the existing missing `/favicon.ico`; automated browser error checks remain enabled.
+`pnpm check` passed on 2026-10-29 with Node 24.21.0: 194 unit tests and 723 browser tests across Chromium, Firefox, WebKit, and Storybook. The first run failed to launch Firefox; the passing run used the shell-level macOS Firefox setup documented on `main`. Workspace validation, token checks, formatting, lint, typecheck, and builds passed.
 
-The Figma Select page and six visual variants were inspected through the Aten Chrome profile on 2026-10-16. `assets/icon-medium-chevron-down.svg` is the unmodified 24×24 export downloaded from the default variant's Assets panel. Package CSS consumes that exact asset at 24×24 and switches to the platform arrow in forced colors. Final design acceptance remains pending; no token values were changed.
-
-The Firefox startup blocker was resolved with the shared browser fixture's
-macOS-only, worker-scoped temporary app-data home (`CFFIXED_USER_HOME`). The
-regular installed Firefox data remains untouched. Standard temporary home
-folders are pre-created to avoid macOS delete-denying ACLs, and teardown removes
-the isolated data after the browser closes. All Firefox tests and worker
-cleanup pass. See [upstream issue #42768](https://github.com/microsoft/playwright/issues/42768).
-
-CodeRabbit CLI review was attempted after a clean staged betterleaks scan. The
-service remained in the reviewing phase for more than ten minutes without
-findings or a completion result; it was stopped. No automated review approval
-is claimed.
+The Select design was inspected in the Aten Chrome profile on 2026-10-29. The error message is below the field, and the required indicator is a red asterisk. The control uses the shared Phosphor Regular `caret-down` asset; comparison details are recorded in `icons.provenance.json`. Human design acceptance remains open.
 
 ## Open items
 
 - CDS-58: human screen-reader review with recorded browser/AT versions and observed announcements.
 - CDS-58: native popup arrow/open/close review on supported OS/browser combinations; actual 400% zoom; Windows high contrast; long-option readability and translated-content review.
 - CDS-58: design review and accessibility-owner sign-off. Experimental maturity is retained; this file does not grant stable or gate approval.
-
-## Follow-up review — 2026-10-21
-
-Figma default/focus/disabled nodes 718:2821, 718:2853 and 718:2952 were
-inspected. Labels now use the existing 16px/16px semibold UI roles. The
-label-only pattern has a 12px field gap. A 1px border plus 7px block padding
-and a 24px line produces the requested 40px outer height; disabled controls
-retain transparent border space to avoid shifting. Focus now matches the
-2px white gap and 2px blue band. Native popup and keyboard behavior remain
-unchanged. Metadata ownership follows CDS-58. The docs Getting Started link
-now preserves deployment prefixes through a sibling-relative URL.
-
-147 unit tests and 19 browser checks passed across Chromium, Firefox, WebKit,
-and Storybook Chromium, including measured field height, label typography,
-native keyboard/selection, real caret assets, no CSS/JavaScript and forced
-colors. Workspace, Astro/Storybook validation, token drift, builds, format,
-lint, type checks, fixture/static output checks passed. Tests routed built files
-without starting servers. Human and design acceptance remain open.

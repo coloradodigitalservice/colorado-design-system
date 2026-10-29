@@ -15,6 +15,7 @@
       name="county-default"
       aria-describedby="select-default-hint"
     >
+      <option value="" selected>- Select -</option>
       <option value="adams">Adams</option>
       <option value="boulder">Boulder</option>
       <option value="denver">Denver</option>
@@ -42,6 +43,7 @@
       name="county-focus-visible"
       aria-describedby="select-focus-visible-hint"
     >
+      <option value="" selected>- Select -</option>
       <option value="adams">Adams</option>
       <option value="boulder">Boulder</option>
       <option value="denver">Denver</option>
@@ -67,6 +69,7 @@
       aria-describedby="select-disabled-hint"
       disabled
     >
+      <option value="" selected>- Select -</option>
       <option value="adams">Adams</option>
       <option value="boulder">Boulder</option>
       <option value="denver">Denver</option>
@@ -91,6 +94,7 @@
       name="county-success"
       aria-describedby="select-success-hint"
     >
+      <option value="" selected>- Select -</option>
       <option value="adams">Adams</option>
       <option value="boulder">Boulder</option>
       <option value="denver">Denver</option>
@@ -101,15 +105,13 @@
 <!-- State: error -->
 <div data-cods-select-fixture="error" data-cods-fixture-state="error">
   <h2>Error</h2>
-  <div class="usa-form-group usa-form-group--error cods-select">
+  <div class="usa-form-group cods-select">
     <label class="usa-label cods-select__label" for="select-error"
-      >County (required)</label
+      >County
+      <span class="cods-select__required" aria-hidden="true">*</span></label
     >
     <span class="usa-hint cods-select__hint" id="select-error-hint"
       >Choose the county where you live.</span
-    >
-    <span class="usa-error-message cods-select__error" id="select-error-error"
-      >Error: Choose a county.</span
     >
     <select
       class="usa-select usa-select--error cods-select__control"
@@ -119,11 +121,14 @@
       required
       aria-invalid="true"
     >
-      <option value="" selected>- Select a county -</option>
+      <option value="" selected>- Select -</option>
       <option value="adams">Adams</option>
       <option value="boulder">Boulder</option>
       <option value="denver">Denver</option>
     </select>
+    <span class="usa-error-message cods-select__error" id="select-error-error"
+      >Please select a county to continue.</span
+    >
   </div>
 </div>
 
@@ -147,7 +152,7 @@
       name="county-placeholder"
       aria-describedby="select-placeholder-hint"
     >
-      <option value="" selected>- Select a county -</option>
+      <option value="" selected>- Select -</option>
       <option value="adams">Adams</option>
       <option value="boulder">Boulder</option>
       <option value="denver">Denver</option>

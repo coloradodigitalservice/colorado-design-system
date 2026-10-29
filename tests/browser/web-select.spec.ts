@@ -15,6 +15,8 @@ test('select label, descriptions, validation, native selection and submission', 
     'Choose the county where you live.',
   );
   await expect(control).toHaveCSS('background-size', '24px 24px');
+  await expect(control).toHaveValue('');
+  await expect(control.locator('option').first()).toHaveText('- Select -');
   const success = page.locator(`${state('success')} select`);
   await expect(success).toBeEnabled();
   await expect(success).toHaveAccessibleDescription(
@@ -30,8 +32,20 @@ test('select label, descriptions, validation, native selection and submission', 
   await expect(disabled).toBeDisabled();
   const invalid = page.locator(`${state('error')} select`);
   await expect(invalid).toHaveAttribute('aria-invalid', 'true');
+  await expect(invalid).toHaveAccessibleName('County');
+  const error = page.locator('#select-error-error');
+  await expect(error).toHaveText('Please select a county to continue.');
+  expect(await error.evaluate((el) => el.previousElementSibling?.id)).toBe(
+    'select-error',
+  );
+  await expect(page.locator(`${state('error')} .cods-select`)).not.toHaveClass(
+    /usa-form-group--error/,
+  );
+  await expect(
+    page.locator(`${state('error')} .cods-select__required`),
+  ).toHaveText('*');
   await expect(invalid).toHaveAccessibleDescription(
-    'Choose the county where you live. Error: Choose a county.',
+    'Choose the county where you live. Please select a county to continue.',
   );
   expect(
     await invalid.evaluate(

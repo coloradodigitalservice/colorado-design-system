@@ -13,9 +13,14 @@ No JavaScript controller or initialization is required.
 
 ## When to use
 
-Use Select for a short, familiar list of choices. Keep option text concise and
-put choices in a predictable order. Consider radio buttons when showing every
-choice at once would help people compare them.
+Use Select when people choose one of 7–15 mutually exclusive options, space is limited, or the choices are predictable or familiar. Keep option text concise and put choices in a predictable order.
+
+Do not use Select for:
+
+- Fewer than 7 options: use Radio Buttons to show the choices.
+- More than 15 options: use Combo Box to help people filter the list.
+- Multiple selections: use Checkboxes or a Multi-select Tag component.
+- Actions such as logging out or deleting: use a Menu or Button.
 
 Select is native-only. A future **Combo Box** would provide a separate searchable
 or filterable widget with its own accessibility pattern. Multi-select,
@@ -49,7 +54,7 @@ This page and Storybook render those same examples.
 
 ## States and validation
 
-Default shows a selected value. Placeholder uses a first `<option value="">`
+Default and Placeholder use a first `<option value="">`
 with visible instructional text. It remains selectable so an optional field can
 be cleared; add native `required` when an empty value is invalid. Placeholder
 text never replaces the visible label.
@@ -59,9 +64,9 @@ order and form submission. `aria-disabled` alone does not disable a select.
 Keep an explanation in the associated hint when needed.
 
 For validation, use `aria-invalid="true"`, `usa-select--error`, and a visible
-`cods-select__error` message prefixed with “Error:”. Include both hint and error
-IDs in `aria-describedby`. The error example also uses the USWDS
-`usa-form-group--error` wrapper. When correcting an error, remove the error
+`cods-select__error` message below the field. Include both hint and error
+IDs in `aria-describedby`. Mark a required field with `required` and a red
+asterisk next to its label. When correcting an error, remove the error
 classes, message reference, and `aria-invalid`. Applications own validation
 and any announcement or focus policy for dynamically inserted errors.
 
