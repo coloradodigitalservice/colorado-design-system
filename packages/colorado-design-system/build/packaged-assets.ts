@@ -12,10 +12,13 @@ import { generate, parse, walk } from 'css-tree';
 import type { Plugin } from 'vite';
 import iconVariants from './uswds-icon-variants.json' with { type: 'json' };
 import approvedIcons from '../src/icons/approved-icons.json' with { type: 'json' };
+import componentVariants from './component-icon-variants.json' with { type: 'json' };
 
 const packagedIconIds = new Set([
   ...approvedIcons.icons,
-  ...Object.values(iconVariants).map(({ id, color }) => `${id}--${color}`),
+  ...[...Object.values(iconVariants), ...Object.values(componentVariants)].map(
+    ({ id, color }) => `${id}--${color}`,
+  ),
 ]);
 
 const excludedDirectory =
