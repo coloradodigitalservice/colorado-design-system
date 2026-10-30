@@ -34,7 +34,7 @@ body {
   transform: none;
 }
 
-a:where(:not(.cods-link)):focus-visible {
+a:where(:not(.cods-link, .cods-breadcrumbs__link)):focus-visible {
   outline: var(--cods-focus-ring-width, 4px) solid
     var(--cods-color-bg-action-focus, #173bb3);
   outline-offset: var(--cods-focus-ring-offset, 2px);

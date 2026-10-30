@@ -1,6 +1,7 @@
 ---
 import inPageAlert from '@coloradodigitalservice/colorado-design-system/metadata/in-page-alert.json';
 import siteAlert from '@coloradodigitalservice/colorado-design-system/metadata/site-alert.json';
+import breadcrumbs from '@coloradodigitalservice/colorado-design-system/metadata/breadcrumbs.json';
 import accordion from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
 import link from '@coloradodigitalservice/colorado-design-system/metadata/link.json';
 
@@ -11,6 +12,7 @@ interface Props {
   component:
     | 'site-alert'
     | 'accordion'
+    | 'breadcrumbs'
     | 'in-page-alert'
     | 'link'
     | 'radio'
@@ -21,6 +23,7 @@ interface Props {
 const metadata = {
   'site-alert': siteAlert,
   accordion,
+  breadcrumbs,
   'in-page-alert': inPageAlert,
   link,
   radio,

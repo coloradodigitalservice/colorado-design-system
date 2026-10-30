@@ -7,6 +7,7 @@ import SiteAlertExamples from '../components/SiteAlertExamples.astro';
 import CheckboxExamples from '../components/CheckboxExamples.astro';
 import ButtonExamples from '../components/ButtonExamples.astro';
 import AccordionExamples from '../components/AccordionExamples.astro';
+import BreadcrumbsExamples from '../components/BreadcrumbsExamples.astro';
 import RadioExamples from '../components/RadioExamples.astro';
 import LinkExamples from '../components/LinkExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
@@ -49,12 +50,14 @@ const { Content } = await render(entry);
         <AccordionExamples />
       </>
     )}
+    {entry.id === 'breadcrumbs' && <BreadcrumbsExamples />}
     {entry.id === 'radio' && <RadioExamples />}
     {entry.id === 'checkbox' && <CheckboxExamples />}
     {entry.id === 'link' && <LinkExamples />}
     {(entry.id === 'radio' ||
       entry.id === 'site-alert' ||
       entry.id === 'accordion' ||
+      entry.id === 'breadcrumbs' ||
       entry.id === 'link' ||
       entry.id === 'checkbox') && (
       <ComponentSummary component={entry.id} figma={entry.data.figma} />

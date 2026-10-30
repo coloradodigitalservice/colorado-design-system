@@ -1,5 +1,12 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.10
+
+### Patch Changes
+
+- 89cf0ca: Add experimental Breadcrumbs with USWDS markup, token-based styling, fully wrapping trails, shared examples, and accessibility regression coverage.
+- @coloradodigitalservice/colorado-design-tokens@0.2.10
+
 ## 0.2.9
 
 ### Patch Changes
