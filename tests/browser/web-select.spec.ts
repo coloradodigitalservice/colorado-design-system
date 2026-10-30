@@ -19,6 +19,7 @@ test('select label, descriptions, validation, native selection and submission', 
   await expect(control.locator('option').first()).toHaveText('- Select -');
   const success = page.locator(`${state('success')} select`);
   await expect(success).toBeEnabled();
+  await expect(success).toHaveValue('adams');
   await expect(success).toHaveAccessibleDescription(
     'Success: County selection is valid.',
   );
