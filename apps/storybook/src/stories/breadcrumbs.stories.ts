@@ -36,3 +36,9 @@ export const FocusVisible: Story = {
 };
 
 export const Inverse: Story = { render: () => renderState('inverse') };
+
+export const Hover: Story = { render: () => renderState('hover') };
+export const PreviousLevel: Story = {
+  render: () => renderState('previous-level'),
+  parameters: { viewport: { defaultViewport: 'mobile1' } },
+};

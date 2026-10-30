@@ -37,7 +37,7 @@
 
 ## Zoom and reflow
 
-- [x] At a 320 CSS px viewport, every ancestor and current label remains visible and within the viewport, including a long unbroken label and Arabic content. Automated Chromium, Firefox and WebKit tests check overflow. Chromium's long-content rendering was inspected via the pinned Playwright CLI against the test-owned static preview.
+- [ ] Recheck 320 CSS px reflow after the mobile previous-level change. At narrow widths the immediate parent is the only visible link; the full trail returns at wider widths.
 - [ ] Actual browser zoom at 400% remains a human check; viewport emulation is not evidence of browser UI zoom.
 
 ## Motion
@@ -51,16 +51,16 @@
 
 ## Localization
 
-- [x] Long strings wrap without clipping or ellipsis; Spanish and Arabic examples use `lang`. The all-state fixture is shared with Storybook and Astro, and all three browser engines check reflow.
-- [x] Arabic uses `dir="rtl"`; the list follows logical order and the directional separator mirrors. Automated three-browser coverage verifies the transform and overflow. Consumer text, URLs and navigation names require localization.
+- [ ] Recheck long strings and translated previous-level labels after the responsive change. Spanish and Arabic examples use `lang`.
+- [ ] Recheck the mobile back caret and desktop separators in Arabic with `dir="rtl"`. Consumer text, URLs and navigation names require localization.
 - [ ] Content reviewers must verify the translated labels and reading order with assistive technology.
 
 ## Automated coverage and design reference
 
 - `web-breadcrumbs.spec.ts`: native semantics, non-linked current item, single-level trail, canonical copyable markup, axe, keyboard order/activation, focus tokens, narrow layout, RTL, forced colors, no motion, and CSS/JavaScript disabled.
-- `storybook-breadcrumbs.spec.ts`: narrow long-trail visibility and axe. The generic Storybook suite scans every story; shared-fixture tests compare every state with canonical content.
+- `storybook-breadcrumbs.spec.ts`: narrow previous-level link and axe. The generic Storybook suite scans every story; shared-fixture tests compare every state with canonical content.
 - `web-component-docs.spec.ts`: required documentation, links and narrow-page layout.
-- The base token catalog's October 8 Figma evidence records regular Open Sans 16px/16px text, 4px spacing and 12px vertical padding. This implementation uses the shared Phosphor Regular `caret-right` separator, not an exported Figma CaretRight asset. Design review must confirm shape, focus and all-level wrapping treatment; Figma mobile parent-only and dark variants are outside this implementation.
+- The base token catalog's October 8 Figma evidence records regular Open Sans 16px/16px text, 4px spacing and 12px vertical padding. This implementation uses the shared Phosphor Regular `caret-right` separator, not an exported Figma CaretRight asset. The inverse and mobile previous-level variants are implemented. Design review must confirm the separator shape and focus treatment.
 - Live Figma connector access was denied (the second connection needs reauthentication), and Chrome disables JavaScript from Apple Events. No live visual parity or Figma asset extraction is claimed.
 
 ## Open items
@@ -68,7 +68,7 @@
 Tracked with CDS-66 / CODS-P3-018:
 
 - Human screen-reader, actual 400% zoom, Windows high contrast, and translated-content reviews above.
-- Aten design lead/State design owner: approve the wrapping trail, shared Phosphor separator and token-based focus treatment against the current Figma design. G2 token/design approval remains a dependency.
+- Aten design lead/State design owner: review the responsive trail, shared Phosphor separator and token-based focus treatment against the current Figma design. G2 token/design approval remains a dependency.
 - Accessibility lead and State accessibility owner: review this evidence before stable maturity. The component remains experimental; no human or gate approval is implied by automated passing checks.
 
 ## Phosphor integration (2026-10-21)
@@ -95,3 +95,7 @@ without servers. The Getting Started docs link preserves deployment prefixes.
 Figma's parent-only mobile trail still differs from the ticket-preserving
 implementation, which wraps every ancestor so no link access is lost. That
 presentation needs design-owner reconciliation; human acceptance remains open.
+
+## Review changes (2026-10-30)
+
+Hover removes underlines and uses the standalone hover color on light surfaces. Line height inherits from surrounding content. Below 40rem, the immediate parent link uses a localized previous-level label and includes the parent name for assistive technology. On October 30, automated Chromium and WebKit checks passed for the parent destination and accessible name, keyboard focus, 320px reflow, RTL caret, forced-colors mask, hover and the wider trail. Firefox could not launch because its Playwright profile could not be found; repeat these checks there. Human screen-reader and design review remain open.

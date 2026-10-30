@@ -20,7 +20,6 @@ test('decorative separators load the shared Phosphor caret at the original size'
   });
   expect(rendered).toMatchObject({
     width: '16px',
-    height: '16px',
     size: 'contain',
     content: '""',
     color: 'rgb(27, 27, 27)',
@@ -59,7 +58,7 @@ test('ordered ancestors end with an unlinked current page and copyable canonical
 }, testInfo) => {
   await page.goto('/breadcrumbs/');
   const trails = page.locator('.cods-breadcrumbs');
-  await expect(trails).toHaveCount(7);
+  await expect(trails).toHaveCount(9);
   for (const trail of await trails.all()) {
     await expect(trail).toHaveAccessibleName(/.+/);
     await expect(trail.locator('ol')).toHaveCount(1);
@@ -95,37 +94,79 @@ test('ordered ancestors end with an unlinked current page and copyable canonical
   await expectAccessible(page, testInfo);
 });
 
-test('all links and long labels reflow at 320px including RTL', async ({
+test('mobile shows the immediate parent with a localized name and mirrored caret', async ({
   page,
 }) => {
   await page.setViewportSize({ width: 320, height: 800 });
   await page.goto('/breadcrumbs/');
-  for (const item of await page.locator('.cods-breadcrumbs__item').all()) {
-    await expect(item).toBeVisible();
-    expect(
-      await item.evaluate((el) => {
-        const box = el.getBoundingClientRect();
-        return (
-          box.left >= 0 &&
-          box.right <= innerWidth &&
-          el.scrollWidth <= el.clientWidth + 1
-        );
-      }),
-    ).toBe(true);
-  }
+  const trail = page.locator(
+    '[data-cods-fixture-state="default"] .cods-breadcrumbs',
+  );
+  const parent = trail.getByRole('link');
+  await expect(parent).toHaveCount(1);
+  await expect(parent).toHaveAccessibleName('Previous level: Services');
+  await expect(parent).toHaveAttribute(
+    'href',
+    'https://www.colorado.gov/services/',
+  );
+  await expect(trail.locator('[aria-current="page"]')).toBeHidden();
+  await parent.focus();
+  await expect(parent).toBeFocused();
+  await page.emulateMedia({ forcedColors: 'active' });
+  const mobileCaret = await trail
+    .locator('li:nth-last-child(2)')
+    .evaluate((el) => {
+      const style = getComputedStyle(el, '::before');
+      return {
+        mask: style.maskImage,
+        separator: getComputedStyle(el, '::after').maskImage,
+        color: style.backgroundColor,
+      };
+    });
+  expect(mobileCaret.mask).not.toBe('none');
+  expect(mobileCaret.mask).toBe(mobileCaret.separator);
+  expect(mobileCaret.color).not.toBe('rgba(0, 0, 0, 0)');
+  await page.emulateMedia({ forcedColors: 'none' });
+  await expect(
+    page.locator(
+      '[data-cods-fixture-state="single-level"] [aria-current="page"]',
+    ),
+  ).toBeVisible();
   const rtl = page.locator('[data-cods-fixture-state="rtl"]');
-  await expect(rtl).toHaveAttribute('dir', 'rtl');
-  expect(
-    await rtl
-      .locator('li')
-      .first()
-      .evaluate((el) => getComputedStyle(el, '::after').transform),
-  ).toBe('matrix(-1, 0, 0, 1, 0, 0)');
+  await expect(rtl.getByRole('link')).toHaveAccessibleName(/المستوى السابق/);
+  const caret = (selector: string) =>
+    page
+      .locator(selector)
+      .locator('li:nth-last-child(2)')
+      .evaluate((el) => getComputedStyle(el, '::before').transform);
+  expect(await caret('[data-cods-fixture-state="default"]')).toBe(
+    'matrix(-1, 0, 0, 1, 0, 0)',
+  );
+  expect(await caret('[data-cods-fixture-state="rtl"]')).toBe('none');
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= innerWidth,
     ),
   ).toBe(true);
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await expect(trail.getByRole('link')).toHaveCount(2);
+  await expect(trail.getByRole('link').last()).toHaveAccessibleName('Services');
+  await expect(trail.locator('[aria-current="page"]')).toBeVisible();
+});
+
+test('hover changes the light link and removes underlines on both surfaces', async ({
+  page,
+}) => {
+  await page.goto('/breadcrumbs/');
+  for (const state of ['default', 'inverse']) {
+    const link = page.locator(`[data-cods-fixture-state="${state}"] a`).first();
+    await link.hover();
+    await expect(link).toHaveCSS('text-decoration-line', 'none');
+    await expect(link).toHaveCSS(
+      'color',
+      state === 'inverse' ? 'rgb(255, 255, 255)' : 'rgb(37, 81, 163)',
+    );
+  }
 });
 
 test('keyboard order, focus tokens, and link activation work without a controller', async ({
@@ -217,13 +258,13 @@ test('all ancestors and current text remain available without CSS and JavaScript
       await expect(item).toBeVisible();
     await expect(
       page.locator('.cods-breadcrumbs [aria-current="page"]'),
-    ).toHaveCount(7);
+    ).toHaveCount(9);
   } finally {
     await context.close();
   }
 });
 
-test('Figma light and dark trails retain readable keyboard focus and 40px height', async ({
+test('light and dark trails retain readable keyboard focus and inherited line height', async ({
   page,
 }, testInfo) => {
   await page.goto('/breadcrumbs/');
@@ -233,7 +274,11 @@ test('Figma light and dark trails retain readable keyboard focus and 40px height
   const dark = page.locator(
     '[data-cods-fixture-state=inverse] .cods-breadcrumbs',
   );
-  await expect(light).toHaveCSS('height', '40px');
+  expect(await light.evaluate((el) => getComputedStyle(el).lineHeight)).toBe(
+    await light.evaluate(
+      (el) => getComputedStyle(el.parentElement!).lineHeight,
+    ),
+  );
   await expect(light.locator('a').first()).toHaveCSS(
     'text-decoration-thickness',
     '1px',

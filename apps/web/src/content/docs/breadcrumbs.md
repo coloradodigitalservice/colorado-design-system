@@ -41,26 +41,30 @@ Package exports:
 The root navigation names the trail; the ordered list holds ancestor links and
 the current item. CSS adds a decorative separator after every ancestor.
 
-## Wrapping and separators
+## Responsive behavior and separators
 
-Trails wrap between items; exceptionally long labels can also wrap within an item.
-Every ancestor link and the current page stay visible at narrow widths. Do not add
-USWDS's truncation modifier: clipped links would defeat this component's wrapping
-contract. There is no overflow menu or scripted collapsing behavior.
+At widths below 40rem, show a link to the immediate parent using the localized
+“Previous level” label. Include the parent name in the link's accessible name,
+as shown in the fixture. Add the localized previous-level span to the immediate
+parent link and keep its ancestor-name span. A single-level trail continues to
+show the current page.
+At wider widths, the full trail is visible and long labels can wrap. Do not use
+USWDS's truncation modifier.
 
-Separators are empty CSS pseudo-elements using the packaged USWDS `navigate_next`
-icon. They add no text to the accessibility tree and disappear with CSS disabled.
-No external icon service or Figma asset URL is required. Right-to-left trails
-follow DOM order and mirror the directional separator.
+Separators are decorative CSS masks using the packaged Phosphor Regular
+`caret-right` icon. The mobile back caret points left in left-to-right text and
+mirrors in right-to-left text. No external icon service is required.
 
 ## Public styling
 
-| Class                    | Purpose                             |
-| ------------------------ | ----------------------------------- |
-| `cods-breadcrumbs`       | Named navigation root               |
-| `cods-breadcrumbs__list` | Ordered wrapping list               |
-| `cods-breadcrumbs__item` | Ancestor or non-linked current item |
-| `cods-breadcrumbs__link` | Native ancestor link                |
+| Class                        | Purpose                                |
+| ---------------------------- | -------------------------------------- |
+| `cods-breadcrumbs`           | Named navigation root                  |
+| `cods-breadcrumbs__list`     | Ordered wrapping list                  |
+| `cods-breadcrumbs__item`     | Ancestor or non-linked current item    |
+| `cods-breadcrumbs__link`     | Native ancestor link                   |
+| `cods-breadcrumbs__previous` | Localized mobile link label            |
+| `cods-breadcrumbs__ancestor` | Parent name, visually hidden on mobile |
 
 | Custom property                      | Default token                              |
 | ------------------------------------ | ------------------------------------------ |
@@ -78,19 +82,17 @@ loading, error, and empty states do not apply to this static navigation pattern.
 
 Breadcrumbs is **experimental** in the `0.x` development series. Tab and Shift+Tab
 move through ancestor links in order; Enter follows a link. The current page is
-not a tab stop. Links have underlines and token-based focus rings. No focus moves
+not a tab stop. Links have underlines and token-based focus rings. Hover removes the underline; on light surfaces it also changes the link color. No focus moves
 automatically and no animation is used. All text and links remain available with
 CSS and JavaScript disabled. Localized labels, long strings, and Arabic/right-to-left
 content are included for review.
 
 ## Known limitations and implementation status
 
-Typography and spacing use the recorded Figma measurements from the base token
-catalog: regular Open Sans, 16px UI text/line height, 4px item gaps and 12px vertical
-padding. This implementation uses the shared Phosphor Regular `caret-right` asset and wraps all levels;
-the Figma mobile parent-only and dark variants are not claimed as implemented.
-Design review must confirm that treatment, the separator shape and the approved
-focus treatment. The committed October 8 measurement evidence is the design reference.
+Typography and spacing use regular Open Sans, 16px text, 4px item gaps and
+12px vertical padding. Line height inherits from surrounding content so wrapped
+labels have room to breathe. The inverse variant provides the dark treatment.
+Design review must confirm the separator and focus treatment.
 
 Human screen-reader verification (current-page announcement, reading order and
 separator exclusion), real browser 400% zoom, Windows high-contrast review, and
@@ -99,15 +101,8 @@ before stable maturity. Record results in the component's accessibility evidence
 
 ### Figma follow-up
 
-Light and dark treatments were inspected at nodes 6209:517 and 5054:1737.
-The single-line trail uses 12px vertical padding around 16px text, giving a
-40px height. Underlines are 1px, with 16px separators and 4px gaps. Use
-`cods-breadcrumbs--inverse` for the dark treatment; it supplies a primary navy
-background and white text/separators. The background is customizable with
-`--cods-breadcrumbs-background`; verify contrast for every interaction state.
-Focused links on light surfaces keep blue text and the white-gap/blue-band ring.
-
-Figma also illustrates a parent-only mobile treatment. This implementation
-continues to wrap every ancestor, preserving the ticket's requirement that
-narrow layouts retain access to all links. Design-owner reconciliation of that
-responsive presentation remains open.
+Use `cods-breadcrumbs--inverse` for a navy background and white text and
+separators. The background is customizable with `--cods-breadcrumbs-background`;
+verify contrast for every interaction state. The mobile previous-level and hover
+behaviors follow the requested review changes. Design and accessibility review
+remain open.
