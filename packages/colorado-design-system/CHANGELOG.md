@@ -1,12 +1,5 @@
 # @coloradodigitalservice/colorado-design-system
 
-## 0.2.10
-
-### Patch Changes
-
-- 56b7051: Add an experimental Hero component with responsive image and solid surface variants.
-- @coloradodigitalservice/colorado-design-tokens@0.2.10
-
 ## 0.2.9
 
 ### Patch Changes
