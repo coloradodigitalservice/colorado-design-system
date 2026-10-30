@@ -12,6 +12,7 @@ import LinkExamples from '../components/LinkExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
 import IconCatalog from '../components/IconCatalog.astro';
 import IconExamples from '../components/IconExamples.astro';
+import HeroExamples from '../components/HeroExamples.astro';
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs');
@@ -66,6 +67,7 @@ const { Content } = await render(entry);
       </>
     )}
     <Content />
+    {entry.id === 'hero' && <HeroExamples />}
     {entry.id === 'in-page-alert' && <InPageAlertExamples mode="remaining" />}
     {entry.id === 'button' && <ButtonExamples mode="remaining" />}
     {entry.id === 'icon' && <IconExamples />}
