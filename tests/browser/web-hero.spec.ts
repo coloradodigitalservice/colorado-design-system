@@ -142,3 +142,20 @@ test('dark and light calls to action retain the intended button states', async (
   await dark.focus();
   await expect(dark).toBeFocused();
 });
+
+test('image Hero remains readable in the documentation column on a wide screen', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1484, height: 1034 });
+  await page.goto('/hero/');
+  const hero = page.locator(
+    '[data-cods-fixture-state="with-image"] .cods-hero',
+  );
+  const image = (await hero.locator('.cods-hero__image').boundingBox())!;
+  const heading = (await hero.locator('.cods-hero__heading').boundingBox())!;
+  const content = (await hero.locator('.cods-hero__content').boundingBox())!;
+  expect((await hero.boundingBox())!.width).toBeLessThan(1280);
+  expect(image.y + image.height).toBeLessThanOrEqual(content.y + 1);
+  expect(heading.width).toBeGreaterThan(300);
+  expect(heading.height).toBeLessThan(120);
+});

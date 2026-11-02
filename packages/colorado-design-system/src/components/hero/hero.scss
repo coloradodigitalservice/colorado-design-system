@@ -2,6 +2,7 @@ $hero-separator-path: './icons/caret-right.svg';
 
 @layer cods.components {
   .cods-hero {
+    container-type: inline-size;
     background: var(--cods-color-bg-page-surface-dark-blue);
     color: var(--cods-color-text-action-primary);
     font-family: var(--cods-font-family-body), sans-serif;
@@ -188,12 +189,11 @@ $hero-separator-path: './icons/caret-right.svg';
     }
   }
 
-  @media (width >= 80rem) {
-    .cods-hero--image {
-      position: relative;
-      display: block;
-    }
+  .cods-hero--image {
+    position: relative;
+  }
 
+  @container (width >= 80rem) {
     .cods-hero--image .cods-hero__image {
       position: absolute;
       inset-block: 0;
