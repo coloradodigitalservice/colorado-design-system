@@ -1,0 +1,103 @@
+{
+  "name": "input",
+  "displayName": "Input",
+  "maturity": "experimental",
+  "type": "static",
+  "uswdsEquivalent": "text-input",
+  "uswdsVersion": "3.14.0",
+  "componentType": "A",
+  "owners": {
+    "responsible": "Aten component lead",
+    "accountable": "State technical owner",
+    "consulted": "State design owner, accessibility lead",
+    "informed": "Component contributors, product owner"
+  },
+  "divergenceApproved": false,
+  "divergenceNotes": null,
+  "states": [
+    "default",
+    "focus-visible",
+    "disabled",
+    "readonly",
+    "error",
+    "success",
+    "email",
+    "tel",
+    "number",
+    "required",
+    "long-content",
+    "rtl",
+    "icons"
+  ],
+  "progressiveEnhancement": "full",
+  "localization": "layout-sensitive",
+  "description": "Native text inputs with labels, hints and accessible validation states.",
+  "examples": [
+    {
+      "state": "default",
+      "fixtureState": "default",
+      "setup": "none"
+    },
+    {
+      "state": "focus-visible",
+      "fixtureState": "focus-visible",
+      "setup": "focus",
+      "instructions": "Tab to the input to inspect focus."
+    },
+    {
+      "state": "disabled",
+      "fixtureState": "disabled",
+      "setup": "none"
+    },
+    {
+      "state": "readonly",
+      "fixtureState": "readonly",
+      "setup": "none"
+    },
+    {
+      "state": "error",
+      "fixtureState": "error",
+      "setup": "none"
+    },
+    {
+      "state": "success",
+      "fixtureState": "success",
+      "setup": "none"
+    },
+    {
+      "state": "email",
+      "fixtureState": "email",
+      "setup": "none"
+    },
+    {
+      "state": "tel",
+      "fixtureState": "tel",
+      "setup": "none"
+    },
+    {
+      "state": "number",
+      "fixtureState": "number",
+      "setup": "none"
+    },
+    {
+      "state": "required",
+      "fixtureState": "required",
+      "setup": "none"
+    },
+    {
+      "state": "long-content",
+      "fixtureState": "long-content",
+      "setup": "none"
+    },
+    {
+      "state": "rtl",
+      "fixtureState": "rtl",
+      "setup": "none"
+    },
+    {
+      "state": "icons",
+      "fixtureState": "icons",
+      "setup": "none"
+    }
+  ]
+}

@@ -1,0 +1,308 @@
+<div data-cods-input-fixture="default" data-cods-fixture-state="default">
+  <h2>Default</h2>
+  <div class="usa-form-group cods-input">
+    <label class="usa-label cods-input__label" for="input-default"
+      >Full name</label
+    >
+    <span class="usa-hint cods-input__hint" id="input-default-hint"
+      >Enter your name as it appears on your documents.</span
+    >
+
+    <input
+      class="usa-input cods-input__control"
+      id="input-default"
+      name="input-default"
+      type="text"
+      autocomplete="name"
+      aria-describedby="input-default-hint"
+    />
+  </div>
+</div>
+
+<div
+  data-cods-input-fixture="focus-visible"
+  data-cods-fixture-state="focus-visible"
+>
+  <h2>Focus Visible</h2>
+  <div class="usa-form-group cods-input">
+    <label class="usa-label cods-input__label" for="input-focus-visible"
+      >City</label
+    >
+
+    <input
+      class="usa-input cods-input__control"
+      id="input-focus-visible"
+      name="input-focus-visible"
+      type="text"
+    />
+  </div>
+</div>
+
+<div data-cods-input-fixture="disabled" data-cods-fixture-state="disabled">
+  <h2>Disabled</h2>
+  <div class="usa-form-group cods-input">
+    <label class="usa-label cods-input__label" for="input-disabled"
+      >Application number</label
+    >
+    <span class="usa-hint cods-input__hint" id="input-disabled-hint"
+      >Available after your application is submitted.</span
+    >
+
+    <input
+      class="usa-input cods-input__control"
+      id="input-disabled"
+      name="input-disabled"
+      type="text"
+      aria-describedby="input-disabled-hint"
+      disabled
+    />
+  </div>
+</div>
+
+<div data-cods-input-fixture="readonly" data-cods-fixture-state="readonly">
+  <h2>Readonly</h2>
+  <div class="usa-form-group cods-input">
+    <label class="usa-label cods-input__label" for="input-readonly"
+      >Account number</label
+    >
+    <span class="usa-hint cods-input__hint" id="input-readonly-hint"
+      >This value cannot be edited.</span
+    >
+
+    <input
+      class="usa-input cods-input__control"
+      id="input-readonly"
+      name="input-readonly"
+      type="text"
+      aria-describedby="input-readonly-hint"
+      readonly
+      value="123456"
+    />
+  </div>
+</div>
+
+<div data-cods-input-fixture="error" data-cods-fixture-state="error">
+  <h2>Error</h2>
+  <div class="usa-form-group usa-form-group--error cods-input">
+    <label class="usa-label cods-input__label" for="input-error"
+      >Email address<span class="cods-input__required"> (required)</span></label
+    >
+    <span class="usa-hint cods-input__hint" id="input-error-hint"
+      >Enter an address such as name@example.com.</span
+    >
+    <span
+      class="usa-error-message cods-input__feedback cods-input__feedback--error"
+      id="input-error-feedback"
+      >Error: Enter a valid email address.</span
+    >
+    <input
+      class="usa-input usa-input--error cods-input__control"
+      id="input-error"
+      name="input-error"
+      type="email"
+      autocomplete="email"
+      aria-describedby="input-error-hint input-error-feedback"
+      required
+      aria-invalid="true"
+    />
+  </div>
+</div>
+
+<div data-cods-input-fixture="success" data-cods-fixture-state="success">
+  <h2>Success</h2>
+  <div class="usa-form-group cods-input">
+    <label class="usa-label cods-input__label" for="input-success"
+      >Email address</label
+    >
+
+    <span
+      class="usa-error-message cods-input__feedback cods-input__feedback--success"
+      id="input-success-feedback"
+      >Success: Email address is valid.</span
+    >
+    <input
+      class="usa-input usa-input--success cods-input__control cods-input__control--success"
+      id="input-success"
+      name="input-success"
+      type="email"
+      autocomplete="email"
+      aria-describedby="input-success-feedback"
+      value="name@example.com"
+    />
+  </div>
+</div>
+
+<div data-cods-input-fixture="email" data-cods-fixture-state="email">
+  <h2>Email</h2>
+  <div class="usa-form-group cods-input">
+    <label class="usa-label cods-input__label" for="input-email"
+      >Email address</label
+    >
+
+    <input
+      class="usa-input cods-input__control"
+      id="input-email"
+      name="input-email"
+      type="email"
+      autocomplete="email"
+    />
+  </div>
+</div>
+
+<div data-cods-input-fixture="tel" data-cods-fixture-state="tel">
+  <h2>Tel</h2>
+  <div class="usa-form-group cods-input">
+    <label class="usa-label cods-input__label" for="input-tel"
+      >Phone number</label
+    >
+    <span class="usa-hint cods-input__hint" id="input-tel-hint"
+      >Include the area code.</span
+    >
+
+    <input
+      class="usa-input cods-input__control"
+      id="input-tel"
+      name="input-tel"
+      type="tel"
+      aria-describedby="input-tel-hint"
+      autocomplete="tel"
+    />
+  </div>
+</div>
+
+<div data-cods-input-fixture="number" data-cods-fixture-state="number">
+  <h2>Number</h2>
+  <div class="usa-form-group cods-input">
+    <label class="usa-label cods-input__label" for="input-number"
+      >Number of people</label
+    >
+
+    <input
+      class="usa-input cods-input__control"
+      id="input-number"
+      name="input-number"
+      type="number"
+      min="1"
+    />
+  </div>
+</div>
+
+<div data-cods-input-fixture="required" data-cods-fixture-state="required">
+  <h2>Required</h2>
+  <div class="usa-form-group cods-input">
+    <label class="usa-label cods-input__label" for="input-required"
+      >Full name<span class="cods-input__required"> (required)</span></label
+    >
+
+    <input
+      class="usa-input cods-input__control"
+      id="input-required"
+      name="input-required"
+      type="text"
+      required
+      autocomplete="name"
+    />
+  </div>
+</div>
+
+<div
+  data-cods-input-fixture="long-content"
+  data-cods-fixture-state="long-content"
+>
+  <h2>Long Content</h2>
+  <div class="usa-form-group cods-input">
+    <label class="usa-label cods-input__label" for="input-long-content"
+      >Name of the organization that is submitting this application</label
+    >
+    <span class="usa-hint cods-input__hint" id="input-long-content-hint"
+      >Enter the full legal name, including any words that distinguish it from a
+      similarly named organization.</span
+    >
+
+    <input
+      class="usa-input cods-input__control"
+      id="input-long-content"
+      name="input-long-content"
+      type="text"
+      aria-describedby="input-long-content-hint"
+    />
+  </div>
+</div>
+
+<div
+  data-cods-input-fixture="rtl"
+  data-cods-fixture-state="rtl"
+  lang="ar"
+  dir="rtl"
+>
+  <h2>Rtl</h2>
+  <div class="usa-form-group cods-input">
+    <label class="usa-label cods-input__label" for="input-rtl"
+      >الاسم الكامل</label
+    >
+    <span class="usa-hint cods-input__hint" id="input-rtl-hint"
+      >أدخل الاسم كما يظهر في مستنداتك.</span
+    >
+
+    <input
+      class="usa-input cods-input__control"
+      id="input-rtl"
+      name="input-rtl"
+      type="text"
+      aria-describedby="input-rtl-hint"
+    />
+  </div>
+</div>
+
+<div data-cods-input-fixture="icons" data-cods-fixture-state="icons">
+  <h2>Decorative icons</h2>
+  <div class="usa-form-group cods-input">
+    <label class="usa-label cods-input__label" for="input-icons"
+      >Reference number</label
+    >
+    <span class="usa-hint cods-input__hint" id="input-icons-hint"
+      >Enter the reference number from your notice.</span
+    >
+    <span
+      class="cods-input__feedback cods-input__feedback--success"
+      id="input-icons-success"
+      >Success: Reference number verified.</span
+    >
+    <div class="usa-input-group cods-input__group">
+      <span
+        class="usa-input-prefix cods-input__icon cods-input__icon--prefix"
+        aria-hidden="true"
+        ><svg
+          class="cods-icon cods-icon--small"
+          aria-hidden="true"
+          focusable="false"
+          width="24"
+          height="24"
+          viewBox="0 0 256 256"
+        >
+          <use href="/icons/sprite.svg#file"></use></svg
+      ></span>
+      <input
+        class="usa-input usa-input--success cods-input__control cods-input__control--icons cods-input__control--success"
+        id="input-icons"
+        name="input-icons"
+        type="text"
+        aria-describedby="input-icons-hint input-icons-success"
+        value="123456"
+      />
+      <span
+        class="usa-input-suffix cods-input__icon cods-input__icon--suffix"
+        aria-hidden="true"
+        ><svg
+          class="cods-icon cods-icon--small"
+          aria-hidden="true"
+          focusable="false"
+          width="24"
+          height="24"
+          viewBox="0 0 256 256"
+        >
+          <use href="/icons/sprite.svg#check"></use></svg
+      ></span>
+    </div>
+  </div>
+</div>

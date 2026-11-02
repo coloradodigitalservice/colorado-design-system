@@ -13,6 +13,7 @@ import LinkExamples from '../components/LinkExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
 import IconCatalog from '../components/IconCatalog.astro';
 import IconExamples from '../components/IconExamples.astro';
+import InputExamples from '../components/InputExamples.astro';
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs');
@@ -51,6 +52,14 @@ const { Content } = await render(entry);
       </>
     )}
     {entry.id === 'radio' && <RadioExamples />}
+    {entry.id === 'input' && (
+      <>
+        {' '}
+        <h2>Examples</h2>
+        <InputExamples />
+        <ComponentSummary component="input" figma={entry.data.figma} />
+      </>
+    )}
     {entry.id === 'checkbox' && <CheckboxExamples />}
     {entry.id === 'link' && <LinkExamples />}
     {(entry.id === 'radio' ||

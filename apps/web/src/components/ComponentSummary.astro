@@ -7,6 +7,7 @@ import link from '@coloradodigitalservice/colorado-design-system/metadata/link.j
 
 import radio from '@coloradodigitalservice/colorado-design-system/metadata/radio.json';
 import checkbox from '@coloradodigitalservice/colorado-design-system/metadata/checkbox.json';
+import input from '@coloradodigitalservice/colorado-design-system/metadata/input.json';
 
 interface Props {
   component:
@@ -16,7 +17,8 @@ interface Props {
     | 'link'
     | 'radio'
     | 'checkbox'
-    | 'select';
+    | 'select'
+    | 'input';
   figma?: string;
 }
 
@@ -28,6 +30,7 @@ const metadata = {
   radio,
   checkbox,
   select,
+  input,
 }[Astro.props.component];
 const { figma } = Astro.props;
 const repository =
