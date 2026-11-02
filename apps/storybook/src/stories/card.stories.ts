@@ -26,3 +26,13 @@ export const InternalLinks: Story = { render: () => state('internal-links') };
 export const LongContent: Story = { render: () => state('long-content') };
 export const RightToLeft: Story = { render: () => state('rtl') };
 export const Grid: Story = { render: () => state('grid') };
+
+export const DefaultExternal: Story = {
+  render: () => state('default-external'),
+};
+export const IconExternal: Story = { render: () => state('icon-external') };
+export const Flag: Story = { render: () => state('flag') };
+export const MediaOnly: Story = { render: () => state('media-only') };
+export const IconLongContent: Story = {
+  render: () => state('icon-long-content'),
+};

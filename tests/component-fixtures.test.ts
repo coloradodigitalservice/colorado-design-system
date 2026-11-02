@@ -164,3 +164,14 @@ describe('canonical component examples', () => {
     expect(() => checkComponentAssets(root)).toThrow('missing export');
   });
 });
+
+describe('Card fixture variants', () => {
+  it('keeps icon markup in a separate packaged fixture and combines the canonical examples', () => {
+    const card = components.find((component) => component.name === 'card')!;
+    expect(card.fixtures['card-icon']).toContain(
+      'data-cods-fixture-state="icon"',
+    );
+    expect(card.fixtures.card).not.toContain('data-cods-fixture-state="icon"');
+    expect(card.fixture).toContain('data-cods-fixture-state="icon"');
+  });
+});

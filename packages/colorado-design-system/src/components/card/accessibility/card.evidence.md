@@ -30,3 +30,7 @@
 - On 2026-10-29, axe found no violations in the built fixture in Chromium and WebKit; the image request was blocked for this isolated check. Firefox could not launch. The built Storybook Card test and documentation Card test passed in Chromium; the documentation test also passed in WebKit. Full browser suites and Firefox remain open.
 - Keyboard, focus, actual zoom, forced-colors, localization, and human screen-reader review remain open.
 - Design and accessibility owners must review the component before stable maturity.
+
+## Review update: 2026-11-02
+
+The built documentation Card tests passed in Chromium, Firefox, and WebKit. They exercised the separate variant pages, named media-only link, external-link labels, hover borders, responsive flag layout, grid reflow, and an axe scan of the combined page. The built Storybook Card tests passed in Chromium. These automated checks do not complete the human keyboard, zoom, screen-reader, design, or accessibility reviews above. The light resting and hover borders are decorative; the visible focus outline remains separate.

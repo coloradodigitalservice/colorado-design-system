@@ -6,6 +6,8 @@ order: 17
 figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=1624-459
 ---
 
+See the separate [Default Card](../card-default/) and [Icon Card](../card-icon/) guides.
+
 ## When to use
 
 Use cards to group related content or help people navigate to a service. Keep titles concise and descriptions easy to scan. The icon card is for a single navigation destination; see the [icon design](https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=2246-770). Card is experimental in the `0.x` development series.

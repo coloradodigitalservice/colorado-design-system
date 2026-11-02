@@ -18,13 +18,37 @@
 
   .cods-card__container {
     margin: 0;
-    border-color: var(--cods-color-border-default);
+    border: var(--cods-border-card-width) solid
+      var(--cods-color-border-card-default);
     border-radius: var(--cods-radius-md);
     background: var(--cods-color-bg-page-surface-white);
     box-shadow: var(--cods-elevation-low-x) var(--cods-elevation-low-y)
       var(--cods-elevation-low-blur) var(--cods-elevation-low-spread)
       var(--cods-color-elevation-shadow);
     overflow-wrap: anywhere;
+  }
+
+  .cods-card__container:hover {
+    border-width: var(--cods-border-card-hover-width);
+    border-color: var(--cods-color-border-card-hover);
+    margin: calc(
+      var(--cods-border-card-width) - var(--cods-border-card-hover-width)
+    );
+  }
+
+  .cods-card--flag .cods-card__container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media (width >= 40rem) {
+    .cods-card--flag .cods-card__container {
+      flex-direction: row;
+    }
+
+    .cods-card--flag .cods-card__media {
+      flex: 0 0 40%;
+    }
   }
 
   .cods-card__link,
@@ -93,7 +117,7 @@
 
   .cods-card--icon .cods-card__link:hover .cods-card__icon,
   .cods-card--icon .cods-card__link:focus-visible .cods-card__icon {
-    background: var(--cods-color-bg-action-secondary-hover);
+    background: var(--cods-color-border-card-hover);
   }
 
   @media (forced-colors: active) {

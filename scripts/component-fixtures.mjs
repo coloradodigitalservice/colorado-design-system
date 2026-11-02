@@ -183,15 +183,30 @@ export function loadComponents(root = packageRoot) {
     .map((entry) => {
       const name = entry.name;
       const directory = join(root, 'src/components', name);
-      const fixture = readFileSync(
-        join(directory, `${name}.fixture.html`),
-        'utf8',
-      );
       const metadataText = readFileSync(
         join(directory, `${name}.metadata.json`),
         'utf8',
       );
       const metadata = JSON.parse(metadataText);
+      const variants = metadata.fixtureVariants ?? [];
+      if (
+        !Array.isArray(variants) ||
+        variants.some(
+          (variant) =>
+            typeof variant !== 'string' ||
+            !new RegExp(`^${name}-[a-z]+(?:-[a-z]+)*$`).test(variant),
+        ) ||
+        new Set(variants).size !== variants.length
+      )
+        throw new Error(`${name}: invalid fixture variants`);
+      const fixtureFiles = [name, ...variants];
+      const fixtures = Object.fromEntries(
+        fixtureFiles.map((id) => [
+          id,
+          readFileSync(join(directory, `${id}.fixture.html`), 'utf8'),
+        ]),
+      );
+      const fixture = Object.values(fixtures).join('\n');
       if (metadata.name !== name)
         throw new Error(`${name}: metadata name differs from directory`);
       const manifest = JSON.parse(
@@ -214,6 +229,7 @@ export function loadComponents(root = packageRoot) {
       return {
         name,
         fixture,
+        fixtures,
         metadataText,
         metadata,
         examples: generateExamples(metadata, fixture),
@@ -233,6 +249,10 @@ export function writeComponentAssets(root = packageRoot) {
         join(root, 'dist', directory, `${component.name}.${extension}`),
         content,
       );
+    }
+    for (const [id, fixture] of Object.entries(component.fixtures)) {
+      if (id !== component.name)
+        writeFileSync(join(root, 'dist', 'fixtures', `${id}.html`), fixture);
     }
   }
 }
@@ -256,6 +276,16 @@ export function checkComponentAssets(root = packageRoot) {
       if (readFileSync(join(root, target), 'utf8') !== content)
         throw new Error(
           `${component.name}: stale ${directory} output; rebuild the package`,
+        );
+    }
+    for (const [id, fixture] of Object.entries(component.fixtures)) {
+      if (
+        id !== component.name &&
+        readFileSync(join(root, 'dist', 'fixtures', `${id}.html`), 'utf8') !==
+          fixture
+      )
+        throw new Error(
+          `${component.name}: stale ${id} fixture output; rebuild the package`,
         );
     }
   }

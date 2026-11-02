@@ -21,7 +21,12 @@
     "internal-links",
     "long-content",
     "rtl",
-    "grid"
+    "grid",
+    "default-external",
+    "icon-external",
+    "flag",
+    "media-only",
+    "icon-long-content"
   ],
   "progressiveEnhancement": "full",
   "localization": "layout-sensitive",
@@ -61,7 +66,33 @@
       "state": "grid",
       "fixtureState": "grid",
       "setup": "none"
+    },
+    {
+      "state": "default-external",
+      "fixtureState": "default-external",
+      "setup": "none"
+    },
+    {
+      "state": "icon-external",
+      "fixtureState": "icon-external",
+      "setup": "none"
+    },
+    {
+      "state": "flag",
+      "fixtureState": "flag",
+      "setup": "none"
+    },
+    {
+      "state": "media-only",
+      "fixtureState": "media-only",
+      "setup": "none"
+    },
+    {
+      "state": "icon-long-content",
+      "fixtureState": "icon-long-content",
+      "setup": "none"
     }
   ],
-  "inventoryNames": ["Card - Default", "Card - Icon"]
+  "inventoryNames": ["Card - Default", "Card - Icon"],
+  "fixtureVariants": ["card-icon"]
 }
