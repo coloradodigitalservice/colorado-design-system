@@ -34,4 +34,4 @@
 ## Open items
 
 - Human design and accessibility review, including image cropping, contrast, touch targets, keyboard, zoom, forced colors, and screen-reader checks.
-- Automated browser and axe checks in Chromium, Firefox, and WebKit remain to be run.
+- On 2026-11-02, built documentation Hero tests passed in Chromium, Firefox, and WebKit, including axe, narrow reflow, breadcrumb visibility, responsive image placement, button colors, and desktop alignment. The built Storybook Hero test passed in Chromium. These automated results do not complete the human reviews above.

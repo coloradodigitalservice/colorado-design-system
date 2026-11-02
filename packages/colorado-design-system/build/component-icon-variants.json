@@ -1,0 +1,8 @@
+{
+  "select-caret": {
+    "id": "caret-down",
+    "color": "1b1b1b",
+    "token": "color-text-primary",
+    "component": "select"
+  }
+}

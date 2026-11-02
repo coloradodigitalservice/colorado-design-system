@@ -14,10 +14,16 @@
   },
   "divergenceApproved": false,
   "divergenceNotes": null,
-  "states": ["default", "with-image", "two-actions", "long-content"],
+  "states": [
+    "default",
+    "with-image",
+    "dark-banner",
+    "without-cta",
+    "long-content"
+  ],
   "progressiveEnhancement": "full",
   "localization": "layout-sensitive",
-  "description": "A page introduction with an optional image and calls to action.",
+  "description": "A page introduction with an optional image, breadcrumb, eyebrow, and one call to action.",
   "examples": [
     {
       "state": "default",
@@ -30,8 +36,13 @@
       "setup": "none"
     },
     {
-      "state": "two-actions",
-      "fixtureState": "two-actions",
+      "state": "dark-banner",
+      "fixtureState": "dark-banner",
+      "setup": "none"
+    },
+    {
+      "state": "without-cta",
+      "fixtureState": "without-cta",
       "setup": "none"
     },
     {

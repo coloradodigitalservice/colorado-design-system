@@ -1,10 +1,18 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.11
+
+### Patch Changes
+
+- Add experimental Breadcrumbs with responsive previous-level navigation, inverse styling, documentation, and accessibility evidence.
+- @coloradodigitalservice/colorado-design-tokens@0.2.11
+
 ## 0.2.10
 
 ### Patch Changes
 
-- 986fa8c: Add an experimental Hero component with responsive image and solid surface variants.
+- a176454: Add the experimental native Select component, canonical state fixtures, Storybook stories, and public documentation. Preserve browser selection behavior without a controller.
+- a176454: Source the native Select caret from shared Phosphor Regular artwork, retaining its original token foreground through a generated variant and preserving native forced-color behavior.
 - @coloradodigitalservice/colorado-design-tokens@0.2.10
 
 ## 0.2.9

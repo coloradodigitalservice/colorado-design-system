@@ -1,6 +1,6 @@
 ---
 title: Hero
-description: Introduce a page with a prominent heading, optional image, and actions.
+description: Introduce a page with a prominent heading, optional image, and action.
 navLabel: Hero
 order: 21
 figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=1964-5570
@@ -8,13 +8,19 @@ figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-Syste
 
 ## When to use
 
-Use a Hero at the top of a page to introduce its purpose. Keep the heading and supporting copy concise. Use one or two actions when they help people take a clear next step. A Hero can use a dark blue or light blue surface, with or without an image.
+Use a Hero at the top of a page when the page needs more introduction than a title alone. Choose an image Hero for a homepage or when an image helps orient visitors, set expectations, or establish the tone. Use a banner when a page needs distinction or a longer introduction but does not need an image. Avoid an image on a lower-level page when it has no strong connection to the content.
+
+Write a clear title of roughly 50 characters or fewer and, when useful, a one- or two-line introduction of roughly 175 characters or fewer. These are writing guidelines, not enforced limits. Include at most one call to action, and make it a clear next step. A breadcrumb is recommended on pages other than the homepage. An optional eyebrow can introduce the title.
 
 ## Markup and placement
 
-Load the package styles as described in [Getting started](../getting-started/). Use the heading level that fits the page; for a page title, use an `h1`. The examples use `h2` because they appear within this documentation page. Use the existing [Button](../button/) classes for actions and descriptive link text. The component is static and needs no JavaScript.
+Load the package styles as described in [Getting started](../getting-started/). Use the heading level that fits the page; for a page title, use an `h1`. The examples use `h2` because they appear within this documentation page. Use a primary [Button](../button/) for the optional action and descriptive link text. The component is static and needs no JavaScript.
 
-Use `cods-hero--light` for the light surface and `cods-hero--image` when an image is present. Place the image before the content in the markup. On smaller screens it appears above the content; at 1280px and wider it appears beside it. Images use `object-fit: cover` and are cropped to fit. Supply a pre-cropped image suitable for both layouts, and check its focal point at each size. Use meaningful alt text for an informative image, or `alt=""` for a decorative image. The example image is for illustration; replace its URL with your own image.
+The breadcrumb example uses a labeled navigation landmark, a list, and `aria-current="page"` for the current page. On small screens it presents a previous-level link; at 768px and above it shows the full trail. Use `cods-hero__eyebrow` on a paragraph above the title, not an extra heading.
+
+Use `cods-hero--light` for the light surface and `cods-hero--image` when an image is present. Place the image before the content in the markup. It appears above the content below 1280px and beside it on larger screens. The image is cropped with `object-fit: cover`; check the focal point at every size. Use meaningful alt text for an informative image, or `alt=""` for a decorative image.
+
+Choose a relevant landscape image with a single focal point or full-width scenery. Avoid collages, text in images, and stock imagery that looks like advertising. Prepare 16:9 WebP or JPEG variants near 375, 768, and 1280 pixels wide, use `srcset` and `sizes`, and aim for less than 150 KB per image (500 KB maximum). Replace the example image with one appropriate to the page. The example is a cropped and resized [Downtown Denver photograph by Chachpond](https://commons.wikimedia.org/wiki/File:Downtown_denver.jpg), dedicated to the public domain under CC0.
 
 ## Contrast and accessibility
 
@@ -24,4 +30,4 @@ Text and actions sit on a solid token-based surface, separate from the image. Ma
 
 ## Examples
 
-These examples show a light surface, an image, two actions, and longer right-to-left content. The markup can be copied below each example.
+These examples show a light surface, a light image Hero, a dark banner with breadcrumbs and an eyebrow, a Hero without an action, and longer right-to-left content. The markup can be copied below each example.
