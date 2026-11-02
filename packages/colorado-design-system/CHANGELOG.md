@@ -1,12 +1,27 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.12
+
+### Patch Changes
+
+- Add experimental Section and Item Dividers and a divider line-width token.
+- Updated dependencies
+  - @coloradodigitalservice/colorado-design-tokens@0.2.12
+
+## 0.2.11
+
+### Patch Changes
+
+- Add experimental Breadcrumbs with responsive previous-level navigation, inverse styling, documentation, and accessibility evidence.
+- @coloradodigitalservice/colorado-design-tokens@0.2.11
+
 ## 0.2.10
 
 ### Patch Changes
 
-- 994c219: Add experimental section and item dividers and a divider line-width token.
-- Updated dependencies [994c219]
-  - @coloradodigitalservice/colorado-design-tokens@0.2.10
+- a176454: Add the experimental native Select component, canonical state fixtures, Storybook stories, and public documentation. Preserve browser selection behavior without a controller.
+- a176454: Source the native Select caret from shared Phosphor Regular artwork, retaining its original token foreground through a generated variant and preserving native forced-color behavior.
+- @coloradodigitalservice/colorado-design-tokens@0.2.10
 
 ## 0.2.9
 

@@ -4,6 +4,17 @@ test('divider semantics, token styling, and inset', async ({
   page,
 }, testInfo) => {
   await page.goto('/divider/');
+  const summary = page.getByRole('region', { name: 'Summary' });
+  await expect(summary).toContainText('CoDS-authored; no USWDS equivalent');
+  await expect(
+    summary.getByRole('link', { name: 'Design file' }),
+  ).toHaveAttribute('href', /figma\.com/);
+  await expect(
+    summary.getByRole('link', { name: 'Component source' }),
+  ).toHaveAttribute('href', /components\/divider/);
+  await expect(
+    summary.getByRole('link', { name: 'Evidence file' }),
+  ).toHaveAttribute('href', /divider\.evidence\.md/);
   const section = page.locator(
     '[data-cods-fixture-state="default"] .cods-divider',
   );

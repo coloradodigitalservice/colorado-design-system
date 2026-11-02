@@ -7,6 +7,8 @@ import SiteAlertExamples from '../components/SiteAlertExamples.astro';
 import CheckboxExamples from '../components/CheckboxExamples.astro';
 import ButtonExamples from '../components/ButtonExamples.astro';
 import AccordionExamples from '../components/AccordionExamples.astro';
+import BreadcrumbsExamples from '../components/BreadcrumbsExamples.astro';
+import SelectExamples from '../components/SelectExamples.astro';
 import RadioExamples from '../components/RadioExamples.astro';
 import LinkExamples from '../components/LinkExamples.astro';
 import DividerExamples from '../components/DividerExamples.astro';
@@ -50,6 +52,7 @@ const { Content } = await render(entry);
         <AccordionExamples />
       </>
     )}
+    {entry.id === 'breadcrumbs' && <BreadcrumbsExamples />}
     {entry.id === 'radio' && <RadioExamples />}
     {entry.id === 'checkbox' && <CheckboxExamples />}
     {entry.id === 'link' && <LinkExamples />}
@@ -57,8 +60,11 @@ const { Content } = await render(entry);
     {(entry.id === 'radio' ||
       entry.id === 'site-alert' ||
       entry.id === 'accordion' ||
+      entry.id === 'breadcrumbs' ||
       entry.id === 'link' ||
-      entry.id === 'checkbox') && (
+      entry.id === 'checkbox' ||
+      entry.id === 'select' ||
+      entry.id === 'divider') && (
       <ComponentSummary component={entry.id} figma={entry.data.figma} />
     )}
     {entry.id === 'in-page-alert' && (
@@ -68,6 +74,7 @@ const { Content } = await render(entry);
       </>
     )}
     <Content />
+    {entry.id === 'select' && <SelectExamples />}
     {entry.id === 'in-page-alert' && <InPageAlertExamples mode="remaining" />}
     {entry.id === 'button' && <ButtonExamples mode="remaining" />}
     {entry.id === 'icon' && <IconExamples />}
