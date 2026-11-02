@@ -2,14 +2,25 @@
 import examples from '@coloradodigitalservice/colorado-design-system/examples/hero.json';
 import metadata from '@coloradodigitalservice/colorado-design-system/metadata/hero.json';
 import CodeExamples from './CodeExamples.astro';
+const labels: Record<string, string> = {
+  default: 'Light banner',
+  'with-image': 'Light image Hero',
+  'dark-image': 'Dark image Hero',
+  'dark-banner': 'Dark banner with breadcrumbs and eyebrow',
+  'without-cta': 'Without a call to action',
+  'long-content': 'Long right-to-left content',
+};
 ---
 
 {examples.examples.map((example) => (
-  <div
-    set:html={example.html.replaceAll(
-      '/images/hero-example-',
-      `${import.meta.env.BASE_URL}images/hero-example-`,
-    )}
-  />
+  <section aria-label={labels[example.state]}>
+    <h3>{labels[example.state]}</h3>
+    <div
+      set:html={example.html.replaceAll(
+        '/images/hero-example-',
+        `${import.meta.env.BASE_URL}images/hero-example-`,
+      )}
+    />
+  </section>
 ))}
 <CodeExamples metadata={metadata} examples={examples.examples} />

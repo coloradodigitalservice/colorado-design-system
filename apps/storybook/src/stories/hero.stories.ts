@@ -18,6 +18,7 @@ type Story = StoryObj;
 export const AllStates: Story = {};
 export const Default: Story = { render: () => renderState('default') };
 export const WithImage: Story = { render: () => renderState('with-image') };
+export const DarkImage: Story = { render: () => renderState('dark-image') };
 export const DarkBanner: Story = { render: () => renderState('dark-banner') };
 export const WithoutCta: Story = { render: () => renderState('without-cta') };
 export const LongContent: Story = { render: () => renderState('long-content') };

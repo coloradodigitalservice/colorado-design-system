@@ -17,6 +17,7 @@
   "states": [
     "default",
     "with-image",
+    "dark-image",
     "dark-banner",
     "without-cta",
     "long-content"
@@ -33,6 +34,11 @@
     {
       "state": "with-image",
       "fixtureState": "with-image",
+      "setup": "none"
+    },
+    {
+      "state": "dark-image",
+      "fixtureState": "dark-image",
       "setup": "none"
     },
     {

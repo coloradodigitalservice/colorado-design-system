@@ -7,7 +7,9 @@ test('hero preserves image placement, action order, and reflow', async ({
 }, testInfo) => {
   await page.setViewportSize({ width: 320, height: 800 });
   await page.goto(story);
-  const hero = page.locator('.cods-hero--image');
+  const hero = page.locator(
+    '[data-cods-fixture-state="with-image"] .cods-hero',
+  );
   const image = hero.locator('.cods-hero__image');
   const content = hero.locator('.cods-hero__content');
   await expect(image).toBeVisible();

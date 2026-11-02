@@ -6,8 +6,10 @@ test('Hero examples expose accessible content and reflow on mobile', async ({
   await page.setViewportSize({ width: 320, height: 800 });
   await page.goto('/hero/');
   const examples = page.locator('.cods-hero');
-  await expect(examples).toHaveCount(5);
-  const image = examples.locator('.cods-hero__image');
+  await expect(examples).toHaveCount(6);
+  const image = page.locator(
+    '[data-cods-fixture-state="with-image"] .cods-hero__image',
+  );
   await expect(image).toBeVisible();
   await expect(image).toHaveAttribute(
     'alt',
@@ -158,4 +160,36 @@ test('image Hero remains readable in the documentation column on a wide screen',
   expect(image.y + image.height).toBeLessThanOrEqual(content.y + 1);
   expect(heading.width).toBeGreaterThan(300);
   expect(heading.height).toBeLessThan(120);
+});
+
+test('Hero documentation explains anatomy, variants, and limitations', async ({
+  page,
+}) => {
+  await page.goto('/hero/');
+  for (const heading of [
+    'Summary',
+    'Anatomy',
+    'Choosing a Hero',
+    'Responsive behavior',
+    'Public styling',
+    'Known limitations and implementation status',
+    'Examples',
+  ]) {
+    await expect(
+      page.getByRole('heading', { name: heading, exact: true }),
+    ).toBeVisible();
+  }
+  for (const name of [
+    'Light banner',
+    'Dark banner with breadcrumbs and eyebrow',
+    'Light image Hero',
+    'Dark image Hero',
+  ]) {
+    await expect(
+      page.getByRole('heading', { name, exact: true }),
+    ).toBeVisible();
+  }
+  await expect(page.getByRole('region', { name: 'Summary' })).toContainText(
+    'CoDS-authored',
+  );
 });
