@@ -92,10 +92,10 @@ and Storybook Chromium, including axe while links are focused on both surfaces.
 Workspace, Astro/Storybook validation, token drift, builds, formatting, lint,
 type checks, fixture/static output checks passed. Browser tests used built files
 without servers. The Getting Started docs link preserves deployment prefixes.
-Figma's parent-only mobile trail still differs from the ticket-preserving
-implementation, which wraps every ancestor so no link access is lost. That
-presentation needs design-owner reconciliation; human acceptance remains open.
+At that time, the mobile trail wrapped every ancestor. The October 30 review
+changed this to the parent-only treatment described below; human design and
+accessibility acceptance remains open.
 
 ## Review changes (2026-10-30)
 
-Hover removes underlines and uses the standalone hover color on light surfaces. Line height inherits from surrounding content. Below 40rem, the immediate parent link uses a localized previous-level label and includes the parent name for assistive technology. On October 30, automated Chromium and WebKit checks passed for the parent destination and accessible name, keyboard focus, 320px reflow, RTL caret, forced-colors mask, hover and the wider trail. Firefox could not launch because its Playwright profile could not be found; repeat these checks there. Human screen-reader and design review remain open.
+Hover removes underlines and uses the standalone hover color on light surfaces. Line height inherits from surrounding content. Below 40rem, the immediate parent link uses a localized previous-level label and includes the parent name for assistive technology. On October 30, automated Chromium and WebKit checks passed for the parent destination and accessible name, keyboard focus, 320px reflow, RTL caret, forced-colors mask, hover and the wider trail. Firefox could not launch during that run. On November 2, the focused Breadcrumbs web tests passed in Chromium, Firefox, and WebKit using built files; Firefox used the documented temporary-home workaround. Human screen-reader and design review remain open.

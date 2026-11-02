@@ -86,6 +86,13 @@ checkbox state marks). SVGs loaded as background images cannot inherit the
 control's `currentColor`. The normal sprite and per-ID SVGs remain unchanged;
 the variants do not add IDs to the approved catalog.
 
+Component background SVGs that must preserve an explicit foreground are listed
+in `build/component-icon-variants.json`. Each entry identifies an approved icon,
+its component, a six-digit foreground, and the generated Git token that verifies
+that color. Select uses this for `caret-down--1b1b1b.svg`: a background image
+cannot inherit the control’s `currentColor`. Generation rejects unknown artwork
+and token/color drift; masks continue using the ordinary currentColor files.
+
 ### Entry Points
 
 - **TypeScript source**: `src/index.ts` → `dist/colorado-design-system.mjs`
@@ -135,7 +142,7 @@ USWDS icons with equivalent approved Phosphor SVGs under `dist/icons`. The
 remaining non-icon image assets are copied unchanged. A CSS URL is externalized
 only when its source exists. Component CSS masks can reference
 `./icons/<approved-id>.svg` directly: approved IDs and the explicit USWDS color
-variants are externalized for the shared icon pipeline to write, and the final
+variants, plus token-verified component variants, are externalized for the shared icon pipeline to write, and the final
 CSS check verifies those files exist. An unrecognized URL into an excluded icon
 collection fails the build instead of repackaging that icon. Expected warnings
 disappear, and unknown non-icon references retain Vite's normal warnings.

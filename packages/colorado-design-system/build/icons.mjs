@@ -12,6 +12,7 @@ import {
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import iconVariants from './uswds-icon-variants.json' with { type: 'json' };
+import componentVariants from './component-icon-variants.json' with { type: 'json' };
 
 const packageRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const manifestPath = resolve(packageRoot, 'src/icons/approved-icons.json');
@@ -49,6 +50,42 @@ export function validateManifest(manifest) {
 
 function loadManifest() {
   return validateManifest(JSON.parse(readFileSync(manifestPath, 'utf8')));
+}
+
+// Background-image SVGs cannot inherit a control's currentColor. Explicit
+// component variants retain the reviewed foreground and its token provenance.
+export function validateComponentIconVariants(variants) {
+  if (!variants || typeof variants !== 'object' || Array.isArray(variants))
+    throw new Error('Component icon variants must be a JSON object');
+  const tokens = JSON.parse(
+    readFileSync(
+      resolve(packageRoot, '../colorado-design-tokens/generated/tokens.json'),
+      'utf8',
+    ),
+  );
+  const approved = new Set(loadManifest().icons);
+  for (const [name, variant] of Object.entries(variants)) {
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(name) || !approved.has(variant.id))
+      throw new Error(
+        `Component icon variant ${name} must use an approved icon ID`,
+      );
+    if (
+      typeof variant.color !== 'string' ||
+      !/^[a-f0-9]{6}$/.test(variant.color) ||
+      tokens[variant.token] !== `#${variant.color}`
+    )
+      throw new Error(
+        `Component icon variant ${name} foreground must match its source token`,
+      );
+    if (
+      typeof variant.component !== 'string' ||
+      !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(variant.component)
+    )
+      throw new Error(
+        `Component icon variant ${name} must identify its component`,
+      );
+  }
+  return Object.values(variants);
 }
 
 function iconEntries(manifest = loadManifest()) {
@@ -111,6 +148,7 @@ async function iconOutputs() {
 }
 
 export async function generateIcons(outputDir = generatedDir) {
+  validateComponentIconVariants(componentVariants);
   await rm(outputDir, { recursive: true, force: true });
   await mkdir(outputDir, { recursive: true });
   for (const [name, contents] of await iconOutputs()) {
@@ -119,6 +157,7 @@ export async function generateIcons(outputDir = generatedDir) {
 }
 
 export async function checkIcons(outputDir = generatedDir) {
+  validateComponentIconVariants(componentVariants);
   const problems = [];
   for (const [name, expected] of await iconOutputs()) {
     let actual;
@@ -139,6 +178,10 @@ export async function checkIcons(outputDir = generatedDir) {
 // Builds dist/icons from the committed output. Individual SVGs come from the
 // pinned package and must match the committed hashes.
 export async function writeDistIcons(distIconsDir, sourceDir = generatedDir) {
+  const variants = [
+    ...Object.values(iconVariants),
+    ...validateComponentIconVariants(componentVariants),
+  ];
   const catalog = JSON.parse(
     await readFile(resolve(sourceDir, 'catalog.json'), 'utf8'),
   );
@@ -152,7 +195,7 @@ export async function writeDistIcons(distIconsDir, sourceDir = generatedDir) {
       );
     const sized = source.replace(/^<svg\b/, '<svg width="24" height="24"');
     await writeFile(resolve(distIconsDir, `${id}.svg`), sized);
-    for (const variant of Object.values(iconVariants)) {
+    for (const variant of variants) {
       if (variant.id !== id) continue;
       if (!/\bfill="currentColor"/.test(sized))
         throw new Error(`Phosphor icon ${id} has no currentColor fill`);
@@ -162,7 +205,7 @@ export async function writeDistIcons(distIconsDir, sourceDir = generatedDir) {
       );
     }
   }
-  for (const { id } of Object.values(iconVariants))
+  for (const { id } of variants)
     if (!catalog.icons.some((icon) => icon.id === id))
       throw new Error(
         `USWDS icon replacement ${id} is not in the approved catalog`,

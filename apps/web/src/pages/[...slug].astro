@@ -8,6 +8,7 @@ import CheckboxExamples from '../components/CheckboxExamples.astro';
 import ButtonExamples from '../components/ButtonExamples.astro';
 import AccordionExamples from '../components/AccordionExamples.astro';
 import BreadcrumbsExamples from '../components/BreadcrumbsExamples.astro';
+import SelectExamples from '../components/SelectExamples.astro';
 import RadioExamples from '../components/RadioExamples.astro';
 import LinkExamples from '../components/LinkExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
@@ -59,7 +60,8 @@ const { Content } = await render(entry);
       entry.id === 'accordion' ||
       entry.id === 'breadcrumbs' ||
       entry.id === 'link' ||
-      entry.id === 'checkbox') && (
+      entry.id === 'checkbox' ||
+      entry.id === 'select') && (
       <ComponentSummary component={entry.id} figma={entry.data.figma} />
     )}
     {entry.id === 'in-page-alert' && (
@@ -69,6 +71,7 @@ const { Content } = await render(entry);
       </>
     )}
     <Content />
+    {entry.id === 'select' && <SelectExamples />}
     {entry.id === 'in-page-alert' && <InPageAlertExamples mode="remaining" />}
     {entry.id === 'button' && <ButtonExamples mode="remaining" />}
     {entry.id === 'icon' && <IconExamples />}
