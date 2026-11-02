@@ -16,6 +16,8 @@
   .cods-icon-list__icon {
     flex: none;
     display: flex;
+    align-items: center;
+    min-block-size: 1lh;
   }
 
   .cods-icon-list__content {
