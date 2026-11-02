@@ -1,0 +1,29 @@
+@layer cods.components {
+  .cods-icon-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .cods-icon-list__item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--cods-space-xs);
+    margin-block: var(--cods-space-sm);
+    padding-block-start: 0;
+  }
+
+  .cods-icon-list__icon {
+    flex: none;
+    display: flex;
+  }
+
+  .cods-icon-list__content {
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .cods-icon-list__content p {
+    margin-block: var(--cods-space-xs) 0;
+  }
+}

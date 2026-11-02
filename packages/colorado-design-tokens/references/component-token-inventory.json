@@ -610,8 +610,9 @@
         "space.xs"
       ],
       "componentTokens": [],
-      "implementationTokens": [],
-      "designCoverage": "documented"
+      "implementationTokens": ["space.sm", "space.xs"],
+      "designCoverage": "documented",
+      "implementationDirectory": "icon-list"
     },
     {
       "name": "Input",
