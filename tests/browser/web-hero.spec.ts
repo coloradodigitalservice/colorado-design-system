@@ -193,3 +193,54 @@ test('Hero documentation explains anatomy, variants, and limitations', async ({
     'CoDS-authored',
   );
 });
+
+test('a narrow Hero in a wide viewport uses the mobile design and retains a one-item breadcrumb', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1484, height: 1034 });
+  await page.goto('/hero/');
+  const hero = page.locator(
+    '[data-cods-fixture-state="dark-banner"] .cods-hero',
+  );
+  const trail = hero.getByRole('navigation', { name: 'Breadcrumb' });
+  await expect(hero.locator('.cods-hero__heading')).toHaveCSS(
+    'font-size',
+    '36px',
+  );
+  await expect(hero.locator('.cods-hero__intro')).toHaveCSS(
+    'font-size',
+    '20px',
+  );
+  await expect(trail.getByRole('link', { name: 'Home' })).toBeHidden();
+  await expect(
+    trail.getByRole('link', { name: 'Previous level: Services' }),
+  ).toBeVisible();
+  const image = page.locator(
+    '[data-cods-fixture-state="with-image"] .cods-hero__image',
+  );
+  await expect(image).toHaveCSS('height', '145px');
+  await trail
+    .locator('li:not([aria-current])')
+    .evaluateAll((items) => items.forEach((item) => item.remove()));
+  await expect(trail.getByText('Page title')).toBeVisible();
+});
+
+test('full-width Hero preview shows all four variants at desktop width', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/hero-preview/');
+  await expect(page.locator('.cods-hero')).toHaveCount(4);
+  for (const name of ['default', 'with-image', 'dark-image', 'dark-banner']) {
+    const hero = page.locator(`[data-cods-fixture-state="${name}"] .cods-hero`);
+    expect((await hero.boundingBox())!.width).toBe(1440);
+    if (name.includes('image')) {
+      const image = (await hero.locator('.cods-hero__image').boundingBox())!;
+      const content = (await hero
+        .locator('.cods-hero__content')
+        .boundingBox())!;
+      expect(image.x).toBeGreaterThan(content.x);
+      expect(image.y).toBe(content.y);
+    }
+  }
+});

@@ -83,8 +83,8 @@ $hero-separator-path: './icons/caret-right.svg';
     display: none;
   }
 
-  @media (width < 48rem) {
-    .cods-hero__breadcrumb-item:not(:nth-last-child(2)) {
+  @container (width < 48rem) {
+    .cods-hero__breadcrumb-item:not(:nth-last-child(2), :only-child) {
       display: none;
     }
 
@@ -154,7 +154,7 @@ $hero-separator-path: './icons/caret-right.svg';
     --cods-button-border: var(--cods-color-border-action-secondary-active);
   }
 
-  @media (width >= 48rem) {
+  @container (width >= 48rem) {
     .cods-hero__image {
       height: 160px;
     }

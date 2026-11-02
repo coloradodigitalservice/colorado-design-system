@@ -33,7 +33,7 @@ Use a Hero sparingly. For a basic page, a clear page title may be enough to orie
 
 Load the package styles as described in [Getting started](../getting-started/). Use the heading level that fits the page; for a page title, use an `h1`. The examples use `h2` because they appear within this documentation page. Use a primary [Button](../button/) for the optional action and descriptive link text. The component is static and needs no JavaScript.
 
-The breadcrumb example uses a labeled navigation landmark, a list, and `aria-current="page"` for the current page. On small screens it presents a previous-level link; at 768px and above it shows the full trail. Use `cods-hero__eyebrow` on a paragraph above the title, not an extra heading.
+The breadcrumb example uses a labeled navigation landmark, a list, and `aria-current="page"` for the current page. In a Hero narrower than 768px it presents a previous-level link; at 768px and above it shows the full trail. Use `cods-hero__eyebrow` on a paragraph above the title, not an extra heading.
 
 Use `cods-hero--light` for the light surface and `cods-hero--image` when an image is present. Place the image before the content in the markup. It appears above the content when the Hero is narrower than 1280px and beside it when there is more room. The image is cropped with `object-fit: cover`; check the focal point at every size. Use meaningful alt text for an informative image, or `alt=""` for a decorative image.
 
@@ -41,7 +41,7 @@ Choose a relevant landscape image with a single focal point or full-width scener
 
 ## Responsive behavior
 
-At browser widths below 768px, the breadcrumb shows the previous level and the title and introduction use mobile typography. At 768px and above, the full breadcrumb and larger typography are shown. The image stacks above the content when the Hero itself is narrower than 1280px; when the Hero has at least 1280px of available width, the image moves to the side and the content follows the centered 1280px grid. The Hero grows with longer or translated content.
+When the Hero is narrower than 768px, the breadcrumb shows the previous level and the title and introduction use mobile typography. At 768px and above, the full breadcrumb and larger typography are shown. A trail with only the current page remains visible. The image stacks above the content when the Hero itself is narrower than 1280px; when the Hero has at least 1280px of available width, the image moves to the side and the content follows the centered 1280px grid. The Hero grows with longer or translated content.
 
 ## Public styling
 
@@ -68,7 +68,7 @@ Text and actions sit on a solid token-based surface, separate from the image. Ma
 
 ## Known limitations and implementation status
 
-Hero is experimental. The documentation column displays image Heroes in their stacked layout; view the Hero in a full-width page to review the desktop side-by-side layout. Automated checks do not replace human design, keyboard, screen-reader, zoom, forced-colors, and accessibility review. Background video, carousels, and image-cropping tools are not part of this component.
+Hero is experimental. The documentation column displays image Heroes in their stacked layout; use the [full-width Hero preview](../hero-preview/) to review the desktop side-by-side layout. Automated checks do not replace human design, keyboard, screen-reader, zoom, forced-colors, and accessibility review. Background video, carousels, and image-cropping tools are not part of this component.
 
 ## Examples
 
