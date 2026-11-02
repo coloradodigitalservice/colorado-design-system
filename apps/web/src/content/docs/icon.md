@@ -154,9 +154,13 @@ for hosting).
 ### Explicit-color variants
 
 The package generates `<id>--<hex>.svg` variants (for example
-`check--ffffff.svg`) only for the USWDS CSS replacements listed in
-`build/uswds-icon-variants.json`. They keep the foreground colors of the pinned
-USWDS assets, including the separate light and dark checkbox marks. They are
+`check--ffffff.svg`) for the USWDS CSS replacements listed in
+`build/uswds-icon-variants.json` and exceptional fixed-color component backgrounds
+in `build/component-icon-variants.json`. The USWDS variants retain the foreground
+colors of the pinned assets, including separate light and dark checkbox marks.
+Component variants must match an existing Git token; the native Select background
+uses `caret-down--1b1b1b.svg` to preserve its original dark foreground because a
+select cannot reliably host a pseudo-element mask. They are
 integration assets, not additional approved icon IDs and not a general theming
 mechanism.
 
