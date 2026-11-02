@@ -5,6 +5,11 @@ import CodeExamples from './CodeExamples.astro';
 ---
 
 {examples.examples.map((example) => (
-  <div set:html={example.html} />
+  <div
+    set:html={example.html.replaceAll(
+      '/images/hero-example.png',
+      `${import.meta.env.BASE_URL}images/hero-example.png`,
+    )}
+  />
 ))}
 <CodeExamples metadata={metadata} examples={examples.examples} />
