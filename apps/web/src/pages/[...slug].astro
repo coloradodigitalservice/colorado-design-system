@@ -15,6 +15,7 @@ import ComponentSummary from '../components/ComponentSummary.astro';
 import IconCatalog from '../components/IconCatalog.astro';
 import IconExamples from '../components/IconExamples.astro';
 import HeroExamples from '../components/HeroExamples.astro';
+import ProcessListExamples from '../components/ProcessListExamples.astro';
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs');
@@ -63,7 +64,8 @@ const { Content } = await render(entry);
       entry.id === 'breadcrumbs' ||
       entry.id === 'link' ||
       entry.id === 'checkbox' ||
-      entry.id === 'select') && (
+      entry.id === 'select' ||
+      entry.id === 'process-list') && (
       <ComponentSummary component={entry.id} figma={entry.data.figma} />
     )}
     {entry.id === 'in-page-alert' && (
@@ -74,6 +76,7 @@ const { Content } = await render(entry);
     )}
     <Content />
     {entry.id === 'hero' && <HeroExamples />}
+    {entry.id === 'process-list' && <ProcessListExamples />}
     {entry.id === 'select' && <SelectExamples />}
     {entry.id === 'in-page-alert' && <InPageAlertExamples mode="remaining" />}
     {entry.id === 'button' && <ButtonExamples mode="remaining" />}

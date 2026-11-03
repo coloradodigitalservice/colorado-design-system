@@ -1,0 +1,60 @@
+{
+  "name": "process-list",
+  "displayName": "Process List",
+  "maturity": "experimental",
+  "type": "static",
+  "uswdsEquivalent": "process-list",
+  "uswdsVersion": "3.14.0",
+  "componentType": "A",
+  "owners": {
+    "responsible": "Aten component lead",
+    "accountable": "State technical owner",
+    "consulted": "State design owner, accessibility lead",
+    "informed": "Component contributors, product owner"
+  },
+  "divergenceApproved": false,
+  "divergenceNotes": null,
+  "states": [
+    "default",
+    "long-content",
+    "rtl",
+    "three-steps",
+    "four-steps",
+    "five-steps"
+  ],
+  "progressiveEnhancement": "full",
+  "localization": "layout-sensitive",
+  "description": "A static ordered sequence of steps with headings and supporting content.",
+  "examples": [
+    {
+      "state": "default",
+      "fixtureState": "default",
+      "setup": "none"
+    },
+    {
+      "state": "long-content",
+      "fixtureState": "long-content",
+      "setup": "none"
+    },
+    {
+      "state": "rtl",
+      "fixtureState": "rtl",
+      "setup": "none"
+    },
+    {
+      "state": "three-steps",
+      "fixtureState": "three-steps",
+      "setup": "none"
+    },
+    {
+      "state": "four-steps",
+      "fixtureState": "four-steps",
+      "setup": "none"
+    },
+    {
+      "state": "five-steps",
+      "fixtureState": "five-steps",
+      "setup": "none"
+    }
+  ]
+}
