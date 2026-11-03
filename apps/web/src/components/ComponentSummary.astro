@@ -10,6 +10,7 @@ import link from '@coloradodigitalservice/colorado-design-system/metadata/link.j
 
 import radio from '@coloradodigitalservice/colorado-design-system/metadata/radio.json';
 import checkbox from '@coloradodigitalservice/colorado-design-system/metadata/checkbox.json';
+import comboBox from '@coloradodigitalservice/colorado-design-system/metadata/combo-box.json';
 
 interface Props {
   component:
@@ -20,6 +21,7 @@ interface Props {
     | 'link'
     | 'radio'
     | 'checkbox'
+    | 'combo-box'
     | 'select'
     | 'divider'
     | 'hero';
@@ -34,6 +36,7 @@ const metadata = {
   link,
   radio,
   checkbox,
+  'combo-box': comboBox,
   select,
   divider,
   hero,
