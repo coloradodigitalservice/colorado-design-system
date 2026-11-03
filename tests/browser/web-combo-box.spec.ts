@@ -98,6 +98,18 @@ test('uses the designed input height and error icon treatment', async ({
     };
   });
   expect(colors.icon).toBe(colors.required);
+  await page.emulateMedia({ forcedColors: 'active' });
+  const forcedColors = await root.evaluate((element) => {
+    const box = element.querySelector<HTMLElement>('.cods-combo-box')!;
+    const toggle = element.querySelector<HTMLElement>(
+      '.cods-combo-box__toggle',
+    )!;
+    return {
+      icon: getComputedStyle(box, '::before').backgroundColor,
+      toggle: getComputedStyle(toggle, '::after').backgroundColor,
+    };
+  });
+  expect(forcedColors.icon).toBe(forcedColors.toggle);
 });
 
 test('uncommitted text remains invalid after blur and blocks submission', async ({

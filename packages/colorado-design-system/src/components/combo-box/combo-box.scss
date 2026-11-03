@@ -141,6 +141,9 @@ $clear-icon: './icons/x.svg';
 
   @media (forced-colors: active) {
     .cods-combo-box[data-enhanced]::before,
+    .cods-combo-box[data-enhanced]:has(
+        .cods-combo-box__input[aria-invalid='true']
+      )::before,
     .cods-combo-box__toggle::after,
     .cods-combo-box__clear::after {
       forced-color-adjust: none;
