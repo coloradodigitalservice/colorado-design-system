@@ -1,5 +1,13 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.12
+
+### Patch Changes
+
+- Add Hero component and responsive Hero typography tokens.
+- Updated dependencies
+  - @coloradodigitalservice/colorado-design-tokens@0.2.12
+
 ## 0.2.11
 
 ### Patch Changes

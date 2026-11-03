@@ -1,5 +1,11 @@
 # @coloradodigitalservice/colorado-design-tokens
 
+## 0.2.12
+
+### Patch Changes
+
+- Add Hero component and responsive Hero typography tokens.
+
 ## 0.2.11
 
 No changes in this release.
