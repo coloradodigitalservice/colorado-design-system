@@ -14,6 +14,7 @@ import LinkExamples from '../components/LinkExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
 import IconCatalog from '../components/IconCatalog.astro';
 import IconExamples from '../components/IconExamples.astro';
+import HeroExamples from '../components/HeroExamples.astro';
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs');
@@ -55,7 +56,8 @@ const { Content } = await render(entry);
     {entry.id === 'radio' && <RadioExamples />}
     {entry.id === 'checkbox' && <CheckboxExamples />}
     {entry.id === 'link' && <LinkExamples />}
-    {(entry.id === 'radio' ||
+    {(entry.id === 'hero' ||
+      entry.id === 'radio' ||
       entry.id === 'site-alert' ||
       entry.id === 'accordion' ||
       entry.id === 'breadcrumbs' ||
@@ -71,6 +73,7 @@ const { Content } = await render(entry);
       </>
     )}
     <Content />
+    {entry.id === 'hero' && <HeroExamples />}
     {entry.id === 'select' && <SelectExamples />}
     {entry.id === 'in-page-alert' && <InPageAlertExamples mode="remaining" />}
     {entry.id === 'button' && <ButtonExamples mode="remaining" />}
