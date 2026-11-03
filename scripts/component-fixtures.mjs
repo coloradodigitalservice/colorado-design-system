@@ -207,6 +207,19 @@ export function loadComponents(root = packageRoot) {
         ]),
       );
       const fixture = Object.values(fixtures).join('\n');
+      const aliases = metadata.fixtureAliases ?? {};
+      if (!aliases || typeof aliases !== 'object' || Array.isArray(aliases))
+        throw new Error(`${name}: invalid fixture aliases`);
+      for (const [alias, target] of Object.entries(aliases)) {
+        if (
+          !new RegExp(`^${name}-[a-z]+(?:-[a-z]+)*$`).test(alias) ||
+          Object.hasOwn(fixtures, alias) ||
+          typeof target !== 'string' ||
+          !Object.hasOwn(fixtures, target)
+        )
+          throw new Error(`${name}: invalid fixture alias ${alias}`);
+        fixtures[alias] = fixtures[target];
+      }
       if (metadata.name !== name)
         throw new Error(`${name}: metadata name differs from directory`);
       const manifest = JSON.parse(

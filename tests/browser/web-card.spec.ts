@@ -45,6 +45,12 @@ test('separate card guides show their own variants and accessible destinations',
 }) => {
   await page.goto('/card-default/');
   await expect(
+    page.getByRole('heading', { name: 'When not to use' }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole('link', { name: 'Default Card design in Figma' }),
+  ).toHaveAttribute('href', /node-id=1624-459/);
+  await expect(
     page.locator('[data-cods-card-fixture="default"]'),
   ).toBeVisible();
   await expect(page.locator('[data-cods-card-fixture="icon"]')).toHaveCount(0);
@@ -65,14 +71,36 @@ test('separate card guides show their own variants and accessible destinations',
   await expect(card).toHaveCSS('border-top-color', 'rgb(217, 232, 246)');
 
   await page.goto('/card-icon/');
+  await page.mouse.move(0, 0);
+  await expect(
+    page.getByRole('heading', { name: 'When not to use' }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole('link', { name: 'Icon Card design in Figma' }),
+  ).toHaveAttribute('href', /node-id=2246-770/);
   await expect(page.locator('[data-cods-card-fixture="default"]')).toHaveCount(
     0,
   );
   const icon = page.locator('[data-cods-card-fixture="icon"] .cods-card__link');
   await expect(icon).toHaveAccessibleName('Learn about TABOR refund');
   await expect(icon.locator('.cods-card__icon svg')).toHaveCSS('width', '24px');
+  await expect(icon).toHaveCSS('border-top-width', '1px');
+  await expect(icon).toHaveCSS('border-top-color', 'rgb(235, 236, 237)');
+  const title = icon.locator('.cods-card__icon-title');
+  const iconArea = icon.locator('.cods-card__icon');
+  const textPosition = () =>
+    title.evaluate((element) => {
+      const range = document.createRange();
+      range.selectNodeContents(element);
+      return range.getBoundingClientRect().x;
+    });
+  const before = await textPosition();
+  const iconBox = await iconArea.boundingBox();
+  expect(before - (iconBox!.x + iconBox!.width)).toBe(16);
   await icon.hover();
   await expect(icon).toHaveCSS('border-top-width', '2px');
+  await expect(icon).toHaveCSS('border-top-color', 'rgb(217, 232, 246)');
+  expect(await textPosition()).toBe(before);
   await expect(icon.locator('.cods-card__icon')).toHaveCSS(
     'background-color',
     'rgb(217, 232, 246)',
@@ -95,4 +123,44 @@ test('flag card changes from side-by-side to stacked', async ({ page }) => {
   expect((await media.boundingBox())!.y).toBeLessThan(
     (await heading.boundingBox())!.y,
   );
+});
+
+test('a flag card responds to its container at desktop viewport width', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/card-default/');
+  const flag = page.locator('[data-cods-card-fixture="flag"] .cods-card');
+  const media = flag.locator('.cods-card__media');
+  const img = flag.locator('.cods-card__image');
+  const heading = flag.locator('.cods-card__header');
+  await flag.evaluate((el: HTMLElement) => {
+    el.style.width = '300px';
+  });
+  expect((await media.boundingBox())!.y).toBeLessThan(
+    (await heading.boundingBox())!.y,
+  );
+  expect((await heading.boundingBox())!.width).toBeGreaterThan(250);
+  await flag.evaluate((el: HTMLElement) => {
+    el.style.width = '460px';
+  });
+  const mediaBox = (await media.boundingBox())!;
+  const imageBox = (await img.boundingBox())!;
+  expect(mediaBox.x).toBeLessThan((await heading.boundingBox())!.x);
+  expect(imageBox.width).toBeCloseTo(mediaBox.width, 0);
+  expect(imageBox.height).toBeCloseTo(mediaBox.height, 0);
+  expect(imageBox.height).toBeGreaterThan(0);
+});
+
+test('cards with individual links do not show whole-card hover', async ({
+  page,
+}) => {
+  await page.goto('/card-default/');
+  const unlinked = page.locator(
+    '[data-cods-card-fixture="internal-links"] .cods-card__container',
+  );
+  await expect(unlinked).toHaveCSS('border-top-width', '1px');
+  await unlinked.getByRole('link', { name: 'application guide' }).hover();
+  await expect(unlinked).toHaveCSS('border-top-width', '1px');
+  await expect(unlinked).toHaveCSS('border-top-color', 'rgb(235, 236, 237)');
 });

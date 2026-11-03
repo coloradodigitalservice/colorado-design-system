@@ -2,6 +2,7 @@
 import metadata from '@coloradodigitalservice/colorado-design-system/metadata/card.json';
 import examples from '@coloradodigitalservice/colorado-design-system/examples/card.json';
 import fixture from '@coloradodigitalservice/colorado-design-system/fixtures/card.html?raw';
+import defaultFixture from '@coloradodigitalservice/colorado-design-system/fixtures/card-default.html?raw';
 import iconFixture from '@coloradodigitalservice/colorado-design-system/fixtures/card-icon.html?raw';
 import spriteUrl from '@coloradodigitalservice/colorado-design-system/icons/sprite.svg?url';
 import CodeExamples from './CodeExamples.astro';
@@ -12,7 +13,7 @@ const selected =
     ? fixture
     : variant === 'icon'
       ? iconFixture
-      : fixture.replace(iconFixture, '');
+      : defaultFixture;
 const selectedExamples = examples.examples.filter(
   (example) =>
     variant === 'all' ||

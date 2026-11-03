@@ -94,5 +94,8 @@
     }
   ],
   "inventoryNames": ["Card - Default", "Card - Icon"],
-  "fixtureVariants": ["card-icon"]
+  "fixtureVariants": ["card-icon"],
+  "fixtureAliases": {
+    "card-default": "card"
+  }
 }
