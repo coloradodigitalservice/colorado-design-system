@@ -7,6 +7,7 @@ import SiteAlertExamples from '../components/SiteAlertExamples.astro';
 import CheckboxExamples from '../components/CheckboxExamples.astro';
 import ButtonExamples from '../components/ButtonExamples.astro';
 import AccordionExamples from '../components/AccordionExamples.astro';
+import BreadcrumbsExamples from '../components/BreadcrumbsExamples.astro';
 import SelectExamples from '../components/SelectExamples.astro';
 import RadioExamples from '../components/RadioExamples.astro';
 import LinkExamples from '../components/LinkExamples.astro';
@@ -14,6 +15,7 @@ import ComponentSummary from '../components/ComponentSummary.astro';
 import IconCatalog from '../components/IconCatalog.astro';
 import IconExamples from '../components/IconExamples.astro';
 import InputExamples from '../components/InputExamples.astro';
+import HeroExamples from '../components/HeroExamples.astro';
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs');
@@ -51,6 +53,7 @@ const { Content } = await render(entry);
         <AccordionExamples />
       </>
     )}
+    {entry.id === 'breadcrumbs' && <BreadcrumbsExamples />}
     {entry.id === 'radio' && <RadioExamples />}
     {entry.id === 'input' && (
       <>
@@ -62,9 +65,11 @@ const { Content } = await render(entry);
     )}
     {entry.id === 'checkbox' && <CheckboxExamples />}
     {entry.id === 'link' && <LinkExamples />}
-    {(entry.id === 'radio' ||
+    {(entry.id === 'hero' ||
+      entry.id === 'radio' ||
       entry.id === 'site-alert' ||
       entry.id === 'accordion' ||
+      entry.id === 'breadcrumbs' ||
       entry.id === 'link' ||
       entry.id === 'checkbox' ||
       entry.id === 'select') && (
@@ -77,6 +82,7 @@ const { Content } = await render(entry);
       </>
     )}
     <Content />
+    {entry.id === 'hero' && <HeroExamples />}
     {entry.id === 'select' && <SelectExamples />}
     {entry.id === 'in-page-alert' && <InPageAlertExamples mode="remaining" />}
     {entry.id === 'button' && <ButtonExamples mode="remaining" />}

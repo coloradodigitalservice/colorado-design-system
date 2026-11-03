@@ -36,3 +36,6 @@ export const Required: Story = { render: () => state('required') };
 export const LongContent: Story = { render: () => state('long-content') };
 export const RightToLeft: Story = { render: () => state('rtl') };
 export const Icons: Story = { render: () => state('icons') };
+export const Small: Story = { render: () => state('small') };
+export const Large: Story = { render: () => state('large') };
+export const Hover: Story = { render: () => state('hover') };

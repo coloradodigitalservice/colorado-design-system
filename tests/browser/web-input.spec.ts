@@ -18,9 +18,9 @@ test('native input states, labels, descriptions, focus, and reflow', async ({
     ).toBeVisible();
   }
   const states = page.locator('[data-cods-fixture-state]');
-  await expect(states).toHaveCount(13);
+  await expect(states).toHaveCount(16);
   for (const state of await states.all()) {
-    const input = state.locator('input');
+    const input = state.locator('input, textarea');
     await expect(input).toHaveCount(1);
     const id = await input.getAttribute('id');
     await expect(state.locator('label')).toHaveAttribute('for', id!);
@@ -55,13 +55,13 @@ test('native input states, labels, descriptions, focus, and reflow', async ({
   await expect(readonly).toHaveValue('123456');
   const error = page.locator('#input-error');
   await expect(error).toHaveAttribute('aria-invalid', 'true');
-  await expect(error).toHaveAttribute('autocomplete', 'email');
+  await expect(error).toHaveAttribute('autocomplete', 'cc-number');
   await expect(page.locator('#input-success')).toHaveAttribute(
     'autocomplete',
-    'email',
+    'cc-number',
   );
   await expect(error).toHaveAccessibleDescription(
-    'Enter an address such as name@example.com. Error: Enter a valid email address.',
+    'Enter the number on your card. Error: Enter a valid card number.',
   );
   const required = page.locator('#input-required');
   await expect(required).toHaveAttribute('required', '');
@@ -85,7 +85,9 @@ test('native input states, labels, descriptions, focus, and reflow', async ({
   await expect(icons).toHaveCount(2);
   for (const icon of await icons.all())
     await expect(icon).toHaveAttribute('aria-hidden', 'true');
-  const group = page.locator('.cods-input__group');
+  const group = page.locator(
+    '[data-cods-fixture-state="icons"] .cods-input__group',
+  );
   await group.evaluate((el) => {
     el.setAttribute('dir', 'rtl');
   });
@@ -99,6 +101,61 @@ test('native input states, labels, descriptions, focus, and reflow', async ({
     return { prefix: prefix.x, suffix: suffix.x };
   });
   expect(iconPositions.prefix).toBeGreaterThan(iconPositions.suffix);
+  for (const [id, height] of [
+    ['small', 32],
+    ['default', 40],
+    ['large', 140],
+  ] as const) {
+    expect(
+      await page
+        .locator(`#input-${id}`)
+        .evaluate((el) => el.getBoundingClientRect().height),
+    ).toBe(height);
+  }
+  for (const id of ['error', 'success', 'icons']) {
+    const field = page.locator(`#input-${id}`);
+    const feedback = page.locator(
+      `#input-${id}-${id === 'icons' ? 'success' : 'feedback'}`,
+    );
+    expect(
+      await field.evaluate(
+        (el, feedbackId) =>
+          Boolean(
+            el.compareDocumentPosition(document.getElementById(feedbackId)!) &
+            Node.DOCUMENT_POSITION_FOLLOWING,
+          ),
+        (await feedback.getAttribute('id'))!,
+      ),
+    ).toBe(true);
+    await expect(field).toHaveAttribute(
+      'aria-describedby',
+      new RegExp((await feedback.getAttribute('id'))!),
+    );
+  }
+  await expect(
+    page.locator('[data-cods-fixture-state="error"] .cods-input__icon--prefix'),
+  ).toHaveCount(1);
+  await expect(
+    page.locator('[data-cods-fixture-state="error"] .cods-input__icon--suffix'),
+  ).toHaveCount(0);
+  await expect(
+    page.locator(
+      '[data-cods-fixture-state="success"] .cods-input__icon--suffix',
+    ),
+  ).toHaveCount(1);
+  await expect(
+    page.locator(
+      '[data-cods-fixture-state="success"] .cods-input__icon--prefix',
+    ),
+  ).toHaveCount(0);
+  const hover = page.locator('#input-hover');
+  const beforeHover = await hover.evaluate(
+    (el) => getComputedStyle(el).borderColor,
+  );
+  await hover.hover();
+  expect(
+    await hover.evaluate((el) => getComputedStyle(el).borderColor),
+  ).not.toBe(beforeHover);
   await expectAccessible(page, testInfo);
   await page.setViewportSize({ width: 320, height: 800 });
   expect(

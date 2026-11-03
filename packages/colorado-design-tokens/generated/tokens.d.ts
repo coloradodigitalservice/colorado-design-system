@@ -250,6 +250,7 @@ export interface TokenDictionary {
   readonly "font-size-desktop-supporting": string;
   readonly "font-size-desktop-ui": string;
   readonly "font-size-desktop-ui-sm": string;
+  readonly "font-size-hero-mobile-intro": string;
   readonly "font-size-mobile-body": string;
   readonly "font-size-mobile-body-lg": string;
   readonly "font-size-mobile-body-sm": string;
@@ -308,6 +309,7 @@ export interface TokenDictionary {
   readonly "line-height-desktop-supporting": string;
   readonly "line-height-desktop-ui": string;
   readonly "line-height-desktop-ui-sm": string;
+  readonly "line-height-hero-mobile-intro": string;
   readonly "line-height-mobile-body": string;
   readonly "line-height-mobile-body-lg": string;
   readonly "line-height-mobile-body-sm": string;

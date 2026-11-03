@@ -27,7 +27,10 @@
     "required",
     "long-content",
     "rtl",
-    "icons"
+    "icons",
+    "small",
+    "large",
+    "hover"
   ],
   "progressiveEnhancement": "full",
   "localization": "layout-sensitive",
@@ -98,6 +101,22 @@
       "state": "icons",
       "fixtureState": "icons",
       "setup": "none"
+    },
+    {
+      "state": "small",
+      "fixtureState": "small",
+      "setup": "none"
+    },
+    {
+      "state": "large",
+      "fixtureState": "large",
+      "setup": "none"
+    },
+    {
+      "state": "hover",
+      "fixtureState": "hover",
+      "setup": "none",
+      "instructions": "Hover over the input to inspect its hover state."
     }
   ]
 }

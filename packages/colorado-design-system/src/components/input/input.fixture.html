@@ -85,26 +85,44 @@
   <h2>Error</h2>
   <div class="usa-form-group usa-form-group--error cods-input">
     <label class="usa-label cods-input__label" for="input-error"
-      >Email address<span class="cods-input__required"> (required)</span></label
+      >Card number<span class="cods-input__required" aria-hidden="true">
+        *</span
+      ></label
     >
     <span class="usa-hint cods-input__hint" id="input-error-hint"
-      >Enter an address such as name@example.com.</span
+      >Enter the number on your card.</span
     >
+    <div class="usa-input-group cods-input__group">
+      <span
+        class="usa-input-prefix cods-input__icon cods-input__icon--prefix"
+        aria-hidden="true"
+        ><svg
+          class="cods-icon cods-icon--small"
+          aria-hidden="true"
+          focusable="false"
+          width="24"
+          height="24"
+          viewBox="0 0 256 256"
+        >
+          <use href="/icons/sprite.svg#credit-card"></use></svg
+      ></span>
+      <input
+        class="usa-input usa-input--error cods-input__control cods-input__control--prefix"
+        id="input-error"
+        name="input-error"
+        type="text"
+        inputmode="numeric"
+        autocomplete="cc-number"
+        aria-describedby="input-error-hint input-error-feedback"
+        required
+        aria-invalid="true"
+      />
+    </div>
     <span
       class="usa-error-message cods-input__feedback cods-input__feedback--error"
       id="input-error-feedback"
-      >Error: Enter a valid email address.</span
+      >Error: Enter a valid card number.</span
     >
-    <input
-      class="usa-input usa-input--error cods-input__control"
-      id="input-error"
-      name="input-error"
-      type="email"
-      autocomplete="email"
-      aria-describedby="input-error-hint input-error-feedback"
-      required
-      aria-invalid="true"
-    />
   </div>
 </div>
 
@@ -112,23 +130,39 @@
   <h2>Success</h2>
   <div class="usa-form-group cods-input">
     <label class="usa-label cods-input__label" for="input-success"
-      >Email address</label
+      >Card number</label
     >
 
+    <div class="usa-input-group cods-input__group">
+      <input
+        class="usa-input usa-input--success cods-input__control cods-input__control--success cods-input__control--suffix"
+        id="input-success"
+        name="input-success"
+        type="text"
+        inputmode="numeric"
+        autocomplete="cc-number"
+        aria-describedby="input-success-feedback"
+        value="4242424242424242"
+      />
+      <span
+        class="usa-input-suffix cods-input__icon cods-input__icon--suffix"
+        aria-hidden="true"
+        ><svg
+          class="cods-icon cods-icon--small"
+          aria-hidden="true"
+          focusable="false"
+          width="24"
+          height="24"
+          viewBox="0 0 256 256"
+        >
+          <use href="/icons/sprite.svg#check"></use></svg
+      ></span>
+    </div>
     <span
       class="usa-error-message cods-input__feedback cods-input__feedback--success"
       id="input-success-feedback"
-      >Success: Email address is valid.</span
+      >Success: Card number is valid.</span
     >
-    <input
-      class="usa-input usa-input--success cods-input__control cods-input__control--success"
-      id="input-success"
-      name="input-success"
-      type="email"
-      autocomplete="email"
-      aria-describedby="input-success-feedback"
-      value="name@example.com"
-    />
   </div>
 </div>
 
@@ -191,7 +225,9 @@
   <h2>Required</h2>
   <div class="usa-form-group cods-input">
     <label class="usa-label cods-input__label" for="input-required"
-      >Full name<span class="cods-input__required"> (required)</span></label
+      >Full name<span class="cods-input__required" aria-hidden="true">
+        *</span
+      ></label
     >
 
     <input
@@ -258,15 +294,10 @@
   <h2>Decorative icons</h2>
   <div class="usa-form-group cods-input">
     <label class="usa-label cods-input__label" for="input-icons"
-      >Reference number</label
+      >Card number</label
     >
     <span class="usa-hint cods-input__hint" id="input-icons-hint"
-      >Enter the reference number from your notice.</span
-    >
-    <span
-      class="cods-input__feedback cods-input__feedback--success"
-      id="input-icons-success"
-      >Success: Reference number verified.</span
+      >Enter the card number.</span
     >
     <div class="usa-input-group cods-input__group">
       <span
@@ -280,7 +311,7 @@
           height="24"
           viewBox="0 0 256 256"
         >
-          <use href="/icons/sprite.svg#file"></use></svg
+          <use href="/icons/sprite.svg#credit-card"></use></svg
       ></span>
       <input
         class="usa-input usa-input--success cods-input__control cods-input__control--icons cods-input__control--success"
@@ -304,5 +335,52 @@
           <use href="/icons/sprite.svg#check"></use></svg
       ></span>
     </div>
+    <span
+      class="cods-input__feedback cods-input__feedback--success"
+      id="input-icons-success"
+      >Success: Card number verified.</span
+    >
+  </div>
+</div>
+
+<div data-cods-input-fixture="small" data-cods-fixture-state="small">
+  <h2>Small</h2>
+  <div class="usa-form-group cods-input">
+    <label class="usa-label cods-input__label" for="input-small"
+      >Small input</label
+    >
+    <input
+      class="usa-input cods-input__control cods-input__control--small"
+      id="input-small"
+      name="input-small"
+      type="text"
+    />
+  </div>
+</div>
+<div data-cods-input-fixture="large" data-cods-fixture-state="large">
+  <h2>Large</h2>
+  <div class="usa-form-group cods-input">
+    <label class="usa-label cods-input__label" for="input-large"
+      >Additional details</label
+    >
+    <textarea
+      class="usa-textarea cods-input__control cods-input__control--large"
+      id="input-large"
+      name="input-large"
+    ></textarea>
+  </div>
+</div>
+<div data-cods-input-fixture="hover" data-cods-fixture-state="hover">
+  <h2>Hover</h2>
+  <div class="usa-form-group cods-input">
+    <label class="usa-label cods-input__label" for="input-hover"
+      >Hover over this input</label
+    >
+    <input
+      class="usa-input cods-input__control"
+      id="input-hover"
+      name="input-hover"
+      type="text"
+    />
   </div>
 </div>
