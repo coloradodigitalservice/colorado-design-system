@@ -155,3 +155,5 @@ no failing pale-border ratio is reclassified as passing.
 ### Divider border
 
 `border-divider-width` is 1px, observed in the [Divider design](https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=1527-636) on 2026-10-29. It is proposed for design and accessibility review. Both variants use `color-border-default`; the item divider uses `space-xs` vertically and `space-md` horizontally.
+
+Hero mobile introduction uses `font.size-hero-mobile-intro` (20px) and `line-height.hero-mobile-intro` (28px); these differ from the existing mobile body large tokens. Source: Figma Hero node 5506:6701, observed 2026-11-02; no immutable library version available. Design and accessibility review are pending.

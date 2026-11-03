@@ -251,6 +251,7 @@
   --cods-font-size-desktop-supporting: 16px;
   --cods-font-size-desktop-ui: 16px;
   --cods-font-size-desktop-ui-sm: 14px;
+  --cods-font-size-hero-mobile-intro: 20px;
   --cods-font-size-mobile-body: 16px;
   --cods-font-size-mobile-body-lg: 24px;
   --cods-font-size-mobile-body-sm: 13px;
@@ -309,6 +310,7 @@
   --cods-line-height-desktop-supporting: 16px;
   --cods-line-height-desktop-ui: 16px;
   --cods-line-height-desktop-ui-sm: 14px;
+  --cods-line-height-hero-mobile-intro: 28px;
   --cods-line-height-mobile-body: 24px;
   --cods-line-height-mobile-body-lg: 30px;
   --cods-line-height-mobile-body-sm: 18px;

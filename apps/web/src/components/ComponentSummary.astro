@@ -2,6 +2,7 @@
 import inPageAlert from '@coloradodigitalservice/colorado-design-system/metadata/in-page-alert.json';
 import siteAlert from '@coloradodigitalservice/colorado-design-system/metadata/site-alert.json';
 import breadcrumbs from '@coloradodigitalservice/colorado-design-system/metadata/breadcrumbs.json';
+import hero from '@coloradodigitalservice/colorado-design-system/metadata/hero.json';
 import select from '@coloradodigitalservice/colorado-design-system/metadata/select.json';
 import divider from '@coloradodigitalservice/colorado-design-system/metadata/divider.json';
 import accordion from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
@@ -20,7 +21,8 @@ interface Props {
     | 'radio'
     | 'checkbox'
     | 'select'
-    | 'divider';
+    | 'divider'
+    | 'hero';
   figma?: string;
 }
 
@@ -34,6 +36,7 @@ const metadata = {
   checkbox,
   select,
   divider,
+  hero,
 }[Astro.props.component];
 const { figma } = Astro.props;
 const repository =

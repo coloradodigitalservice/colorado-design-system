@@ -1,0 +1,61 @@
+---
+import examples from '@coloradodigitalservice/colorado-design-system/examples/hero.json';
+import { version } from '@coloradodigitalservice/colorado-design-system/package.json';
+import '@coloradodigitalservice/colorado-design-tokens/tokens.css';
+import '@coloradodigitalservice/colorado-design-system/styles.css';
+import '../styles/site.css';
+
+const labels: Record<string, string> = {
+  default: 'Light banner',
+  'with-image': 'Light image Hero',
+  'dark-image': 'Dark image Hero',
+  'dark-banner': 'Dark banner',
+};
+const preview = examples.examples.filter((example) => example.state in labels);
+const base = import.meta.env.BASE_URL;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Full-width Hero preview | Colorado Design System</title>
+  </head>
+  <body>
+    <a class="cods-docs-skip-link" href="#main-content">
+      Skip to main content
+    </a>
+    <header class="cods-docs-header">
+      <nav class="cods-docs-container" aria-label="Documentation">
+        <a href={`${base}hero/`}>Back to Hero documentation</a>
+      </nav>
+    </header>
+    <main id="main-content" tabindex="-1">
+      <div class="cods-docs-container">
+        <h1>Full-width Hero preview</h1>
+        <p>Resize the browser to compare the image and banner layouts.</p>
+      </div>
+      {preview.map((example) => (
+        <section aria-label={labels[example.state]}>
+          <div class="cods-docs-container">
+            <h2>{labels[example.state]}</h2>
+          </div>
+          <div
+            set:html={example.html.replaceAll(
+              '/images/hero-example-',
+              `${base}images/hero-example-`,
+            )}
+          />
+        </section>
+      ))}
+    </main>
+    <footer class="cods-docs-footer">
+      <div class="cods-docs-container">
+        Colorado Design System documentation, development release{' '}
+        <span data-cods-release={version}>{version}</span>. Not a supported
+        release.
+      </div>
+    </footer>
+  </body>
+</html>

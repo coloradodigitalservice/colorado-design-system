@@ -1141,6 +1141,19 @@
           "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Typography; family and weight reuse the existing role; observed 2026-10-08; proposed for design review"
         }
       }
+    },
+    "size-hero-mobile-intro": {
+      "$type": "dimension",
+      "$value": {
+        "value": 20,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Hero mobile introduction font",
+          "location": "Figma Hero mobile node 5506:6701, observed 2026-11-02; design and accessibility review pending"
+        }
+      }
     }
   },
   "line-height": {
@@ -1479,6 +1492,19 @@
         "org.colorado.source": {
           "name": "line height / supporting / Mobile",
           "location": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System / Responsive Typography; observed 2026-10-08; proposed for design review"
+        }
+      }
+    },
+    "hero-mobile-intro": {
+      "$type": "dimension",
+      "$value": {
+        "value": 28,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Hero mobile introduction line-height",
+          "location": "Figma Hero mobile node 5506:6701, observed 2026-11-02; design and accessibility review pending"
         }
       }
     }

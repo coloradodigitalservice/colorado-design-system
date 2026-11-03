@@ -4,7 +4,7 @@
 
 ### Patch Changes
 
-- Add experimental Section and Item Dividers and a divider line-width token.
+- Add Hero component and responsive Hero typography tokens.
 - Updated dependencies
   - @coloradodigitalservice/colorado-design-tokens@0.2.12
 
