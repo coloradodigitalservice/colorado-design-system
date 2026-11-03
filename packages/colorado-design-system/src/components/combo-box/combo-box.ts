@@ -13,6 +13,9 @@ interface Instance {
   onChange: (event: Event) => void;
   onInput: () => void;
   onReset: (event: Event) => void;
+  onFocusOutCapture: (event: FocusEvent) => void;
+  onFocusOut: () => void;
+  onKeyDown: (event: KeyboardEvent) => void;
   decorate: () => void;
   form: HTMLFormElement | null;
 }
@@ -71,6 +74,7 @@ export function init(root: HTMLElement): void {
     return;
   }
   let currentValue = select.value;
+  let pendingBlur: string | undefined;
   const instance: Instance = {
     select,
     label,
@@ -81,6 +85,21 @@ export function init(root: HTMLElement): void {
     form: select.form,
     decorate: () => {
       let previousGroup = '';
+      root
+        .querySelectorAll('[data-cods-combo-box-heading]')
+        .forEach((heading) => heading.remove());
+      const input = root.querySelector<HTMLInputElement>(
+        '.usa-combo-box__input',
+      );
+      const active = input?.getAttribute('aria-activedescendant');
+      if (active && !root.querySelector(`#${CSS.escape(active)}`))
+        input?.removeAttribute('aria-activedescendant');
+      root
+        .querySelector('.usa-combo-box__list-option--no-results')
+        ?.setAttribute('role', 'option');
+      root
+        .querySelector('.usa-combo-box__list-option--no-results')
+        ?.setAttribute('aria-disabled', 'true');
       const options = new Map(
         Array.from(select.options, (option) => [option.value, option]),
       );
@@ -94,17 +113,89 @@ export function init(root: HTMLElement): void {
             : '';
         if (group)
           item.setAttribute('aria-label', `${group}: ${option?.text ?? ''}`);
-        if (group && group !== previousGroup)
-          item.dataset.codsComboBoxGroup = group;
-        else delete item.dataset.codsComboBoxGroup;
+        if (group && group !== previousGroup) {
+          const heading = document.createElement('li');
+          heading.dataset.codsComboBoxHeading = '';
+          heading.setAttribute('role', 'presentation');
+          heading.textContent = group;
+          item.before(heading);
+        }
         previousGroup = group;
       }
+    },
+    onFocusOutCapture: (event) => {
+      if (
+        event.relatedTarget instanceof Node &&
+        root.contains(event.relatedTarget)
+      )
+        return;
+      const input = root.querySelector<HTMLInputElement>(
+        '.usa-combo-box__input',
+      )!;
+      const selectedText = select.value
+        ? (select.selectedOptions[0]?.text ?? '')
+        : '';
+      pendingBlur = input.value !== selectedText ? input.value : undefined;
+    },
+    onFocusOut: () => {
+      if (pendingBlur === undefined) return;
+      const input = root.querySelector<HTMLInputElement>(
+        '.usa-combo-box__input',
+      )!;
+      input.value = pendingBlur;
+      pendingBlur = undefined;
+      root.classList.remove('usa-combo-box--pristine');
+      instance.onInput();
+    },
+    onKeyDown: (event) => {
+      const input = root.querySelector<HTMLInputElement>(
+        '.usa-combo-box__input',
+      )!;
+      if (
+        event.target !== input ||
+        !['ArrowDown', 'ArrowUp', 'Enter'].includes(event.key)
+      )
+        return;
+      const list = root.querySelector<HTMLElement>('.usa-combo-box__list')!;
+      if (event.key === 'Enter') {
+        const active = input.getAttribute('aria-activedescendant');
+        const option = active ? document.getElementById(active) : null;
+        if (!list.hidden && option && list.contains(option)) {
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          option.click();
+        }
+        return;
+      }
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      if (list.hidden) uswdsComboBox.displayList(root);
+      instance.decorate();
+      const options = Array.from(
+        list.querySelectorAll<HTMLElement>('.usa-combo-box__list-option'),
+      );
+      if (!options.length) return;
+      const index = options.findIndex(
+        (option) => option.id === input.getAttribute('aria-activedescendant'),
+      );
+      const next =
+        event.key === 'ArrowDown'
+          ? Math.min(index + 1, options.length - 1)
+          : Math.max(index - 1, 0);
+      options.forEach((option) =>
+        option.classList.remove('usa-combo-box__list-option--focused'),
+      );
+      const option = options[next]!;
+      option.classList.add('usa-combo-box__list-option--focused');
+      input.setAttribute('aria-activedescendant', option.id);
+      option.scrollIntoView?.({ block: 'nearest' });
     },
     onInput: () => {
       const input = root.querySelector<HTMLInputElement>(
         '.usa-combo-box__input',
       );
       if (!input) return;
+      input.removeAttribute('aria-activedescendant');
       const selectedText = select.value
         ? (select.selectedOptions[0]?.text ?? '')
         : '';
@@ -175,6 +266,9 @@ export function init(root: HTMLElement): void {
   if (instance.selectAttributes.some(([name]) => name === 'disabled'))
     select.disabled = true;
   root.addEventListener('input', instance.onInput);
+  root.addEventListener('focusout', instance.onFocusOutCapture, true);
+  root.addEventListener('focusout', instance.onFocusOut);
+  root.addEventListener('keydown', instance.onKeyDown, true);
   for (const type of ['input', 'click', 'keydown'])
     root.addEventListener(type, instance.decorate);
   root.addEventListener('change', instance.onChange);
@@ -193,6 +287,9 @@ export function destroy(root: HTMLElement): void {
   const instance = instances.get(root);
   if (!instance) return;
   root.removeEventListener('input', instance.onInput);
+  root.removeEventListener('focusout', instance.onFocusOutCapture, true);
+  root.removeEventListener('focusout', instance.onFocusOut);
+  root.removeEventListener('keydown', instance.onKeyDown, true);
   for (const type of ['input', 'click', 'keydown'])
     root.removeEventListener(type, instance.decorate);
   root.removeEventListener('change', instance.onChange);

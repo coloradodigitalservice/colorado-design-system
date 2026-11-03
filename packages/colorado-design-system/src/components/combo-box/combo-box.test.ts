@@ -18,7 +18,7 @@ afterEach(() => {
 describe('combo box lifecycle', () => {
   it('leaves a labeled native select without JavaScript', () => {
     expect(document.querySelector('label[for="combo-year"]')).not.toBeNull();
-    expect(root().querySelector('select')!.options.length).toBe(4);
+    expect(root().querySelector('select')!.options.length).toBe(16);
   });
   it('enhances once, emits changes, and restores markup on destroy', () => {
     const element = root();
@@ -92,18 +92,19 @@ describe('combo box lifecycle', () => {
       'Renew: Replace license',
       'Apply: Apply',
     ]);
-    expect(items.map((item) => item.dataset.codsComboBoxGroup)).toEqual([
-      'Renew',
-      undefined,
-      'Apply',
-    ]);
+    expect(
+      Array.from(
+        element.querySelectorAll('[data-cods-combo-box-heading]'),
+        (heading) => heading.textContent,
+      ),
+    ).toEqual(['Renew', 'Apply']);
     input.dispatchEvent(
       new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }),
     );
-    items[0].dispatchEvent(
+    input.dispatchEvent(
       new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }),
     );
-    items[1].dispatchEvent(
+    input.dispatchEvent(
       new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }),
     );
     expect(element.querySelector('select')!.value).toBe('replace');

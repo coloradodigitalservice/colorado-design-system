@@ -66,3 +66,115 @@ test('reflows at 320px and keeps focus visible in forced colors', async ({
   await expect(input).toBeFocused();
   await expect(input).toHaveCSS('outline-style', 'solid');
 });
+
+test('uses the designed input height and error icon treatment', async ({
+  page,
+}) => {
+  await page.goto('/combo-box/');
+  const root = page.locator('[data-cods-fixture-state="error"]');
+  const input = root.getByRole('combobox');
+  await expect(input).toHaveCSS('height', '40px');
+  await input.click();
+  await expect(root.getByRole('option', { name: '2026' })).toHaveCSS(
+    'height',
+    '48px',
+  );
+  await root.getByRole('option', { name: '2026' }).hover();
+  await expect(root.getByRole('option', { name: '2026' })).toHaveCSS(
+    'background-color',
+    'rgb(170, 205, 236)',
+  );
+  await expect(
+    root.locator('.usa-combo-box__input-button-separator'),
+  ).toBeHidden();
+  const colors = await root.evaluate((element) => {
+    const box = element.querySelector<HTMLElement>('.cods-combo-box')!;
+    const required = element.querySelector<HTMLElement>(
+      '.cods-combo-box__required',
+    )!;
+    return {
+      icon: getComputedStyle(box, '::before').backgroundColor,
+      required: getComputedStyle(required).color,
+    };
+  });
+  expect(colors.icon).toBe(colors.required);
+});
+
+test('uncommitted text remains invalid after blur and blocks submission', async ({
+  page,
+}) => {
+  await page.goto('/combo-box/');
+  const root = page.locator('[data-cods-fixture-state="error"]');
+  const input = root.getByRole('combobox');
+  await root.locator('form').evaluate((form: HTMLFormElement) => {
+    const button = document.createElement('button');
+    button.type = 'submit';
+    button.textContent = 'Submit';
+    form.append(button);
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      form.dataset.submitted = 'true';
+    });
+  });
+  await input.click();
+  await root.getByRole('option', { name: '2025' }).click();
+  await input.fill('2026');
+  await input.blur();
+  await root.getByRole('button', { name: 'Submit' }).click();
+  await expect(input).toHaveValue('2026');
+  await expect(root.locator('form')).not.toHaveAttribute('data-submitted');
+  expect(
+    await root
+      .locator('form')
+      .evaluate((form: HTMLFormElement) => form.checkValidity()),
+  ).toBe(false);
+  await input.fill('2025');
+  expect(
+    await root
+      .locator('form')
+      .evaluate((form: HTMLFormElement) => form.checkValidity()),
+  ).toBe(true);
+  await input.blur();
+  await root.getByRole('button', { name: 'Submit' }).click();
+  await expect(root.locator('form')).toHaveAttribute('data-submitted', 'true');
+});
+
+test('no results keeps valid list semantics and clears stale active option', async ({
+  page,
+}, testInfo) => {
+  await page.goto('/combo-box/');
+  const root = page.locator('[data-cods-fixture-state="default"]');
+  const input = root.getByRole('combobox');
+  await input.click();
+  await input.press('ArrowDown');
+  await expect(input).toHaveAttribute('aria-activedescendant', /.+/);
+  await input.fill('nothing matches');
+  await expect(input).not.toHaveAttribute('aria-activedescendant');
+  await expect(
+    root.getByRole('option', { name: 'No results found' }),
+  ).toHaveAttribute('aria-disabled', 'true');
+  await expectAccessible(page, testInfo, 'article');
+});
+
+test('typing after arrow navigation filters and Enter selects the matching value', async ({
+  page,
+}) => {
+  await page.goto('/combo-box/');
+  const root = page.locator('[data-cods-fixture-state="default"]');
+  const input = root.getByRole('combobox');
+  await input.click();
+  await input.press('ArrowDown');
+  await expect(input).toBeFocused();
+  await input.pressSequentially('2025');
+  await input.press('Enter');
+  await expect(root.locator('select')).toHaveValue('2025');
+});
+
+test('clicking a group heading does not select an option', async ({ page }) => {
+  await page.goto('/combo-box/');
+  const root = page.locator('[data-cods-fixture-state="grouped"]');
+  await root.getByRole('combobox').click();
+  await root.locator('[data-cods-combo-box-heading]').first().click();
+  await expect(root.locator('select')).toHaveValue('');
+  await expect(root.getByRole('listbox')).toBeVisible();
+});

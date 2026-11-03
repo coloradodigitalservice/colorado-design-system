@@ -48,10 +48,13 @@ test('group labels and validation are preserved', async ({
   const input = group.getByRole('combobox');
   await input.click();
   await expect(
+    group.locator('[data-cods-combo-box-heading]').first(),
+  ).toHaveText('Renew or replace');
+  await expect(
     group.getByRole('option', {
       name: 'Renew or replace: Renew license or ID',
     }),
-  ).toHaveAttribute('data-cods-combo-box-group', 'Renew or replace');
+  ).toBeVisible();
   await input.press('ArrowDown');
   await page.keyboard.press('ArrowDown');
   await page.keyboard.press('Enter');
