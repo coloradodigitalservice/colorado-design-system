@@ -1,0 +1,60 @@
+{
+  "name": "hero",
+  "displayName": "Hero",
+  "maturity": "experimental",
+  "type": "static",
+  "uswdsEquivalent": null,
+  "uswdsVersion": null,
+  "componentType": "B",
+  "owners": {
+    "responsible": "Aten component lead",
+    "accountable": "State technical owner",
+    "consulted": "State design owner, accessibility lead",
+    "informed": "Component contributors, product owner"
+  },
+  "divergenceApproved": false,
+  "divergenceNotes": null,
+  "states": [
+    "default",
+    "with-image",
+    "dark-image",
+    "dark-banner",
+    "without-cta",
+    "long-content"
+  ],
+  "progressiveEnhancement": "full",
+  "localization": "layout-sensitive",
+  "description": "A page introduction with an optional image, breadcrumb, eyebrow, and one call to action.",
+  "examples": [
+    {
+      "state": "default",
+      "fixtureState": "default",
+      "setup": "none"
+    },
+    {
+      "state": "with-image",
+      "fixtureState": "with-image",
+      "setup": "none"
+    },
+    {
+      "state": "dark-image",
+      "fixtureState": "dark-image",
+      "setup": "none"
+    },
+    {
+      "state": "dark-banner",
+      "fixtureState": "dark-banner",
+      "setup": "none"
+    },
+    {
+      "state": "without-cta",
+      "fixtureState": "without-cta",
+      "setup": "none"
+    },
+    {
+      "state": "long-content",
+      "fixtureState": "long-content",
+      "setup": "none"
+    }
+  ]
+}

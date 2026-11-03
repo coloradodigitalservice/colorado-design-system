@@ -34,3 +34,7 @@
 ## Review update: 2026-11-02
 
 The built documentation Card tests passed in Chromium, Firefox, and WebKit. They exercised the separate variant pages, named media-only link, external-link labels, hover borders, responsive flag layout, grid reflow, and an axe scan of the combined page. The built Storybook Card tests passed in Chromium. These automated checks do not complete the human keyboard, zoom, screen-reader, design, or accessibility reviews above. The light resting and hover borders are decorative; the visible focus outline remains separate.
+
+## Review update: 2026-11-03
+
+Built documentation tests passed in Chromium, Firefox, and WebKit for the narrow-container flag layout, full image area, linked and unlinked hover treatments, and Icon Card border and text spacing. These automated checks do not complete human design, keyboard, screen-reader, zoom, or accessibility review.

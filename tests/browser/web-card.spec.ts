@@ -150,6 +150,9 @@ test('a flag card responds to its container at desktop viewport width', async ({
   expect(imageBox.width).toBeCloseTo(mediaBox.width, 0);
   expect(imageBox.height).toBeCloseTo(mediaBox.height, 0);
   expect(imageBox.height).toBeGreaterThan(0);
+  const photo = (await img.locator('img').boundingBox())!;
+  expect(photo.width).toBeCloseTo(mediaBox.width, 0);
+  expect(photo.height).toBeCloseTo(mediaBox.height, 0);
 });
 
 test('cards with individual links do not show whole-card hover', async ({

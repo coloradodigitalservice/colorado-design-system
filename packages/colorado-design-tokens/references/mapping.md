@@ -153,3 +153,5 @@ no failing pale-border ratio is reclassified as passing.
 `control-checkbox-size` (20px) and `control-checkbox-border-width` (2px) reflect the Checkbox control and card frames in Figma (639:10184 and 659:3273), observed 2026-10-27 and proposed for design review.
 
 Card border mappings: `color.border-card-default` aliases gray/10 and `color.border-card-hover` aliases blue/10. The 1px and 2px widths are `border.card-width` and `border.card-hover-width`. Figma nodes 2245:943 and 2246:772 were observed 2026-11-02; an immutable library version was unavailable. Design and accessibility review remain pending. These low-contrast borders are decorative and do not replace the focus indicator.
+
+Hero mobile introduction uses `font.size-hero-mobile-intro` (20px) and `line-height.hero-mobile-intro` (28px); these differ from the existing mobile body large tokens. Source: Figma Hero node 5506:6701, observed 2026-11-02; no immutable library version available. Design and accessibility review are pending.
