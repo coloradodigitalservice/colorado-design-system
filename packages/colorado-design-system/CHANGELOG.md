@@ -1,12 +1,5 @@
 # @coloradodigitalservice/colorado-design-system
 
-## 0.2.11
-
-### Patch Changes
-
-- Add the experimental Input component with documentation and examples.
-- @coloradodigitalservice/colorado-design-tokens@0.2.11
-
 ## 0.2.10
 
 ### Patch Changes
