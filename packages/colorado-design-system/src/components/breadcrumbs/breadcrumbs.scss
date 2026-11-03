@@ -1,0 +1,192 @@
+// Resolve alongside the compiled package CSS, like USWDS's theme image path.
+$separator-path: './icons/caret-right.svg';
+
+@layer cods.components {
+  .cods-breadcrumbs {
+    --cods-breadcrumbs-background: transparent;
+    --cods-breadcrumbs-color: var(--cods-color-text-secondary);
+    --cods-breadcrumbs-link-color: var(
+      --cods-color-text-action-link-standalone
+    );
+    --cods-breadcrumbs-separator-color: var(--cods-color-icon-default);
+    --cods-breadcrumbs-gap: var(--cods-space-2xs);
+
+    padding: var(--cods-space-sm) 0;
+    background: var(--cods-breadcrumbs-background);
+    color: var(--cods-breadcrumbs-color);
+    font-family: var(--cods-font-family-body);
+    font-size: var(--cods-font-size-desktop-ui);
+    font-weight: var(--cods-font-weight-regular);
+    line-height: inherit;
+  }
+
+  .cods-breadcrumbs__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--cods-space-sm) var(--cods-breadcrumbs-gap);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  // Reset USWDS positioning before applying the responsive presentation.
+  .cods-breadcrumbs__item {
+    position: static;
+    display: inline-flex;
+    align-items: flex-start;
+    gap: var(--cods-breadcrumbs-gap);
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    font-weight: inherit;
+  }
+
+  // Empty generated content is decorative; use the shared Phosphor Regular caret.
+  .cods-breadcrumbs__item:not(:last-child)::after {
+    content: '';
+    position: static;
+    display: block;
+    flex: none;
+    width: var(--cods-font-size-desktop-ui);
+    height: 1lh;
+    margin: 0;
+    background: var(--cods-breadcrumbs-separator-color);
+    mask: url($separator-path) center / contain no-repeat;
+  }
+
+  .cods-breadcrumbs__item:dir(rtl)::after {
+    transform: scaleX(-1);
+  }
+
+  .cods-breadcrumbs__link {
+    display: inline;
+    min-width: 0;
+    padding: 0;
+    color: var(--cods-breadcrumbs-link-color);
+    text-indent: 0;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    overflow-wrap: anywhere;
+  }
+
+  .cods-breadcrumbs__link span {
+    text-decoration: none;
+  }
+
+  .cods-breadcrumbs__previous {
+    display: none;
+  }
+
+  .cods-breadcrumbs__link::before {
+    content: none;
+  }
+
+  .cods-breadcrumbs__link:visited {
+    color: var(--cods-color-text-action-link-visited);
+  }
+
+  .cods-breadcrumbs__link:hover {
+    color: var(--cods-color-text-action-link-standalone-hover);
+    text-decoration: none;
+  }
+
+  .cods-breadcrumbs__link:active {
+    color: var(--cods-color-text-action-link-active);
+  }
+
+  .cods-breadcrumbs__link:focus-visible {
+    color: var(--cods-color-text-action-link-inline);
+    outline: var(--cods-focus-ring-offset) solid transparent;
+    outline-offset: var(--cods-focus-ring-offset);
+    border-radius: var(--cods-radius-sm);
+    box-shadow:
+      0 0 0 var(--cods-focus-ring-offset) var(--cods-color-focus-gap),
+      0 0 0 var(--cods-space-2xs) var(--cods-color-bg-action-focus);
+  }
+
+  .cods-breadcrumbs--inverse {
+    --cods-breadcrumbs-background: var(--cods-color-bg-action-primary);
+    --cods-breadcrumbs-color: var(--cods-color-text-action-primary);
+    --cods-breadcrumbs-link-color: var(--cods-color-text-action-primary);
+    --cods-breadcrumbs-separator-color: var(--cods-color-text-action-primary);
+  }
+
+  .cods-breadcrumbs--inverse
+    .cods-breadcrumbs__link:is(:visited, :hover, :active, :focus-visible) {
+    color: var(--cods-color-text-action-primary);
+  }
+
+  @media (width < 40rem) {
+    .cods-breadcrumbs__list:has(.cods-breadcrumbs__link)
+      .cods-breadcrumbs__item:not(:nth-last-child(2)) {
+      display: none;
+    }
+
+    .cods-breadcrumbs__item:nth-last-child(2)::after {
+      content: none;
+    }
+
+    .cods-breadcrumbs__item:nth-last-child(2)::before {
+      content: '';
+      display: block;
+      flex: none;
+      width: var(--cods-font-size-desktop-ui);
+      height: 1lh;
+      background: var(--cods-breadcrumbs-separator-color);
+      mask: url($separator-path) center / contain no-repeat;
+      transform: scaleX(-1);
+    }
+
+    .cods-breadcrumbs__item:nth-last-child(2):dir(rtl)::before {
+      transform: none;
+    }
+
+    .cods-breadcrumbs__previous {
+      display: inline;
+    }
+
+    .cods-breadcrumbs__ancestor {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .cods-breadcrumbs {
+      --cods-breadcrumbs-background: Canvas;
+
+      color: CanvasText;
+    }
+
+    .cods-breadcrumbs__link {
+      color: LinkText;
+    }
+
+    .cods-breadcrumbs__link:visited {
+      color: VisitedText;
+    }
+
+    .cods-breadcrumbs__link:focus-visible,
+    .cods-breadcrumbs--inverse
+      .cods-breadcrumbs__link:is(:visited, :hover, :active, :focus-visible) {
+      color: LinkText;
+      outline-color: Highlight;
+    }
+
+    .cods-breadcrumbs__item:not(:last-child)::after,
+    .cods-breadcrumbs__item:nth-last-child(2)::before {
+      background: CanvasText;
+      forced-color-adjust: none;
+    }
+  }
+}

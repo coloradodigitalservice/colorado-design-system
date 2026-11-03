@@ -21,6 +21,5 @@ function state(name: string) {
 }
 export const AllStates: Story = {};
 export const Default: Story = { render: () => state('default') };
-export const Medium: Story = { render: () => state('medium') };
 export const LongContent: Story = { render: () => state('long-content') };
 export const RightToLeft: Story = { render: () => state('rtl') };

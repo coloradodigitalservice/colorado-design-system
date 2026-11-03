@@ -14,7 +14,7 @@
   },
   "divergenceApproved": false,
   "divergenceNotes": null,
-  "states": ["default", "medium", "long-content", "rtl"],
+  "states": ["default", "long-content", "rtl"],
   "progressiveEnhancement": "full",
   "localization": "layout-sensitive",
   "description": "A semantic unordered list with decorative icons and supporting text.",
@@ -22,11 +22,6 @@
     {
       "state": "default",
       "fixtureState": "default",
-      "setup": "none"
-    },
-    {
-      "state": "medium",
-      "fixtureState": "medium",
       "setup": "none"
     },
     {

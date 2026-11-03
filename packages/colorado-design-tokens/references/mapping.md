@@ -151,3 +151,5 @@ no failing pale-border ratio is reclassified as passing.
 ### Checkbox geometry
 
 `control-checkbox-size` (20px) and `control-checkbox-border-width` (2px) reflect the Checkbox control and card frames in Figma (639:10184 and 659:3273), observed 2026-10-27 and proposed for design review.
+
+Hero mobile introduction uses `font.size-hero-mobile-intro` (20px) and `line-height.hero-mobile-intro` (28px); these differ from the existing mobile body large tokens. Source: Figma Hero node 5506:6701, observed 2026-11-02; no immutable library version available. Design and accessibility review are pending.
