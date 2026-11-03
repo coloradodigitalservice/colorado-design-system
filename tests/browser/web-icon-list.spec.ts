@@ -21,6 +21,7 @@ test('icon lists retain their semantics, decorative icons and responsive layout'
   await expect(examples).toHaveCount(3);
   for (const example of await examples.all()) {
     await expect(example.locator('ul')).toHaveCount(1);
+    await expect(example.locator('ul')).toHaveAttribute('role', 'list');
     for (const icon of await example.locator('li svg').all()) {
       await expect(icon).toHaveAttribute('aria-hidden', 'true');
       await expect(icon).toHaveAttribute('focusable', 'false');
