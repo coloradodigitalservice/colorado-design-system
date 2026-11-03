@@ -6,6 +6,8 @@
 
 **Date:** 2026-10-29
 
+**Updated:** 2026-11-03 (automated test results)
+
 **Related component metadata:** `divider.metadata.json`
 
 ## Keyboard and focus
@@ -22,6 +24,7 @@ N/A — The divider is static and has no interactive or focusable elements. It d
 ## Automated checks
 
 - On 2026-10-29, built-file browser tests passed for the documentation page in Chromium and WebKit, and for Storybook in Chromium. The checks cover separator exposure, line styling, item spacing, and axe. Firefox failed to launch because its browser could not find its profile folder.
+- On 2026-11-03, the [hosted web job](https://github.com/coloradodigitalservice/colorado-design-system/actions/runs/41695657751/job/126125444172) passed the web suite, including Divider, in Chromium, Firefox, and WebKit for PR head `a463d26` (471 tests total). The overall Foundation run failed release readiness. The PR also reports a successful local Firefox run using a temporary-home workaround; the original local profile issue was not verified as repaired.
 
 ## Screen reader verification
 
@@ -46,4 +49,3 @@ N/A — The divider contains no text. Logical margins support either writing dir
 ## Open items
 
 - Human screen-reader, zoom, forced-colors, design, and accessibility-owner review remain open under CDS-68.
-- Run the automated documentation test in Firefox after repairing its Playwright browser environment.
