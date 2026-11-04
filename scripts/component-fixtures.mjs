@@ -91,10 +91,19 @@ export function generateExamples(metadata, fixture) {
   try {
     const document = dom.window.document;
     if (
-      document.querySelector('script, style, iframe') ||
+      document.querySelector('script, style') ||
+      (metadata.name !== 'videos' && document.querySelector('iframe')) ||
       /\{\{|<%/.test(fixture)
     )
       fail('fixture must be plain semantic HTML');
+    for (const frame of document.querySelectorAll('iframe')) {
+      if (
+        !frame.getAttribute('title')?.trim() ||
+        frame.hasAttribute('srcdoc') ||
+        !/^https:\/\//i.test(frame.getAttribute('src') ?? '')
+      )
+        fail('video iframe requires a title, an HTTPS source, and no srcdoc');
+    }
     const ids = [...document.querySelectorAll('[id]')].map(
       (element) => element.id,
     );

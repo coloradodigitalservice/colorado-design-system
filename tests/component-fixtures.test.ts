@@ -188,3 +188,31 @@ describe('Card fixture variants', () => {
     expect(card.fixture).toContain('data-cods-fixture-state="icon"');
   });
 });
+
+describe('video fixture safety', () => {
+  it('requires a titled iframe without inline document content', () => {
+    const videos = components.find((component) => component.name === 'videos')!;
+    expect(() =>
+      generateExamples(
+        videos.metadata,
+        videos.fixture.replace(
+          'title="Big Buck Bunny video example"',
+          'title=""',
+        ),
+      ),
+    ).toThrow('video iframe requires a title');
+    expect(() =>
+      generateExamples(
+        videos.metadata,
+        videos.fixture.replace('<iframe', '<iframe srcdoc="<p>test</p>"'),
+      ),
+    ).toThrow('video iframe requires a title');
+    const other = components.find((component) => component.name === 'tags')!;
+    expect(() =>
+      generateExamples(
+        other.metadata,
+        `${other.fixture}<iframe title="Not allowed"></iframe>`,
+      ),
+    ).toThrow('fixture must be plain semantic HTML');
+  });
+});
