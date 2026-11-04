@@ -1,5 +1,7 @@
 // Generated from reviewed DTCG sources. Do not edit; run pnpm tokens:build.
 $border-accordion-width: 4px;
+$border-card-hover-width: 2px;
+$border-card-width: 1px;
 $border-divider-width: 1px;
 $border-input-validation-width: 2px;
 $border-input-width: 1px;
@@ -39,6 +41,8 @@ $color-border-alert-success: #026f28;
 $color-border-alert-urgent: #b50909;
 $color-border-alert-warning: #ffd100;
 $color-border-bottom: #1b1b1b14;
+$color-border-card-default: #ebeced;
+$color-border-card-hover: #d9e8f6;
 $color-border-default: #c4c5c9;
 $color-border-disabled: #71767a;
 $color-border-form-danger: #b50909;

@@ -665,6 +665,26 @@
           "location": "Figma jQ3EiYqe3uEvFbid5ewc41 node 1447:268; border/subtle aliases color/co-gray/10 (#EBECED); Chrome observation 2026-10-16; component mapping authorized by Eric; shared border-subtle remains unchanged"
         }
       }
+    },
+    "border-card-default": {
+      "$type": "color",
+      "$value": "{color.co-gray-10}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Card / border-card-default",
+          "location": "Figma Colorado Design System card nodes 2245:943 and 2246:772; observed 2026-11-02; design and accessibility review pending"
+        }
+      }
+    },
+    "border-card-hover": {
+      "$type": "color",
+      "$value": "{color.co-blue-10}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Card / border-card-hover",
+          "location": "Figma Colorado Design System card nodes 2245:943 and 2246:772; observed 2026-11-02; design and accessibility review pending"
+        }
+      }
     }
   },
   "component": {

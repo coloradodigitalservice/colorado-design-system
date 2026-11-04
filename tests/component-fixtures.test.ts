@@ -128,6 +128,15 @@ describe('canonical component examples', () => {
     mkdirSync(join(root, 'src/components/shared'));
     writeComponentAssets(root);
     expect(() => checkComponentAssets(root)).not.toThrow();
+    const cardDefault = readFileSync(
+      join(root, 'dist/fixtures/card-default.html'),
+      'utf8',
+    );
+    expect(cardDefault).toContain('data-cods-fixture-state="default"');
+    expect(cardDefault).not.toContain('data-cods-fixture-state="icon"');
+    expect(
+      readFileSync(join(root, 'dist/fixtures/card.html'), 'utf8'),
+    ).toContain('data-cods-fixture-state="icon"');
     const component = components.find(
       (component) => component.name === 'accordion',
     )!;
@@ -162,5 +171,20 @@ describe('canonical component examples', () => {
     delete manifest.exports['./examples/*.json'];
     writeFileSync(join(root, 'package.json'), JSON.stringify(manifest));
     expect(() => checkComponentAssets(root)).toThrow('missing export');
+  });
+});
+
+describe('Card fixture variants', () => {
+  it('keeps icon markup in a separate packaged fixture and combines the canonical examples', () => {
+    const card = components.find((component) => component.name === 'card')!;
+    expect(card.fixtures['card-default']).toBe(card.fixtures.card);
+    expect(card.fixtures['card-default']).not.toContain(
+      'data-cods-fixture-state="icon"',
+    );
+    expect(card.fixtures['card-icon']).toContain(
+      'data-cods-fixture-state="icon"',
+    );
+    expect(card.fixtures.card).not.toContain('data-cods-fixture-state="icon"');
+    expect(card.fixture).toContain('data-cods-fixture-state="icon"');
   });
 });
