@@ -16,7 +16,7 @@ Use a native `video` element with `controls`, a poster, and a `track` of kind `c
 
 ## Embedded video
 
-Give every iframe a descriptive `title` and make sure the chosen provider offers keyboard-accessible controls and accurate captions. Provide a transcript outside the player. The embed example loads a third-party provider and is only a markup demonstration; confirm captions and permissions for the actual video before publishing.
+Give every iframe a descriptive `title` and make sure the chosen provider offers keyboard-accessible controls and accurate captions. Provide a transcript outside the player. The embedded example uses a local stand-in for a third-party player; replace its `src` with the provider’s HTTPS embed URL. Confirm the provider’s accessibility, captions, transcript, privacy practices, and permissions for your video before publishing.
 
 Wrap the player in `cods-videos` for 16:9; add `cods-videos--four-three` for 4:3. The wrapper fills its container; constrain the container as needed. The design is a work in progress, and the proposed expandable transcript treatment needs design and accessibility review.
 
