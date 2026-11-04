@@ -33,7 +33,8 @@
   }
 
   .cods-process-list__number {
-    display: block;
+    // The hidden attribute preserves native markers without CSS; override host resets.
+    display: block !important;
     flex: none;
     width: var(--cods-space-xl);
     height: var(--cods-space-xl);

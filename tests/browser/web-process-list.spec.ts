@@ -141,6 +141,29 @@ test('aligns narrow content, keeps the connector visible, and preserves fallback
   expect(color).toBe(canvasText);
 });
 
+test('keeps step numbers visible with a host hidden reset', async ({
+  page,
+}) => {
+  await page.goto('/process-list/');
+  await page.addStyleTag({ content: '[hidden] { display: none; }' });
+  const list = page.locator('[data-cods-fixture-state="default"] ol');
+  const icons = list.locator(':scope > li > .cods-process-list__number');
+  await expect(icons).toHaveCount(2);
+  for (const icon of await icons.all()) {
+    await expect(icon).toBeVisible();
+    await expect(icon.locator('svg')).toHaveAttribute('aria-hidden', 'true');
+  }
+  await expect(list).toHaveCSS('list-style-type', 'none');
+  await page
+    .locator('style, link[rel=stylesheet]')
+    .evaluateAll((elements) => elements.forEach((element) => element.remove()));
+  await expect(icons.first()).toBeHidden();
+  await expect(list.locator(':scope > li').first()).toHaveCSS(
+    'display',
+    'list-item',
+  );
+});
+
 test('hides decorative numbers without styles', async ({ page }) => {
   await page.goto('/process-list/');
   await page
