@@ -3,6 +3,7 @@ export interface TokenDictionary {
   readonly "border-accordion-width": string;
   readonly "border-card-hover-width": string;
   readonly "border-card-width": string;
+  readonly "border-divider-width": string;
   readonly "color-bg-action-danger": string;
   readonly "color-bg-action-danger-active": string;
   readonly "color-bg-action-danger-hover": string;

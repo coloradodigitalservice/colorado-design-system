@@ -2242,6 +2242,19 @@
           "location": "Figma Colorado Design System card nodes 2245:943 and 2246:772; observed 2026-11-02; design and accessibility review pending"
         }
       }
+    },
+    "divider-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Divider line thickness",
+          "location": "Colorado Design System Figma / Divider (1527:643, 1527:645); observed 2026-10-29; proposed for design review"
+        }
+      }
     }
   },
   "control": {
