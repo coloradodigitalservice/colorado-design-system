@@ -11,6 +11,7 @@ import BreadcrumbsExamples from '../components/BreadcrumbsExamples.astro';
 import SelectExamples from '../components/SelectExamples.astro';
 import RadioExamples from '../components/RadioExamples.astro';
 import LinkExamples from '../components/LinkExamples.astro';
+import DividerExamples from '../components/DividerExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
 import IconCatalog from '../components/IconCatalog.astro';
 import IconExamples from '../components/IconExamples.astro';
@@ -57,6 +58,7 @@ const { Content } = await render(entry);
     {entry.id === 'radio' && <RadioExamples />}
     {entry.id === 'checkbox' && <CheckboxExamples />}
     {entry.id === 'link' && <LinkExamples />}
+    {entry.id === 'divider' && <DividerExamples />}
     {(entry.id === 'hero' ||
       entry.id === 'radio' ||
       entry.id === 'site-alert' ||
@@ -65,6 +67,7 @@ const { Content } = await render(entry);
       entry.id === 'link' ||
       entry.id === 'checkbox' ||
       entry.id === 'select' ||
+      entry.id === 'divider' ||
       entry.id === 'process-list') && (
       <ComponentSummary component={entry.id} figma={entry.data.figma} />
     )}

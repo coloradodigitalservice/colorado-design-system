@@ -5,6 +5,7 @@ import breadcrumbs from '@coloradodigitalservice/colorado-design-system/metadata
 import processList from '@coloradodigitalservice/colorado-design-system/metadata/process-list.json';
 import hero from '@coloradodigitalservice/colorado-design-system/metadata/hero.json';
 import select from '@coloradodigitalservice/colorado-design-system/metadata/select.json';
+import divider from '@coloradodigitalservice/colorado-design-system/metadata/divider.json';
 import accordion from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
 import link from '@coloradodigitalservice/colorado-design-system/metadata/link.json';
 
@@ -21,6 +22,7 @@ interface Props {
     | 'radio'
     | 'checkbox'
     | 'select'
+    | 'divider'
     | 'hero'
     | 'process-list';
   figma?: string;
@@ -35,6 +37,7 @@ const metadata = {
   radio,
   checkbox,
   select,
+  divider,
   hero,
   'process-list': processList,
 }[Astro.props.component];

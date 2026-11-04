@@ -1,5 +1,13 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.13
+
+### Patch Changes
+
+- Add experimental Section and Item Dividers and a divider line-width token.
+- Updated dependencies
+  - @coloradodigitalservice/colorado-design-tokens@0.2.13
+
 ## 0.2.12
 
 ### Patch Changes
