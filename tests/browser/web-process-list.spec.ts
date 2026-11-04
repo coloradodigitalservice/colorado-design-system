@@ -157,11 +157,32 @@ test('keeps step numbers visible with a host hidden reset', async ({
   await page
     .locator('style, link[rel=stylesheet]')
     .evaluateAll((elements) => elements.forEach((element) => element.remove()));
-  await expect(icons.first()).toBeHidden();
+  await expect(icons.first().locator('svg')).toBeHidden();
+  await expect(list).toHaveCSS('list-style-type', 'decimal');
   await expect(list.locator(':scope > li').first()).toHaveCSS(
     'display',
     'list-item',
   );
+});
+
+test('allows a consumer to restore native numbered markers', async ({
+  page,
+}) => {
+  await page.goto('/process-list/');
+  await page.addStyleTag({
+    content: `
+    .cods-process-list { list-style: decimal; padding-inline-start: 2rem; }
+    .cods-process-list__item { display: list-item; }
+    .cods-process-list__number { display: none; }
+    .cods-process-list__item::after { display: none; }
+  `,
+  });
+  const list = page.locator('[data-cods-fixture-state="default"] ol');
+  await expect(list).toHaveCSS('list-style-type', 'decimal');
+  for (const item of await list.locator(':scope > li').all()) {
+    await expect(item).toHaveCSS('display', 'list-item');
+    await expect(item.locator('.cods-process-list__number')).toBeHidden();
+  }
 });
 
 test('hides decorative numbers without styles', async ({ page }) => {
@@ -172,7 +193,7 @@ test('hides decorative numbers without styles', async ({ page }) => {
   const list = page.locator('[data-cods-fixture-state="default"] ol');
   await expect(list.locator(':scope > li')).toHaveCount(2);
   await expect(
-    list.locator(':scope > li > .cods-process-list__number').first(),
+    list.locator(':scope > li > .cods-process-list__number svg').first(),
   ).toBeHidden();
   expect(
     await list
