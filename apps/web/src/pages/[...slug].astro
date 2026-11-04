@@ -16,6 +16,7 @@ import DividerExamples from '../components/DividerExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
 import IconCatalog from '../components/IconCatalog.astro';
 import IconExamples from '../components/IconExamples.astro';
+import IconListExamples from '../components/IconListExamples.astro';
 import HeroExamples from '../components/HeroExamples.astro';
 
 export async function getStaticPaths() {
@@ -59,6 +60,13 @@ const { Content } = await render(entry);
     {entry.id === 'card' && <CardExamples />}
     {entry.id === 'card-default' && <CardExamples variant="default" />}
     {entry.id === 'card-icon' && <CardExamples variant="icon" />}
+    {entry.id === 'icon-list' && (
+      <>
+        <h2>Examples</h2>
+        <IconListExamples />
+        <ComponentSummary component="icon-list" figma={entry.data.figma} />
+      </>
+    )}
     {entry.id === 'checkbox' && <CheckboxExamples />}
     {entry.id === 'link' && <LinkExamples />}
     {entry.id === 'divider' && <DividerExamples />}

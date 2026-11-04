@@ -806,6 +806,8 @@
         "font.size-desktop-h6",
         "font.weight-regular",
         "font.weight-semibold",
+        "icon-size.medium",
+        "icon-size.small",
         "line-height.desktop-body",
         "line-height.desktop-h6",
         "paragraph-space.desktop-body",
@@ -815,8 +817,16 @@
         "space.xs"
       ],
       "componentTokens": [],
-      "implementationTokens": [],
-      "designCoverage": "documented"
+      "implementationTokens": [
+        "font.size-desktop-body",
+        "icon-size.medium",
+        "icon-size.small",
+        "line-height.desktop-body",
+        "space.sm",
+        "space.xs"
+      ],
+      "designCoverage": "documented",
+      "implementationDirectory": "icon-list"
     },
     {
       "name": "Input",
