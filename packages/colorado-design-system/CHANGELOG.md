@@ -1,5 +1,12 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.14
+
+### Patch Changes
+
+- Add the experimental Icon List component with documentation and examples.
+- @coloradodigitalservice/colorado-design-tokens@0.2.14
+
 ## 0.2.13
 
 ### Patch Changes
