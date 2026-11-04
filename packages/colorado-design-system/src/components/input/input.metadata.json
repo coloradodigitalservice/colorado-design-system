@@ -30,6 +30,7 @@
     "icons",
     "small",
     "large",
+    "large-icons",
     "hover"
   ],
   "progressiveEnhancement": "full",
@@ -110,6 +111,11 @@
     {
       "state": "large",
       "fixtureState": "large",
+      "setup": "none"
+    },
+    {
+      "state": "large-icons",
+      "fixtureState": "large-icons",
       "setup": "none"
     },
     {

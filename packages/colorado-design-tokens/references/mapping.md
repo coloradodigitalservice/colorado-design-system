@@ -157,3 +157,7 @@ no failing pale-border ratio is reclassified as passing.
 `border-divider-width` is 1px, observed in the [Divider design](https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=1527-636) on 2026-10-29. It is proposed for design and accessibility review. Both variants use `color-border-default`; the item divider uses `space-xs` vertically and `space-md` horizontally.
 
 Hero mobile introduction uses `font.size-hero-mobile-intro` (20px) and `line-height.hero-mobile-intro` (28px); these differ from the existing mobile body large tokens. Source: Figma Hero node 5506:6701, observed 2026-11-02; no immutable library version available. Design and accessibility review are pending.
+
+### Input borders
+
+`border-input-width` is 1px for default and disabled fields; `border-input-validation-width` is 2px for enabled error and success fields. They reflect the [Input design documentation](https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=72-76). Token, design, and client approval of these values was confirmed on 2026-11-04; no immutable Figma library version is available. This approval does not complete the component's separate accessibility evidence.

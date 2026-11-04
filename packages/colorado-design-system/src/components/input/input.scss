@@ -48,7 +48,7 @@
     min-block-size: calc(var(--cods-space-xl) + var(--cods-space-xs));
     margin: 0;
     padding: 0 var(--cods-space-xs);
-    border: calc(var(--cods-focus-ring-offset) / 2) solid
+    border: var(--cods-border-input-width) solid
       var(--cods-color-border-form-default);
     border-radius: var(--cods-radius-md);
     background: var(--cods-color-surface-form);
@@ -72,6 +72,7 @@
     position: relative;
     display: flex;
     inline-size: 100%;
+    block-size: auto;
     max-inline-size: none;
     margin: 0;
     padding: 0;
@@ -87,6 +88,41 @@
     padding: 0;
     color: var(--cods-color-icon-form-secondary);
     pointer-events: none;
+  }
+
+  .cods-input__group:has(> .cods-input__control--large) > .cods-input__icon {
+    inset-block: calc(var(--cods-space-xs) + var(--cods-border-input-width))
+      auto;
+    block-size: 1lh;
+    font: inherit;
+  }
+
+  .cods-input__group:has(
+      > .cods-input__control--large:is(
+          .cods-input__control--success,
+          [aria-invalid='true']
+        ):not(:disabled)
+    )
+    > .cods-input__icon {
+    inset-block-start: calc(
+      var(--cods-space-xs) + var(--cods-border-input-validation-width)
+    );
+  }
+
+  .cods-input__group:has(> .cods-input__control--success:not(:disabled))
+    > .cods-input__icon {
+    color: var(--cods-color-icon-form-success);
+  }
+
+  .cods-input__group:has(
+      > .cods-input__control[aria-invalid='true']:not(:disabled)
+    )
+    > .cods-input__icon {
+    color: var(--cods-color-icon-form-danger);
+  }
+
+  .cods-input__group:has(> .cods-input__control:disabled) > .cods-input__icon {
+    color: var(--cods-color-icon-form-disabled);
   }
 
   .cods-input__icon--prefix {
@@ -111,8 +147,21 @@
   }
 
   .cods-input__control:hover:not(:disabled, [readonly]) {
-    border-color: var(--cods-color-border-form-hover);
     background-color: var(--cods-color-surface-form-hover);
+  }
+
+  .cods-input__control:hover:not(
+      :disabled,
+      [readonly],
+      [aria-invalid='true'],
+      .cods-input__control--success
+    ) {
+    border-color: var(--cods-color-border-form-hover);
+  }
+
+  .cods-input__control--success:not(:disabled),
+  .cods-input__control[aria-invalid='true']:not(:disabled) {
+    border-width: var(--cods-border-input-validation-width);
   }
 
   .cods-input__control--success {
@@ -141,6 +190,11 @@
   @media (forced-colors: active) {
     .cods-input__control:disabled {
       border-color: GrayText;
+      color: GrayText;
+    }
+
+    .cods-input__group:has(> .cods-input__control:disabled)
+      > .cods-input__icon {
       color: GrayText;
     }
 

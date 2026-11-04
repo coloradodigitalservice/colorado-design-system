@@ -38,4 +38,5 @@ export const RightToLeft: Story = { render: () => state('rtl') };
 export const Icons: Story = { render: () => state('icons') };
 export const Small: Story = { render: () => state('small') };
 export const Large: Story = { render: () => state('large') };
+export const LargeIcons: Story = { render: () => state('large-icons') };
 export const Hover: Story = { render: () => state('hover') };

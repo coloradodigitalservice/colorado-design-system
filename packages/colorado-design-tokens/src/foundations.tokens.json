@@ -2229,6 +2229,32 @@
           "location": "Colorado Design System Figma / Divider (1527:643, 1527:645); observed 2026-10-29; proposed for design review"
         }
       }
+    },
+    "input-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Input / default and disabled / border width",
+          "location": "Colorado Design System Figma / Input documentation (72:76); token, design, and client approval confirmed 2026-11-04"
+        }
+      }
+    },
+    "input-validation-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Input / error and success / border width",
+          "location": "Colorado Design System Figma / Input documentation (72:76); token, design, and client approval confirmed 2026-11-04"
+        }
+      }
     }
   },
   "control": {

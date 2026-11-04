@@ -20,11 +20,13 @@ Place feedback below the field. Associate visible hints and feedback using `aria
 
 ## States and behavior
 
-Use native `disabled` when the control must not be used; disabled controls are omitted from form submission. Use `readonly` for a value that can be focused and submitted but not edited, and explain why it cannot be changed. A success state uses `usa-input--success cods-input__control--success` on the input and visible text; do not rely on color alone. Labels and feedback wrap, and `dir="rtl"` supports right-to-left content. Set the correct language on translated text.
+Use native `disabled` when the control must not be used; disabled controls are omitted from form submission. Use `readonly` for a value that can be focused and submitted but not edited, and explain why it cannot be changed. A success state uses `usa-input--success cods-input__control--success` on the input and visible text; do not rely on color alone. Error and success use a 2px validation border, which keeps its color on hover. Labels and feedback wrap, and `dir="rtl"` supports right-to-left content. Set the correct language on translated text.
+
+The `--cods-border-input-width` token sets the default and disabled border width (1px by default); `--cods-border-input-validation-width` sets the enabled error and success border width (2px by default). Override them on `.cods-input` so the control and any icons inherit the same values.
 
 The default Medium field is 40px high. Use `cods-input__control--small` for the 32px Small field, and a `textarea` with `cods-input__control--large` for the 140px Large field, which can be resized vertically.
 
-Decorative leading or trailing icons can use the `usa-input-group cods-input__group` wrapper, the matching `cods-input__icon--prefix` or `cods-input__icon--suffix` class, and `cods-input__control--prefix`, `cods-input__control--suffix`, or `cods-input__control--icons` for both. Hide decorative icons from assistive technology; keep essential meaning in text. Deploy the shared sprite as described in the [Icon guidance](../icon/#sprite-url-and-deployment-path).
+Decorative leading or trailing icons can use the `usa-input-group cods-input__group` wrapper, the matching `cods-input__icon--prefix` or `cods-input__icon--suffix` class, and `cods-input__control--prefix`, `cods-input__control--suffix`, or `cods-input__control--icons` for both. Icon groups also support resizable Large text areas, with icons aligned to the first line. Icons use the corresponding error, success, or disabled color when the control changes state. Hide decorative icons from assistive technology; keep essential meaning in text. Deploy the shared sprite as described in the [Icon guidance](../icon/#sprite-url-and-deployment-path).
 
 ## Keyboard and progressive enhancement
 

@@ -2,6 +2,8 @@
 :root {
   --cods-border-accordion-width: 4px;
   --cods-border-divider-width: 1px;
+  --cods-border-input-validation-width: 2px;
+  --cods-border-input-width: 1px;
   --cods-color-bg-action-danger: var(--cods-color-co-red-60-brand);
   --cods-color-bg-action-danger-active: var(--cods-color-co-red-90);
   --cods-color-bg-action-danger-hover: var(--cods-color-co-red-80);
