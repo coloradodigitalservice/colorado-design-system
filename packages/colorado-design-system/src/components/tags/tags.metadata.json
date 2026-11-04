@@ -22,7 +22,8 @@
     "yellow",
     "plum",
     "teal",
-    "long-content"
+    "long-content",
+    "in-context"
   ],
   "progressiveEnhancement": "full",
   "localization": "layout-sensitive",
@@ -66,6 +67,11 @@
     {
       "state": "long-content",
       "fixtureState": "long-content",
+      "setup": "none"
+    },
+    {
+      "state": "in-context",
+      "fixtureState": "in-context",
       "setup": "none"
     }
   ]

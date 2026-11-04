@@ -5,7 +5,7 @@ test('Tags story renders each variant with accessible text', async ({
 }, testInfo) => {
   await page.goto('/iframe.html?id=components-tags--all-states&viewMode=story');
   const tags = page.locator('#storybook-root .cods-tags');
-  await expect(tags).toHaveCount(8);
+  await expect(tags).toHaveCount(9);
   for (const tag of await tags.all()) await expect(tag).not.toHaveText('');
   await expectAccessible(page, testInfo, '#storybook-root');
 });

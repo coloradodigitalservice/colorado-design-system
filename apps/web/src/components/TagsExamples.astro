@@ -5,18 +5,18 @@ import CodeExamples from './CodeExamples.astro';
 ---
 
 <h3>In context</h3>
-<div>
-  <h4>
-    Sales tax increases to 2.2%{' '}
-    <span class="usa-tag cods-tags cods-tags--blue">Update</span>
-  </h4>
-  <p>Read about the updated statewide sales tax rate.</p>
-</div>
+<div
+  set:html={
+    examples.examples.find((example) => example.state === 'in-context')?.html
+  }
+/>
 <h3>Colors and long content</h3>
-{examples.examples.map((example) => (
-  <section aria-label={`${example.state} tag`}>
-    <h4>{example.state === 'default' ? 'Default (gray)' : example.state}</h4>
-    <div set:html={example.html} />
-  </section>
-))}
+{examples.examples
+  .filter((example) => example.state !== 'in-context')
+  .map((example) => (
+    <section aria-label={`${example.state} tag`}>
+      <h4>{example.state === 'default' ? 'Default (gray)' : example.state}</h4>
+      <div set:html={example.html} />
+    </section>
+  ))}
 <CodeExamples metadata={metadata} examples={examples.examples} />

@@ -11,10 +11,17 @@ const meta = {
 export default meta;
 type Story = StoryObj;
 export const AllStates: Story = {};
-export const Default: Story = {
-  render: () => {
-    const example = examples.examples.find((item) => item.state === 'default');
-    if (!example) throw new Error('Missing canonical default state');
-    return example.html;
-  },
+const state = (name: string) => {
+  const example = examples.examples.find((item) => item.state === name);
+  if (!example) throw new Error(`Missing canonical ${name} state`);
+  return example.html;
 };
+export const Default: Story = { render: () => state('default') };
+export const Blue: Story = { render: () => state('blue') };
+export const Green: Story = { render: () => state('green') };
+export const Red: Story = { render: () => state('red') };
+export const Yellow: Story = { render: () => state('yellow') };
+export const Plum: Story = { render: () => state('plum') };
+export const Teal: Story = { render: () => state('teal') };
+export const LongContent: Story = { render: () => state('long-content') };
+export const InContext: Story = { render: () => state('in-context') };

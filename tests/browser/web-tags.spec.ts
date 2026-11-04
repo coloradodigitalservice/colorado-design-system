@@ -6,7 +6,7 @@ test('Tags render all color variants as readable static text', async ({
   await page.setViewportSize({ width: 320, height: 800 });
   await page.goto('/tags/');
   const tags = page.locator('[data-cods-fixture-state] .cods-tags');
-  await expect(tags).toHaveCount(8);
+  await expect(tags).toHaveCount(9);
   const colors = {
     default: ['rgb(27, 27, 27)', 'rgb(196, 197, 201)'],
     blue: ['rgb(0, 16, 73)', 'rgb(170, 205, 236)'],
@@ -28,5 +28,15 @@ test('Tags render all color variants as readable static text', async ({
       true,
     );
   }
+  const context = page.locator('[data-cods-fixture-state="in-context"]');
+  await expect(context.locator('h4 .usa-tag.cods-tags--blue')).toHaveText(
+    'Update',
+  );
+  await expect(
+    page.locator('[data-cods-example="in-context"] code'),
+  ).toContainText('Sales tax increases to 2.2%');
+  await expect(
+    page.locator('[data-cods-example="in-context"] code'),
+  ).toContainText('Read about the updated statewide sales tax rate.');
   await expectAccessible(page, testInfo, 'article');
 });
