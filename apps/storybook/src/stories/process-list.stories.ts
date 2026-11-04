@@ -26,3 +26,4 @@ export const RightToLeft: Story = { render: () => state('rtl') };
 export const ThreeSteps: Story = { render: () => state('three-steps') };
 export const FourSteps: Story = { render: () => state('four-steps') };
 export const FiveSteps: Story = { render: () => state('five-steps') };
+export const WithAlert: Story = { render: () => state('with-alert') };

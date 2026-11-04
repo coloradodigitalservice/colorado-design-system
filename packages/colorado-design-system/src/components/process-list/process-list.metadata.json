@@ -20,7 +20,8 @@
     "rtl",
     "three-steps",
     "four-steps",
-    "five-steps"
+    "five-steps",
+    "with-alert"
   ],
   "progressiveEnhancement": "full",
   "localization": "layout-sensitive",
@@ -54,6 +55,11 @@
     {
       "state": "five-steps",
       "fixtureState": "five-steps",
+      "setup": "none"
+    },
+    {
+      "state": "with-alert",
+      "fixtureState": "with-alert",
       "setup": "none"
     }
   ]

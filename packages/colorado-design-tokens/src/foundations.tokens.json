@@ -2258,5 +2258,20 @@
         }
       }
     }
+  },
+  "process-list": {
+    "connector-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 5,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Process List connector stroke / 5px",
+          "location": "Colorado Design System Figma / Process List / node 3914:10004, observed 2026-11-03; design review pending"
+        }
+      }
+    }
   }
 }

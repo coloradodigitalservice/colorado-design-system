@@ -27,6 +27,9 @@ N/A — the component has no animation.
 
 ## Forced colors and localization
 
+- [x] Automated forced-colors checks verified connector visibility in Chromium, Firefox, and WebKit emulation on 2026-11-03.
+- [x] Automated checks verified native numbering without styles and alert accessibility in the built documentation on 2026-11-03.
+
 - [ ] A human must verify forced colors and translated content.
 - [x] Automated layout checks covered the right-to-left example in Chromium, Firefox, and WebKit on 2026-11-03; human review remains open.
 

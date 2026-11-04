@@ -25,14 +25,15 @@
     position: absolute;
     inset-block: var(--cods-space-xl) 0;
     inset-inline-start: calc(
-      (var(--cods-space-xl) - var(--cods-space-2xs)) / 2
+      (var(--cods-space-xl) - var(--cods-process-list-connector-width)) / 2
     );
-    width: var(--cods-space-2xs);
+    width: var(--cods-process-list-connector-width);
     background: var(--cods-color-border-process-list-connector);
     content: '';
   }
 
   .cods-process-list__number {
+    display: block;
     flex: none;
     width: var(--cods-space-xl);
     height: var(--cods-space-xl);
@@ -40,8 +41,16 @@
     fill: currentcolor;
   }
 
+  .cods-process-list__number svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
   .cods-process-list__content {
     min-width: 0;
+    flex: 1;
+    padding-inline-end: var(--cods-space-sm);
     overflow-wrap: anywhere;
     font-size: var(--cods-font-size-desktop-body);
     line-height: var(--cods-line-height-desktop-body);
@@ -62,13 +71,19 @@
     line-height: var(--cods-line-height-desktop-body);
   }
 
+  .cods-process-list__heading + *:not(p) {
+    margin-block-start: var(--cods-space-xs);
+  }
+
+  @media (forced-colors: active) {
+    .cods-process-list__item:not(:last-child)::after {
+      background: CanvasText;
+    }
+  }
+
   @media (width < 48rem) {
     .cods-process-list__item {
       gap: var(--cods-space-xs);
-    }
-
-    .cods-process-list__content > :not(.cods-process-list__heading) {
-      margin-inline-start: calc(-1 * var(--cods-space-sm));
     }
   }
 }
