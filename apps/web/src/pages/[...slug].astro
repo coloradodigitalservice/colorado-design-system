@@ -10,11 +10,14 @@ import AccordionExamples from '../components/AccordionExamples.astro';
 import BreadcrumbsExamples from '../components/BreadcrumbsExamples.astro';
 import SelectExamples from '../components/SelectExamples.astro';
 import RadioExamples from '../components/RadioExamples.astro';
+import CardExamples from '../components/CardExamples.astro';
 import LinkExamples from '../components/LinkExamples.astro';
 import DividerExamples from '../components/DividerExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
 import IconCatalog from '../components/IconCatalog.astro';
 import IconExamples from '../components/IconExamples.astro';
+import InputExamples from '../components/InputExamples.astro';
+import IconListExamples from '../components/IconListExamples.astro';
 import HeroExamples from '../components/HeroExamples.astro';
 import ProcessListExamples from '../components/ProcessListExamples.astro';
 
@@ -56,10 +59,29 @@ const { Content } = await render(entry);
     )}
     {entry.id === 'breadcrumbs' && <BreadcrumbsExamples />}
     {entry.id === 'radio' && <RadioExamples />}
+    {entry.id === 'input' && (
+      <>
+        {' '}
+        <h2>Examples</h2>
+        <InputExamples />
+        <ComponentSummary component="input" figma={entry.data.figma} />
+      </>
+    )}
+    {entry.id === 'card' && <CardExamples />}
+    {entry.id === 'card-default' && <CardExamples variant="default" />}
+    {entry.id === 'card-icon' && <CardExamples variant="icon" />}
+    {entry.id === 'icon-list' && (
+      <>
+        <h2>Examples</h2>
+        <IconListExamples />
+        <ComponentSummary component="icon-list" figma={entry.data.figma} />
+      </>
+    )}
     {entry.id === 'checkbox' && <CheckboxExamples />}
     {entry.id === 'link' && <LinkExamples />}
     {entry.id === 'divider' && <DividerExamples />}
-    {(entry.id === 'hero' ||
+    {(entry.id === 'card' ||
+      entry.id === 'hero' ||
       entry.id === 'radio' ||
       entry.id === 'site-alert' ||
       entry.id === 'accordion' ||
