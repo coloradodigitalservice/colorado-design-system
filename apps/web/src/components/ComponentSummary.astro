@@ -3,6 +3,7 @@ import inPageAlert from '@coloradodigitalservice/colorado-design-system/metadata
 import siteAlert from '@coloradodigitalservice/colorado-design-system/metadata/site-alert.json';
 import breadcrumbs from '@coloradodigitalservice/colorado-design-system/metadata/breadcrumbs.json';
 import tags from '@coloradodigitalservice/colorado-design-system/metadata/tags.json';
+import processList from '@coloradodigitalservice/colorado-design-system/metadata/process-list.json';
 import hero from '@coloradodigitalservice/colorado-design-system/metadata/hero.json';
 import select from '@coloradodigitalservice/colorado-design-system/metadata/select.json';
 import divider from '@coloradodigitalservice/colorado-design-system/metadata/divider.json';
@@ -11,6 +12,9 @@ import link from '@coloradodigitalservice/colorado-design-system/metadata/link.j
 
 import radio from '@coloradodigitalservice/colorado-design-system/metadata/radio.json';
 import checkbox from '@coloradodigitalservice/colorado-design-system/metadata/checkbox.json';
+import input from '@coloradodigitalservice/colorado-design-system/metadata/input.json';
+import card from '@coloradodigitalservice/colorado-design-system/metadata/card.json';
+import iconList from '@coloradodigitalservice/colorado-design-system/metadata/icon-list.json';
 
 interface Props {
   component:
@@ -21,10 +25,14 @@ interface Props {
     | 'link'
     | 'radio'
     | 'checkbox'
+    | 'card'
+    | 'icon-list'
     | 'select'
+    | 'input'
     | 'divider'
     | 'hero'
-    | 'tags';
+    | 'tags'
+    | 'process-list';
   figma?: string;
 }
 
@@ -36,10 +44,14 @@ const metadata = {
   link,
   radio,
   checkbox,
+  card,
+  'icon-list': iconList,
   select,
+  input,
   divider,
   hero,
   tags,
+  'process-list': processList,
 }[Astro.props.component];
 const { figma } = Astro.props;
 const repository =

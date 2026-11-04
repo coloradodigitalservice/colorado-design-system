@@ -1,7 +1,11 @@
 // Generated from reviewed DTCG sources. Do not edit; run pnpm tokens:build.
 export interface TokenDictionary {
   readonly "border-accordion-width": string;
+  readonly "border-card-hover-width": string;
+  readonly "border-card-width": string;
   readonly "border-divider-width": string;
+  readonly "border-input-validation-width": string;
+  readonly "border-input-width": string;
   readonly "color-bg-action-danger": string;
   readonly "color-bg-action-danger-active": string;
   readonly "color-bg-action-danger-hover": string;
@@ -38,6 +42,8 @@ export interface TokenDictionary {
   readonly "color-border-alert-urgent": string;
   readonly "color-border-alert-warning": string;
   readonly "color-border-bottom": string;
+  readonly "color-border-card-default": string;
+  readonly "color-border-card-hover": string;
   readonly "color-border-default": string;
   readonly "color-border-disabled": string;
   readonly "color-border-form-danger": string;
@@ -356,6 +362,7 @@ export interface TokenDictionary {
   readonly "paragraph-space-mobile-supporting": string;
   readonly "paragraph-space-mobile-ui": string;
   readonly "paragraph-space-mobile-ui-sm": string;
+  readonly "process-list-connector-width": string;
   readonly "radius-full": string;
   readonly "radius-lg": string;
   readonly "radius-md": string;
