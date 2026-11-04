@@ -196,7 +196,7 @@ describe('video fixture safety', () => {
       generateExamples(
         videos.metadata,
         videos.fixture.replace(
-          'title="Big Buck Bunny video example"',
+          'title="Example embedded video: blue screen"',
           'title=""',
         ),
       ),

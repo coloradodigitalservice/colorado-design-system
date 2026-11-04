@@ -24,5 +24,10 @@ test('video examples have accessible media markup and fit narrow screens', async
     '[data-cods-fixture-state="four-three"] .cods-videos',
   );
   await expect(fourThree).toHaveCSS('aspect-ratio', '4 / 3');
+  await iframe.scrollIntoViewIfNeeded();
+  const embedded = page.frameLocator('iframe[title]');
+  await expect(
+    embedded.locator('video[controls] track[kind="captions"]'),
+  ).toHaveCount(1);
   await expectAccessible(page, testInfo, 'article');
 });

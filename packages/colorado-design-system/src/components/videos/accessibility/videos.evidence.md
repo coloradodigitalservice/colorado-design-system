@@ -17,7 +17,7 @@
 ## Captions and transcript
 
 - [ ] Verify the caption track displays during playback and matches the media in each browser.
-- The fixture track describes the silent blue-screen sample. The embedded video is an external demonstration; its captions and transcript have not been verified.
+- The fixture track describes the silent blue-screen sample. The embedded example is a local stand-in; accessibility and captions for real third-party players have not been verified.
 
 ## Screen reader verification
 
@@ -33,4 +33,4 @@
 
 - Human accessibility, screen-reader, keyboard, captions, reflow, and design review remain open.
 - Figma marks Videos as work in progress; the transcript disclosure concept needs design review.
-- Embedded player accessibility and caption availability depend on the actual provider and video.
+- Embedded player accessibility and caption availability depend on the actual provider and video; the local stand-in does not establish either.

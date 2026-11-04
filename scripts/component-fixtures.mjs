@@ -100,9 +100,10 @@ export function generateExamples(metadata, fixture) {
       if (
         !frame.getAttribute('title')?.trim() ||
         frame.hasAttribute('srcdoc') ||
-        !/^https:\/\//i.test(frame.getAttribute('src') ?? '')
+        (!/^https:\/\//i.test(frame.getAttribute('src') ?? '') &&
+          frame.getAttribute('src') !== '/videos/embedded-example.html')
       )
-        fail('video iframe requires a title, an HTTPS source, and no srcdoc');
+        fail('video iframe requires a title, a safe source, and no srcdoc');
     }
     const ids = [...document.querySelectorAll('[id]')].map(
       (element) => element.id,
