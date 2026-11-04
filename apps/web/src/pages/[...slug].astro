@@ -16,6 +16,7 @@ import ComponentSummary from '../components/ComponentSummary.astro';
 import IconCatalog from '../components/IconCatalog.astro';
 import IconExamples from '../components/IconExamples.astro';
 import InputExamples from '../components/InputExamples.astro';
+import IconListExamples from '../components/IconListExamples.astro';
 import HeroExamples from '../components/HeroExamples.astro';
 
 export async function getStaticPaths() {
@@ -62,6 +63,13 @@ const { Content } = await render(entry);
         <h2>Examples</h2>
         <InputExamples />
         <ComponentSummary component="input" figma={entry.data.figma} />
+      </>
+    )}
+    {entry.id === 'icon-list' && (
+      <>
+        <h2>Examples</h2>
+        <IconListExamples />
+        <ComponentSummary component="icon-list" figma={entry.data.figma} />
       </>
     )}
     {entry.id === 'checkbox' && <CheckboxExamples />}
