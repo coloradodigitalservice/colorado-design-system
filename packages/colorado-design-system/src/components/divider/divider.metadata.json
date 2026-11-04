@@ -1,0 +1,33 @@
+{
+  "name": "divider",
+  "displayName": "Divider",
+  "maturity": "experimental",
+  "type": "static",
+  "uswdsEquivalent": null,
+  "uswdsVersion": null,
+  "componentType": "B",
+  "owners": {
+    "responsible": "Aten component lead",
+    "accountable": "State technical owner",
+    "consulted": "State design owner, accessibility lead",
+    "informed": "Component contributors, product owner"
+  },
+  "divergenceApproved": false,
+  "divergenceNotes": null,
+  "states": ["default", "item"],
+  "progressiveEnhancement": "full",
+  "localization": "not-applicable",
+  "description": "A horizontal line separating content sections or related items.",
+  "examples": [
+    {
+      "state": "default",
+      "fixtureState": "default",
+      "setup": "none"
+    },
+    {
+      "state": "item",
+      "fixtureState": "item",
+      "setup": "none"
+    }
+  ]
+}

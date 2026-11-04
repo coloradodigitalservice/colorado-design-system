@@ -4,6 +4,7 @@ import siteAlert from '@coloradodigitalservice/colorado-design-system/metadata/s
 import breadcrumbs from '@coloradodigitalservice/colorado-design-system/metadata/breadcrumbs.json';
 import hero from '@coloradodigitalservice/colorado-design-system/metadata/hero.json';
 import select from '@coloradodigitalservice/colorado-design-system/metadata/select.json';
+import divider from '@coloradodigitalservice/colorado-design-system/metadata/divider.json';
 import accordion from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
 import link from '@coloradodigitalservice/colorado-design-system/metadata/link.json';
 
@@ -22,6 +23,7 @@ interface Props {
     | 'checkbox'
     | 'icon-list'
     | 'select'
+    | 'divider'
     | 'hero';
   figma?: string;
 }
@@ -36,6 +38,7 @@ const metadata = {
   checkbox,
   'icon-list': iconList,
   select,
+  divider,
   hero,
 }[Astro.props.component];
 const { figma } = Astro.props;
