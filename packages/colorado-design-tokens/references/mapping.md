@@ -85,6 +85,8 @@ Every foundation token records its design-reference section in `src/foundations.
 | Small     | `icon-size-small`  | 16px  |
 | Medium    | `icon-size-medium` | 24px  |
 
+Process List connector width: `process-list-connector-width` is 5px, observed in the [Process List Figma frame](https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=3914-10004) on 2026-11-03; design review is pending.
+
 ## Link component mappings
 
 Link adds six foundation dimensions for decorations observed on the
@@ -152,8 +154,14 @@ no failing pale-border ratio is reclassified as passing.
 
 `control-checkbox-size` (20px) and `control-checkbox-border-width` (2px) reflect the Checkbox control and card frames in Figma (639:10184 and 659:3273), observed 2026-10-27 and proposed for design review.
 
+Card border mappings: `color.border-card-default` aliases gray/10 and `color.border-card-hover` aliases blue/10. The 1px and 2px widths are `border.card-width` and `border.card-hover-width`. Figma nodes 2245:943 and 2246:772 were observed 2026-11-02; an immutable library version was unavailable. Design and accessibility review remain pending. These low-contrast borders are decorative and do not replace the focus indicator.
+
 ### Divider border
 
 `border-divider-width` is 1px, observed in the [Divider design](https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=1527-636) on 2026-10-29. It is proposed for design and accessibility review. Both variants use `color-border-default`; the item divider uses `space-xs` vertically and `space-md` horizontally.
 
 Hero mobile introduction uses `font.size-hero-mobile-intro` (20px) and `line-height.hero-mobile-intro` (28px); these differ from the existing mobile body large tokens. Source: Figma Hero node 5506:6701, observed 2026-11-02; no immutable library version available. Design and accessibility review are pending.
+
+### Input borders
+
+`border-input-width` is 1px for default and disabled fields; `border-input-validation-width` is 2px for enabled error and success fields. They reflect the [Input design documentation](https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=72-76). Token, design, and client approval of these values was confirmed on 2026-11-04; no immutable Figma library version is available. This approval does not complete the component's separate accessibility evidence.

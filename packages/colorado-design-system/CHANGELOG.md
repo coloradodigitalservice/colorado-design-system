@@ -1,5 +1,20 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.15
+
+### Patch Changes
+
+- ab53334: Align Input border widths and icon states with the approved design. Add tokens for default and validation borders, and update Input styles, examples, and documentation.
+- Updated dependencies [ab53334]
+  - @coloradodigitalservice/colorado-design-tokens@0.2.15
+
+## 0.2.14
+
+### Patch Changes
+
+- Add the experimental Icon List component with documentation and examples.
+- @coloradodigitalservice/colorado-design-tokens@0.2.14
+
 ## 0.2.13
 
 ### Patch Changes

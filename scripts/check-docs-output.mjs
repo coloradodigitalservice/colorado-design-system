@@ -77,7 +77,8 @@ for (const page of pages) {
   for (const anchor of document.querySelectorAll('a[href]')) {
     const href = anchor.getAttribute('href');
     if (!href) continue;
-    if (!anchor.textContent?.trim()) failures.push(`${label}: empty link text`);
+    if (!(anchor.getAttribute('aria-label') || anchor.textContent)?.trim())
+      failures.push(`${label}: empty link text`);
     if (href.startsWith('#')) {
       if (!document.getElementById(href.slice(1)))
         failures.push(`${label}: broken ${href}`);
