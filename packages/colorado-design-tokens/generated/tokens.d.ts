@@ -1,6 +1,7 @@
 // Generated from reviewed DTCG sources. Do not edit; run pnpm tokens:build.
 export interface TokenDictionary {
   readonly "border-accordion-width": string;
+  readonly "border-divider-width": string;
   readonly "color-bg-action-danger": string;
   readonly "color-bg-action-danger-active": string;
   readonly "color-bg-action-danger-hover": string;
