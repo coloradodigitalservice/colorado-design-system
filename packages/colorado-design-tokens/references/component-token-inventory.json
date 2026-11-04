@@ -1585,6 +1585,7 @@
     },
     {
       "name": "Videos",
+      "implementationDirectory": "videos",
       "source": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=4036-5548&m=dev",
       "tokens": [],
       "componentTokens": [],
