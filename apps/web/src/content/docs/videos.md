@@ -8,17 +8,39 @@ figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-Syste
 
 ## When to use
 
-Use video when moving images or sound help explain the content. Do not autoplay. Give people a transcript and accurate synchronized captions for prerecorded video. Include audio description when needed to convey important visual information.
+Use video when moving images or sound help explain a service, demonstrate a task, or convey information that is difficult to show in text or still images. Introduce the video with enough context for people to decide whether to play it.
 
-## Native video
+Videos is **experimental**. The [Videos design in Figma](https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=3728-36680) is a work in progress; design and human accessibility review remain open.
 
-Use a native `video` element with `controls`, a poster, and a `track` of kind `captions`. The demonstration video and caption track are placeholders: replace both with your own media and accurate captions. Provide a transcript alongside the video. Browser controls vary by browser and operating system.
+## When not to use
 
-## Embedded video
+Do not use a video as the only way to access essential information. If the same information is clearer as text, an image, or a short list, use that format instead. Do not autoplay or rely on sound alone to communicate meaning.
 
-Give every iframe a descriptive `title` and make sure the chosen provider offers keyboard-accessible controls and accurate captions. Provide a transcript outside the player. The embedded example uses a local stand-in for a third-party player; replace its `src` with the provider’s HTTPS embed URL. Confirm the provider’s accessibility, captions, transcript, privacy practices, and permissions for your video before publishing.
+## Anatomy and markup
 
-Wrap the player in `cods-videos` for 16:9; add `cods-videos--four-three` for 4:3. The wrapper fills its container; constrain the container as needed. The design is a work in progress, and the proposed expandable transcript treatment needs design and accessibility review.
+Load the package styles as described in [Getting started](../getting-started/). Wrap a native `video` or an embedded `iframe` in `cods-videos`. Give the video an accessible name, native `controls`, a poster, a media source, and a `track` with `kind="captions"`. The native demonstration is a silent blue screen; replace the media, poster, and caption track with your own. Browser controls vary by browser and operating system.
+
+For an embedded player, give the iframe a descriptive `title`. The example uses a local stand-in; replace its `src` with the provider’s HTTPS embed URL. Confirm the provider’s accessibility, captions, transcript, privacy practices, and permissions for your video before publishing.
+
+## Captions, transcripts, and audio description
+
+Provide accurate synchronized captions for prerecorded video, including relevant sounds as well as speech. Provide a transcript outside the player so people can read the content without playing it. Include audio description when needed to convey important visual information. Make sure captions and transcripts match the actual video and are available in its language.
+
+The Figma design shows an expandable transcript. That treatment is still under review and is not part of this component; provide a readily available transcript alongside the player.
+
+## Responsive behavior
+
+The wrapper fills its container and uses a 16:9 aspect ratio. Add `cods-videos--four-three` for 4:3 media. Constrain the containing element to the size appropriate for the page; the player scales with it. Keep the player and its controls usable at narrow widths and high zoom.
+
+## Keyboard and progressive enhancement
+
+Native playback uses browser-provided controls; embedded playback depends on the provider. Check that people can reach and operate all controls with a keyboard, including captions and fullscreen where available. The CoDS wrapper has no JavaScript controller. Provider embeds may require JavaScript and network access.
+
+## Assets and accessibility review
+
+The fixture, metadata, and examples are available from `@coloradodigitalservice/colorado-design-system` under `fixtures/videos.html`, `metadata/videos.json`, and `examples/videos.json`. The sample `/videos/` assets are for the documentation and Storybook examples; provide your own media URLs when using the markup.
+
+Automated checks supplement human review. Caption playback, keyboard and screen-reader operation, zoom, forced colors, localization, and design and accessibility-owner review remain open in the [accessibility evidence](https://github.com/coloradodigitalservice/colorado-design-system/blob/main/packages/colorado-design-system/src/components/videos/accessibility/videos.evidence.md).
 
 ## Examples
 

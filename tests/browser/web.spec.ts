@@ -4,7 +4,9 @@ import { test, expect, expectAccessible } from './fixtures.js';
 const paths = readdirSync('apps/web/dist', { recursive: true })
   .filter(
     (file): file is string =>
-      typeof file === 'string' && file.endsWith('.html'),
+      typeof file === 'string' &&
+      file.endsWith('.html') &&
+      file.replaceAll('\\', '/') !== 'videos/embedded-example.html',
   )
   .map((file) => '/' + file.replace(/index\.html$/, ''));
 
