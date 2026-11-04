@@ -20,7 +20,7 @@ Choose icons from the [approved icon catalog](../icon/) and use them consistentl
 
 ## Sizes and layout
 
-Icons are 16px on mobile and 24px on screens at least 768px wide. Spacing uses existing CoDS tokens. Long content wraps and the layout follows the page direction; set `lang` and `dir` for translated content. The examples show short and long text and a right-to-left list.
+Icons are 16px on mobile and 24px on screens at least 768px wide. The icon-to-text gap uses the 12px CoDS spacing token. Long content wraps and the layout follows the page direction; set `lang` and `dir` for translated content. The examples show short and long text and a right-to-left list.
 
 ## Assets and progressive enhancement
 

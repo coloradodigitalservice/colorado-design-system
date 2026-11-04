@@ -59,7 +59,7 @@ test('icon lists retain their semantics, decorative icons and responsive layout'
           };
         });
       expect(measurements.size).toBe(width < 768 ? 16 : 24);
-      expect(measurements.gap).toBeCloseTo(8, 1);
+      expect(measurements.gap).toBeCloseTo(12, 1);
       // A first paragraph must start on the same line as direct or bold text.
       expect(measurements.textOffset).toBeLessThan(5);
       expect(measurements.alignment).toBeLessThan(3);
