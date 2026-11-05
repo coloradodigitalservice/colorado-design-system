@@ -10,6 +10,7 @@ import link from '@coloradodigitalservice/colorado-design-system/metadata/link.j
 
 import radio from '@coloradodigitalservice/colorado-design-system/metadata/radio.json';
 import checkbox from '@coloradodigitalservice/colorado-design-system/metadata/checkbox.json';
+import input from '@coloradodigitalservice/colorado-design-system/metadata/input.json';
 import card from '@coloradodigitalservice/colorado-design-system/metadata/card.json';
 import iconList from '@coloradodigitalservice/colorado-design-system/metadata/icon-list.json';
 
@@ -25,6 +26,7 @@ interface Props {
     | 'card'
     | 'icon-list'
     | 'select'
+    | 'input'
     | 'divider'
     | 'hero';
   figma?: string;
@@ -41,6 +43,7 @@ const metadata = {
   card,
   'icon-list': iconList,
   select,
+  input,
   divider,
   hero,
 }[Astro.props.component];
