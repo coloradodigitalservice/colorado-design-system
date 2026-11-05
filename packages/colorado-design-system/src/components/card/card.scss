@@ -1,7 +1,3 @@
-$hover-offset: calc(
-  var(--cods-border-card-width) - var(--cods-border-card-hover-width)
-);
-
 @layer cods.components {
   .cods-card-group {
     display: grid;
@@ -33,11 +29,17 @@ $hover-offset: calc(
   }
 
   .cods-card__link:hover {
-    border-width: var(--cods-border-card-hover-width);
     border-color: var(--cods-color-border-card-hover);
-    margin: calc(
-      var(--cods-border-card-width) - var(--cods-border-card-hover-width)
-    );
+  }
+
+  .cods-card__link:hover::after {
+    position: absolute;
+    inset: calc(-1 * var(--cods-border-card-width));
+    border: var(--cods-border-card-hover-width) solid
+      var(--cods-color-border-card-hover);
+    border-radius: inherit;
+    pointer-events: none;
+    content: '';
   }
 
   .cods-card--flag {
@@ -86,6 +88,7 @@ $hover-offset: calc(
 
   .cods-card__link,
   .cods-card__link:visited {
+    position: relative;
     color: var(--cods-color-text-primary);
     text-decoration: none;
   }
@@ -126,10 +129,6 @@ $hover-offset: calc(
     border-radius: var(--cods-radius-md) var(--cods-radius-md) 0 0;
   }
 
-  .cods-card--icon .cods-card__link:hover {
-    margin-block: 0 calc(2 * #{$hover-offset});
-  }
-
   .cods-card--icon .cods-card__container {
     flex-direction: row;
     align-items: stretch;
@@ -163,6 +162,10 @@ $hover-offset: calc(
 
     .cods-card__link:focus-visible {
       outline-color: Highlight;
+    }
+
+    .cods-card__link:hover::after {
+      border-color: CanvasText;
     }
 
     .cods-card__icon,
