@@ -85,6 +85,8 @@ Every foundation token records its design-reference section in `src/foundations.
 | Small     | `icon-size-small`  | 16px  |
 | Medium    | `icon-size-medium` | 24px  |
 
+Process List connector width: `process-list-connector-width` is 5px, observed in the [Process List Figma frame](https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=3914-10004) on 2026-11-03; design review is pending.
+
 ## Link component mappings
 
 Link adds six foundation dimensions for decorations observed on the

@@ -362,6 +362,7 @@ export interface TokenDictionary {
   readonly "paragraph-space-mobile-supporting": string;
   readonly "paragraph-space-mobile-ui": string;
   readonly "paragraph-space-mobile-ui-sm": string;
+  readonly "process-list-connector-width": string;
   readonly "radius-full": string;
   readonly "radius-lg": string;
   readonly "radius-md": string;
