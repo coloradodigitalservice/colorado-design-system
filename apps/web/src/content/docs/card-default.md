@@ -12,6 +12,6 @@ Use a Default Card to group related content and direct people to a single destin
 
 ## When not to use
 
-Do not use a Default Card to organize information without an associated action, or when a topic needs multiple actions or links. Choose a pattern intended for multiple destinations. The shared Card guide also shows a non-linked container with separate links for cases that require it; destination type (internal or external) is separate from that link pattern.
+Do not use a whole-card link when the content needs multiple actions or links; nested interactive elements are not accessible. Use an unlinked card container with separate links when grouping those destinations makes sense, or choose another pattern if the content is not associated with an action. Destination type (internal or external) is separate from that link pattern.
 
 See the [Default Card design in Figma](https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=1624-459). The Default-only fixture is available at `@coloradodigitalservice/colorado-design-system/fixtures/card-default.html`.
