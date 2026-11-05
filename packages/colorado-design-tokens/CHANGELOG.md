@@ -1,5 +1,11 @@
 # @coloradodigitalservice/colorado-design-tokens
 
+## 0.2.17
+
+### Patch Changes
+
+- 3fefb11: Add the experimental Process List component and its 5px connector width token.
+
 ## 0.2.16
 
 ### Patch Changes
