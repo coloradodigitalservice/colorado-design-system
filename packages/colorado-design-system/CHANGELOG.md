@@ -1,5 +1,12 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.18
+
+### Patch Changes
+
+- 936ac8e: Add static Tags with seven token-based color variants.
+- @coloradodigitalservice/colorado-design-tokens@0.2.18
+
 ## 0.2.17
 
 ### Patch Changes

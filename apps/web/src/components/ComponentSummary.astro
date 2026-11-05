@@ -2,6 +2,7 @@
 import inPageAlert from '@coloradodigitalservice/colorado-design-system/metadata/in-page-alert.json';
 import siteAlert from '@coloradodigitalservice/colorado-design-system/metadata/site-alert.json';
 import breadcrumbs from '@coloradodigitalservice/colorado-design-system/metadata/breadcrumbs.json';
+import tags from '@coloradodigitalservice/colorado-design-system/metadata/tags.json';
 import processList from '@coloradodigitalservice/colorado-design-system/metadata/process-list.json';
 import hero from '@coloradodigitalservice/colorado-design-system/metadata/hero.json';
 import select from '@coloradodigitalservice/colorado-design-system/metadata/select.json';
@@ -30,6 +31,7 @@ interface Props {
     | 'input'
     | 'divider'
     | 'hero'
+    | 'tags'
     | 'process-list';
   figma?: string;
 }
@@ -48,6 +50,7 @@ const metadata = {
   input,
   divider,
   hero,
+  tags,
   'process-list': processList,
 }[Astro.props.component];
 const { figma } = Astro.props;
