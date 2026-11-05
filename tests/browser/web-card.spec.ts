@@ -40,6 +40,33 @@ test('card links and responsive grid work on the documentation page', async ({
   ).toBeLessThanOrEqual(320);
 });
 
+test('with-media card content and image stay in place on hover', async ({
+  page,
+}) => {
+  await page.goto('/card/');
+  const card = page.locator(
+    '[data-cods-card-fixture="with-media"] .cods-card__link',
+  );
+  await card.scrollIntoViewIfNeeded();
+  await page.mouse.move(0, 0);
+  const elements = card.locator(
+    '.cods-card__header, .cods-card__media, .cods-card__body',
+  );
+  const positions = () =>
+    elements.evaluateAll((nodes) =>
+      nodes.map((node) => {
+        const rect = node.getBoundingClientRect();
+        return { x: rect.x, y: rect.y };
+      }),
+    );
+  const before = await positions();
+  await card.hover();
+  expect(
+    await card.evaluate((el) => getComputedStyle(el, '::after').borderTopWidth),
+  ).toBe('2px');
+  expect(await positions()).toEqual(before);
+});
+
 test('separate card guides show their own variants and accessible destinations', async ({
   page,
 }) => {
@@ -67,7 +94,9 @@ test('separate card guides show their own variants and accessible destinations',
   await expect(card).toHaveCSS('border-top-width', '1px');
   await expect(card).toHaveCSS('border-top-color', 'rgb(235, 236, 237)');
   await card.hover();
-  await expect(card).toHaveCSS('border-top-width', '2px');
+  expect(
+    await card.evaluate((el) => getComputedStyle(el, '::after').borderTopWidth),
+  ).toBe('2px');
   await expect(card).toHaveCSS('border-top-color', 'rgb(217, 232, 246)');
 
   await page.goto('/card-icon/');
@@ -100,7 +129,9 @@ test('separate card guides show their own variants and accessible destinations',
   const glyphBefore = await iconArea.locator('svg').boundingBox();
   expect(before.x - (iconBox!.x + iconBox!.width)).toBe(16);
   await icon.hover();
-  await expect(icon).toHaveCSS('border-top-width', '2px');
+  expect(
+    await icon.evaluate((el) => getComputedStyle(el, '::after').borderTopWidth),
+  ).toBe('2px');
   await expect(icon).toHaveCSS('border-top-color', 'rgb(217, 232, 246)');
   expect(await textPosition()).toEqual(before);
   const glyphAfter = await iconArea.locator('svg').boundingBox();
