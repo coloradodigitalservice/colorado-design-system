@@ -545,6 +545,23 @@ describe('component inventory completeness', () => {
   beforeAll(async () => {
     implementations = await loadImplementationDependencies(catalog);
   });
+  it('checks the shared Card stylesheet against both inventory variants', async () => {
+    const inventory = await readInventory();
+    for (const name of ['Card - Default', 'Card - Icon']) {
+      expect(implementations.get(name).directory).toBe('card');
+      const entry = inventory.components.find(
+        (component) => component.name === name,
+      );
+      const missing = implementations.get(name).tokens[0];
+      entry.implementationTokens = entry.implementationTokens.filter(
+        (token) => token !== missing,
+      );
+      expect(() =>
+        validateComponentInventory(inventory, catalog, implementations),
+      ).toThrow(`${name}: stylesheet dependency ${missing} is undocumented`);
+      entry.implementationTokens.push(missing);
+    }
+  });
   it('validates shared foundation dependencies without expanding the component scope', async () => {
     const inventory = await readInventory();
     expect(inventory.components).toHaveLength(28);

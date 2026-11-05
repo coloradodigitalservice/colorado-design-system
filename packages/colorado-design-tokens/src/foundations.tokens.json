@@ -2217,6 +2217,32 @@
         }
       }
     },
+    "card-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Card / card-width",
+          "location": "Figma Colorado Design System card nodes 2245:943 and 2246:772; observed 2026-11-02; design and accessibility review pending"
+        }
+      }
+    },
+    "card-hover-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      },
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "Card / card-hover-width",
+          "location": "Figma Colorado Design System card nodes 2245:943 and 2246:772; observed 2026-11-02; design and accessibility review pending"
+        }
+      }
+    },
     "divider-width": {
       "$type": "dimension",
       "$value": {

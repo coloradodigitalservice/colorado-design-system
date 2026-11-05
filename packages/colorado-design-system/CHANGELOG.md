@@ -1,5 +1,13 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.15
+
+### Patch Changes
+
+- Refine Card variants and add Card border tokens based on the design reference.
+- Updated dependencies
+  - @coloradodigitalservice/colorado-design-tokens@0.2.15
+
 ## 0.2.14
 
 ### Patch Changes

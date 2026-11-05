@@ -63,13 +63,18 @@ export async function loadImplementationDependencies(catalog) {
     const metadata = JSON.parse(
       await readFile(join(directory, `${entry.name}.metadata.json`), 'utf8'),
     );
-    implementations.set(metadata.displayName, {
+    const implementation = {
       directory: entry.name,
       tokens: extractTokenDependencies(
         (await readStyles(directory)).join('\n'),
         catalog,
       ),
-    });
+    };
+    for (const name of metadata.inventoryNames ?? [metadata.displayName]) {
+      if (implementations.has(name))
+        throw new Error(`Duplicate implementation: ${name}`);
+      implementations.set(name, implementation);
+    }
   }
   return implementations;
 }
