@@ -92,15 +92,22 @@ test('separate card guides show their own variants and accessible destinations',
     title.evaluate((element) => {
       const range = document.createRange();
       range.selectNodeContents(element);
-      return range.getBoundingClientRect().x;
+      const rect = range.getBoundingClientRect();
+      return { x: rect.x, y: rect.y };
     });
   const before = await textPosition();
   const iconBox = await iconArea.boundingBox();
-  expect(before - (iconBox!.x + iconBox!.width)).toBe(16);
+  const glyphBefore = await iconArea.locator('svg').boundingBox();
+  expect(before.x - (iconBox!.x + iconBox!.width)).toBe(16);
   await icon.hover();
   await expect(icon).toHaveCSS('border-top-width', '2px');
   await expect(icon).toHaveCSS('border-top-color', 'rgb(217, 232, 246)');
-  expect(await textPosition()).toBe(before);
+  expect(await textPosition()).toEqual(before);
+  const glyphAfter = await iconArea.locator('svg').boundingBox();
+  expect({ x: glyphAfter!.x, y: glyphAfter!.y }).toEqual({
+    x: glyphBefore!.x,
+    y: glyphBefore!.y,
+  });
   await expect(icon.locator('.cods-card__icon')).toHaveCSS(
     'background-color',
     'rgb(217, 232, 246)',

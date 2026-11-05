@@ -1,3 +1,7 @@
+$hover-offset: calc(
+  var(--cods-border-card-width) - var(--cods-border-card-hover-width)
+);
+
 @layer cods.components {
   .cods-card-group {
     display: grid;
@@ -120,6 +124,10 @@
 
   .cods-card__image {
     border-radius: var(--cods-radius-md) var(--cods-radius-md) 0 0;
+  }
+
+  .cods-card--icon .cods-card__link:hover {
+    margin-block: 0 calc(2 * #{$hover-offset});
   }
 
   .cods-card--icon .cods-card__container {
