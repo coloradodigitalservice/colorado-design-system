@@ -25,7 +25,9 @@ test('flag and icon cards show their responsive and hover states', async ({
   await page.goto('/iframe.html?id=components-card--all-states&viewMode=story');
   const icon = page.locator('[data-cods-card-fixture="icon"] .cods-card__link');
   await icon.hover();
-  await expect(icon).toHaveCSS('border-top-width', '2px');
+  expect(
+    await icon.evaluate((el) => getComputedStyle(el, '::after').borderTopWidth),
+  ).toBe('2px');
   await expect(icon.locator('.cods-card__icon')).toHaveCSS(
     'background-color',
     'rgb(217, 232, 246)',
