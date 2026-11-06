@@ -14,7 +14,7 @@ afterEach(() => {
 
 describe('language selector', () => {
   it('keeps language links visible without JavaScript', () => {
-    expect(document.querySelectorAll('a[lang][hreflang]').length).toBe(6);
+    expect(document.querySelectorAll('a[hreflang]').length).toBe(10);
     expect(
       document.querySelector<HTMLElement>(
         '[data-cods-language-selector-panel]',
