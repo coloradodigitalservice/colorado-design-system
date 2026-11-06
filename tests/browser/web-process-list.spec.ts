@@ -1,5 +1,15 @@
 import { test, expect, expectAccessible } from './fixtures.js';
 
+const exampleCounts = [
+  ['default', 2],
+  ['three-steps', 3],
+  ['four-steps', 4],
+  ['five-steps', 5],
+  ['long-content', 6],
+  ['rtl', 2],
+  ['with-alert', 2],
+] as const;
+
 test('process lists preserve step order, numbering, and reflow', async ({
   page,
 }, testInfo) => {
@@ -18,15 +28,7 @@ test('process lists preserve step order, numbering, and reflow', async ({
       page.getByRole('heading', { name: heading, exact: true }),
     ).toBeVisible();
   }
-  for (const [state, count] of [
-    ['default', 2],
-    ['three-steps', 3],
-    ['four-steps', 4],
-    ['five-steps', 5],
-    ['long-content', 6],
-    ['rtl', 2],
-    ['with-alert', 2],
-  ] as const) {
+  for (const [state, count] of exampleCounts) {
     const list = page.locator(`[data-cods-fixture-state="${state}"] ol`);
     await expect(list).toHaveAttribute('role', 'list');
     const items = list.locator(':scope > li');
@@ -35,13 +37,15 @@ test('process lists preserve step order, numbering, and reflow', async ({
       .slice(0, count)
       .entries()) {
       const item = items.nth(index);
+      const icon = item.locator(':scope > svg.cods-process-list__number');
       await expect(item.locator('h3')).toHaveCount(1);
-      await expect(
-        item.locator(':scope > .cods-process-list__number svg'),
-      ).toHaveAttribute('aria-hidden', 'true');
-      await expect(
-        item.locator(':scope > .cods-process-list__number svg use'),
-      ).toHaveAttribute('href', new RegExp(`#number-circle-${name}$`));
+      await expect(icon).toHaveAttribute('aria-hidden', 'true');
+      await expect(icon).toHaveAttribute('focusable', 'false');
+      await expect(icon).toHaveAttribute('display', 'none');
+      await expect(icon.locator('use')).toHaveAttribute(
+        'href',
+        new RegExp(`#number-circle-${name}$`),
+      );
     }
   }
   await expect(
@@ -151,13 +155,22 @@ test('keeps step numbers visible with a host hidden reset', async ({
   await expect(icons).toHaveCount(2);
   for (const icon of await icons.all()) {
     await expect(icon).toBeVisible();
-    await expect(icon.locator('svg')).toHaveAttribute('aria-hidden', 'true');
+    await expect(icon).toHaveAttribute('aria-hidden', 'true');
+    await expect
+      .poll(() =>
+        icon.evaluate((element) => {
+          const symbol = element.querySelector('use');
+          if (!symbol) throw new Error('Missing Process List number symbol');
+          return symbol.getBBox().width;
+        }),
+      )
+      .toBeGreaterThan(0);
   }
   await expect(list).toHaveCSS('list-style-type', 'none');
   await page
     .locator('style, link[rel=stylesheet]')
     .evaluateAll((elements) => elements.forEach((element) => element.remove()));
-  await expect(icons.first().locator('svg')).toBeHidden();
+  await expect(icons.first()).toBeHidden();
   await expect(list).toHaveCSS('list-style-type', 'decimal');
   await expect(list.locator(':scope > li').first()).toHaveCSS(
     'display',
@@ -185,20 +198,38 @@ test('allows a consumer to restore native numbered markers', async ({
   }
 });
 
-test('hides decorative numbers without styles', async ({ page }) => {
-  await page.goto('/process-list/');
-  await page
-    .locator('style, link[rel=stylesheet]')
-    .evaluateAll((elements) => elements.forEach((element) => element.remove()));
-  const list = page.locator('[data-cods-fixture-state="default"] ol');
-  await expect(list.locator(':scope > li')).toHaveCount(2);
-  await expect(
-    list.locator(':scope > li > .cods-process-list__number svg').first(),
-  ).toBeHidden();
-  expect(
-    await list
-      .locator(':scope > li')
-      .first()
-      .evaluate((element) => getComputedStyle(element).display),
-  ).toBe('list-item');
+test.describe('without JavaScript', () => {
+  test.use({ javaScriptEnabled: false });
+
+  test('hides decorative numbers and aligns native markers without styles', async ({
+    page,
+  }) => {
+    await page.goto('/process-list/');
+    await page
+      .locator('style, link[rel=stylesheet]')
+      .evaluateAll((elements) =>
+        elements.forEach((element) => element.remove()),
+      );
+    for (const [state, count] of exampleCounts) {
+      const list = page.locator(`[data-cods-fixture-state="${state}"] ol`);
+      const items = list.locator(':scope > li');
+      await expect(list).toHaveCSS('list-style-type', 'decimal');
+      await expect(items).toHaveCount(count);
+      for (const item of await items.all()) {
+        await expect(item).toHaveCSS('display', 'list-item');
+        await expect(
+          item.locator(':scope > svg.cods-process-list__number'),
+        ).toBeHidden();
+        const headingOffset = await item.evaluate((element) => {
+          const heading = element.querySelector('h3');
+          if (!heading) throw new Error('Missing Process List step heading');
+          return (
+            heading.getBoundingClientRect().top -
+            element.getBoundingClientRect().top
+          );
+        });
+        expect(Math.abs(headingOffset)).toBeLessThanOrEqual(1);
+      }
+    }
+  });
 });
