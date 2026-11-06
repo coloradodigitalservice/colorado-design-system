@@ -1,0 +1,38 @@
+{
+  "name": "videos",
+  "displayName": "Videos",
+  "maturity": "experimental",
+  "type": "static",
+  "uswdsEquivalent": null,
+  "uswdsVersion": null,
+  "componentType": "B",
+  "owners": {
+    "responsible": "Aten component lead",
+    "accountable": "State technical owner",
+    "consulted": "State design owner, accessibility lead",
+    "informed": "Component contributors, product owner"
+  },
+  "divergenceApproved": false,
+  "divergenceNotes": null,
+  "states": ["default", "embed", "four-three"],
+  "progressiveEnhancement": "full",
+  "localization": "layout-sensitive",
+  "description": "Responsive containers for native and embedded videos.",
+  "examples": [
+    {
+      "state": "default",
+      "fixtureState": "default",
+      "setup": "none"
+    },
+    {
+      "state": "embed",
+      "fixtureState": "embed",
+      "setup": "none"
+    },
+    {
+      "state": "four-three",
+      "fixtureState": "four-three",
+      "setup": "none"
+    }
+  ]
+}
