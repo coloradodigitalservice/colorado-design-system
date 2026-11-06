@@ -33,18 +33,13 @@
   }
 
   .cods-process-list__number {
+    // Override the SVG presentation attribute when component styles are present.
     display: block;
     flex: none;
     width: var(--cods-space-xl);
     height: var(--cods-space-xl);
     color: var(--cods-color-icon-default);
     fill: currentcolor;
-  }
-
-  .cods-process-list__number svg {
-    display: block;
-    width: 100%;
-    height: 100%;
   }
 
   .cods-process-list__content {

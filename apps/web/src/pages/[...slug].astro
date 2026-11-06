@@ -22,6 +22,7 @@ import IconListExamples from '../components/IconListExamples.astro';
 import HeroExamples from '../components/HeroExamples.astro';
 import VideosExamples from '../components/VideosExamples.astro';
 import TagsExamples from '../components/TagsExamples.astro';
+import SearchExamples from '../components/SearchExamples.astro';
 import ProcessListExamples from '../components/ProcessListExamples.astro';
 
 export async function getStaticPaths() {
@@ -107,6 +108,7 @@ const { Content } = await render(entry);
       </>
     )}
     <Content />
+    {entry.id === 'search' && <SearchExamples />}
     {entry.id === 'hero' && <HeroExamples />}
     {entry.id === 'tags' && <TagsExamples />}
     {entry.id === 'videos' && <VideosExamples />}

@@ -16,7 +16,7 @@ Process List is **experimental** in the `0.x` development series. The examples a
 
 Use an ordered list (`ol`) with `usa-process-list cods-process-list` and `role="list"`. Add an `li` with `usa-process-list__item cods-process-list__item` for each step. Inside each item, place a decorative numbered icon followed by a `cods-process-list__content` element containing a heading and supporting content. Pick a heading level that fits the surrounding page. For an In-Page Alert within a step, place its heading one level below the step heading, as in the alert example.
 
-Use the matching numbered icon for each step, in order. The examples cover two through six steps. Set `width="0"` and `height="0"` on each SVG so native numbers remain the only visible numbers without CSS; the component styles size the icons when enabled. Mark each icon `aria-hidden="true"` and `focusable="false"`; the ordered list supplies the sequence to assistive technology. The explicit list role preserves list semantics in Safari when list markers are hidden.
+Use the matching numbered icon for each step, in order. The examples cover two through six steps. Add the `cods-process-list__number` class directly to the SVG and set its presentation attribute `display="none"` so native numbers remain the only visible numbers without CSS; the component styles display and size the icons when enabled. Mark each icon `aria-hidden="true"` and `focusable="false"`; the ordered list supplies the sequence to assistive technology. The explicit list role preserves list semantics in Safari when list markers are hidden.
 
 ## Writing guidance
 
