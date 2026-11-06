@@ -11,6 +11,7 @@ import BreadcrumbsExamples from '../components/BreadcrumbsExamples.astro';
 import SelectExamples from '../components/SelectExamples.astro';
 import RadioExamples from '../components/RadioExamples.astro';
 import ComboBoxExamples from '../components/ComboBoxExamples.astro';
+import LanguageSelectorExamples from '../components/LanguageSelectorExamples.astro';
 import CardExamples from '../components/CardExamples.astro';
 import LinkExamples from '../components/LinkExamples.astro';
 import DividerExamples from '../components/DividerExamples.astro';
@@ -63,6 +64,7 @@ const { Content } = await render(entry);
     {entry.id === 'breadcrumbs' && <BreadcrumbsExamples />}
     {entry.id === 'radio' && <RadioExamples />}
     {entry.id === 'combo-box' && <ComboBoxExamples />}
+    {entry.id === 'language-selector' && <LanguageSelectorExamples />}
     {entry.id === 'input' && (
       <>
         {' '}
