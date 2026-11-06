@@ -1,0 +1,51 @@
+@layer cods.components {
+  .cods-search {
+    display: block;
+    max-inline-size: 100%;
+  }
+
+  .cods-search__controls {
+    display: flex;
+    gap: var(--cods-space-xs);
+  }
+
+  .cods-search__controls .cods-input__control {
+    flex: 1 1 auto;
+    inline-size: 0;
+  }
+
+  .cods-search__controls .cods-button {
+    block-size: auto;
+    inline-size: auto;
+    flex: 0 0 auto;
+    margin: 0;
+  }
+
+  .cods-search__controls :focus-visible {
+    position: relative;
+    z-index: 1;
+  }
+
+  .cods-search--compact .cods-search__controls,
+  .cods-search--slim .cods-search__controls {
+    gap: 0;
+  }
+
+  .cods-search--compact .cods-input__control,
+  .cods-search--slim .cods-input__control {
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+  }
+
+  .cods-search--compact .cods-button,
+  .cods-search--slim .cods-button {
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
+  }
+
+  @media (forced-colors: active) {
+    .cods-search .cods-button::before {
+      content: none;
+    }
+  }
+}

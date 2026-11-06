@@ -1,0 +1,85 @@
+<section data-cods-fixture-state="default">
+  <form
+    class="usa-search cods-search cods-search--default"
+    role="search"
+    aria-label="Search by license or business name"
+    action="/search/"
+    method="get"
+  >
+    <label class="usa-label cods-input__label" for="cods-search-default"
+      >Search by license or business name</label
+    >
+    <div class="cods-search__controls">
+      <input
+        class="usa-input cods-input__control"
+        id="cods-search-default"
+        type="search"
+        name="q"
+      />
+      <button class="usa-button cods-button" type="submit">Search</button>
+    </div>
+  </form>
+</section>
+<section data-cods-fixture-state="compact">
+  <form
+    class="usa-search cods-search cods-search--compact"
+    role="search"
+    aria-label="Search the site"
+    action="/search/"
+    method="get"
+  >
+    <label
+      class="usa-label cods-input__label usa-sr-only"
+      for="cods-search-compact"
+      >Search the site</label
+    >
+    <div class="cods-search__controls">
+      <input
+        class="usa-input cods-input__control"
+        id="cods-search-compact"
+        type="search"
+        name="q"
+      />
+      <button class="usa-button cods-button" type="submit">Search</button>
+    </div>
+  </form>
+</section>
+<section data-cods-fixture-state="slim">
+  <form
+    class="usa-search cods-search cods-search--slim"
+    role="search"
+    aria-label="Search services"
+    action="/search/"
+    method="get"
+  >
+    <label
+      class="usa-label cods-input__label usa-sr-only"
+      for="cods-search-slim"
+      >Search services</label
+    >
+    <div class="cods-search__controls">
+      <input
+        class="usa-input cods-input__control cods-input__control--small"
+        id="cods-search-slim"
+        type="search"
+        name="q"
+      />
+      <button
+        class="usa-button cods-button cods-button--slim cods-button--icon-only"
+        type="submit"
+        aria-label="Search"
+      >
+        <svg
+          class="cods-icon cods-icon--small"
+          aria-hidden="true"
+          focusable="false"
+          width="24"
+          height="24"
+          viewBox="0 0 256 256"
+        >
+          <use href="/icons/sprite.svg#magnifying-glass"></use>
+        </svg>
+      </button>
+    </div>
+  </form>
+</section>
