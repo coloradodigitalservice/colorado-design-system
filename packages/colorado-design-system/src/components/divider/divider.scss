@@ -1,0 +1,17 @@
+@layer cods.components {
+  .cods-divider {
+    --cods-divider-color: var(--cods-color-border-default);
+    --cods-divider-width: var(--cods-border-divider-width);
+
+    display: block;
+    margin: 0;
+    border: 0;
+    border-block-start: var(--cods-divider-width) solid
+      var(--cods-divider-color);
+  }
+
+  .cods-divider--item {
+    padding-block: var(--cods-space-xs);
+    padding-inline: var(--cods-space-md);
+  }
+}

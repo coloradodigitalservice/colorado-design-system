@@ -1,0 +1,38 @@
+{
+  "name": "search",
+  "displayName": "Search",
+  "maturity": "experimental",
+  "type": "static",
+  "uswdsEquivalent": "search",
+  "uswdsVersion": "3.14.0",
+  "componentType": "A",
+  "owners": {
+    "responsible": "Aten component lead",
+    "accountable": "State technical owner",
+    "consulted": "State design owner, accessibility lead",
+    "informed": "Component contributors, product owner"
+  },
+  "divergenceApproved": false,
+  "divergenceNotes": null,
+  "states": ["default", "compact", "slim"],
+  "progressiveEnhancement": "full",
+  "localization": "layout-sensitive",
+  "description": "A form for submitting a search query to a consumer-provided endpoint.",
+  "examples": [
+    {
+      "state": "default",
+      "fixtureState": "default",
+      "setup": "none"
+    },
+    {
+      "state": "compact",
+      "fixtureState": "compact",
+      "setup": "none"
+    },
+    {
+      "state": "slim",
+      "fixtureState": "slim",
+      "setup": "none"
+    }
+  ]
+}

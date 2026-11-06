@@ -1,5 +1,51 @@
 # @coloradodigitalservice/colorado-design-tokens
 
+## 0.2.18
+
+No changes in this release.
+
+## 0.2.17
+
+### Patch Changes
+
+- 3fefb11: Add the experimental Process List component and its 5px connector width token.
+
+## 0.2.16
+
+### Patch Changes
+
+- ab53334: Align Input border widths and icon states with the approved design. Add tokens for default and validation borders, and update Input styles, examples, and documentation.
+
+## 0.2.15
+
+### Patch Changes
+
+- Refine Card variants and add Card border tokens based on the design reference.
+
+## 0.2.14
+
+No changes in this release.
+
+## 0.2.13
+
+### Patch Changes
+
+- Add experimental Section and Item Dividers and a divider line-width token.
+
+## 0.2.12
+
+### Patch Changes
+
+- Add Hero component and responsive Hero typography tokens.
+
+## 0.2.11
+
+No changes in this release.
+
+## 0.2.10
+
+No changes in this release.
+
 ## 0.2.9
 
 No changes in this release.

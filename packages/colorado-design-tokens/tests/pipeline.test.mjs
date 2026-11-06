@@ -202,6 +202,23 @@ describe('State design references and consumers', () => {
     for (const name of ['color-surface-info'])
       expect(output).not.toHaveProperty(name);
   });
+  it('exports the approved Input border dimensions in every format', async () => {
+    const dimensions = {
+      'border-input-width': '1px',
+      'border-input-validation-width': '2px',
+    };
+    expect(output).toMatchObject(dimensions);
+    const [css, scss, types] = await Promise.all(
+      ['tokens.css', '_tokens.scss', 'tokens.d.ts'].map((file) =>
+        readFile(join(temporary, 'first', file), 'utf8'),
+      ),
+    );
+    for (const [name, value] of Object.entries(dimensions)) {
+      expect(css).toContain(`--cods-${name}: ${value};`);
+      expect(scss).toContain(`$${name}: ${value};`);
+      expect(types).toContain(`readonly "${name}": string;`);
+    }
+  });
   it('compiles a bare Sass import from a real local consumer', () => {
     const requireFromCore = createRequire(
       join(packageRoot, '../colorado-design-system/package.json'),
@@ -544,6 +561,23 @@ describe('component inventory completeness', () => {
   let implementations;
   beforeAll(async () => {
     implementations = await loadImplementationDependencies(catalog);
+  });
+  it('checks the shared Card stylesheet against both inventory variants', async () => {
+    const inventory = await readInventory();
+    for (const name of ['Card - Default', 'Card - Icon']) {
+      expect(implementations.get(name).directory).toBe('card');
+      const entry = inventory.components.find(
+        (component) => component.name === name,
+      );
+      const missing = implementations.get(name).tokens[0];
+      entry.implementationTokens = entry.implementationTokens.filter(
+        (token) => token !== missing,
+      );
+      expect(() =>
+        validateComponentInventory(inventory, catalog, implementations),
+      ).toThrow(`${name}: stylesheet dependency ${missing} is undocumented`);
+      entry.implementationTokens.push(missing);
+    }
   });
   it('validates shared foundation dependencies without expanding the component scope', async () => {
     const inventory = await readInventory();

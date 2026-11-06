@@ -1,5 +1,74 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.18
+
+### Patch Changes
+
+- 936ac8e: Add static Tags with seven token-based color variants.
+- @coloradodigitalservice/colorado-design-tokens@0.2.18
+
+## 0.2.17
+
+### Patch Changes
+
+- 3fefb11: Add the experimental Process List component and its 5px connector width token.
+- Updated dependencies [3fefb11]
+  - @coloradodigitalservice/colorado-design-tokens@0.2.17
+
+## 0.2.16
+
+### Patch Changes
+
+- ab53334: Align Input border widths and icon states with the approved design. Add tokens for default and validation borders, and update Input styles, examples, and documentation.
+- Updated dependencies [ab53334]
+  - @coloradodigitalservice/colorado-design-tokens@0.2.16
+
+## 0.2.15
+
+### Patch Changes
+
+- Refine Card variants and add Card border tokens based on the design reference.
+- Updated dependencies
+  - @coloradodigitalservice/colorado-design-tokens@0.2.15
+
+## 0.2.14
+
+### Patch Changes
+
+- Add the experimental Icon List component with documentation and examples.
+- @coloradodigitalservice/colorado-design-tokens@0.2.14
+
+## 0.2.13
+
+### Patch Changes
+
+- Add experimental Section and Item Dividers and a divider line-width token.
+- Updated dependencies
+  - @coloradodigitalservice/colorado-design-tokens@0.2.13
+
+## 0.2.12
+
+### Patch Changes
+
+- Add Hero component and responsive Hero typography tokens.
+- Updated dependencies
+  - @coloradodigitalservice/colorado-design-tokens@0.2.12
+
+## 0.2.11
+
+### Patch Changes
+
+- Add experimental Breadcrumbs with responsive previous-level navigation, inverse styling, documentation, and accessibility evidence.
+- @coloradodigitalservice/colorado-design-tokens@0.2.11
+
+## 0.2.10
+
+### Patch Changes
+
+- a176454: Add the experimental native Select component, canonical state fixtures, Storybook stories, and public documentation. Preserve browser selection behavior without a controller.
+- a176454: Source the native Select caret from shared Phosphor Regular artwork, retaining its original token foreground through a generated variant and preserving native forced-color behavior.
+- @coloradodigitalservice/colorado-design-tokens@0.2.10
+
 ## 0.2.9
 
 ### Patch Changes
