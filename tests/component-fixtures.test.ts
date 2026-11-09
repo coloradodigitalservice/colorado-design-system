@@ -68,6 +68,31 @@ describe('canonical component examples', () => {
     });
   }
 
+  it('requires a native checkbox and review instructions for mixed-state setup', () => {
+    const checkbox = components.find(
+      (component) => component.name === 'checkbox',
+    )!;
+    const mixed = checkbox.examples.examples.find(
+      (example) => example.state === 'indeterminate',
+    )!;
+    expect(mixed.status).toBe('review-required');
+    expect(mixed.code).not.toContain('data-indeterminate');
+    const metadata = structuredClone(checkbox.metadata);
+    const example = metadata.examples.find(
+      (example) => example.state === 'indeterminate',
+    )!;
+    example.instructions = '';
+    expect(() => generateExamples(metadata, checkbox.fixture)).toThrow(
+      'runtime state needs review instructions',
+    );
+    expect(() =>
+      generateExamples(
+        checkbox.metadata,
+        checkbox.fixture.replaceAll('type="checkbox"', 'type="text"'),
+      ),
+    ).toThrow('indeterminate setup needs a native checkbox');
+  });
+
   it('rejects USWDS pin drift and unapproved component divergence', () => {
     const root = mkdtempSync(join(tmpdir(), 'cods-metadata-'));
     temporary.push(root);
@@ -103,6 +128,15 @@ describe('canonical component examples', () => {
     mkdirSync(join(root, 'src/components/shared'));
     writeComponentAssets(root);
     expect(() => checkComponentAssets(root)).not.toThrow();
+    const cardDefault = readFileSync(
+      join(root, 'dist/fixtures/card-default.html'),
+      'utf8',
+    );
+    expect(cardDefault).toContain('data-cods-fixture-state="default"');
+    expect(cardDefault).not.toContain('data-cods-fixture-state="icon"');
+    expect(
+      readFileSync(join(root, 'dist/fixtures/card.html'), 'utf8'),
+    ).toContain('data-cods-fixture-state="icon"');
     const component = components.find(
       (component) => component.name === 'accordion',
     )!;
@@ -137,5 +171,20 @@ describe('canonical component examples', () => {
     delete manifest.exports['./examples/*.json'];
     writeFileSync(join(root, 'package.json'), JSON.stringify(manifest));
     expect(() => checkComponentAssets(root)).toThrow('missing export');
+  });
+});
+
+describe('Card fixture variants', () => {
+  it('keeps icon markup in a separate packaged fixture and combines the canonical examples', () => {
+    const card = components.find((component) => component.name === 'card')!;
+    expect(card.fixtures['card-default']).toBe(card.fixtures.card);
+    expect(card.fixtures['card-default']).not.toContain(
+      'data-cods-fixture-state="icon"',
+    );
+    expect(card.fixtures['card-icon']).toContain(
+      'data-cods-fixture-state="icon"',
+    );
+    expect(card.fixtures.card).not.toContain('data-cods-fixture-state="icon"');
+    expect(card.fixture).toContain('data-cods-fixture-state="icon"');
   });
 });

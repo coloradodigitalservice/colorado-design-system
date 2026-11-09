@@ -15,13 +15,17 @@ interface Item {
   expanded: string | null;
   hidden: string | null;
   initialExpanded: boolean;
-  onClick: () => void;
+  currentExpanded: string | null;
 }
 
 interface Instance {
   items: Item[];
   allowMultiple: string | null;
   enhanced: string | null;
+  observer: MutationObserver;
+  beforeClick: (event: Event) => void;
+  afterClick: () => void;
+  focusedElement: Element | null;
 }
 
 const instances = new WeakMap<HTMLElement, Instance>();
@@ -32,31 +36,24 @@ function restore(element: HTMLElement, name: string, value: string | null) {
   else element.setAttribute(name, value);
 }
 
-function change(root: HTMLElement, item: Item, expanded: boolean) {
+// Observe USWDS's attributes, including sibling side effects. Explicit API and
+// click paths flush the observer before returning, preserving synchronous events.
+function settle(root: HTMLElement) {
   const instance = instances.get(root);
-  if (!instance || item.button.disabled) return;
-  const before = instance.items.map(({ button }) =>
-    button.getAttribute('aria-expanded'),
-  );
-  // Capture focus before USWDS hides content; browsers may clear it while
-  // closing this panel or a sibling in single-open mode.
-  const focusedElement = root.ownerDocument.activeElement;
-  // Use pinned USWDS state/exclusivity behavior; only lifecycle, focus safety,
-  // and CoDS events are added here. No document-level USWDS auto-initializer.
-  uswdsAccordion.toggle(item.button, expanded);
+  if (!instance) return;
+  instance.observer.takeRecords();
   const changes = instance.items.filter(
-    ({ button }, index) =>
-      before[index] !== button.getAttribute('aria-expanded'),
+    (item) =>
+      item.currentExpanded !== item.button.getAttribute('aria-expanded'),
   );
-  for (const changed of changes) {
-    if (
-      changed.button.getAttribute('aria-expanded') === 'false' &&
-      changed.panel.contains(focusedElement)
-    ) {
-      changed.button.focus();
-    }
+  const focusedElement =
+    instance.focusedElement ?? root.ownerDocument.activeElement;
+  instance.focusedElement = null;
+  for (const item of changes) {
+    item.currentExpanded = item.button.getAttribute('aria-expanded');
+    if (item.currentExpanded === 'false' && item.panel.contains(focusedElement))
+      item.button.focus();
   }
-  // Settle every affected panel before notifying consumers.
   for (const { button, panel } of changes) {
     root.dispatchEvent(
       new CustomEvent<AccordionChangeDetail>('cods-accordion:change', {
@@ -85,6 +82,7 @@ export function init(root: HTMLElement): void {
   let valid =
     root.matches(ROOT) &&
     root.classList.contains('usa-accordion') &&
+    !root.classList.contains('usa-accordion__button') &&
     root.isConnected &&
     buttons.length > 0;
   for (const button of buttons) {
@@ -112,23 +110,26 @@ export function init(root: HTMLElement): void {
       expanded: button.getAttribute('aria-expanded'),
       hidden: panel.getAttribute('hidden'),
       initialExpanded: initial === 'true',
-      onClick: () =>
-        change(root, item, button.getAttribute('aria-expanded') !== 'true'),
+      currentExpanded: button.getAttribute('aria-expanded'),
     };
     items.push(item);
   }
   // USWDS toggles all its direct buttons, so they must all be valid CoDS pairs.
   const upstreamButtons = Array.from(
-    root.querySelectorAll('.usa-accordion__button[aria-controls]'),
+    root.querySelectorAll(uswdsAccordion.BUTTON),
   ).filter((button) => button.closest('.usa-accordion') === root);
   if (
     !valid ||
+    root.querySelector(`${ROOT}, ${uswdsAccordion.ACCORDION}`) !== null ||
+    Boolean(
+      root.parentElement?.closest(`${ROOT}, ${uswdsAccordion.ACCORDION}`),
+    ) ||
     panels.length !== items.length ||
     upstreamButtons.length !== items.length
   ) {
     if (!warned.has(root)) {
       console.warn(
-        'cods-accordion: expected a connected USWDS root with unique button/panel pairs; markup was left unchanged.',
+        'cods-accordion: expected a connected, non-nested USWDS root with unique button/panel pairs; markup was left unchanged.',
         root,
       );
       warned.add(root);
@@ -139,6 +140,21 @@ export function init(root: HTMLElement): void {
     items,
     allowMultiple: root.getAttribute('data-allow-multiple'),
     enhanced: root.getAttribute('data-cods-accordion-enhanced'),
+    observer: new MutationObserver(() => settle(root)),
+    focusedElement: null,
+    beforeClick: (event) => {
+      const target =
+        event.target instanceof Element
+          ? event.target.closest(uswdsAccordion.BUTTON)
+          : null;
+      if (!(target instanceof HTMLButtonElement)) return;
+      if (target.disabled) {
+        event.stopImmediatePropagation();
+        return;
+      }
+      instance.focusedElement = root.ownerDocument.activeElement;
+    },
+    afterClick: () => settle(root),
   };
   instances.set(root, instance);
   if (root.hasAttribute('data-cods-accordion-multiple'))
@@ -148,12 +164,31 @@ export function init(root: HTMLElement): void {
   const focusedItem = items.find(({ panel }) =>
     panel.contains(root.ownerDocument.activeElement),
   );
-  // Last initially expanded item wins in single-open mode, as in USWDS init.
+  // Seed declared enhancement states before USWDS initializes its own behavior.
+  const lastExpanded = [...items]
+    .reverse()
+    .find((item) => item.initialExpanded);
   for (const item of items)
-    uswdsAccordion.toggle(item.button, item.initialExpanded);
+    item.button.setAttribute(
+      'aria-expanded',
+      String(
+        item.initialExpanded &&
+          (root.hasAttribute('data-cods-accordion-multiple') ||
+            item === lastExpanded),
+      ),
+    );
+  root.addEventListener('click', instance.beforeClick);
+  uswdsAccordion.on(root);
   if (focusedItem?.panel.hidden) focusedItem.button.focus();
   root.setAttribute('data-cods-accordion-enhanced', '');
-  for (const item of items) item.button.addEventListener('click', item.onClick);
+  for (const item of items)
+    item.currentExpanded = item.button.getAttribute('aria-expanded');
+  instance.observer.observe(root, {
+    subtree: true,
+    attributes: true,
+    attributeFilter: ['aria-expanded'],
+  });
+  root.addEventListener('click', instance.afterClick);
 }
 
 /** Initialize roots within a container, including the container itself. */
@@ -172,15 +207,21 @@ export function setExpanded(
   const item = instances
     .get(root)
     ?.items.find((item) => item.panel.id === panelId);
-  if (item) change(root, item, expanded);
+  if (!item || item.button.disabled) return;
+  instances.get(root)!.focusedElement = root.ownerDocument.activeElement;
+  uswdsAccordion.toggle(item.button, expanded);
+  settle(root);
 }
 
 /** Remove this root's listeners and restore the authored attributes exactly. */
 export function destroy(root: HTMLElement): void {
   const instance = instances.get(root);
   if (!instance) return;
-  for (const { button, panel, onClick, expanded, hidden } of instance.items) {
-    button.removeEventListener('click', onClick);
+  instance.observer.disconnect();
+  root.removeEventListener('click', instance.beforeClick);
+  uswdsAccordion.off(root);
+  root.removeEventListener('click', instance.afterClick);
+  for (const { button, panel, expanded, hidden } of instance.items) {
     restore(button, 'aria-expanded', expanded);
     restore(panel, 'hidden', hidden);
   }

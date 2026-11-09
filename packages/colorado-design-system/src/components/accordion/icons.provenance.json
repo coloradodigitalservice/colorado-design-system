@@ -1,0 +1,51 @@
+{
+  "source": {
+    "package": "@phosphor-icons/core",
+    "version": "2.1.1",
+    "license": "MIT"
+  },
+  "weight": "regular",
+  "icons": [
+    {
+      "id": "caret-up",
+      "sha256": "bccc26004e73e5de783ac6dde607e3671e776261d81972ccdbd296b4aca21ca9",
+      "cssUrl": "./icons/caret-up.svg"
+    },
+    {
+      "id": "caret-down",
+      "sha256": "53f0cf2d0b144ac3cb07e353e0cd0853ffb3ed432d741460ce288edfcb0924b1",
+      "cssUrl": "./icons/caret-down.svg"
+    }
+  ],
+  "rendering": {
+    "method": "CSS mask with currentColor",
+    "size": "24px from existing space.lg token",
+    "position": "Existing logical inset and vertical centering preserved"
+  },
+  "previousFigmaExport": {
+    "source": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=1387-388&m=dev",
+    "observedOn": "2026-10-16",
+    "export": "Download all icons, Chrome Aten profile; original SVGs, no path/size edits",
+    "assets": [
+      {
+        "file": "icon-medium-chevron-up.svg",
+        "width": 24,
+        "height": 24,
+        "sha256": "f5c5bf5e07e8c3ff3a7aa276ca31cd082d850180e07fd37b5c19a2db8366def6"
+      },
+      {
+        "file": "icon-medium-chevron-down.svg",
+        "width": 24,
+        "height": 24,
+        "sha256": "2a11c5ab19ce8310c027dca9c465c2315e77ca0911d8e50fb783e20dfa408aa3"
+      }
+    ],
+    "commit": "fb7ae7d99f588ad29e5c9043951acfc96763401d"
+  },
+  "comparison": {
+    "date": "2026-10-21",
+    "sizesPx": [16, 24],
+    "result": "Visual parity: same Regular weight, silhouette, optical alignment, normalized viewBox and control spacing. Figma cubic exports and Phosphor arcs differ only in serialization/precision; normalized bounding-box deltas below 0.0007px at 24px. No pixel-identity claim.",
+    "rasterObservation": "Chromium edge antialias differences: up 7/8 pixels and down 8/13 pixels at 16/24px, respectively. Live Aten Figma page corroborates the chevron treatment; recorded exports supply precise geometry."
+  }
+}

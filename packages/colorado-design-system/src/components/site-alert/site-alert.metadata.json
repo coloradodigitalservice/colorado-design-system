@@ -15,11 +15,12 @@
     "long-content",
     "localization",
     "rtl",
-    "focus-visible"
+    "focus-visible",
+    "warning"
   ],
   "progressiveEnhancement": "full",
   "localization": "layout-sensitive",
-  "description": "A static sitewide informational or emergency notice using themed USWDS markup; no JavaScript required.",
+  "description": "A static sitewide informational, warning, or emergency notice, with a decorative icon for emergencies.",
   "examples": [
     {
       "state": "default",
@@ -56,6 +57,11 @@
       "fixtureState": "focus-visible",
       "setup": "focus",
       "instructions": "Use keyboard navigation to verify visible focus on the first interactive element."
+    },
+    {
+      "state": "warning",
+      "fixtureState": "warning",
+      "setup": "none"
     }
   ],
   "uswdsVersion": "3.14.0",

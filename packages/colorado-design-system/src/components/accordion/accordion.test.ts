@@ -201,16 +201,44 @@ describe('USWDS accordion lifecycle', () => {
       rootFor('multiple').hasAttribute('data-cods-accordion-enhanced'),
     ).toBe(true);
   });
-  it('isolates nested roots and can destroy one without disabling another', () => {
-    const outer = rootFor();
-    const inner = rootFor('multiple');
-    panels(outer)[0].append(inner);
+  it('keeps independent roots active after another is destroyed', () => {
+    const first = rootFor();
+    const second = rootFor('multiple');
     initAll();
-    buttons(inner)[0].click();
-    expect(buttons(outer)[0].getAttribute('aria-expanded')).toBe('true');
-    destroy(outer);
-    buttons(inner)[1].click();
-    expect(panels(inner)[1].hidden).toBe(true);
-    destroy(inner);
+    destroy(first);
+    buttons(second)[1].click();
+    expect(panels(second)[1].hidden).toBe(true);
+  });
+  it('leaves unsupported nested accordions readable and unchanged', () => {
+    const outer = rootFor();
+    panels(outer)[0].append(rootFor('multiple'));
+    const original = outer.outerHTML;
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    initAll(outer);
+    expect(outer.outerHTML).toBe(original);
+  });
+  it('uses the upstream lifecycle once and removes it on destroy', () => {
+    const root = rootFor();
+    const on = vi.spyOn(uswdsAccordion, 'on');
+    const off = vi.spyOn(uswdsAccordion, 'off');
+    init(root);
+    init(root);
+    expect(on).toHaveBeenCalledExactlyOnceWith(root);
+    destroy(root);
+    destroy(root);
+    expect(off).toHaveBeenCalledExactlyOnceWith(root);
+  });
+  it('reports upstream attribute changes once after state settles', async () => {
+    const root = rootFor();
+    init(root);
+    const listener = vi.fn();
+    root.addEventListener('cods-accordion:change', listener);
+    uswdsAccordion.toggle(buttons(root)[1], true);
+    await Promise.resolve();
+    expect(listener).toHaveBeenCalledTimes(2);
+    expect(panels(root).map((panel) => panel.hidden)).toEqual([true, false]);
+    destroy(root);
+    await Promise.resolve();
+    expect(listener).toHaveBeenCalledTimes(2);
   });
 });

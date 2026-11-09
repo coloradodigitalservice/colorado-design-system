@@ -168,8 +168,8 @@ function validateRepository() {
       fail('root packageManager must pin pnpm@12.4.2');
     if (rootManifest.engines?.node !== '24.21.0')
       fail('root engines.node must pin 24.21.0');
-    if (rootManifest.devDependencies?.turbo !== '2.10.13')
-      fail('root must pin turbo@2.10.13');
+    if (rootManifest.devDependencies?.turbo !== '2.11.9')
+      fail('root must pin turbo@2.11.9');
   }
   if (readFileSync(join(root, '.nvmrc'), 'utf8').trim() !== '24.21.0')
     fail('.nvmrc must pin 24.21.0');
