@@ -14,10 +14,10 @@
   },
   "divergenceApproved": false,
   "divergenceNotes": null,
-  "states": ["default", "embed", "four-three"],
+  "states": ["default", "embed", "embed-local-stand-in", "four-three"],
   "progressiveEnhancement": "full",
   "localization": "layout-sensitive",
-  "description": "Responsive containers for native and embedded videos.",
+  "description": "Responsive containers for native and third-party embedded videos.",
   "examples": [
     {
       "state": "default",
@@ -27,6 +27,11 @@
     {
       "state": "embed",
       "fixtureState": "embed",
+      "setup": "none"
+    },
+    {
+      "state": "embed-local-stand-in",
+      "fixtureState": "embed-local-stand-in",
       "setup": "none"
     },
     {
