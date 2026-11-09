@@ -1,5 +1,29 @@
 # Accessibility evidence: `cods-site-alert`
 
+## CODS-P3-006 revision — October 27, 2026
+
+- **Maturity:** experimental; stable and gate approval are pending.
+- **Tracking:** [CDS-54 / CODS-P3-006](https://atendesign.atlassian.net/browse/CDS-54).
+- **Reviewer:** developer and automated verification. Human review is pending.
+- **Source:** pinned USWDS 3.14.0 Site Alert markup; emergency uses the shared Phosphor warning icon.
+- **Scope:** static informational, warning, and emergency notices. Informational and warning notices are text-only; sections use unique names from their visible lead-ins or headings. Emergency uses a visible heading and decorative icon. Native links are the only interactive elements. No controller or dismissal is shipped.
+
+### Checklist and open items
+
+- [ ] Keyboard and focus: verify native links, visible focus, skip-link order and no obscured content with a keyboard.
+- [ ] Naming and screen reader: verify region names, reading order and links with a named screen-reader/browser pairing. No human announcement result is claimed for this revision.
+- [ ] Zoom and reflow: verify actual 400% zoom and long, translated and RTL content without clipping.
+- [ ] Forced colors: verify readability, emergency icon and focus with an operating-system high-contrast setting.
+- [ ] Localization: review translations, language scoping and bidirectional text with representative readers.
+- N/A — no motion or scripted interaction.
+- [ ] Design and accessibility owner review remains open. The emergency-only icon direction was requested in PR #54; CDS-54's distinct-icons criterion has not been amended here. Dismissal is deferred until a client need is confirmed; follow-up: [CDS-116](https://atendesign.atlassian.net/browse/CDS-116).
+
+On October 27, 2026, 30 built-file browser checks passed in Chromium, Firefox, WebKit, and Storybook Chromium, including axe, 320px reflow, and forced-colors emulation. Firefox used an isolated temporary application profile. These automated checks do not replace human review. Earlier manual evidence below applies to the previous implementation, not this revision.
+
+---
+
+## Historical G2 evidence (previous implementation)
+
 - Maturity: experimental (`0.x`); not approved as stable.
 - Date: October 1, 2026.
 - Automated verification: Codex; manual review: Eric Swanson (reported October 1, 2026); accessibility lead approval pending.

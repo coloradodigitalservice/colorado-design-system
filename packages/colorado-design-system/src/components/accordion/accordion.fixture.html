@@ -1,6 +1,6 @@
 <!-- Canonical USWDS 3.14.0 accordion markup. Panels stay visible until init. -->
 <section data-cods-fixture-state="default">
-  <h2>Single-open accordion</h2>
+  <h2>Bordered accordion</h2>
   <div class="usa-accordion cods-accordion" data-cods-accordion>
     <h3 class="usa-accordion__heading cods-accordion__heading">
       <button
@@ -45,10 +45,10 @@
     </div>
   </div>
 </section>
-<section data-cods-fixture-state="bordered">
-  <h2>Bordered accordion</h2>
+<section data-cods-fixture-state="borderless">
+  <h2>Borderless accordion</h2>
   <div
-    class="usa-accordion cods-accordion usa-accordion--bordered cods-accordion--bordered"
+    class="usa-accordion cods-accordion cods-accordion--borderless"
     data-cods-accordion
   >
     <h3 class="usa-accordion__heading cods-accordion__heading">
@@ -58,13 +58,40 @@
         data-cods-accordion-trigger
         data-cods-accordion-expanded="true"
         aria-expanded="true"
-        aria-controls="accordion-bordered-1"
+        aria-controls="accordion-borderless-1"
       >
         Application requirements
       </button>
     </h3>
     <div
-      id="accordion-bordered-1"
+      id="accordion-borderless-1"
+      class="usa-accordion__content cods-accordion__panel"
+      data-cods-accordion-panel
+    >
+      <p>You can submit supporting documents with your application.</p>
+    </div>
+  </div>
+</section>
+<section data-cods-fixture-state="white">
+  <h2>White accordion</h2>
+  <div
+    class="usa-accordion cods-accordion cods-accordion--white"
+    data-cods-accordion
+  >
+    <h3 class="usa-accordion__heading cods-accordion__heading">
+      <button
+        type="button"
+        class="usa-accordion__button cods-accordion__trigger"
+        data-cods-accordion-trigger
+        data-cods-accordion-expanded="true"
+        aria-expanded="true"
+        aria-controls="accordion-white-1"
+      >
+        Application requirements
+      </button>
+    </h3>
+    <div
+      id="accordion-white-1"
       class="usa-accordion__content cods-accordion__panel"
       data-cods-accordion-panel
     >

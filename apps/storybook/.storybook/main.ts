@@ -25,6 +25,9 @@ const config: StorybookConfig = {
         },
       },
     };
+    // Preserve :dir() semantics rather than lowering it to ancestor/lang rules.
+    // The QA browsers support :dir(), including dir="auto" and LTR overrides.
+    viteConfig.build = { ...viteConfig.build, cssTarget: 'esnext' };
     viteConfig.server = {
       ...viteConfig.server,
       fs: {

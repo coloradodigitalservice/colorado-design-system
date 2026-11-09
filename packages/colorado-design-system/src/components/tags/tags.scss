@@ -1,0 +1,48 @@
+@layer cods.components {
+  .cods-tags {
+    display: inline-block;
+    box-sizing: border-box;
+    max-width: 100%;
+    margin: 0;
+    padding: var(--cods-space-2xs) var(--cods-space-xs);
+    border-radius: var(--cods-radius-sm);
+    background: var(--cods-component-tag-gray-background);
+    color: var(--cods-component-tag-gray-text);
+    font-family: var(--cods-font-family-body), sans-serif;
+    font-size: var(--cods-font-size-desktop-ui);
+    font-weight: var(--cods-font-weight-regular);
+    line-height: var(--cods-line-height-desktop-ui);
+    text-transform: none;
+    overflow-wrap: anywhere;
+  }
+
+  .cods-tags--blue {
+    background: var(--cods-component-tag-blue-background);
+    color: var(--cods-component-tag-blue-text);
+  }
+
+  .cods-tags--green {
+    background: var(--cods-component-tag-green-background);
+    color: var(--cods-component-tag-green-text);
+  }
+
+  .cods-tags--red {
+    background: var(--cods-component-tag-red-background);
+    color: var(--cods-component-tag-red-text);
+  }
+
+  .cods-tags--yellow {
+    background: var(--cods-component-tag-yellow-background);
+    color: var(--cods-component-tag-yellow-text);
+  }
+
+  .cods-tags--plum {
+    background: var(--cods-component-tag-plum-background);
+    color: var(--cods-component-tag-plum-text);
+  }
+
+  .cods-tags--teal {
+    background: var(--cods-component-tag-teal-background);
+    color: var(--cods-component-tag-teal-text);
+  }
+}

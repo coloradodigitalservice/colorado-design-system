@@ -40,6 +40,7 @@ export function generateExamples(
 export function loadComponents(root?: string): {
   name: string;
   fixture: string;
+  fixtures: Record<string, string>;
   metadataText: string;
   metadata: ComponentMetadata;
   examples: ExampleData;

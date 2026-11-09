@@ -28,6 +28,7 @@
     },
     "@cods-internal/web#build": {
       "dependsOn": ["^build", "validate"],
+      "env": ["PUBLIC_BASE_PATH"],
       "outputs": ["dist/**"]
     },
     "@cods-internal/storybook#build": {

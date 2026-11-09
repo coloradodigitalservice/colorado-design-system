@@ -1,0 +1,25 @@
+---
+import metadata from '@coloradodigitalservice/colorado-design-system/metadata/card.json';
+import examples from '@coloradodigitalservice/colorado-design-system/examples/card.json';
+import fixture from '@coloradodigitalservice/colorado-design-system/fixtures/card.html?raw';
+import defaultFixture from '@coloradodigitalservice/colorado-design-system/fixtures/card-default.html?raw';
+import iconFixture from '@coloradodigitalservice/colorado-design-system/fixtures/card-icon.html?raw';
+import spriteUrl from '@coloradodigitalservice/colorado-design-system/icons/sprite.svg?url';
+import CodeExamples from './CodeExamples.astro';
+const { variant = 'all' } = Astro.props;
+const iconStates = ['icon', 'rtl', 'icon-external', 'icon-long-content'];
+const selected =
+  variant === 'all'
+    ? fixture
+    : variant === 'icon'
+      ? iconFixture
+      : defaultFixture;
+const selectedExamples = examples.examples.filter(
+  (example) =>
+    variant === 'all' ||
+    (variant === 'icon') === iconStates.includes(example.state),
+);
+---
+
+<div set:html={selected.replaceAll('/icons/sprite.svg', spriteUrl)} />
+<CodeExamples metadata={metadata} examples={selectedExamples} />

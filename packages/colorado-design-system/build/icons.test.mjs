@@ -5,11 +5,17 @@ import { resolve } from 'node:path';
 import { createRequire } from 'node:module';
 import { afterEach, describe, expect, it } from 'vitest';
 import iconVariants from './uswds-icon-variants.json' with { type: 'json' };
+import componentVariants from './component-icon-variants.json' with { type: 'json' };
+const allVariants = [
+  ...Object.values(iconVariants),
+  ...Object.values(componentVariants),
+];
 import {
   checkIcons,
   generatedDir,
   generateIcons,
   validateManifest,
+  validateComponentIconVariants,
   writeDistIcons,
 } from './icons.mjs';
 
@@ -36,6 +42,11 @@ describe('Phosphor icon generation', () => {
   it('matches variant foreground colors to the pinned USWDS source assets', async () => {
     const require = createRequire(import.meta.url);
     for (const [name, { color }] of Object.entries(iconVariants)) {
+      // The disabled minus intentionally matches the disabled check.
+      if (name === 'checkbox-indeterminate-alt.svg') {
+        expect(color).toBe(iconVariants['correct8-alt.svg'].color);
+        continue;
+      }
       const source = await readFile(
         require.resolve(`@uswds/uswds/img/${name}`),
         'utf8',
@@ -50,6 +61,22 @@ describe('Phosphor icon generation', () => {
       );
       expect(colors.length ? colors : ['000000'], name).toContain(color);
     }
+  });
+
+  it('requires component foreground variants to match approved artwork and source tokens', () => {
+    expect(validateComponentIconVariants(componentVariants)).toEqual(
+      Object.values(componentVariants),
+    );
+    expect(() =>
+      validateComponentIconVariants({
+        caret: { ...componentVariants['select-caret'], color: '000000' },
+      }),
+    ).toThrow(/source token/);
+    expect(() =>
+      validateComponentIconVariants({
+        caret: { ...componentVariants['select-caret'], id: '../caret-down' },
+      }),
+    ).toThrow(/approved icon ID/);
   });
 
   it('requires manifest provenance to match the pinned Phosphor source', () => {
@@ -132,9 +159,7 @@ describe('Phosphor icon generation', () => {
     await writeDistIcons(distDir);
 
     const names = await readdir(distDir);
-    expect(names).toHaveLength(
-      approved.length + 3 + Object.keys(iconVariants).length,
-    );
+    expect(names).toHaveLength(approved.length + 3 + allVariants.length);
     for (const name of ['sprite.svg', 'catalog.json', 'LICENSE'])
       expect(names).toContain(name);
     expect(await readFile(resolve(distDir, 'cursor.svg'), 'utf8')).toContain(
@@ -146,7 +171,7 @@ describe('Phosphor icon generation', () => {
     expect(await readFile(resolve(distDir, 'LICENSE'), 'utf8')).toContain(
       'MIT License',
     );
-    for (const { id, color } of Object.values(iconVariants)) {
+    for (const { id, color } of allVariants) {
       const original = await readFile(resolve(distDir, `${id}.svg`), 'utf8');
       const variant = await readFile(
         resolve(distDir, `${id}--${color}.svg`),

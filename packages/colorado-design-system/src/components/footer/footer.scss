@@ -17,8 +17,14 @@
 
   .cods-footer__nav {
     border: 0;
+    inline-size: 100%;
     margin: 0;
+    max-inline-size: none;
     padding: 0;
+  }
+
+  .cods-footer--compact .cods-footer__group {
+    inline-size: 100%;
   }
 
   .cods-footer__heading[class~='usa-footer__primary-link--button'] {
@@ -141,6 +147,69 @@
 
   .cods-footer__social-link:active {
     color: var(--cods-color-icon-action-secondary-active);
+  }
+
+  @media (width < 30rem) {
+    .cods-footer--full .cods-footer__primary-section {
+      border-block-start: 0;
+      padding-block: 0;
+    }
+
+    .cods-footer--full .cods-footer__groups {
+      margin: 0;
+    }
+
+    .cods-footer--full .cods-footer__group {
+      border-block: 1px solid var(--cods-color-border-subtle);
+      inline-size: 100%;
+      padding-inline: 0;
+    }
+
+    // Adjacent groups share one separator, including when a panel is open.
+    .cods-footer--full .cods-footer__group + .cods-footer__group {
+      margin-block-start: -1px;
+    }
+
+    .cods-footer--full .cods-footer__heading {
+      gap: var(--cods-space-md);
+      margin: 0;
+      padding: var(--cods-space-sm) var(--cods-space-md);
+    }
+
+    .cods-footer--full .cods-footer__heading:not(button),
+    .cods-footer--full .cods-footer__heading[aria-expanded='true'] {
+      border-block-end: 1px solid var(--cods-color-border-subtle);
+    }
+
+    .cods-footer--full .cods-footer__heading::before {
+      flex: 0 0 var(--cods-icon-size-small);
+      inline-size: var(--cods-icon-size-small);
+      block-size: var(--cods-icon-size-small);
+      margin: 0;
+    }
+
+    .cods-footer--full
+      .cods-footer__heading
+      + :is(.cods-footer__links, .cods-footer__panel) {
+      margin-block: 0;
+      padding: var(--cods-space-sm) var(--cods-space-md);
+    }
+
+    .cods-footer--full
+      button.cods-footer__heading
+      + :is(.cods-footer__links, .cods-footer__panel) {
+      padding-inline-start: calc(
+        2 * var(--cods-space-md) + var(--cods-icon-size-small)
+      );
+    }
+  }
+
+  @media (width < 48rem) {
+    .cods-footer__legal-list {
+      align-items: flex-start;
+      flex-flow: column nowrap;
+      gap: 0;
+    }
   }
 
   @media (forced-colors: active) {

@@ -1,0 +1,22 @@
+---
+import metadata from '@coloradodigitalservice/colorado-design-system/metadata/tags.json';
+import examples from '@coloradodigitalservice/colorado-design-system/examples/tags.json';
+import CodeExamples from './CodeExamples.astro';
+---
+
+<h3>In context</h3>
+<div
+  set:html={
+    examples.examples.find((example) => example.state === 'in-context')?.html
+  }
+/>
+<h3>Colors and long content</h3>
+{examples.examples
+  .filter((example) => example.state !== 'in-context')
+  .map((example) => (
+    <section aria-label={`${example.state} tag`}>
+      <h4>{example.state === 'default' ? 'Default (gray)' : example.state}</h4>
+      <div set:html={example.html} />
+    </section>
+  ))}
+<CodeExamples metadata={metadata} examples={examples.examples} />

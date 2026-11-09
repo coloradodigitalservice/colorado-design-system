@@ -1,0 +1,13 @@
+---
+import examples from '@coloradodigitalservice/colorado-design-system/examples/link.json';
+import metadata from '@coloradodigitalservice/colorado-design-system/metadata/link.json';
+import catalogUrl from '@coloradodigitalservice/colorado-design-system/icons/catalog.json?url';
+import CodeExamples from './CodeExamples.astro';
+---
+
+{examples.examples.map((example) => (
+  <div
+    set:html={example.html.replaceAll('../icons/catalog.json', catalogUrl)}
+  />
+))}
+<CodeExamples metadata={metadata} examples={examples.examples} />

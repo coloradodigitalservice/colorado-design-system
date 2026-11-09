@@ -1,0 +1,78 @@
+{
+  "name": "tags",
+  "displayName": "Tags",
+  "maturity": "experimental",
+  "type": "static",
+  "uswdsEquivalent": "tag",
+  "uswdsVersion": "3.14.0",
+  "componentType": "A",
+  "owners": {
+    "responsible": "Aten component lead",
+    "accountable": "State technical owner",
+    "consulted": "State design owner, accessibility lead",
+    "informed": "Component contributors, product owner"
+  },
+  "divergenceApproved": false,
+  "divergenceNotes": null,
+  "states": [
+    "default",
+    "blue",
+    "green",
+    "red",
+    "yellow",
+    "plum",
+    "teal",
+    "long-content",
+    "in-context"
+  ],
+  "progressiveEnhancement": "full",
+  "localization": "layout-sensitive",
+  "description": "Static categorization labels using USWDS tag markup and Colorado color tokens.",
+  "examples": [
+    {
+      "state": "default",
+      "fixtureState": "default",
+      "setup": "none"
+    },
+    {
+      "state": "blue",
+      "fixtureState": "blue",
+      "setup": "none"
+    },
+    {
+      "state": "green",
+      "fixtureState": "green",
+      "setup": "none"
+    },
+    {
+      "state": "red",
+      "fixtureState": "red",
+      "setup": "none"
+    },
+    {
+      "state": "yellow",
+      "fixtureState": "yellow",
+      "setup": "none"
+    },
+    {
+      "state": "plum",
+      "fixtureState": "plum",
+      "setup": "none"
+    },
+    {
+      "state": "teal",
+      "fixtureState": "teal",
+      "setup": "none"
+    },
+    {
+      "state": "long-content",
+      "fixtureState": "long-content",
+      "setup": "none"
+    },
+    {
+      "state": "in-context",
+      "fixtureState": "in-context",
+      "setup": "none"
+    }
+  ]
+}

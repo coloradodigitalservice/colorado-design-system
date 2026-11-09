@@ -72,6 +72,16 @@ metadata at `@coloradodigitalservice/colorado-design-system/metadata/footer.json
 The component preview above and the expandable examples below both use the
 canonical fixture; the examples provide copyable markup for both densities.
 
+The documentation site's own footer uses a static, contact-focused Compact
+layout from the [website mockup](https://www.figma.com/design/JLCOTY9jAy5g6vms27Uth4/CDS-Website?node-id=12450-7265).
+It includes Contact Us links, State policies, copyright, and the current
+development release. The Google Space link is omitted until a destination is
+available. Its container aligns with the header and main
+content at a maximum of 80rem (1280px), including 32px side gutters.
+Links retain 48px touch targets even though the mockup shows tighter rows.
+Consumers can choose their own container width;
+the fixture's `grid-container` uses the default USWDS width.
+
 ## Variants and public classes
 
 | Variant | USWDS modifier     | CoDS modifier          | Use                                                             |
@@ -84,6 +94,12 @@ link/focus treatment, and touch-sized social links. Social links appear under
 Contact Us in Full; Compact has no social links. Group links remain ordinary
 HTML anchors. Full group headings become buttons at narrow widths; they use
 USWDS's disclosure behavior.
+
+Below 480px, Full groups share single-pixel separators with no space above the
+first group. Expanded links align with the heading text, after the chevron and
+its gap. Without JavaScript, the links remain visible and align with the static
+headings. Below 768px, legal links stack vertically in both variants and in the
+documentation site's footer.
 
 ## Accessibility and localization
 

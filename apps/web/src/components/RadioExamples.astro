@@ -1,0 +1,13 @@
+---
+import metadata from '@coloradodigitalservice/colorado-design-system/metadata/radio.json';
+import examples from '@coloradodigitalservice/colorado-design-system/examples/radio.json';
+import fixture from '@coloradodigitalservice/colorado-design-system/fixtures/radio.html?raw';
+import spriteUrl from '@coloradodigitalservice/colorado-design-system/icons/sprite.svg?url';
+import CodeExamples from './CodeExamples.astro';
+---
+
+<div
+  class="cods-docs-radio-examples"
+  set:html={fixture.replaceAll('/icons/sprite.svg', spriteUrl)}
+/>
+<CodeExamples metadata={metadata} examples={examples.examples} />

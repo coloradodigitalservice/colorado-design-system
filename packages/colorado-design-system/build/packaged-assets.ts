@@ -11,6 +11,15 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { generate, parse, walk } from 'css-tree';
 import type { Plugin } from 'vite';
 import iconVariants from './uswds-icon-variants.json' with { type: 'json' };
+import approvedIcons from '../src/icons/approved-icons.json' with { type: 'json' };
+import componentVariants from './component-icon-variants.json' with { type: 'json' };
+
+const packagedIconIds = new Set([
+  ...approvedIcons.icons,
+  ...[...Object.values(iconVariants), ...Object.values(componentVariants)].map(
+    ({ id, color }) => `${id}--${color}`,
+  ),
+]);
 
 const excludedDirectory =
   /(?:^|[/\\])(?:favicons|material-icons(?:-deprecated)?|usa-icons(?:-bg)?|uswds-icons)(?:[/\\]|$)/;
@@ -41,7 +50,7 @@ const phosphorReplacements = new Map([
   ['usa-icons/calendar_today.svg', 'calendar-dots'],
   ['usa-icons/check_circle.svg', 'check-circle'],
   ['usa-icons/close.svg', 'x'],
-  ['usa-icons/error.svg', 'x-circle'],
+  ['usa-icons/error.svg', 'warning-circle'],
   ['usa-icons/expand_less.svg', 'caret-up'],
   ['usa-icons/expand_more.svg', 'caret-down'],
   ['usa-icons/info.svg', 'info'],
@@ -144,6 +153,10 @@ export function copiedAssets(
   }
   return {
     isExternal(id) {
+      // Component masks reference the same generated files as the public icon
+      // pipeline. They are written by the icon plugin before CSS validation.
+      const icon = /^\.\/icons\/([a-z\d-]+)\.svg(?:[?#].*)?$/.exec(id);
+      if (icon) return packagedIconIds.has(icon[1]!);
       const file = sourceFile(id);
       return file !== undefined && isFile(file);
     },

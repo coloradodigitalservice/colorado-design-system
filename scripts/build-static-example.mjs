@@ -31,10 +31,9 @@ export function exampleHTML() {
         resolve(packageRoot, 'dist/fixtures', `${component.name}.html`),
         'utf8',
       );
-      const html = fixture.replaceAll(
-        '/icons/sprite.svg',
-        './assets/icons/sprite.svg',
-      );
+      const html = fixture
+        .replaceAll('/icons/sprite.svg', './assets/icons/sprite.svg')
+        .replaceAll('../icons/catalog.json', './assets/icons/catalog.json');
       return `<article><h2>${escape(metadata.displayName)} (${metadata.maturity})</h2>${html}</article>`;
     })
     .join(

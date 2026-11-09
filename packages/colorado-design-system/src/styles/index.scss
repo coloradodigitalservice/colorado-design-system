@@ -24,5 +24,19 @@
 // Register component partials after the package's layer order and theme.
 @forward '../components/site-alert/site-alert';
 @forward '../components/accordion/accordion';
+@forward '../components/breadcrumbs/breadcrumbs';
+@forward '../components/select/select';
+@forward '../components/radio/radio';
+@forward '../components/checkbox/checkbox';
+@forward '../components/in-page-alert/in-page-alert';
+@forward '../components/button/button';
+@forward '../components/link/link';
 @forward '../components/icon/icon';
 @forward '../components/footer/footer';
+@forward '../components/input/input';
+@forward '../components/card/card';
+@forward '../components/icon-list/icon-list';
+@forward '../components/divider/divider';
+@forward '../components/hero/hero';
+@forward '../components/tags/tags';
+@forward '../components/process-list/process-list';
