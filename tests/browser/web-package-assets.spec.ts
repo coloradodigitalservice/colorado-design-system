@@ -1,5 +1,5 @@
 import { resolve, sep } from 'node:path';
-import { test } from './fixtures.js';
+import { test, expect } from './fixtures.js';
 import { expectPackageAssets } from './package-assets.js';
 import { expectCheckboxAssets } from './checkbox-assets.js';
 
@@ -33,4 +33,21 @@ test('static HTML consumer loads fonts and icons relative to its copied styleshe
     return route.fulfill({ path });
   });
   await expectPackageAssets(page, '/__cods_static__/');
+  const hrefs = await page
+    .locator('svg use')
+    .evaluateAll((uses) => uses.map((use) => use.getAttribute('href') ?? ''));
+  expect(hrefs.length).toBeGreaterThan(0);
+  expect(
+    hrefs.every((href) =>
+      href.startsWith('./assets/selected/icons/sprite.svg#'),
+    ),
+  ).toBe(true);
+  const sprite = await page.evaluate(async () => {
+    const response = await fetch('./assets/selected/icons/sprite.svg');
+    if (!response.ok)
+      throw new Error(`Selected sprite returned ${response.status}`);
+    return response.text();
+  });
+  for (const href of hrefs)
+    expect(sprite).toContain(`id="${href.split('#')[1]}"`);
 });

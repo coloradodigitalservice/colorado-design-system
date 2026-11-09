@@ -123,50 +123,95 @@ for automated coverage and outstanding manual/G2 review.
 
 ## Icon (experimental)
 
-CoDS uses the design-owner-approved Phosphor IDs in
-`src/icons/approved-icons.json`, which records the package, pinned version,
-license, Regular weight, and approved IDs. The pinned
-`@phosphor-icons/core` development dependency provides source SVGs and category
-metadata. Run `pnpm icons:build` from the repository root after changing the
-manifest or pinned version; it writes the committed
-`generated/icons/sprite.svg` and `catalog.json`, which are not edited by hand.
-The catalog records source/version/license and per-icon hashes, with Phosphor's
-general taxonomy as its sole category source. `pnpm icons:check` fails when outputs are out of date,
-and the package build runs it first. The build then writes `dist/icons/` with
-the sprite, one `<id>.svg` per approved icon, the catalog, and the upstream
-`LICENSE`.
+The package and static release ship the complete Regular sprite and an ID-only
+index from the pinned `@phosphor-icons/core` development dependency. Browse
+[Phosphor Icons](https://phosphoricons.com/); an available ID is not a blanket
+design or accessibility approval. The index records source, version, license,
+weight, and the SHA-256 of the **full** sprite, without categories or per-icon
+metadata. `icons/sprite.svg`, `icons/catalog.json`, and `icons/LICENSE` are
+exported. The sprite also embeds the MIT notice so generated subsets retain it.
 
-Packaged CSS does not ship USWDS, USA, or Material icon image collections.
-Icons referenced by included USWDS CSS are redirected to equivalent approved
-Phosphor files in `dist/icons/`; non-icon USWDS images remain under `dist/img/`.
-Color-sensitive replacements use generated `<id>--<hex>.svg` variants to
-preserve USWDS foreground colors, including light and dark checkbox marks.
-Standalone SVGs used as CSS backgrounds or `<img>` do not inherit the
-consumer's `currentColor`; use sprite `<use>` references for themeable icons,
-or a CSS mask for icons drawn from CSS. See
-[Choosing a technique](../../apps/web/src/content/docs/icon.md#choosing-a-technique).
+Maintainers update the exact Phosphor pin and lockfile, run `pnpm icons:build`
+from the repository root, and commit `generated/icons/sprite.svg` and
+`catalog.json`. Never edit those outputs by hand. `pnpm icons:check` compares
+both with the pinned source and runs before the package build. There is no
+per-icon approval list to update.
 
-Package exports include `./icons/sprite.svg`, `./icons/*.svg`,
-`./icons/catalog.json`, and `./icons/LICENSE`. Use SVG `<use>` references with
-`focusable="false"`. Decorative icons use `aria-hidden="true"`; meaningful
-standalone SVGs need an accessible name. The `cods-icon--small` and
-`cods-icon--medium` classes use the 16px and 24px spacing tokens, respectively,
-and `currentColor`, preserving the square aspect ratio. Add
-`cods-icon--mirror-in-rtl` only to icons representing logical interface flow;
-other directional icons are not mirrored automatically. Update sprite URLs for
-the deployment path; for a separate asset origin, account for browser
-same-origin and CORS restrictions on external SVG `<use>` references. The
-complete catalog and examples are documented on the
-[Icon page](../../apps/web/src/content/docs/icon.md).
+### Select a sprite in Vite
 
-The package includes Phosphor's MIT license notice at `icons/LICENSE` and
-exports it as `@coloradodigitalservice/colorado-design-system/icons/LICENSE`.
-The MIT license requires retaining its copyright and permission notice with
-copies or substantial portions of the licensed software. Preserve this notice
-if you redistribute the icon assets or copies of them.
-Phosphor and Phosphor Icons identify the upstream icon project; their use here
-does not imply affiliation with or endorsement by Phosphor. The Phosphor name
-and branding are not CoDS marks.
+```js
+import { codsIcons } from '@coloradodigitalservice/colorado-design-system/icons/vite';
+
+export default { plugins: [codsIcons()] };
+```
+
+In the module rendering an icon, import the sprite URL and use a literal ID:
+
+```js
+import spriteUrl from '@coloradodigitalservice/colorado-design-system/icons/sprite.svg?url';
+
+const iconHref = `${spriteUrl}#house`;
+```
+
+Use the resulting URL in `<use href>`. The plugin scans Vite-loaded modules
+and HTML entrypoints, including imported CoDS fixtures and examples, validates
+recognized IDs, and emits a content-hashed subset in production. It rewrites
+canonical URLs in HTML entrypoints; an imported fixture's
+`/icons/sprite.svg` URL must instead be replaced with `spriteUrl` by its
+consumer. Canonical URLs embedded directly in JavaScript, TypeScript, Astro,
+Vue, or Svelte modules fail with a source location rather than producing a
+broken URL; use the imported sprite URL there. Stylesheets must use standalone
+CSS icons rather than canonical sprite URLs. Development serves the full
+sprite. Supported source references are
+literal `/icons/sprite.svg#<id>` URLs, literal fragments after the directly
+imported URL, and a simple conditional with two literal IDs. A recognized
+unresolved expression fails in subset mode. The plugin does not interpret
+arbitrary program execution, follow external data, or validate unrecognized
+reference syntax.
+
+If IDs are only known at runtime, deliberately use
+`codsIcons({ mode: 'full' })` and validate them against
+`@coloradodigitalservice/colorado-design-system/icons/catalog.json` in your
+application. Native `<use>` renders an unknown fragment blank; the full sprite
+alone does not throw. Serve the sprite on the same origin when possible:
+cross-origin external SVG `<use>` is not guaranteed even with CORS headers.
+
+### Static and other build pipelines
+
+The package's `cods-icons` command works without Vite or Phosphor installed:
+
+```sh
+pnpm exec cods-icons --input ./src --output ./public/icons/sprite.svg
+```
+
+Repeat `--input` for additional files or directories. The command scans
+supported text source files, not the import graph; include any rendered package
+fixtures or scan generated HTML. Use `--validate` instead of `--output` to
+check recognized references without writing. Use `--full` with `--output`
+only when runtime IDs require the complete sprite; validate those IDs in the
+application. A zero-build consumer can copy the full `icons/` directory, but
+native `<use>` cannot report an invalid fragment.
+
+The package ships standalone SVGs only for its compiled CSS. To generate
+additional files for literal CSS `url(./icons/<id>.svg)` references, add
+`--css-output ./public/icons`. The command also writes
+`PHOSPHOR-LICENSE` there. It does not remove previously generated files; use a
+dedicated build-output directory and clean it as part of the consuming build.
+The normal sprite and CSS-mask SVGs use `currentColor`; an image or CSS
+background cannot inherit it, whereas a CSS mask can use the element's color.
+The package's fixed-color variants preserve USWDS or token-verified component
+foregrounds and are not a general theming mechanism.
+
+Use SVG `<use>` references with `focusable="false"`. Decorative icons use
+`aria-hidden="true"`; meaningful standalone SVGs need an accessible name.
+The 16px and 24px size modifiers preserve the square aspect ratio.
+`cods-icon--mirror-in-rtl` is opt-in for logical interface flow only. See the
+[Icon page](../../apps/web/src/content/docs/icon.md) for sizing, contrast,
+localization, and accessible usage.
+
+Keep the Phosphor MIT notice when redistributing icons. Phosphor and Phosphor
+Icons identify the upstream project and do not imply affiliation or
+endorsement; their name and branding are not CoDS marks.
 
 ## Shared examples
 
