@@ -77,3 +77,34 @@ test('a jump into a gap after a section keeps that section current', async ({
   });
   await expect(links.nth(1)).toHaveAttribute('aria-current', 'location');
 });
+
+test('Tab reaches every link and Enter activates each one', async ({
+  page,
+}) => {
+  await page.goto(story);
+  const root = page.locator('[data-cods-in-page-navigation]');
+  const links = root.getByRole('link');
+  const total = await links.count();
+  expect(total).toBeGreaterThan(1);
+
+  // Tab from the top of the document and confirm the authored links are
+  // reached in document order with no skipped or duplicated stops.
+  await page.locator('body').click({ position: { x: 0, y: 0 } });
+  await page.keyboard.press('Tab');
+  for (let index = 0; index < total; index += 1) {
+    const link = links.nth(index);
+    while (!(await link.evaluate((node) => node === document.activeElement))) {
+      await page.keyboard.press('Tab');
+    }
+    await expect(link).toBeFocused();
+  }
+
+  // Enter activates each link from the keyboard alone.
+  for (let index = 0; index < total; index += 1) {
+    const link = links.nth(index);
+    const href = await link.getAttribute('href');
+    await link.focus();
+    await page.keyboard.press('Enter');
+    await expect(page).toHaveURL(new RegExp(`${href}$`));
+  }
+});
