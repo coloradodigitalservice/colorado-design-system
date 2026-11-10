@@ -20,7 +20,9 @@ Do not use a video as the only way to access essential information. If the same 
 
 Load the package styles as described in [Getting started](../getting-started/). Wrap a native `video` or an embedded `iframe` in `cods-videos`. Give the video an accessible name, native `controls`, a poster, a media source, and a `track` with `kind="captions"`. The native demonstration is a silent blue screen; replace the media, poster, and caption track with your own. Browser controls vary by browser and operating system.
 
-For an embedded player, give the iframe a descriptive `title`. The example uses a local stand-in; replace its `src` with the provider’s HTTPS embed URL. Confirm the provider’s accessibility, captions, transcript, privacy practices, and permissions for your video before publishing.
+For an embedded player, give the iframe a descriptive `title`. The embedded example uses a third-party player (a Vimeo staff clip) loaded over HTTPS with the provider’s do-not-track option (`dnt=1`) and the English text track requested (`texttrack=en`); replace the `src` with your own provider embed URL. Prefer a provider option that limits tracking where one exists, and keep `allow` to the capabilities the player actually needs. Confirm the provider’s accessibility, captions, transcript, privacy practices, and permissions for your video before publishing.
+
+A second embedded example is a clearly labelled local stand-in. It exists so automated wrapper tests do not depend on a network fetch; it is not a pattern to copy into a real page.
 
 ## Captions, transcripts, and audio description
 
@@ -38,7 +40,7 @@ Native playback uses browser-provided controls; embedded playback depends on the
 
 ## Assets and accessibility review
 
-The fixture, metadata, and examples are available from `@coloradodigitalservice/colorado-design-system` under `fixtures/videos.html`, `metadata/videos.json`, and `examples/videos.json`. The sample `/videos/` assets are for the documentation and Storybook examples; provide your own media URLs when using the markup.
+The fixture, metadata, and examples are available from `@coloradodigitalservice/colorado-design-system` under `fixtures/videos.html`, `metadata/videos.json`, and `examples/videos.json`. The sample `/videos/` assets are for the documentation and Storybook examples, including the labelled local embed stand-in; provide your own media and provider embed URLs when using the markup.
 
 Automated checks supplement human review. Caption playback, keyboard and screen-reader operation, zoom, forced colors, localization, and design and accessibility-owner review remain open in the [accessibility evidence](https://github.com/coloradodigitalservice/colorado-design-system/blob/main/packages/colorado-design-system/src/components/videos/accessibility/videos.evidence.md).
 

@@ -2,17 +2,18 @@
 import metadata from '@coloradodigitalservice/colorado-design-system/metadata/videos.json';
 import examples from '@coloradodigitalservice/colorado-design-system/examples/videos.json';
 import CodeExamples from './CodeExamples.astro';
+
+const headings: Record<string, string> = {
+  default: 'Native video',
+  embed: 'Embedded video (third-party player)',
+  'embed-local-stand-in': 'Embedded video (local stand-in)',
+  'four-three': '4:3 video',
+};
 ---
 
 {examples.examples.map((example) => (
   <section aria-label={`${example.state} video`}>
-    <h3>
-      {example.state === 'default'
-        ? 'Native video'
-        : example.state === 'embed'
-          ? 'Embedded video'
-          : '4:3 video'}
-    </h3>
+    <h3>{headings[example.state] ?? example.state}</h3>
     <div
       set:html={example.html.replaceAll(
         '/videos/',

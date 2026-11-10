@@ -4,6 +4,23 @@
     max-inline-size: 100%;
   }
 
+  // RTL-safe visually hidden label. USWDS's `usa-sr-only` parks content at
+  // `left: -999em`, which stays out of the scrollable area in a left-to-right
+  // document but expands it to roughly 16,000px under `dir="rtl"`. Clipping the
+  // label in place hides it from sighted users in either direction while
+  // keeping it in the accessibility tree and associated with its input.
+  .cods-search__label--hidden {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
   .cods-search__controls {
     display: flex;
     gap: var(--cods-space-xs);
