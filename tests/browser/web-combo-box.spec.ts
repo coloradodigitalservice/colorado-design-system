@@ -190,3 +190,111 @@ test('clicking a group heading does not select an option', async ({ page }) => {
   await expect(root.locator('select')).toHaveValue('');
   await expect(root.getByRole('listbox')).toBeVisible();
 });
+
+test('unmatched Enter stays invalid instead of restoring the previous selection', async ({
+  page,
+}) => {
+  await page.goto('/combo-box/');
+  const root = page.locator('[data-cods-fixture-state="error"]');
+  const input = root.getByRole('combobox');
+  await root.locator('form').evaluate((form: HTMLFormElement) => {
+    const button = document.createElement('button');
+    button.type = 'submit';
+    button.textContent = 'Submit';
+    form.append(button);
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      form.dataset.submitted = 'true';
+    });
+  });
+  await input.click();
+  await root.getByRole('option', { name: '2025' }).click();
+  await expect(root.locator('select')).toHaveValue('2025');
+  await input.fill('2099');
+  await input.press('Enter');
+  await expect(input).toHaveValue('2099');
+  expect(
+    await input.evaluate((element: HTMLInputElement) => element.validity.valid),
+  ).toBe(false);
+  await root.getByRole('button', { name: 'Submit' }).click();
+  await expect(root.locator('form')).not.toHaveAttribute('data-submitted');
+  await input.press('Escape');
+  await expect(input).toHaveValue('2025');
+  expect(
+    await input.evaluate((element: HTMLInputElement) => element.validity.valid),
+  ).toBe(true);
+});
+
+test('hovering an option keeps input focus, typing and Enter on the keyboard choice', async ({
+  page,
+}) => {
+  await page.goto('/combo-box/');
+  const root = page.locator('[data-cods-fixture-state="default"]');
+  const input = root.getByRole('combobox');
+  await input.fill('202');
+  await input.press('ArrowDown');
+  await root.getByRole('option', { name: '2024' }).hover();
+  await expect(input).toBeFocused();
+  await input.press('Enter');
+  await expect(root.locator('select')).toHaveValue('2026');
+  await input.click();
+  await root.getByRole('option', { name: '2023' }).hover();
+  await expect(input).toBeFocused();
+  await input.press('ControlOrMeta+a');
+  await input.pressSequentially('2021');
+  await expect(input).toHaveValue('2021');
+});
+
+test('arrow navigation survives hovering the last option in a group', async ({
+  page,
+}) => {
+  await page.goto('/combo-box/');
+  const root = page.locator('[data-cods-fixture-state="grouped"]');
+  const input = root.getByRole('combobox');
+  await input.click();
+  await input.press('ArrowDown');
+  await root
+    .getByRole('option', { name: 'Renew or replace: Replace a license or ID' })
+    .hover();
+  await expect(input).toBeFocused();
+  await input.press('ArrowDown');
+  await expect(input).toBeFocused();
+  await input.press('Enter');
+  await expect(root.locator('select')).toHaveValue('replace');
+});
+
+test('keyboard-active option stays distinguishable in forced colors', async ({
+  page,
+}) => {
+  await page.goto('/combo-box/');
+  await page.emulateMedia({ forcedColors: 'active' });
+  const root = page.locator('[data-cods-fixture-state="default"]');
+  const input = root.getByRole('combobox');
+  await input.click();
+  await input.press('ArrowDown');
+  await expect(
+    root.locator('[class~="usa-combo-box__list-option--focused"]'),
+  ).toHaveCount(1);
+  const styles = await root.evaluate((element) => {
+    const focused = element.querySelector<HTMLElement>(
+      '[class~="usa-combo-box__list-option--focused"]',
+    )!;
+    const other = Array.from(
+      element.querySelectorAll<HTMLElement>('.usa-combo-box__list-option'),
+    ).find((option) => option !== focused)!;
+    const active = getComputedStyle(focused);
+    const rest = getComputedStyle(other);
+    return {
+      outlineStyle: active.outlineStyle,
+      outlineWidth: active.outlineWidth,
+      activeBackground: active.backgroundColor,
+      restBackground: rest.backgroundColor,
+      activeColor: active.color,
+      restColor: rest.color,
+    };
+  });
+  expect(styles.outlineStyle).toBe('solid');
+  expect(styles.outlineWidth).not.toBe('0px');
+  expect(styles.activeBackground).not.toBe(styles.restBackground);
+  expect(styles.activeColor).not.toBe(styles.restColor);
+});

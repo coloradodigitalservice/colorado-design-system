@@ -16,6 +16,7 @@ interface Instance {
   onFocusOutCapture: (event: FocusEvent) => void;
   onFocusOut: () => void;
   onKeyDown: (event: KeyboardEvent) => void;
+  onPointerHighlight: (event: Event) => void;
   decorate: () => void;
   form: HTMLFormElement | null;
 }
@@ -75,6 +76,13 @@ export function init(root: HTMLElement): void {
   }
   let currentValue = select.value;
   let pendingBlur: string | undefined;
+  const matching = (text: string): HTMLOptionElement | undefined => {
+    const needle = text.trim().toLowerCase();
+    return Array.from(select.options).find(
+      (option) =>
+        Boolean(option.value) && option.text.trim().toLowerCase() === needle,
+    );
+  };
   const instance: Instance = {
     select,
     label,
@@ -151,11 +159,18 @@ export function init(root: HTMLElement): void {
       const input = root.querySelector<HTMLInputElement>(
         '.usa-combo-box__input',
       )!;
-      if (
-        event.target !== input ||
-        !['ArrowDown', 'ArrowUp', 'Enter'].includes(event.key)
-      )
-        return;
+      if (!['ArrowDown', 'ArrowUp', 'Enter'].includes(event.key)) return;
+      if (event.target !== input) {
+        // A pointer interaction can leave a list option focused. USWDS then
+        // navigates by DOM sibling, which steps onto an injected group heading
+        // and drops focus to the document, so drive the input instead.
+        const focused =
+          event.target instanceof Element
+            ? event.target.closest('.usa-combo-box__list-option')
+            : null;
+        if (!focused) return;
+        input.focus({ preventScroll: true });
+      }
       const list = root.querySelector<HTMLElement>('.usa-combo-box__list')!;
       if (event.key === 'Enter') {
         const active = input.getAttribute('aria-activedescendant');
@@ -164,6 +179,17 @@ export function init(root: HTMLElement): void {
           event.preventDefault();
           event.stopImmediatePropagation();
           option.click();
+          return;
+        }
+        if (input.value.trim() && !matching(input.value)) {
+          // USWDS completeSelection() falls back to resetSelection(), which
+          // rewrites the input with the previous selection's text and clears
+          // validity, so an unmatched entry would submit the earlier value.
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          uswdsComboBox.hideList(root);
+          root.classList.remove('usa-combo-box--pristine');
+          instance.onInput();
         }
         return;
       }
@@ -189,6 +215,15 @@ export function init(root: HTMLElement): void {
       option.classList.add('usa-combo-box__list-option--focused');
       input.setAttribute('aria-activedescendant', option.id);
       option.scrollIntoView?.({ block: 'nearest' });
+    },
+    onPointerHighlight: (event) => {
+      if (
+        event.target instanceof Element &&
+        event.target.closest('.usa-combo-box__list-option')
+      )
+        // USWDS highlightOption() focuses the hovered option, taking focus off
+        // the input so typing is ignored and Enter selects the hovered option.
+        event.stopImmediatePropagation();
     },
     onInput: () => {
       const input = root.querySelector<HTMLInputElement>(
@@ -269,6 +304,7 @@ export function init(root: HTMLElement): void {
   root.addEventListener('focusout', instance.onFocusOutCapture, true);
   root.addEventListener('focusout', instance.onFocusOut);
   root.addEventListener('keydown', instance.onKeyDown, true);
+  root.addEventListener('mouseover', instance.onPointerHighlight, true);
   for (const type of ['input', 'click', 'keydown'])
     root.addEventListener(type, instance.decorate);
   root.addEventListener('change', instance.onChange);
@@ -290,6 +326,7 @@ export function destroy(root: HTMLElement): void {
   root.removeEventListener('focusout', instance.onFocusOutCapture, true);
   root.removeEventListener('focusout', instance.onFocusOut);
   root.removeEventListener('keydown', instance.onKeyDown, true);
+  root.removeEventListener('mouseover', instance.onPointerHighlight, true);
   for (const type of ['input', 'click', 'keydown'])
     root.removeEventListener(type, instance.decorate);
   root.removeEventListener('change', instance.onChange);

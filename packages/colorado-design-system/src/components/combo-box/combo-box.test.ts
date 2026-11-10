@@ -109,6 +109,37 @@ describe('combo box lifecycle', () => {
     );
     expect(element.querySelector('select')!.value).toBe('replace');
   });
+  it('keeps unmatched text invalid instead of restoring the selection', () => {
+    const element = root();
+    init(element);
+    const input = element.querySelector<HTMLInputElement>('[role=combobox]')!;
+    input.click();
+    element.querySelector<HTMLElement>('[role=option]')!.click();
+    expect(element.querySelector('select')!.value).toBe('2026');
+    input.value = '2099';
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    input.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }),
+    );
+    expect(input.value).toBe('2099');
+    expect(input.validity.valid).toBe(false);
+  });
+  it('keeps the input focused when a list option is hovered', () => {
+    const element = root();
+    init(element);
+    const input = element.querySelector<HTMLInputElement>('[role=combobox]')!;
+    input.focus();
+    input.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }),
+    );
+    const active = input.getAttribute('aria-activedescendant');
+    const option = Array.from(
+      element.querySelectorAll<HTMLElement>('[role=option]'),
+    ).find((item) => item.id !== active)!;
+    option.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }));
+    expect(document.activeElement).toBe(input);
+    expect(input.getAttribute('aria-activedescendant')).toBe(active);
+  });
   it('leaves individually disabled options as a native select', () => {
     const element = root();
     element.querySelector('option[value="2025"]')!.setAttribute('disabled', '');
