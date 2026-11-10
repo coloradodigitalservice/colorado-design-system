@@ -1,5 +1,12 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.22
+
+### Patch Changes
+
+- e107c02: Add an experimental in-page navigation component with authored jump links and current-section highlighting.
+- @coloradodigitalservice/colorado-design-tokens@0.2.22
+
 ## 0.2.21
 
 ### Patch Changes
