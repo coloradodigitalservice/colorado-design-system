@@ -77,7 +77,7 @@ export function init(root: HTMLElement): void {
   let currentValue = select.value;
   let pendingBlur: string | undefined;
   const matching = (text: string): HTMLOptionElement | undefined => {
-    const needle = text.trim().toLowerCase();
+    const needle = text.toLowerCase();
     return Array.from(select.options).find(
       (option) =>
         Boolean(option.value) && option.text.trim().toLowerCase() === needle,
@@ -108,6 +108,10 @@ export function init(root: HTMLElement): void {
       root
         .querySelector('.usa-combo-box__list-option--no-results')
         ?.setAttribute('aria-disabled', 'true');
+      // Focus stays on the combobox; list options use aria-activedescendant.
+      root
+        .querySelectorAll<HTMLElement>('.usa-combo-box__list-option')
+        .forEach((option) => option.setAttribute('tabindex', '-1'));
       const options = new Map(
         Array.from(select.options, (option) => [option.value, option]),
       );
@@ -181,7 +185,10 @@ export function init(root: HTMLElement): void {
           option.click();
           return;
         }
-        if (input.value.trim() && !matching(input.value)) {
+        const selectedText = select.value
+          ? (select.selectedOptions[0]?.text ?? '')
+          : '';
+        if (input.value !== selectedText && !matching(input.value)) {
           // USWDS completeSelection() falls back to resetSelection(), which
           // rewrites the input with the previous selection's text and clears
           // validity, so an unmatched entry would submit the earlier value.

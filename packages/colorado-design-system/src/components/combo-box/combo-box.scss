@@ -141,6 +141,7 @@ $clear-icon: './icons/x.svg';
 
   .cods-combo-box__list
     [role='option'][class~='usa-combo-box__list-option--focused'] {
+    background: var(--cods-color-surface-form);
     outline: var(--cods-space-2xs) solid var(--cods-color-bg-action-focus);
     outline-offset: calc(-1 * var(--cods-space-2xs));
   }
@@ -161,6 +162,12 @@ $clear-icon: './icons/x.svg';
       box-shadow: none;
     }
 
+    .cods-combo-box__list [role='option'][aria-selected='true'] {
+      forced-color-adjust: none;
+      background: Canvas;
+      color: CanvasText;
+    }
+
     .cods-combo-box__list
       [role='option'][class~='usa-combo-box__list-option--focused'] {
       forced-color-adjust: none;
@@ -168,12 +175,6 @@ $clear-icon: './icons/x.svg';
       outline-offset: calc(-2 * var(--cods-space-2xs));
       background: Highlight;
       color: HighlightText;
-    }
-
-    .cods-combo-box__list [role='option'][aria-selected='true'] {
-      forced-color-adjust: none;
-      background: Canvas;
-      color: CanvasText;
     }
   }
 }
