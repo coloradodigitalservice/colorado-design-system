@@ -18,4 +18,7 @@ const state = (name: string) => {
 };
 export const Default: Story = { render: () => state('default') };
 export const Embed: Story = { render: () => state('embed') };
+export const EmbedLocalStandIn: Story = {
+  render: () => state('embed-local-stand-in'),
+};
 export const FourThree: Story = { render: () => state('four-three') };

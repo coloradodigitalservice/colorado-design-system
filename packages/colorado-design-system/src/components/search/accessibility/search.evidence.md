@@ -34,7 +34,8 @@
 
 ## Localization
 
-- [ ] Check long translations and right-to-left text. The layout uses logical properties, but its rendered behavior has not been verified.
+- [ ] Check long translations and right-to-left text with a human reviewer. The layout uses logical properties, but its rendered appearance has not been reviewed by a person.
+- Right-to-left reflow: the compact and slim labels originally used `usa-sr-only`, which positions hidden text at `left: -999em` and expanded the documentation page to roughly 16,288px under `dir="rtl"` at 320px. They now use `cods-search__label--hidden`, which clips the label in place. An automated full-document right-to-left test checks for horizontal overflow and the accessible names of both variants in Chromium, Firefox, and WebKit.
 
 ## Open items
 
