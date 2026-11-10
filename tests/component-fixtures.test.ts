@@ -188,3 +188,37 @@ describe('Card fixture variants', () => {
     expect(card.fixture).toContain('data-cods-fixture-state="icon"');
   });
 });
+
+describe('video fixture safety', () => {
+  it('requires a titled iframe without inline document content', () => {
+    const videos = components.find((component) => component.name === 'videos')!;
+    expect(() =>
+      generateExamples(
+        videos.metadata,
+        videos.fixture.replace(
+          'title="Local stand-in for an embedded video: blue screen"',
+          'title=""',
+        ),
+      ),
+    ).toThrow('video iframe requires a title');
+    expect(() =>
+      generateExamples(
+        videos.metadata,
+        videos.fixture.replace('<iframe', '<iframe srcdoc="<p>test</p>"'),
+      ),
+    ).toThrow('video iframe requires a title');
+    const embed = videos.fixture
+      .split('data-cods-fixture-state="embed"')[1]!
+      .split('</section>')[0]!;
+    expect(embed).toMatch(
+      /src="https:\/\/player\.vimeo\.com\/video\/\d+\?[^"]*dnt=1/,
+    );
+    const other = components.find((component) => component.name === 'tags')!;
+    expect(() =>
+      generateExamples(
+        other.metadata,
+        `${other.fixture}<iframe title="Not allowed"></iframe>`,
+      ),
+    ).toThrow('fixture must be plain semantic HTML');
+  });
+});
