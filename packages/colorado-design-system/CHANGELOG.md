@@ -1,12 +1,5 @@
 # @coloradodigitalservice/colorado-design-system
 
-## 0.2.20
-
-### Patch Changes
-
-- 7fad07c: Add an experimental Search component with default, compact, and slim variants.
-- @coloradodigitalservice/colorado-design-tokens@0.2.20
-
 ## 0.2.19
 
 ### Patch Changes
