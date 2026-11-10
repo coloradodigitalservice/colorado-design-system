@@ -1335,8 +1335,9 @@
         "space.xs"
       ],
       "componentTokens": [],
-      "implementationTokens": [],
-      "designCoverage": "documented"
+      "implementationTokens": ["space.xs"],
+      "designCoverage": "documented",
+      "implementationDirectory": "search"
     },
     {
       "name": "Select (Dropdown)",
