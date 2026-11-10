@@ -196,7 +196,7 @@ describe('video fixture safety', () => {
       generateExamples(
         videos.metadata,
         videos.fixture.replace(
-          'title="Example embedded video: blue screen"',
+          'title="Local stand-in for an embedded video: blue screen"',
           'title=""',
         ),
       ),
@@ -207,6 +207,12 @@ describe('video fixture safety', () => {
         videos.fixture.replace('<iframe', '<iframe srcdoc="<p>test</p>"'),
       ),
     ).toThrow('video iframe requires a title');
+    const embed = videos.fixture
+      .split('data-cods-fixture-state="embed"')[1]!
+      .split('</section>')[0]!;
+    expect(embed).toMatch(
+      /src="https:\/\/player\.vimeo\.com\/video\/\d+\?[^"]*dnt=1/,
+    );
     const other = components.find((component) => component.name === 'tags')!;
     expect(() =>
       generateExamples(
