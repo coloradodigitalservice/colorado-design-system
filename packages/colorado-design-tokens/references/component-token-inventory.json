@@ -1603,11 +1603,28 @@
         "paragraph-space.desktop-ui",
         "radius.lg",
         "space.sm",
-        "space.xs"
+        "space.xs",
+        "color.white",
+        "color.bg-action-focus",
+        "focus.ring-width",
+        "focus.ring-offset",
+        "space.md",
+        "component.toast-background"
       ],
       "componentTokens": ["component.toast-background"],
-      "implementationTokens": [],
-      "designCoverage": "documented"
+      "implementationTokens": [
+        "color.bg-action-focus",
+        "color.white",
+        "component.toast-background",
+        "focus.ring-offset",
+        "focus.ring-width",
+        "font.family-body",
+        "radius.lg",
+        "space.md",
+        "space.sm"
+      ],
+      "designCoverage": "documented",
+      "implementationDirectory": "toast"
     },
     {
       "name": "Tooltip",

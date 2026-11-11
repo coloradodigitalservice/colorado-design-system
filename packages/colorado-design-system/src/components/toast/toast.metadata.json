@@ -1,0 +1,30 @@
+{
+  "name": "toast",
+  "displayName": "Toast",
+  "maturity": "experimental",
+  "type": "interactive",
+  "uswdsEquivalent": null,
+  "uswdsVersion": null,
+  "componentType": "B",
+  "owners": {
+    "responsible": "Aten component lead",
+    "accountable": "State technical owner",
+    "consulted": "State design owner, accessibility lead",
+    "informed": "Component contributors, product owner"
+  },
+  "divergenceApproved": false,
+  "divergenceNotes": null,
+  "states": ["default"],
+  "progressiveEnhancement": "partial",
+  "localization": "text-content-only",
+  "description": "Experimental supplemental notifications. Prefer persistent, contextual feedback; transient messages must duplicate information available elsewhere.",
+  "examples": [
+    {
+      "state": "default",
+      "fixtureState": "default",
+      "setup": "none",
+      "instructions": ""
+    }
+  ],
+  "inventoryNames": ["Toasts/Snackbars"]
+}

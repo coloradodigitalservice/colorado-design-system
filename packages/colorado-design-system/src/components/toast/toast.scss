@@ -1,0 +1,54 @@
+@layer cods.components {
+  .cods-toast__announcer {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .cods-toast__list {
+    display: grid;
+    gap: var(--cods-space-sm);
+  }
+
+  .cods-toast__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--cods-space-md);
+    padding: var(--cods-space-md);
+    border-radius: var(--cods-radius-lg);
+    background: var(--cods-component-toast-background);
+    color: var(--cods-color-white);
+    font-family: var(--cods-font-family-body);
+    overflow-wrap: anywhere;
+  }
+
+  .cods-toast__dismiss {
+    flex: none;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .cods-toast__dismiss:focus-visible {
+    outline: var(--cods-focus-ring-width) solid
+      var(--cods-color-bg-action-focus);
+    outline-offset: var(--cods-focus-ring-offset);
+  }
+
+  @media (forced-colors: active) {
+    .cods-toast__item {
+      border: 1px solid CanvasText;
+    }
+
+    .cods-toast__dismiss {
+      color: ButtonText;
+    }
+  }
+}
