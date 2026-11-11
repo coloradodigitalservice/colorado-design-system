@@ -10,6 +10,7 @@ import AccordionExamples from '../components/AccordionExamples.astro';
 import BreadcrumbsExamples from '../components/BreadcrumbsExamples.astro';
 import SelectExamples from '../components/SelectExamples.astro';
 import RadioExamples from '../components/RadioExamples.astro';
+import ComboBoxExamples from '../components/ComboBoxExamples.astro';
 import CardExamples from '../components/CardExamples.astro';
 import LinkExamples from '../components/LinkExamples.astro';
 import DividerExamples from '../components/DividerExamples.astro';
@@ -18,7 +19,9 @@ import IconExamples from '../components/IconExamples.astro';
 import InputExamples from '../components/InputExamples.astro';
 import IconListExamples from '../components/IconListExamples.astro';
 import HeroExamples from '../components/HeroExamples.astro';
+import VideosExamples from '../components/VideosExamples.astro';
 import TagsExamples from '../components/TagsExamples.astro';
+import SearchExamples from '../components/SearchExamples.astro';
 import ProcessListExamples from '../components/ProcessListExamples.astro';
 
 export async function getStaticPaths() {
@@ -59,6 +62,7 @@ const { Content } = await render(entry);
     )}
     {entry.id === 'breadcrumbs' && <BreadcrumbsExamples />}
     {entry.id === 'radio' && <RadioExamples />}
+    {entry.id === 'combo-box' && <ComboBoxExamples />}
     {entry.id === 'input' && (
       <>
         {' '}
@@ -80,7 +84,8 @@ const { Content } = await render(entry);
     {entry.id === 'checkbox' && <CheckboxExamples />}
     {entry.id === 'link' && <LinkExamples />}
     {entry.id === 'divider' && <DividerExamples />}
-    {(entry.id === 'tags' ||
+    {(entry.id === 'videos' ||
+      entry.id === 'tags' ||
       entry.id === 'card' ||
       entry.id === 'hero' ||
       entry.id === 'radio' ||
@@ -89,6 +94,7 @@ const { Content } = await render(entry);
       entry.id === 'breadcrumbs' ||
       entry.id === 'link' ||
       entry.id === 'checkbox' ||
+      entry.id === 'combo-box' ||
       entry.id === 'select' ||
       entry.id === 'divider' ||
       entry.id === 'process-list') && (
@@ -101,8 +107,10 @@ const { Content } = await render(entry);
       </>
     )}
     <Content />
+    {entry.id === 'search' && <SearchExamples />}
     {entry.id === 'hero' && <HeroExamples />}
     {entry.id === 'tags' && <TagsExamples />}
+    {entry.id === 'videos' && <VideosExamples />}
     {entry.id === 'process-list' && <ProcessListExamples />}
     {entry.id === 'select' && <SelectExamples />}
     {entry.id === 'in-page-alert' && <InPageAlertExamples mode="remaining" />}

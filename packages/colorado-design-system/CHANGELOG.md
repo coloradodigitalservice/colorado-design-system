@@ -1,6 +1,6 @@
 # @coloradodigitalservice/colorado-design-system
 
-## 0.2.19
+## 0.2.22
 
 ### Patch Changes
 
@@ -8,6 +8,28 @@
   Regular sprite, a compact ID index, and source-driven sprite and CSS asset
   selection. Consumers must update catalog parsing and any per-icon SVG imports
   that are not required by the packaged component CSS.
+- @coloradodigitalservice/colorado-design-tokens@0.2.22
+
+## 0.2.21
+
+### Patch Changes
+
+- a17debd: Add an experimental combo box with a native select fallback.
+- @coloradodigitalservice/colorado-design-tokens@0.2.21
+
+## 0.2.20
+
+### Patch Changes
+
+- 47b9d74: Add an experimental Search component with default, compact, and slim variants.
+- 7e8a840: Add an experimental responsive Videos component with native and embedded examples.
+- @coloradodigitalservice/colorado-design-tokens@0.2.20
+
+## 0.2.19
+
+### Patch Changes
+
+- 7e8a840: Add an experimental responsive Videos component with native and embedded examples.
 - @coloradodigitalservice/colorado-design-tokens@0.2.19
 
 ## 0.2.18
