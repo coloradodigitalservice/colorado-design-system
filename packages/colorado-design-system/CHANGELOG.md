@@ -1,10 +1,16 @@
 # @coloradodigitalservice/colorado-design-system
 
-## 0.2.20
+## 0.2.21
 
 ### Patch Changes
 
 - a17debd: Add an experimental combo box with a native select fallback.
+- @coloradodigitalservice/colorado-design-tokens@0.2.21
+
+## 0.2.20
+
+### Patch Changes
+
 - 47b9d74: Add an experimental Search component with default, compact, and slim variants.
 - 7e8a840: Add an experimental responsive Videos component with native and embedded examples.
 - @coloradodigitalservice/colorado-design-tokens@0.2.20
