@@ -27,3 +27,13 @@ declare module '@uswds/uswds/js/usa-accordion' {
   };
   export default accordion;
 }
+
+declare module '@uswds/uswds/js/usa-modal' {
+  const modal: {
+    on(root: HTMLElement): void;
+    off(root: HTMLElement): void;
+    toggleModal(event: Event | false): boolean;
+    focusTrap: { update(active: boolean): void } | null;
+  };
+  export default modal;
+}

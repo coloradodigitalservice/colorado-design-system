@@ -1,0 +1,74 @@
+@use '@coloradodigitalservice/colorado-design-tokens' as tokens;
+
+/// Measured against the Figma Modal (Desktop) component in dev mode:
+/// 480px wide, 8px radius, surface/modal background, elevation-mid shadow
+/// (0 8px 16px rgba(0,0,0,0.12)) and 24px padding. The page overlay keeps
+/// USWDS's default scrim: Figma defines no Colorado overlay token. Recorded in
+/// accessibility/modal.evidence.md.
+@layer cods.components {
+  .cods-modal__dialog {
+    border-radius: var(--cods-radius-lg);
+    background: var(--cods-component-modal-background);
+    color: var(--cods-color-text-primary);
+    box-shadow: var(--cods-elevation-mid-x) var(--cods-elevation-mid-y)
+      var(--cods-elevation-mid-blur) var(--cods-elevation-mid-spread)
+      var(--cods-color-elevation-shadow);
+  }
+
+  // USWDS pads the inner main; padding here as well would double the gap
+  // under the actions.
+  .cods-modal__content {
+    padding: 0;
+    border-radius: inherit;
+    font-family: var(--cods-font-family-body), sans-serif;
+    font-size: var(--cods-font-size-desktop-body);
+    line-height: var(--cods-line-height-desktop-body);
+  }
+
+  .cods-modal__main {
+    padding: 0 var(--cods-space-lg) var(--cods-space-lg);
+  }
+
+  .cods-modal__heading {
+    margin-block-end: var(--cods-space-md);
+    color: var(--cods-color-text-primary);
+    font-family: var(--cods-font-family-body), sans-serif;
+    font-size: var(--cods-font-size-desktop-h5);
+    font-weight: var(--cods-font-weight-semibold);
+    line-height: var(--cods-line-height-desktop-h5);
+  }
+
+  .cods-modal__footer {
+    margin-block-start: var(--cods-space-lg);
+  }
+
+  // USWDS pulls the close button up with a negative margin that assumes its
+  // own content padding; this dialog pads the main instead.
+  .cods-modal__close {
+    margin: var(--cods-space-lg) var(--cods-space-lg) 0 auto;
+    padding: var(--cods-space-2xs);
+    border-radius: var(--cods-radius-md);
+    background-color: transparent;
+    color: var(--cods-color-icon-action-link-secondary);
+  }
+
+  .cods-modal__close-icon {
+    display: block;
+    inline-size: var(--cods-space-lg);
+    block-size: var(--cods-space-lg);
+    fill: currentcolor;
+  }
+
+  // Forced colors drops the background and the elevation, so the dialog needs
+  // an explicit boundary to stay readable as a surface.
+  @media (forced-colors: active) {
+    .cods-modal__dialog {
+      border: var(--cods-space-2xs) solid CanvasText;
+    }
+
+    .cods-modal__close-icon {
+      forced-color-adjust: none;
+      fill: ButtonText;
+    }
+  }
+}
