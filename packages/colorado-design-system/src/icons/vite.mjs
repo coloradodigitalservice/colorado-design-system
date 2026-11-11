@@ -11,6 +11,8 @@ const spriteImport =
 const virtualId = '\0cods:phosphor-sprite-url';
 const marker = '__CODS_PHOSPHOR_SPRITE_URL__';
 const devPath = '@cods-icons/sprite.svg';
+const spriteReference =
+  /(^|["'`(=\s])(?!(?:[a-zA-Z][a-zA-Z0-9+.-]*:)?\/\/)(?:[^&"'`(=\s<>]*\/)?icons\/sprite\.svg#/g;
 
 export function codsIcons({ mode = 'subset', sourceDir } = {}) {
   if (mode !== 'subset' && mode !== 'full')
@@ -34,7 +36,10 @@ export function codsIcons({ mode = 'subset', sourceDir } = {}) {
   }
 
   function rewrite(contents) {
-    return contents.replaceAll('/icons/sprite.svg#', `${replacement()}#`);
+    return contents.replace(
+      spriteReference,
+      (_match, boundary) => `${boundary}${replacement()}#`,
+    );
   }
 
   function outputUrl(context, outputFile) {
@@ -100,9 +105,10 @@ export function codsIcons({ mode = 'subset', sourceDir } = {}) {
       const ids = collect(contents, id);
       if (/\.(?:css|scss)(?:\?|$)/.test(id))
         collectStandaloneReferences(library, contents, id);
-      const hasCanonicalUrl = contents.includes('/icons/sprite.svg#');
-      if (hasCanonicalUrl) {
-        const offset = contents.indexOf('/icons/sprite.svg#');
+      const reference = contents.matchAll(spriteReference).next().value;
+      const hasCanonicalUrl = Boolean(reference);
+      if (reference) {
+        const offset = reference.index + reference[1].length;
         const line = contents.slice(0, offset).split('\n').length;
         if (/\.(?:astro|[cm]?[jt]sx?|vue|svelte)(?:\?|$)/i.test(id))
           throw new Error(
@@ -120,7 +126,7 @@ export function codsIcons({ mode = 'subset', sourceDir } = {}) {
       handler(html, context) {
         htmlPages.set(context.filename, {
           ids: collect(html, context.filename),
-          hasCanonicalUrl: html.includes('/icons/sprite.svg#'),
+          hasCanonicalUrl: !html.matchAll(spriteReference).next().done,
         });
         return rewrite(html);
       },
@@ -128,11 +134,12 @@ export function codsIcons({ mode = 'subset', sourceDir } = {}) {
     renderStart() {
       const ids = new Set();
       let required = false;
-      for (const entry of htmlPages.values()) {
-        for (const id of entry.ids) ids.add(id);
-        required ||= entry.hasCanonicalUrl;
-      }
       for (const id of this.getModuleIds()) {
+        const html = htmlPages.get(id);
+        if (html) {
+          for (const icon of html.ids) ids.add(icon);
+          required ||= html.hasCanonicalUrl;
+        }
         if (id === virtualId) required = true;
         const entry = modules.get(id);
         if (!entry) continue;

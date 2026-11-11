@@ -53,12 +53,16 @@ Use that URL as the SVG `<use href>`. The production build discovers recognized
 literal references in the loaded modules and HTML entrypoints, checks the IDs,
 and emits one content-hashed subset. Canonical component fixtures use
 `/icons/sprite.svg` in their HTML; replace that part with the imported URL when
-rendering an imported fixture. A canonical URL embedded directly in an
+rendering an imported raw fixture. Do the same for any bare-relative sprite
+path in an imported fixture. A canonical URL embedded directly in an
 application module fails the build because it cannot be safely rewritten; use
-the imported URL there. Vite development serves the full sprite while validating
-recognized references. The plugin also accepts a simple conditional whose two
-results are literal IDs; other unresolved expressions fail in subset mode. It
-does not interpret arbitrary application code or scan external runtime data.
+the imported URL there. In HTML entrypoints, the plugin also recognizes and
+rewrites bare-relative `icons/sprite.svg#house` and local prefixed paths;
+explicit external URLs are left unchanged. Vite development serves the full
+sprite while validating recognized references. The plugin also accepts a
+simple conditional whose two results are literal IDs; other unresolved
+expressions fail in subset mode. It does not interpret arbitrary application
+code or scan external runtime data.
 
 For another static build, scan the source and write a subset at the URL used by
 the page:

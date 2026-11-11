@@ -117,11 +117,11 @@ export function collectIconReferences(
   { allowDynamic = false } = {},
 ) {
   const ids = new Set();
-  const direct = /(?:^|\/)icons\/sprite\.svg#/g;
+  const direct = /(?:^|\/|["'`(=\s])icons\/sprite\.svg#/g;
   for (const match of contents.matchAll(direct)) {
     const start = match.index + match[0].length;
     const value = referenceValue(contents, start);
-    const where = location(label, contents, match.index);
+    const where = location(label, contents, start - 'icons/sprite.svg#'.length);
     validateSuffix(contents, start, value, where, allowDynamic);
     addReference(library, ids, value, where, allowDynamic);
   }

@@ -156,18 +156,20 @@ const iconHref = `${spriteUrl}#house`;
 Use the resulting URL in `<use href>`. The plugin scans Vite-loaded modules
 and HTML entrypoints, including imported CoDS fixtures and examples, validates
 recognized IDs, and emits a content-hashed subset in production. It rewrites
-canonical URLs in HTML entrypoints; an imported fixture's
-`/icons/sprite.svg` URL must instead be replaced with `spriteUrl` by its
-consumer. Canonical URLs embedded directly in JavaScript, TypeScript, Astro,
-Vue, or Svelte modules fail with a source location rather than producing a
-broken URL; use the imported sprite URL there. Stylesheets must use standalone
-CSS icons rather than canonical sprite URLs. Development serves the full
-sprite. Supported source references are
-literal `/icons/sprite.svg#<id>` URLs, literal fragments after the directly
-imported URL, and a simple conditional with two literal IDs. A recognized
-unresolved expression fails in subset mode. The plugin does not interpret
-arbitrary program execution, follow external data, or validate unrecognized
-reference syntax.
+sprite URLs in HTML entrypoints, including bare-relative
+`icons/sprite.svg#house` and paths such as `./icons/sprite.svg#house`. Explicit
+external URLs are not rewritten. An imported raw fixture is not rewritten
+automatically: replace its sprite path, whether `icons/sprite.svg` or
+`/icons/sprite.svg`, with `spriteUrl` when rendering it. Canonical URLs embedded
+directly in JavaScript, TypeScript, Astro, Vue, or Svelte modules fail with a
+source location rather than producing a broken URL; use the imported sprite
+URL there. Stylesheets must use standalone CSS icons rather than canonical
+sprite URLs. Development serves the full sprite. Supported source references
+are literal `icons/sprite.svg#house` URLs with or without a path prefix, literal
+fragments after the directly imported URL, and a simple conditional with two
+literal IDs. A recognized unresolved expression fails in subset mode. The
+plugin does not interpret arbitrary program execution, follow external data,
+or validate unrecognized reference syntax.
 
 If IDs are only known at runtime, deliberately use
 `codsIcons({ mode: 'full' })` and validate them against

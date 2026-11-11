@@ -14,7 +14,7 @@ import { spawnSync } from 'node:child_process';
 import { Buffer } from 'node:buffer';
 import { gzipSync } from 'node:zlib';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { build } from 'vite';
+import { build, createServer } from 'vite';
 import { generatedDir } from './icons.mjs';
 import {
   collectIconReferences,
@@ -79,6 +79,65 @@ it('keeps the documented ten-icon subset within the 4 KiB benchmark', () => {
 });
 
 describe('source-driven icon selection', () => {
+  it.each([
+    'icons/sprite.svg',
+    '/icons/sprite.svg',
+    './icons/sprite.svg',
+    '../icons/sprite.svg',
+    'assets/icons/sprite.svg',
+  ])('collects and validates literal IDs in %s references', (path) => {
+    const source = `<use href="${path}#house"></use>`;
+    expect([...collectIconReferences(library, source, 'page.html')]).toEqual([
+      'house',
+    ]);
+    expect(() =>
+      collectIconReferences(
+        library,
+        `<use href="${path}#not-a-real-id"></use>`,
+        'page.html',
+      ),
+    ).toThrow(/page\.html:1: unknown Phosphor Regular icon ID/);
+    expect(() =>
+      collectIconReferences(
+        library,
+        `<use href="${path}#\${runtime}"></use>`,
+        'page.html',
+      ),
+    ).toThrow(/page\.html:1: dynamic Phosphor icon reference/);
+  });
+
+  it('does not treat a different sprite directory as the CoDS icon directory', () => {
+    expect([
+      ...collectIconReferences(
+        library,
+        '<use href="other-icons/sprite.svg#not-a-real-id"></use>',
+        'page.html',
+      ),
+    ]).toEqual([]);
+  });
+
+  it('reports the correct line for a bare-relative reference at the start of a line', () => {
+    expect(() =>
+      collectIconReferences(
+        library,
+        'first line\nicons/sprite.svg#not-a-real-id',
+        'page.html',
+      ),
+    ).toThrow(/page\.html:2: unknown Phosphor Regular icon ID/);
+  });
+
+  it.each([
+    resolve(import.meta.dirname, '../README.md'),
+    resolve(import.meta.dirname, '../../../apps/web/src/content/docs/icon.md'),
+  ])('validates the documented sprite examples in %s', (file) => {
+    const ids = collectIconReferences(
+      library,
+      readFileSync(file, 'utf8'),
+      file,
+    );
+    expect(ids.has('house')).toBe(true);
+  });
+
   it('finds literal fixture references and statically enumerable template choices', () => {
     const source = `import spriteUrl from '@coloradodigitalservice/colorado-design-system/icons/sprite.svg?url';
 <use href="/icons/sprite.svg#house"></use>
@@ -136,6 +195,23 @@ const third = spriteUrl + '#arrow-right';`;
       expect(validation.status, validation.stderr).toBe(0);
       expect(validation.stdout).toContain(
         'Validated 2 Phosphor Regular sprite IDs',
+      );
+    });
+
+    it('selects and validates bare-relative sprite references', () => {
+      const { input, output, run } = commandFixture();
+      const file = join(input, 'page.html');
+      writeFileSync(file, '<use href="icons/sprite.svg#house"></use>');
+      const result = run('--input', input, '--output', output);
+      expect(result.status, result.stderr).toBe(0);
+      expect(readFileSync(output, 'utf8')).toBe(
+        createSubsetSprite(library, ['house']),
+      );
+      writeFileSync(file, '<use href="icons/sprite.svg#not-a-real-id"></use>');
+      const invalid = run('--input', input, '--validate');
+      expect(invalid.status).toBe(1);
+      expect(invalid.stderr).toContain(
+        'page.html:1: unknown Phosphor Regular icon ID',
       );
     });
 
@@ -272,7 +348,100 @@ document.body.insertAdjacentHTML('beforeend', \`<svg><use href="\${spriteUrl}#in
   };
 }
 
+function watchedIconIds(root) {
+  const html = readFileSync(join(root, 'dist/index.html'), 'utf8');
+  const file = /assets\/(cods-sprite-[^"]+\.svg)#house/.exec(html)?.[1];
+  if (!file) throw new Error('Missing built sprite URL');
+  return [
+    ...readFileSync(join(root, 'dist/assets', file), 'utf8').matchAll(
+      /<symbol id="([^"]+)"/g,
+    ),
+  ].map((match) => match[1]);
+}
+
 describe('Vite icon integration', () => {
+  it.each(['/', '/prefix/', './'])(
+    'rewrites bare and other relative HTML sprite URLs with base %s',
+    async (base) => {
+      const { root, config } = fixture(base);
+      const paths = [
+        'icons/sprite.svg',
+        '/icons/sprite.svg',
+        './icons/sprite.svg',
+        '../icons/sprite.svg',
+        'assets/icons/sprite.svg',
+      ];
+      writeFileSync(
+        join(root, 'index.html'),
+        `<!doctype html><svg>${paths
+          .map((path) => `<use href="${path}#house"></use>`)
+          .join('')}</svg>`,
+      );
+      await build(config);
+      const assets = join(root, 'dist/assets');
+      const sprite = readdirSync(assets).find((name) => name.endsWith('.svg'));
+      expect(sprite).toBeDefined();
+      const html = readFileSync(join(root, 'dist/index.html'), 'utf8');
+      const hrefs = [...html.matchAll(/<use href="([^"]+)"/g)].map(
+        (match) => match[1],
+      );
+      expect(hrefs).toEqual(
+        paths.map(() => `${base === './' ? './' : base}assets/${sprite}#house`),
+      );
+      expect(readFileSync(join(assets, sprite), 'utf8')).toBe(
+        createSubsetSprite(library, ['house']),
+      );
+    },
+  );
+
+  it('serves the full development sprite for a bare-relative HTML reference', async () => {
+    const { root, config } = fixture();
+    writeFileSync(
+      join(root, 'index.html'),
+      '<svg><use href="icons/sprite.svg#house"></use></svg>',
+    );
+    const server = await createServer({
+      ...config,
+      server: { host: '127.0.0.1', port: 0 },
+    });
+    try {
+      await server.listen();
+      const address = server.httpServer.address();
+      if (!address || typeof address === 'string')
+        throw new Error('Expected a local Vite server address');
+      const base = `http://127.0.0.1:${address.port}`;
+      const html = await globalThis
+        .fetch(`${base}/`)
+        .then((response) => response.text());
+      expect(html).toContain('href="/@cods-icons/sprite.svg#house"');
+      const response = await globalThis.fetch(`${base}/@cods-icons/sprite.svg`);
+      expect(response.ok).toBe(true);
+      expect(await response.text()).toBe(library.sprite);
+    } finally {
+      await server.close();
+    }
+  });
+
+  it.each([
+    'https://static.example.gov/cods/icons/sprite.svg#house',
+    '//static.example.gov/cods/icons/sprite.svg#house',
+  ])('preserves external sprite URL %s in an HTML entrypoint', async (url) => {
+    const { root, config } = fixture();
+    writeFileSync(
+      join(root, 'index.html'),
+      `<svg><use href="${url}"></use></svg>`,
+    );
+    await build(config);
+    const html = readFileSync(join(root, 'dist/index.html'), 'utf8');
+    expect(html).toContain(`href="${url}"`);
+    const assets = join(root, 'dist/assets');
+    expect(
+      existsSync(assets)
+        ? readdirSync(assets).filter((name) => name.endsWith('.svg'))
+        : [],
+    ).toEqual([]);
+  });
+
   it.each(['/', '/prefix/', './'])(
     'emits one hashed subset and resolves HTML and JS references with base %s',
     async (base) => {
@@ -302,20 +471,22 @@ describe('Vite icon integration', () => {
 
   it('fails builds on unknown and dynamically unresolved IDs', async () => {
     const { root, config } = fixture();
-    writeFileSync(
-      join(root, 'index.html'),
-      '<use href="/icons/sprite.svg#bad-id"></use>',
-    );
-    await expect(build(config)).rejects.toThrow(
-      /unknown Phosphor Regular icon ID/,
-    );
-    writeFileSync(
-      join(root, 'index.html'),
-      '<use href="/icons/sprite.svg#${runtime}"></use>',
-    );
-    await expect(build(config)).rejects.toThrow(
-      /cannot be selected statically/,
-    );
+    for (const path of ['/icons/sprite.svg', 'icons/sprite.svg']) {
+      writeFileSync(
+        join(root, 'index.html'),
+        `<use href="${path}#bad-id"></use>`,
+      );
+      await expect(build(config)).rejects.toThrow(
+        /unknown Phosphor Regular icon ID/,
+      );
+      writeFileSync(
+        join(root, 'index.html'),
+        `<use href="${path}#\${runtime}"></use>`,
+      );
+      await expect(build(config)).rejects.toThrow(
+        /cannot be selected statically/,
+      );
+    }
   });
 
   it('rejects canonical URLs embedded in application modules instead of emitting a broken URL', async () => {
@@ -327,6 +498,15 @@ describe('Vite icon integration', () => {
     await expect(build(config)).rejects.toThrow(
       /entry\.js:1: canonical CoDS sprite URLs in application modules are not rewritten/,
     );
+  });
+
+  it('rejects bare-relative sprite URLs in application modules and stylesheets', () => {
+    const plugin = codsIcons({ sourceDir: generatedDir });
+    for (const id of ['component.ts', 'component.astro', 'component.css']) {
+      expect(() =>
+        plugin.transform('href="icons/sprite.svg#house"', id),
+      ).toThrow(/canonical CoDS sprite URLs .* are not rewritten/);
+    }
   });
 
   it.each([
@@ -369,22 +549,116 @@ describe('Vite icon integration', () => {
     expect(readFileSync(join(assets, sprite), 'utf8')).toBe(library.sprite);
   });
 
-  it('rewrites nested HTML entrypoints relative to their own output', async () => {
-    const { root, config } = fixture('./');
-    mkdirSync(join(root, 'nested'));
-    writeFileSync(
-      join(root, 'nested/index.html'),
-      '<svg><use href="/icons/sprite.svg#house"></use></svg>',
-    );
-    config.build = {
-      rolldownOptions: {
-        input: { nested: resolve(root, 'nested/index.html') },
+  it.each(['/icons/sprite.svg', 'icons/sprite.svg', '../icons/sprite.svg'])(
+    'rewrites nested HTML entrypoint references to %s relative to their output',
+    async (path) => {
+      const { root, config } = fixture('./');
+      mkdirSync(join(root, 'nested'));
+      writeFileSync(
+        join(root, 'nested/index.html'),
+        `<svg><use href="${path}#house"></use></svg>`,
+      );
+      config.build = {
+        rolldownOptions: {
+          input: { nested: resolve(root, 'nested/index.html') },
+        },
+      };
+      await build(config);
+      const html = readFileSync(join(root, 'dist/nested/index.html'), 'utf8');
+      expect(html).toMatch(/href="\.\.\/assets\/cods-sprite-[^"]+\.svg#house"/);
+    },
+  );
+
+  it('drops removed and renamed HTML entrypoints from the next build', () => {
+    const plugin = codsIcons({ sourceDir: generatedDir });
+    plugin.configResolved({ command: 'build', base: '/' });
+    const transform = plugin.transformIndexHtml.handler;
+    transform('<use href="/icons/sprite.svg#house"></use>', {
+      filename: '/project/index.html',
+    });
+    transform('<use href="/icons/sprite.svg#warning"></use>', {
+      filename: '/project/old.html',
+    });
+
+    const emitted = [];
+    const context = (ids) => ({
+      getModuleIds: () => ids,
+      emitFile: (asset) => {
+        emitted.push(asset.source);
+        return 'sprite';
       },
-    };
-    await build(config);
-    const html = readFileSync(join(root, 'dist/nested/index.html'), 'utf8');
-    expect(html).toMatch(/href="\.\.\/assets\/cods-sprite-[^"]+\.svg#house"/);
+    });
+    plugin.renderStart.call(
+      context(['/project/index.html', '/project/old.html']),
+    );
+    expect(emitted.pop()).toBe(
+      createSubsetSprite(library, ['house', 'warning']),
+    );
+
+    transform('<use href="/icons/sprite.svg#info"></use>', {
+      filename: '/project/new.html',
+    });
+    plugin.renderStart.call(
+      context(['/project/index.html', '/project/new.html']),
+    );
+    expect(emitted.pop()).toBe(createSubsetSprite(library, ['house', 'info']));
+    plugin.renderStart.call(context(['/project/index.html']));
+    expect(emitted.pop()).toBe(createSubsetSprite(library, ['house']));
+    plugin.renderStart.call(context([]));
+    expect(emitted).toEqual([]);
   });
+
+  it('updates the subset when watched HTML modules are replaced and removed', async () => {
+    const { root, config } = fixture();
+    const oldPage = join(root, 'old.html');
+    const newPage = join(root, 'new.html');
+    writeFileSync(oldPage, '<use href="/icons/sprite.svg#warning"></use>');
+    writeFileSync(
+      join(root, 'entry.js'),
+      `import './old.html';
+import spriteUrl from '@coloradodigitalservice/colorado-design-system/icons/sprite.svg?url';
+document.body.insertAdjacentHTML('beforeend', \`<svg><use href="\${spriteUrl}#info"></use></svg>\`);`,
+    );
+    config.build = { watch: {} };
+    const watcher = await build(config);
+    if (Array.isArray(watcher) || !('on' in watcher))
+      throw new Error('Expected a Vite watcher');
+    let builds = 0;
+    const failures = [];
+    watcher.on('event', (event) => {
+      if (event.code === 'BUNDLE_END') builds++;
+      if (event.code === 'ERROR') failures.push(event.error);
+    });
+    try {
+      await vi.waitFor(() => {
+        expect(failures).toEqual([]);
+        expect(builds).toBeGreaterThanOrEqual(1);
+        expect(watchedIconIds(root)).toEqual(['house', 'info', 'warning']);
+      });
+      writeFileSync(newPage, '<use href="/icons/sprite.svg#check"></use>');
+      writeFileSync(join(root, 'entry.js'), "import './new.html';");
+      await vi.waitFor(
+        () => {
+          expect(failures).toEqual([]);
+          expect(builds).toBeGreaterThanOrEqual(2);
+          expect(watchedIconIds(root)).toEqual(['check', 'house']);
+        },
+        { timeout: 10000 },
+      );
+      rmSync(oldPage);
+      writeFileSync(join(root, 'entry.js'), 'console.log("rebuild again");');
+      await vi.waitFor(
+        () => {
+          expect(failures).toEqual([]);
+          expect(builds).toBeGreaterThanOrEqual(3);
+          expect(watchedIconIds(root)).toEqual(['house']);
+        },
+        { timeout: 10000 },
+      );
+    } finally {
+      await watcher.close();
+    }
+  }, 20000);
 
   it('recomputes the subset when watched source references change', async () => {
     const { root, config } = fixture();
@@ -398,21 +672,11 @@ describe('Vite icon integration', () => {
       if (event.code === 'BUNDLE_END') builds++;
       if (event.code === 'ERROR') failures.push(event.error);
     });
-    const outputIds = () => {
-      const html = readFileSync(join(root, 'dist/index.html'), 'utf8');
-      const file = /assets\/(cods-sprite-[^"]+\.svg)#house/.exec(html)?.[1];
-      if (!file) throw new Error('Missing built sprite URL');
-      return [
-        ...readFileSync(join(root, 'dist/assets', file), 'utf8').matchAll(
-          /<symbol id="([^"]+)"/g,
-        ),
-      ].map((match) => match[1]);
-    };
     try {
       await vi.waitFor(() => {
         expect(failures).toEqual([]);
         expect(builds).toBeGreaterThanOrEqual(1);
-        expect(outputIds()).toEqual(['house', 'info']);
+        expect(watchedIconIds(root)).toEqual(['house', 'info']);
       });
       writeFileSync(
         join(root, 'entry.js'),
@@ -423,7 +687,7 @@ document.body.insertAdjacentHTML('beforeend', \`<svg><use href="\${spriteUrl}#wa
         () => {
           expect(failures).toEqual([]);
           expect(builds).toBeGreaterThanOrEqual(2);
-          expect(outputIds()).toEqual(['house', 'warning']);
+          expect(watchedIconIds(root)).toEqual(['house', 'warning']);
         },
         { timeout: 10000 },
       );
