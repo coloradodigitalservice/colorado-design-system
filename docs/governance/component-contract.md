@@ -91,6 +91,10 @@ Type A components reuse USWDS's own JavaScript instead of reimplementing the int
 - The code is bundled into the package's ES module output. `require(` calls and `window.uswdsPresent` must not appear in `dist/`.
 - CoDS source must not contain an equivalent of the interaction. The Accordion, the interactive Type A component in the Phase 2 vertical slice, is the reference implementation of this pattern.
 
+### 4.6 In-Page Navigation exception
+
+In-Page Navigation uses authored USWDS-compatible markup and a CoDS scroll tracker instead of wrapping the USWDS 3.14.0 JavaScript. The USWDS behavior generates a second navigation and new anchors, relies on document-wide selectors, and does not expose or disconnect its IntersectionObserver on teardown. It cannot preserve the authored links without JavaScript or isolate and destroy each instance as sections 4.1–4.3 require. Its observer also selects fully visible anchors, rather than tracking the section at the viewport threshold and the end of the page. Reassess this exception when upgrading USWDS. Design and accessibility review remain open.
+
 ## 5. Metadata and maturity model
 
 Every component ships `<component-name>.metadata.json`, validated against the shared metadata shape:

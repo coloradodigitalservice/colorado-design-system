@@ -66,7 +66,7 @@ describe('in-page navigation', () => {
     expect(callbacks).toHaveLength(2);
     expect(changes).toHaveBeenCalledOnce();
   });
-  it('updates on resize and selects a fully visible final section', () => {
+  it('keeps the preceding section current when a short final section is visible', () => {
     vi.stubGlobal('scrollY', 500);
     const { root, positions, links } = fixture();
     init(root);
@@ -75,7 +75,17 @@ describe('in-page navigation', () => {
     positions[2] = 300;
     window.dispatchEvent(new Event('resize'));
     callbacks[0]!(0);
+    expect(links[1]!.getAttribute('aria-current')).toBe('location');
+    Object.defineProperty(document.documentElement, 'scrollHeight', {
+      configurable: true,
+      value: 1200,
+    });
+    vi.stubGlobal('scrollY', 1200 - window.innerHeight);
+    window.dispatchEvent(new Event('scroll'));
+    callbacks[1]!(0);
     expect(links[2]!.getAttribute('aria-current')).toBe('location');
+    delete (document.documentElement as HTMLElement & { scrollHeight?: number })
+      .scrollHeight;
     destroy(root);
   });
   it('removes listeners from the original window if the root moves to another document', () => {

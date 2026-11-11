@@ -83,15 +83,6 @@ export function init(root: HTMLElement): void {
       if (item.target.getBoundingClientRect().top <= view.innerHeight * 0.25)
         next = item;
     }
-    const last = visible[visible.length - 1]!;
-    const lastRect = last.target.getBoundingClientRect();
-    if (
-      view.scrollY > 0 &&
-      lastRect.top >= 0 &&
-      lastRect.bottom <= view.innerHeight
-    ) {
-      next = last;
-    }
     const page = root.ownerDocument.documentElement;
     if (
       page.scrollHeight > view.innerHeight &&

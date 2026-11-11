@@ -27,10 +27,60 @@ test('links and current section work in the canonical story', async ({
     window.scrollTo(0, document.documentElement.scrollHeight);
   });
   await expect(links.nth(2)).toHaveAttribute('aria-current', 'location');
-  await links.first().focus();
-  await page.keyboard.press('Enter');
-  await expect(page).toHaveURL(/#who-can-apply$/);
   await expectAccessible(page, testInfo, '#storybook-root');
+});
+
+test('a short final section stays inactive until the page end', async ({
+  page,
+}) => {
+  await page.goto(story);
+  const links = page
+    .locator('[data-cods-in-page-navigation]')
+    .getByRole('link');
+  await page.locator('#payment-amounts').evaluate((section) => {
+    (section as HTMLElement).style.minHeight = '150vh';
+  });
+  await page.locator('#required-documents').evaluate((section) => {
+    (section as HTMLElement).style.minHeight = '0';
+    (section as HTMLElement).style.height = '80px';
+    const spacer = document.createElement('div');
+    spacer.style.height = '150vh';
+    section.after(spacer);
+    window.scrollTo(
+      0,
+      window.scrollY +
+        section.getBoundingClientRect().top -
+        window.innerHeight * 0.6,
+    );
+  });
+  await expect(links.nth(1)).toHaveAttribute('aria-current', 'location');
+  await page.evaluate(() =>
+    window.scrollTo(0, document.documentElement.scrollHeight),
+  );
+  await expect(links.nth(2)).toHaveAttribute('aria-current', 'location');
+});
+
+test('hover uses the desktop colors and leaves mobile links unchanged', async ({
+  page,
+}) => {
+  await page.goto(story);
+  const link = page
+    .locator('[data-cods-in-page-navigation]')
+    .getByRole('link')
+    .nth(1);
+  const colors = () =>
+    link.evaluate((node) => {
+      const style = getComputedStyle(node);
+      return { color: style.color, background: style.backgroundColor };
+    });
+  const normal = await colors();
+  await link.hover();
+  const hovered = await colors();
+  expect(hovered).not.toEqual(normal);
+  await expect(link).toHaveCSS('color', 'rgb(255, 255, 255)');
+  await page.setViewportSize({ width: 375, height: 720 });
+  await link.hover();
+  expect(await colors()).toEqual(normal);
 });
 
 test('authored links work without enhancement', async ({ page }) => {
@@ -78,32 +128,42 @@ test('a jump into a gap after a section keeps that section current', async ({
   await expect(links.nth(1)).toHaveAttribute('aria-current', 'location');
 });
 
-test('Tab reaches every link and Enter activates each one', async ({
-  page,
-}) => {
+test('keyboard order, exit, and link activation', async ({ page }) => {
   await page.goto(story);
   const root = page.locator('[data-cods-in-page-navigation]');
   const links = root.getByRole('link');
   const total = await links.count();
   expect(total).toBeGreaterThan(1);
-
-  // Tab from the top of the document and confirm the authored links are
-  // reached in document order with no skipped or duplicated stops.
-  await page.locator('body').click({ position: { x: 0, y: 0 } });
-  await page.keyboard.press('Tab');
+  await root.evaluate((nav) => {
+    const before = document.createElement('button');
+    before.textContent = 'Before navigation';
+    const after = document.createElement('button');
+    after.textContent = 'After navigation';
+    nav.before(before);
+    nav.after(after);
+  });
+  const before = page.getByRole('button', { name: 'Before navigation' });
+  const after = page.getByRole('button', { name: 'After navigation' });
+  await before.focus();
   for (let index = 0; index < total; index += 1) {
-    const link = links.nth(index);
-    while (!(await link.evaluate((node) => node === document.activeElement))) {
-      await page.keyboard.press('Tab');
-    }
-    await expect(link).toBeFocused();
+    await page.keyboard.press('Tab');
+    await expect(links.nth(index)).toBeFocused();
   }
-
-  // Enter activates each link from the keyboard alone.
+  await page.keyboard.press('Tab');
+  await expect(after).toBeFocused();
+  for (let index = total - 1; index >= 0; index -= 1) {
+    await page.keyboard.press('Shift+Tab');
+    await expect(links.nth(index)).toBeFocused();
+  }
+  await page.keyboard.press('Shift+Tab');
+  await expect(before).toBeFocused();
   for (let index = 0; index < total; index += 1) {
+    await before.focus();
+    for (let step = 0; step <= index; step += 1)
+      await page.keyboard.press('Tab');
     const link = links.nth(index);
+    await expect(link).toBeFocused();
     const href = await link.getAttribute('href');
-    await link.focus();
     await page.keyboard.press('Enter');
     await expect(page).toHaveURL(new RegExp(`${href}$`));
   }
