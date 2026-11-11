@@ -1,5 +1,12 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.19
+
+### Patch Changes
+
+- 7e8a840: Add an experimental responsive Videos component with native and embedded examples.
+- @coloradodigitalservice/colorado-design-tokens@0.2.19
+
 ## 0.2.18
 
 ### Patch Changes
