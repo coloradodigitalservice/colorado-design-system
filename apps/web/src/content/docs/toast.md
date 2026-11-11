@@ -16,17 +16,17 @@ Toasts can be difficult to notice, read, reach, and revisit. Screen magnificatio
 
 Use it only as supplemental feedback. Keep the same information available in context. By default, notifications remain until dismissed. Every notification has a dismiss button, and new messages do not move focus. Provide a localized dismiss label and a return-focus target when calling `showToast`.
 
-An optional duration is intended only for messages whose information remains available elsewhere. It is at least ten seconds and pauses while the pointer or keyboard focus is over the notification. **Neither the minimum duration nor pausing alone makes timed content accessible.** Check the full experience against [WCAG timing guidance](https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable). Do not rely on a timed toast as the only way to perform an action. The component does not currently provide the Undo action shown in the design; keep actions such as Undo available in context.
+An optional duration is intended only for messages whose information remains available elsewhere. It is at least ten seconds and pauses while the pointer or keyboard focus is over the notification. **Neither the minimum duration nor pausing alone makes timed content accessible.** Check the full experience against [WCAG timing guidance](https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable). Keep actions such as Undo available in context even when a toast is persistent. Toasts with an action remain until dismissed. Keep an equivalent action available in context as well; an action inside a toast can be difficult to find.
 
-Use polite announcements for ordinary updates and reserve assertive announcements for urgent interruptions. The live regions must be present before messages are added. Screen-reader behavior varies, so test announcements with people using assistive technology; automated checks cannot confirm that users hear or understand them. Avoid sending several messages in rapid succession.
+Use polite announcements for ordinary updates and reserve assertive announcements for urgent interruptions. The live regions must be present before messages are added. Screen-reader behavior varies, so test announcements with people using assistive technology; automated checks cannot confirm that users hear or understand them. Avoid sending several messages in rapid succession. A stack of persistent notifications can cover content or make keyboard navigation harder; dismiss or consolidate obsolete messages and ensure important information remains available in context.
 
 Check keyboard access, focus after dismissal, 400% zoom, reflow, forced colors, reduced motion, long translations, and that notifications do not obscure controls. The component is experimental and requires human accessibility and design review.
 
 ## Example
 
-The example retains the saved status beside the button. The supplemental notification stays until dismissed.
+The example retains the saved status beside the button. Its supplemental notification disappears after ten seconds unless hovered or focused.
 
-Initialize the notification area before showing a message. The example uses a persistent notification:
+Initialize the notification area before showing a message. The example uses a timed supplemental notification:
 
 ```js
 import {
@@ -35,13 +35,18 @@ import {
 } from '@coloradodigitalservice/colorado-design-system';
 
 const notifications = document.querySelector('[data-cods-toast]');
-const saveButton = document.querySelector('#save');
+const saveButton = document.querySelector('[data-cods-toast-demo]');
+const status = document.querySelector('[data-cods-toast-demo-status]');
 initToast(notifications);
-showToast(notifications, {
-  message: 'Changes saved.',
-  dismissLabel: 'Dismiss',
-  returnFocus: saveButton,
+saveButton.addEventListener('click', () => {
+  status.textContent = 'Changes saved.';
+  showToast(notifications, {
+    message: 'Changes saved.',
+    dismissLabel: 'Dismiss',
+    duration: 10000,
+    returnFocus: saveButton,
+  });
 });
 ```
 
-Place the notification area in a logical position in the page and avoid covering existing content. An application should manage the layout and provide an accessible way to revisit important information.
+The notification list appears at the lower right of the viewport. It animates in unless reduced motion is requested. Check that it does not obscure controls or content, especially when several messages are visible.

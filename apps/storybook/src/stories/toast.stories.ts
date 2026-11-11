@@ -18,13 +18,24 @@ const meta = {
     const status = canvasElement.querySelector<HTMLElement>(
       '[data-cods-toast-demo-status]',
     );
+    const contextAction = canvasElement.querySelector<HTMLButtonElement>(
+      '[data-cods-toast-context-action]',
+    );
+    const undo = () => {
+      if (status) status.textContent = 'Changes undone.';
+    };
+    contextAction?.addEventListener('click', undo);
     button?.addEventListener('click', () => {
       if (!root || !status) return;
       status.textContent = 'Changes saved.';
       show(root, {
         message: 'Changes saved.',
+        ...(!button.hasAttribute('data-cods-toast-persistent') && {
+          duration: 10000,
+        }),
         dismissLabel: 'Dismiss',
         returnFocus: button,
+        ...(contextAction && { action: { label: 'Undo', onActivate: undo } }),
       });
     });
   },
@@ -32,3 +43,27 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
+
+/** Enable “Reduce motion” in your operating system or browser, then show a toast. */
+export const ReducedMotion: Story = {
+  render: () =>
+    `<p>Enable reduced motion in your operating system or browser, then select Save changes. The toast should appear without animation.</p>${fixture}`,
+};
+
+/** A message that remains until it is dismissed. */
+export const Persistent: Story = {
+  render: () =>
+    fixture.replace(
+      'data-cods-toast-demo>',
+      'data-cods-toast-demo data-cods-toast-persistent>',
+    ),
+};
+
+/** An action remains available in context as well as in the toast. */
+export const Action: Story = {
+  render: () =>
+    fixture.replace(
+      '<p data-cods-toast-demo-status>',
+      '<button type="button" data-cods-toast-context-action>Undo changes</button><p data-cods-toast-demo-status>',
+    ),
+};

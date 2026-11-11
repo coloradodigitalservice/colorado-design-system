@@ -29,12 +29,12 @@
 ## Reflow, motion, forced colors, and localization
 
 - [ ] Verify 400% zoom and 320px reflow without content or controls being obscured.
-- [ ] No animation is currently implemented. Confirm reduced-motion behavior in browsers.
+- [ ] The entrance animation is suppressed by `prefers-reduced-motion`. Browser verification remains open.
 - [ ] Verify forced colors and focus visibility in high contrast.
 - [ ] Verify long translated messages and dismiss labels, wrapping, and right-to-left layout.
 
 ## Open items
 
-- A human design and accessibility review must decide whether the pattern should ship, including the Figma Undo variant and the relationship to persistent contextual feedback. The draft does not implement Undo.
+- A human design and accessibility review must decide whether the pattern should ship, including the Figma Undo variant and the relationship to persistent contextual feedback. The controller supports a persistent action, but the Undo example and its equivalent contextual action still need design and accessibility review.
 - Timeouts are optional, default off, and pause on hover and focus. A timeout minimum does not make information or actions accessible; equivalent information must remain available. The component cannot enforce that requirement for consuming pages.
 - Browser, axe, screen-reader, and manual checks have not been completed. Unit tests do not establish accessibility acceptance. The component remains experimental.

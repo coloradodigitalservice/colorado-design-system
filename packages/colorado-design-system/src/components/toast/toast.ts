@@ -14,6 +14,8 @@ export interface ToastOptions {
   /** Only for supplemental messages whose information remains available elsewhere. */
   duration?: number;
   returnFocus?: HTMLElement;
+  /** Actions must also be available in context. Toasts with actions do not expire. */
+  action?: { label: string; onActivate: () => void };
 }
 
 export function init(root: HTMLElement): void {
@@ -55,13 +57,24 @@ export function show(
   button.type = 'button';
   button.className = 'cods-toast__dismiss';
   button.textContent = options.dismissLabel;
-  item.append(message, button);
+  item.append(message);
+  if (options.action?.label.trim()) {
+    const action = document.createElement('button');
+    action.type = 'button';
+    action.className = 'cods-toast__action';
+    action.textContent = options.action.label;
+    action.addEventListener('click', options.action.onActivate);
+    item.append(action);
+  }
+  item.append(button);
   list.append(item);
   const live =
     options.urgency === 'assertive' ? instance.assertive : instance.polite;
   live.textContent = options.message;
   let remaining =
-    Number.isFinite(options.duration) && options.duration! > 0
+    !options.action &&
+    Number.isFinite(options.duration) &&
+    options.duration! > 0
       ? Math.max(10000, options.duration!)
       : 0;
   let started = 0;

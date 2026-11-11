@@ -66,7 +66,7 @@ const { Content } = await render(entry);
     )}
     {entry.id === 'breadcrumbs' && <BreadcrumbsExamples />}
     {entry.id === 'modal' && <ModalExamples />}
-    {entry.id === 'toast' && <ToastExamples />}
+
     {entry.id === 'radio' && <RadioExamples />}
     {entry.id === 'combo-box' && <ComboBoxExamples />}
     {entry.id === 'language-selector' && <LanguageSelectorExamples />}
@@ -114,6 +114,7 @@ const { Content } = await render(entry);
       </>
     )}
     <Content />
+    {entry.id === 'toast' && <ToastExamples />}
     {entry.id === 'search' && <SearchExamples />}
     {entry.id === 'hero' && <HeroExamples />}
     {entry.id === 'tags' && <TagsExamples />}

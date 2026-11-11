@@ -71,4 +71,17 @@ describe('toast', () => {
       show(root, { message: 'Again', dismissLabel: 'Dismiss' }),
     ).toBeUndefined();
   });
+  it('keeps actionable messages available even when a duration is supplied', () => {
+    const onActivate = vi.fn();
+    const item = show(root, {
+      message: 'Changes saved',
+      dismissLabel: 'Dismiss',
+      duration: 10000,
+      action: { label: 'Undo', onActivate },
+    })!;
+    vi.advanceTimersByTime(60000);
+    expect(item.isConnected).toBe(true);
+    item.querySelector<HTMLButtonElement>('.cods-toast__action')!.click();
+    expect(onActivate).toHaveBeenCalledOnce();
+  });
 });

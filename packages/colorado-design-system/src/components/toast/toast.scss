@@ -9,6 +9,13 @@
   }
 
   .cods-toast__list {
+    position: fixed;
+    z-index: 1000;
+    inset-block-end: var(--cods-space-md);
+    inset-inline-end: var(--cods-space-md);
+    width: min(24rem, calc(100vw - 2 * var(--cods-space-md)));
+    max-height: calc(100dvh - 2 * var(--cods-space-md));
+    overflow-y: auto;
     display: grid;
     gap: var(--cods-space-sm);
   }
@@ -24,8 +31,28 @@
     color: var(--cods-color-white);
     font-family: var(--cods-font-family-body);
     overflow-wrap: anywhere;
+    animation: cods-toast-enter 250ms ease-out;
   }
 
+  @keyframes cods-toast-enter {
+    from {
+      opacity: 0;
+      transform: translateY(var(--cods-space-md));
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cods-toast__item {
+      animation: none;
+    }
+  }
+
+  .cods-toast__action,
   .cods-toast__dismiss {
     flex: none;
     border: 0;
@@ -36,6 +63,7 @@
     cursor: pointer;
   }
 
+  .cods-toast__action:focus-visible,
   .cods-toast__dismiss:focus-visible {
     outline: var(--cods-focus-ring-width) solid
       var(--cods-color-bg-action-focus);
@@ -47,6 +75,7 @@
       border: 1px solid CanvasText;
     }
 
+    .cods-toast__action,
     .cods-toast__dismiss {
       color: ButtonText;
     }
