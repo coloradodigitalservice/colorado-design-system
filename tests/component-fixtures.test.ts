@@ -161,18 +161,18 @@ describe('canonical component examples', () => {
         area,
         `accordion.${area === 'fixtures' ? 'html' : 'json'}`,
       );
-      writeFileSync(file, readFileSync(file, 'utf8') + '\n');
+      const original = readFileSync(file, 'utf8');
+      writeFileSync(file, original + '\n');
       expect(() => checkComponentAssets(root)).toThrow(`stale ${area}`);
-      writeComponentAssets(root);
+      writeFileSync(file, original);
     }
+    expect(() => checkComponentAssets(root)).not.toThrow();
     const manifest = JSON.parse(
       readFileSync(join(root, 'package.json'), 'utf8'),
     );
     delete manifest.exports['./examples/*.json'];
     writeFileSync(join(root, 'package.json'), JSON.stringify(manifest));
     expect(() => checkComponentAssets(root)).toThrow('missing export');
-    // Regenerates every component's assets, so this grows with the component
-    // set; the 5s default is too tight for CI once the set is large.
   }, 30_000);
 });
 

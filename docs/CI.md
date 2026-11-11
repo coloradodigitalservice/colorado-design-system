@@ -32,13 +32,12 @@ jobs. The selected jobs add these checks:
 - `storybook`: token drift, lint, Storybook and dependency builds (including its
   own TypeScript project), and Chromium smoke/axe checks of every built story.
 
-The `web` job runs on `ubuntu-24.04` in the official Playwright image matching
-the repository's pinned `@playwright/test` version. Its image tag is also pinned
-by the registry's immutable manifest digest, providing Chromium, Firefox,
-WebKit, and their system dependencies without installing browsers or APT
-packages during each run. The `scope`, `repository`, `code`, `storybook`, and
-`foundation` jobs remain host-based; their behavior and runner selection are
-unchanged.
+The `web` and `storybook` jobs run on `ubuntu-24.04` in the official Playwright
+image matching the repository's pinned `@playwright/test` version. Its image
+tag is also pinned by the registry's immutable manifest digest, providing
+Chromium, Firefox, WebKit, and their system dependencies without installing
+browsers or APT packages during each run. The `scope`, `repository`, `code`,
+and `foundation` jobs remain host-based.
 
 `foundation` always runs after the other jobs. It fails if any selected job fails
 or is cancelled. Configure **foundation** as the required status check in the
@@ -113,10 +112,10 @@ Automated axe results supplement the component contract's manual accessibility
 requirements.
 
 The Linux `--with-deps` command is for local host setup only; the containerized
-Foundation web job must not run browser or system-dependency installation.
-The web browser-test step sets `HOME=/root` because GitHub Actions runs
-container steps as root but provides a `HOME` directory owned by the image's
-`pwuser`; Firefox refuses to launch when those users do not match.
+Foundation browser jobs must not run browser or system-dependency installation.
+Their browser-test steps set `HOME=/root` because GitHub Actions runs container
+steps as root but provides a `HOME` directory owned by the image's `pwuser`;
+Firefox refuses to launch when those users do not match.
 
 ## Inspect failures and artifacts
 
@@ -167,18 +166,18 @@ archive behavior by default, compatible with these hosted runners and directory
 uploads ([upstream action](https://github.com/actions/upload-artifact/tree/v7.0.1)).
 Keep artifact names unique and retention explicit.
 
-When updating `@playwright/test`, update the web job's official
+When updating `@playwright/test`, update both browser jobs' official
 [Playwright image](https://playwright.dev/docs/docker) to the same version and
 matching Ubuntu base tag, then verify and pin the image manifest digest from
 Microsoft Container Registry. Keep the readable version tag alongside the
 digest, and verify that the digest resolves to the intended Linux runner
-architecture. The image is pulled before the web job's steps begin: pull or
+architecture. The image is pulled before each browser job's steps begin: pull or
 registry errors indicate container setup trouble, while browser launch and test
 errors occur in the browser-test step after the image and dependencies are
 available. If Firefox reports that its `HOME` directory is owned by a different
-user, verify the web browser-test step retains `HOME=/root`. Local Linux runs still install dependencies with
+user, verify the browser-test steps retain `HOME=/root`. Local Linux runs still install dependencies with
 `playwright install --with-deps`; that command does not belong in the container
-job.
+jobs.
 
 Scope selection is covered by both path unit tests and temporary-Git-repository
 regression tests for cross-area renames. When changing path rules, extend those
