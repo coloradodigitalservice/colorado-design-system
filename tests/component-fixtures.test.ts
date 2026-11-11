@@ -171,7 +171,9 @@ describe('canonical component examples', () => {
     delete manifest.exports['./examples/*.json'];
     writeFileSync(join(root, 'package.json'), JSON.stringify(manifest));
     expect(() => checkComponentAssets(root)).toThrow('missing export');
-  });
+    // Regenerates every component's assets, so this grows with the component
+    // set; the 5s default is too tight for CI once the set is large.
+  }, 30_000);
 });
 
 describe('Card fixture variants', () => {
