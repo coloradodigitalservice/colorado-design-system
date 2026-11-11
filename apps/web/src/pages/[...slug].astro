@@ -10,6 +10,8 @@ import AccordionExamples from '../components/AccordionExamples.astro';
 import BreadcrumbsExamples from '../components/BreadcrumbsExamples.astro';
 import SelectExamples from '../components/SelectExamples.astro';
 import RadioExamples from '../components/RadioExamples.astro';
+import ComboBoxExamples from '../components/ComboBoxExamples.astro';
+import LanguageSelectorExamples from '../components/LanguageSelectorExamples.astro';
 import CardExamples from '../components/CardExamples.astro';
 import LinkExamples from '../components/LinkExamples.astro';
 import DividerExamples from '../components/DividerExamples.astro';
@@ -21,6 +23,7 @@ import IconListExamples from '../components/IconListExamples.astro';
 import HeroExamples from '../components/HeroExamples.astro';
 import VideosExamples from '../components/VideosExamples.astro';
 import TagsExamples from '../components/TagsExamples.astro';
+import SearchExamples from '../components/SearchExamples.astro';
 import ProcessListExamples from '../components/ProcessListExamples.astro';
 import ModalExamples from '../components/ModalExamples.astro';
 
@@ -63,6 +66,8 @@ const { Content } = await render(entry);
     {entry.id === 'breadcrumbs' && <BreadcrumbsExamples />}
     {entry.id === 'modal' && <ModalExamples />}
     {entry.id === 'radio' && <RadioExamples />}
+    {entry.id === 'combo-box' && <ComboBoxExamples />}
+    {entry.id === 'language-selector' && <LanguageSelectorExamples />}
     {entry.id === 'input' && (
       <>
         {' '}
@@ -94,6 +99,7 @@ const { Content } = await render(entry);
       entry.id === 'breadcrumbs' ||
       entry.id === 'link' ||
       entry.id === 'checkbox' ||
+      entry.id === 'combo-box' ||
       entry.id === 'select' ||
       entry.id === 'divider' ||
       entry.id === 'process-list') && (
@@ -106,6 +112,7 @@ const { Content } = await render(entry);
       </>
     )}
     <Content />
+    {entry.id === 'search' && <SearchExamples />}
     {entry.id === 'hero' && <HeroExamples />}
     {entry.id === 'tags' && <TagsExamples />}
     {entry.id === 'videos' && <VideosExamples />}

@@ -28,6 +28,21 @@ declare module '@uswds/uswds/js/usa-accordion' {
   export default accordion;
 }
 
+declare module '@uswds/uswds/js/usa-combo-box' {
+  const comboBox: {
+    on(root: HTMLElement): void;
+    off(root: HTMLElement): void;
+    hideList(root: HTMLElement): void;
+    displayList(root: HTMLElement): void;
+  };
+  export default comboBox;
+}
+
+declare module '@uswds/uswds/js/usa-language-selector' {
+  const selector: { on(root: HTMLElement): void; off(root: HTMLElement): void };
+  export default selector;
+}
+
 declare module '@uswds/uswds/js/usa-modal' {
   const modal: {
     on(root: HTMLElement): void;
