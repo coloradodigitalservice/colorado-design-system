@@ -1,5 +1,15 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.22
+
+### Patch Changes
+
+- b39882b: BREAKING: Replace the curated icon list and catalog with the full Phosphor
+  Regular sprite, a compact ID index, and source-driven sprite and CSS asset
+  selection. Consumers must update catalog parsing and any per-icon SVG imports
+  that are not required by the packaged component CSS.
+- @coloradodigitalservice/colorado-design-tokens@0.2.22
+
 ## 0.2.21
 
 ### Patch Changes

@@ -2,6 +2,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import type { StorybookConfig } from '@storybook/html-vite';
+import { codsIcons } from '@coloradodigitalservice/colorado-design-system/icons/vite';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(dirname, '../../..');
@@ -15,6 +16,7 @@ const config: StorybookConfig = {
     menuOnboardingChecklist: false,
   },
   viteFinal: async (viteConfig) => {
+    viteConfig.plugins = [...(viteConfig.plugins ?? []), codsIcons()];
     viteConfig.css = {
       ...viteConfig.css,
       preprocessorOptions: {

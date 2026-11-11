@@ -11,11 +11,11 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { generate, parse, walk } from 'css-tree';
 import type { Plugin } from 'vite';
 import iconVariants from './uswds-icon-variants.json' with { type: 'json' };
-import approvedIcons from '../src/icons/approved-icons.json' with { type: 'json' };
+import iconCatalog from '../generated/icons/catalog.json' with { type: 'json' };
 import componentVariants from './component-icon-variants.json' with { type: 'json' };
 
 const packagedIconIds = new Set([
-  ...approvedIcons.icons,
+  ...iconCatalog.icons,
   ...[...Object.values(iconVariants), ...Object.values(componentVariants)].map(
     ({ id, color }) => `${id}--${color}`,
   ),

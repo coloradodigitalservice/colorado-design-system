@@ -15,7 +15,6 @@ import CardExamples from '../components/CardExamples.astro';
 import LinkExamples from '../components/LinkExamples.astro';
 import DividerExamples from '../components/DividerExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
-import IconCatalog from '../components/IconCatalog.astro';
 import IconExamples from '../components/IconExamples.astro';
 import InputExamples from '../components/InputExamples.astro';
 import IconListExamples from '../components/IconListExamples.astro';
@@ -117,7 +116,6 @@ const { Content } = await render(entry);
     {entry.id === 'in-page-alert' && <InPageAlertExamples mode="remaining" />}
     {entry.id === 'button' && <ButtonExamples mode="remaining" />}
     {entry.id === 'icon' && <IconExamples />}
-    {entry.id === 'icon' && <IconCatalog />}
     {entry.id === 'site-alert' && <SiteAlertExamples mode="remaining" />}
   </article>
 </BaseLayout>

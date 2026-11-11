@@ -16,7 +16,7 @@ Icon List is **experimental** in the `0.x` development series. The examples and 
 
 Load the token and component styles as described in [Getting started](../getting-started/). Use a `ul` with `usa-icon-list cods-icon-list` and `role="list"` so Safari and VoiceOver retain list semantics; give each `li` the `usa-icon-list__item cods-icon-list__item` classes. Place a decorative icon in `usa-icon-list__icon cods-icon-list__icon` and its text in `usa-icon-list__content cods-icon-list__content`. A short bold lead and supporting paragraph can appear together in the content area.
 
-Choose icons from the [approved icon catalog](../icon/) and use them consistently. Each item must convey its meaning in text without relying on the icon, its shape, or color. Mark SVG icons `aria-hidden="true"` and `focusable="false"`.
+Choose Regular-weight icons from [Phosphor Icons](https://phosphoricons.com/) and use them consistently. See the [icon guidance](../icon/) for selection and accessibility. Each item must convey its meaning in text without relying on the icon, its shape, or color. Mark SVG icons `aria-hidden="true"` and `focusable="false"`.
 
 ## Sizes and layout
 

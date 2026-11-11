@@ -1,6 +1,6 @@
 {
   "name": "@coloradodigitalservice/colorado-design-system",
-  "version": "0.2.21",
+  "version": "0.2.22",
   "private": true,
   "repository": {
     "type": "git",
@@ -15,6 +15,9 @@
     "*.css",
     "dist/**/*.css"
   ],
+  "bin": {
+    "cods-icons": "./dist/icons/cli.mjs"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -44,6 +47,14 @@
     },
     "./icons/LICENSE": {
       "default": "./dist/icons/LICENSE"
+    },
+    "./icons/selection": {
+      "types": "./dist/icons/selection.d.ts",
+      "default": "./dist/icons/selection.mjs"
+    },
+    "./icons/vite": {
+      "types": "./dist/icons/vite.d.ts",
+      "default": "./dist/icons/vite.mjs"
     }
   },
   "scripts": {
