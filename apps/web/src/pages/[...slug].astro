@@ -10,6 +10,7 @@ import AccordionExamples from '../components/AccordionExamples.astro';
 import BreadcrumbsExamples from '../components/BreadcrumbsExamples.astro';
 import SelectExamples from '../components/SelectExamples.astro';
 import RadioExamples from '../components/RadioExamples.astro';
+import ComboBoxExamples from '../components/ComboBoxExamples.astro';
 import CardExamples from '../components/CardExamples.astro';
 import LinkExamples from '../components/LinkExamples.astro';
 import DividerExamples from '../components/DividerExamples.astro';
@@ -62,6 +63,7 @@ const { Content } = await render(entry);
     )}
     {entry.id === 'breadcrumbs' && <BreadcrumbsExamples />}
     {entry.id === 'radio' && <RadioExamples />}
+    {entry.id === 'combo-box' && <ComboBoxExamples />}
     {entry.id === 'input' && (
       <>
         {' '}
@@ -93,6 +95,7 @@ const { Content } = await render(entry);
       entry.id === 'breadcrumbs' ||
       entry.id === 'link' ||
       entry.id === 'checkbox' ||
+      entry.id === 'combo-box' ||
       entry.id === 'select' ||
       entry.id === 'divider' ||
       entry.id === 'process-list') && (

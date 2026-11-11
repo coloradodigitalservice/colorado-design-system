@@ -13,6 +13,7 @@ import link from '@coloradodigitalservice/colorado-design-system/metadata/link.j
 
 import radio from '@coloradodigitalservice/colorado-design-system/metadata/radio.json';
 import checkbox from '@coloradodigitalservice/colorado-design-system/metadata/checkbox.json';
+import comboBox from '@coloradodigitalservice/colorado-design-system/metadata/combo-box.json';
 import input from '@coloradodigitalservice/colorado-design-system/metadata/input.json';
 import card from '@coloradodigitalservice/colorado-design-system/metadata/card.json';
 import iconList from '@coloradodigitalservice/colorado-design-system/metadata/icon-list.json';
@@ -26,6 +27,7 @@ interface Props {
     | 'link'
     | 'radio'
     | 'checkbox'
+    | 'combo-box'
     | 'card'
     | 'icon-list'
     | 'select'
@@ -46,6 +48,7 @@ const metadata = {
   link,
   radio,
   checkbox,
+  'combo-box': comboBox,
   card,
   'icon-list': iconList,
   select,

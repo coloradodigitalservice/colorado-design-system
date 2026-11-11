@@ -1,0 +1,13 @@
+---
+import metadata from '@coloradodigitalservice/colorado-design-system/metadata/combo-box.json';
+import examples from '@coloradodigitalservice/colorado-design-system/examples/combo-box.json';
+import fixture from '@coloradodigitalservice/colorado-design-system/fixtures/combo-box.html?raw';
+import CodeExamples from './CodeExamples.astro';
+---
+
+<div set:html={fixture} />
+<CodeExamples metadata={metadata} examples={examples.examples} />
+<script>
+  import { initAllComboBox } from '@coloradodigitalservice/colorado-design-system';
+  initAllComboBox();
+</script>
