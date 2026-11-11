@@ -4,6 +4,12 @@ Vitest tests (`*.test.ts` / `*.test.mjs`) cover shared tooling and package behav
 Run them with `pnpm test`. Playwright tests (`tests/browser/**/*.spec.ts`) exercise
 built static pages separately; Vitest does not collect them.
 
+The component-fixture regeneration/staleness integration test has a scoped
+30-second timeout because it repeatedly parses the full component catalog with
+JSDOM and writes temporary package assets. It restores each deliberately corrupted
+output directly instead of rebuilding the catalog between staleness assertions.
+Other tests retain Vitest's default timeout unless explicitly overridden.
+
 ## Browser setup and execution
 
 From a clean checkout at the repository root:
