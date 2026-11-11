@@ -79,8 +79,8 @@ test('uses the designed input height and error icon treatment', async ({
     'height',
     '48px',
   );
-  await root.getByRole('option', { name: '2026' }).hover();
-  await expect(root.getByRole('option', { name: '2026' })).toHaveCSS(
+  await root.getByRole('option', { name: '2025' }).hover();
+  await expect(root.getByRole('option', { name: '2025' })).toHaveCSS(
     'background-color',
     'rgb(170, 205, 236)',
   );
@@ -191,7 +191,7 @@ test('clicking a group heading does not select an option', async ({ page }) => {
   await expect(root.getByRole('listbox')).toBeVisible();
 });
 
-test('unmatched Enter stays invalid instead of restoring the previous selection', async ({
+test('Enter cannot restore a previous selection after an uncommitted edit', async ({
   page,
 }) => {
   await page.goto('/combo-box/');
@@ -210,19 +210,25 @@ test('unmatched Enter stays invalid instead of restoring the previous selection'
   await input.click();
   await root.getByRole('option', { name: '2025' }).click();
   await expect(root.locator('select')).toHaveValue('2025');
-  await input.fill('2099');
-  await input.press('Enter');
-  await expect(input).toHaveValue('2099');
-  expect(
-    await input.evaluate((element: HTMLInputElement) => element.validity.valid),
-  ).toBe(false);
-  await root.getByRole('button', { name: 'Submit' }).click();
-  await expect(root.locator('form')).not.toHaveAttribute('data-submitted');
-  await input.press('Escape');
-  await expect(input).toHaveValue('2025');
-  expect(
-    await input.evaluate((element: HTMLInputElement) => element.validity.valid),
-  ).toBe(true);
+  for (const value of ['2099', '2025 ', '']) {
+    await input.fill(value);
+    await input.press('Enter');
+    await expect(input).toHaveValue(value);
+    expect(
+      await input.evaluate(
+        (element: HTMLInputElement) => element.validity.valid,
+      ),
+    ).toBe(false);
+    await root.getByRole('button', { name: 'Submit' }).click();
+    await expect(root.locator('form')).not.toHaveAttribute('data-submitted');
+    await input.press('Escape');
+    await expect(input).toHaveValue('2025');
+    expect(
+      await input.evaluate(
+        (element: HTMLInputElement) => element.validity.valid,
+      ),
+    ).toBe(true);
+  }
 });
 
 test('hovering an option keeps input focus, typing and Enter on the keyboard choice', async ({
@@ -263,6 +269,54 @@ test('arrow navigation survives hovering the last option in a group', async ({
   await expect(root.locator('select')).toHaveValue('replace');
 });
 
+test('Tab leaves the open list without focusing an option', async ({
+  page,
+}) => {
+  await page.goto('/combo-box/');
+  const root = page.locator('[data-cods-fixture-state="default"]');
+  const input = root.getByRole('combobox');
+  await input.click();
+  await input.press('ArrowDown');
+  await expect(
+    root.locator('.usa-combo-box__list-option--focused'),
+  ).toHaveAttribute('tabindex', '-1');
+  await input.press('Tab');
+  await expect(input).not.toBeFocused();
+  await expect(root.locator(':focus')).toHaveCount(0);
+  await expect(root.locator('[role="option"]:focus')).toHaveCount(0);
+});
+
+test('keyboard-active option follows the designed focus treatment', async ({
+  page,
+}) => {
+  await page.goto('/combo-box/');
+  const root = page.locator('[data-cods-fixture-state="default"]');
+  const input = root.getByRole('combobox');
+  await input.click();
+  await input.press('ArrowDown');
+  const styles = await root.evaluate((element) => {
+    const inputElement = element.querySelector<HTMLInputElement>(
+      '.usa-combo-box__input',
+    )!;
+    const focused = element.querySelector<HTMLElement>(
+      '.usa-combo-box__list-option--focused',
+    )!;
+    const inputStyle = getComputedStyle(inputElement);
+    const activeStyle = getComputedStyle(focused);
+    return {
+      inputBackground: inputStyle.backgroundColor,
+      activeBackground: activeStyle.backgroundColor,
+      outlineStyle: activeStyle.outlineStyle,
+      outlineWidth: activeStyle.outlineWidth,
+      outlineColor: activeStyle.outlineColor,
+    };
+  });
+  expect(styles.activeBackground).toBe(styles.inputBackground);
+  expect(styles.outlineStyle).toBe('solid');
+  expect(styles.outlineWidth).not.toBe('0px');
+  expect(styles.outlineColor).not.toBe('transparent');
+});
+
 test('keyboard-active option stays distinguishable in forced colors', async ({
   page,
 }) => {
@@ -271,9 +325,15 @@ test('keyboard-active option stays distinguishable in forced colors', async ({
   const root = page.locator('[data-cods-fixture-state="default"]');
   const input = root.getByRole('combobox');
   await input.click();
+  await root.getByRole('option', { name: '2025' }).click();
+  await expect(root.locator('select')).toHaveValue('2025');
+  await input.click();
+  await input.press('ArrowUp');
   await input.press('ArrowDown');
   await expect(
-    root.locator('[class~="usa-combo-box__list-option--focused"]'),
+    root.locator(
+      '[class~="usa-combo-box__list-option--focused"][aria-selected="true"]',
+    ),
   ).toHaveCount(1);
   const styles = await root.evaluate((element) => {
     const focused = element.querySelector<HTMLElement>(
