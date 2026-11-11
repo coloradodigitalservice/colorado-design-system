@@ -37,3 +37,16 @@ declare module '@uswds/uswds/js/usa-combo-box' {
   };
   export default comboBox;
 }
+
+declare module '@uswds/uswds/js/usa-tooltip' {
+  const tooltip: {
+    setup(trigger: HTMLElement): {
+      wrapper: HTMLElement;
+      tooltipBody: HTMLElement;
+      position: string;
+    };
+    show(body: HTMLElement, trigger: HTMLElement, position: string): void;
+    hide(body: HTMLElement): void;
+  };
+  export default tooltip;
+}

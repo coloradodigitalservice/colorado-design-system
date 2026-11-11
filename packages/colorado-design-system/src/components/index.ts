@@ -10,3 +10,8 @@ export {
   initAll as initAllComboBox,
   destroy as destroyComboBox,
 } from './combo-box/combo-box.js';
+export {
+  init as initTooltip,
+  initAll as initAllTooltip,
+  destroy as destroyTooltip,
+} from './tooltip/tooltip.js';
