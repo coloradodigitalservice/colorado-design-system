@@ -25,6 +25,7 @@ import VideosExamples from '../components/VideosExamples.astro';
 import TagsExamples from '../components/TagsExamples.astro';
 import SearchExamples from '../components/SearchExamples.astro';
 import ProcessListExamples from '../components/ProcessListExamples.astro';
+import ModalExamples from '../components/ModalExamples.astro';
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs');
@@ -63,6 +64,7 @@ const { Content } = await render(entry);
       </>
     )}
     {entry.id === 'breadcrumbs' && <BreadcrumbsExamples />}
+    {entry.id === 'modal' && <ModalExamples />}
     {entry.id === 'radio' && <RadioExamples />}
     {entry.id === 'combo-box' && <ComboBoxExamples />}
     {entry.id === 'language-selector' && <LanguageSelectorExamples />}

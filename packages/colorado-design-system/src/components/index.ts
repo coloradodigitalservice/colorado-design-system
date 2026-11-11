@@ -15,3 +15,11 @@ export {
   initAll as initAllLanguageSelector,
   destroy as destroyLanguageSelector,
 } from './language-selector/language-selector.js';
+export {
+  init as initModal,
+  initAll as initAllModal,
+  destroy as destroyModal,
+  open as openModal,
+  close as closeModal,
+  type ModalToggleDetail,
+} from './modal/modal.js';
