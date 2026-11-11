@@ -1,0 +1,3 @@
+.cods-search-story-examples > section + section {
+  margin-block-start: var(--cods-space-lg);
+}
