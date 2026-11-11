@@ -10,7 +10,7 @@ figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-Syste
 
 Place in-page navigation near the top of a long page with several clearly labeled sections. Link to the page’s H2 sections, in the same order they appear. Do not use it for short pages, links to other pages, or lower-level subsections.
 
-Use clear, plain-language labels in sentence case, ideally one to three words. When a section heading is long or technical, a shorter, friendlier label can represent it while preserving its meaning. For example, use “Who can apply” and “Required documents,” rather than “WHO CAN APPLY” or “Click here.”
+Use clear, plain-language labels in sentence case, ideally one to three words. When a section heading is long or technical, a shorter, friendlier label can represent it while preserving its meaning. For example, use “Who can apply” for a heading such as “Who is eligible for the program?” Use sentence case rather than “WHO CAN APPLY,” and avoid vague labels such as “Click here.”
 
 On mobile, the navigation appears in the page flow and does not stick to the screen as people scroll. Hover styling is reserved for devices that support hover at desktop widths.
 
