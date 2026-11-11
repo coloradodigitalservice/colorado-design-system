@@ -5,15 +5,15 @@
   "type": "interactive",
   "uswdsEquivalent": "in-page-navigation",
   "uswdsVersion": "3.14.0",
-  "componentType": "A",
+  "componentType": "C",
   "owners": {
     "responsible": "Aten component lead",
     "accountable": "State technical owner",
     "consulted": "State design owner, accessibility lead",
     "informed": "Component contributors, product owner"
   },
-  "divergenceApproved": false,
-  "divergenceNotes": null,
+  "divergenceApproved": true,
+  "divergenceNotes": "Uses USWDS-compatible markup and styling but a CoDS-authored, instance-scoped scroll tracker because the USWDS behavior would generate a second navigation alongside authored links, uses document-wide selectors, and does not clean up its observer on teardown. Approved by State design, engineering, and accessibility leads on 2026-11-11.",
   "states": ["default"],
   "progressiveEnhancement": "full",
   "localization": "layout-sensitive",
