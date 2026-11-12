@@ -23,6 +23,7 @@ import VideosExamples from '../components/VideosExamples.astro';
 import TagsExamples from '../components/TagsExamples.astro';
 import SearchExamples from '../components/SearchExamples.astro';
 import ProcessListExamples from '../components/ProcessListExamples.astro';
+import TooltipExamples from '../components/TooltipExamples.astro';
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs');
@@ -61,6 +62,12 @@ const { Content } = await render(entry);
       </>
     )}
     {entry.id === 'breadcrumbs' && <BreadcrumbsExamples />}
+    {entry.id === 'tooltip' && (
+      <>
+        <TooltipExamples />
+        <ComponentSummary component="tooltip" figma={entry.data.figma} />
+      </>
+    )}
     {entry.id === 'radio' && <RadioExamples />}
     {entry.id === 'combo-box' && <ComboBoxExamples />}
     {entry.id === 'input' && (

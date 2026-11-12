@@ -1,0 +1,47 @@
+{
+  "name": "tooltip",
+  "displayName": "Tooltip",
+  "maturity": "experimental",
+  "type": "interactive",
+  "uswdsEquivalent": "tooltip",
+  "uswdsVersion": "3.14.0",
+  "componentType": "A",
+  "owners": {
+    "responsible": "Aten component lead",
+    "accountable": "State technical owner",
+    "consulted": "State design owner, accessibility lead",
+    "informed": "Component contributors, product owner"
+  },
+  "divergenceApproved": false,
+  "divergenceNotes": null,
+  "states": ["top", "bottom", "left", "right"],
+  "progressiveEnhancement": "partial",
+  "localization": "text-content-only",
+  "description": "Supplemental text shown on hover or focus using the USWDS tooltip positioner. Essential information must remain visible.",
+  "examples": [
+    {
+      "state": "top",
+      "fixtureState": "top",
+      "setup": "none",
+      "instructions": ""
+    },
+    {
+      "state": "bottom",
+      "fixtureState": "bottom",
+      "setup": "none",
+      "instructions": ""
+    },
+    {
+      "state": "left",
+      "fixtureState": "left",
+      "setup": "none",
+      "instructions": ""
+    },
+    {
+      "state": "right",
+      "fixtureState": "right",
+      "setup": "none",
+      "instructions": ""
+    }
+  ]
+}

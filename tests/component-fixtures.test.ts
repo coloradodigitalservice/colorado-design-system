@@ -48,7 +48,7 @@ describe('canonical component examples', () => {
         'invalid maturity',
       );
       const missing = component.fixture.replace(
-        'data-cods-fixture-state="default"',
+        /data-cods-fixture-state="[^"]+"/,
         'data-cods-fixture-state="unknown"',
       );
       expect(() => generateExamples(component.metadata, missing)).toThrow(

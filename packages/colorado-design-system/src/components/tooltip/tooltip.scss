@@ -1,0 +1,9 @@
+@layer cods.components {
+  .cods-tooltip__body {
+    width: max-content;
+    min-width: 0;
+    max-width: min(20rem, 90vw);
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+}
