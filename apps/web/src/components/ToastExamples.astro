@@ -1,0 +1,35 @@
+---
+import fixture from '@coloradodigitalservice/colorado-design-system/fixtures/toast.html?raw';
+import metadata from '@coloradodigitalservice/colorado-design-system/metadata/toast.json';
+import examples from '@coloradodigitalservice/colorado-design-system/examples/toast.json';
+import CodeExamples from './CodeExamples.astro';
+---
+
+<div set:html={fixture} />
+<CodeExamples metadata={metadata} examples={examples.examples} />
+<script>
+  import {
+    initAllToast,
+    showToast,
+  } from '@coloradodigitalservice/colorado-design-system';
+  initAllToast();
+  document
+    .querySelectorAll<HTMLButtonElement>('[data-cods-toast-demo]')
+    .forEach((button) => {
+      button.addEventListener('click', () => {
+        const example = button.closest('[data-cods-fixture-state]');
+        const root = example?.querySelector<HTMLElement>('[data-cods-toast]');
+        const status = example?.querySelector<HTMLElement>(
+          '[data-cods-toast-demo-status]',
+        );
+        if (!root || !status) return;
+        status.textContent = 'Changes saved.';
+        showToast(root, {
+          message: 'Changes saved.',
+          duration: 10000,
+          dismissLabel: 'Dismiss',
+          returnFocus: button,
+        });
+      });
+    });
+</script>

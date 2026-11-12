@@ -1,0 +1,28 @@
+<div data-cods-fixture-state="default">
+  <h2>Notification example</h2>
+  <p>This example also shows the status next to the action.</p>
+  <button type="button" class="usa-button cods-button" data-cods-toast-demo>
+    Save changes
+  </button>
+  <p data-cods-toast-demo-status>Changes have not been saved.</p>
+  <div
+    class="cods-toast"
+    data-cods-toast
+    role="region"
+    aria-label="Notifications"
+  >
+    <div
+      class="cods-toast__announcer"
+      data-cods-toast-polite
+      role="status"
+      aria-atomic="true"
+    ></div>
+    <div
+      class="cods-toast__announcer"
+      data-cods-toast-assertive
+      role="alert"
+      aria-atomic="true"
+    ></div>
+    <div class="cods-toast__list" data-cods-toast-list></div>
+  </div>
+</div>
