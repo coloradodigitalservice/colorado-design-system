@@ -23,6 +23,7 @@
   .cods-toast__item {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     justify-content: space-between;
     gap: var(--cods-space-md);
     padding: var(--cods-space-md);
@@ -52,9 +53,23 @@
     }
   }
 
+  .cods-toast__icon {
+    flex: none;
+    width: var(--cods-space-lg);
+    height: var(--cods-space-lg);
+    fill: currentcolor;
+  }
+
+  .cods-toast__message {
+    min-width: 0;
+    flex: 1 1 12rem;
+  }
+
   .cods-toast__action,
   .cods-toast__dismiss {
-    flex: none;
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
     border: 0;
     background: transparent;
     color: inherit;

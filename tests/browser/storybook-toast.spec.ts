@@ -21,9 +21,10 @@ test('timed toast pauses on hover and keyboard focus', async ({ page }) => {
   await page.clock.install();
   await page.goto('/iframe.html?id=components-toast--default&viewMode=story');
   await page.getByRole('button', { name: 'Save changes' }).click();
+  await page.clock.fastForward(50);
   const toast = page.locator('.cods-toast__item');
   const dismiss = toast.getByRole('button', { name: 'Dismiss' });
-  await page.clock.fastForward(5000);
+  await page.clock.fastForward(4950);
   await toast.hover();
   await page.clock.fastForward(20000);
   await expect(toast).toBeVisible();

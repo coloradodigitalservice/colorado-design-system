@@ -13,12 +13,12 @@
 
 ## Names and roles
 
-| Element             | Role    | Name source                     |
-| ------------------- | ------- | ------------------------------- |
-| Notification area   | generic | Authored `aria-label`           |
-| Dismiss control     | button  | Consumer-supplied visible label |
-| Polite announcement | status  | Message text                    |
-| Urgent announcement | alert   | Message text                    |
+| Element             | Role   | Name source                     |
+| ------------------- | ------ | ------------------------------- |
+| Notification area   | region | Authored `aria-label`           |
+| Dismiss control     | button | Consumer-supplied visible label |
+| Polite announcement | status | Message text                    |
+| Urgent announcement | alert  | Message text                    |
 
 - [ ] Review naming, role and announcement semantics with accessibility specialists.
 

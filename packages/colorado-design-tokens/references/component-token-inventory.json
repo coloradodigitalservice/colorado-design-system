@@ -1609,7 +1609,8 @@
         "focus.ring-width",
         "focus.ring-offset",
         "space.md",
-        "component.toast-background"
+        "component.toast-background",
+        "space.lg"
       ],
       "componentTokens": ["component.toast-background"],
       "implementationTokens": [
@@ -1620,6 +1621,7 @@
         "focus.ring-width",
         "font.family-body",
         "radius.lg",
+        "space.lg",
         "space.md",
         "space.sm"
       ],

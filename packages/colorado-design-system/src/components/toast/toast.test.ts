@@ -27,6 +27,7 @@ describe('toast', () => {
       returnFocus: trigger,
     })!;
     expect(document.activeElement).toBe(trigger);
+    vi.advanceTimersByTime(50);
     expect(root.querySelector('[role=status]')?.textContent).toBe('Saved');
     vi.advanceTimersByTime(60000);
     expect(item.isConnected).toBe(true);
@@ -46,8 +47,9 @@ describe('toast', () => {
       dismissLabel: 'Dismiss',
       urgency: 'assertive',
     })!;
+    vi.advanceTimersByTime(1100);
     expect(root.querySelector('[role=alert]')?.textContent).toBe('Two');
-    vi.advanceTimersByTime(5000);
+    vi.advanceTimersByTime(3900);
     first.querySelector('button')!.focus();
     vi.advanceTimersByTime(20000);
     expect(first.isConnected).toBe(true);
@@ -83,5 +85,29 @@ describe('toast', () => {
     expect(item.isConnected).toBe(true);
     item.querySelector<HTMLButtonElement>('.cods-toast__action')!.click();
     expect(onActivate).toHaveBeenCalledOnce();
+  });
+  it('returns focus to the notification area if the trigger becomes disabled', () => {
+    const trigger = document.querySelector<HTMLButtonElement>(
+      '[data-cods-toast-demo]',
+    )!;
+    const item = show(root, {
+      message: 'Saved',
+      dismissLabel: 'Dismiss',
+      returnFocus: trigger,
+    })!;
+    item.querySelector('button')!.focus();
+    trigger.disabled = true;
+    dismiss(root, item);
+    expect(document.activeElement).toBe(root);
+  });
+  it('queues repeated announcements and skips a dismissed pending message', () => {
+    const first = show(root, { message: 'First', dismissLabel: 'Dismiss' })!;
+    const second = show(root, { message: 'Second', dismissLabel: 'Dismiss' })!;
+    vi.advanceTimersByTime(50);
+    expect(root.querySelector('[role=status]')?.textContent).toBe('First');
+    dismiss(root, second);
+    vi.advanceTimersByTime(1050);
+    expect(root.querySelector('[role=status]')?.textContent).not.toBe('Second');
+    expect(first.isConnected).toBe(true);
   });
 });

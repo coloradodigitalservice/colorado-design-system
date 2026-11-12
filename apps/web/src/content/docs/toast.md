@@ -22,6 +22,10 @@ Use polite announcements for ordinary updates and reserve assertive announcement
 
 Check keyboard access, focus after dismissal, 400% zoom, reflow, forced colors, reduced motion, long translations, and that notifications do not obscure controls. The component is experimental and requires human accessibility and design review.
 
+## Behavior
+
+Toasts appear at the bottom-right of the viewport and animate in over 250 milliseconds. The animation is removed when reduced motion is requested. Messages remain until dismissed by default; timed messages stay for at least ten seconds and pause while hovered or focused. A toast with an action stays until dismissed. The example below uses ten seconds, so a pause can make it visible for longer.
+
 ## Example
 
 The example retains the saved status beside the button. Its supplemental notification disappears after ten seconds unless hovered or focused.
@@ -49,4 +53,8 @@ saveButton.addEventListener('click', () => {
 });
 ```
 
-The notification list appears at the lower right of the viewport. It animates in unless reduced motion is requested. Check that it does not obscure controls or content, especially when several messages are visible.
+Check that notifications do not obscure controls or content, especially when several messages are visible.
+
+### Icons and actions
+
+An optional `iconHref` points to a symbol in the design system's icon sprite. The icon is decorative, so the message itself must communicate the result. For an action, pass `action: { label, onActivate }` and keep the same action available beside the related content. Actionable toasts do not auto-dismiss. After an action succeeds, update or dismiss any notification that no longer describes the current state.

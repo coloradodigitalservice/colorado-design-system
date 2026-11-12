@@ -5,6 +5,12 @@ interface Instance {
   polite: HTMLElement;
   assertive: HTMLElement;
   items: Map<HTMLElement, () => void>;
+  announcements: Array<{
+    live: HTMLElement;
+    message: string;
+    item: HTMLElement;
+  }>;
+  announcementTimer?: ReturnType<typeof setTimeout>;
 }
 
 export interface ToastOptions {
@@ -16,6 +22,8 @@ export interface ToastOptions {
   returnFocus?: HTMLElement;
   /** Actions must also be available in context. Toasts with actions do not expire. */
   action?: { label: string; onActivate: () => void };
+  /** URL of a decorative SVG sprite symbol. */
+  iconHref?: string;
 }
 
 export function init(root: HTMLElement): void {
@@ -28,7 +36,12 @@ export function init(root: HTMLElement): void {
     console.warn('cods-toast: missing list or live regions', root);
     return;
   }
-  instances.set(root, { polite, assertive, items: new Map() });
+  instances.set(root, {
+    polite,
+    assertive,
+    items: new Map(),
+    announcements: [],
+  });
 }
 
 export function initAll(container: ParentNode = document): void {
@@ -57,6 +70,16 @@ export function show(
   button.type = 'button';
   button.className = 'cods-toast__dismiss';
   button.textContent = options.dismissLabel;
+  if (options.iconHref) {
+    const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    icon.classList.add('cods-toast__icon');
+    icon.setAttribute('aria-hidden', 'true');
+    icon.setAttribute('focusable', 'false');
+    const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+    use.setAttribute('href', options.iconHref);
+    icon.append(use);
+    item.append(icon);
+  }
   item.append(message);
   if (options.action?.label.trim()) {
     const action = document.createElement('button');
@@ -70,7 +93,22 @@ export function show(
   list.append(item);
   const live =
     options.urgency === 'assertive' ? instance.assertive : instance.polite;
-  live.textContent = options.message;
+  instance.announcements.push({ live, message: options.message, item });
+  if (!instance.announcementTimer) {
+    const announce = () => {
+      const next = instance.announcements.shift();
+      if (!next) {
+        delete instance.announcementTimer;
+        return;
+      }
+      next.live.textContent = '';
+      instance.announcementTimer = setTimeout(() => {
+        if (root.contains(next.item)) next.live.textContent = next.message;
+        instance.announcementTimer = setTimeout(announce, 1000);
+      }, 50);
+    };
+    announce();
+  }
   let remaining =
     !options.action &&
     Number.isFinite(options.duration) &&
@@ -119,7 +157,7 @@ export function show(
         ?.querySelector<HTMLButtonElement>('button');
       if (next) next.focus();
       else if (options.returnFocus?.isConnected) options.returnFocus.focus();
-      else {
+      if (item.contains(document.activeElement)) {
         const previousTabindex = root.getAttribute('tabindex');
         root.setAttribute('tabindex', '-1');
         root.focus();
@@ -157,6 +195,8 @@ export function destroy(root: HTMLElement): void {
   const instance = instances.get(root);
   if (!instance) return;
   dismissAll(root);
+  if (instance.announcementTimer) clearTimeout(instance.announcementTimer);
+  instance.announcements.length = 0;
   instance.polite.textContent = '';
   instance.assertive.textContent = '';
   instances.delete(root);

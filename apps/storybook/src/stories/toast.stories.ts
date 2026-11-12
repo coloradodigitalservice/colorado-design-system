@@ -1,9 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/html-vite';
 import '../../../../packages/colorado-design-system/src/components/toast/toast.scss';
+import spriteUrl from '@coloradodigitalservice/colorado-design-system/icons/sprite.svg?url';
 import fixture from '../../../../packages/colorado-design-system/src/components/toast/toast.fixture.html?raw';
 import {
   initAll,
   show,
+  dismissAll,
 } from '../../../../packages/colorado-design-system/src/components/toast/toast.js';
 
 const meta = {
@@ -23,6 +25,7 @@ const meta = {
     );
     const undo = () => {
       if (status) status.textContent = 'Changes undone.';
+      if (root) dismissAll(root);
     };
     contextAction?.addEventListener('click', undo);
     button?.addEventListener('click', () => {
@@ -35,6 +38,9 @@ const meta = {
         }),
         dismissLabel: 'Dismiss',
         returnFocus: button,
+        ...(button.hasAttribute('data-cods-toast-icon') && {
+          iconHref: `${spriteUrl}#check`,
+        }),
         ...(contextAction && { action: { label: 'Undo', onActivate: undo } }),
       });
     });
@@ -65,5 +71,14 @@ export const Action: Story = {
     fixture.replace(
       '<p data-cods-toast-demo-status>',
       '<button type="button" data-cods-toast-context-action>Undo changes</button><p data-cods-toast-demo-status>',
+    ),
+};
+
+/** A decorative icon reinforces the message. */
+export const Icon: Story = {
+  render: () =>
+    fixture.replace(
+      'data-cods-toast-demo>',
+      'data-cods-toast-demo data-cods-toast-icon>',
     ),
 };
