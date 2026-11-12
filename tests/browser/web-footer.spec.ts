@@ -1,4 +1,10 @@
+import { readFileSync } from 'node:fs';
 import { test, expect, expectAccessible } from './fixtures.js';
+
+const footerFixture = readFileSync(
+  'packages/colorado-design-system/src/components/footer/footer.fixture.html',
+  'utf8',
+);
 
 test('site footer uses Compact on overview and component pages', async ({
   page,
@@ -201,11 +207,124 @@ test('mobile Full footer has flush, single-pixel blades and aligned panel links'
   );
 });
 
-test('all footer legal links stack on mobile and return to rows on desktop', async ({
+for (const count of [1, 5]) {
+  test(`Full footer supports ${count} navigation groups`, async ({
+    page,
+  }, testInfo) => {
+    const controllerUrl = '/__footer-controller.mjs';
+    await page.route(`**${controllerUrl}`, (route) =>
+      route.fulfill({
+        contentType: 'text/javascript',
+        body: readFileSync(
+          'packages/colorado-design-system/dist/colorado-design-system.mjs',
+          'utf8',
+        ),
+      }),
+    );
+    await page.setViewportSize({ width: 375, height: 800 });
+    await page.goto('/');
+    const original = await page.evaluate(
+      async ({ controllerUrl, fixture, count }) => {
+        const template = document.createElement('template');
+        const spriteUrl = document
+          .querySelector('.cods-docs-footer svg use')
+          ?.getAttribute('href')
+          ?.split('#')[0];
+        if (!spriteUrl) throw new Error('Missing built footer sprite URL');
+        template.innerHTML = fixture.replaceAll('/icons/sprite.svg', spriteUrl);
+        const example = template.content.querySelector<HTMLElement>(
+          '[data-cods-footer-fixture="full"]',
+        )!;
+        document.body.append(example);
+        const root = example.querySelector<HTMLElement>('[data-cods-footer]')!;
+        const list = root.querySelector<HTMLElement>('.cods-footer__groups')!;
+        const first = list.firstElementChild!;
+        while (list.children.length > count) list.lastElementChild!.remove();
+        while (list.children.length < count) {
+          const group = first.cloneNode(true) as HTMLElement;
+          const heading = group.querySelector<HTMLElement>(
+            '.usa-footer__primary-link',
+          )!;
+          heading.setAttribute(
+            'data-cods-footer-group',
+            `additional-${list.children.length}`,
+          );
+          heading.textContent = `Additional group ${list.children.length + 1}`;
+          list.append(group);
+        }
+        const originalMarkup = root.outerHTML;
+        const events: unknown[] = [];
+        root.addEventListener('cods-footer:change', (event) =>
+          events.push((event as CustomEvent).detail),
+        );
+        Object.assign(window, { footerEvents: events });
+        const api = await import(controllerUrl);
+        api.initFooter(root);
+        return originalMarkup;
+      },
+      { controllerUrl, fixture: footerFixture, count },
+    );
+
+    const root = page.locator('[data-cods-footer-fixture="full"] .cods-footer');
+    const buttons = root.locator('button.cods-footer__heading');
+    await expect(buttons).toHaveCount(count);
+    await buttons.first().click();
+    await expect(buttons.first()).toHaveAttribute('aria-expanded', 'true');
+    await buttons.last().click();
+    await expect(buttons.first()).toHaveAttribute('aria-expanded', 'false');
+    await expect(buttons.last()).toHaveAttribute(
+      'aria-expanded',
+      count === 1 ? 'false' : 'true',
+    );
+    expect(
+      await page.evaluate(
+        () => (window as Window & { footerEvents?: unknown[] }).footerEvents,
+      ),
+    ).toEqual(
+      count === 1
+        ? [
+            { group: 'services', expanded: true },
+            { group: 'services', expanded: false },
+          ]
+        : [
+            { group: 'services', expanded: true },
+            { group: 'services', expanded: false },
+            { group: 'additional-4', expanded: true },
+          ],
+    );
+    await expectAccessible(page, testInfo, '[data-cods-footer-fixture="full"]');
+
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await expect(root.locator('h2.cods-footer__heading')).toHaveCount(count);
+    if (count > 4) {
+      const groups = root.locator('.cods-footer__group');
+      const first = await groups.first().boundingBox();
+      const last = await groups.last().boundingBox();
+      expect(last!.y).toBeGreaterThan(first!.y);
+    }
+    await page.setViewportSize({ width: 375, height: 800 });
+    await expect(buttons).toHaveCount(count);
+    await expect(buttons.first()).toHaveAttribute('aria-expanded', 'false');
+    await page.evaluate(
+      async ({ controllerUrl }) => {
+        const api = await import(controllerUrl);
+        api.destroyFooter(
+          document.querySelector<HTMLElement>(
+            '[data-cods-footer-fixture="full"] [data-cods-footer]',
+          )!,
+        );
+      },
+      { controllerUrl },
+    );
+    expect(await root.evaluate((element) => element.outerHTML)).toBe(original);
+  });
+}
+
+test('footer legal links stack below 640px and use rows from 640px', async ({
   page,
 }) => {
   await page.goto('/footer/');
-  for (const width of [320, 640, 767]) {
+  for (const width of [320, 480, 639]) {
     await page.setViewportSize({ width, height: 800 });
     for (const list of await page.locator('.cods-footer__legal-list').all()) {
       await expect(list).toHaveCSS('flex-direction', 'column');
@@ -225,9 +344,19 @@ test('all footer legal links stack on mobile and return to rows on desktop', asy
       }
     }
   }
-  await page.setViewportSize({ width: 1280, height: 800 });
-  for (const list of await page.locator('.cods-footer__legal-list').all())
-    await expect(list).toHaveCSS('flex-direction', 'row');
+  await expect(
+    page.locator('.cods-docs-footer .cods-footer__legal-list'),
+  ).toHaveCSS('gap', '0px');
+  for (const width of [640, 767, 1280]) {
+    await page.setViewportSize({ width, height: 800 });
+    for (const list of await page.locator('.cods-footer__legal-list').all()) {
+      await expect(list).toHaveCSS('flex-direction', 'row');
+      await expect(list).toHaveCSS('flex-wrap', 'wrap');
+    }
+    await expect(
+      page.locator('.cods-docs-footer .cods-footer__legal-list'),
+    ).toHaveCSS('gap', '16px');
+  }
 });
 
 test('site footer reflows and keeps visible, touch-sized links at 320px', async ({

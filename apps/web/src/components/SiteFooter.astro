@@ -47,7 +47,7 @@ const policyLinks = [
       Return to top
     </a>
   </div>
-  <div class="usa-footer__primary-section cods-footer__primary-section cods-docs-footer__primary">
+  <div class="usa-footer__primary-section cods-footer__primary-section">
     <div class="cods-docs-container">
       <nav
         class="usa-footer__nav cods-footer__nav"
@@ -69,7 +69,7 @@ const policyLinks = [
       </nav>
     </div>
   </div>
-  <div class="usa-footer__secondary-section cods-footer__secondary-section cods-docs-footer__secondary">
+  <div class="usa-footer__secondary-section cods-footer__secondary-section">
     <div class="cods-docs-container">
       <div class="cods-footer__legal">
         <p class="cods-footer__copyright">
@@ -103,10 +103,6 @@ const policyLinks = [
     padding-block: var(--cods-space-lg);
   }
 
-  .cods-docs-footer__primary {
-    background-color: var(--cods-color-surface-nav-secondary);
-  }
-
   .cods-docs-footer__heading {
     margin: 0;
     padding-block: var(--cods-space-md);
@@ -119,11 +115,7 @@ const policyLinks = [
     line-height: var(--cods-line-height-desktop-ui-sm);
   }
 
-  .cods-docs-footer__secondary {
-    background-color: var(--cods-color-surface-nav-heel);
-  }
-
-  @media (width >= 48rem) {
+  @media (width >= 40rem) {
     .cods-footer__legal-list {
       gap: var(--cods-space-md);
     }
@@ -138,11 +130,6 @@ const policyLinks = [
   }
 
   @media (forced-colors: active) {
-    .cods-docs-footer__primary,
-    .cods-docs-footer__secondary {
-      background-color: Canvas;
-    }
-
     .cods-footer__legal-list a {
       color: LinkText;
     }

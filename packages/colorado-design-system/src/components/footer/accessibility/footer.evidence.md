@@ -102,6 +102,23 @@ Firefox, and WebKit (Storybook in Chromium). Checks at 320px, 375px, and 479px
 verify that the first group starts at the primary section's top, adjacent
 one-pixel borders overlap, the chevron has a 16px gap, and links align with
 heading text in both regular and Contact Us panels. Legal links stack below
-768px in Full, Compact, and the site footer; desktop styling is preserved.
-Interactive Chromium inspection at 375px confirmed the expanded Contact Us
-layout and vertically stacked legal links.
+768px in Full, Compact, and the site footer at that time. Interactive Chromium
+inspection at 375px confirmed the expanded Contact Us layout and vertically
+stacked legal links.
+
+On 2026-11-11, 18 Footer controller tests and 37 targeted built-page tests
+passed. Web tests ran in Chromium, Firefox, and WebKit; Storybook tests ran in
+Chromium. They cover one and five groups in browsers, additional group counts
+and malformed markup in unit tests, disclosure events and restoration, named
+landmarks, axe scans, the Figma-matched surfaces, scoped surface overrides,
+default legal link color, and emulated forced colors. Legal links stack at
+639px and return to rows at 640px in both variants and the site footer. The
+shared desktop containers remain 1280px wide. Interactive Chromium inspection
+confirmed the mobile Contact Us disclosure, the 639px/640px boundary, and the
+aligned containers.
+
+The original component Figma file remained rate-limited through the MCP
+server. The provided website design file contains the same Full and Compact
+component nodes; their design context and the original file's visible
+properties confirm the primary, heel, and social-container colors. These
+checks do not replace the human reviews listed above.

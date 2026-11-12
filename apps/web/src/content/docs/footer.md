@@ -45,9 +45,15 @@ name meaningful; the social icon itself is decorative and hidden from
 assistive technology. Replace the example social destinations with the
 agency's actual profiles.
 
-Full uses the pinned USWDS footer behavior to turn its four groups into
-disclosures below 480px. Initialize it after adding the footer to the document
-and destroy it before removing or changing the markup:
+Full uses the pinned USWDS footer behavior to turn its groups into disclosures
+below 480px. Include one or more groups, each with a unique, nonempty
+`data-cods-footer-group` on a heading inside the primary navigation. Immediately
+follow each heading with its panel, using the `usa-list--unstyled` class. Adjust
+the USWDS grid classes to fit the desired number of columns; the example uses
+four on desktop and wraps additional groups to the next row.
+
+Initialize Full after adding the footer to the document and destroy it before
+removing or changing the markup:
 
 ```ts
 import {
@@ -98,8 +104,17 @@ USWDS's disclosure behavior.
 Below 480px, Full groups share single-pixel separators with no space above the
 first group. Expanded links align with the heading text, after the chevron and
 its gap. Without JavaScript, the links remain visible and align with the static
-headings. Below 768px, legal links stack vertically in both variants and in the
+headings. Below 640px, legal links stack vertically in both variants and in the
 documentation site's footer.
+
+The primary and secondary surfaces default to the semantic
+`--cods-color-surface-nav-secondary` and `--cods-color-surface-nav-heel` tokens.
+Legal links use `--cods-color-text-primary` by default, while the primary
+navigation uses the secondary-action text color.
+Consumers can override the surfaces on the footer with
+`--cods-footer-primary-background` and `--cods-footer-secondary-background`;
+check text and focus contrast when changing either surface. Forced-colors mode
+uses system colors regardless of these overrides.
 
 ## Accessibility and localization
 

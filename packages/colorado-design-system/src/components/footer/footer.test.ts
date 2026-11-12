@@ -58,6 +58,24 @@ function resize(width: number) {
   for (const listener of listeners) listener.call(mediaQueryList, event);
 }
 
+function setGroupCount(root: HTMLElement, count: number) {
+  const list = root.querySelector<HTMLElement>('.cods-footer__groups')!;
+  const first = list.firstElementChild!;
+  while (list.children.length > count) list.lastElementChild!.remove();
+  while (list.children.length < count) {
+    const group = first.cloneNode(true) as HTMLElement;
+    const heading = group.querySelector<HTMLElement>(
+      '.usa-footer__primary-link',
+    )!;
+    heading.setAttribute(
+      'data-cods-footer-group',
+      `additional-${list.children.length}`,
+    );
+    heading.textContent = `Additional group ${list.children.length + 1}`;
+    list.append(group);
+  }
+}
+
 describe('USWDS Footer lifecycle', () => {
   it('keeps every navigation panel visible without JavaScript', () => {
     const root = fullFooter();
@@ -122,6 +140,74 @@ describe('USWDS Footer lifecycle', () => {
     expect(listeners.size).toBe(0);
   });
 
+  it.each([1, 2, 3, 5, 8])(
+    'enhances and restores %i navigation groups',
+    (count) => {
+      const root = fullFooter();
+      setGroupCount(root, count);
+      panels(root)[0].setAttribute('id', 'authored-panel');
+      const original = root.outerHTML;
+      const events: CustomEvent<FooterChangeDetail>[] = [];
+      root.addEventListener('cods-footer:change', (event) => {
+        events.push(event as CustomEvent<FooterChangeDetail>);
+      });
+      window.innerWidth = 375;
+      init(root);
+      init(root);
+
+      const buttons = Array.from(
+        root.querySelectorAll<HTMLButtonElement>(
+          'button.usa-footer__primary-link',
+        ),
+      );
+      expect(buttons).toHaveLength(count);
+      for (const [index, button] of buttons.entries()) {
+        expect(button.getAttribute('aria-expanded')).toBe('false');
+        expect(button.getAttribute('aria-controls')).toBe(
+          panels(root)[index].getAttribute('id'),
+        );
+      }
+
+      buttons[0].click();
+      if (count > 1) buttons[count - 1].click();
+      else buttons[0].click();
+      expect(events.map((event) => event.detail)).toEqual(
+        count === 1
+          ? [
+              { group: 'services', expanded: true },
+              { group: 'services', expanded: false },
+            ]
+          : [
+              { group: 'services', expanded: true },
+              { group: 'services', expanded: false },
+              {
+                group:
+                  count <= 4
+                    ? ['services', 'government', 'about', 'contact'][count - 1]
+                    : `additional-${count - 1}`,
+                expanded: true,
+              },
+            ],
+      );
+      expect(events.every((event) => event.bubbles && !event.composed)).toBe(
+        true,
+      );
+
+      resize(1024);
+      expect(headings(root)).toHaveLength(count);
+      expect(headings(root).every((heading) => heading.tagName === 'H2')).toBe(
+        true,
+      );
+      resize(375);
+      expect(
+        root.querySelectorAll('button.usa-footer__primary-link'),
+      ).toHaveLength(count);
+      destroy(root);
+      expect(root.outerHTML).toBe(original);
+      expect(listeners.size).toBe(0);
+    },
+  );
+
   it('does not initialize twice or alter Compact footers', () => {
     const root = fullFooter();
     const listener = vi.fn();
@@ -147,5 +233,58 @@ describe('USWDS Footer lifecycle', () => {
     init(root);
     expect(warn).toHaveBeenCalledTimes(1);
     expect(root.outerHTML).toBe(original);
+  });
+
+  it.each([
+    ['no groups', (root: HTMLElement) => setGroupCount(root, 0)],
+    [
+      'a missing group key',
+      (root: HTMLElement) =>
+        headings(root)[0].removeAttribute('data-cods-footer-group'),
+    ],
+    [
+      'a blank group key',
+      (root: HTMLElement) =>
+        headings(root)[0].setAttribute('data-cods-footer-group', '  '),
+    ],
+    [
+      'duplicate group keys',
+      (root: HTMLElement) =>
+        headings(root)[1].setAttribute('data-cods-footer-group', 'services'),
+    ],
+    ['a missing panel', (root: HTMLElement) => panels(root)[0].remove()],
+    [
+      'a panel without the USWDS class',
+      (root: HTMLElement) =>
+        panels(root)[0].classList.remove('usa-list--unstyled'),
+    ],
+    [
+      'a heading outside the navigation',
+      (root: HTMLElement) => {
+        const heading = headings(root)[0];
+        root.append(heading, heading.nextElementSibling!);
+      },
+    ],
+    [
+      'a non-heading control',
+      (root: HTMLElement) => {
+        const heading = headings(root)[0];
+        const replacement = document.createElement('span');
+        for (const attribute of heading.attributes)
+          replacement.setAttribute(attribute.name, attribute.value);
+        replacement.textContent = heading.textContent;
+        heading.replaceWith(replacement);
+      },
+    ],
+  ])('warns and preserves markup with %s', (_description, mutate) => {
+    const root = fullFooter();
+    mutate(root);
+    const original = root.outerHTML;
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    init(root);
+    init(root);
+    expect(warn).toHaveBeenCalledTimes(1);
+    expect(root.outerHTML).toBe(original);
+    expect(listeners.size).toBe(0);
   });
 });

@@ -48,6 +48,18 @@ test('package and Storybook preserve the canonical footer fixture', async ({
   ).toBeVisible();
   const full = root.locator('[data-cods-footer-fixture="full"]');
   const compact = root.locator('[data-cods-footer-fixture="compact"]');
+  for (const name of [
+    'Services and government',
+    'Social media',
+    'State policies',
+  ])
+    await expect(
+      full.getByRole('navigation', { name, exact: true }),
+    ).toBeVisible();
+  for (const name of ['Quick links', 'Legal information'])
+    await expect(
+      compact.getByRole('navigation', { name, exact: true }),
+    ).toBeVisible();
   await expect(
     full.locator('.cods-footer__contact .cods-footer__social-link'),
   ).toHaveCount(5);
@@ -101,18 +113,83 @@ test('full disclosures open and close on narrow screens', async ({
   ).toBeVisible();
 });
 
-test('footer primary section is lighter than the copyright section', async ({
+test('both footer variants use the Figma surface tokens', async ({ page }) => {
+  await page.goto(story);
+  for (const footer of await page
+    .locator('#storybook-root .cods-footer')
+    .all()) {
+    await expect(footer.locator('.cods-footer__primary-section')).toHaveCSS(
+      'background-color',
+      'rgb(251, 252, 253)',
+    );
+    await expect(footer.locator('.cods-footer__secondary-section')).toHaveCSS(
+      'background-color',
+      'rgb(244, 245, 246)',
+    );
+  }
+  await expect(page.locator('.cods-footer__social-link').first()).toHaveCSS(
+    'background-color',
+    'rgb(235, 236, 237)',
+  );
+});
+
+test('footer surface overrides remain scoped and respect forced colors', async ({
   page,
 }) => {
   await page.goto(story);
   const full = page.locator('[data-cods-footer-fixture="full"] .cods-footer');
+  const compact = page.locator(
+    '[data-cods-footer-fixture="compact"] .cods-footer',
+  );
+  await full.evaluate((footer) => {
+    footer.style.setProperty(
+      '--cods-footer-primary-background',
+      'rgb(255, 255, 255)',
+    );
+    footer.style.setProperty(
+      '--cods-footer-secondary-background',
+      'rgb(225, 230, 235)',
+    );
+  });
   await expect(full.locator('.cods-footer__primary-section')).toHaveCSS(
     'background-color',
-    'rgb(244, 245, 246)',
+    'rgb(255, 255, 255)',
   );
   await expect(full.locator('.cods-footer__secondary-section')).toHaveCSS(
     'background-color',
-    'rgb(235, 236, 237)',
+    'rgb(225, 230, 235)',
+  );
+  await expect(compact.locator('.cods-footer__primary-section')).toHaveCSS(
+    'background-color',
+    'rgb(251, 252, 253)',
+  );
+
+  await page.emulateMedia({ forcedColors: 'active' });
+  const colors = await full.evaluate((footer) => {
+    const probe = document.createElement('div');
+    probe.style.backgroundColor = 'Canvas';
+    document.body.append(probe);
+    const canvas = getComputedStyle(probe).backgroundColor;
+    probe.remove();
+    return {
+      canvas,
+      primary: getComputedStyle(
+        footer.querySelector('.cods-footer__primary-section')!,
+      ).backgroundColor,
+      secondary: getComputedStyle(
+        footer.querySelector('.cods-footer__secondary-section')!,
+      ).backgroundColor,
+    };
+  });
+  expect(colors.primary).toBe(colors.canvas);
+  expect(colors.secondary).toBe(colors.canvas);
+  await expect(full.locator('.cods-footer__primary-section')).toHaveCSS(
+    'border-top-width',
+    '1px',
+  );
+  await expect(full.locator('.cods-footer__secondary-section')).toHaveCSS(
+    'border-top-width',
+    '1px',
   );
 });
 
@@ -131,21 +208,28 @@ test('footer links use semibold text without default underlines', async ({
   }
 });
 
-test('footer links use semantic secondary-action text colors', async ({
+test('footer links use the Figma navigation and legal text colors', async ({
   page,
 }) => {
   await page.goto(story);
-  const links = page.locator(
-    '.cods-footer__links a, .cods-footer__legal-list a, .cods-footer__return-to-top a',
+  const navigationLinks = page.locator(
+    '.cods-footer__links a, .cods-footer__return-to-top a',
   );
-  const colors = await links.evaluateAll((elements) => [
+  const colors = await navigationLinks.evaluateAll((elements) => [
     ...new Set(elements.map((element) => getComputedStyle(element).color)),
   ]);
   expect(colors).toEqual(['rgb(0, 25, 112)']);
+  const legalLinks = page.locator('.cods-footer__legal-list a');
+  const legalColors = await legalLinks.evaluateAll((elements) => [
+    ...new Set(elements.map((element) => getComputedStyle(element).color)),
+  ]);
+  expect(legalColors).toEqual(['rgb(27, 27, 27)']);
 
-  const link = links.first();
+  const link = navigationLinks.first();
   await link.hover();
   await expect(link).toHaveCSS('color', 'rgb(0, 16, 73)');
+  await legalLinks.first().hover();
+  await expect(legalLinks.first()).toHaveCSS('color', 'rgb(0, 16, 73)');
 });
 
 test('footer link groups reflow at 320px and keep touch-sized targets', async ({
@@ -192,12 +276,13 @@ test('footer keyboard focus is visible and follows document order', async ({
   page,
 }) => {
   await page.goto(story);
-  await page.keyboard.press('Tab');
   const returnToTop = page
     .getByRole('link', {
       name: 'Return to top',
     })
     .first();
+  await expect(returnToTop).toBeVisible();
+  await page.keyboard.press('Tab');
   await expect(returnToTop).toBeFocused();
   await expect(returnToTop).toHaveCSS('outline-style', 'solid');
   await expect(returnToTop).toHaveCSS('outline-width', '4px');

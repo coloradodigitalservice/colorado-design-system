@@ -54,12 +54,16 @@ export function init(root: HTMLElement): void {
     root.classList.contains('usa-footer--big') &&
     root.isConnected &&
     root.ownerDocument.querySelectorAll(FULL_FOOTER).length === 1 &&
-    headings.length === 4;
+    headings.length > 0;
   for (const heading of headings) {
     const panel = heading.nextElementSibling;
+    const navigation = heading.closest('nav');
     const group = heading.getAttribute('data-cods-footer-group');
     if (
-      !group ||
+      !/^H[1-6]$/.test(heading.tagName) ||
+      !navigation ||
+      !root.contains(navigation) ||
+      !group?.trim() ||
       groups.has(group) ||
       !(panel instanceof HTMLElement) ||
       !panel.classList.contains('usa-list--unstyled')
@@ -78,7 +82,7 @@ export function init(root: HTMLElement): void {
   if (!valid || items.length !== headings.length) {
     if (!warned.has(root)) {
       console.warn(
-        'cods-footer: expected one connected Full footer with four uniquely named heading/panel pairs; markup was left unchanged.',
+        'cods-footer: expected one connected Full footer with at least one uniquely named heading/panel pair inside navigation; markup was left unchanged.',
         root,
       );
       warned.add(root);
