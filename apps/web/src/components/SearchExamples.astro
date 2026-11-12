@@ -1,0 +1,31 @@
+---
+import metadata from '@coloradodigitalservice/colorado-design-system/metadata/search.json';
+import examples from '@coloradodigitalservice/colorado-design-system/examples/search.json';
+import spriteUrl from '@coloradodigitalservice/colorado-design-system/icons/sprite.svg?url';
+import CodeExamples from './CodeExamples.astro';
+---
+
+<p>
+  These examples demonstrate the form layout. They do not return search results.
+</p>
+<div class="search-examples">
+  {examples.examples.map((example) => (
+    <section>
+      <h3>
+        {example.state === 'default'
+          ? 'Default'
+          : example.state === 'compact'
+            ? 'Compact'
+            : 'Slim'}
+      </h3>
+      <div set:html={example.html.replaceAll('/icons/sprite.svg', spriteUrl)} />
+    </section>
+  ))}
+</div>
+<CodeExamples metadata={metadata} examples={examples.examples} />
+
+<style>
+  .search-examples > section + section {
+    margin-block-start: var(--cods-space-lg);
+  }
+</style>

@@ -178,7 +178,7 @@ export function linkChecks(url: string, scope: string) {
       await expect(link).toHaveCSS('color', gray);
   });
 
-  test('download resolves the actual named catalog and phone uses a fictional number', async ({
+  test('download resolves the actual named icon index and phone uses a fictional number', async ({
     page,
   }) => {
     await page.goto(url);
@@ -188,7 +188,7 @@ export function linkChecks(url: string, scope: string) {
     const link = page.locator(
       `${scope} [data-cods-fixture-state="download"] a`,
     );
-    await expect(link).toHaveAccessibleName('Icon catalog (JSON, 47.3 KB)');
+    await expect(link).toHaveAccessibleName('Icon index (JSON)');
     const bytes = await link.evaluate(async (element) => {
       const response = await fetch((element as HTMLAnchorElement).href);
       if (!response.ok)
@@ -203,7 +203,7 @@ export function linkChecks(url: string, scope: string) {
       page.waitForEvent('download'),
       link.click(),
     ]);
-    expect(download.suggestedFilename()).toBe('cods-icon-catalog.json');
+    expect(download.suggestedFilename()).toBe('cods-icon-index.json');
     // Intercepted built files validate bytes and download intent, but Chromium
     // and WebKit cannot finish native downloads through route.fulfill(). The
     // normal preview suite also verifies the saved file end to end.

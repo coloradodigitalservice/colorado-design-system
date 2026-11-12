@@ -35,3 +35,13 @@ declare module '@uswds/uswds/js/usa-footer' {
   };
   export default footer;
 }
+
+declare module '@uswds/uswds/js/usa-combo-box' {
+  const comboBox: {
+    on(root: HTMLElement): void;
+    off(root: HTMLElement): void;
+    hideList(root: HTMLElement): void;
+    displayList(root: HTMLElement): void;
+  };
+  export default comboBox;
+}

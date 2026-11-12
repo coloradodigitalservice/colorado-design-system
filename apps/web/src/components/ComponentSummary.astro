@@ -2,6 +2,7 @@
 import inPageAlert from '@coloradodigitalservice/colorado-design-system/metadata/in-page-alert.json';
 import siteAlert from '@coloradodigitalservice/colorado-design-system/metadata/site-alert.json';
 import breadcrumbs from '@coloradodigitalservice/colorado-design-system/metadata/breadcrumbs.json';
+import videos from '@coloradodigitalservice/colorado-design-system/metadata/videos.json';
 import tags from '@coloradodigitalservice/colorado-design-system/metadata/tags.json';
 import processList from '@coloradodigitalservice/colorado-design-system/metadata/process-list.json';
 import hero from '@coloradodigitalservice/colorado-design-system/metadata/hero.json';
@@ -13,6 +14,7 @@ import link from '@coloradodigitalservice/colorado-design-system/metadata/link.j
 
 import radio from '@coloradodigitalservice/colorado-design-system/metadata/radio.json';
 import checkbox from '@coloradodigitalservice/colorado-design-system/metadata/checkbox.json';
+import comboBox from '@coloradodigitalservice/colorado-design-system/metadata/combo-box.json';
 import input from '@coloradodigitalservice/colorado-design-system/metadata/input.json';
 import card from '@coloradodigitalservice/colorado-design-system/metadata/card.json';
 import iconList from '@coloradodigitalservice/colorado-design-system/metadata/icon-list.json';
@@ -27,12 +29,14 @@ interface Props {
     | 'link'
     | 'radio'
     | 'checkbox'
+    | 'combo-box'
     | 'card'
     | 'icon-list'
     | 'select'
     | 'input'
     | 'divider'
     | 'hero'
+    | 'videos'
     | 'tags'
     | 'process-list';
   figma?: string;
@@ -47,12 +51,14 @@ const metadata = {
   link,
   radio,
   checkbox,
+  'combo-box': comboBox,
   card,
   'icon-list': iconList,
   select,
   input,
   divider,
   hero,
+  videos,
   tags,
   'process-list': processList,
 }[Astro.props.component];

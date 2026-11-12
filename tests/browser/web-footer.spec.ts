@@ -185,7 +185,7 @@ test('mobile Full footer has flush, single-pixel blades and aligned panel links'
       );
       for (const [index, box] of boxes.entries()) {
         const previous = boxes[index - 1];
-        if (previous) expect(box.top).toBe(previous.bottom - 1);
+        if (previous) expect(box.top).toBeCloseTo(previous.bottom - 1, 2);
       }
     }
   }

@@ -53,6 +53,8 @@ for (const page of pages) {
   const document = new JSDOM(readFileSync(page, 'utf8')).window.document;
   const label = page.slice(root.length + 1);
   const pagePath = relative(root, page).split(sep).join('/');
+  // This player is loaded inside an iframe; it is not a documentation page.
+  if (pagePath === 'videos/embedded-example.html') continue;
   const pageUrl = new URL(
     `${basePath}/${pagePath.replace(/index\.html$/, '')}`,
     'https://docs.example.gov',

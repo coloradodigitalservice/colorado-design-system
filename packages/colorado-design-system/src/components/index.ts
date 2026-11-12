@@ -11,3 +11,8 @@ export {
   destroy as destroyFooter,
   type FooterChangeDetail,
 } from './footer/footer.js';
+export {
+  init as initComboBox,
+  initAll as initAllComboBox,
+  destroy as destroyComboBox,
+} from './combo-box/combo-box.js';
