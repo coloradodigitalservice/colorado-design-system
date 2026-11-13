@@ -28,6 +28,14 @@ declare module '@uswds/uswds/js/usa-accordion' {
   export default accordion;
 }
 
+declare module '@uswds/uswds/js/usa-footer' {
+  const footer: {
+    on(root: HTMLElement): void;
+    off(root: HTMLElement): void;
+  };
+  export default footer;
+}
+
 declare module '@uswds/uswds/js/usa-combo-box' {
   const comboBox: {
     on(root: HTMLElement): void;

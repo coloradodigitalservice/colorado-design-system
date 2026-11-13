@@ -251,7 +251,11 @@ export function linkChecks(url: string, scope: string) {
       )!;
       const range = document.createRange();
       range.selectNodeContents(text);
-      const rects = [...range.getClientRects()];
+      // WebKit can split one line into multiple adjacent text fragments.
+      const rects = [...range.getClientRects()].filter(
+        (rect, index, fragments) =>
+          index === 0 || rect.top !== fragments[index - 1]!.top,
+      );
       const style = getComputedStyle(link);
       const context = document.createElement('canvas').getContext('2d')!;
       context.font = `${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;

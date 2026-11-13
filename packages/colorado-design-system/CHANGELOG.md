@@ -1,5 +1,20 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.23
+
+### Patch Changes
+
+- Add an experimental Footer with Full and Compact variants, a documentation
+  page, and a site-wide Compact footer. Align the documentation site's header,
+  content, and footer within a 1280px container.
+
+  Support a variable number of Full footer groups and responsive disclosures.
+  Match Footer colors to the design's semantic tokens, use meaningful landmark
+  names, correct mobile separators and indentation, and stack legal links below
+  640px.
+
+- @coloradodigitalservice/colorado-design-tokens@0.2.23
+
 ## 0.2.22
 
 ### Patch Changes

@@ -31,3 +31,13 @@ The local preview command is not required for deployment.
 Configure the approved static host to install at the repository root with `pnpm install --frozen-lockfile`, build with `pnpm build`, and publish `apps/web/dist`. Enable per-branch or per-pull-request preview deployments in the host. Point the preview URL at the `dist` artifact; do not configure a production Node server or SSR adapter. Hosting and a domain outside GitHub are not provisioned yet; they will be arranged closer to launch.
 
 Documentation entries live in `src/content/docs/*.md`. Each entry requires `title`, `description`, `navLabel`, and `order` frontmatter. The collection schema checks these at build time; navigation and static routes are generated from the same entries. Site shell styles live in `src/styles/site.css` and consume generated tokens. Component styles remain in the design-system package for future component examples.
+
+The header, documentation content, and site footer share a fluid container capped
+at 80rem (1280px), including token-based 32px side gutters, matching the website
+mockup. Documentation examples use the available
+content column instead of a prose-width cap. `BaseLayout.astro` loads package
+styles once and renders `SiteFooter.astro`, a static Compact footer with
+contact links, State policy links, and the current development release.
+The unavailable Google Space link is omitted rather than published as a placeholder.
+The Footer documentation page also previews the canonical Full and Compact
+fixtures; only its Full preview needs controller initialization.
