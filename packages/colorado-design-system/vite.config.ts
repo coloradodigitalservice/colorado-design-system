@@ -5,7 +5,11 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { writeComponentAssets } from '../../scripts/component-fixtures.mjs';
 import { writeDistIcons } from './build/icons.mjs';
-import { copiedAssets } from './build/packaged-assets.js';
+import {
+  copiedAssets,
+  cssAssetReferences,
+  replaceUswdsIconUrls,
+} from './build/packaged-assets.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -27,10 +31,19 @@ function componentAssetsPlugin(): Plugin {
 function iconAssetsPlugin(): Plugin {
   return {
     name: 'write-phosphor-icons',
-    async writeBundle(options) {
-      await writeDistIcons(
-        path.resolve(__dirname, options.dir ?? 'dist', 'icons'),
-      );
+    async writeBundle(options, bundle) {
+      const output = path.resolve(__dirname, options.dir ?? 'dist');
+      const files = new Set<string>();
+      for (const name of Object.keys(bundle)) {
+        if (!name.endsWith('.css')) continue;
+        const stylesheet = path.resolve(output, name);
+        const css = replaceUswdsIconUrls(readFileSync(stylesheet, 'utf8'));
+        for (const reference of cssAssetReferences(css, stylesheet)) {
+          if (reference.startsWith(`icons${path.sep}`))
+            files.add(reference.slice(`icons${path.sep}`.length));
+        }
+      }
+      await writeDistIcons(path.resolve(output, 'icons'), { files });
     },
   };
 }

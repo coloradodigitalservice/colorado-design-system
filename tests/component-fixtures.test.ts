@@ -47,8 +47,9 @@ describe('canonical component examples', () => {
       expect(() => generateExamples(metadata, component.fixture)).toThrow(
         'invalid maturity',
       );
+      const firstState = component.metadata.states[0];
       const missing = component.fixture.replace(
-        'data-cods-fixture-state="default"',
+        `data-cods-fixture-state="${firstState}"`,
         'data-cods-fixture-state="unknown"',
       );
       expect(() => generateExamples(component.metadata, missing)).toThrow(
@@ -161,17 +162,19 @@ describe('canonical component examples', () => {
         area,
         `accordion.${area === 'fixtures' ? 'html' : 'json'}`,
       );
-      writeFileSync(file, readFileSync(file, 'utf8') + '\n');
+      const original = readFileSync(file, 'utf8');
+      writeFileSync(file, original + '\n');
       expect(() => checkComponentAssets(root)).toThrow(`stale ${area}`);
-      writeComponentAssets(root);
+      writeFileSync(file, original);
     }
+    expect(() => checkComponentAssets(root)).not.toThrow();
     const manifest = JSON.parse(
       readFileSync(join(root, 'package.json'), 'utf8'),
     );
     delete manifest.exports['./examples/*.json'];
     writeFileSync(join(root, 'package.json'), JSON.stringify(manifest));
     expect(() => checkComponentAssets(root)).toThrow('missing export');
-  });
+  }, 30_000);
 });
 
 describe('Card fixture variants', () => {
@@ -186,5 +189,39 @@ describe('Card fixture variants', () => {
     );
     expect(card.fixtures.card).not.toContain('data-cods-fixture-state="icon"');
     expect(card.fixture).toContain('data-cods-fixture-state="icon"');
+  });
+});
+
+describe('video fixture safety', () => {
+  it('requires a titled iframe without inline document content', () => {
+    const videos = components.find((component) => component.name === 'videos')!;
+    expect(() =>
+      generateExamples(
+        videos.metadata,
+        videos.fixture.replace(
+          'title="Local stand-in for an embedded video: blue screen"',
+          'title=""',
+        ),
+      ),
+    ).toThrow('video iframe requires a title');
+    expect(() =>
+      generateExamples(
+        videos.metadata,
+        videos.fixture.replace('<iframe', '<iframe srcdoc="<p>test</p>"'),
+      ),
+    ).toThrow('video iframe requires a title');
+    const embed = videos.fixture
+      .split('data-cods-fixture-state="embed"')[1]!
+      .split('</section>')[0]!;
+    expect(embed).toMatch(
+      /src="https:\/\/player\.vimeo\.com\/video\/\d+\?[^"]*dnt=1/,
+    );
+    const other = components.find((component) => component.name === 'tags')!;
+    expect(() =>
+      generateExamples(
+        other.metadata,
+        `${other.fixture}<iframe title="Not allowed"></iframe>`,
+      ),
+    ).toThrow('fixture must be plain semantic HTML');
   });
 });

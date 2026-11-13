@@ -1,5 +1,52 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.23
+
+### Patch Changes
+
+- Add an experimental Footer with Full and Compact variants, a documentation
+  page, and a site-wide Compact footer. Align the documentation site's header,
+  content, and footer within a 1280px container.
+
+  Support a variable number of Full footer groups and responsive disclosures.
+  Match Footer colors to the design's semantic tokens, use meaningful landmark
+  names, correct mobile separators and indentation, and stack legal links below
+  640px.
+
+- @coloradodigitalservice/colorado-design-tokens@0.2.23
+
+## 0.2.22
+
+### Patch Changes
+
+- b39882b: BREAKING: Replace the curated icon list and catalog with the full Phosphor
+  Regular sprite, a compact ID index, and source-driven sprite and CSS asset
+  selection. Consumers must update catalog parsing and any per-icon SVG imports
+  that are not required by the packaged component CSS.
+- @coloradodigitalservice/colorado-design-tokens@0.2.22
+
+## 0.2.21
+
+### Patch Changes
+
+- a17debd: Add an experimental combo box with a native select fallback.
+- @coloradodigitalservice/colorado-design-tokens@0.2.21
+
+## 0.2.20
+
+### Patch Changes
+
+- 47b9d74: Add an experimental Search component with default, compact, and slim variants.
+- 7e8a840: Add an experimental responsive Videos component with native and embedded examples.
+- @coloradodigitalservice/colorado-design-tokens@0.2.20
+
+## 0.2.19
+
+### Patch Changes
+
+- 7e8a840: Add an experimental responsive Videos component with native and embedded examples.
+- @coloradodigitalservice/colorado-design-tokens@0.2.19
+
 ## 0.2.18
 
 ### Patch Changes

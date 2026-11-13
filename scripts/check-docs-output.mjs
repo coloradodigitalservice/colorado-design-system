@@ -53,6 +53,8 @@ for (const page of pages) {
   const document = new JSDOM(readFileSync(page, 'utf8')).window.document;
   const label = page.slice(root.length + 1);
   const pagePath = relative(root, page).split(sep).join('/');
+  // This player is loaded inside an iframe; it is not a documentation page.
+  if (pagePath === 'videos/embedded-example.html') continue;
   const pageUrl = new URL(
     `${basePath}/${pagePath.replace(/index\.html$/, '')}`,
     'https://docs.example.gov',
@@ -60,7 +62,10 @@ for (const page of pages) {
   if (document.documentElement.lang !== 'en')
     failures.push(`${label}: missing language`);
   for (const landmark of ['header', 'main', 'footer']) {
-    if (document.querySelectorAll(landmark).length !== 1)
+    const pageLandmarks = Array.from(
+      document.querySelectorAll(landmark),
+    ).filter((element) => !element.closest('[data-cods-docs-preview]'));
+    if (pageLandmarks.length !== 1)
       failures.push(`${label}: expected exactly one ${landmark} landmark`);
   }
   if (document.querySelectorAll('nav[aria-label="Documentation"]').length !== 1)
@@ -77,8 +82,12 @@ for (const page of pages) {
   for (const anchor of document.querySelectorAll('a[href]')) {
     const href = anchor.getAttribute('href');
     if (!href) continue;
-    if (!(anchor.getAttribute('aria-label') || anchor.textContent)?.trim())
+    if (
+      !anchor.textContent?.trim() &&
+      !anchor.getAttribute('aria-label')?.trim()
+    ) {
       failures.push(`${label}: empty link text`);
+    }
     if (href.startsWith('#')) {
       if (!document.getElementById(href.slice(1)))
         failures.push(`${label}: broken ${href}`);

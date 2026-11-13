@@ -2,16 +2,19 @@
 import inPageAlert from '@coloradodigitalservice/colorado-design-system/metadata/in-page-alert.json';
 import siteAlert from '@coloradodigitalservice/colorado-design-system/metadata/site-alert.json';
 import breadcrumbs from '@coloradodigitalservice/colorado-design-system/metadata/breadcrumbs.json';
+import videos from '@coloradodigitalservice/colorado-design-system/metadata/videos.json';
 import tags from '@coloradodigitalservice/colorado-design-system/metadata/tags.json';
 import processList from '@coloradodigitalservice/colorado-design-system/metadata/process-list.json';
 import hero from '@coloradodigitalservice/colorado-design-system/metadata/hero.json';
 import select from '@coloradodigitalservice/colorado-design-system/metadata/select.json';
 import divider from '@coloradodigitalservice/colorado-design-system/metadata/divider.json';
 import accordion from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
+import footer from '@coloradodigitalservice/colorado-design-system/metadata/footer.json';
 import link from '@coloradodigitalservice/colorado-design-system/metadata/link.json';
 
 import radio from '@coloradodigitalservice/colorado-design-system/metadata/radio.json';
 import checkbox from '@coloradodigitalservice/colorado-design-system/metadata/checkbox.json';
+import comboBox from '@coloradodigitalservice/colorado-design-system/metadata/combo-box.json';
 import input from '@coloradodigitalservice/colorado-design-system/metadata/input.json';
 import card from '@coloradodigitalservice/colorado-design-system/metadata/card.json';
 import iconList from '@coloradodigitalservice/colorado-design-system/metadata/icon-list.json';
@@ -20,17 +23,20 @@ interface Props {
   component:
     | 'site-alert'
     | 'accordion'
+    | 'footer'
     | 'breadcrumbs'
     | 'in-page-alert'
     | 'link'
     | 'radio'
     | 'checkbox'
+    | 'combo-box'
     | 'card'
     | 'icon-list'
     | 'select'
     | 'input'
     | 'divider'
     | 'hero'
+    | 'videos'
     | 'tags'
     | 'process-list';
   figma?: string;
@@ -39,17 +45,20 @@ interface Props {
 const metadata = {
   'site-alert': siteAlert,
   accordion,
+  footer,
   breadcrumbs,
   'in-page-alert': inPageAlert,
   link,
   radio,
   checkbox,
+  'combo-box': comboBox,
   card,
   'icon-list': iconList,
   select,
   input,
   divider,
   hero,
+  videos,
   tags,
   'process-list': processList,
 }[Astro.props.component];
@@ -58,7 +67,9 @@ const repository =
   'https://github.com/coloradodigitalservice/colorado-design-system/tree/main/packages/colorado-design-system/src/components';
 const source = `${repository}/${metadata.name}`;
 const evidence = `${source}/accessibility/${metadata.name}.evidence.md`;
-const upstream = `https://designsystem.digital.gov/components/${metadata.uswdsEquivalent}/`;
+const upstream = metadata.uswdsEquivalent
+  ? `https://designsystem.digital.gov/components/${metadata.uswdsEquivalent}/`
+  : undefined;
 ---
 
 <section class="cods-docs-summary" aria-labelledby="component-summary-heading">
@@ -79,7 +90,7 @@ const upstream = `https://designsystem.digital.gov/components/${metadata.uswdsEq
     <div>
       <dt>Upstream</dt>
       <dd>
-        {metadata.uswdsEquivalent ? (
+        {upstream ? (
           <>
             <a href={upstream}>USWDS {metadata.uswdsEquivalent}</a>, themed
           </>

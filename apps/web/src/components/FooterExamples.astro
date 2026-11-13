@@ -1,0 +1,42 @@
+---
+import examples from '@coloradodigitalservice/colorado-design-system/examples/footer.json';
+import metadata from '@coloradodigitalservice/colorado-design-system/metadata/footer.json';
+import fixture from '@coloradodigitalservice/colorado-design-system/fixtures/footer.html?raw';
+import spriteUrl from '@coloradodigitalservice/colorado-design-system/icons/sprite.svg?url';
+import CodeExamples from './CodeExamples.astro';
+
+const preview = fixture.replaceAll('/icons/sprite.svg', spriteUrl);
+---
+
+<section
+  class="cods-docs-footer-preview"
+  data-cods-docs-preview="footer"
+  aria-labelledby="footer-preview-heading"
+>
+  <h2 id="footer-preview-heading">Component preview</h2>
+  <p>The Full footer groups expand below 480px; Compact remains a flat list.</p>
+  <div set:html={preview} />
+</section>
+<CodeExamples metadata={metadata} examples={examples.examples} />
+
+<script>
+  import { initAllFooters } from '@coloradodigitalservice/colorado-design-system';
+  initAllFooters();
+</script>
+
+<style>
+  .cods-docs-footer-preview {
+    margin-block: var(--cods-space-lg);
+    overflow-wrap: anywhere;
+  }
+
+  .cods-docs-footer-preview [data-cods-footer-fixture] {
+    margin-block: var(--cods-space-md);
+  }
+
+  .cods-docs-footer-preview [data-cods-footer-fixture] > h2 {
+    margin-block: 0;
+    padding: var(--cods-space-sm);
+    background: var(--cods-color-bg-surface-secondary);
+  }
+</style>
