@@ -171,6 +171,9 @@ and scans its rendered `#storybook-root` after checking it is nonempty.
 Storybook test URLs set `globals=a11y.manual:!true` so the addon does not
 start a competing axe scan. Playwright owns the automated scan and still fails
 on violations; normal Storybook visits retain the addon’s automatic checks.
+The shared browser fixture replaces Vimeo video embeds with a local mock response
+so smoke and component tests do not depend on the third-party player or its
+console output. These tests do not verify real Vimeo playback or accessibility.
 
 `expectAccessible` scans WCAG 2.0/2.1 A/AA and WCAG 2.2 AA tags. Omit its optional
 selector for a complete page scan; use a selector only for an isolated story.
