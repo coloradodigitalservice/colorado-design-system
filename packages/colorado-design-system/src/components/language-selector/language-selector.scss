@@ -1,0 +1,72 @@
+@layer cods.components {
+  .cods-language-selector__links {
+    display: flex;
+    gap: var(--cods-space-md);
+  }
+
+  .cods-language-selector__trigger {
+    block-size: var(--cods-space-xl);
+    padding-block: 0;
+    border: var(--cods-focus-ring-offset) solid
+      var(--cods-color-border-action-secondary);
+    background: var(--cods-color-surface-form);
+    color: var(--cods-color-text-action-secondary);
+  }
+
+  .cods-language-selector__trigger::before {
+    content: '';
+    display: inline-block;
+    inline-size: var(--cods-space-md);
+    block-size: var(--cods-space-md);
+    margin-inline-end: var(--cods-space-xs);
+    background: currentcolor;
+    mask: url('./icons/globe.svg') center / contain no-repeat;
+    vertical-align: middle;
+  }
+
+  .cods-language-selector__trigger:hover {
+    background: var(--cods-color-bg-action-secondary-hover);
+  }
+
+  .cods-language-selector:not([data-cods-language-selector-enhanced])
+    .cods-language-selector__panel {
+    position: static;
+  }
+
+  .cods-language-selector__panel:not([hidden]) {
+    background: var(--cods-color-surface-form);
+    border: var(--cods-focus-ring-offset) solid
+      var(--cods-color-border-action-secondary);
+  }
+}
+
+@layer cods.components {
+  .cods-language-selector__trigger[hidden],
+  .cods-language-selector__panel[hidden] {
+    display: none;
+  }
+
+  .cods-language-selector__panel a {
+    color: var(--cods-color-text-primary);
+    padding: var(--cods-space-sm) var(--cods-space-xs);
+    font-size: var(--cods-font-size-desktop-body-sm);
+    line-height: normal;
+  }
+
+  .cods-language-selector__panel a span {
+    color: var(--cods-color-text-secondary);
+    font-weight: var(--cods-font-weight-regular);
+  }
+
+  .cods-language-selector__panel a:hover {
+    background: var(--cods-color-bg-action-secondary-hover);
+    color: var(--cods-color-text-primary);
+  }
+
+  .cods-language-selector__trigger:focus-visible,
+  .cods-language-selector__panel a:focus-visible {
+    outline: var(--cods-focus-ring-offset) solid
+      var(--cods-color-border-action-secondary);
+    outline-offset: var(--cods-focus-ring-offset);
+  }
+}

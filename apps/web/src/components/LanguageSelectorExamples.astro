@@ -1,0 +1,13 @@
+---
+import metadata from '@coloradodigitalservice/colorado-design-system/metadata/language-selector.json';
+import examples from '@coloradodigitalservice/colorado-design-system/examples/language-selector.json';
+import fixture from '@coloradodigitalservice/colorado-design-system/fixtures/language-selector.html?raw';
+import CodeExamples from './CodeExamples.astro';
+---
+
+<div set:html={fixture} />
+<CodeExamples metadata={metadata} examples={examples.examples} />
+<script>
+  import { initAllLanguageSelector } from '@coloradodigitalservice/colorado-design-system';
+  initAllLanguageSelector();
+</script>

@@ -1100,10 +1100,16 @@
       "name": "Language Selector",
       "source": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=2234-2818&m=dev",
       "tokens": [
+        "color.bg-action-secondary-hover",
         "color.border-action-secondary",
         "color.icon-action-secondary",
+        "color.surface-form",
         "color.text-action-secondary",
+        "color.text-primary",
+        "color.text-secondary",
+        "focus.ring-offset",
         "font.family-body",
+        "font.size-desktop-body-sm",
         "font.size-desktop-ui",
         "font.weight-regular",
         "font.weight-semibold",
@@ -1112,11 +1118,27 @@
         "radius.md",
         "space.md",
         "space.sm",
+        "space.xl",
         "space.xs"
       ],
       "componentTokens": [],
-      "implementationTokens": [],
-      "designCoverage": "documented"
+      "implementationTokens": [
+        "color.bg-action-secondary-hover",
+        "color.border-action-secondary",
+        "color.surface-form",
+        "color.text-action-secondary",
+        "color.text-primary",
+        "color.text-secondary",
+        "focus.ring-offset",
+        "font.size-desktop-body-sm",
+        "font.weight-regular",
+        "space.md",
+        "space.sm",
+        "space.xl",
+        "space.xs"
+      ],
+      "designCoverage": "documented",
+      "implementationDirectory": "language-selector"
     },
     {
       "name": "Link",
