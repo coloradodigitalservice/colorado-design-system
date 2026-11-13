@@ -23,6 +23,7 @@ import VideosExamples from '../components/VideosExamples.astro';
 import TagsExamples from '../components/TagsExamples.astro';
 import SearchExamples from '../components/SearchExamples.astro';
 import ProcessListExamples from '../components/ProcessListExamples.astro';
+import LogoExample from '../components/LogoExample.astro';
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs');
@@ -39,6 +40,7 @@ const { Content } = await render(entry);
 <BaseLayout title={entry.data.title} description={entry.data.description}>
   <article class="cods-docs-content">
     <h1>{entry.data.title}</h1>
+    {entry.id === 'logos' && <LogoExample />}
     {entry.id === 'site-alert' && (
       <>
         <p>

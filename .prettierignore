@@ -18,3 +18,7 @@ packages/colorado-design-tokens/generated/
 
 # Deterministic Phosphor sprite and catalog, verified by icons:check
 packages/colorado-design-system/generated/
+
+# Keep the supplied State logo byte-for-byte unchanged.
+docs/CODS_logo.svg
+packages/colorado-design-system/src/assets/logos/cods-logo.svg
