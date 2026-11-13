@@ -11,11 +11,11 @@ The accepted Colorado Design System proposal of 2026-09-15 outlined a 1.0 compon
 
 However, the State's finalized 1.0 component and foundation inventory (2026-09-16) reveals substantial overlap with the existing U.S. Web Design System (USWDS) component library. The [component ownership matrix](../governance/component-ownership-matrix.md) classifies all 28 components:
 
-- **Themed USWDS (Type A, 23):** Accordion, Breadcrumbs, Button, Card - Default, Card - Icon, Checkbox, Combo Box, Footer, Header, Icon List, In-Page Alert, In-Page Navigation, Input, Language Selector, Link, Modal, Process List, Radio Buttons, Search, Select (dropdown), Site Alert, Tags, Tooltip. Link, Input, Search, and Language Selector build on USWDS link, form, and select styles and patterns rather than a standalone USWDS component.
+- **Themed USWDS (Type A, 22):** Accordion, Breadcrumbs, Button, Card - Default, Card - Icon, Checkbox, Combo Box, Footer, Header, Icon List, In-Page Alert, Input, Language Selector, Link, Modal, Process List, Radio Buttons, Search, Select (dropdown), Site Alert, Tags, Tooltip. Link, Input, Search, and Language Selector build on USWDS link, form, and select styles and patterns rather than a standalone USWDS component.
 - **CoDS-authored (Type B, 5):** Divider, Hero, Maps, Toasts/Snackbars, Videos.
-- **CoDS divergent (Type C, 0):** none identified.
+- **CoDS divergent (Type C, 1):** In-Page Navigation uses USWDS-compatible markup and styling with a CoDS-authored scroll tracker. The divergence was approved by State design, engineering, and accessibility leads on 2026-11-11; see the [ownership matrix](../governance/component-ownership-matrix.md) and [component contract](../governance/component-contract.md#46-approved-type-c-in-page-navigation).
 
-Building all 23 overlapping components independently from scratch would duplicate substantial work that USWDS already provides, tests, and maintains as a public-domain U.S. government work product. USWDS has been in production since 2015, is WCAG 2.0 AA and Section 508 compliant, and is actively maintained by the General Services Administration (GSA).
+Building the overlapping components independently from scratch would duplicate substantial work that USWDS already provides, tests, and maintains as a public-domain U.S. government work product. USWDS has been in production since 2015, is WCAG 2.0 AA and Section 508 compliant, and is actively maintained by the General Services Administration (GSA).
 
 ## Precedent: VA Design System & design.va.gov
 
@@ -51,9 +51,9 @@ CoDS will integrate the U.S. Web Design System (USWDS) as a pinned npm dependenc
 
 ### 4. Component Strategy
 
-- **Type A: Themed USWDS** (23 components) — Reuse USWDS's canonical markup, structure, ARIA roles, and interaction patterns; apply CoDS theming via token-mapped Sass.
+- **Type A: Themed USWDS** (22 components) — Reuse USWDS's canonical markup, structure, ARIA roles, and interaction patterns; apply CoDS theming via token-mapped Sass.
 - **Type B: CoDS-authored** (5 components) — Divider, Hero, Maps, Toasts/Snackbars, and Videos have no USWDS equivalent; author from scratch following the CoDS component contract.
-- **Type C: CoDS divergent** (none identified) — If a component needs to intentionally diverge from USWDS, divergence is documented and approved by State design and engineering.
+- **Type C: CoDS divergent** (1 component) — In-Page Navigation intentionally uses a CoDS-authored scroll tracker with its USWDS-compatible markup and styling. Other divergences require documentation and approval by State design and engineering, with accessibility sign-off as described in the [ownership matrix](../governance/component-ownership-matrix.md).
 
 ### 5. Accessibility Conformance
 
@@ -83,7 +83,7 @@ CoDS will integrate the U.S. Web Design System (USWDS) as a pinned npm dependenc
 
 ### Benefits
 
-1. **Reduced maintenance burden:** CoDS avoids authoring and maintaining 23 components that USWDS already provides and tests.
+1. **Reduced maintenance burden:** CoDS avoids independently implementing markup and interactions that USWDS already provides and tests.
 2. **Faster time to value:** Phase 2 vertical-slice components and Phase 3 component production can proceed with themed USWDS components rather than building from scratch.
 3. **Inherited quality:** USWDS's accessibility conformance (WCAG 2.0 AA, Section 508), tested interaction patterns, and active maintenance reduce CoDS's QA and long-term maintenance costs.
 4. **Alignment with federal practice:** Design.va.gov and other federal design systems already use this pattern, establishing it as a best practice.
