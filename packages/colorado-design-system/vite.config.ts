@@ -1,13 +1,19 @@
 import { defineConfig, type Plugin } from 'vite';
 import dts from 'vite-plugin-dts';
+import { readFileSync } from 'node:fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { writeComponentAssets } from '../../scripts/component-fixtures.mjs';
-import { copiedAssets } from './build/packaged-assets.js';
+import { writeDistIcons } from './build/icons.mjs';
+import {
+  copiedAssets,
+  cssAssetReferences,
+  replaceUswdsIconUrls,
+} from './build/packaged-assets.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// Keep USWDS's portable CSS URLs and existing copied asset layout.
+// Keep non-icon USWDS asset URLs; packaged CSS icon references are remapped to Phosphor.
 const packageAssets = copiedAssets({
   fonts: path.resolve(__dirname, 'src/assets/fonts'),
   img: path.resolve(__dirname, 'node_modules/@uswds/uswds/dist/img'),
@@ -19,6 +25,26 @@ function componentAssetsPlugin(): Plugin {
     name: 'component-assets',
     closeBundle() {
       writeComponentAssets();
+    },
+  };
+}
+
+function iconAssetsPlugin(): Plugin {
+  return {
+    name: 'write-phosphor-icons',
+    async writeBundle(options, bundle) {
+      const output = path.resolve(__dirname, options.dir ?? 'dist');
+      const files = new Set<string>();
+      for (const name of Object.keys(bundle)) {
+        if (!name.endsWith('.css')) continue;
+        const stylesheet = path.resolve(output, name);
+        const css = replaceUswdsIconUrls(readFileSync(stylesheet, 'utf8'));
+        for (const reference of cssAssetReferences(css, stylesheet)) {
+          if (reference.startsWith(`icons${path.sep}`))
+            files.add(reference.slice(`icons${path.sep}`.length));
+        }
+      }
+      await writeDistIcons(path.resolve(output, 'icons'), { files });
     },
   };
 }
@@ -44,6 +70,7 @@ export default defineConfig({
         skipLibCheck: true,
       },
     }),
+    iconAssetsPlugin(),
     packageAssets.plugin,
     componentAssetsPlugin(),
   ],

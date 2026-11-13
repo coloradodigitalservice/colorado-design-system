@@ -4,6 +4,12 @@ Vitest tests (`*.test.ts` / `*.test.mjs`) cover shared tooling and package behav
 Run them with `pnpm test`. Playwright tests (`tests/browser/**/*.spec.ts`) exercise
 built static pages separately; Vitest does not collect them.
 
+The component-fixture regeneration/staleness integration test has a scoped
+30-second timeout because it repeatedly parses the full component catalog with
+JSDOM and writes temporary package assets. It restores each deliberately corrupted
+output directly instead of rebuilding the catalog between staleness assertions.
+Other tests retain Vitest's default timeout unless explicitly overridden.
+
 ## Browser setup and execution
 
 From a clean checkout at the repository root:
@@ -28,6 +34,15 @@ It never targets a deployed environment. Ports 4321 and 6006 must be free; multi
 ports and disabled server reuse prevent accidentally testing a development server.
 
 For a faster scoped run:
+
+To exercise built pages without starting preview servers, use
+`pnpm exec playwright test --config config/playwright.built-files.ts` after
+`pnpm build`. This opts into local request routing for the same browser projects,
+console-error checks, and accessibility assertions. It does not verify HTTP-server
+behavior; the default suite remains the server-backed CI gate.
+Select the relevant tests with `--grep` or file paths: cases that use the API
+request fixture, create their own unrouted context, or explicitly continue a
+network request still require the default preview configuration.
 
 ```sh
 pnpm exec turbo run build --filter=@cods-internal/web...
@@ -228,3 +243,29 @@ capture, and render an image without alt text in a real loaded page to check axe
 output. Confirm a nonzero exit and attachments, then remove the temporary spec.
 
 See [Foundation CI](../docs/CI.md) for job selection and artifacts.
+
+### Accordion verification without preview servers
+
+After `pnpm build`, run
+`pnpm exec playwright test --config config/playwright.accordion.ts` to verify
+the compiled Accordion documentation and Storybook stories through local request
+routing. This starts no preview server. Chromium, Firefox, and WebKit remain
+enabled; the normal `pnpm check` preview-based gate remains the full gate.
+
+### In-Page Alert without local servers
+
+After `pnpm build`, run
+`pnpm exec playwright test --config config/playwright.in-page-alert.ts`.
+This component suite routes the built Astro/Storybook files and assets through
+Playwright instead of opening preview ports. It covers the docs in Chromium,
+Firefox, and WebKit plus the Storybook examples in Chromium. It supplements the
+full browser suite; it does not replace that release gate.
+
+### Site Alert verification without preview servers
+
+After `pnpm build`, run
+`pnpm exec playwright test --config config/playwright.site-alert.ts` to check
+Site Alert's built documentation and Storybook examples through request routing.
+The config starts no local server and retains the normal Chromium, Firefox,
+WebKit, and Storybook projects. This supplements the full `pnpm check` gate;
+it does not replace the full browser suite.

@@ -19,7 +19,29 @@ declare module '*.sass' {
 
 declare module '@uswds/uswds/js/usa-accordion' {
   const accordion: {
+    BUTTON: string;
+    ACCORDION: string;
+    on(root: HTMLElement): void;
+    off(root: HTMLElement): void;
     toggle(button: HTMLButtonElement, expanded: boolean): void;
   };
   export default accordion;
+}
+
+declare module '@uswds/uswds/js/usa-footer' {
+  const footer: {
+    on(root: HTMLElement): void;
+    off(root: HTMLElement): void;
+  };
+  export default footer;
+}
+
+declare module '@uswds/uswds/js/usa-combo-box' {
+  const comboBox: {
+    on(root: HTMLElement): void;
+    off(root: HTMLElement): void;
+    hideList(root: HTMLElement): void;
+    displayList(root: HTMLElement): void;
+  };
+  export default comboBox;
 }

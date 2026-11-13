@@ -1,8 +1,12 @@
-import { test, expect } from './fixtures.js';
+import { test, expect, expectAccessible } from './fixtures.js';
 
 const pages = [
+  { path: '/breadcrumbs/', name: 'breadcrumbs' },
+  { path: '/combo-box/', name: 'combo-box' },
+  { path: '/link/', name: 'link' },
   { path: '/site-alert/', name: 'site-alert' },
   { path: '/accordion/', name: 'accordion' },
+  { path: '/footer/', name: 'footer' },
 ];
 
 const requiredHeadings = [
@@ -47,14 +51,19 @@ for (const { path, name } of pages) {
     await page.setViewportSize({ width: 320, height: 800 });
     await page.goto(path);
     const hrefs = await page
-      .locator('main a[href^="/"], main a[href^="#"]')
+      .locator('main a[href]')
       .evaluateAll((links) =>
-        links.map((link) => link.getAttribute('href') as string),
+        links
+          .map((link) => (link as HTMLAnchorElement).href)
+          .filter((href) => new URL(href).origin === location.origin),
       );
     expect(hrefs.length).toBeGreaterThan(0);
     for (const href of new Set(hrefs)) {
-      if (href.startsWith('#')) {
-        await expect(page.locator(`[id="${href.slice(1)}"]`)).toHaveCount(1);
+      const target = new URL(href);
+      if (target.pathname === new URL(page.url()).pathname && target.hash) {
+        await expect(
+          page.locator(`[id="${target.hash.slice(1)}"]`),
+        ).toHaveCount(1);
       } else {
         const response = await request.get(href);
         expect(response.status(), href).toBe(200);
@@ -68,6 +77,44 @@ for (const { path, name } of pages) {
   });
 }
 
+test('Footer docs page renders and enhances both canonical variants', async ({
+  page,
+}, testInfo) => {
+  await page.goto('/footer/');
+  const preview = page.locator('[data-cods-docs-preview="footer"]');
+  await expect(
+    preview.getByRole('heading', { name: 'Component preview' }),
+  ).toBeVisible();
+  await expect(
+    preview.locator('[data-cods-footer-fixture="full"] .cods-footer'),
+  ).toBeVisible();
+  await expect(
+    preview.locator('[data-cods-footer-fixture="compact"] .cods-footer'),
+  ).toBeVisible();
+  await expect(
+    preview.locator(
+      '[data-cods-footer-fixture="full"] button.usa-footer__primary-link',
+    ),
+  ).toHaveCount(0);
+
+  await page.setViewportSize({ width: 375, height: 800 });
+  const full = preview.locator('[data-cods-footer-fixture="full"]');
+  await expect(full.getByRole('button', { name: 'Services' })).toHaveAttribute(
+    'aria-expanded',
+    'false',
+  );
+  await full.getByRole('button', { name: 'Services' }).click();
+  await expect(
+    full.getByRole('link', { name: 'Benefits and assistance' }),
+  ).toBeVisible();
+  await expect(
+    preview.locator(
+      '[data-cods-footer-fixture="compact"] button.usa-footer__primary-link',
+    ),
+  ).toHaveCount(0);
+  await expectAccessible(page, testInfo, '[data-cods-docs-preview="footer"]');
+});
+
 test('getting started documents installation and both style imports', async ({
   page,
 }) => {
@@ -75,7 +122,8 @@ test('getting started documents installation and both style imports', async ({
   const main = page.locator('main');
   await expect(main).toContainText('colorado-design-tokens/tokens.css');
   await expect(main).toContainText('colorado-design-system/styles.css');
-  await expect(
-    main.getByRole('link', { name: 'Accordion' }).first(),
-  ).toHaveAttribute('href', '/accordion/');
+  const accordion = main.getByRole('link', { name: 'Accordion' }).first();
+  expect(
+    await accordion.evaluate((link) => (link as HTMLAnchorElement).href),
+  ).toBe(new URL('../accordion/', page.url()).href);
 });

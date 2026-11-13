@@ -13,6 +13,16 @@ This matrix classifies every Colorado Design System 1.0 component according to i
 - **Type B: CoDS-only** — Component authored entirely within CoDS with no USWDS equivalent; represents new capability or State-specific requirement.
 - **Type C: CoDS divergent** — Component intentionally diverges from USWDS equivalent; divergence is documented and approved by State design and engineering leads.
 
+## Shared Foundation (Outside the Component Inventory)
+
+The Icon foundation is shared design-system infrastructure, not a standalone
+component in the approved 1.0 inventory. It is therefore not classified as
+Type A, B, or C, and is not included in the 28-component count.
+
+| Foundation | Classification         | Upstream source                                                                  | Responsibility                                                                                                                                                                                                                              |
+| ---------- | ---------------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Icon       | Shared CoDS foundation | Phosphor Regular SVG assets under the MIT license; no USWDS component equivalent | Aten technical lead maintains the package and generated assets; State design owner approves icon selection and visual intent; State technology owner accepts package integration; State accessibility owner reviews accessibility evidence. |
+
 ## Component Inventory
 
 The 28 components below are the approved 1.0 inventory (Card - Default and Card - Icon are counted separately). The Tag and Disclosure contract samples illustrate the [component contract](component-contract.md) and are not inventory items.

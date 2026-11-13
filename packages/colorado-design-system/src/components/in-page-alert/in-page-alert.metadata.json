@@ -1,0 +1,145 @@
+{
+  "name": "in-page-alert",
+  "displayName": "In-Page Alert",
+  "maturity": "experimental",
+  "type": "static",
+  "uswdsEquivalent": "alert",
+  "uswdsVersion": "3.14.0",
+  "componentType": "A",
+  "owners": {
+    "responsible": "Aten component engineer",
+    "accountable": "Aten technical lead",
+    "consulted": "Design, accessibility, and content roles",
+    "informed": "State product owner"
+  },
+  "divergenceApproved": false,
+  "divergenceNotes": null,
+  "states": [
+    "default",
+    "info",
+    "success",
+    "warning",
+    "urgent",
+    "without-heading",
+    "heading-only",
+    "long-content",
+    "localization",
+    "rtl",
+    "focus-visible",
+    "dynamic-status",
+    "dynamic-alert",
+    "info-no-icon",
+    "success-compact",
+    "success-no-icon",
+    "warning-compact",
+    "warning-no-icon",
+    "urgent-compact",
+    "urgent-no-icon"
+  ],
+  "progressiveEnhancement": "full",
+  "localization": "layout-sensitive",
+  "description": "Static contextual USWDS alerts with info, success, warning, and urgent variants; optional heading/body and documented dynamic live regions. No dismissal controller.",
+  "examples": [
+    {
+      "state": "default",
+      "fixtureState": "default",
+      "setup": "none"
+    },
+    {
+      "state": "info",
+      "fixtureState": "info",
+      "setup": "none"
+    },
+    {
+      "state": "success",
+      "fixtureState": "success",
+      "setup": "none"
+    },
+    {
+      "state": "warning",
+      "fixtureState": "warning",
+      "setup": "none"
+    },
+    {
+      "state": "urgent",
+      "fixtureState": "urgent",
+      "setup": "none"
+    },
+    {
+      "state": "without-heading",
+      "fixtureState": "without-heading",
+      "setup": "none"
+    },
+    {
+      "state": "heading-only",
+      "fixtureState": "heading-only",
+      "setup": "none"
+    },
+    {
+      "state": "long-content",
+      "fixtureState": "long-content",
+      "setup": "none"
+    },
+    {
+      "state": "localization",
+      "fixtureState": "localization",
+      "setup": "none"
+    },
+    {
+      "state": "rtl",
+      "fixtureState": "rtl",
+      "setup": "none"
+    },
+    {
+      "state": "focus-visible",
+      "fixtureState": "focus-visible",
+      "setup": "focus",
+      "instructions": "Focus the link using the keyboard."
+    },
+    {
+      "state": "dynamic-status",
+      "fixtureState": "dynamic-status",
+      "setup": "none"
+    },
+    {
+      "state": "dynamic-alert",
+      "fixtureState": "dynamic-alert",
+      "setup": "none"
+    },
+    {
+      "state": "info-no-icon",
+      "fixtureState": "info-no-icon",
+      "setup": "none"
+    },
+    {
+      "state": "success-compact",
+      "fixtureState": "success-compact",
+      "setup": "none"
+    },
+    {
+      "state": "success-no-icon",
+      "fixtureState": "success-no-icon",
+      "setup": "none"
+    },
+    {
+      "state": "warning-compact",
+      "fixtureState": "warning-compact",
+      "setup": "none"
+    },
+    {
+      "state": "warning-no-icon",
+      "fixtureState": "warning-no-icon",
+      "setup": "none"
+    },
+    {
+      "state": "urgent-compact",
+      "fixtureState": "urgent-compact",
+      "setup": "none"
+    },
+    {
+      "state": "urgent-no-icon",
+      "fixtureState": "urgent-no-icon",
+      "setup": "none"
+    }
+  ]
+}

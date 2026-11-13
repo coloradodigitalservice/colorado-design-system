@@ -47,8 +47,9 @@ describe('canonical component examples', () => {
       expect(() => generateExamples(metadata, component.fixture)).toThrow(
         'invalid maturity',
       );
+      const firstState = component.metadata.states[0];
       const missing = component.fixture.replace(
-        'data-cods-fixture-state="default"',
+        `data-cods-fixture-state="${firstState}"`,
         'data-cods-fixture-state="unknown"',
       );
       expect(() => generateExamples(component.metadata, missing)).toThrow(
@@ -67,6 +68,31 @@ describe('canonical component examples', () => {
       );
     });
   }
+
+  it('requires a native checkbox and review instructions for mixed-state setup', () => {
+    const checkbox = components.find(
+      (component) => component.name === 'checkbox',
+    )!;
+    const mixed = checkbox.examples.examples.find(
+      (example) => example.state === 'indeterminate',
+    )!;
+    expect(mixed.status).toBe('review-required');
+    expect(mixed.code).not.toContain('data-indeterminate');
+    const metadata = structuredClone(checkbox.metadata);
+    const example = metadata.examples.find(
+      (example) => example.state === 'indeterminate',
+    )!;
+    example.instructions = '';
+    expect(() => generateExamples(metadata, checkbox.fixture)).toThrow(
+      'runtime state needs review instructions',
+    );
+    expect(() =>
+      generateExamples(
+        checkbox.metadata,
+        checkbox.fixture.replaceAll('type="checkbox"', 'type="text"'),
+      ),
+    ).toThrow('indeterminate setup needs a native checkbox');
+  });
 
   it('rejects USWDS pin drift and unapproved component divergence', () => {
     const root = mkdtempSync(join(tmpdir(), 'cods-metadata-'));
@@ -103,6 +129,15 @@ describe('canonical component examples', () => {
     mkdirSync(join(root, 'src/components/shared'));
     writeComponentAssets(root);
     expect(() => checkComponentAssets(root)).not.toThrow();
+    const cardDefault = readFileSync(
+      join(root, 'dist/fixtures/card-default.html'),
+      'utf8',
+    );
+    expect(cardDefault).toContain('data-cods-fixture-state="default"');
+    expect(cardDefault).not.toContain('data-cods-fixture-state="icon"');
+    expect(
+      readFileSync(join(root, 'dist/fixtures/card.html'), 'utf8'),
+    ).toContain('data-cods-fixture-state="icon"');
     const component = components.find(
       (component) => component.name === 'accordion',
     )!;
@@ -127,15 +162,66 @@ describe('canonical component examples', () => {
         area,
         `accordion.${area === 'fixtures' ? 'html' : 'json'}`,
       );
-      writeFileSync(file, readFileSync(file, 'utf8') + '\n');
+      const original = readFileSync(file, 'utf8');
+      writeFileSync(file, original + '\n');
       expect(() => checkComponentAssets(root)).toThrow(`stale ${area}`);
-      writeComponentAssets(root);
+      writeFileSync(file, original);
     }
+    expect(() => checkComponentAssets(root)).not.toThrow();
     const manifest = JSON.parse(
       readFileSync(join(root, 'package.json'), 'utf8'),
     );
     delete manifest.exports['./examples/*.json'];
     writeFileSync(join(root, 'package.json'), JSON.stringify(manifest));
     expect(() => checkComponentAssets(root)).toThrow('missing export');
+  }, 30_000);
+});
+
+describe('Card fixture variants', () => {
+  it('keeps icon markup in a separate packaged fixture and combines the canonical examples', () => {
+    const card = components.find((component) => component.name === 'card')!;
+    expect(card.fixtures['card-default']).toBe(card.fixtures.card);
+    expect(card.fixtures['card-default']).not.toContain(
+      'data-cods-fixture-state="icon"',
+    );
+    expect(card.fixtures['card-icon']).toContain(
+      'data-cods-fixture-state="icon"',
+    );
+    expect(card.fixtures.card).not.toContain('data-cods-fixture-state="icon"');
+    expect(card.fixture).toContain('data-cods-fixture-state="icon"');
+  });
+});
+
+describe('video fixture safety', () => {
+  it('requires a titled iframe without inline document content', () => {
+    const videos = components.find((component) => component.name === 'videos')!;
+    expect(() =>
+      generateExamples(
+        videos.metadata,
+        videos.fixture.replace(
+          'title="Local stand-in for an embedded video: blue screen"',
+          'title=""',
+        ),
+      ),
+    ).toThrow('video iframe requires a title');
+    expect(() =>
+      generateExamples(
+        videos.metadata,
+        videos.fixture.replace('<iframe', '<iframe srcdoc="<p>test</p>"'),
+      ),
+    ).toThrow('video iframe requires a title');
+    const embed = videos.fixture
+      .split('data-cods-fixture-state="embed"')[1]!
+      .split('</section>')[0]!;
+    expect(embed).toMatch(
+      /src="https:\/\/player\.vimeo\.com\/video\/\d+\?[^"]*dnt=1/,
+    );
+    const other = components.find((component) => component.name === 'tags')!;
+    expect(() =>
+      generateExamples(
+        other.metadata,
+        `${other.fixture}<iframe title="Not allowed"></iframe>`,
+      ),
+    ).toThrow('fixture must be plain semantic HTML');
   });
 });

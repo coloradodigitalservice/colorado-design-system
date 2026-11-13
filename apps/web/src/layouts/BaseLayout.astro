@@ -1,7 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import '@coloradodigitalservice/colorado-design-tokens/tokens.css';
-import { version } from '@coloradodigitalservice/colorado-design-system/package.json';
+import '@coloradodigitalservice/colorado-design-system/styles.css';
+import SiteFooter from '../components/SiteFooter.astro';
 import '../styles/site.css';
 
 interface Props {
@@ -14,7 +15,10 @@ const docs = (await getCollection('docs')).sort(
   (a, b) =>
     a.data.order - b.data.order || a.data.title.localeCompare(b.data.title),
 );
-const pathname = Astro.url.pathname;
+const baseUrl = import.meta.env.BASE_URL;
+const pathname = Astro.url.pathname.startsWith(baseUrl)
+  ? `/${Astro.url.pathname.slice(baseUrl.length)}`
+  : Astro.url.pathname;
 ---
 
 <!doctype html>
@@ -29,9 +33,9 @@ const pathname = Astro.url.pathname;
     <a class="cods-docs-skip-link" href="#main-content">
       Skip to main content
     </a>
-    <header class="cods-docs-header">
+    <header id="top" class="cods-docs-header">
       <div class="cods-docs-container">
-        <a class="cods-docs-brand" href="/">
+        <a class="cods-docs-brand" href={baseUrl}>
           Colorado Design System
         </a>
       </div>
@@ -41,14 +45,17 @@ const pathname = Astro.url.pathname;
         <p class="cods-docs-nav-title">Documentation</p>
         <ul>
           <li>
-            <a href="/" aria-current={pathname === '/' ? 'page' : undefined}>
+            <a
+              href={baseUrl}
+              aria-current={pathname === '/' ? 'page' : undefined}
+            >
               Overview
             </a>
           </li>
           {docs.map((entry) => (
             <li>
               <a
-                href={`/${entry.id}/`}
+                href={`${baseUrl}${entry.id}/`}
                 aria-current={pathname === `/${entry.id}/` ? 'page' : undefined}
               >
                 {entry.data.navLabel}
@@ -61,12 +68,6 @@ const pathname = Astro.url.pathname;
         <slot />
       </main>
     </div>
-    <footer class="cods-docs-footer">
-      <div class="cods-docs-container">
-        Colorado Design System documentation, development release
-        <span data-cods-release={version}>{version}</span>. Not a supported
-        release.
-      </div>
-    </footer>
+    <SiteFooter />
   </body>
 </html>

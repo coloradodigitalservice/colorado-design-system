@@ -65,7 +65,7 @@ CoDS will integrate the U.S. Web Design System (USWDS) as a pinned npm dependenc
 
 - The rest of the USWDS project is released under CC0 1.0; bundled third-party assets retain their own licenses, as listed in the pinned USWDS `LICENSE.md`.
 - Attribution to USWDS is not legally required but is encouraged and will be included in CoDS README.md and release notes.
-- CoDS's own license is MIT (see the repository `LICENSE`), separate from USWDS and its third-party assets. See the [CoDS third-party asset license index](../../packages/colorado-design-system/src/assets/licenses/THIRD-PARTY-LICENSES.md) and [licensing plan](../licensing-plan.md) for current records and unresolved questions.
+- CoDS's own license is client-confirmed MIT, copyright 2026 State of Colorado (see the repository `LICENSE`), separate from USWDS and its third-party assets. See the [CoDS third-party asset license index](../../packages/colorado-design-system/src/assets/licenses/THIRD-PARTY-LICENSES.md) and [licensing decision](../licensing-plan.md). Open Sans and Source Code Pro ship with OFL notices; USWDS icons are replaced by MIT-licensed Phosphor assets. Under the 2026-11-13 client-directed approach, Museo Slab is excluded and optionally supplied by consumers with their own web-use rights; the existing h1 fallback stack is retained (ADR-003).
 
 ### 7. Upgrade Policy
 

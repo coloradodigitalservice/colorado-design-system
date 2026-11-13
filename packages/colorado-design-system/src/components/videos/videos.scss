@@ -1,0 +1,18 @@
+@layer cods.components {
+  .cods-videos {
+    aspect-ratio: 16 / 9;
+    inline-size: 100%;
+
+    > video,
+    > iframe {
+      display: block;
+      inline-size: 100%;
+      block-size: 100%;
+      border: 0;
+    }
+  }
+
+  .cods-videos--four-three {
+    aspect-ratio: 4 / 3;
+  }
+}

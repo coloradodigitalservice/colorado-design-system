@@ -19,3 +19,6 @@ packages/colorado-design-system/src/assets/licenses/USWDS-LICENSE.md
 
 # Deterministic Style Dictionary output, verified by tokens:check
 packages/colorado-design-tokens/generated/
+
+# Deterministic Phosphor sprite and catalog, verified by icons:check
+packages/colorado-design-system/generated/

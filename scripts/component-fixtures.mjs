@@ -91,10 +91,20 @@ export function generateExamples(metadata, fixture) {
   try {
     const document = dom.window.document;
     if (
-      document.querySelector('script, style, iframe') ||
+      document.querySelector('script, style') ||
+      (metadata.name !== 'videos' && document.querySelector('iframe')) ||
       /\{\{|<%/.test(fixture)
     )
       fail('fixture must be plain semantic HTML');
+    for (const frame of document.querySelectorAll('iframe')) {
+      if (
+        !frame.getAttribute('title')?.trim() ||
+        frame.hasAttribute('srcdoc') ||
+        (!/^https:\/\//i.test(frame.getAttribute('src') ?? '') &&
+          frame.getAttribute('src') !== '/videos/embedded-example.html')
+      )
+        fail('video iframe requires a title, a safe source, and no srcdoc');
+    }
     const ids = [...document.querySelectorAll('[id]')].map(
       (element) => element.id,
     );
@@ -145,8 +155,17 @@ export function generateExamples(metadata, fixture) {
           example.fixtureState,
       );
       if (!block) fail(`missing fixture state: ${example.fixtureState}`);
-      if (!['none', 'focus', 'expand', 'collapse'].includes(example.setup))
+      if (
+        !['none', 'focus', 'expand', 'collapse', 'indeterminate'].includes(
+          example.setup,
+        )
+      )
         fail(`invalid setup: ${example.state}`);
+      if (
+        example.setup === 'indeterminate' &&
+        !block.querySelector('input[type=checkbox]')
+      )
+        fail(`indeterminate setup needs a native checkbox: ${example.state}`);
       if (example.setup !== 'none' && !example.instructions?.trim())
         fail(`runtime state needs review instructions: ${example.state}`);
       if (!block.querySelector(`.cods-${metadata.name}`))
@@ -174,15 +193,43 @@ export function loadComponents(root = packageRoot) {
     .map((entry) => {
       const name = entry.name;
       const directory = join(root, 'src/components', name);
-      const fixture = readFileSync(
-        join(directory, `${name}.fixture.html`),
-        'utf8',
-      );
       const metadataText = readFileSync(
         join(directory, `${name}.metadata.json`),
         'utf8',
       );
       const metadata = JSON.parse(metadataText);
+      const variants = metadata.fixtureVariants ?? [];
+      if (
+        !Array.isArray(variants) ||
+        variants.some(
+          (variant) =>
+            typeof variant !== 'string' ||
+            !new RegExp(`^${name}-[a-z]+(?:-[a-z]+)*$`).test(variant),
+        ) ||
+        new Set(variants).size !== variants.length
+      )
+        throw new Error(`${name}: invalid fixture variants`);
+      const fixtureFiles = [name, ...variants];
+      const fixtures = Object.fromEntries(
+        fixtureFiles.map((id) => [
+          id,
+          readFileSync(join(directory, `${id}.fixture.html`), 'utf8'),
+        ]),
+      );
+      const fixture = Object.values(fixtures).join('\n');
+      const aliases = metadata.fixtureAliases ?? {};
+      if (!aliases || typeof aliases !== 'object' || Array.isArray(aliases))
+        throw new Error(`${name}: invalid fixture aliases`);
+      for (const [alias, target] of Object.entries(aliases)) {
+        if (
+          !new RegExp(`^${name}-[a-z]+(?:-[a-z]+)*$`).test(alias) ||
+          Object.hasOwn(fixtures, alias) ||
+          typeof target !== 'string' ||
+          !Object.hasOwn(fixtures, target)
+        )
+          throw new Error(`${name}: invalid fixture alias ${alias}`);
+        fixtures[alias] = fixtures[target];
+      }
       if (metadata.name !== name)
         throw new Error(`${name}: metadata name differs from directory`);
       const manifest = JSON.parse(
@@ -205,6 +252,7 @@ export function loadComponents(root = packageRoot) {
       return {
         name,
         fixture,
+        fixtures,
         metadataText,
         metadata,
         examples: generateExamples(metadata, fixture),
@@ -224,6 +272,10 @@ export function writeComponentAssets(root = packageRoot) {
         join(root, 'dist', directory, `${component.name}.${extension}`),
         content,
       );
+    }
+    for (const [id, fixture] of Object.entries(component.fixtures)) {
+      if (id !== component.name)
+        writeFileSync(join(root, 'dist', 'fixtures', `${id}.html`), fixture);
     }
   }
 }
@@ -247,6 +299,16 @@ export function checkComponentAssets(root = packageRoot) {
       if (readFileSync(join(root, target), 'utf8') !== content)
         throw new Error(
           `${component.name}: stale ${directory} output; rebuild the package`,
+        );
+    }
+    for (const [id, fixture] of Object.entries(component.fixtures)) {
+      if (
+        id !== component.name &&
+        readFileSync(join(root, 'dist', 'fixtures', `${id}.html`), 'utf8') !==
+          fixture
+      )
+        throw new Error(
+          `${component.name}: stale ${id} fixture output; rebuild the package`,
         );
     }
   }

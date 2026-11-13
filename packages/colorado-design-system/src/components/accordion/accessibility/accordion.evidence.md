@@ -5,6 +5,117 @@
 - Automated implementation review: Codex, 2026-10-01. Manual accessibility lead acceptance and G2 approval are pending.
 - Basis: pinned USWDS 3.14.0 markup and toggle/exclusivity behavior, wrapped with the CoDS per-root lifecycle, events, and focus safety. Upstream accessibility claims do not establish acceptance of this wrapper.
 
+## Phosphor integration — 2026-10-21
+
+Updated from the shared CODS-P3-001 base containing #67. Decorative up/down masks
+now reference shared Phosphor Regular `caret-up`/`caret-down`, retaining their
+24px box, logical inset, `currentColor`, disabled GrayText, forced-color behavior,
+and existing semantics. Local duplicate SVG exports were removed; their original
+commit, hashes, and measured comparison remain in `icons.provenance.json`.
+
+Comparison at 16px and 24px found visual parity in geometry, weight, alignment,
+and spacing. Normalized bounds differ by less than 0.0007px at 24px due to export
+precision; cubic/arc rasterization changes edge antialiasing, so pixel identity
+is not claimed. The current Figma Accordion page was viewed in Chrome’s Aten
+profile; recorded original exports remain the precise geometry evidence.
+
+Fresh automated validation results are recorded below after verification.
+Human screen-reader findings, actual zoom, operating-system high contrast, and
+domain-owner sign-off are not established by this source migration.
+
+## Figma alignment update — 2026-10-16
+
+Eric authorized fixing chevrons, borders, focus, and the missing white variant.
+The live file was inspected and icons exported in Chrome's **Aten** profile.
+The Figma connector still lacks access, so these observations come from the
+browser Inspect panels and original SVG downloads, not a connector response.
+
+- Header/body: 16px padding, 18px/600/24px Open Sans summary, 16px/400/24px body;
+  4px header radius and the existing dark text/secondary-surface roles.
+- Icons: original 24×24 up/down SVGs, used as masks with `currentColor` so
+  disabled, consumer color, and forced-color treatments remain available.
+- Bordered panel: 4px sides/bottom, no top border, gray/10 (`#EBECED`). A new
+  component-specific color role preserves the shared gray/20 semantic mapping.
+- White: white surface, 1px gray/20 header and panel borders, shared lifecycle.
+- Focus: 2px white spread and blue outer spread of 4px. A transparent 2px outline
+  becomes system Highlight under forced colors; the global 4px focus-width token
+  used elsewhere is unchanged. No expand/collapse transition is added.
+
+Eric reported completing fresh human screen-reader, actual 400% zoom, and Windows
+High Contrast checks on October 16, before this visual follow-up. Environments,
+versions, individual announcements, and outcome details were not supplied. This
+records reported completion without inventing observations or State sign-off.
+
+Current verification: 133 unit tests pass, including 19 controller tests. Token
+validation covers 355 tokens and 47 contrast pairs. The focused browser suite
+passes 31 checks in Chromium/WebKit, including exact exported SVG paths, border
+and inset geometry, white states, axe, focus, and forced colors. Firefox's ten
+checks remain enabled but fail locally before running because its browser process
+cannot find its temporary profile. Built desktop, white focus/collapsed, 320px,
+and RTL examples were inspected using the pinned Playwright CLI without starting
+a local server. CodeRabbit identified missing Sass token fallbacks; those were
+added. Its follow-up review could not authenticate (provider identity error).
+
+The sections below retain historical validation and review context.
+
+## CODS-P3-007 production update — 2026-10-14
+
+This update is stacked directly on CODS-P3-001. It retains experimental maturity
+and the historical G2 evidence below; those results do not approve the updated
+lifecycle or styles for G3.
+
+**Open-panel decision:** preserve the shipped single-open default and USWDS's
+legacy default. Every panel may be closed. `data-cods-accordion-multiple` opts
+into independent open panels. Expanded, Mixed, and Collapsed stories demonstrate
+the decisions explicitly. Native Tab, Shift+Tab, Enter, and Space are supported;
+arrow-key roving navigation and nested accordions are out of scope. Nested roots
+warn and remain unenhanced/readable.
+
+**Implementation basis:** pinned USWDS 3.14.0 `on(root)` installs the delegated
+click handler; `off(root)` removes it but leaves `aria-expanded` and `hidden`.
+The CoDS wrapper snapshots/restores those attributes and its integration markers.
+A MutationObserver derives CoDS change events from upstream changes; click and
+public-method paths flush settled states synchronously. No events fire during
+initialization or teardown. Initial exclusivity still chooses the last declared
+open item for compatibility with the shipped CoDS API. Closing focused content
+returns focus to its trigger before CoDS events fire.
+
+**Design evidence:** the spacing, heading/body typography, and corner radii use
+existing Git-authoritative tokens and the measured P3-001 inventory. Figma
+context and screenshot calls both failed because the connected account lacks
+file access. Exact icon/geometry/state alignment and the unresolved subtle-border
+mapping require design review; no new token values were inferred.
+
+Validation on macOS with Node 24.21.0, pnpm 12.4.2, Playwright 1.64.0:
+
+- [x] All 131 unit tests pass, including 19 controller tests for lifecycle,
+      focus restoration, exclusivity, independent roots, upstream change observation,
+      unsupported nesting, malformed markup, idempotency, and exact restoration.
+- [x] Workspace and fixture validation, token drift (352 tokens / 47 contrast
+      pairs), formatting, lint, root TypeScript, Astro/Storybook validation,
+      package/site/Storybook builds, generated fixture parity, and static consumer
+      drift checks pass.
+- [x] 28 browser checks pass: ten docs checks each in Chromium and WebKit,
+      and eight Storybook checks in Chromium. They cover keyboard/pointer operation,
+      focus, events, declared states, axe without exclusions, runtime token overrides,
+      no CSS/JavaScript, 320px reflow, localization, reduced motion, and forced colors.
+- [x] Built docs inspected with the pinned Playwright CLI in Chrome at
+      1280px and 320px: default/multiple expansion, keyboard activation, long-content
+      wrapping, and RTL indicators. Screenshots are local review captures, not
+      approved visual regression baselines. CodeRabbit reviewed 13 implementation
+      files and reported no findings.
+- [ ] Firefox's ten checks could not launch: the local Playwright Firefox
+      process exits with “Could not find profile folder.” They remain enabled for CI.
+- [ ] Fresh human screen-reader announcements, actual 400% zoom, Windows high
+      contrast, keyboard/localization review, and accessibility-owner acceptance.
+- [ ] Full preview-backed `pnpm check` browser stage: local servers were not
+      started under the user's server-management instruction. Compiled files were
+      served to the browser by request interception instead.
+
+Reproduce the focused browser suite after `pnpm build` with
+`pnpm exec playwright test --config config/playwright.accordion.ts`. It starts
+no local server and retains all three browser engines.
+
 ## Manual accessibility review
 
 Eric Swanson reported on 2026-10-01 that he completed all accessibility testing
@@ -55,11 +166,11 @@ Automated checks use a 320px viewport, long headings/body text, and panel overfl
 
 ## Motion
 
-The component adds no animation, transition, or automatic scrolling. Browser checks run with reduced motion. The focus ring and plus/minus state indicators do not depend on motion. Eric reports the manual accessibility checks passed; detailed motion observations are not recorded.
+The component adds no animation or transition. The delegated USWDS click handler may call `scrollIntoView()` when opening a panel leaves its trigger outside the viewport, including after a sibling closes. This behavior also applies with reduced motion; the wrapper does not request smooth scrolling, but author CSS can affect scrolling behavior. Browser checks run with reduced motion. The historical plus/minus indicators and current chevrons do not depend on motion. Eric reports the manual accessibility checks passed; detailed motion observations are not recorded.
 
 ## Forced colors
 
-Native system colors, borders, and outline retain state/focus indicators; the plus/minus icons use borders rather than background images. Browser checks emulate forced colors, verify keyboard outlines, and capture narrow screenshots. Eric reports the manual accessibility checks passed; the operating system and high-contrast settings were not supplied. macOS emulation alone does not establish Windows High Contrast verification.
+Native system colors, borders, and outline retain state/focus indicators; the original icons used borders; the current chevrons use SVG masks with system colors and `forced-color-adjust: none`. Browser checks emulate forced colors, verify keyboard outlines, and capture narrow screenshots. Eric reports the manual accessibility checks passed; the operating system and high-contrast settings were not supplied. macOS emulation alone does not establish Windows High Contrast verification.
 
 ## Localization
 
@@ -81,3 +192,16 @@ Browser tests attach expanded-focus, collapsed-focus, narrow forced-colors, and 
 - Controller and fixture review by the technical lead; accessibility lead acceptance; G2 sign-off and ticket evidence attachment.
 
 Keep maturity experimental. Implementation and automated results prepare G2 evidence; they do not constitute G2 approval.
+
+## Follow-up review — 2026-10-21
+
+Figma page 1387:254, bordered item 1447:263, and the list instance positions
+were inspected. The list places each successive header 12px after the previous
+item, with no leading margin. The stylesheet now uses `space.sm` for that gap
+and zero margin on the first heading. Existing 56px triggers, panel padding,
+inside strokes, chevrons, focus geometry, and controller behavior are preserved.
+148 unit tests and 44 browser checks passed across Chromium, Firefox, WebKit
+and Storybook Chromium; a new regression asserts first/subsequent heading
+spacing. Workspace, Astro/Storybook validation, token drift, format, lint, type
+checks, builds, fixture output and static consumer checks passed. Browser tests
+used built-file routing without servers. Human and design approval remain open.

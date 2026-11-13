@@ -32,7 +32,7 @@
 
   // USWDS only generates @font-face rules for weights enabled here (both
   // default to `false`). Colorado's tokens use 500/600, so both must be
-  // explicitly enabled or the Medium/SemiBold/Museo-Slab-500 font files are
+  // explicitly enabled or the Open Sans Medium/SemiBold font files are
   // silently skipped rather than erroring.
   $theme-font-weight-medium: 500,
   $theme-font-weight-semibold: 600,
@@ -59,8 +59,8 @@
   // "../fonts" assumes a nested css/ output directory, which we don't have.
   $theme-font-path: './fonts',
 
-  // Icons referenced by url() are copied into dist/img the same way, for the
-  // same reason (USWDS defaults to "../img").
+  // Non-icon images use this path (USWDS defaults to "../img"). CSS references
+  // to USWDS icons are remapped to the equivalent approved Phosphor assets.
   $theme-image-path: './img',
 
   // Register Colorado's non-built-in brand fonts. "open-sans" is already a
@@ -137,12 +137,8 @@
         600: 'OpenSans-SemiBoldItalic',
       )
     ),
-  $theme-font-serif-custom-src: (
-    dir: 'museo-slab',
-    roman: (
-      500: 'MuseoSlab-500',
-    )
-  ),
+  // Museo Slab is consumer-supplied; retain its family but emit no font request.
+  $theme-font-serif-custom-src: false,
   $theme-font-mono-custom-src: (
     dir: 'source-code-pro',
     roman: (
