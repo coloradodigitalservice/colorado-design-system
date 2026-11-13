@@ -2,6 +2,12 @@
 
 This package owns semantic HTML fixtures, layered CSS, optional TypeScript controllers, metadata, icons, assets, and accessibility evidence for components. It depends on the token package and on a pinned USWDS release ([ADR-002](../../docs/adrs/002-uswds-foundational-dependency.md)). Every component in this package must follow the [canonical component contract](../../docs/governance/component-contract.md).
 
+## License and fonts
+
+CoDS is MIT licensed, copyright 2026 State of Colorado. Third-party assets retain their own terms; the package includes an index at `dist/licenses/THIRD-PARTY-LICENSES.md`, font notices in `dist/fonts/`, and the Phosphor notice in `dist/icons/LICENSE`.
+
+Open Sans and Source Code Pro are bundled under SIL OFL 1.1. **Museo Slab is not bundled or downloaded automatically.** The existing h1 family stack retains Museo Slab, then Trebuchet MS, Georgia, Times New Roman, and serif. Consumers can obtain their own Museo Slab 500 normal web-use license from a provider linked by the [foundry](https://www.exljbris.com/museoslab.html), host the supplied webfont in their own site, and declare `@font-face` with family `Museo Slab`, style `normal`, and weight `500`. Do not add the font to CoDS packages or release archives. See the [Typography guide](../../apps/web/src/content/docs/typography.md) for the full setup and license precautions.
+
 ## Build & Development
 
 ### Building the package

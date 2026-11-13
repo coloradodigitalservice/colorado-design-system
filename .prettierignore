@@ -10,6 +10,10 @@ playwright-report/
 test-results/
 pnpm-lock.yaml
 
+# Preserve copied upstream license text byte-for-byte
+packages/colorado-design-system/src/assets/**/LICENSE.md
+packages/colorado-design-system/src/assets/licenses/USWDS-LICENSE.md
+
 # Vendored Microsoft skill: keep identical to the pinned Playwright distribution
 .agents/skills/playwright-cli/
 
