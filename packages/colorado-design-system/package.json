@@ -44,6 +44,12 @@
     },
     "./icons/LICENSE": {
       "default": "./dist/icons/LICENSE"
+    },
+    "./logos/cods-logo.svg": {
+      "default": "./dist/logos/cods-logo.svg"
+    },
+    "./logos/NOTICE.md": {
+      "default": "./dist/logos/NOTICE.md"
     }
   },
   "scripts": {

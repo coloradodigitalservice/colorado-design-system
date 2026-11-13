@@ -38,6 +38,7 @@ After build, the `dist/` directory contains:
 | `colorado-design-system.css` | Compiled CSS from `src/styles/index.scss`                         |
 | `fonts/`, `img/`             | Fonts and non-icon images referenced by the CSS                   |
 | `icons/`                     | Generated Phosphor sprite, approved SVGs, catalog, and MIT notice |
+| `logos/`                     | Unmodified State logo SVG and trademark notice                    |
 | `index.d.ts`                 | TypeScript type declarations for main entry                       |
 | `components/*.d.ts`          | Component-specific type declarations                              |
 
@@ -60,6 +61,13 @@ Consumers must not rely on undeclared export paths. The `./fixtures/*.html` and
 `./metadata/*.json` patterns export every component's fixture and metadata,
 including experimental components. These paths do not imply stable maturity;
 check the component metadata. Per-component controller subpaths are not exported.
+
+The Logos foundation ships the supplied, unmodified Colorado Design System SVG
+and its trademark notice at `./logos/cods-logo.svg` and `./logos/NOTICE.md`.
+The Vite build copies both from `src/assets/logos/` into `dist/logos/`; consumers
+can import the SVG as an asset or deploy that directory with a release archive.
+Preserve the notice when redistributing the SVG. No logo colors or dimensions
+are exposed as tokens.
 
 The Icon foundation uses the pinned `@phosphor-icons/core` development
 dependency as a build-time source. Its approved IDs are listed in

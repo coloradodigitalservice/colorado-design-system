@@ -49,7 +49,7 @@ The approved foundation inventory is:
 - Typography
 - Logos (added October 2, 2026)
 
-Logos was a foundation candidate in the original proposal and was not in the client's list of September 16. It was approved as a foundation on October 2, 2026. On October 13, 2026, the client confirmed that a Logos Foundation page is out of scope for the `1.x` launch and should not be included at this time. The launch therefore includes seven foundation pages; the Logos page and its guidance are deferred. This changes the page-delivery scope, not the historical October 2 foundation approval. Do not fold Logos guidance into Brand or Icons content for this launch.
+Logos was a foundation candidate in the original proposal and was not in the client's list of September 16. It was approved as a foundation on October 2, 2026. On October 13, the client deferred its page from the `1.x` launch. On November 13, 2026, project direction confirmed that the client reversed that deferral: a separate Logos foundation page is included in launch scope, bringing the published foundation-page count to eight. This does not change the historical decisions or imply stable-release sign-off.
 
 ### Approved components
 

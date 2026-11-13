@@ -97,6 +97,23 @@ main h1 {
   max-width: 72ch;
 }
 
+.cods-docs-logo-example {
+  margin: 0;
+}
+
+.cods-docs-logo-example > a {
+  display: inline-block;
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: var(--cods-space-2xl);
+}
+
+.cods-docs-logo-example img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
 @media (width >= 48rem) {
   .cods-docs-grid {
     grid-template-columns: minmax(12rem, 16rem) minmax(0, 1fr);
