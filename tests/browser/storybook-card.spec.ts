@@ -22,12 +22,40 @@ test('cards expose links without nested controls', async ({
 test('flag and icon cards show their responsive and hover states', async ({
   page,
 }) => {
+  let mockedImages = 0;
+  await page.route(
+    'https://designsystem.digital.gov/img/introducing-uswds-2-0/built-to-grow--alt.jpg',
+    async (route) => {
+      mockedImages++;
+      await route.fulfill({
+        contentType: 'image/svg+xml',
+        body: '<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900"></svg>',
+      });
+    },
+  );
   await page.goto('/iframe.html?id=components-card--all-states&viewMode=story');
+  await expect(
+    page.locator('[data-cods-card-fixture="media-only"] img'),
+  ).toHaveCount(1);
+  // Storybook inserts the images after navigation; their layout must settle before hovering.
+  await page.evaluate(() =>
+    Promise.all(
+      Array.from(
+        document.querySelectorAll<HTMLImageElement>(
+          '[data-cods-card-fixture] img',
+        ),
+        (image) => image.decode(),
+      ),
+    ),
+  );
+  expect(mockedImages).toBeGreaterThan(0);
   const icon = page.locator('[data-cods-card-fixture="icon"] .cods-card__link');
   await icon.hover();
-  expect(
-    await icon.evaluate((el) => getComputedStyle(el, '::after').borderTopWidth),
-  ).toBe('2px');
+  await expect
+    .poll(() =>
+      icon.evaluate((el) => getComputedStyle(el, '::after').borderTopWidth),
+    )
+    .toBe('2px');
   await expect(icon.locator('.cods-card__icon')).toHaveCSS(
     'background-color',
     'rgb(217, 232, 246)',
