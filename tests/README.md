@@ -174,6 +174,8 @@ on violations; normal Storybook visits retain the addon’s automatic checks.
 The shared browser fixture replaces Vimeo video embeds with a local mock response
 so smoke and component tests do not depend on the third-party player or its
 console output. These tests do not verify real Vimeo playback or accessibility.
+The Card Storybook hover test mocks the external example image and waits for it
+to decode before interacting, avoiding layout shifts after stories render.
 
 `expectAccessible` scans WCAG 2.0/2.1 A/AA and WCAG 2.2 AA tags. Omit its optional
 selector for a complete page scan; use a selector only for an isolated story.
