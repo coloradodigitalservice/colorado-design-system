@@ -19,9 +19,10 @@ The only logo supplied for this foundation is the full-color, horizontal
 Colorado Design System lockup shown above. Its source is the project-supplied
 SVG, preserved unchanged at `src/assets/logos/cods-logo.svg` in the
 design-system package. No alternative sizes, department marks, reversed, or
-monochrome variants have been supplied here. The project user confirmed
-redistribution for the documentation site, package, and release archives on
-November 13, 2026. This does not grant a general trademark license.
+monochrome variants have been supplied here. The State's logo approver supplied
+the SVG and copyright statement directly and confirmed by email that
+redistribution is approved for the public documentation site, package, and
+release archives. The project lead reported the confirmation on November 13, 2026. This does not grant a general trademark license.
 
 ## Use the asset
 
