@@ -1,5 +1,12 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.24
+
+### Patch Changes
+
+- 913c806: Add the Colorado Design System logo asset and State trademark notice.
+- @coloradodigitalservice/colorado-design-tokens@0.2.24
+
 ## 0.2.23
 
 ### Patch Changes

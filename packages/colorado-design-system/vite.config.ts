@@ -48,6 +48,23 @@ function iconAssetsPlugin(): Plugin {
   };
 }
 
+function logoAssetsPlugin(): Plugin {
+  return {
+    name: 'copy-logo-assets',
+    buildStart() {
+      for (const name of ['cods-logo.svg', 'NOTICE.md']) {
+        const source = path.resolve(__dirname, 'src/assets/logos', name);
+        this.addWatchFile(source);
+        this.emitFile({
+          type: 'asset',
+          fileName: `logos/${name}`,
+          source: readFileSync(source),
+        });
+      }
+    },
+  };
+}
+
 export default defineConfig({
   css: {
     preprocessorOptions: {
@@ -70,6 +87,7 @@ export default defineConfig({
       },
     }),
     iconAssetsPlugin(),
+    logoAssetsPlugin(),
     packageAssets.plugin,
     componentAssetsPlugin(),
   ],
