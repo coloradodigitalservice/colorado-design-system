@@ -4,7 +4,7 @@
 
 ### Patch Changes
 
-- f3ddcd7: Add an experimental in-page navigation component with authored jump links and current-section highlighting.
+- 913c806: Add the Colorado Design System logo asset and State trademark notice.
 - @coloradodigitalservice/colorado-design-tokens@0.2.24
 
 ## 0.2.23

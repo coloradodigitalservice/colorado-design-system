@@ -1,0 +1,23 @@
+---
+import logoUrl from '@coloradodigitalservice/colorado-design-system/logos/cods-logo.svg?url';
+import noticeUrl from '@coloradodigitalservice/colorado-design-system/logos/NOTICE.md?url&no-inline';
+
+const baseUrl = import.meta.env.BASE_URL;
+---
+
+<figure class="cods-docs-logo-example">
+  <a href={baseUrl} aria-label="Colorado Design System home">
+    <img src={logoUrl} alt="Colorado Design System home" />
+  </a>
+  <figcaption>
+    Colorado Design System logo (linked example).
+    <a href={logoUrl} download="cods-logo.svg">
+      Download the SVG
+    </a>
+    and{' '}
+    <a href={noticeUrl} download="NOTICE.md">
+      trademark notice
+    </a>
+    .
+  </figcaption>
+</figure>

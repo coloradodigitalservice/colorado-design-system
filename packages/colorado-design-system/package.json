@@ -55,6 +55,12 @@
     "./icons/vite": {
       "types": "./dist/icons/vite.d.ts",
       "default": "./dist/icons/vite.mjs"
+    },
+    "./logos/cods-logo.svg": {
+      "default": "./dist/logos/cods-logo.svg"
+    },
+    "./logos/NOTICE.md": {
+      "default": "./dist/logos/NOTICE.md"
     }
   },
   "scripts": {
