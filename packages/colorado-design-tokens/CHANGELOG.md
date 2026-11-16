@@ -1,11 +1,14 @@
 # @coloradodigitalservice/colorado-design-tokens
 
-## 0.2.24
+## 0.2.25
 
 ### Patch Changes
 
-- b19142d: Add package license files and bundled third-party asset notices.
-- Exclude Museo Slab from distribution and document optional consumer-licensed heading fonts; include MIT metadata and third-party notices.
+- Add MIT package metadata and the State of Colorado license file.
+
+## 0.2.24
+
+No changes in this release.
 
 ## 0.2.23
 

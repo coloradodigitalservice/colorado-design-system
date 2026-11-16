@@ -18,4 +18,4 @@ Phosphor Regular icons are MIT licensed; the complete notice is included in [`..
 
 ## State marks
 
-No State logo artwork is bundled in this package. The CoDS MIT license does not grant trademark rights; confirm ownership and redistribution terms before adding State marks.
+The package includes the State-owned and trademarked Colorado Design System logo. The project lead reported the State logo approver's email confirmation that this supplied artwork may be redistributed in the public documentation site, package, and release archives. Keep the adjacent [`../logos/NOTICE.md`](../logos/NOTICE.md) with the artwork and follow the [State branding guidance](https://dcs.colorado.gov/ids/state-branding). CoDS's MIT license does not grant a general trademark license; additional State marks require their own approval.

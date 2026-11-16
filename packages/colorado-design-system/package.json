@@ -1,6 +1,6 @@
 {
   "name": "@coloradodigitalservice/colorado-design-system",
-  "version": "0.2.24",
+  "version": "0.2.25",
   "license": "MIT",
   "private": true,
   "repository": {
@@ -57,6 +57,12 @@
     "./icons/vite": {
       "types": "./dist/icons/vite.d.ts",
       "default": "./dist/icons/vite.mjs"
+    },
+    "./logos/cods-logo.svg": {
+      "default": "./dist/logos/cods-logo.svg"
+    },
+    "./logos/NOTICE.md": {
+      "default": "./dist/logos/NOTICE.md"
     }
   },
   "scripts": {

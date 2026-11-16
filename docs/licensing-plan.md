@@ -4,14 +4,14 @@ Tracks CODS-P2-009 / Jira CDS-107. Do not publish packages or release archives c
 
 ## Decisions and answers
 
-| Item                                     | Status    | Answer / evidence                                                                                                                                                                                                                                                    |
-| ---------------------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Repository and published-package license | Confirmed | Client approval reported by the project owner on 2026-10-12: MIT for the repository and both published packages.                                                                                                                                                     |
-| Copyright holder and exact notice text   | Confirmed | Direction received: `Copyright © 2026 State of Colorado`.                                                                                                                                                                                                            |
-| Contributions from Aten                  | Confirmed | No separate contributor agreement is required; Aten's contributions are covered under an existing contract.                                                                                                                                                          |
-| Museo Slab redistribution                | Excluded  | On 2026-11-13 the project owner reported the client's inability to procure redistribution rights and request for consumer instructions, and approved optional consumer-supplied Museo Slab with the existing h1 fallback. No font binary or loading rule is shipped. |
-| Third-party notice requirements          | Recorded  | Open Sans and Source Code Pro OFL texts, the pinned USWDS license map and Apache text, and Phosphor's MIT notice are included in package output. Museo Slab is excluded.                                                                                             |
-| Logo ownership and redistribution        | Excluded  | No State logo artwork is tracked or bundled in this checkout. Rights must be confirmed before artwork is introduced; coordinate with CODS-P2-008. This is not a confirmation of trademark or redistribution rights.                                                  |
+| Item                                     | Status                         | Answer / evidence                                                                                                                                                                                                                                                                                                            |
+| ---------------------------------------- | ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Repository and published-package license | Confirmed                      | Client approval reported by the project owner on 2026-10-12: MIT for the repository and both published packages.                                                                                                                                                                                                             |
+| Copyright holder and exact notice text   | Confirmed                      | Direction received: `Copyright © 2026 State of Colorado`.                                                                                                                                                                                                                                                                    |
+| Contributions from Aten                  | Confirmed                      | No separate contributor agreement is required; Aten's contributions are covered under an existing contract.                                                                                                                                                                                                                  |
+| Museo Slab redistribution                | Excluded                       | On 2026-11-13 the project owner reported the client's inability to procure redistribution rights and request for consumer instructions, and approved optional consumer-supplied Museo Slab with the existing h1 fallback. No font binary or loading rule is shipped.                                                         |
+| Third-party notice requirements          | Recorded                       | Open Sans and Source Code Pro OFL texts, the pinned USWDS license map and Apache text, and Phosphor's MIT notice are included in package output. Museo Slab is excluded.                                                                                                                                                     |
+| Logo ownership and redistribution        | Confirmed for supplied artwork | The project lead reported the State logo approver's email confirmation that the supplied Colorado Design System logo may be redistributed in the public documentation site, package, and release archives; see the [Logos guidance](../apps/web/src/content/docs/logos.md). This does not grant a general trademark license. |
 
 ### USWDS font research
 
@@ -61,18 +61,26 @@ The [Typography guide](../apps/web/src/content/docs/typography.md) directs consu
 - [x] Package dry-run confirms the pinned USWDS license map and full Apache 2.0 text are retained; USWDS icons are excluded in favor of Phosphor.
 - [x] Both package dry-runs include the package-root MIT `LICENSE` file.
 - [x] Museo Slab is removed under the approved optional-consumer-font/existing-fallback decision; acquisition and setup instructions are provided.
-- [x] Rebuilt package tarballs include the required notices and exclude Museo Slab and State logo artwork.
+- [x] Rebuilt package tarballs include the required notices and approved logo artwork and exclude Museo Slab.
 - [x] Both published package manifests declare MIT.
-- [x] State logo artwork is not included; rights confirmation remains a prerequisite for adding it.
+- [x] The supplied State logo's redistribution approval and trademark notice are recorded; additional State marks require their own approval.
 - [x] ADR-002 and ADR-003 link to the decision and contain no resolved open licensing questions.
 - [ ] Final release rehearsal verifies manifests and archive contents against the confirmed decisions after commit approval.
 
-## Validation on 2026-11-13
+## Validation on 2026-11-13 (before the logo merge)
 
-- `main` was merged into CODS-P2-009 with `--no-commit`; package-version and packaged-asset-test conflicts were resolved while retaining current icon handling and licensing notices. The merge commit is pending project-owner approval.
-- Both packages are prepared at `0.2.24` using Changesets, without committing or publishing.
+- `main` was merged into CODS-P2-009 with `--no-commit`; package-version and packaged-asset-test conflicts were resolved while retaining current icon handling and licensing notices. That merge was subsequently committed.
+- Both packages were prepared at `0.2.24` using Changesets. This draft version was later superseded when `main` released `0.2.24` for the Logos foundation.
 - Workspace checks, formatting, lint, typecheck, token drift checks, the complete workspace build, fixture-output checks, and static-consumer checks passed.
 - All 13 packaged-asset integration tests passed. All 16 selected browser tests passed across Chromium, Firefox, WebKit, and Storybook, including the new guide's smoke/axe checks, bundled-font loading, absence of an automatic Museo Slab request, and optional consumer-font loading using an OFL font as a test probe.
 - Interactive Firefox inspection at 320px verified the existing h1 family/weight, no Museo Slab face or request, no horizontal page overflow, and no console errors.
 - Both `pnpm pack --dry-run --json` inventories and actual local tarballs were inspected: MIT metadata and package-root license texts match, core depends on tokens `0.2.24`, all font/USWDS/Phosphor notices are present, and no Museo Slab binary or loading rule is included. The optional family name remains in CSS and tokens. The USWDS generic `logo-img.png` placeholder is not State logo artwork.
-- No commit, push, tag, publication, Jira update, or other outbound message was made. Full release-manifest/checksum/archive rehearsal remains pending an approved commit; the clean-source release gate was not bypassed.
+- At the time of those checks, no commit, push, tag, publication, Jira update, or other outbound message was made. Full release-manifest/checksum/archive rehearsal remains pending a clean committed source; the release gate was not bypassed.
+
+## Validation on 2026-11-16
+
+- Merged the Logos foundation from `main` without committing, retained its `0.2.24` changelog entries, and regenerated the licensing release as `0.2.25` for both packages.
+- Workspace checks, formatting, lint, typecheck, token drift checks, the complete workspace build, fixture-output checks, and static-consumer checks passed. All 41 selected packaged-asset and release-readiness tests passed.
+- All 28 selected browser tests passed across Chromium, Firefox, WebKit, and Storybook, covering the supplied logo and notice, Museo Slab fallback and optional consumer font, and the Logos and Typography pages.
+- Actual local package tarballs contain the MIT license metadata, bundled font and third-party notices, and the unmodified approved logo and its trademark notice. The design-system package depends on tokens `0.2.25`; no Museo Slab binary or loading rule is included.
+- Final release-manifest/checksum/archive rehearsal remains pending a clean committed source.
