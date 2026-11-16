@@ -198,6 +198,17 @@ so the visited-link rule is verified by reading the compiled rule: the last
 focused trigger's ring and its forced-colors system highlight. Build the design
 system (`pnpm build`) before running it. See [ADR-007](../docs/adrs/007-cascade-layer-order.md).
 
+The documentation shell renders `<main id="main-content" class="cods-docs-main"
+tabindex="-1">` as the skip link's destination. The negative tabindex is
+intentional: it lets the skip link move keyboard and screen-reader context into
+the content without adding the landmark to the Tab order. Because USWDS draws a
+ring on every focused `[tabindex]` element, `site.css` suppresses the outline on
+`.cods-docs-main:focus` only. Never remove the tabindex to hide the ring, and
+never widen the suppression to descendants. `web-shell-focus.spec.ts` guards this
+contract: pointer clicks and skip-link activation leave no container ring, the
+skip link and the next Tab stop inside main keep visible indicators (including in
+Chromium's forced-colors emulation), and main keeps `tabindex="-1"`.
+
 ## Visual regression conventions
 
 Use `await expect(page.getByRole(...)).toHaveScreenshot('descriptive-state.png')`

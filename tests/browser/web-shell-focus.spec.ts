@@ -66,7 +66,7 @@ for (const path of routes) {
     const main = page.locator('main');
     await skipToMain(page, browserName);
     await expectNoRing(main);
-    await expect(main).not.toHaveAttribute('tabindex', '0');
+    await expect(main).toHaveAttribute('tabindex', '-1');
     await expect(main).toBeInViewport();
 
     // The next Tab continues inside main instead of restarting in the header,
