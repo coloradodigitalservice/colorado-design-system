@@ -1,10 +1,35 @@
 # @coloradodigitalservice/colorado-design-system
 
-## 0.2.22
+## 0.2.24
 
 ### Patch Changes
 
 - f3ddcd7: Add an experimental in-page navigation component with authored jump links and current-section highlighting.
+- @coloradodigitalservice/colorado-design-tokens@0.2.24
+
+## 0.2.23
+
+### Patch Changes
+
+- Add an experimental Footer with Full and Compact variants, a documentation
+  page, and a site-wide Compact footer. Align the documentation site's header,
+  content, and footer within a 1280px container.
+
+  Support a variable number of Full footer groups and responsive disclosures.
+  Match Footer colors to the design's semantic tokens, use meaningful landmark
+  names, correct mobile separators and indentation, and stack legal links below
+  640px.
+
+- @coloradodigitalservice/colorado-design-tokens@0.2.23
+
+## 0.2.22
+
+### Patch Changes
+
+- b39882b: BREAKING: Replace the curated icon list and catalog with the full Phosphor
+  Regular sprite, a compact ID index, and source-driven sprite and CSS asset
+  selection. Consumers must update catalog parsing and any per-icon SVG imports
+  that are not required by the packaged component CSS.
 - @coloradodigitalservice/colorado-design-tokens@0.2.22
 
 ## 0.2.21

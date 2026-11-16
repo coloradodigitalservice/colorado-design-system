@@ -1,7 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import '@coloradodigitalservice/colorado-design-system/styles.css';
 import InPageAlertExamples from '../components/InPageAlertExamples.astro';
 import SiteAlertExamples from '../components/SiteAlertExamples.astro';
 import CheckboxExamples from '../components/CheckboxExamples.astro';
@@ -15,8 +14,8 @@ import CardExamples from '../components/CardExamples.astro';
 import LinkExamples from '../components/LinkExamples.astro';
 import DividerExamples from '../components/DividerExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
-import IconCatalog from '../components/IconCatalog.astro';
 import IconExamples from '../components/IconExamples.astro';
+import FooterExamples from '../components/FooterExamples.astro';
 import InputExamples from '../components/InputExamples.astro';
 import IconListExamples from '../components/IconListExamples.astro';
 import HeroExamples from '../components/HeroExamples.astro';
@@ -62,6 +61,16 @@ const { Content } = await render(entry);
         <AccordionExamples />
       </>
     )}
+    {entry.id === 'footer' && (
+      <>
+        <p>
+          Footer provides full and compact Colorado-themed site navigation. Its
+          maturity is <strong>experimental</strong> in the <code>0.x</code>{' '}
+          development series.
+        </p>
+        <FooterExamples />
+      </>
+    )}
     {entry.id === 'breadcrumbs' && <BreadcrumbsExamples />}
     {entry.id === 'in-page-navigation' && <InPageNavigationExamples />}
     {entry.id === 'radio' && <RadioExamples />}
@@ -94,6 +103,7 @@ const { Content } = await render(entry);
       entry.id === 'radio' ||
       entry.id === 'site-alert' ||
       entry.id === 'accordion' ||
+      entry.id === 'footer' ||
       entry.id === 'breadcrumbs' ||
       entry.id === 'link' ||
       entry.id === 'checkbox' ||
@@ -119,7 +129,6 @@ const { Content } = await render(entry);
     {entry.id === 'in-page-alert' && <InPageAlertExamples mode="remaining" />}
     {entry.id === 'button' && <ButtonExamples mode="remaining" />}
     {entry.id === 'icon' && <IconExamples />}
-    {entry.id === 'icon' && <IconCatalog />}
     {entry.id === 'site-alert' && <SiteAlertExamples mode="remaining" />}
   </article>
 </BaseLayout>

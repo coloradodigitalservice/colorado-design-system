@@ -9,6 +9,7 @@ import hero from '@coloradodigitalservice/colorado-design-system/metadata/hero.j
 import select from '@coloradodigitalservice/colorado-design-system/metadata/select.json';
 import divider from '@coloradodigitalservice/colorado-design-system/metadata/divider.json';
 import accordion from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
+import footer from '@coloradodigitalservice/colorado-design-system/metadata/footer.json';
 import link from '@coloradodigitalservice/colorado-design-system/metadata/link.json';
 
 import radio from '@coloradodigitalservice/colorado-design-system/metadata/radio.json';
@@ -22,6 +23,7 @@ interface Props {
   component:
     | 'site-alert'
     | 'accordion'
+    | 'footer'
     | 'breadcrumbs'
     | 'in-page-alert'
     | 'link'
@@ -43,6 +45,7 @@ interface Props {
 const metadata = {
   'site-alert': siteAlert,
   accordion,
+  footer,
   breadcrumbs,
   'in-page-alert': inPageAlert,
   link,
@@ -64,7 +67,9 @@ const repository =
   'https://github.com/coloradodigitalservice/colorado-design-system/tree/main/packages/colorado-design-system/src/components';
 const source = `${repository}/${metadata.name}`;
 const evidence = `${source}/accessibility/${metadata.name}.evidence.md`;
-const upstream = `https://designsystem.digital.gov/components/${metadata.uswdsEquivalent}/`;
+const upstream = metadata.uswdsEquivalent
+  ? `https://designsystem.digital.gov/components/${metadata.uswdsEquivalent}/`
+  : undefined;
 ---
 
 <section class="cods-docs-summary" aria-labelledby="component-summary-heading">
@@ -85,7 +90,7 @@ const upstream = `https://designsystem.digital.gov/components/${metadata.uswdsEq
     <div>
       <dt>Upstream</dt>
       <dd>
-        {metadata.uswdsEquivalent ? (
+        {upstream ? (
           <>
             <a href={upstream}>USWDS {metadata.uswdsEquivalent}</a>, themed
           </>
