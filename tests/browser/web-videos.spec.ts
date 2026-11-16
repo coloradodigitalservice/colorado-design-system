@@ -3,9 +3,6 @@ import { test, expect, expectAccessible } from './fixtures.js';
 test('video examples have accessible media markup and fit narrow screens', async ({
   page,
 }, testInfo) => {
-  // The embedded example points at a real third-party player. Block it so the
-  // wrapper assertions below never depend on a network fetch.
-  await page.route('https://player.vimeo.com/**', (route) => route.abort());
   await page.setViewportSize({ width: 320, height: 800 });
   await page.goto('/videos/');
   const videos = page.locator('[data-cods-fixture-state] video');
@@ -23,6 +20,10 @@ test('video examples have accessible media markup and fit narrow screens', async
     'src',
     /^https:\/\/player\.vimeo\.com\/video\/\d+\?.*\bdnt=1\b/,
   );
+  await providerEmbed.scrollIntoViewIfNeeded();
+  await expect(
+    page.frameLocator('[data-cods-fixture-state="embed"] iframe').locator('p'),
+  ).toHaveText('Mock video player');
   const standIn = page.locator(
     '[data-cods-fixture-state="embed-local-stand-in"] iframe',
   );
