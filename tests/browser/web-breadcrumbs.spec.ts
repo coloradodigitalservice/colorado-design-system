@@ -2,6 +2,8 @@ import { routeBuiltFiles } from './built-files.js';
 import { readFileSync } from 'node:fs';
 import { test, expect, expectAccessible } from './fixtures.js';
 
+const preview = (name: string) => `[data-cods-docs-preview-state="${name}"]`;
+
 test('decorative separators load the shared Phosphor caret at the original size', async ({
   page,
 }) => {
@@ -53,12 +55,31 @@ test('decorative separators load the shared Phosphor caret at the original size'
   expect(matches).toBe(true);
 });
 
-test('ordered ancestors end with an unlinked current page and copyable canonical markup', async ({
+test('breadcrumbs page follows the component page outline', async ({
   page,
 }, testInfo) => {
   await page.goto('/breadcrumbs/');
-  const trails = page.locator('.cods-breadcrumbs');
-  await expect(trails).toHaveCount(9);
+  const main = page.locator('main');
+  expect(await main.locator('h2').allTextContents()).toEqual([
+    'Component preview',
+    'Component code',
+    'Component status',
+    'Guidance',
+    'Specifications',
+  ]);
+  const subheadings = await main.locator('h3').allTextContents();
+  for (const heading of [
+    'When to use',
+    'Accessibility for breadcrumbs',
+    'Variants and elements',
+    'Narrow screens and long trails',
+    'Variable settings',
+  ])
+    expect(subheadings).toContain(heading);
+  await expect(page.locator('[data-cods-docs-preview-state]')).toHaveCount(3);
+  // Every previewed trail is a named list ending in an unlinked current page.
+  const trails = page.locator('[data-cods-docs-preview] .cods-breadcrumbs');
+  await expect(trails).toHaveCount(3);
   for (const trail of await trails.all()) {
     await expect(trail).toHaveAccessibleName(/.+/);
     await expect(trail.locator('ol')).toHaveCount(1);
@@ -70,27 +91,13 @@ test('ordered ancestors end with an unlinked current page and copyable canonical
       'page',
     );
   }
-  const single = page.locator(
-    '[data-cods-fixture-state="single-level"] .cods-breadcrumbs',
-  );
-  await expect(single.getByRole('link')).toHaveCount(0);
-  expect(
-    await single
-      .locator('li')
-      .evaluate((el) => getComputedStyle(el, '::after').content),
-  ).toBe('none');
-  await page.getByText('View default HTML', { exact: true }).click();
-  const source = page.getByRole('region', { name: 'Default Breadcrumbs HTML' });
-  expect(
-    await source.evaluate((el) => {
-      const template = document.createElement('template');
-      template.innerHTML = el.textContent ?? '';
-      return (
-        template.content.querySelector('.cods-breadcrumbs')?.outerHTML ===
-        document.querySelector('.cods-breadcrumbs')?.outerHTML
-      );
-    }),
-  ).toBe(true);
+  const status = page.locator('[data-cods-docs-status]');
+  await expect(status).toContainText('experimental');
+  await expect(
+    status.getByRole('link', { name: 'USWDS 3.14.0 Breadcrumbs' }),
+  ).toBeVisible();
+  await expect(main).not.toContainText(/right-to-left|localization/i);
+  await expect(page.locator('[data-cods-fixture-state]')).toHaveCount(0);
   await expectAccessible(page, testInfo);
 });
 
@@ -99,9 +106,7 @@ test('mobile shows the immediate parent with a localized name and mirrored caret
 }) => {
   await page.setViewportSize({ width: 320, height: 800 });
   await page.goto('/breadcrumbs/');
-  const trail = page.locator(
-    '[data-cods-fixture-state="default"] .cods-breadcrumbs',
-  );
+  const trail = page.locator(`${preview('default')} .cods-breadcrumbs`);
   const parent = trail.getByRole('link');
   await expect(parent).toHaveCount(1);
   await expect(parent).toHaveAccessibleName('Previous level: Services');
@@ -127,22 +132,12 @@ test('mobile shows the immediate parent with a localized name and mirrored caret
   expect(mobileCaret.mask).toBe(mobileCaret.separator);
   expect(mobileCaret.color).not.toBe('rgba(0, 0, 0, 0)');
   await page.emulateMedia({ forcedColors: 'none' });
-  await expect(
-    page.locator(
-      '[data-cods-fixture-state="single-level"] [aria-current="page"]',
-    ),
-  ).toBeVisible();
-  const rtl = page.locator('[data-cods-fixture-state="rtl"]');
-  await expect(rtl.getByRole('link')).toHaveAccessibleName(/المستوى السابق/);
-  const caret = (selector: string) =>
-    page
-      .locator(selector)
+  // Right-to-left mirroring and single-level trails: storybook-breadcrumbs.
+  expect(
+    await trail
       .locator('li:nth-last-child(2)')
-      .evaluate((el) => getComputedStyle(el, '::before').transform);
-  expect(await caret('[data-cods-fixture-state="default"]')).toBe(
-    'matrix(-1, 0, 0, 1, 0, 0)',
-  );
-  expect(await caret('[data-cods-fixture-state="rtl"]')).toBe('none');
+      .evaluate((el) => getComputedStyle(el, '::before').transform),
+  ).toBe('matrix(-1, 0, 0, 1, 0, 0)');
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= innerWidth,
@@ -159,7 +154,7 @@ test('hover changes the light link and removes underlines on both surfaces', asy
 }) => {
   await page.goto('/breadcrumbs/');
   for (const state of ['default', 'inverse']) {
-    const link = page.locator(`[data-cods-fixture-state="${state}"] a`).first();
+    const link = page.locator(`${preview(state)} a`).first();
     await link.hover();
     await expect(link).toHaveCSS('text-decoration-line', 'none');
     await expect(link).toHaveCSS(
@@ -258,7 +253,7 @@ test('all ancestors and current text remain available without CSS and JavaScript
       await expect(item).toBeVisible();
     await expect(
       page.locator('.cods-breadcrumbs [aria-current="page"]'),
-    ).toHaveCount(9);
+    ).toHaveCount(3);
   } finally {
     await context.close();
   }
@@ -268,12 +263,8 @@ test('light and dark trails retain readable keyboard focus and inherited line he
   page,
 }, testInfo) => {
   await page.goto('/breadcrumbs/');
-  const light = page.locator(
-    '[data-cods-fixture-state=default] .cods-breadcrumbs',
-  );
-  const dark = page.locator(
-    '[data-cods-fixture-state=inverse] .cods-breadcrumbs',
-  );
+  const light = page.locator(`${preview('default')} .cods-breadcrumbs`);
+  const dark = page.locator(`${preview('inverse')} .cods-breadcrumbs`);
   expect(await light.evaluate((el) => getComputedStyle(el).lineHeight)).toBe(
     await light.evaluate(
       (el) => getComputedStyle(el.parentElement!).lineHeight,
