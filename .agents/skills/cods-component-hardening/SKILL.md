@@ -30,7 +30,7 @@ The developer first pass on a Phase 4 hardening ticket. The shared requirements 
 4. **Audit the tests** using the [test audit guide](./references/test-audit.md). Record before/after counts and a keep/consolidate/remove reason for each change.
 5. **Record evidence.** Add a dated `## CODS-P4-0xx hardening — <date>` section at the top of the evidence file using the [evidence and handoff templates](./references/handoff.md), including the pending manual QA matrix built from the ticket's focus checks.
 6. **Verify.** Run the component's unit tests, `pnpm build`, the affected browser specs (including the shared per-component specs), `pnpm lint`, `pnpm typecheck`, `pnpm format:check`, and `pnpm --filter @cods-internal/web validate`. Record exact results. If a browser cannot launch locally, say so and rely on CI for it.
-7. **Hand off.** Push, write the PR description, and post the Jira handoff comment from the [templates](./references/handoff.md). Ask the user before marking the PR ready or posting to Jira.
+7. **Hand off.** Push and write the PR description. Once the Netlify deploy preview is live, draft the short QA update for the Jira ticket from the [templates](./references/handoff.md), with the preview link. Ask the user before marking the PR ready or posting to Jira.
 
 ## Reference
 

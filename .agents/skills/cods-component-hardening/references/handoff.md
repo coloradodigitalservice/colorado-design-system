@@ -63,17 +63,22 @@ merge until QA, State domain acceptance, and client sign-off are recorded.
 
 ## Jira handoff comment
 
-Post on the component ticket after the user approves:
+Post a short, plain-language update on the component's Jira ticket so the QA
+reviewer can start without reading the PR. Keep it to a few lines: what
+changed, where to look, and what to check. Detailed results stay in the PR
+and the evidence file. Wait for the Netlify deploy preview to finish so the
+link works, and post only after the user approves.
 
 ```markdown
-**Developer pass complete: content/web and test audit** (handoff to Aten Accessibility/QA)
+Ready for QA. The <Component> page now follows the new component page layout
+(preview, code, status, guidance, specifications), and its tests were cleaned
+up (<before> → <after> browser test runs, no coverage lost).
 
-- PR: <url> (commit `<sha>`)
 - Preview: https://deploy-preview-<pr>--coloradodesignsystem.netlify.app/<name>/
+- PR: <url>
 
-**Content** …
-**Test audit** <table>
-**Results** …
-**Open items** …
-**Next owner:** Aten Accessibility/QA.
+Please run the manual checklist in `<name>.evidence.md` (<two or three of the
+ticket's focus checks>). Open question for Design: <if any>.
 ```
+
+Add a Storybook link for all states once hosted Storybook previews exist (CDS-160); until then QA can run it locally with `pnpm dev:storybook`. Reassign the ticket to the QA reviewer only if the user asks.
