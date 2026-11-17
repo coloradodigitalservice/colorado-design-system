@@ -1,5 +1,11 @@
 # @coloradodigitalservice/colorado-design-tokens
 
+## 0.2.25
+
+### Patch Changes
+
+- Add MIT package metadata and the State of Colorado license file.
+
 ## 0.2.24
 
 No changes in this release.
