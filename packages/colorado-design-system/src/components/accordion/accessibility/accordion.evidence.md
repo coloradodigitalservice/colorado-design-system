@@ -57,6 +57,12 @@ Decisions:
   highlight tests (identical assertions remain in Storybook). Accordion's
   Summary/Anatomy and link/320px entries in `web-component-docs.spec.ts` were
   replaced by a page-outline test; links are also checked by the build.
+- **Updated to the new page rule:** `web-shared-fixtures.spec.ts` checked
+  that every fixture state's code appeared on the page, a Phase 3 rule that
+  conflicts with the curated preview. On pages with a curated preview it now
+  checks the status maturity line and that the preview code block exactly
+  matches the previewed fixture states, using the same helper as the build
+  check. Pages without a curated preview keep the original per-state check.
 - **Kept on the web page:** page outline/status/axe at 320px, no-JS/no-CSS
   readability, delayed-enhancement focus (a past defect), and the two
   `setAccordionExpanded` focus-restoration regressions against the bundled
