@@ -5,6 +5,101 @@
 - Automated implementation review: Codex, 2026-10-01. Manual accessibility lead acceptance and G2 approval are pending.
 - Basis: pinned USWDS 3.14.0 markup and toggle/exclusivity behavior, wrapped with the CoDS per-root lifecycle, events, and focus safety. Upstream accessibility claims do not establish acceptance of this wrapper.
 
+## CODS-P4-011 hardening — 2026-11-17
+
+Developer first pass for Phase 4 (CDS-125). Manual QA, State domain acceptance,
+and client sign-off are pending; this section records only the content and
+test-audit work and its automated results.
+
+### Documentation page
+
+`apps/web` `/accordion/` now follows the CoDS Website Content outline: title and
+description, a curated preview (Bordered, Borderless, White) with the exact
+markup that renders it, Component Status, Guidance (When to use with a variant
+table, Writing, Accessibility), and Specifications (classes, attributes, the
+multiple-open option, controller setup and API, variable settings,
+limitations). The full fixture catalogue and public localization/RTL guidance
+were removed from the page. The full fixture, including the Spanish, RTL, long
+content, and disabled states, remains in Storybook and in the browser tests
+below. The page status does not claim WCAG conformance; it states that axe
+checks pass and manual review is in progress. `check-docs-output.mjs` now
+verifies that each previewed state and the preview code block match the
+canonical fixture exactly.
+
+### Test audit
+
+Counts are Playwright test runs from `config/playwright.accordion.ts` (web runs
+in Chromium, Firefox, and WebKit; Storybook in Chromium), plus Accordion's
+entries in `web-component-docs.spec.ts`.
+
+| Area                                   | Before            | After            |
+| -------------------------------------- | ----------------- | ---------------- |
+| Unit (`accordion.test.ts`)             | 19 cases          | 19 cases         |
+| `web-accordion.spec.ts`                | 11 tests × 3 = 33 | 5 tests × 3 = 15 |
+| `storybook-accordion.spec.ts`          | 12                | 14               |
+| `web-component-docs.spec.ts` Accordion | 2 tests × 3 = 6   | 0                |
+| Total browser runs                     | 51                | 29               |
+
+Decisions:
+
+- **Moved to Storybook (full fixture):** keyboard/exclusive state/focus/events,
+  multiple-open and disabled, and 320px reflow with reduced motion and forced
+  colors. These test the component, not the page, and the curated docs preview
+  no longer contains every state. All assertions were retained; the reflow check
+  now covers every fixture root, including long-content, Spanish, and RTL.
+- **Consolidated:** the Storybook interaction smoke test was a subset of the
+  moved keyboard/events test and was replaced by it. Expanded and collapsed
+  focus screenshots for visual review now attach to the Storybook focus-ring
+  test. The 12px item separation check joined the Storybook geometry test. In
+  unit tests, the missing-target and duplicate-target cases became one
+  parameterized test, which now also checks warn-once and retry for duplicates.
+- **Removed as duplicates:** the web copies of the focus-ring and forced-colors
+  highlight tests (identical assertions remain in Storybook). Accordion's
+  Summary/Anatomy and link/320px entries in `web-component-docs.spec.ts` were
+  replaced by a page-outline test; links are also checked by the build.
+- **Kept on the web page:** page outline/status/axe at 320px, no-JS/no-CSS
+  readability, delayed-enhancement focus (a past defect), and the two
+  `setAccordionExpanded` focus-restoration regressions against the bundled
+  module.
+- **Kept unchanged:** the remaining unit tests (each covers a distinct
+  lifecycle, focus, validation, or upstream-integration path), the Storybook
+  state stories, token customization, Figma geometry, borderless, and chevron
+  artwork tests.
+
+### Automated results
+
+On the CODS-P4-011 working tree, from base `528f54a`:
+
+- `pnpm exec vitest run packages/colorado-design-system/src/components/accordion`:
+  19 passed.
+- `pnpm build`: passed, including the docs output check (28 pages).
+- `pnpm exec playwright test --config config/playwright.accordion.ts`: 24
+  passed in Chromium, WebKit, and Storybook. Firefox did not launch locally
+  ("Could not find profile folder"), the same environment issue recorded on
+  2026-10-16; CI runs Firefox.
+- Preview-server run of `web-accordion`, `web-component-docs`,
+  `web-package-assets`, `storybook-accordion`, and `storybook-package-assets`
+  in Chromium, WebKit, and Storybook: 57 passed.
+- `pnpm lint`, `pnpm typecheck`, `pnpm format:check`, and `astro check`:
+  passed.
+
+### Manual matrix for Aten Accessibility/QA (pending)
+
+Review all supported variants and states on the PR preview and in Storybook.
+Record browser, assistive technology, and versions for each result.
+
+- [ ] Enter/Space toggles; focus stays on the trigger; Tab/Shift+Tab order.
+- [ ] Expanded/collapsed state announced; trigger name; heading level.
+- [ ] Header/panel relationship (`aria-controls`) and panel content reachable.
+- [ ] Focus never lands in hidden content; focus returns to the trigger when a
+      panel containing focus closes.
+- [ ] Single-open default and `data-cods-accordion-multiple` behavior.
+- [ ] Disabled trigger skipped and not operable.
+- [ ] No-JS and no-CSS readability; destroy/reinitialize lifecycle.
+- [ ] Contrast, 400% zoom / 320px reflow, narrow screens.
+- [ ] Reduced motion, Windows High Contrast / forced colors.
+- [ ] Internal localization and long-text notes (Spanish, RTL, long heading).
+
 ## Phosphor integration — 2026-10-21
 
 Updated from the shared CODS-P3-001 base containing #67. Decorative up/down masks
