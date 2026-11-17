@@ -23,10 +23,17 @@ export function init(root: HTMLElement): void {
   const panel = root.querySelector<HTMLElement>(
     '[data-cods-language-selector-panel]',
   );
+  const item = button?.closest('.usa-language__primary-item');
+  // USWDS delegates through these classes; without them the trigger would not work.
   if (
     !root.isConnected ||
     !button ||
     !panel ||
+    !button.matches('button.usa-language__link') ||
+    !panel.matches('.usa-language__submenu') ||
+    !item?.contains(panel) ||
+    !item.parentElement?.matches('.usa-language__primary') ||
+    !root.contains(item) ||
     !panel.id ||
     button.getAttribute('aria-controls') !== panel.id ||
     root.ownerDocument.getElementById(panel.id) !== panel
@@ -87,6 +94,7 @@ export function destroy(root: HTMLElement): void {
   for (const name of ['click', 'keydown', 'focusout'])
     root.removeEventListener(name, instance.sync);
   uswdsLanguageSelector.off(root);
+  readopt(root);
   instance.button.hidden = instance.buttonHidden;
   if (instance.expanded === null)
     instance.button.removeAttribute('aria-expanded');
@@ -94,4 +102,26 @@ export function destroy(root: HTMLElement): void {
   instance.panel.hidden = instance.panelHidden;
   root.removeAttribute('data-cods-language-selector-enhanced');
   instances.delete(root);
+}
+
+/**
+ * USWDS teardown clears its module-wide open-menu reference, which leaves any
+ * other open selector unable to close. Re-register that menu with USWDS: a
+ * trigger click while nothing is tracked marks it active and keeps it open.
+ * The click is stopped at its root so page listeners never see it.
+ */
+function readopt(destroyed: HTMLElement): void {
+  document
+    .querySelectorAll<HTMLElement>(
+      `${ROOT}[data-cods-language-selector-enhanced]`,
+    )
+    .forEach((root) => {
+      if (root === destroyed) return;
+      const instance = instances.get(root);
+      if (instance?.button.getAttribute('aria-expanded') !== 'true') return;
+      root.addEventListener('click', (event) => event.stopPropagation(), {
+        once: true,
+      });
+      instance.button.click();
+    });
 }

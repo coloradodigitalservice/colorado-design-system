@@ -7,7 +7,7 @@
 ## Keyboard and focus
 
 - [ ] Verify Tab and Shift+Tab order, Enter and Space activation, visible focus, Escape and focus return in Chromium, Firefox and WebKit.
-- Unit tests exercise open, Escape, focus return, idempotent initialization and restoration of the visible no-JavaScript list. These do not substitute for browser or assistive-technology checks.
+- Unit tests exercise open, Escape, focus return, idempotent initialization, restoration of the visible no-JavaScript list, independent teardown of multiple instances, and the fallback when USWDS markup is missing. These do not substitute for browser or assistive-technology checks.
 
 ## Naming and roles
 
@@ -19,6 +19,8 @@
 - [ ] Verify 400% zoom, narrow reflow, focus visibility and forced colors in all required browsers.
 - [ ] Verify long language names, mixed directions, and translations with content and accessibility reviewers.
 - No animation is authored by this component.
+- The globe icon is drawn in `ButtonText` under forced colors so it stays visible on the button. A Chromium forced-colors emulation test covers this; Windows High Contrast still needs a manual check.
+- The trigger focus indicator is a 2px white gap inside a 4px blue ring. Menu rows use the separate inset row focus style.
 
 ## Open items
 
