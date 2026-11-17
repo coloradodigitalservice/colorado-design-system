@@ -1,5 +1,9 @@
 # @coloradodigitalservice/colorado-design-tokens
 
+## 0.2.26
+
+No changes in this release.
+
 ## 0.2.25
 
 ### Patch Changes
