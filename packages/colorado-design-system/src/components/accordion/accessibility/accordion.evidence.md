@@ -35,28 +35,34 @@ entries in `web-component-docs.spec.ts`.
 | Area                                   | Before            | After            |
 | -------------------------------------- | ----------------- | ---------------- |
 | Unit (`accordion.test.ts`)             | 19 cases          | 19 cases         |
-| `web-accordion.spec.ts`                | 11 tests × 3 = 33 | 5 tests × 3 = 15 |
-| `storybook-accordion.spec.ts`          | 12                | 14               |
+| `web-accordion.spec.ts`                | 11 tests × 3 = 33 | 8 tests × 3 = 24 |
+| `storybook-accordion.spec.ts`          | 12                | 11               |
 | `web-component-docs.spec.ts` Accordion | 2 tests × 3 = 6   | 0                |
-| Total browser runs                     | 51                | 29               |
+| Total browser runs                     | 51                | 35               |
 
 Decisions:
 
-- **Moved to Storybook (full fixture):** keyboard/exclusive state/focus/events,
-  multiple-open and disabled, and 320px reflow with reduced motion and forced
-  colors. These test the component, not the page, and the curated docs preview
-  no longer contains every state. All assertions were retained; the reflow check
-  now covers every fixture root, including long-content, Spanish, and RTL.
-- **Consolidated:** the Storybook interaction smoke test was a subset of the
-  moved keyboard/events test and was replaced by it. Expanded and collapsed
-  focus screenshots for visual review now attach to the Storybook focus-ring
-  test. The 12px item separation check joined the Storybook geometry test. In
-  unit tests, the missing-target and duplicate-target cases became one
-  parameterized test, which now also checks warn-once and retry for duplicates.
-- **Removed as duplicates:** the web copies of the focus-ring and forced-colors
-  highlight tests (identical assertions remain in Storybook). Accordion's
-  Summary/Anatomy and link/320px entries in `web-component-docs.spec.ts` were
-  replaced by a page-outline test; links are also checked by the build.
+- **Kept in all three browsers (web):** keyboard/exclusive state/focus/events,
+  the Colorado focus ring (with expanded and collapsed focus screenshots for
+  visual review), and the forced-colors system highlight, now run against the
+  preview's default variant. An earlier revision of this audit moved these to
+  Storybook, which runs in Chromium only; that dropped Firefox and WebKit
+  coverage and was reverted on 2026-11-17.
+- **Moved to Storybook (states not on the page):** multiple-open and disabled,
+  and 320px reflow with reduced motion and forced colors across every fixture
+  root, including long-content, Spanish, and RTL. The curated preview no longer
+  contains these states, so they now run in Chromium only. The page-outline test
+  still checks 320px overflow for the previewed variants in all three browsers.
+- **Consolidated:** the Storybook interaction smoke test was a subset of the web
+  keyboard/events test and was removed. The 12px item separation check joined
+  the Storybook geometry test. In unit tests, the missing-target and
+  duplicate-target cases became one parameterized test, which now also checks
+  warn-once and retry for duplicates.
+- **Removed as duplicates:** the Storybook copies of the focus-ring and
+  forced-colors highlight tests (the web copies run in all three browsers).
+  Accordion's Summary/Anatomy and link/320px entries in
+  `web-component-docs.spec.ts` were replaced by a page-outline test; links are
+  also checked by the build.
 - **Updated to the new page rule:** `web-shared-fixtures.spec.ts` checked
   that every fixture state's code appeared on the page, a Phase 3 rule that
   conflicts with the curated preview. On pages with a curated preview it now
@@ -79,19 +85,18 @@ On the CODS-P4-011 working tree, from base `528f54a`:
 - `pnpm exec vitest run packages/colorado-design-system/src/components/accordion`:
   19 passed.
 - `pnpm build`: passed, including the docs output check (28 pages).
-- `pnpm exec playwright test --config config/playwright.accordion.ts`: 24
-  passed in Chromium, WebKit, and Storybook. Firefox did not launch locally
-  ("Could not find profile folder"), the same environment issue recorded on
-  2026-10-16; CI runs Firefox.
-- Preview-server run of `web-accordion`, `web-component-docs`,
-  `web-package-assets`, `storybook-accordion`, and `storybook-package-assets`
-  in Chromium, WebKit, and Storybook: 57 passed.
+- `pnpm exec playwright test --config config/playwright.accordion.ts`: 27
+  passed in Chromium, WebKit, and Storybook after the 2026-11-17 coverage
+  correction. Firefox did not launch locally ("Could not find profile
+  folder"), the same environment issue recorded on 2026-10-16; CI runs Firefox.
 - `pnpm lint`, `pnpm typecheck`, `pnpm format:check`, and `astro check`:
   passed.
 
 ### Manual matrix for Aten Accessibility/QA (pending)
 
-Review all supported variants and states on the PR preview and in Storybook.
+Review all supported variants and states on the PR preview. States not shown on
+the page (multiple open, disabled, long content, Spanish, RTL) are in the local
+Storybook (`pnpm dev:storybook`).
 Record browser, assistive technology, and versions for each result.
 
 - [ ] Enter/Space toggles; focus stays on the trigger; Tab/Shift+Tab order.

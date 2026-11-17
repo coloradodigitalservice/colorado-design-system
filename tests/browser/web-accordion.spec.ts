@@ -117,6 +117,103 @@ test('delayed enhancement preserves focus when initial state hides content', asy
   }
 });
 
+test('keyboard, exclusive state, focus, and bubbling events', async ({
+  page,
+  browserName,
+}, testInfo) => {
+  await page.goto('/accordion/');
+  const root = page.locator(defaultRoot);
+  const buttons = root.getByRole('button');
+  await expect(root).toHaveAttribute('data-cods-accordion-enhanced', '');
+  await page.evaluate(() => {
+    const events: unknown[] = [];
+    document.body.addEventListener('cods-accordion:change', (event) =>
+      events.push((event as CustomEvent).detail),
+    );
+    Object.assign(window, { accordionEvents: events });
+  });
+  await buttons.nth(1).focus();
+  await page.keyboard.press('Enter');
+  await expect(buttons.nth(0)).toHaveAttribute('aria-expanded', 'false');
+  await expect(buttons.nth(1)).toHaveAttribute('aria-expanded', 'true');
+  await expect(buttons.nth(1)).toBeFocused();
+  await expect(root.getByRole('link')).toBeVisible();
+  const tab =
+    browserName === 'webkit' && process.platform === 'darwin'
+      ? 'Alt+Tab'
+      : 'Tab';
+  await page.keyboard.press(tab);
+  await expect(root.getByRole('link')).toBeFocused();
+  await page.keyboard.press(tab === 'Alt+Tab' ? 'Alt+Shift+Tab' : 'Shift+Tab');
+  await page.keyboard.press('Space');
+  await expect(buttons.nth(1)).toHaveAttribute('aria-expanded', 'false');
+  await expect(buttons.nth(1)).toBeFocused();
+  await page.keyboard.press('Escape');
+  await expect(buttons.nth(1)).toBeFocused();
+  expect(
+    await page.evaluate(
+      () =>
+        (window as Window & { accordionEvents?: unknown[] }).accordionEvents,
+    ),
+  ).toEqual([
+    { panelId: 'accordion-default-1', expanded: false },
+    { panelId: 'accordion-default-2', expanded: true },
+    { panelId: 'accordion-default-2', expanded: false },
+  ]);
+  await expectAccessible(page, testInfo);
+});
+
+test('focused trigger shows the Colorado focus ring', async ({
+  page,
+}, testInfo) => {
+  await page.goto('/accordion/');
+  const trigger = page.locator(defaultRoot).getByRole('button').first();
+  await trigger.focus();
+  await expect(trigger).toBeFocused();
+  await expect(trigger).toHaveCSS('outline-style', 'solid');
+  await expect(trigger).toHaveCSS('outline-width', '2px');
+  await expect(trigger).toHaveCSS(
+    'box-shadow',
+    'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(23, 59, 179) 0px 0px 0px 4px',
+  );
+  // Review artifacts for manual visual QA of both focused states.
+  const example = page.locator(preview('default'));
+  await testInfo.attach('accordion-expanded-focus', {
+    body: await example.screenshot(),
+    contentType: 'image/png',
+  });
+  await page.keyboard.press('Space');
+  await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+  await expect(trigger).toBeFocused();
+  await testInfo.attach('accordion-collapsed-focus', {
+    body: await example.screenshot(),
+    contentType: 'image/png',
+  });
+});
+
+test('focused trigger uses the system highlight in forced colors', async ({
+  page,
+}) => {
+  await page.emulateMedia({ forcedColors: 'active' });
+  await page.goto('/accordion/');
+  const trigger = page.locator(defaultRoot).getByRole('button').first();
+  await trigger.focus();
+  await expect(trigger).toBeFocused();
+  const [outline, highlight] = await Promise.all([
+    trigger.evaluate((element) => getComputedStyle(element).outlineColor),
+    page.evaluate(() => {
+      const probe = document.createElement('div');
+      probe.style.color = 'Highlight';
+      document.body.append(probe);
+      const value = getComputedStyle(probe).color;
+      probe.remove();
+      return value;
+    }),
+  ]);
+  expect(outline).toBe(highlight);
+  await expect(trigger).toHaveCSS('outline-style', 'solid');
+});
+
 for (const scenario of [
   { name: 'direct collapse', panelId: 'accordion-default-2', expanded: false },
   {

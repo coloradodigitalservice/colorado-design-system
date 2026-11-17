@@ -4,13 +4,25 @@ Goal from CDS-85: keep the tests that protect distinct behavior, remove demonstr
 
 ## Where each kind of test belongs
 
-| Concern                                                                                                                                                                        | Home                                                                     |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
-| Controller state, lifecycle, events, validation                                                                                                                                | Unit tests (`<name>.test.ts`)                                            |
-| Component behavior in a real browser across **every** fixture state (keyboard, focus, multiple/disabled states, 320px reflow, forced colors, reduced motion, geometry, tokens) | `storybook-<name>.spec.ts`, using the `all-states` and per-state stories |
-| The docs page itself: outline, status, preview enhancement, axe, no-JS readability, page-load timing                                                                           | `web-<name>.spec.ts`                                                     |
+**Web specs run in Chromium, Firefox, and WebKit. Storybook specs run in
+Chromium only.** Moving a test from web to Storybook drops two browser engines,
+so only move tests that cannot run on the page.
 
-After the page shows only a curated preview, web tests that relied on fixture states missing from the page must move to Storybook with their assertions intact.
+| Concern                                                                                                                 | Home                                                                |
+| ----------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| Controller state, lifecycle, events, validation                                                                         | Unit tests (`<name>.test.ts`)                                       |
+| Engine-sensitive behavior: keyboard, focus rings, forced colors, hover, reflow, no-JS — for states shown in the preview | `web-<name>.spec.ts`, against the preview's variants                |
+| The docs page itself: outline, status, preview enhancement, axe                                                         | `web-<name>.spec.ts`                                                |
+| States the curated preview does not show (Spanish, RTL, disabled, long content, single item, and so on)                 | `storybook-<name>.spec.ts`, using `all-states` or per-state stories |
+| Geometry, tokens, and artwork checks that already live in Storybook                                                     | `storybook-<name>.spec.ts`                                          |
+
+Choose preview variants so the engine-sensitive tests keep running in all
+three browsers. When a test must move to Storybook, record in the evidence file
+that it now runs in Chromium only. When the same assertion exists in both web
+and Storybook, keep the web copy.
+
+Storybook is a development tool and is not deployed with PR previews; QA reviews
+the docs page on the Netlify preview.
 
 ## Shared specs that cover every component
 
@@ -25,7 +37,7 @@ Check these on every ticket; Accordion missed the first one at first.
 
 - **Keep:** distinct behavior or state, keyboard/focus, accessibility, lifecycle and no-JS, visual/geometry, and any test that guards a past defect (look for review comments in the test or evidence file).
 - **Consolidate:** the same scenario with different inputs (use `it.each` or a loop); a smoke test fully contained in a fuller test; screenshot-only "visual review" attachments (fold into the nearest asserting test).
-- **Remove:** identical assertions on identical markup in two places (for example the same focus-ring test in web and Storybook). Keep the copy closest to the component.
+- **Remove:** identical assertions on identical markup in two places (for example the same focus-ring test in web and Storybook). Keep the web copy so all three browsers still run it.
 - **Do not:** loosen selectors, tolerances, or axe rules; delete a past-defect regression; or cap component tests.
 
 ## Counting

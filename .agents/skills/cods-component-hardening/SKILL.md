@@ -13,7 +13,7 @@ The developer first pass on a Phase 4 hardening ticket. The shared requirements 
 - **Content comes from sources, not invention.** The page outline comes from the CoDS Website Content document. Component copy comes from the Phase 3 ticket's Figma link and the existing page. If Figma copy is not available, reuse the existing reviewed guidance and list "confirm against Figma" as an open item. Do not invent design rules or do's and don'ts.
 - **Status must be evidence-backed.** Never write "passed WCAG 2.2" or any conformance claim. State what automated checks pass and that manual review is pending, until a person records otherwise.
 - **Do not change the component contract.** No new variants, classes, custom properties, API, or metadata maturity changes. Fix in-scope defects only.
-- **Never weaken a test to make it pass or to reduce the count.** Moving, merging, or parameterizing is fine when every assertion survives. Keeping every test with a reason is a valid audit result.
+- **Never weaken a test or drop browser coverage to make it pass or to reduce the count.** Storybook runs in Chromium only; web specs run in three browsers. Moving, merging, or parameterizing is fine when every assertion survives. Keeping every test with a reason is a valid audit result.
 - **Screen-reader results and sign-off come from people.** Prepare the manual matrix; leave it unchecked.
 - **No release steps.** Do not run changesets, `release:version`, or tags. The `repository` release-readiness check is expected to fail on these PRs.
 - Branch is the canonical ticket ID, for example `CODS-P4-013`. Branch from the latest `main` once the shared page components are merged (they arrived with CODS-P4-011); until then, branch from `CODS-P4-011`.
@@ -30,7 +30,7 @@ The developer first pass on a Phase 4 hardening ticket. The shared requirements 
 4. **Audit the tests** using the [test audit guide](./references/test-audit.md). Record before/after counts and a keep/consolidate/remove reason for each change.
 5. **Record evidence.** Add a dated `## CODS-P4-0xx hardening — <date>` section at the top of the evidence file using the [evidence and handoff templates](./references/handoff.md), including the pending manual QA matrix built from the ticket's focus checks.
 6. **Verify.** Run the component's unit tests, `pnpm build`, the affected browser specs (including the shared per-component specs), `pnpm lint`, `pnpm typecheck`, `pnpm format:check`, and `pnpm --filter @cods-internal/web validate`. Record exact results. If a browser cannot launch locally, say so and rely on CI for it.
-7. **Hand off.** Push and write the PR description. Once the Netlify deploy preview is live, draft the short QA update for the Jira ticket from the [templates](./references/handoff.md), with the preview link. Ask the user before marking the PR ready or posting to Jira.
+7. **Hand off.** Push and write the PR description. Once the Netlify deploy preview is live, draft the short "ready for review and handoff" update for the Jira ticket from the [templates](./references/handoff.md), with the preview link. If the ticket is assigned to Eric Swanson, reassign it to Phil (Philip Stier). Ask the user before marking the PR ready, posting to Jira, or reassigning.
 
 ## Reference
 

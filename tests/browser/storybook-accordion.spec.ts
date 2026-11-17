@@ -11,52 +11,6 @@ const story = (id: string) =>
 const state = (name: string) =>
   `#storybook-root [data-cods-fixture-state="${name}"]`;
 
-test('keyboard, exclusive state, focus, and bubbling events', async ({
-  page,
-  browserName,
-}, testInfo) => {
-  await page.goto(story('default'));
-  const root = page.locator('#storybook-root [data-cods-accordion]');
-  const buttons = root.getByRole('button');
-  await expect(root).toHaveAttribute('data-cods-accordion-enhanced', '');
-  await page.evaluate(() => {
-    const events: unknown[] = [];
-    document.body.addEventListener('cods-accordion:change', (event) =>
-      events.push((event as CustomEvent).detail),
-    );
-    Object.assign(window, { accordionEvents: events });
-  });
-  await buttons.nth(1).focus();
-  await page.keyboard.press('Enter');
-  await expect(buttons.nth(0)).toHaveAttribute('aria-expanded', 'false');
-  await expect(buttons.nth(1)).toHaveAttribute('aria-expanded', 'true');
-  await expect(buttons.nth(1)).toBeFocused();
-  await expect(root.getByRole('link')).toBeVisible();
-  const tab =
-    browserName === 'webkit' && process.platform === 'darwin'
-      ? 'Alt+Tab'
-      : 'Tab';
-  await page.keyboard.press(tab);
-  await expect(root.getByRole('link')).toBeFocused();
-  await page.keyboard.press(tab === 'Alt+Tab' ? 'Alt+Shift+Tab' : 'Shift+Tab');
-  await page.keyboard.press('Space');
-  await expect(buttons.nth(1)).toHaveAttribute('aria-expanded', 'false');
-  await expect(buttons.nth(1)).toBeFocused();
-  await page.keyboard.press('Escape');
-  await expect(buttons.nth(1)).toBeFocused();
-  expect(
-    await page.evaluate(
-      () =>
-        (window as Window & { accordionEvents?: unknown[] }).accordionEvents,
-    ),
-  ).toEqual([
-    { panelId: 'accordion-default-1', expanded: false },
-    { panelId: 'accordion-default-2', expanded: true },
-    { panelId: 'accordion-default-2', expanded: false },
-  ]);
-  await expectAccessible(page, testInfo, '#storybook-root');
-});
-
 test('multiple-open and disabled states across the full fixture', async ({
   page,
 }, testInfo) => {
@@ -131,69 +85,6 @@ test('unenhanced Storybook story uses the complete package fixture', async ({
 });
 
 const defaultStory = story('default');
-
-test('focused accordion trigger shows the Colorado focus ring', async ({
-  page,
-  browserName,
-}, testInfo) => {
-  await page.goto(defaultStory);
-  const trigger = page
-    .locator('#storybook-root [data-cods-accordion]')
-    .getByRole('button')
-    .first();
-  await expect(trigger).toBeVisible();
-  await page.keyboard.press(
-    browserName === 'webkit' && process.platform === 'darwin'
-      ? 'Alt+Tab'
-      : 'Tab',
-  );
-  await expect(trigger).toBeFocused();
-  await expect(trigger).toHaveCSS('outline-style', 'solid');
-  await expect(trigger).toHaveCSS('outline-width', '2px');
-  await expect(trigger).toHaveCSS(
-    'box-shadow',
-    'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(23, 59, 179) 0px 0px 0px 4px',
-  );
-  // Review artifacts for manual visual QA of both focused states.
-  const example = page.locator('#storybook-root');
-  await testInfo.attach('accordion-expanded-focus', {
-    body: await example.screenshot(),
-    contentType: 'image/png',
-  });
-  await page.keyboard.press('Space');
-  await expect(trigger).toHaveAttribute('aria-expanded', 'false');
-  await expect(trigger).toBeFocused();
-  await testInfo.attach('accordion-collapsed-focus', {
-    body: await example.screenshot(),
-    contentType: 'image/png',
-  });
-});
-
-test('focused accordion trigger uses the system highlight in forced colors', async ({
-  page,
-}) => {
-  await page.emulateMedia({ forcedColors: 'active' });
-  await page.goto(defaultStory);
-  const trigger = page
-    .locator('#storybook-root [data-cods-accordion]')
-    .getByRole('button')
-    .first();
-  await trigger.focus();
-  await expect(trigger).toBeFocused();
-  const [outline, highlight] = await Promise.all([
-    trigger.evaluate((element) => getComputedStyle(element).outlineColor),
-    page.evaluate(() => {
-      const probe = document.createElement('div');
-      probe.style.color = 'Highlight';
-      document.body.append(probe);
-      const value = getComputedStyle(probe).color;
-      probe.remove();
-      return value;
-    }),
-  ]);
-  expect(outline).toBe(highlight);
-  await expect(trigger).toHaveCSS('outline-style', 'solid');
-});
 
 for (const [story, expanded] of [
   ['expanded', ['true', 'true']],
