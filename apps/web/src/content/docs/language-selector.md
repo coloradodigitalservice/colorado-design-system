@@ -43,7 +43,7 @@ If the required USWDS markup is missing (such as the `usa-language__link` class 
 
 ## Events
 
-When the disclosure opens or closes, the root element dispatches a `cods-language-selector:change` event. The event bubbles, so you can listen on the root or any ancestor. `event.detail.expanded` is `true` when the list opened and `false` when it closed.
+When the disclosure opens or closes, the root element dispatches a `cods-language-selector:change` event. The event bubbles, so you can listen on the root or any ancestor. `event.detail.expanded` is `true` when the list opened and `false` when it closed. TypeScript users can import the `LanguageSelectorChangeDetail` type. The event is not dispatched during initialization or destroy.
 
 ```js
 document.addEventListener('cods-language-selector:change', (event) => {

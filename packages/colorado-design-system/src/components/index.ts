@@ -26,4 +26,5 @@ export {
   init as initLanguageSelector,
   initAll as initAllLanguageSelector,
   destroy as destroyLanguageSelector,
+  type LanguageSelectorChangeDetail,
 } from './language-selector/language-selector.js';

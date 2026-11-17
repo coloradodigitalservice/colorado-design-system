@@ -1,6 +1,12 @@
 import uswdsLanguageSelector from '@uswds/uswds/js/usa-language-selector';
 
 const ROOT = '[data-cods-language-selector]';
+
+/** Detail of the bubbling `cods-language-selector:change` event. */
+export interface LanguageSelectorChangeDetail {
+  /** `true` when the language list opened, `false` when it closed. */
+  expanded: boolean;
+}
 const instances = new WeakMap<
   HTMLElement,
   {
@@ -55,10 +61,13 @@ export function init(root: HTMLElement): void {
     if (next === current) return;
     current = next;
     root.dispatchEvent(
-      new CustomEvent('cods-language-selector:change', {
-        bubbles: true,
-        detail: { expanded: next },
-      }),
+      new CustomEvent<LanguageSelectorChangeDetail>(
+        'cods-language-selector:change',
+        {
+          bubbles: true,
+          detail: { expanded: next },
+        },
+      ),
     );
   };
   const observer = new MutationObserver(sync);
@@ -108,7 +117,7 @@ export function destroy(root: HTMLElement): void {
  * USWDS teardown clears its module-wide open-menu reference, which leaves any
  * other open selector unable to close. Re-register that menu with USWDS: a
  * trigger click while nothing is tracked marks it active and keeps it open.
- * The click is stopped at its root so page listeners never see it.
+ * The click is stopped at its root so bubbling page listeners never see it.
  */
 function readopt(destroyed: HTMLElement): void {
   document
@@ -119,9 +128,9 @@ function readopt(destroyed: HTMLElement): void {
       if (root === destroyed) return;
       const instance = instances.get(root);
       if (instance?.button.getAttribute('aria-expanded') !== 'true') return;
-      root.addEventListener('click', (event) => event.stopPropagation(), {
-        once: true,
-      });
+      const stop = (event: Event) => event.stopPropagation();
+      root.addEventListener('click', stop);
       instance.button.click();
+      root.removeEventListener('click', stop);
     });
 }
