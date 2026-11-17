@@ -1,4 +1,10 @@
-import { cpSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import {
+  cpSync,
+  mkdirSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from 'node:fs';
 import { resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL, URL } from 'node:url';
 import {
@@ -6,6 +12,11 @@ import {
   loadComponents,
   packageRoot,
 } from './component-fixtures.mjs';
+import {
+  collectIconReferences,
+  createSubsetSprite,
+  readIconLibrary,
+} from '../packages/colorado-design-system/src/icons/selection.mjs';
 
 export const output = fileURLToPath(
   new URL('../examples/static-html/dist/', import.meta.url),
@@ -32,7 +43,7 @@ export function exampleHTML() {
         'utf8',
       );
       const html = fixture
-        .replaceAll('/icons/sprite.svg', './assets/icons/sprite.svg')
+        .replaceAll('/icons/sprite.svg', './assets/selected/icons/sprite.svg')
         .replaceAll('../icons/catalog.json', './assets/icons/catalog.json');
       return `<article><h2>${escape(metadata.displayName)} (${metadata.maturity})</h2>${html}</article>`;
     })
@@ -45,14 +56,30 @@ if (
   import.meta.url === pathToFileURL(process.argv[1]).href
 ) {
   checkComponentAssets();
+  const html = exampleHTML();
+  const library = readIconLibrary(resolve(packageRoot, 'dist/icons'));
+  const sprite = createSubsetSprite(
+    library,
+    collectIconReferences(library, html, 'static example'),
+  );
   if (process.argv.includes('--check')) {
-    if (readFileSync(resolve(output, 'index.html'), 'utf8') !== exampleHTML())
+    if (readFileSync(resolve(output, 'index.html'), 'utf8') !== html)
       throw new Error('Static package example drift; rebuild');
+    if (
+      readFileSync(
+        resolve(output, 'assets/selected/icons/sprite.svg'),
+        'utf8',
+      ) !== sprite
+    )
+      throw new Error('Static package example sprite drift; rebuild');
   } else {
     mkdirSync(output, { recursive: true });
+    rmSync(resolve(output, 'assets/icons'), { recursive: true, force: true });
     cpSync(resolve(packageRoot, 'dist'), resolve(output, 'assets'), {
       recursive: true,
     });
-    writeFileSync(resolve(output, 'index.html'), exampleHTML());
+    mkdirSync(resolve(output, 'assets/selected/icons'), { recursive: true });
+    writeFileSync(resolve(output, 'assets/selected/icons/sprite.svg'), sprite);
+    writeFileSync(resolve(output, 'index.html'), html);
   }
 }

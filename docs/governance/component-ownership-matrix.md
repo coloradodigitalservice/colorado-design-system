@@ -42,7 +42,7 @@ The 28 components below are the approved 1.0 inventory (Card - Default and Card 
 | Hero               | B    | Aten/State | (none)                                                                                  | CoDS-authored; large-scale page-top visual prominence component (no USWDS equivalent)                 |
 | Icon List          | A    | Aten/State | [`icon-list`](https://designsystem.digital.gov/components/icon-list/)                   | Reuse USWDS markup; style with CoDS icon and spacing tokens                                           |
 | In-Page Alert      | A    | Aten/State | [`alert`](https://designsystem.digital.gov/components/alert/)                           | Reuse USWDS markup; remap colors to CoDS severity scale                                               |
-| In-Page Navigation | A    | Aten/State | [`in-page-navigation`](https://designsystem.digital.gov/components/in-page-navigation/) | Reuse USWDS markup; style with CoDS typography and link tokens                                        |
+| In-Page Navigation | C    | Aten/State | [`in-page-navigation`](https://designsystem.digital.gov/components/in-page-navigation/) | Uses USWDS-compatible markup and CoDS styling with an approved CoDS-authored scroll tracker           |
 | Language Selector  | A    | Aten/State | (component pattern in USWDS)                                                            | Adapt USWDS select component; style with CoDS form tokens                                             |
 | Link               | A    | Aten/State | (native HTML)                                                                           | Use semantic `<a>`; style with CoDS link and focus tokens                                             |
 | Maps               | B    | Aten/State | (none)                                                                                  | CoDS-authored; embedded map container for geographic data visualization                               |
@@ -112,9 +112,11 @@ The 28 components below are the approved 1.0 inventory (Card - Default and Card 
 
 **Definition:** These components _could_ reuse USWDS markup as a starting point, but intentionally diverge from USWDS design or interaction pattern due to State product requirements or accessibility needs.
 
-**Current list:** None identified in the 1.0 component set.
+**Current list:**
 
-**Future divergences** (to be evaluated during Phase 3):
+- **In-Page Navigation** — Uses authored USWDS-compatible markup and CoDS styling, with a CoDS-authored, instance-scoped scroll tracker instead of the USWDS JavaScript. When initialized with authored links, the USWDS behavior would generate a second navigation, uses document-wide selectors, and does not disconnect its observer on teardown. This divergence was approved by State design, engineering, and accessibility leads on 2026-11-11; see the [component contract](component-contract.md#46-approved-type-c-in-page-navigation).
+
+**Additional future divergences** (to be evaluated during Phase 3):
 
 - Potential variants of USWDS components (e.g., Button with additional states or sizing).
 - Accessibility improvements beyond USWDS baseline (e.g., enhanced focus styling, improved color contrast).
