@@ -1,5 +1,13 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.25
+
+### Patch Changes
+
+- Add MIT package metadata and third-party notices; exclude Museo Slab and document optional consumer-licensed heading fonts.
+- Updated dependencies
+  - @coloradodigitalservice/colorado-design-tokens@0.2.25
+
 ## 0.2.24
 
 ### Patch Changes

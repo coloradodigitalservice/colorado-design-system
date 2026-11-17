@@ -90,6 +90,8 @@ Releases are cut by pushing a `vMAJOR.MINOR.PATCH` tag; versions below `1.0.0` (
 
 ## Attribution
 
+CoDS is licensed under [MIT](LICENSE), copyright 2026 State of Colorado. Third-party assets retain their own terms; see the [license index](packages/colorado-design-system/src/assets/licenses/THIRD-PARTY-LICENSES.md) and [licensing decisions](docs/licensing-plan.md). Open Sans and Source Code Pro are bundled with OFL notices. Museo Slab is optional and consumer-supplied, not distributed by CoDS; see the [Typography guide](apps/web/src/content/docs/typography.md).
+
 CoDS incorporates components and styles from the U.S. Web Design System (USWDS), maintained by the General Services Administration. USWDS is a public-domain design system for U.S. federal government websites and applications. See [designsystem.digital.gov](https://designsystem.digital.gov/) for more information.
 
 ## Ownership and scope
