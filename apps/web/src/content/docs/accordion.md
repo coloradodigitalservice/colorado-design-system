@@ -96,7 +96,7 @@ Without JavaScript, all panel content is visible and readable; the buttons do no
 
 The controller wraps the pinned [USWDS accordion](https://designsystem.digital.gov/components/accordion/) `on`/`off` lifecycle and state/exclusivity functions and adds the CoDS lifecycle, events, and focus safety.
 
-## Appearance and localization
+## Appearance
 
 Public classes are `cods-accordion`, `cods-accordion--borderless`, `cods-accordion--white`, `cods-accordion__heading`, `cods-accordion__trigger`, and `cods-accordion__panel`. Keep the corresponding `usa-*` classes as the private upstream integration markup. The default has a gray header and 4px pale panel border. Use `cods-accordion--borderless` for a transparent panel without a border, or `cods-accordion--white` for white headers and 1px borders. Each appears in the canonical examples and Storybook.
 
@@ -116,13 +116,13 @@ recorded in `icons.provenance.json`.
 
 Focus follows the inspected Accordion effect: a 2px white gap with blue extending to 4px from the control edge (a 2px blue band). `focus.accordion-outer-spread` controls that extent; it does not redefine the shared focus-ring width used by other components. Forced colors retain a system-color outline and the chevron mask. Preserve readable contrast and visible focus.
 
-Translate heading/body text, set the appropriate `lang`, and use `dir="rtl"` for right-to-left content. Padding and icons use logical positioning. Content wraps without a fixed height; do not place unresponsive tables or media inside panels. Error, loading, and empty states belong to the content rather than this disclosure control.
+Content wraps without a fixed height; do not place unresponsive tables or media inside panels. Error, loading, and empty states belong to the content rather than this disclosure control.
 
 The shipped fixture is available at `@coloradodigitalservice/colorado-design-system/fixtures/accordion.html` and metadata at `@coloradodigitalservice/colorado-design-system/metadata/accordion.json`. Storybook, the automated tests, and this page use that same fixture.
 
 ## Accessibility responsibilities
 
-The component supplies native button semantics, `aria-expanded`/`aria-controls` state, visible focus, reflow, reduced-motion, and forced-colors support. Authors remain responsible for unique panel IDs, heading levels that fit the page outline, meaningful trigger text, translated content, and keeping panel content accessible. Do not hide content that must remain available without JavaScript. Eric reported completing fresh screen-reader, actual 400% zoom, and Windows High Contrast checks on October 16, 2026. Specific environments and announcements were not supplied; the evidence distinguishes that report from automated checks and owner acceptance.
+The component supplies native button semantics, `aria-expanded`/`aria-controls` state, and visible focus. Authors remain responsible for unique panel IDs, heading levels that fit the page outline, meaningful trigger text, and keeping panel content accessible. Do not hide content that must remain available without JavaScript. Eric reported completing screen-reader, actual 400% zoom, and Windows High Contrast checks on October 16, 2026. Specific environments and announcements were not supplied; fresh human verification and owner acceptance remain open.
 
 ## Known limitations and implementation status
 
