@@ -55,6 +55,8 @@ for (const page of pages) {
   const pagePath = relative(root, page).split(sep).join('/');
   // This player is loaded inside an iframe; it is not a documentation page.
   if (pagePath === 'videos/embedded-example.html') continue;
+  // The Header preview is also iframe-only: a page supports one Header.
+  if (pagePath === 'header/preview/index.html') continue;
   const pageUrl = new URL(
     `${basePath}/${pagePath.replace(/index\.html$/, '')}`,
     'https://docs.example.gov',

@@ -189,6 +189,8 @@ component:
 
 - **Status:** implemented as an experimental component in the `0.x`
   development series.
+- This documentation site uses the Header as its own site header, so the
+  component preview on this page loads in a separate frame.
 - USWDS's header behavior keeps module-level state and finds the header with
   document-wide selectors, so it supports one Header per document. `initHeader`
   warns and leaves the markup unchanged when more than one `.usa-header` is

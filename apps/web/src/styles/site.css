@@ -51,11 +51,6 @@ a:where(:not(.cods-link, .cods-breadcrumbs__link)):focus-visible {
   margin-block-start: var(--cods-space-2xl);
 }
 
-.cods-docs-brand {
-  font-weight: 700;
-  font-size: 1.125rem;
-}
-
 .cods-docs-grid {
   display: grid;
   gap: 2rem;

@@ -1,0 +1,31 @@
+---
+// Loaded only inside the Header documentation iframes. USWDS's header
+// behavior supports one header per document, and the documentation site
+// already has one, so the live preview needs its own document.
+import fixture from '@coloradodigitalservice/colorado-design-system/fixtures/header.html?raw';
+import logoUrl from '@coloradodigitalservice/colorado-design-system/logos/cods-logo.svg?url';
+import spriteUrl from '@coloradodigitalservice/colorado-design-system/icons/sprite.svg?url';
+import '@coloradodigitalservice/colorado-design-tokens/tokens.css';
+import '@coloradodigitalservice/colorado-design-system/styles.css';
+
+const preview = fixture
+  .replaceAll('/icons/sprite.svg', spriteUrl)
+  .replaceAll('/logos/cods-logo.svg', logoUrl);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Header preview | Colorado Design System</title>
+  </head>
+  <body>
+    <Fragment set:html={preview} />
+    <script>
+      import { initAllHeaders } from '@coloradodigitalservice/colorado-design-system';
+      initAllHeaders();
+    </script>
+  </body>
+</html>

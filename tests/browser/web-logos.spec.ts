@@ -22,8 +22,12 @@ test('the Logos page serves the unmodified packaged artwork and notice', async (
       .getByRole('navigation', { name: 'Documentation' })
       .getByRole('link', { name: 'Logos' }),
   ).toHaveAttribute('aria-current', 'page');
-  const image = page.getByRole('img', { name: 'Colorado Design System home' });
-  const link = page.getByRole('link', { name: 'Colorado Design System home' });
+  const image = page
+    .getByRole('main')
+    .getByRole('img', { name: 'Colorado Design System home' });
+  const link = page
+    .getByRole('main')
+    .getByRole('link', { name: 'Colorado Design System home' });
   await expect(link).toHaveAttribute('href', '/');
   await expect(image).toBeVisible();
   expect(
@@ -56,7 +60,9 @@ test('the logo remains proportionate, named, and usable at narrow widths and in 
   await page.setViewportSize({ width: 320, height: 800 });
   await page.emulateMedia({ forcedColors: 'active', reducedMotion: 'reduce' });
   await page.goto('/logos/');
-  const image = page.getByRole('img', { name: 'Colorado Design System home' });
+  const image = page
+    .getByRole('main')
+    .getByRole('img', { name: 'Colorado Design System home' });
   const dimensions = await image.evaluate(
     (img: HTMLImageElement, svg: string) => {
       const root = new DOMParser().parseFromString(
@@ -81,7 +87,9 @@ test('the logo remains proportionate, named, and usable at narrow widths and in 
       () => document.documentElement.scrollWidth <= innerWidth,
     ),
   ).toBe(true);
-  const link = page.getByRole('link', { name: 'Colorado Design System home' });
+  const link = page
+    .getByRole('main')
+    .getByRole('link', { name: 'Colorado Design System home' });
   await link.focus();
   await expect(link).toBeFocused();
   await expectAccessible(page, testInfo, 'main');
