@@ -45,3 +45,8 @@ declare module '@uswds/uswds/js/usa-combo-box' {
   };
   export default comboBox;
 }
+
+declare module '@uswds/uswds/js/usa-language-selector' {
+  const selector: { on(root: HTMLElement): void; off(root: HTMLElement): void };
+  export default selector;
+}

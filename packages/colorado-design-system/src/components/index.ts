@@ -22,3 +22,9 @@ export {
   destroy as destroyInPageNavigation,
   type InPageNavigationChangeDetail,
 } from './in-page-navigation/in-page-navigation.js';
+export {
+  init as initLanguageSelector,
+  initAll as initAllLanguageSelector,
+  destroy as destroyLanguageSelector,
+  type LanguageSelectorChangeDetail,
+} from './language-selector/language-selector.js';
