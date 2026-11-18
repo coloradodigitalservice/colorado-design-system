@@ -1,5 +1,12 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.29
+
+### Patch Changes
+
+- 5982b52: Add an experimental Modal component wrapping the USWDS modal behavior, with dismissible, forced-action and large variants.
+- @coloradodigitalservice/colorado-design-tokens@0.2.29
+
 ## 0.2.28
 
 ### Patch Changes

@@ -119,7 +119,7 @@ The close button draws its icon from the package's SVG sprite. The examples poin
 
 ## Accessibility
 
-- Each dialog needs a unique `id`, an `aria-labelledby` pointing at its heading, and an `aria-describedby` pointing at its description. The controller leaves the markup untouched if any are missing or duplicated rather than failing at runtime. If a duplicate id appears after initialization, the existing trigger warns and does not open until the duplicate is removed.
+- Each dialog needs a unique `id`, an `aria-labelledby` pointing at its heading, and an `aria-describedby` pointing at its description. The controller leaves the markup untouched if any are missing or duplicated rather than failing at runtime. If a dialog, heading, or description ID becomes duplicated after initialization, the existing trigger warns and does not open until the duplicate is removed.
 - Triggers are buttons, not links: they open a dialog rather than navigating.
 - Without JavaScript the dialog content stays inline on the page and the trigger does nothing, so the content must still make sense where you wrote it.
 

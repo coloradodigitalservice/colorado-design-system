@@ -37,7 +37,7 @@ interface Instance {
   /** USWDS's marker for the dialog's authored position inside the root. */
   placeholder: HTMLElement;
   triggers: Trigger[];
-  /** Capture listener that refuses to open a dialog whose id became ambiguous. */
+  /** Listener that refuses to open a dialog with invalid ID references. */
   guard: (event: Event) => void;
   /** Authored tabindex; USWDS adds `-1` and never removes it on teardown. */
   tabIndex: string | null;
@@ -105,23 +105,18 @@ export function init(root: HTMLElement): void {
   const modalId = dialog.id;
   const labelledBy = dialog.getAttribute('aria-labelledby');
   const describedBy = dialog.getAttribute('aria-describedby');
-  // `getElementById` returns the first match, so a copied example would pass
-  // an identity check; count instead. Every id the dialog depends on must be
-  // unique, or USWDS resolves the wrong element and locks the page with no
-  // visible dialog.
+  // `getElementById` returns only the first match; count IDs to keep the
+  // dialog and its accessible references unambiguous.
   const unique = (id: string | null): boolean =>
     !!id && document_.querySelectorAll(`#${CSS.escape(id)}`).length === 1;
+  const uniqueInDialog = (id: string | null): boolean =>
+    !!id && unique(id) && !!dialog.querySelector(`#${CSS.escape(id)}`);
   if (
     !/^[A-Za-z][A-Za-z0-9_-]*$/.test(modalId) ||
     document_.getElementById(modalId) !== dialog ||
     !unique(modalId) ||
-    !unique(labelledBy) ||
-    !unique(describedBy) ||
-    // USWDS throws without these; it also moves them onto its wrapper.
-    !labelledBy ||
-    !describedBy ||
-    !dialog.querySelector(`#${CSS.escape(labelledBy)}`) ||
-    !dialog.querySelector(`#${CSS.escape(describedBy)}`)
+    !uniqueInDialog(labelledBy) ||
+    !uniqueInDialog(describedBy)
   ) {
     warn(
       root,
@@ -158,25 +153,28 @@ export function init(root: HTMLElement): void {
     }),
   );
 
-  // USWDS resolves the dialog with `getElementById` on every trigger click.
-  // If a copy with the same id is inserted earlier in the document after
-  // initialization, that lookup finds the unenhanced copy, and USWDS locks and
-  // hides the page with no visible dialog. Registered before USWDS binds its
-  // own listener, this guard runs first and refuses to open in that case.
+  // Capture blocks invalid IDs before application handlers run; bubble
+  // rechecks after earlier handlers, just before USWDS resolves the dialog ID.
   const guard = (event: Event): void => {
     const wrapper = instances.get(root)?.wrapper;
     if (!wrapper || wrapper.classList.contains(VISIBLE)) return;
-    if (document_.getElementById(modalId) === wrapper && unique(modalId))
-      return;
+    const dialogIdValid =
+      document_.getElementById(modalId) === wrapper && unique(modalId);
+    const referencesValid =
+      uniqueInDialog(wrapper.getAttribute('aria-labelledby')) &&
+      uniqueInDialog(wrapper.getAttribute('aria-describedby'));
+    if (dialogIdValid && referencesValid) return;
     event.preventDefault();
     event.stopImmediatePropagation();
-    console.warn(
-      `cods-modal: more than one element has the id "${modalId}"; the dialog was not opened.`,
-      root,
-    );
+    const reason = dialogIdValid
+      ? 'aria-labelledby and aria-describedby must reference unique IDs inside the dialog'
+      : `the dialog id "${modalId}" is missing, duplicated, or no longer points to its wrapper`;
+    console.warn(`cods-modal: ${reason}; the dialog was not opened.`, root);
   };
-  for (const { element } of triggers)
+  for (const { element } of triggers) {
     element.addEventListener('click', guard, { capture: true });
+    element.addEventListener('click', guard);
+  }
 
   uswdsModal.on(root);
 
@@ -187,8 +185,10 @@ export function init(root: HTMLElement): void {
     `[${PLACEHOLDER}="${CSS.escape(modalId)}"]`,
   );
   if (!wrapper?.classList.contains(WRAPPER) || !placeholder) {
-    for (const { element } of triggers)
+    for (const { element } of triggers) {
       element.removeEventListener('click', guard, { capture: true });
+      element.removeEventListener('click', guard);
+    }
     warn(root, 'the USWDS behavior did not build a wrapper');
     return;
   }
@@ -284,6 +284,7 @@ export function destroy(root: HTMLElement): void {
   for (const { element, id, role } of instance.triggers) {
     element.removeEventListener('click', uswdsModal.toggleModal);
     element.removeEventListener('click', instance.guard, { capture: true });
+    element.removeEventListener('click', instance.guard);
     if (id === null) element.removeAttribute('id');
     else element.setAttribute('id', id);
     if (role === null) element.removeAttribute('role');
