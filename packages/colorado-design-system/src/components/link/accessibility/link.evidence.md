@@ -46,7 +46,7 @@ for the visually hidden new-tab notice.
 | More / hover / active / focus       | link           | Installation guide                             |
 | External                            | link           | U.S. Web Design System (opens in a new tab)    |
 | Phone                               | link           | Contact us; fictional `tel:+13035550123`       |
-| Download                            | link           | Icon catalog (JSON, 47.3 KB)                   |
+| Download                            | link           | Icon index (JSON)                              |
 | Disabled, five variants             | link, disabled | Installation guide                             |
 | Long content                        | link           | Complete guide description, without truncation |
 | Spanish                             | link           | Guía de instalación                            |

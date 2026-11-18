@@ -4,6 +4,8 @@ This is the repeatable process for producing a release of the CoDS packages. Ver
 
 ## Version numbering
 
+Do not generate or publish release artifacts while [`THIRD-PARTY-LICENSES.md`](../packages/colorado-design-system/src/assets/licenses/THIRD-PARTY-LICENSES.md) lists unresolved redistribution rights. Verify both package tarballs and the non-npm archive include the root `LICENSE` and all applicable third-party license files.
+
 | Bump  | When                                                               | Example |
 | ----- | ------------------------------------------------------------------ | ------- |
 | Minor | A delivery phase is complete (`0.<phase>.0`).                      | `0.1.0` |

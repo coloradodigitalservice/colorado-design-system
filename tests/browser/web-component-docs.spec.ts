@@ -1,4 +1,4 @@
-import { test, expect } from './fixtures.js';
+import { test, expect, expectAccessible } from './fixtures.js';
 
 const pages = [
   { path: '/breadcrumbs/', name: 'breadcrumbs' },
@@ -6,6 +6,7 @@ const pages = [
   { path: '/link/', name: 'link' },
   { path: '/site-alert/', name: 'site-alert' },
   { path: '/accordion/', name: 'accordion' },
+  { path: '/footer/', name: 'footer' },
 ];
 
 const requiredHeadings = [
@@ -75,6 +76,44 @@ for (const { path, name } of pages) {
     ).toBe(true);
   });
 }
+
+test('Footer docs page renders and enhances both canonical variants', async ({
+  page,
+}, testInfo) => {
+  await page.goto('/footer/');
+  const preview = page.locator('[data-cods-docs-preview="footer"]');
+  await expect(
+    preview.getByRole('heading', { name: 'Component preview' }),
+  ).toBeVisible();
+  await expect(
+    preview.locator('[data-cods-footer-fixture="full"] .cods-footer'),
+  ).toBeVisible();
+  await expect(
+    preview.locator('[data-cods-footer-fixture="compact"] .cods-footer'),
+  ).toBeVisible();
+  await expect(
+    preview.locator(
+      '[data-cods-footer-fixture="full"] button.usa-footer__primary-link',
+    ),
+  ).toHaveCount(0);
+
+  await page.setViewportSize({ width: 375, height: 800 });
+  const full = preview.locator('[data-cods-footer-fixture="full"]');
+  await expect(full.getByRole('button', { name: 'Services' })).toHaveAttribute(
+    'aria-expanded',
+    'false',
+  );
+  await full.getByRole('button', { name: 'Services' }).click();
+  await expect(
+    full.getByRole('link', { name: 'Benefits and assistance' }),
+  ).toBeVisible();
+  await expect(
+    preview.locator(
+      '[data-cods-footer-fixture="compact"] button.usa-footer__primary-link',
+    ),
+  ).toHaveCount(0);
+  await expectAccessible(page, testInfo, '[data-cods-docs-preview="footer"]');
+});
 
 test('getting started documents installation and both style imports', async ({
   page,

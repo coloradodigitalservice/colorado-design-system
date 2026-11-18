@@ -1,37 +1,29 @@
+import { icons as phosphorIcons } from '@phosphor-icons/core';
+import { createHash } from 'node:crypto';
 import { mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises';
-import { readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
 import { createRequire } from 'node:module';
 import { afterEach, describe, expect, it } from 'vitest';
 import iconVariants from './uswds-icon-variants.json' with { type: 'json' };
 import componentVariants from './component-icon-variants.json' with { type: 'json' };
-const allVariants = [
-  ...Object.values(iconVariants),
-  ...Object.values(componentVariants),
-];
 import {
   checkIcons,
   generatedDir,
   generateIcons,
-  validateManifest,
+  svgSymbol,
   validateComponentIconVariants,
   writeDistIcons,
 } from './icons.mjs';
 
+const allVariants = [
+  ...Object.values(iconVariants),
+  ...Object.values(componentVariants),
+];
+const allIds = phosphorIcons.map(({ name }) => name).sort();
 let temporaryRoot;
 const temporaryDir = async () =>
   (temporaryRoot = await mkdtemp(resolve(tmpdir(), 'cods-icon-test-')));
-const approved = [
-  ...new Set(
-    JSON.parse(
-      readFileSync(
-        resolve(import.meta.dirname, '../src/icons/approved-icons.json'),
-        'utf8',
-      ),
-    ).icons,
-  ),
-];
 
 afterEach(async () => {
   if (temporaryRoot) await rm(temporaryRoot, { recursive: true, force: true });
@@ -42,7 +34,6 @@ describe('Phosphor icon generation', () => {
   it('matches variant foreground colors to the pinned USWDS source assets', async () => {
     const require = createRequire(import.meta.url);
     for (const [name, { color }] of Object.entries(iconVariants)) {
-      // The disabled minus intentionally matches the disabled check.
       if (name === 'checkbox-indeterminate-alt.svg') {
         expect(color).toBe(iconVariants['correct8-alt.svg'].color);
         continue;
@@ -63,7 +54,7 @@ describe('Phosphor icon generation', () => {
     }
   });
 
-  it('requires component foreground variants to match approved artwork and source tokens', () => {
+  it('requires component variants to match Regular artwork and source tokens', () => {
     expect(validateComponentIconVariants(componentVariants)).toEqual(
       Object.values(componentVariants),
     );
@@ -76,68 +67,57 @@ describe('Phosphor icon generation', () => {
       validateComponentIconVariants({
         caret: { ...componentVariants['select-caret'], id: '../caret-down' },
       }),
-    ).toThrow(/approved icon ID/);
+    ).toThrow(/Phosphor Regular icon ID/);
   });
 
-  it('requires manifest provenance to match the pinned Phosphor source', () => {
-    const manifest = JSON.parse(
-      readFileSync(
-        resolve(import.meta.dirname, '../src/icons/approved-icons.json'),
-        'utf8',
-      ),
+  it('rejects source SVG features that cannot safely be combined into symbols', () => {
+    const root =
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"';
+    expect(svgSymbol('test', `${root}><path d="M0 0"/></svg>`)).toContain(
+      '<symbol id="test"',
     );
-    expect(validateManifest(manifest)).toEqual(manifest);
     expect(() =>
-      validateManifest({
-        ...manifest,
-        source: { ...manifest.source, version: '0.0.0' },
-      }),
-    ).toThrow(/source metadata must match/);
+      svgSymbol('test', `${root} stroke="red"><path/></svg>`),
+    ).toThrow(/Unsupported Phosphor SVG/);
     expect(() =>
-      validateManifest({
-        ...manifest,
-        weight: 'bold',
-      }),
-    ).toThrow(/source metadata must match/);
+      svgSymbol('test', `${root}><path id="shared"/></svg>`),
+    ).toThrow(/Unsupported Phosphor SVG/);
   });
 
   it('matches the committed output, so stale generated files fail the build', async () => {
     await checkIcons(generatedDir);
   });
 
-  it('generates a sprite and catalog with one hashed entry per unique approved ID', async () => {
+  it('deterministically generates every Regular symbol and a minimal index', async () => {
     const outputDir = resolve(await temporaryDir(), 'icons');
     await generateIcons(outputDir);
-
     expect((await readdir(outputDir)).sort()).toEqual([
       'catalog.json',
       'sprite.svg',
     ]);
-    const catalog = JSON.parse(
+    const index = JSON.parse(
       await readFile(resolve(outputDir, 'catalog.json'), 'utf8'),
     );
-    expect(catalog.source).toEqual({
-      package: '@phosphor-icons/core',
-      version: '2.1.1',
-      license: 'MIT',
-    });
-    expect(catalog.weight).toBe('regular');
-    expect(catalog.categoryMetadata).toEqual({
-      phosphorCategories: 'Phosphor taxonomy',
-    });
-    expect(catalog.icons.map(({ id }) => id)).toEqual(approved);
-    expect(
-      catalog.icons.every(({ phosphorCategories }) =>
-        Array.isArray(phosphorCategories),
-      ),
-    ).toBe(true);
-    expect(catalog.icons[0]).not.toHaveProperty('phosphorFigmaCategory');
-    expect(
-      catalog.icons.every(({ sha256 }) => /^[0-9a-f]{64}$/.test(sha256)),
-    ).toBe(true);
     const sprite = await readFile(resolve(outputDir, 'sprite.svg'), 'utf8');
-    expect(sprite.match(/<symbol /g)).toHaveLength(approved.length);
+    expect(index).toEqual({
+      source: {
+        package: '@phosphor-icons/core',
+        version: '2.1.1',
+        license: 'MIT',
+      },
+      weight: 'regular',
+      spriteSha256: createHash('sha256').update(sprite).digest('hex'),
+      icons: allIds,
+    });
+    expect(sprite.match(/<symbol /g)).toHaveLength(allIds.length);
     await checkIcons(outputDir);
+    await generateIcons(outputDir);
+    expect(await readFile(resolve(outputDir, 'sprite.svg'), 'utf8')).toBe(
+      sprite,
+    );
+    expect(
+      JSON.parse(await readFile(resolve(outputDir, 'catalog.json'), 'utf8')),
+    ).toEqual(index);
   });
 
   it('reports missing and stale committed output', async () => {
@@ -154,19 +134,34 @@ describe('Phosphor icon generation', () => {
     await expect(checkIcons(outputDir)).rejects.toThrow('pnpm icons:build');
   });
 
-  it('writes dist from committed output with per-icon SVGs and the MIT notice', async () => {
+  it('ships the full sprite, tools, notice, and only the requested CSS files', async () => {
     const distDir = resolve(await temporaryDir(), 'icons');
-    await writeDistIcons(distDir);
-
+    const files = [
+      'cursor.svg',
+      ...allVariants.flatMap(({ id, color }) => [
+        `${id}.svg`,
+        `${id}--${color}.svg`,
+      ]),
+    ];
+    await writeDistIcons(distDir, { files });
     const names = await readdir(distDir);
-    expect(names).toHaveLength(approved.length + 3 + allVariants.length);
-    for (const name of ['sprite.svg', 'catalog.json', 'LICENSE'])
-      expect(names).toContain(name);
-    expect(await readFile(resolve(distDir, 'cursor.svg'), 'utf8')).toContain(
-      'viewBox="0 0 256 256"',
+    expect(names.sort()).toEqual(
+      [
+        ...new Set([
+          ...files,
+          'sprite.svg',
+          'catalog.json',
+          'LICENSE',
+          'selection.mjs',
+          'selection.d.ts',
+          'vite.mjs',
+          'vite.d.ts',
+          'cli.mjs',
+        ]),
+      ].sort(),
     );
     expect(await readFile(resolve(distDir, 'cursor.svg'), 'utf8')).toMatch(
-      /^<svg width="24" height="24"/,
+      /^<svg width="24" height="24".*viewBox="0 0 256 256"/,
     );
     expect(await readFile(resolve(distDir, 'LICENSE'), 'utf8')).toContain(
       'MIT License',
@@ -179,20 +174,23 @@ describe('Phosphor icon generation', () => {
       );
       expect(original).toContain('currentColor');
       expect(variant).toBe(original.replaceAll('currentColor', `#${color}`));
-      expect(variant).not.toContain('currentColor');
     }
+    expect(names).not.toContain('house.svg');
   });
 
-  it('refuses to write dist when a committed hash no longer matches the source', async () => {
+  it('rejects unknown CSS assets and corrupted committed sprite/index pairs', async () => {
     const root = await temporaryDir();
+    await expect(
+      writeDistIcons(resolve(root, 'dist'), { files: ['not-an-icon.svg'] }),
+    ).rejects.toThrow('Unknown packaged Phosphor icon');
     const sourceDir = resolve(root, 'generated');
     await generateIcons(sourceDir);
     const catalogPath = resolve(sourceDir, 'catalog.json');
     const catalog = JSON.parse(await readFile(catalogPath, 'utf8'));
-    catalog.icons[0].sha256 = '0'.repeat(64);
+    catalog.spriteSha256 = '0'.repeat(64);
     await writeFile(catalogPath, JSON.stringify(catalog));
     await expect(
-      writeDistIcons(resolve(root, 'dist'), sourceDir),
-    ).rejects.toThrow(`Phosphor icon ${catalog.icons[0].id} does not match`);
+      writeDistIcons(resolve(root, 'dist'), { sourceDir }),
+    ).rejects.toThrow('does not match the icon index SHA-256');
   });
 });

@@ -6,6 +6,12 @@ import { routeBuiltFiles } from './built-files.js';
 export const test = base.extend<{ consoleErrors: void }>({
   consoleErrors: [
     async ({ page }, use, testInfo) => {
+      await page.route('https://player.vimeo.com/video/**', (route) =>
+        route.fulfill({
+          contentType: 'text/html',
+          body: '<!doctype html><title>Mock video player</title><p>Mock video player</p>',
+        }),
+      );
       if (process.env.CODS_BUILT_FILES === '1')
         await routeBuiltFiles(
           page,

@@ -1,6 +1,7 @@
 {
   "name": "@coloradodigitalservice/colorado-design-tokens",
-  "version": "0.2.21",
+  "version": "0.2.26",
+  "license": "MIT",
   "private": true,
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
   },
   "type": "module",
   "files": [
+    "LICENSE",
     "_index.scss",
     "generated"
   ],

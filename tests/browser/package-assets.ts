@@ -45,11 +45,7 @@ export async function expectPackageAssets(page: Page, url: string) {
         .map((url) => decodeURIComponent(url.slice(url.indexOf(',') + 1))),
     };
   });
-  expect(result.families).toEqual([
-    'Museo Slab',
-    'Open Sans',
-    'Source Code Pro',
-  ]);
+  expect(result.families).toEqual(['Open Sans', 'Source Code Pro']);
   expect(result.loaded).toBe(true);
   expect(new Set(result.icons).size).toBe(2);
   expect(
