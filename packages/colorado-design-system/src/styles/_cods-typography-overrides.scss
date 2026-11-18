@@ -7,6 +7,7 @@
 /// h2-h6 use Open Sans. This file re-declares USWDS's own h1 selector to
 /// apply Museo Slab and Colorado's actual h1 weight instead of USWDS's
 /// hardcoded bold (700).
+/// Museo Slab is consumer-supplied; otherwise the existing system stack applies.
 ///
 /// Lives in the `uswds` layer, after the USWDS library, so it wins by source
 /// order at equal specificity (no `!important` needed).

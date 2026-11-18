@@ -36,21 +36,11 @@ test('every fixture trail is a named list ending in an unlinked current page', a
   await expectAccessible(page, testInfo, '#storybook-root');
 });
 
-test('narrow widths show the immediate parent for long, single-level, and right-to-left trails', async ({
+test('narrow widths preserve single-level and right-to-left trails', async ({
   page,
 }, testInfo) => {
   await page.setViewportSize({ width: 320, height: 800 });
   await page.goto(story('all-states'));
-
-  const long = page.getByRole('navigation', { name: 'Long trail' });
-  await expect(long.getByRole('link')).toHaveCount(1);
-  await expect(long.getByRole('link')).toHaveAccessibleName(
-    'Previous level: DocumentationForAnUnusuallyLongUnbrokenServiceName',
-  );
-  await expect(long.locator('[aria-current="page"]')).toBeHidden();
-  expect(await long.evaluate((el) => el.scrollWidth <= el.clientWidth)).toBe(
-    true,
-  );
 
   await expect(
     page.locator(`${state('single-level')} [aria-current="page"]`),

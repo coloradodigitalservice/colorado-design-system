@@ -1,0 +1,33 @@
+{
+  "name": "language-selector",
+  "displayName": "Language Selector",
+  "maturity": "experimental",
+  "type": "interactive",
+  "uswdsEquivalent": "language-selector",
+  "uswdsVersion": "3.14.0",
+  "componentType": "A",
+  "owners": {
+    "responsible": "Aten component lead",
+    "accountable": "State technical owner",
+    "consulted": "State design owner, accessibility lead",
+    "informed": "Component contributors, product owner"
+  },
+  "divergenceApproved": false,
+  "divergenceNotes": null,
+  "states": ["default", "multiple-languages"],
+  "progressiveEnhancement": "full",
+  "localization": "layout-sensitive",
+  "description": "Language links with an optional USWDS disclosure for multiple languages.",
+  "examples": [
+    {
+      "state": "default",
+      "fixtureState": "default",
+      "setup": "none"
+    },
+    {
+      "state": "multiple-languages",
+      "fixtureState": "multiple-languages",
+      "setup": "none"
+    }
+  ]
+}

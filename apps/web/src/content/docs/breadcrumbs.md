@@ -4,7 +4,7 @@ description: An ordered trail of ancestor links and the current page.
 navLabel: Breadcrumbs
 order: 40
 figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=2403-561
-accessibilityStatus: Automated accessibility checks (axe) pass for every preview state. Manual accessibility review, including screen readers, 400% zoom, and forced colors, is in progress.
+accessibilityStatus: Automated accessibility checks (axe) pass for every preview state. Manual accessibility review, including screen readers, 400% zoom, and forced colors, is pending.
 ---
 
 ## Guidance

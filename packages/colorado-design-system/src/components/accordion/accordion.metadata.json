@@ -1,7 +1,7 @@
 {
   "name": "accordion",
   "displayName": "Accordion",
-  "maturity": "experimental",
+  "maturity": "stable",
   "type": "interactive",
   "uswdsEquivalent": "accordion",
   "owners": {

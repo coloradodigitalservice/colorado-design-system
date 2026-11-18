@@ -24,6 +24,7 @@ import {
   releaseChannel,
   STATUS_NOTICE,
   validateSbom,
+  verifyBrowserImport,
   versionFromTag,
   versionSection,
   // @ts-expect-error The release helpers are plain Node ESM without a TS build.
@@ -215,6 +216,45 @@ function fixture() {
 afterEach(() => {
   for (const dir of scratch.splice(0))
     rmSync(dir, { recursive: true, force: true });
+});
+
+describe('installed browser bundle import', () => {
+  function installedPackage(source: string) {
+    const root = fixture();
+    const installed = join(
+      root,
+      'node_modules/@coloradodigitalservice/colorado-design-system',
+    );
+    mkdirSync(installed, { recursive: true });
+    writeFileSync(
+      join(installed, 'package.json'),
+      JSON.stringify({
+        name: '@coloradodigitalservice/colorado-design-system',
+        type: 'module',
+        exports: { '.': { import: './index.mjs' } },
+      }),
+    );
+    writeFileSync(join(installed, 'index.mjs'), source);
+    return root;
+  }
+
+  it('resolves the installed ESM entry with a DOM for USWDS import-time probes', () => {
+    const root = installedPackage(`
+      const element = document.createElement('div');
+      if (!(element instanceof window.HTMLElement)) {
+        throw new Error('Browser DOM is missing');
+      }
+    `);
+    expect(() => verifyBrowserImport(root)).not.toThrow();
+  });
+
+  it.each([
+    ["throw new Error('Broken installed bundle');", /Broken installed bundle/],
+    ["import './missing.mjs';", /missing\.mjs/],
+  ])('does not hide bundle failures: %s', (source, message) => {
+    const root = installedPackage(source);
+    expect(() => verifyBrowserImport(root)).toThrow(message);
+  });
 });
 
 describe('output directory safety', () => {

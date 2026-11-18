@@ -45,7 +45,8 @@ Decisions:
   light/dark focus and line height, no-CSS/no-JS readability, and the narrow
   layout of the default trail (parent link, hidden current page, mirrored back
   caret, forced-color caret, no horizontal overflow). These run against the
-  preview's Default and Inverse variants.
+  preview's Default and Inverse variants. At 320px, the Long trail also checks
+  the parent link name, hidden current page, and wrapping without overflow.
 - **Replaced:** the web "ordered ancestors and copyable markup" test became a
   page-outline test (headings, three previewed trails with list semantics and an
   unlinked current page, status, axe). Copied-code accuracy is checked by the
@@ -54,7 +55,7 @@ Decisions:
   single-level separator checks, and the single-level and right-to-left parts
   of the narrow-width test. These now run in Chromium only.
 - **Consolidated:** the existing Storybook long-trail test merged into the
-  narrow-width Storybook test with all of its assertions.
+  existing narrow-width web test so its assertions run in all three browsers.
 - **Removed:** Breadcrumbs' Summary/Anatomy and link/320px entries in
   `web-component-docs.spec.ts`, replaced by the page-outline test; links are
   also checked by the build.

@@ -4,7 +4,7 @@ description: A list of headings that show or hide related sections of content.
 navLabel: Accordion
 order: 10
 figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=1387-254
-accessibilityStatus: Automated accessibility checks (axe) pass for every preview state. Manual accessibility review, including screen readers, 400% zoom, and forced colors, is in progress.
+accessibilityStatus: Automated accessibility checks (axe) pass for every preview state. Manual accessibility checks were completed for all states on November 18, 2026.
 ---
 
 ## Guidance
@@ -135,4 +135,3 @@ Keep readable contrast between text and background. The border is decorative; th
 - The controller doesn't watch the DOM. Call `initAllAccordions()` after inserting new markup.
 - Nested accordions aren't supported. They stay readable but aren't enhanced.
 - Sections open and close without animation.
-- Markup, custom properties, and controller APIs may change before `1.0`.

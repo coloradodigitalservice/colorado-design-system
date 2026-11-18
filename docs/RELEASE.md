@@ -4,6 +4,8 @@ This is the repeatable process for producing a release of the CoDS packages. Ver
 
 ## Version numbering
 
+Do not generate or publish release artifacts while [`THIRD-PARTY-LICENSES.md`](../packages/colorado-design-system/src/assets/licenses/THIRD-PARTY-LICENSES.md) lists unresolved redistribution rights. Verify both package tarballs and the non-npm archive include the root `LICENSE` and all applicable third-party license files.
+
 | Bump  | When                                                               | Example |
 | ----- | ------------------------------------------------------------------ | ------- |
 | Minor | A delivery phase is complete (`0.<phase>.0`).                      | `0.1.0` |
@@ -43,6 +45,11 @@ are identical. Tagging the verified merged `main` commit avoids that problem.
 Do not move published tags to compensate: release manifests and archives identify
 the original tagged commit.
 
+If artifact generation fails before publication, rerunning the job still uses
+the release tooling from the same tagged commit. Merge a tooling fix through the
+normal PR workflow and prepare the next patch version and tag; do not move the
+failed tag to pick up the fix.
+
 ## Gates enforced by the workflow
 
 `scripts/release.mjs` fails the release if any of these do not hold:
@@ -51,7 +58,7 @@ the original tagged commit.
 - Both package versions, the packed dependency range between them, and the version shown in the documentation footer (`data-cods-release`) all equal the tag version.
 - The working tree is clean after the build, so artifacts match the tagged commit.
 - A `## <version>` entry exists in a package changelog (that is, `pnpm release:version` ran).
-- A clean `npm install` of both tarballs resolves the tag version and exposes `dist/`, token outputs, and an importable ESM entry; the archive extracts with its CSS.
+- A clean `npm install` of both tarballs resolves the tag version and exposes `dist/`, token outputs, and an ESM entry that imports in a jsdom environment; the archive extracts with its CSS. The bundle targets browsers: USWDS behaviors can probe `window` and `document` during import, so this smoke check does not require DOM-free Node/SSR support. Browser interaction checks remain in Foundation.
 - Each package has a CycloneDX SBOM whose root matches the package and tag version, and the design-system SBOM lists `uswds`. SBOMs cover npm dependencies only; bundled font files are not in them.
 
 The `build` job also runs workspace, format, token drift, lint, typecheck, unit test, and build checks. Browser and axe checks run in the [Foundation workflow](CI.md); confirm it passed on the tagged commit before tagging.

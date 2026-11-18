@@ -1,3 +1,4 @@
+import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import {
   existsSync,
@@ -40,6 +41,28 @@ export function releaseChannel(version) {
 
 export function sha256(path) {
   return createHash('sha256').update(readFileSync(path)).digest('hex');
+}
+
+export function verifyBrowserImport(cwd) {
+  execFileSync(
+    process.execPath,
+    [
+      '--input-type=module',
+      '-e',
+      `
+        import { JSDOM } from ${JSON.stringify(import.meta.resolve('jsdom'))};
+        const dom = new JSDOM('<!doctype html><html><body></body></html>');
+        globalThis.window = dom.window;
+        globalThis.document = dom.window.document;
+        try {
+          await import('@coloradodigitalservice/colorado-design-system');
+        } finally {
+          dom.window.close();
+        }
+      `,
+    ],
+    { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] },
+  );
 }
 
 // Resolves symlinks in the deepest existing ancestor so a link cannot hide the repository root.

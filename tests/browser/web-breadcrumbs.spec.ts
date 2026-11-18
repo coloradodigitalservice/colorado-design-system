@@ -143,6 +143,16 @@ test('mobile shows the immediate parent with a localized name and mirrored caret
       () => document.documentElement.scrollWidth <= innerWidth,
     ),
   ).toBe(true);
+  const long = page.getByRole('navigation', { name: 'Long trail' });
+  await expect(long.getByRole('link')).toHaveCount(1);
+  await expect(long.getByRole('link')).toHaveAccessibleName(
+    'Previous level: DocumentationForAnUnusuallyLongUnbrokenServiceName',
+  );
+  await expect(long.locator('[aria-current="page"]')).toBeHidden();
+  expect(await long.evaluate((el) => el.scrollWidth <= el.clientWidth)).toBe(
+    true,
+  );
+
   await page.setViewportSize({ width: 1280, height: 800 });
   await expect(trail.getByRole('link')).toHaveCount(2);
   await expect(trail.getByRole('link').last()).toHaveAccessibleName('Services');
