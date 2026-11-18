@@ -5,6 +5,10 @@ import { join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath, URL } from 'node:url';
 import { JSDOM } from 'jsdom';
 import { loadComponents, checkComponentAssets } from './component-fixtures.mjs';
+import {
+  componentMarkup,
+  previewCode,
+} from '../apps/web/src/lib/preview-markup.mjs';
 
 const root = resolve(
   fileURLToPath(new URL('../apps/web/dist/', import.meta.url)),
@@ -35,6 +39,37 @@ for (const component of loadComponents()) {
     continue;
   }
   const dom = new JSDOM(readFileSync(page, 'utf8'));
+  const previewCodeBlock = dom.window.document.querySelector(
+    '[data-cods-docs-preview-code] code',
+  );
+  if (previewCodeBlock) {
+    // Hardened pages show a curated preview instead of every fixture state.
+    // Each previewed state must match its canonical fixture exactly, and the
+    // code block must be exactly the markup that renders the preview.
+    const items = [];
+    for (const figure of dom.window.document.querySelectorAll(
+      '[data-cods-docs-preview-state]',
+    )) {
+      const state = figure.getAttribute('data-cods-docs-preview-state');
+      const example = component.examples.examples.find(
+        (candidate) => candidate.state === state,
+      );
+      if (!example) {
+        failures.push(`${component.name}/${state}: unknown preview state`);
+        continue;
+      }
+      items.push({
+        label: figure.getAttribute('data-cods-docs-preview-label'),
+        markup: componentMarkup(example.code),
+      });
+    }
+    if (!items.length)
+      failures.push(`${component.name}: preview has no fixture states`);
+    if (previewCodeBlock.textContent !== previewCode(items))
+      failures.push(`${component.name}: preview code drift`);
+    dom.window.close();
+    continue;
+  }
   for (const example of component.examples.examples) {
     const code = dom.window.document.querySelector(
       `[data-cods-example="${example.state}"] code`,

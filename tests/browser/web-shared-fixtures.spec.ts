@@ -1,4 +1,8 @@
 import { loadComponents } from '../../scripts/component-fixtures.mjs';
+import {
+  componentMarkup,
+  previewCode,
+} from '../../apps/web/src/lib/preview-markup.mjs';
 import { test, expect } from './fixtures.js';
 
 for (const component of loadComponents()) {
@@ -6,6 +10,35 @@ for (const component of loadComponents()) {
     page,
   }) => {
     await page.goto(`/${component.name}/`);
+    const previewCodeBlock = page.locator('[data-cods-docs-preview-code] code');
+    if (await previewCodeBlock.count()) {
+      // Hardened pages show a curated preview instead of every fixture state.
+      // Each previewed state and the code block must match the fixture exactly.
+      await expect(page.locator('[data-cods-docs-status]')).toContainText(
+        `${component.metadata.displayName} maturity is ${component.metadata.maturity}`,
+      );
+      const figures = await page
+        .locator('[data-cods-docs-preview-state]')
+        .evaluateAll((elements) =>
+          elements.map((element) => ({
+            state: element.getAttribute('data-cods-docs-preview-state')!,
+            label: element.getAttribute('data-cods-docs-preview-label')!,
+          })),
+        );
+      expect(figures.length).toBeGreaterThan(0);
+      const items = figures.map(({ state, label }) => {
+        const example = component.examples.examples.find(
+          (candidate) => candidate.state === state,
+        );
+        expect(
+          example,
+          `${component.name} preview state ${state}`,
+        ).toBeDefined();
+        return { label, markup: componentMarkup(example!.code) };
+      });
+      expect(await previewCodeBlock.textContent()).toBe(previewCode(items));
+      return;
+    }
     await expect(
       page
         .getByText(
