@@ -1,5 +1,12 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.28
+
+### Patch Changes
+
+- Mark Accordion stable in component metadata and documentation.
+- @coloradodigitalservice/colorado-design-tokens@0.2.28
+
 ## 0.2.27
 
 ### Patch Changes
