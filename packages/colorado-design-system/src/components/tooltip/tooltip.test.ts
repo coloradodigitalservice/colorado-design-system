@@ -1,38 +1,102 @@
-import { describe, expect, it, vi } from 'vitest';
-import { destroy, init } from './tooltip.js';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import fixture from './tooltip.fixture.html?raw';
+import { destroy, init, initAll } from './tooltip.js';
 
-function fixture(): HTMLElement {
-  document.body.innerHTML =
-    '<span data-cods-tooltip><button class="usa-tooltip" data-cods-tooltip-trigger title="Helpful text" aria-describedby="existing">Save</button></span>';
-  return document.querySelector<HTMLElement>('[data-cods-tooltip]')!;
+/** Render the canonical fixture and return one state's tooltip parts. */
+function render(state = 'top') {
+  document.body.innerHTML = fixture;
+  const root = document.querySelector<HTMLElement>(
+    `[data-cods-fixture-state="${state}"] [data-cods-tooltip]`,
+  )!;
+  const trigger = root.querySelector<HTMLElement>(
+    '[data-cods-tooltip-trigger]',
+  )!;
+  const body = () => root.querySelector<HTMLElement>('[role="tooltip"]')!;
+  return { root, trigger, body };
 }
 
+const escape = () =>
+  document.dispatchEvent(
+    new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }),
+  );
+
+afterEach(() => {
+  document
+    .querySelectorAll<HTMLElement>('[data-cods-tooltip]')
+    .forEach(destroy);
+  document.body.innerHTML = '';
+});
+
 describe('tooltip', () => {
-  it('opens on focus and remains open on hover until both leave, and Escape dismisses it', () => {
-    const root = fixture();
+  it('creates a described, hidden tooltip from the trigger title', () => {
+    const { root, trigger, body } = render();
     init(root);
-    const trigger = root.querySelector('button')!;
-    const wrapper = trigger.parentElement!;
-    const body = root.querySelector<HTMLElement>('[role="tooltip"]')!;
-    expect(trigger.getAttribute('aria-describedby')).toContain(body.id);
-    expect(trigger.getAttribute('aria-describedby')).toContain('existing');
-    trigger.dispatchEvent(new FocusEvent('focus'));
-    expect(body.classList.contains('is-set')).toBe(true);
-    wrapper.dispatchEvent(new MouseEvent('mouseenter'));
-    trigger.dispatchEvent(new FocusEvent('blur'));
-    expect(body.classList.contains('is-set')).toBe(true);
-    document.dispatchEvent(
-      new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }),
+    expect(body().textContent).toBe('Saves your progress.');
+    expect(body().hidden).toBe(true);
+    expect(trigger.hasAttribute('title')).toBe(false);
+    expect(trigger.getAttribute('aria-describedby')).toBe(body().id);
+  });
+
+  it('preserves an existing description', () => {
+    const { root, trigger, body } = render();
+    trigger.setAttribute('aria-describedby', 'existing');
+    init(root);
+    expect(trigger.getAttribute('aria-describedby')).toBe(
+      `existing ${body().id}`,
     );
-    expect(body.classList.contains('is-set')).toBe(false);
-    wrapper.dispatchEvent(new MouseEvent('mouseleave'));
-    wrapper.dispatchEvent(new MouseEvent('mouseenter'));
-    expect(body.classList.contains('is-set')).toBe(true);
     destroy(root);
+    expect(trigger.getAttribute('aria-describedby')).toBe('existing');
+  });
+
+  it('stays open while hovered or focused and emits open and close', () => {
+    const { root, trigger, body } = render();
+    const events: string[] = [];
+    root.addEventListener('cods-tooltip:open', (event) =>
+      events.push(`open:${(event as CustomEvent).detail.trigger === trigger}`),
+    );
+    root.addEventListener('cods-tooltip:close', () => events.push('close'));
+    init(root);
+    trigger.dispatchEvent(new FocusEvent('focus'));
+    expect(body().hidden).toBe(false);
+    root.dispatchEvent(new MouseEvent('mouseenter'));
+    trigger.dispatchEvent(new FocusEvent('blur'));
+    expect(body().hidden).toBe(false);
+    root.dispatchEvent(new MouseEvent('mouseleave'));
+    expect(body().hidden).toBe(true);
+    expect(events).toEqual(['open:true', 'close']);
+  });
+
+  it('reopens after Escape on a fresh hover while focus remains', () => {
+    const { root, trigger, body } = render();
+    init(root);
+    trigger.dispatchEvent(new FocusEvent('focus'));
+    escape();
+    expect(body().hidden).toBe(true);
+    root.dispatchEvent(new MouseEvent('mouseenter'));
+    expect(body().hidden).toBe(false);
+  });
+
+  it('reopens after Escape on a fresh focus while hover remains', () => {
+    const { root, trigger, body } = render();
+    init(root);
+    root.dispatchEvent(new MouseEvent('mouseenter'));
+    escape();
+    expect(body().hidden).toBe(true);
+    trigger.dispatchEvent(new FocusEvent('focus'));
+    expect(body().hidden).toBe(false);
+  });
+
+  it('preserves focus on the trigger through init and destroy', () => {
+    const { root, trigger } = render();
+    trigger.focus();
+    init(root);
+    expect(document.activeElement).toBe(trigger);
+    destroy(root);
+    expect(document.activeElement).toBe(trigger);
   });
 
   it('restores authored markup and does not initialize twice', () => {
-    const root = fixture();
+    const { root } = render('light');
     const original = root.cloneNode(true);
     init(root);
     init(root);
@@ -42,13 +106,37 @@ describe('tooltip', () => {
     expect(() => destroy(root)).not.toThrow();
   });
 
+  it('removes document and window listeners on destroy', () => {
+    const { root } = render();
+    const addDoc = vi.spyOn(document, 'addEventListener');
+    const removeDoc = vi.spyOn(document, 'removeEventListener');
+    const addWin = vi.spyOn(window, 'addEventListener');
+    const removeWin = vi.spyOn(window, 'removeEventListener');
+    init(root);
+    destroy(root);
+    expect(removeDoc.mock.calls).toEqual(addDoc.mock.calls);
+    expect(removeWin.mock.calls).toEqual(addWin.mock.calls);
+    vi.restoreAllMocks();
+  });
+
+  it('initializes every fixture state with unique ids', () => {
+    render();
+    initAll(document);
+    const ids = [...document.querySelectorAll('[role="tooltip"]')].map(
+      (body) => body.id,
+    );
+    expect(ids).toHaveLength(5);
+    expect(new Set(ids).size).toBe(5);
+  });
+
   it('leaves invalid markup untouched', () => {
-    const root = fixture();
-    root.querySelector('button')!.removeAttribute('title');
+    const { root, trigger } = render();
+    trigger.removeAttribute('title');
     const original = root.innerHTML;
     const warning = vi.spyOn(console, 'warn').mockImplementation(() => {});
     init(root);
     expect(root.innerHTML).toBe(original);
+    expect(warning).toHaveBeenCalledOnce();
     warning.mockRestore();
   });
 });

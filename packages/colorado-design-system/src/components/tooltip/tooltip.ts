@@ -1,112 +1,161 @@
-import tooltip from '@uswds/uswds/js/usa-tooltip';
+/**
+ * Tooltip is a Type C (CoDS divergent) component. It keeps the USWDS tooltip
+ * authoring model (a trigger whose `title` holds the text, `data-position` for
+ * the preferred side) but replaces the USWDS behavior so that it can:
+ *
+ * - use the authored root as the wrapper, so the trigger never moves in the
+ *   DOM and keeps focus during `init` and `destroy`;
+ * - position the tooltip in the root's local coordinate space, so the arrow,
+ *   gap, and hover bridge stay aligned inside scaled ancestors;
+ * - stay next to (never over) the trigger when no side has room;
+ * - reposition while open when the page or an ancestor scrolls;
+ * - point the arrow at the trigger when the body is shifted to fit; and
+ * - reopen after Escape on any fresh hover or focus.
+ *
+ * See the metadata `divergenceNotes` and section 4.1 of
+ * docs/governance/component-contract.md for the document/window listener
+ * allowance this relies on.
+ */
 
 const ROOT = '[data-cods-tooltip]';
-const instances = new WeakMap<HTMLElement, () => void>();
+const TRIGGER = '[data-cods-tooltip-trigger]';
+const POSITIONS = ['top', 'bottom', 'left', 'right'] as const;
+type Position = (typeof POSITIONS)[number];
+const OPPOSITE: Record<Position, Position> = {
+  top: 'bottom',
+  bottom: 'top',
+  left: 'right',
+  right: 'left',
+};
+/** Space between trigger and body in CSS px; matches the arrow and hover bridge in tooltip.scss. */
+const GAP = 6;
+/** Keeps the arrow clear of the body's rounded corners, in CSS px. */
+const ARROW_INSET = 12;
 
-/** Enhance a connected tooltip trigger using USWDS positioning and markup. */
+const instances = new WeakMap<HTMLElement, () => void>();
+let sequence = 0;
+
+const clamp = (value: number, min: number, max: number) =>
+  Math.max(min, Math.min(value, Math.max(min, max)));
+
+/** Enhance a connected tooltip root. The trigger stays where it was authored. */
 export function init(root: HTMLElement): void {
   if (instances.has(root)) return;
-  const trigger = root.querySelector<HTMLElement>(
-    '.usa-tooltip[data-cods-tooltip-trigger]',
-  );
-  if (!root.isConnected || !trigger || !trigger.getAttribute('title')?.trim()) {
+  const trigger = root.querySelector<HTMLElement>(TRIGGER);
+  const text = trigger?.getAttribute('title')?.trim();
+  const doc = root.ownerDocument;
+  const view = doc.defaultView;
+  if (!root.isConnected || !view || !trigger || !text) {
     console.warn(
       'cods-tooltip: expected a connected trigger with tooltip text in title',
       root,
     );
     return;
   }
-  const attributes = [
-    'class',
-    'title',
-    'tabindex',
+
+  const authoredTitle = trigger.getAttribute('title');
+  const authoredDescribedBy = trigger.getAttribute('aria-describedby');
+  const preferred: Position =
+    POSITIONS.find((side) => side === trigger.getAttribute('data-position')) ??
+    'top';
+
+  const body = doc.createElement('span');
+  do body.id = `cods-tooltip-${++sequence}`;
+  while (doc.getElementById(body.id));
+  body.className = 'cods-tooltip__body';
+  body.setAttribute('role', 'tooltip');
+  body.hidden = true;
+  body.textContent = text;
+  root.append(body);
+  trigger.removeAttribute('title');
+  trigger.setAttribute(
     'aria-describedby',
-    'data-position',
-  ] as const;
-  const original = new Map(
-    attributes.map((name) => [name, trigger.getAttribute(name)]),
+    authoredDescribedBy ? `${authoredDescribedBy} ${body.id}` : body.id,
   );
-  const { wrapper, tooltipBody, position } = tooltip.setup(trigger);
-  const describedBy = original.get('aria-describedby');
-  if (describedBy)
-    trigger.setAttribute(
-      'aria-describedby',
-      `${describedBy} ${tooltipBody.id}`,
-    );
-  const tabIndex = original.get('tabindex');
-  if (tabIndex === null) trigger.removeAttribute('tabindex');
-  else if (tabIndex !== undefined) trigger.setAttribute('tabindex', tabIndex);
-  wrapper.classList.add('cods-tooltip__wrapper');
-  tooltipBody.classList.add('cods-tooltip__body');
+
   let hovered = false;
-  let focused = false;
+  let focused = doc.activeElement === trigger;
   let dismissed = false;
   let open = false;
+
   const place = () => {
-    const triggerRect = trigger.getBoundingClientRect();
-    const wrapperRect = wrapper.getBoundingClientRect();
-    const bodyRect = tooltipBody.getBoundingClientRect();
-    const gap = 5; // Matches the USWDS tooltip arrow and pointer bridge.
-    const positions = ['top', 'bottom', 'left', 'right'] as const;
-    type Position = (typeof positions)[number];
-    const preferred: Position =
-      positions.find((item) => item === position) ?? 'top';
-    const coords = (side: Position) => {
+    body.style.left = '0px';
+    body.style.top = '0px';
+    const t = trigger.getBoundingClientRect();
+    const r = root.getBoundingClientRect();
+    const { width: w, height: h } = body.getBoundingClientRect();
+    // Ratio of rendered to layout size; 1 unless an ancestor is transformed.
+    const scaleX = root.offsetWidth ? r.width / root.offsetWidth : 1;
+    const scaleY = root.offsetHeight ? r.height / root.offsetHeight : 1;
+    const gapX = GAP * scaleX;
+    const gapY = GAP * scaleY;
+    const vw = doc.documentElement.clientWidth || view.innerWidth;
+    const vh = doc.documentElement.clientHeight || view.innerHeight;
+
+    const main = (side: Position) => {
       switch (side) {
         case 'top':
-          return {
-            x: triggerRect.left + (triggerRect.width - bodyRect.width) / 2,
-            y: triggerRect.top - bodyRect.height - gap,
-          };
+          return t.top - gapY - h;
         case 'bottom':
-          return {
-            x: triggerRect.left + (triggerRect.width - bodyRect.width) / 2,
-            y: triggerRect.bottom + gap,
-          };
+          return t.bottom + gapY;
         case 'left':
-          return {
-            x: triggerRect.left - bodyRect.width - gap,
-            y: triggerRect.top + (triggerRect.height - bodyRect.height) / 2,
-          };
+          return t.left - gapX - w;
         case 'right':
-          return {
-            x: triggerRect.right + gap,
-            y: triggerRect.top + (triggerRect.height - bodyRect.height) / 2,
-          };
+          return t.right + gapX;
       }
     };
-    const view = root.ownerDocument.defaultView!;
-    const options = [
+    const fits = (side: Position) => {
+      const start = main(side);
+      return side === 'top' || side === 'bottom'
+        ? start >= 0 && start + h <= vh && w <= vw
+        : start >= 0 && start + w <= vw && h <= vh;
+    };
+    const order: Position[] = [
       preferred,
-      ...positions.filter((item) => item !== preferred),
+      OPPOSITE[preferred],
+      ...POSITIONS.filter(
+        (side) => side !== preferred && side !== OPPOSITE[preferred],
+      ),
     ];
-    const side =
-      options.find((item) => {
-        const { x, y } = coords(item);
-        return item === 'top' || item === 'bottom'
-          ? y >= 0 && y + bodyRect.height <= view.innerHeight
-          : x >= 0 && x + bodyRect.width <= view.innerWidth;
-      }) ?? preferred;
-    const { x, y } = coords(side);
-    for (const item of positions)
-      tooltipBody.classList.toggle(`usa-tooltip__body--${item}`, item === side);
-    const wrapperStyle = view.getComputedStyle(wrapper);
-    const scaleX = wrapperRect.width / parseFloat(wrapperStyle.width) || 1;
-    const scaleY = wrapperRect.height / parseFloat(wrapperStyle.height) || 1;
-    tooltipBody.style.left = `${(Math.max(0, Math.min(x, view.innerWidth - bodyRect.width)) - wrapperRect.left) / scaleX}px`;
-    tooltipBody.style.top = `${(Math.max(0, Math.min(y, view.innerHeight - bodyRect.height)) - wrapperRect.top) / scaleY}px`;
-    tooltipBody.style.bottom = '';
-    tooltipBody.style.right = '';
-    tooltipBody.style.margin = '0';
+    // When nothing fits, stay above or below the trigger, whichever has more
+    // room: the body never covers the trigger, wraps within the viewport
+    // width, and the page can scroll to reveal the rest.
+    const fallback: Position = t.top >= vh - t.bottom ? 'top' : 'bottom';
+    const side = order.find(fits) ?? fallback;
+
+    const vertical = side === 'top' || side === 'bottom';
+    const x = vertical
+      ? clamp(t.left + (t.width - w) / 2, 0, vw - w)
+      : main(side);
+    const y = vertical
+      ? main(side)
+      : clamp(t.top + (t.height - h) / 2, 0, vh - h);
+
+    for (const item of POSITIONS)
+      body.classList.toggle(`cods-tooltip__body--${item}`, item === side);
+    body.style.left = `${(x - r.left) / scaleX}px`;
+    body.style.top = `${(y - r.top) / scaleY}px`;
+    // Point the arrow at the trigger's center even when the body was shifted.
+    const arrow = vertical
+      ? clamp(
+          (t.left + t.width / 2 - x) / scaleX,
+          ARROW_INSET,
+          w / scaleX - ARROW_INSET,
+        )
+      : clamp(
+          (t.top + t.height / 2 - y) / scaleY,
+          ARROW_INSET,
+          h / scaleY - ARROW_INSET,
+        );
+    body.style.setProperty('--cods-tooltip-arrow-offset', `${arrow}px`);
   };
+
   const update = () => {
     const next = (hovered || focused) && !dismissed;
     if (next === open) return;
     open = next;
-    if (next) {
-      tooltip.show(tooltipBody, trigger, position);
-      place();
-    } else tooltip.hide(tooltipBody);
+    body.hidden = !next;
+    if (next) place();
     root.dispatchEvent(
       new CustomEvent(`cods-tooltip:${next ? 'open' : 'close'}`, {
         bubbles: true,
@@ -114,22 +163,24 @@ export function init(root: HTMLElement): void {
       }),
     );
   };
+  // A fresh hover or focus always reopens a tooltip dismissed with Escape,
+  // even while the other modality is still active.
   const enter = () => {
     hovered = true;
+    dismissed = false;
     update();
   };
   const leave = () => {
     hovered = false;
-    if (!focused) dismissed = false;
     update();
   };
   const focus = () => {
     focused = true;
+    dismissed = false;
     update();
   };
   const blur = () => {
     focused = false;
-    if (!hovered) dismissed = false;
     update();
   };
   const keydown = (event: KeyboardEvent) => {
@@ -138,27 +189,36 @@ export function init(root: HTMLElement): void {
       update();
     }
   };
-  const resize = () => {
+  const reposition = () => {
     if (open) place();
   };
-  wrapper.addEventListener('mouseenter', enter);
-  wrapper.addEventListener('mouseleave', leave);
+
+  // Instance-owned document/window listeners (contract section 4.1): Escape
+  // must work wherever the pointer is, and scrolling any ancestor or resizing
+  // the viewport moves the trigger. All are removed in destroy.
+  const scrollOptions = { capture: true, passive: true } as const;
+  root.addEventListener('mouseenter', enter);
+  root.addEventListener('mouseleave', leave);
   trigger.addEventListener('focus', focus);
   trigger.addEventListener('blur', blur);
-  root.ownerDocument.addEventListener('keydown', keydown);
-  root.ownerDocument.defaultView?.addEventListener('resize', resize);
+  doc.addEventListener('keydown', keydown);
+  doc.addEventListener('scroll', reposition, scrollOptions);
+  view.addEventListener('resize', reposition);
+
   instances.set(root, () => {
-    wrapper.removeEventListener('mouseenter', enter);
-    wrapper.removeEventListener('mouseleave', leave);
+    root.removeEventListener('mouseenter', enter);
+    root.removeEventListener('mouseleave', leave);
     trigger.removeEventListener('focus', focus);
     trigger.removeEventListener('blur', blur);
-    root.ownerDocument.removeEventListener('keydown', keydown);
-    root.ownerDocument.defaultView?.removeEventListener('resize', resize);
-    wrapper.replaceWith(trigger);
-    for (const [name, value] of original) {
-      if (value === null || value === undefined) trigger.removeAttribute(name);
-      else trigger.setAttribute(name, value);
-    }
+    doc.removeEventListener('keydown', keydown);
+    doc.removeEventListener('scroll', reposition, scrollOptions);
+    view.removeEventListener('resize', reposition);
+    body.remove();
+    if (authoredTitle === null) trigger.removeAttribute('title');
+    else trigger.setAttribute('title', authoredTitle);
+    if (authoredDescribedBy === null)
+      trigger.removeAttribute('aria-describedby');
+    else trigger.setAttribute('aria-describedby', authoredDescribedBy);
   });
 }
 

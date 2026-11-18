@@ -5,19 +5,19 @@
   "type": "interactive",
   "uswdsEquivalent": "tooltip",
   "uswdsVersion": "3.14.0",
-  "componentType": "A",
+  "componentType": "C",
   "owners": {
     "responsible": "Aten component lead",
     "accountable": "State technical owner",
     "consulted": "State design owner, accessibility lead",
     "informed": "Component contributors, product owner"
   },
-  "divergenceApproved": false,
-  "divergenceNotes": null,
-  "states": ["top", "bottom", "left", "right"],
+  "divergenceApproved": true,
+  "divergenceNotes": "Keeps the USWDS tooltip authoring model (trigger title text, data-position) and pinned USWDS reference, but replaces the USWDS tooltip JavaScript and body styles with a CoDS controller and styles. The divergence keeps focus on the trigger during init and destroy (USWDS moves the trigger into a generated wrapper), positions in the root's local coordinates so the hover path survives scaled ancestors, never covers the trigger when no side fits (WCAG 2.4.11), repositions on scroll, points the arrow at the trigger when the body shifts, reopens after Escape on any fresh hover or focus, and adds the Figma light treatment and CoDS elevation. Type C direction approved in PR #98 review (2026-11-18); State design and accessibility sign-off of the visual result remain part of the open accessibility evidence.",
+  "states": ["top", "bottom", "left", "right", "light"],
   "progressiveEnhancement": "partial",
   "localization": "text-content-only",
-  "description": "Supplemental text shown on hover or focus using the USWDS tooltip positioner. Essential information must remain visible.",
+  "description": "Supplemental text shown on hover or focus next to its trigger, in dark (default) and light treatments. Essential information must remain visible.",
   "examples": [
     {
       "state": "top",
@@ -40,6 +40,12 @@
     {
       "state": "right",
       "fixtureState": "right",
+      "setup": "none",
+      "instructions": ""
+    },
+    {
+      "state": "light",
+      "fixtureState": "light",
       "setup": "none",
       "instructions": ""
     }

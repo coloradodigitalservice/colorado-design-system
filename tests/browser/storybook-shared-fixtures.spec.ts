@@ -33,8 +33,15 @@ for (const component of loadComponents()) {
         const template = document.createElement('template');
         template.innerHTML = html;
         const normalize = (text: string) => text.replace(/\s+/g, ' ').trim();
+        // Controllers may generate tooltips from authored attributes (for
+        // example a trigger's title); compare only the authored content.
+        const rendered = element.cloneNode(true) as Element;
+        if (!template.content.querySelector('[role="tooltip"]'))
+          rendered
+            .querySelectorAll('[role="tooltip"]')
+            .forEach((node) => node.remove());
         return (
-          normalize(element.textContent ?? '') ===
+          normalize(rendered.textContent ?? '') ===
           normalize(template.content.textContent ?? '')
         );
       }, example.html);

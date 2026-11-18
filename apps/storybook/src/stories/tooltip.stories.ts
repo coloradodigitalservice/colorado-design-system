@@ -19,3 +19,4 @@ export const Top: Story = { render: () => state('top') };
 export const Bottom: Story = { render: () => state('bottom') };
 export const Left: Story = { render: () => state('left') };
 export const Right: Story = { render: () => state('right') };
+export const Light: Story = { render: () => state('light') };

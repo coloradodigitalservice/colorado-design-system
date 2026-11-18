@@ -1563,7 +1563,14 @@
       "name": "Tooltip",
       "source": "https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=2812-8030&p=f&m=dev",
       "tokens": [
+        "color.bg-page-surface-white",
+        "color.border-default",
+        "color.elevation-shadow",
         "color.text-primary",
+        "elevation.low-blur",
+        "elevation.low-spread",
+        "elevation.low-x",
+        "elevation.low-y",
         "font.family-body",
         "font.size-desktop-body-sm",
         "font.weight-regular",
@@ -1573,7 +1580,22 @@
         "space.xs"
       ],
       "componentTokens": [],
-      "implementationTokens": [],
+      "implementationTokens": [
+        "color.bg-page-surface-white",
+        "color.border-default",
+        "color.elevation-shadow",
+        "color.text-primary",
+        "elevation.low-blur",
+        "elevation.low-spread",
+        "elevation.low-x",
+        "elevation.low-y",
+        "font.family-body",
+        "font.size-desktop-body-sm",
+        "font.weight-regular",
+        "line-height.desktop-body-sm",
+        "radius.md",
+        "space.xs"
+      ],
       "designCoverage": "documented",
       "implementationDirectory": "tooltip"
     },
