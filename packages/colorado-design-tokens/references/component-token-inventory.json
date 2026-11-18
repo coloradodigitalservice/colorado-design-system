@@ -1191,6 +1191,7 @@
         "paragraph-space.desktop-ui",
         "radius.lg",
         "radius.md",
+        "space.2xl",
         "space.2xs",
         "space.lg",
         "space.md",
@@ -1216,9 +1217,12 @@
         "line-height.desktop-h5",
         "radius.lg",
         "radius.md",
+        "space.2xl",
         "space.2xs",
         "space.lg",
-        "space.md"
+        "space.md",
+        "space.xl",
+        "space.xs"
       ],
       "designCoverage": "documented",
       "implementationDirectory": "modal"

@@ -5,11 +5,24 @@ const DIALOG = '.usa-modal';
 const OPENER = '[data-open-modal]';
 const CLOSER = '[data-close-modal]';
 const VISIBLE = 'is-visible';
+const WRAPPER = 'usa-modal-wrapper';
+const PLACEHOLDER = 'data-placeholder-for';
+/** The prefix USWDS's placeholder stores the authored dialog attributes under. */
+const ORIGINAL = 'data-original-';
 
 /** Payload for the bubbling cods-modal:open and cods-modal:close events. */
 export interface ModalToggleDetail {
   modalId: string;
   open: boolean;
+}
+
+/** Authored state of an element USWDS binds `toggleModal` to and may mutate. */
+interface Trigger {
+  element: HTMLElement;
+  /** USWDS generates an id on first open so it can return focus there. */
+  id: string | null;
+  /** USWDS adds `role="button"` to anchor triggers. */
+  role: string | null;
 }
 
 interface Instance {
@@ -21,6 +34,9 @@ interface Instance {
    */
   wrapper: HTMLElement;
   dialog: HTMLElement;
+  /** USWDS's marker for the dialog's authored position inside the root. */
+  placeholder: HTMLElement;
+  triggers: Trigger[];
   /** Authored tabindex; USWDS adds `-1` and never removes it on teardown. */
   tabIndex: string | null;
   observer: MutationObserver;
@@ -87,9 +103,18 @@ export function init(root: HTMLElement): void {
   const modalId = dialog.id;
   const labelledBy = dialog.getAttribute('aria-labelledby');
   const describedBy = dialog.getAttribute('aria-describedby');
+  // `getElementById` returns the first match, so a copied example would pass
+  // an identity check; count instead. Every id the dialog depends on must be
+  // unique, or USWDS resolves the wrong element and locks the page with no
+  // visible dialog.
+  const unique = (id: string | null): boolean =>
+    !!id && document_.querySelectorAll(`#${CSS.escape(id)}`).length === 1;
   if (
     !/^[A-Za-z][A-Za-z0-9_-]*$/.test(modalId) ||
     document_.getElementById(modalId) !== dialog ||
+    !unique(modalId) ||
+    !unique(labelledBy) ||
+    !unique(describedBy) ||
     // USWDS throws without these; it also moves them onto its wrapper.
     !labelledBy ||
     !describedBy ||
@@ -98,7 +123,7 @@ export function init(root: HTMLElement): void {
   ) {
     warn(
       root,
-      'the .usa-modal needs a unique simple id and aria-labelledby and aria-describedby resolving inside it',
+      'the .usa-modal needs a unique simple id, and aria-labelledby and aria-describedby resolving to unique ids inside it',
     );
     return;
   }
@@ -119,12 +144,27 @@ export function init(root: HTMLElement): void {
     return;
   }
   const tabIndex = dialog.getAttribute('tabindex');
+  // USWDS binds every element controlling the dialog, in or out of the root.
+  const triggers = Array.from(
+    document_.querySelectorAll<HTMLElement>(
+      `[aria-controls="${CSS.escape(modalId)}"]`,
+    ),
+    (element): Trigger => ({
+      element,
+      id: element.getAttribute('id'),
+      role: element.getAttribute('role'),
+    }),
+  );
 
   uswdsModal.on(root);
 
-  // USWDS moved the id from the dialog onto the wrapper it appended to body.
-  const wrapper = document_.getElementById(modalId);
-  if (!wrapper) {
+  // USWDS nests the dialog in overlay and wrapper, moves the id onto the
+  // wrapper and appends it to body, leaving a placeholder in the root.
+  const wrapper = dialog.parentElement?.parentElement;
+  const placeholder = root.querySelector<HTMLElement>(
+    `[${PLACEHOLDER}="${CSS.escape(modalId)}"]`,
+  );
+  if (!wrapper?.classList.contains(WRAPPER) || !placeholder) {
     warn(root, 'the USWDS behavior did not build a wrapper');
     return;
   }
@@ -132,6 +172,8 @@ export function init(root: HTMLElement): void {
     modalId,
     wrapper,
     dialog,
+    placeholder,
+    triggers,
     tabIndex,
     wasOpen: wrapper.classList.contains(VISIBLE),
     observer: new MutationObserver(() => settle(root)),
@@ -141,6 +183,8 @@ export function init(root: HTMLElement): void {
     attributes: true,
     attributeFilter: ['class'],
   });
+  // A CoDS hook on the generated overlay; it leaves with the wrapper.
+  dialog.parentElement?.classList.add('cods-modal__overlay');
   instances.set(root, instance);
 }
 
@@ -163,31 +207,64 @@ export function open(root: HTMLElement): void {
 }
 
 /**
- * Close the dialog through USWDS's own close path. The forced-action variant
- * has no dismiss affordance, so its in-dialog actions are the only closers.
+ * Close through the path USWDS's own Escape handler takes. It hides the
+ * visible dialog, releases the scroll lock, un-hides the page and returns
+ * focus, without activating any of the dialog's actions: clicking one would
+ * run its application handler (for example a "Delete record" button), and a
+ * disabled one would not close at all. This is also how the forced-action
+ * variant, which ignores Escape, is closed programmatically.
  */
+function hide(instance: Instance): void {
+  if (!isOpen(instance)) return;
+  uswdsModal.toggleModal.call(uswdsModal, false);
+}
+
+/** Close the dialog without activating any of its actions. */
 export function close(root: HTMLElement): void {
   const instance = instances.get(root);
-  if (!instance || !isOpen(instance)) return;
-  instance.wrapper.querySelector<HTMLElement>(CLOSER)?.click();
+  if (!instance) return;
+  hide(instance);
   settle(root);
 }
 
-/** Remove the generated wrapper and return the dialog to its authored place. */
+/**
+ * Close if open, remove the generated wrapper and listeners, and restore the
+ * authored markup, so the root can be enhanced again or left as plain HTML.
+ */
 export function destroy(root: HTMLElement): void {
   const instance = instances.get(root);
   if (!instance) return;
+  const { dialog, placeholder, wrapper } = instance;
   // Disconnect first, so teardown emits nothing.
   instance.observer.disconnect();
   // Close while still wired, or body keeps USWDS's scroll lock and the rest of
   // the page stays aria-hidden.
-  if (isOpen(instance))
-    instance.wrapper.querySelector<HTMLElement>(CLOSER)?.click();
+  hide(instance);
   // The dialog no longer lives inside the root, so USWDS has to be handed the
   // wrapper; `off(root)` would find nothing and silently leave the DOM built.
-  uswdsModal.off(instance.wrapper);
+  uswdsModal.off(wrapper);
+  // USWDS restores the dialog only when it can find the placeholder in the
+  // document, so a root that was detached first is restored here instead.
+  if (dialog.parentElement?.parentElement === wrapper) {
+    for (const { name, value } of Array.from(placeholder.attributes)) {
+      if (name.startsWith(ORIGINAL))
+        dialog.setAttribute(name.slice(ORIGINAL.length), value);
+    }
+    placeholder.replaceWith(dialog);
+  }
+  wrapper.remove();
+  // USWDS's teardown looks triggers up by the dialog id after it has already
+  // moved that id, so it never unbinds them. Left bound, a later click would
+  // lock and hide the page with no dialog to show.
+  for (const { element, id, role } of instance.triggers) {
+    element.removeEventListener('click', uswdsModal.toggleModal);
+    if (id === null) element.removeAttribute('id');
+    else element.setAttribute('id', id);
+    if (role === null) element.removeAttribute('role');
+    else element.setAttribute('role', role);
+  }
   // USWDS's cleanup restores only the attributes it snapshotted before setup.
-  if (instance.tabIndex === null) instance.dialog.removeAttribute('tabindex');
-  else instance.dialog.setAttribute('tabindex', instance.tabIndex);
+  if (instance.tabIndex === null) dialog.removeAttribute('tabindex');
+  else dialog.setAttribute('tabindex', instance.tabIndex);
   instances.delete(root);
 }

@@ -151,3 +151,60 @@ test('focus wraps at both ends of the open dialog', async ({ page }) => {
   await page.keyboard.press('Shift+Tab');
   await expect(wrapper.getByRole('button', { name: last })).toBeFocused();
 });
+
+const box = async (page: import('@playwright/test').Page, selector: string) =>
+  (await page.locator(selector).first().boundingBox())!;
+
+test('matches the Figma desktop spacing', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto('/modal/');
+  for (const [name, id] of [
+    ['Delete this record', 'cods-modal-default'],
+    ['Review session timeout', 'cods-modal-forced'],
+  ] as const) {
+    await page.getByRole('button', { name }).click();
+    const dialog = await box(page, `#${id} .cods-modal__dialog`);
+    const heading = await box(page, `#${id} .cods-modal__heading`);
+    const actions = await box(page, `#${id} .cods-modal__actions`);
+    expect(dialog.width).toBe(480);
+    // 40px spacer + 4px content padding, with or without a close button.
+    expect(heading.y - dialog.y).toBe(44);
+    // 32px insets leave a 416px text area.
+    expect(heading.x - dialog.x).toBe(32);
+    expect(heading.width).toBe(416);
+    expect(dialog.y + dialog.height - (actions.y + actions.height)).toBe(32);
+    if (id === 'cods-modal-default') {
+      const icon = await box(page, `#${id} .cods-modal__close-icon`);
+      expect(icon.y - dialog.y).toBe(12);
+      expect(dialog.x + dialog.width - (icon.x + icon.width)).toBe(12);
+    }
+    await page.getByRole('button', { name: /Cancel|Sign out/ }).click();
+  }
+});
+
+for (const [viewport, width] of [
+  [375, 343],
+  [320, 288],
+] as const) {
+  test(`matches the Figma mobile layout at ${viewport}px`, async ({ page }) => {
+    await page.setViewportSize({ width: viewport, height: 800 });
+    await page.goto('/modal/');
+    await page.getByRole('button', { name: 'Review session timeout' }).click();
+    const id = '#cods-modal-forced';
+    const dialog = await box(page, `${id} .cods-modal__dialog`);
+    const heading = await box(page, `${id} .cods-modal__heading`);
+    expect(dialog.width).toBe(width);
+    expect(heading.y - dialog.y).toBe(48);
+    expect(heading.x - dialog.x).toBe(32);
+    const buttons = page.locator(`${id} .cods-modal__action .cods-button`);
+    await expect(buttons).toHaveCount(2);
+    const [first, second] = [
+      (await buttons.nth(0).boundingBox())!,
+      (await buttons.nth(1).boundingBox())!,
+    ];
+    // Full-width, equal and stacked.
+    expect(first.width).toBe(width - 64);
+    expect(second.width).toBe(first.width);
+    expect(second.y).toBeGreaterThan(first.y + first.height - 1);
+  });
+}
