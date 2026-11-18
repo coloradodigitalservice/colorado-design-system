@@ -26,6 +26,7 @@ import {
   mergeEntries,
   sha256,
   validateSbom,
+  verifyBrowserImport,
   versionFromTag,
   versionSection,
 } from './release-lib.mjs';
@@ -302,15 +303,7 @@ function verifyCleanInstall(out, version, tokensFile, systemFile, archiveFile) {
           throw new Error(`Clean install is missing ${name}/${file}`);
       }
     }
-    execFileSync(
-      'node',
-      [
-        '--input-type=module',
-        '-e',
-        "await import('@coloradodigitalservice/colorado-design-system');",
-      ],
-      { cwd: fixture, stdio: ['ignore', 'ignore', 'inherit'] },
-    );
+    verifyBrowserImport(fixture);
     run('tar', ['-xzf', join(out, archiveFile), '-C', fixture]);
     if (
       !existsSync(
