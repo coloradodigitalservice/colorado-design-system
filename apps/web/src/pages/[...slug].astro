@@ -26,6 +26,7 @@ import VideosExamples from '../components/VideosExamples.astro';
 import TagsExamples from '../components/TagsExamples.astro';
 import SearchExamples from '../components/SearchExamples.astro';
 import ProcessListExamples from '../components/ProcessListExamples.astro';
+import ModalExamples from '../components/ModalExamples.astro';
 import InPageNavigationExamples from '../components/InPageNavigationExamples.astro';
 import LogoExample from '../components/LogoExample.astro';
 
@@ -78,6 +79,7 @@ const { Content } = await render(entry);
       </>
     )}
     {entry.id === 'breadcrumbs' && <BreadcrumbsExamples />}
+    {entry.id === 'modal' && <ModalExamples />}
     {entry.id === 'in-page-navigation' && <InPageNavigationExamples />}
     {entry.id === 'radio' && <RadioExamples />}
     {entry.id === 'combo-box' && <ComboBoxExamples />}

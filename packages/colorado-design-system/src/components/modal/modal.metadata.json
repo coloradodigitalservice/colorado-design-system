@@ -1,0 +1,41 @@
+{
+  "name": "modal",
+  "displayName": "Modal",
+  "maturity": "experimental",
+  "type": "interactive",
+  "uswdsEquivalent": "modal",
+  "uswdsVersion": "3.14.0",
+  "componentType": "A",
+  "owners": {
+    "responsible": "Aten component lead",
+    "accountable": "State technical owner",
+    "consulted": "State design owner, accessibility lead",
+    "informed": "Component contributors, product owner"
+  },
+  "divergenceApproved": false,
+  "divergenceNotes": null,
+  "states": ["default", "forced-action", "large"],
+  "examples": [
+    {
+      "state": "default",
+      "fixtureState": "default",
+      "setup": "none",
+      "instructions": ""
+    },
+    {
+      "state": "forced-action",
+      "fixtureState": "forced-action",
+      "setup": "none",
+      "instructions": ""
+    },
+    {
+      "state": "large",
+      "fixtureState": "large",
+      "setup": "none",
+      "instructions": ""
+    }
+  ],
+  "progressiveEnhancement": "partial",
+  "localization": "text-content-only",
+  "description": "An experimental focus-trapped dialog wrapping the USWDS modal behavior, with dismissible and forced-action variants. Without JavaScript the dialog content stays inline on the page and the trigger is inert, so the content must make sense in place. Triggers are buttons rather than USWDS's example anchors: the behavior supports both, and a button avoids the anchor click handler USWDS cannot remove on teardown."
+}

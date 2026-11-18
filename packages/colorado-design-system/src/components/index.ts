@@ -17,6 +17,14 @@ export {
   destroy as destroyComboBox,
 } from './combo-box/combo-box.js';
 export {
+  init as initModal,
+  initAll as initAllModal,
+  destroy as destroyModal,
+  open as openModal,
+  close as closeModal,
+  type ModalToggleDetail,
+} from './modal/modal.js';
+export {
   init as initInPageNavigation,
   initAll as initAllInPageNavigation,
   destroy as destroyInPageNavigation,
