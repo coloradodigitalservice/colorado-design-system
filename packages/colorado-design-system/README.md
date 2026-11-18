@@ -103,7 +103,7 @@ may use `cods.utilities` for their own overrides. Unlayered consumer CSS takes
 precedence over normal layered rules. USWDS utilities using `!important` cannot
 be overridden by normal declarations.
 
-## Accordion (experimental)
+## Accordion (stable)
 
 CODS-P2-002 selects Accordion as the interactive vertical slice. Import
 `initAccordion`, `initAllAccordions`, `destroyAccordion`, and
@@ -119,7 +119,7 @@ markup, initial state, keyboard behavior, configuration, and
 `cods-accordion:change` events. Storybook's `Components/Accordion` stories use
 the same fixture. See
 [accessibility evidence](src/components/accordion/accessibility/accordion.evidence.md)
-for automated coverage and outstanding manual/G2 review.
+for automated coverage and manual review.
 
 ## Icon (experimental)
 

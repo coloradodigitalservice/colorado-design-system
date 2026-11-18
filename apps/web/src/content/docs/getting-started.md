@@ -5,7 +5,7 @@ navLabel: Getting started
 order: 1
 ---
 
-This page explains how to install the Colorado Design System development release and use the two components documented so far: [Site Alert](../site-alert/) and [Accordion](../accordion/). Both are **experimental** in the `0.x` series: markup, tokens, custom properties, and controller APIs may change between releases, and the release is not supported.
+This page explains how to install the Colorado Design System development release and use [Site Alert](../site-alert/) and [Accordion](../accordion/). Accordion is **stable** and Site Alert is **experimental**. The `0.x` development release is not supported.
 
 ## Use the design system
 

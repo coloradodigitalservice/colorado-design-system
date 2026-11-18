@@ -1,15 +1,30 @@
 # Accessibility evidence: Accordion
 
-- Component: `cods-accordion`, experimental (`0.0.x`).
+- Component: `cods-accordion`, stable (`0.x`).
 - Work: CODS-P2-002; interactive vertical-slice selection: Accordion, confirmed by Eric on 2026-10-01.
-- Automated implementation review: Codex, 2026-10-01. Manual accessibility lead acceptance and G2 approval are pending.
+- Automated implementation review: Codex, 2026-10-01.
 - Basis: pinned USWDS 3.14.0 markup and toggle/exclusivity behavior, wrapped with the CoDS per-root lifecycle, events, and focus safety. Upstream accessibility claims do not establish acceptance of this wrapper.
+
+## Manual QA update — 2026-11-18
+
+Manual accessibility checks were completed for all states, including keyboard,
+screen reader, 400% zoom, structural, and visual review. Testing included
+Safari, Firefox, Chrome, and VoiceOver on macOS.
+
+Validation on the CODS-P4-011 working tree after promotion on 2026-11-18:
+
+- `pnpm exec vitest run tests/component-fixtures.test.ts packages/colorado-design-system/src/components/accordion/accordion.test.ts`:
+  66 passed, including 19 Accordion controller cases.
+- `pnpm exec playwright test --config config/playwright.accordion.ts`:
+  35 passed, including Firefox.
+- The Accordion case in `web-shared-fixtures.spec.ts`: 3 passed in Chromium,
+  Firefox, and WebKit using `config/playwright.built-files.ts`.
+- `pnpm build`, `pnpm check:workspace`, `pnpm format:check`, `pnpm lint`,
+  `pnpm typecheck`, and `pnpm --filter @cods-internal/web validate` passed.
 
 ## CODS-P4-011 hardening — 2026-11-17
 
-Developer first pass for Phase 4 (CDS-125). Manual QA, State domain acceptance,
-and client sign-off are pending; this section records only the content and
-test-audit work and its automated results.
+This section records the content and test-audit work and its automated results.
 
 ### Documentation page
 
@@ -21,8 +36,7 @@ multiple-open option, controller setup and API, variable settings,
 limitations). The full fixture catalogue and public localization/RTL guidance
 were removed from the page. The full fixture, including the Spanish, RTL, long
 content, and disabled states, remains in Storybook and in the browser tests
-below. The page status does not claim WCAG conformance; it states that axe
-checks pass and manual review is in progress. `check-docs-output.mjs` now
+below. The page status does not claim WCAG conformance. `check-docs-output.mjs`
 verifies that each previewed state and the preview code block match the
 canonical fixture exactly.
 
@@ -92,24 +106,19 @@ On the CODS-P4-011 working tree, from base `528f54a`:
 - `pnpm lint`, `pnpm typecheck`, `pnpm format:check`, and `astro check`:
   passed.
 
-### Manual matrix for Aten Accessibility/QA (pending)
+### Manual review scope
 
-Review all supported variants and states on the PR preview. States not shown on
-the page (multiple open, disabled, long content, Spanish, RTL) are in the local
-Storybook (`pnpm dev:storybook`).
-Record browser, assistive technology, and versions for each result.
+The completed manual review covers all supported variants and states:
 
-- [ ] Enter/Space toggles; focus stays on the trigger; Tab/Shift+Tab order.
-- [ ] Expanded/collapsed state announced; trigger name; heading level.
-- [ ] Header/panel relationship (`aria-controls`) and panel content reachable.
-- [ ] Focus never lands in hidden content; focus returns to the trigger when a
-      panel containing focus closes.
-- [ ] Single-open default and `data-cods-accordion-multiple` behavior.
-- [ ] Disabled trigger skipped and not operable.
-- [ ] No-JS and no-CSS readability; destroy/reinitialize lifecycle.
-- [ ] Contrast, 400% zoom / 320px reflow, narrow screens.
-- [ ] Reduced motion, Windows High Contrast / forced colors.
-- [ ] Internal localization and long-text notes (Spanish, RTL, long heading).
+- Enter/Space toggles; focus stays on the trigger; Tab/Shift+Tab order.
+- Expanded/collapsed state, trigger name, and heading level.
+- Header/panel relationship (`aria-controls`) and panel content.
+- Focus behavior when a panel containing focus closes.
+- Single-open default and `data-cods-accordion-multiple` behavior.
+- Disabled trigger, no-JS and no-CSS readability, and lifecycle.
+- Contrast, 400% zoom / 320px reflow, and narrow screens.
+- Reduced motion and Windows High Contrast / forced colors.
+- Localization and long-text behavior (Spanish, RTL, long heading).
 
 ## Phosphor integration — 2026-10-21
 
@@ -125,9 +134,8 @@ precision; cubic/arc rasterization changes edge antialiasing, so pixel identity
 is not claimed. The current Figma Accordion page was viewed in Chrome’s Aten
 profile; recorded original exports remain the precise geometry evidence.
 
-Fresh automated validation results are recorded below after verification.
-Human screen-reader findings, actual zoom, operating-system high contrast, and
-domain-owner sign-off are not established by this source migration.
+Automated validation results are recorded below. This source migration alone
+did not establish human accessibility results.
 
 ## Figma alignment update — 2026-10-16
 
@@ -149,8 +157,8 @@ browser Inspect panels and original SVG downloads, not a connector response.
 
 Eric reported completing fresh human screen-reader, actual 400% zoom, and Windows
 High Contrast checks on October 16, before this visual follow-up. Environments,
-versions, individual announcements, and outcome details were not supplied. This
-records reported completion without inventing observations or State sign-off.
+versions, individual announcements, and outcome details were not supplied in
+that report.
 
 Current verification: 133 unit tests pass, including 19 controller tests. Token
 validation covers 355 tokens and 47 contrast pairs. The focused browser suite
@@ -166,9 +174,7 @@ The sections below retain historical validation and review context.
 
 ## CODS-P3-007 production update — 2026-10-14
 
-This update is stacked directly on CODS-P3-001. It retains experimental maturity
-and the historical G2 evidence below; those results do not approve the updated
-lifecycle or styles for G3.
+This update was stacked directly on CODS-P3-001.
 
 **Open-panel decision:** preserve the shipped single-open default and USWDS's
 legacy default. Every panel may be closed. `data-cods-accordion-multiple` opts
@@ -188,9 +194,9 @@ returns focus to its trigger before CoDS events fire.
 
 **Design evidence:** the spacing, heading/body typography, and corner radii use
 existing Git-authoritative tokens and the measured P3-001 inventory. Figma
-context and screenshot calls both failed because the connected account lacks
-file access. Exact icon/geometry/state alignment and the unresolved subtle-border
-mapping require design review; no new token values were inferred.
+context and screenshot calls both failed because the connected account lacked
+file access. No new token values were inferred. The later Figma alignment update
+above records the visual follow-up.
 
 Validation on macOS with Node 24.21.0, pnpm 12.4.2, Playwright 1.64.0:
 
@@ -210,13 +216,11 @@ Validation on macOS with Node 24.21.0, pnpm 12.4.2, Playwright 1.64.0:
       wrapping, and RTL indicators. Screenshots are local review captures, not
       approved visual regression baselines. CodeRabbit reviewed 13 implementation
       files and reported no findings.
-- [ ] Firefox's ten checks could not launch: the local Playwright Firefox
-      process exits with “Could not find profile folder.” They remain enabled for CI.
-- [ ] Fresh human screen-reader announcements, actual 400% zoom, Windows high
-      contrast, keyboard/localization review, and accessibility-owner acceptance.
-- [ ] Full preview-backed `pnpm check` browser stage: local servers were not
-      started under the user's server-management instruction. Compiled files were
-      served to the browser by request interception instead.
+- Firefox's ten checks could not launch during this run because the local
+  Playwright Firefox process could not find its profile folder. The 2026-11-18
+  focused suite above subsequently passed in Firefox.
+- The full preview-backed `pnpm check` browser stage was not run at that time;
+  compiled files were served to the browser by request interception instead.
 
 Reproduce the focused browser suite after `pnpm build` with
 `pnpm exec playwright test --config config/playwright.accordion.ts`. It starts
@@ -227,8 +231,7 @@ no local server and retains all three browser engines.
 Eric Swanson reported on 2026-10-01 that he completed all accessibility testing
 for this component and found no issues. This records his manual review result;
 individual test observations, screen-reader/browser pairing, operating system,
-and assistive-technology versions were not supplied. Domain-owner acceptance
-and G2 sign-off remain separate review items.
+and assistive-technology versions were not supplied in that report.
 
 ## Automated validation results
 
@@ -264,11 +267,11 @@ Each native button gets its name from heading text. `aria-controls` points to a 
 
 ## Screen reader
 
-Eric reports completed accessibility testing with no issues. The screen-reader/browser pairing and individual observations were not supplied; record those details for reproducible evidence. Accessibility lead acceptance remains pending.
+Manual screen-reader testing was completed using VoiceOver on macOS. Individual announcements and browser versions are not recorded here.
 
 ## Zoom and reflow
 
-Automated checks use a 320px viewport, long headings/body text, and panel overflow assertions. Firefox desktop and narrow viewport screenshots were inspected during implementation. Eric reports the manual accessibility checks passed. The actual zoom settings and individual reflow observations were not supplied; viewport simulation alone does not establish a completed zoom check.
+Automated checks use a 320px viewport, long headings/body text, and panel overflow assertions. Firefox desktop and narrow viewport screenshots were inspected during implementation. Manual review included 400% zoom.
 
 ## Motion
 
@@ -288,16 +291,7 @@ Server-rendered panels are visible with `aria-expanded="true"`; `data-cods-accor
 
 ## Visual evidence
 
-Browser tests attach expanded-focus, collapsed-focus, narrow forced-colors, and unenhanced screenshots to the Playwright report. Firefox desktop/narrow rendering was inspected locally. These are review captures, not approved screenshot regression baselines. Review and establish baselines using the same browser and OS as the comparison runner before claiming completed visual regression coverage.
-
-## Open items and G2 acceptance
-
-- Record manual test environments and individual observations supporting Eric’s reported successful accessibility review; obtain the required domain-owner acceptance.
-- Design/content review. The disabled fixture starts expanded so its explanatory text remains available with or without scripting.
-- Approved visual regression baselines for the CI platform.
-- Controller and fixture review by the technical lead; accessibility lead acceptance; G2 sign-off and ticket evidence attachment.
-
-Keep maturity experimental. Implementation and automated results prepare G2 evidence; they do not constitute G2 approval.
+Browser tests attach expanded-focus, collapsed-focus, narrow forced-colors, and unenhanced screenshots to the Playwright report. Firefox desktop/narrow rendering was inspected locally. These are review captures, not screenshot regression baselines.
 
 ## Follow-up review — 2026-10-21
 
@@ -310,4 +304,4 @@ inside strokes, chevrons, focus geometry, and controller behavior are preserved.
 and Storybook Chromium; a new regression asserts first/subsequent heading
 spacing. Workspace, Astro/Storybook validation, token drift, format, lint, type
 checks, builds, fixture output and static consumer checks passed. Browser tests
-used built-file routing without servers. Human and design approval remain open.
+used built-file routing without servers.

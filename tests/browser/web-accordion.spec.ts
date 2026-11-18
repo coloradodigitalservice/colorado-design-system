@@ -43,8 +43,10 @@ test('accordion page follows the component page outline', async ({
   );
 
   const status = page.locator('[data-cods-docs-status]');
-  await expect(status).toContainText('experimental');
-  await expect(status).toContainText('Manual accessibility review');
+  await expect(status).toContainText('Accordion maturity is stable');
+  await expect(status).toContainText(
+    'Manual accessibility checks were completed for all states',
+  );
   await expect(
     status.getByRole('link', { name: 'USWDS 3.14.0 Accordion' }),
   ).toBeVisible();
