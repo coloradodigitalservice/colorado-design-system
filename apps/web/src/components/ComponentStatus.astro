@@ -1,0 +1,65 @@
+---
+/**
+ * Component Status for a hardened component page. Maturity and the USWDS
+ * basis come from package metadata; the accessibility statement comes from
+ * the page's reviewed frontmatter so pending review stays visible.
+ */
+interface Props {
+  metadata: {
+    name: string;
+    displayName: string;
+    maturity: string;
+    uswdsEquivalent?: string | null;
+    uswdsVersion?: string | null;
+  };
+  accessibility: string;
+  figma?: string;
+}
+
+const { metadata, accessibility, figma } = Astro.props;
+const repository =
+  'https://github.com/coloradodigitalservice/colorado-design-system/tree/main/packages/colorado-design-system/src/components';
+const source = `${repository}/${metadata.name}`;
+const evidence = `${source}/accessibility/${metadata.name}.evidence.md`;
+const upstream = metadata.uswdsEquivalent
+  ? `https://designsystem.digital.gov/components/${metadata.uswdsEquivalent}/`
+  : undefined;
+---
+
+<section
+  class="cods-docs-status"
+  aria-labelledby="component-status-heading"
+  data-cods-docs-status
+>
+  <h2 id="component-status-heading">Component status</h2>
+  <ul>
+    <li>
+      {metadata.displayName} maturity is <strong>{metadata.maturity}</strong> in
+      the <code>0.x</code> development series.
+    </li>
+    <li>{accessibility}</li>
+    <li>
+      {upstream ? (
+        <>
+          {metadata.displayName} is based on{' '}
+          <a href={upstream}>
+            USWDS {metadata.uswdsVersion} {metadata.displayName}
+          </a>
+          .
+        </>
+      ) : (
+        <>{metadata.displayName} is CoDS-authored; USWDS has no equivalent.</>
+      )}
+    </li>
+  </ul>
+  <p>
+    <a href={evidence}>Accessibility evidence</a> ·{' '}
+    <a href={source}>Component source</a>
+    {figma && (
+      <>
+        {' '}
+        · <a href={figma}>Figma design</a>
+      </>
+    )}
+  </p>
+</section>

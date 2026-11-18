@@ -5,7 +5,6 @@ const pages = [
   { path: '/combo-box/', name: 'combo-box' },
   { path: '/link/', name: 'link' },
   { path: '/site-alert/', name: 'site-alert' },
-  { path: '/accordion/', name: 'accordion' },
   { path: '/footer/', name: 'footer' },
 ];
 
