@@ -1,5 +1,30 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.27
+
+### Patch Changes
+
+- a17debd: Add an experimental combo box with a native select fallback.
+- 11f6a5b: Add an experimental Language Selector component.
+- 47b9d74: Add an experimental Search component with default, compact, and slim variants.
+- 7e8a840: Add an experimental responsive Videos component with native and embedded examples.
+- @coloradodigitalservice/colorado-design-tokens@0.2.27
+
+## 0.2.26
+
+### Patch Changes
+
+- f3ddcd7: Add an experimental in-page navigation component with authored jump links and current-section highlighting.
+- @coloradodigitalservice/colorado-design-tokens@0.2.26
+
+## 0.2.25
+
+### Patch Changes
+
+- Add MIT package metadata and third-party notices; exclude Museo Slab and document optional consumer-licensed heading fonts.
+- Updated dependencies
+  - @coloradodigitalservice/colorado-design-tokens@0.2.25
+
 ## 0.2.24
 
 ### Patch Changes

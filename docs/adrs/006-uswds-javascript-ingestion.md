@@ -39,7 +39,7 @@ Verified against `@uswds/uswds` 3.14.0. The accordion findings come from a throw
 ### A2. Reimplementing the interaction in CoDS
 
 - **Cons:** the proposal and ADR-002 reject it. It duplicates behavior and accessibility work USWDS already maintains.
-- **Decision:** Rejected.
+- **Decision:** Rejected as the default strategy for Type A components. In-Page Navigation is an approved Type C exception: the USWDS behavior does not expose a standalone tracker for authored links and does not meet the instance-isolation and teardown requirements. Its rationale and approval are recorded in the [component contract](../governance/component-contract.md#46-approved-type-c-in-page-navigation) and [ownership matrix](../governance/component-ownership-matrix.md).
 
 ## Consequences
 

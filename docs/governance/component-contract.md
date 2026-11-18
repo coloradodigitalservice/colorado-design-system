@@ -54,7 +54,7 @@ Interactive components ship a TypeScript controller in `<component-name>.ts`. St
 
 - The only public integration surface is: documented `data-cods-<component-name>-*` attributes read at initialization, documented public methods on the controller instance, and documented `CustomEvent`s namespaced as `cods-<component-name>:<event-name>` (for example `cods-combo-box:select`).
 - Events are dispatched with `bubbles: true` and `composed: false` (Shadow DOM is out of scope) and carry their payload in `event.detail`.
-- Controllers must not depend on global state, global event listeners outside their own root element, or a specific bundler/module system beyond a standard ES module export.
+- Controllers must not depend on global state, global event listeners outside their own root element, or a specific bundler/module system beyond a standard ES module export. Exception: In-Page Navigation may listen for page scroll and resize events to track the current section. Its listener must be scoped to each initialized instance, coalesce updates, and be removed on `destroy`.
 
 ### 4.2 Controller lifecycle
 
@@ -90,6 +90,12 @@ Type A components reuse USWDS's own JavaScript instead of reimplementing the int
 - Call `init` after the markup is attached to the document; USWDS resolves controlled elements by id in the document.
 - The code is bundled into the package's ES module output. `require(` calls and `window.uswdsPresent` must not appear in `dist/`.
 - CoDS source must not contain an equivalent of the interaction. The Accordion, the interactive Type A component in the Phase 2 vertical slice, is the reference implementation of this pattern.
+
+### 4.6 Approved Type C: In-Page Navigation
+
+In-Page Navigation is a Type C component: it retains USWDS-compatible markup and styling, but uses a CoDS-authored, instance-scoped scroll tracker instead of the USWDS 3.14.0 JavaScript. The USWDS behavior generates a second navigation and new anchors rather than enhancing authored links, relies on document-wide selectors, and does not expose or disconnect its `IntersectionObserver` on teardown. Its observer also selects fully visible anchors, rather than tracking the section at the viewport threshold and the end of the page.
+
+This divergence preserves authored links that work without JavaScript, supports concise link labels, and allows per-instance current-location state and teardown. It was approved by State design, engineering, and accessibility leads on 2026-11-11. The approval is recorded in the component metadata and [ownership matrix](./component-ownership-matrix.md). Reassess the implementation when upgrading USWDS.
 
 ## 5. Metadata and maturity model
 
