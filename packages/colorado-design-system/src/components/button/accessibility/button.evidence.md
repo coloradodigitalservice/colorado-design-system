@@ -10,6 +10,54 @@ The component themes native USWDS 3.14.0 buttons. Navigation examples remain
 native links. No controller, generated accessible strings, focus management,
 toggle state, loading state, or animation is shipped.
 
+## CODS-P4-013 hardening — 2026-11-18
+
+Developer first pass for [CDS-127](https://atendesign.atlassian.net/browse/CDS-127).
+The public page uses the shared preview, matching HTML, and status with guidance
+checked against the [Button Figma frame](https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=808-2014).
+The preview shows primary, secondary, danger, slim, icon-only, decorative icons,
+and a navigation link. Figma also depicts a Danger icon-only state. The shipped
+fixture and documented support cover Primary and Secondary icon-only examples.
+Confirm the scope difference with Design.
+
+### Test audit
+
+| Area                                 | Before | After |
+| ------------------------------------ | -----: | ----: |
+| Button web spec (three engines)      |     21 |    15 |
+| Button Storybook spec (Chromium)     |      6 |     6 |
+| Shared fixture check (three engines) |      3 |     3 |
+| Total                                |     30 |    24 |
+
+The docs check verifies the curated markup and shared sprite. The web checks
+cover page structure, accessible names, loaded artwork, native activation,
+focus, hover and active states, narrow-screen reflow, forced colors, and
+navigation without CSS or JavaScript in three engines. The existing Storybook
+suite retains the full fixture checks, including disabled activation and Tab
+order, additional size and icon combinations, Spanish wrapping, and RTL. Those
+off-preview cases now run in Chromium only. Button has no controller unit tests.
+
+### Automated results
+
+Base: `ba92348`. `pnpm build` passed, including Astro validation and the
+generated docs check. Workspace, fixture validation, formatting, lint, and
+typecheck passed. `pnpm test` passed all 328 tests. The built-files Playwright
+run of `web-button`, `storybook-button`, and `web-shared-fixtures` passed all 93
+cases, including the 24 Button cases counted above.
+
+### Manual QA matrix (pending)
+
+- [ ] Verify native Enter and Space activation, link behavior, disabled controls,
+      Tab order, and visible focus.
+- [ ] Check accessible names for icon-only buttons and decorative icon exclusion.
+      Record the screen reader, browser, and versions.
+- [ ] Check contrast and target sizes across the supported variants, including
+      Slim and icon-only.
+- [ ] Check 400% zoom, 320px reflow, long labels, and internal localization fixtures.
+- [ ] Verify forced colors, reduced motion, and CSS/JS-off behavior.
+- [ ] Record findings, fixes and retests, State domain acceptance, and client sign-off
+      on the tested revision.
+
 ## Keyboard
 
 - [ ] Every interactive element is reachable using only the keyboard, in a logical (visual/DOM-matching) order. Sequential navigation between examples, native activation, focus on every enabled variant, and disabled skipping passed in Chromium, Firefox, and WebKit. Complete human Tab-order review remains pending.

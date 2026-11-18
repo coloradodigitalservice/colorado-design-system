@@ -46,6 +46,9 @@ for (const component of loadComponents()) {
     // Hardened pages show a curated preview instead of every fixture state.
     // Each previewed state must match its canonical fixture exactly, and the
     // code block must be exactly the markup that renders the preview.
+    const spriteUrl = dom.window.document
+      .querySelector('[data-cods-docs-preview]')
+      ?.getAttribute('data-cods-docs-preview-sprite');
     const items = [];
     for (const figure of dom.window.document.querySelectorAll(
       '[data-cods-docs-preview-state]',
@@ -58,9 +61,16 @@ for (const component of loadComponents()) {
         failures.push(`${component.name}/${state}: unknown preview state`);
         continue;
       }
+      const markup = componentMarkup(example.code, spriteUrl ?? undefined);
+      const template = dom.window.document.createElement('template');
+      template.innerHTML = markup;
+      const rendered = figure.cloneNode(true);
+      rendered.querySelector('figcaption')?.remove();
+      if (rendered.innerHTML.trim() !== template.innerHTML.trim())
+        failures.push(`${component.name}/${state}: rendered preview drift`);
       items.push({
         label: figure.getAttribute('data-cods-docs-preview-label'),
-        markup: componentMarkup(example.code),
+        markup,
       });
     }
     if (!items.length)
