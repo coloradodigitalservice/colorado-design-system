@@ -1,0 +1,42 @@
+---
+import examples from '@coloradodigitalservice/colorado-design-system/examples/header.json';
+import metadata from '@coloradodigitalservice/colorado-design-system/metadata/header.json';
+import fixture from '@coloradodigitalservice/colorado-design-system/fixtures/header.html?raw';
+import logoUrl from '@coloradodigitalservice/colorado-design-system/logos/cods-logo.svg?url';
+import spriteUrl from '@coloradodigitalservice/colorado-design-system/icons/sprite.svg?url';
+import CodeExamples from './CodeExamples.astro';
+
+const preview = fixture
+  .replaceAll('/icons/sprite.svg', spriteUrl)
+  .replaceAll('/logos/cods-logo.svg', logoUrl);
+---
+
+<section
+  class="cods-docs-header-preview"
+  data-cods-docs-preview="header"
+  aria-labelledby="header-preview-heading"
+>
+  <h2 id="header-preview-heading">Component preview</h2>
+  <p>
+    Below 1024px the navigation moves behind the Menu button. Narrow your
+    browser window to try the drawer.
+  </p>
+  <div set:html={preview} />
+</section>
+<CodeExamples metadata={metadata} examples={examples.examples} />
+
+<script>
+  import { initAllHeaders } from '@coloradodigitalservice/colorado-design-system';
+  initAllHeaders();
+</script>
+
+<style>
+  .cods-docs-header-preview {
+    margin-block: var(--cods-space-lg);
+  }
+
+  .cods-docs-header-preview [data-cods-header-fixture] {
+    border: var(--cods-border-divider-width) solid
+      var(--cods-color-border-subtle);
+  }
+</style>

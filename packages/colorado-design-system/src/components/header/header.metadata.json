@@ -1,0 +1,34 @@
+{
+  "name": "header",
+  "displayName": "Header",
+  "maturity": "experimental",
+  "type": "interactive",
+  "uswdsEquivalent": "header",
+  "uswdsVersion": "3.14.0",
+  "componentType": "A",
+  "owners": {
+    "responsible": "Aten component engineer",
+    "accountable": "Aten technical lead",
+    "consulted": "Design, accessibility, and content roles",
+    "informed": "State product owner"
+  },
+  "divergenceApproved": false,
+  "divergenceNotes": null,
+  "states": ["default", "expanded"],
+  "progressiveEnhancement": "partial",
+  "localization": "layout-sensitive",
+  "examples": [
+    {
+      "state": "default",
+      "fixtureState": "default",
+      "setup": "none"
+    },
+    {
+      "state": "expanded",
+      "fixtureState": "default",
+      "setup": "expand",
+      "instructions": "Below 64em (1024px), initialize the header and activate Menu. The navigation opens as a drawer over a page overlay; USWDS moves focus to Close, keeps Tab and Shift+Tab inside the drawer, and hides the rest of the page from assistive technology until Close, the overlay, a navigation link, or Escape closes it."
+    }
+  ],
+  "description": "A Colorado-themed USWDS basic header with a replaceable site logo, a labelled primary navigation, and the USWDS mobile navigation drawer below 64em."
+}

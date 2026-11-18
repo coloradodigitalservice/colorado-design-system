@@ -22,3 +22,9 @@ export {
   destroy as destroyInPageNavigation,
   type InPageNavigationChangeDetail,
 } from './in-page-navigation/in-page-navigation.js';
+export {
+  init as initHeader,
+  initAll as initAllHeaders,
+  destroy as destroyHeader,
+  type HeaderToggleDetail,
+} from './header/header.js';

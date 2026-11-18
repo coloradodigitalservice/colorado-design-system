@@ -45,3 +45,12 @@ declare module '@uswds/uswds/js/usa-combo-box' {
   };
   export default comboBox;
 }
+
+declare module '@uswds/uswds/js/usa-header' {
+  const header: {
+    on(root: HTMLElement): void;
+    off(root: HTMLElement): void;
+    toggleNav(active?: boolean): boolean;
+  };
+  export default header;
+}

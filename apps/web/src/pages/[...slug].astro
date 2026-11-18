@@ -16,6 +16,7 @@ import DividerExamples from '../components/DividerExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
 import IconExamples from '../components/IconExamples.astro';
 import FooterExamples from '../components/FooterExamples.astro';
+import HeaderExamples from '../components/HeaderExamples.astro';
 import InputExamples from '../components/InputExamples.astro';
 import IconListExamples from '../components/IconListExamples.astro';
 import HeroExamples from '../components/HeroExamples.astro';
@@ -73,6 +74,16 @@ const { Content } = await render(entry);
         <FooterExamples />
       </>
     )}
+    {entry.id === 'header' && (
+      <>
+        <p>
+          Header identifies the site and provides its primary navigation. Its
+          maturity is <strong>experimental</strong> in the <code>0.x</code>{' '}
+          development series.
+        </p>
+        <HeaderExamples />
+      </>
+    )}
     {entry.id === 'breadcrumbs' && <BreadcrumbsExamples />}
     {entry.id === 'in-page-navigation' && <InPageNavigationExamples />}
     {entry.id === 'radio' && <RadioExamples />}
@@ -106,6 +117,7 @@ const { Content } = await render(entry);
       entry.id === 'site-alert' ||
       entry.id === 'accordion' ||
       entry.id === 'footer' ||
+      entry.id === 'header' ||
       entry.id === 'breadcrumbs' ||
       entry.id === 'link' ||
       entry.id === 'checkbox' ||
