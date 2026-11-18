@@ -37,6 +37,8 @@ interface Instance {
   /** USWDS's marker for the dialog's authored position inside the root. */
   placeholder: HTMLElement;
   triggers: Trigger[];
+  /** Capture listener that refuses to open a dialog whose id became ambiguous. */
+  guard: (event: Event) => void;
   /** Authored tabindex; USWDS adds `-1` and never removes it on teardown. */
   tabIndex: string | null;
   observer: MutationObserver;
@@ -156,6 +158,26 @@ export function init(root: HTMLElement): void {
     }),
   );
 
+  // USWDS resolves the dialog with `getElementById` on every trigger click.
+  // If a copy with the same id is inserted earlier in the document after
+  // initialization, that lookup finds the unenhanced copy, and USWDS locks and
+  // hides the page with no visible dialog. Registered before USWDS binds its
+  // own listener, this guard runs first and refuses to open in that case.
+  const guard = (event: Event): void => {
+    const wrapper = instances.get(root)?.wrapper;
+    if (!wrapper || wrapper.classList.contains(VISIBLE)) return;
+    if (document_.getElementById(modalId) === wrapper && unique(modalId))
+      return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    console.warn(
+      `cods-modal: more than one element has the id "${modalId}"; the dialog was not opened.`,
+      root,
+    );
+  };
+  for (const { element } of triggers)
+    element.addEventListener('click', guard, { capture: true });
+
   uswdsModal.on(root);
 
   // USWDS nests the dialog in overlay and wrapper, moves the id onto the
@@ -165,6 +187,8 @@ export function init(root: HTMLElement): void {
     `[${PLACEHOLDER}="${CSS.escape(modalId)}"]`,
   );
   if (!wrapper?.classList.contains(WRAPPER) || !placeholder) {
+    for (const { element } of triggers)
+      element.removeEventListener('click', guard, { capture: true });
     warn(root, 'the USWDS behavior did not build a wrapper');
     return;
   }
@@ -174,6 +198,7 @@ export function init(root: HTMLElement): void {
     dialog,
     placeholder,
     triggers,
+    guard,
     tabIndex,
     wasOpen: wrapper.classList.contains(VISIBLE),
     observer: new MutationObserver(() => settle(root)),
@@ -258,6 +283,7 @@ export function destroy(root: HTMLElement): void {
   // lock and hide the page with no dialog to show.
   for (const { element, id, role } of instance.triggers) {
     element.removeEventListener('click', uswdsModal.toggleModal);
+    element.removeEventListener('click', instance.guard, { capture: true });
     if (id === null) element.removeAttribute('id');
     else element.setAttribute('id', id);
     if (role === null) element.removeAttribute('role');

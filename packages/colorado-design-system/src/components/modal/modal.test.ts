@@ -226,6 +226,37 @@ describe('modal lifecycle', () => {
     );
   });
 
+  it('fails safely when a duplicate is inserted after initialization', () => {
+    const element = root();
+    const copy = element.cloneNode(true) as HTMLElement;
+    init(element);
+    // Inserted before the wrapper, so `getElementById` resolves the copy.
+    element.before(copy);
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const trigger =
+      element.querySelector<HTMLButtonElement>('[data-open-modal]')!;
+    trigger.click();
+    open(element);
+    expect(warn).toHaveBeenCalled();
+    expect(document.body.classList.contains('usa-js-modal--active')).toBe(
+      false,
+    );
+    expect(document.querySelector('[data-modal-hidden]')).toBeNull();
+    expect(
+      document
+        .querySelector('.usa-modal-wrapper')!
+        .classList.contains('is-visible'),
+    ).toBe(false);
+    copy.remove();
+    trigger.click();
+    expect(
+      document
+        .querySelector('.usa-modal-wrapper')!
+        .classList.contains('is-visible'),
+    ).toBe(true);
+    close(element);
+  });
+
   it('rejects a duplicate heading id', () => {
     const element = root();
     const stray = document.createElement('p');
