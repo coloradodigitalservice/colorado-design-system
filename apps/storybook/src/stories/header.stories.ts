@@ -14,7 +14,8 @@ function renderMarkup(markup: string): string {
     .replaceAll('/logos/cods-logo.svg', logoUrl);
 }
 
-const mobile = { viewport: { defaultViewport: 'mobile1' } };
+/** The drawer only exists below 64em, so pin these stories to a phone viewport. */
+const mobile = { viewport: { value: 'mobile1', isRotated: false } };
 
 const meta = {
   title: 'Components/Header',
@@ -42,11 +43,11 @@ type Story = StoryObj;
 export const Default: Story = {};
 
 /** Below 64em the navigation collapses behind the Menu button. */
-export const MobileCollapsed: Story = { parameters: mobile };
+export const MobileCollapsed: Story = { globals: mobile };
 
 /** The Menu button opens the USWDS drawer and moves focus to Close. */
 export const Expanded: Story = {
-  parameters: mobile,
+  globals: mobile,
   play: ({ canvasElement }) => {
     initAllHeaders(canvasElement);
     canvasElement
