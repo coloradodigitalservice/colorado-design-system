@@ -17,6 +17,10 @@ test('cards expose links without nested controls', async ({
     page.locator('[data-cods-card-fixture="internal-links"] a'),
   ).toHaveCount(2);
   await expectAccessible(page, testInfo);
+  // Moved from the removed /card-icon/ page; the docs preview does not show it.
+  await expect(
+    page.locator('[data-cods-card-fixture="icon-external"] .cods-card__link'),
+  ).toHaveAccessibleName(/Visit USA.gov.*external site/);
 });
 
 test('flag and icon cards show their responsive and hover states', async ({
