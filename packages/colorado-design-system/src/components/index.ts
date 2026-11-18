@@ -17,11 +17,6 @@ export {
   destroy as destroyComboBox,
 } from './combo-box/combo-box.js';
 export {
-  init as initLanguageSelector,
-  initAll as initAllLanguageSelector,
-  destroy as destroyLanguageSelector,
-} from './language-selector/language-selector.js';
-export {
   init as initModal,
   initAll as initAllModal,
   destroy as destroyModal,
@@ -35,3 +30,9 @@ export {
   destroy as destroyInPageNavigation,
   type InPageNavigationChangeDetail,
 } from './in-page-navigation/in-page-navigation.js';
+export {
+  init as initLanguageSelector,
+  initAll as initAllLanguageSelector,
+  destroy as destroyLanguageSelector,
+  type LanguageSelectorChangeDetail,
+} from './language-selector/language-selector.js';

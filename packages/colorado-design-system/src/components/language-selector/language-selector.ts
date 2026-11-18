@@ -1,6 +1,14 @@
 import uswdsLanguageSelector from '@uswds/uswds/js/usa-language-selector';
 
 const ROOT = '[data-cods-language-selector]';
+
+/** Detail of the bubbling `cods-language-selector:change` event. */
+export interface LanguageSelectorChangeDetail {
+  /** `true` when the language list opened, `false` when it closed. */
+  expanded: boolean;
+}
+type Listener = [string, EventListenerOrEventListenerObject];
+
 const instances = new WeakMap<
   HTMLElement,
   {
@@ -8,6 +16,7 @@ const instances = new WeakMap<
     panel: HTMLElement;
     observer: MutationObserver;
     sync: () => void;
+    listeners: Listener[];
     buttonHidden: boolean;
     panelHidden: boolean;
     expanded: string | null;
@@ -23,10 +32,17 @@ export function init(root: HTMLElement): void {
   const panel = root.querySelector<HTMLElement>(
     '[data-cods-language-selector-panel]',
   );
+  const item = button?.closest('.usa-language__primary-item');
+  // USWDS delegates through these classes; without them the trigger would not work.
   if (
     !root.isConnected ||
     !button ||
     !panel ||
+    !button.matches('button.usa-language__link') ||
+    !panel.matches('.usa-language__submenu') ||
+    !item?.contains(panel) ||
+    !item.parentElement?.matches('.usa-language__primary') ||
+    !root.contains(item) ||
     !panel.id ||
     button.getAttribute('aria-controls') !== panel.id ||
     root.ownerDocument.getElementById(panel.id) !== panel
@@ -37,7 +53,7 @@ export function init(root: HTMLElement): void {
   const buttonHidden = button.hasAttribute('hidden');
   const panelHidden = panel.hasAttribute('hidden');
   const expanded = button.getAttribute('aria-expanded');
-  uswdsLanguageSelector.on(root);
+  const listeners = attach(root);
   root.setAttribute('data-cods-language-selector-enhanced', '');
   button.hidden = false;
   button.setAttribute('aria-expanded', 'false');
@@ -48,10 +64,13 @@ export function init(root: HTMLElement): void {
     if (next === current) return;
     current = next;
     root.dispatchEvent(
-      new CustomEvent('cods-language-selector:change', {
-        bubbles: true,
-        detail: { expanded: next },
-      }),
+      new CustomEvent<LanguageSelectorChangeDetail>(
+        'cods-language-selector:change',
+        {
+          bubbles: true,
+          detail: { expanded: next },
+        },
+      ),
     );
   };
   const observer = new MutationObserver(sync);
@@ -66,6 +85,7 @@ export function init(root: HTMLElement): void {
     panel,
     observer,
     sync,
+    listeners,
     buttonHidden,
     panelHidden,
     expanded,
@@ -86,7 +106,14 @@ export function destroy(root: HTMLElement): void {
   instance.observer.disconnect();
   for (const name of ['click', 'keydown', 'focusout'])
     root.removeEventListener(name, instance.sync);
-  uswdsLanguageSelector.off(root);
+  if (instance.button.getAttribute('aria-expanded') === 'true')
+    // USWDS tracks this open menu module-wide; its teardown clears that reference.
+    uswdsLanguageSelector.off(root);
+  // Otherwise remove only this root's listeners: USWDS teardown would forget
+  // another selector's open menu, leaving it unable to close.
+  else
+    for (const [type, listener] of instance.listeners)
+      root.removeEventListener(type, listener);
   instance.button.hidden = instance.buttonHidden;
   if (instance.expanded === null)
     instance.button.removeAttribute('aria-expanded');
@@ -94,4 +121,28 @@ export function destroy(root: HTMLElement): void {
   instance.panel.hidden = instance.panelHidden;
   root.removeAttribute('data-cods-language-selector-enhanced');
   instances.delete(root);
+}
+
+/**
+ * Register USWDS behavior on the root and record the listeners it adds, so
+ * destroy can detach them without resetting USWDS's module-wide open menu.
+ */
+function attach(root: HTMLElement): Listener[] {
+  const listeners: Listener[] = [];
+  const add = root.addEventListener;
+  root.addEventListener = function (
+    this: HTMLElement,
+    type: string,
+    listener: EventListenerOrEventListenerObject,
+    options?: boolean | AddEventListenerOptions,
+  ) {
+    listeners.push([type, listener]);
+    add.call(this, type, listener, options);
+  };
+  try {
+    uswdsLanguageSelector.on(root);
+  } finally {
+    delete (root as Partial<HTMLElement>).addEventListener;
+  }
+  return listeners;
 }

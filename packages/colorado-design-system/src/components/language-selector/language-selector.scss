@@ -34,9 +34,41 @@
   }
 
   .cods-language-selector__panel:not([hidden]) {
+    // Figma: a 200px menu with rounded corners that never overflows the viewport.
+    inline-size: 12.5rem;
+
+    // Open below the trigger's full focus ring (2px gap + 4px ring).
+    margin-block-start: calc(
+      var(--cods-focus-ring-offset) + var(--cods-focus-ring-width)
+    );
+    max-inline-size: calc(100vw - 2 * var(--cods-space-md));
+    overflow: clip;
     background: var(--cods-color-surface-form);
     border: var(--cods-focus-ring-offset) solid
       var(--cods-color-border-action-secondary);
+    border-radius: var(--cods-radius-md);
+  }
+
+  .cods-language-selector[data-cods-language-selector-enhanced]
+    .cods-language-selector__panel {
+    // USWDS pins the menu to the physical right, which pushes it off-screen
+    // in RTL; align it to the trigger's inline end instead.
+    right: auto;
+    left: auto;
+    inset-inline-end: 0;
+  }
+
+  .cods-language-selector__panel > li {
+    // Figma shows no separators between rows.
+    border-block-start: 0;
+  }
+
+  @media (forced-colors: active) {
+    .cods-language-selector__trigger::before {
+      // Forced colors replaces backgrounds, so keep the masked globe in ButtonText.
+      forced-color-adjust: none;
+      background: ButtonText;
+    }
   }
 }
 
@@ -47,6 +79,8 @@
   }
 
   .cods-language-selector__panel a {
+    display: block;
+    overflow-wrap: anywhere;
     color: var(--cods-color-text-primary);
     padding: var(--cods-space-sm) var(--cods-space-xs);
     font-size: var(--cods-font-size-desktop-body-sm);
@@ -63,10 +97,17 @@
     color: var(--cods-color-text-primary);
   }
 
-  .cods-language-selector__trigger:focus-visible,
-  .cods-language-selector__panel a:focus-visible {
-    outline: var(--cods-focus-ring-offset) solid
-      var(--cods-color-border-action-secondary);
+  // Figma: a 2px white gap inside a 4px blue ring.
+  .cods-language-selector__trigger:focus-visible {
+    outline: var(--cods-focus-ring-width) solid
+      var(--cods-color-bg-action-focus);
     outline-offset: var(--cods-focus-ring-offset);
+    box-shadow: 0 0 0 var(--cods-focus-ring-offset) var(--cods-color-focus-gap);
+  }
+
+  // Rows use the separate inset row focus treatment.
+  .cods-language-selector__panel a:focus-visible {
+    outline: var(--cods-focus-row-width) solid var(--cods-color-focus-row);
+    outline-offset: calc(-1 * var(--cods-focus-row-width));
   }
 }
