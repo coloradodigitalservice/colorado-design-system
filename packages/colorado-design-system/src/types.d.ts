@@ -54,3 +54,8 @@ declare module '@uswds/uswds/js/usa-header' {
   };
   export default header;
 }
+
+declare module '@uswds/uswds/js/usa-language-selector' {
+  const selector: { on(root: HTMLElement): void; off(root: HTMLElement): void };
+  export default selector;
+}

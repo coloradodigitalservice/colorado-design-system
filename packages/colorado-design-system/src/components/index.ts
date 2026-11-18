@@ -28,3 +28,9 @@ export {
   destroy as destroyHeader,
   type HeaderToggleDetail,
 } from './header/header.js';
+export {
+  init as initLanguageSelector,
+  initAll as initAllLanguageSelector,
+  destroy as destroyLanguageSelector,
+  type LanguageSelectorChangeDetail,
+} from './language-selector/language-selector.js';
