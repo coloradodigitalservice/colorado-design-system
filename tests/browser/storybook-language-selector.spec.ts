@@ -74,3 +74,38 @@ test('globe stays visible in forced colors', async ({ page, browserName }) => {
     ]);
   expect(globe).not.toBe(background);
 });
+
+test('open menu leaves the full trigger focus ring visible', async ({
+  page,
+}) => {
+  await page.goto(story);
+  const root = page.locator('[data-cods-fixture-state="multiple-languages"]');
+  const button = root.getByRole('button', { name: 'Languages' });
+  await button.focus();
+  await page.keyboard.press('Enter');
+  const ringBottom = await button.evaluate(
+    (element) => element.getBoundingClientRect().bottom + 2 + 4,
+  );
+  const menuTop = await root
+    .locator('[data-cods-language-selector-panel]')
+    .evaluate((element) => element.getBoundingClientRect().top);
+  expect(menuTop).toBeGreaterThanOrEqual(ringBottom);
+});
+
+test('menu stays within a narrow RTL viewport', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 700 });
+  await page.goto(story);
+  await page.evaluate(() => {
+    document.documentElement.dir = 'rtl';
+  });
+  const root = page.locator('[data-cods-fixture-state="multiple-languages"]');
+  await root.getByRole('button', { name: 'Languages' }).click();
+  const box = await root
+    .locator('[data-cods-language-selector-panel]')
+    .evaluate((element) => {
+      const { left, right } = element.getBoundingClientRect();
+      return { left, right, width: document.documentElement.clientWidth };
+    });
+  expect(box.left).toBeGreaterThanOrEqual(0);
+  expect(box.right).toBeLessThanOrEqual(box.width);
+});

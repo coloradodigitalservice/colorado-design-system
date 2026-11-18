@@ -36,12 +36,26 @@
   .cods-language-selector__panel:not([hidden]) {
     // Figma: a 200px menu with rounded corners that never overflows the viewport.
     inline-size: 12.5rem;
+
+    // Open below the trigger's full focus ring (2px gap + 4px ring).
+    margin-block-start: calc(
+      var(--cods-focus-ring-offset) + var(--cods-focus-ring-width)
+    );
     max-inline-size: calc(100vw - 2 * var(--cods-space-md));
     overflow: clip;
     background: var(--cods-color-surface-form);
     border: var(--cods-focus-ring-offset) solid
       var(--cods-color-border-action-secondary);
     border-radius: var(--cods-radius-md);
+  }
+
+  .cods-language-selector[data-cods-language-selector-enhanced]
+    .cods-language-selector__panel {
+    // USWDS pins the menu to the physical right, which pushes it off-screen
+    // in RTL; align it to the trigger's inline end instead.
+    right: auto;
+    left: auto;
+    inset-inline-end: 0;
   }
 
   .cods-language-selector__panel > li {

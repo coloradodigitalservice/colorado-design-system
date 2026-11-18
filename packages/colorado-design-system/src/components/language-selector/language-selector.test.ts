@@ -63,14 +63,16 @@ describe('language selector', () => {
     first.after(second);
     const button = second.querySelector<HTMLButtonElement>('button')!;
     const panel = second.querySelector<HTMLElement>('#language-options-2')!;
-    const outside = vi.fn();
-    document.body.addEventListener('click', outside);
+    const clicked = vi.fn();
+    button.addEventListener('click', clicked);
+    second.addEventListener('click', clicked);
+    document.body.addEventListener('click', clicked);
     init(first);
     init(second);
     button.click();
-    outside.mockClear();
+    clicked.mockClear();
     destroy(first);
-    expect(outside).not.toHaveBeenCalled();
+    expect(clicked).not.toHaveBeenCalled();
     expect(panel.hidden).toBe(false);
     panel
       .querySelector('a')!
@@ -82,7 +84,28 @@ describe('language selector', () => {
     expect(panel.hidden).toBe(false);
     button.click();
     expect(panel.hidden).toBe(true);
-    document.body.removeEventListener('click', outside);
+    document.body.removeEventListener('click', clicked);
+  });
+  it('lets another instance open after the open one is destroyed', () => {
+    const first = document.querySelector<HTMLElement>(
+      '[data-cods-language-selector]',
+    )!;
+    const second = first.cloneNode(true) as HTMLElement;
+    second.querySelector('ul ul')!.id = 'language-options-2';
+    second
+      .querySelector('button')!
+      .setAttribute('aria-controls', 'language-options-2');
+    first.after(second);
+    init(first);
+    init(second);
+    first.querySelector('button')!.click();
+    destroy(first);
+    const button = second.querySelector<HTMLButtonElement>('button')!;
+    const panel = second.querySelector<HTMLElement>('#language-options-2')!;
+    button.click();
+    expect(panel.hidden).toBe(false);
+    button.click();
+    expect(panel.hidden).toBe(true);
   });
   it('warns and keeps the fallback links when USWDS markup is missing', () => {
     const root = document.querySelector<HTMLElement>(

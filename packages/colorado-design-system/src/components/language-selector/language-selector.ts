@@ -7,6 +7,8 @@ export interface LanguageSelectorChangeDetail {
   /** `true` when the language list opened, `false` when it closed. */
   expanded: boolean;
 }
+type Listener = [string, EventListenerOrEventListenerObject];
+
 const instances = new WeakMap<
   HTMLElement,
   {
@@ -14,6 +16,7 @@ const instances = new WeakMap<
     panel: HTMLElement;
     observer: MutationObserver;
     sync: () => void;
+    listeners: Listener[];
     buttonHidden: boolean;
     panelHidden: boolean;
     expanded: string | null;
@@ -50,7 +53,7 @@ export function init(root: HTMLElement): void {
   const buttonHidden = button.hasAttribute('hidden');
   const panelHidden = panel.hasAttribute('hidden');
   const expanded = button.getAttribute('aria-expanded');
-  uswdsLanguageSelector.on(root);
+  const listeners = attach(root);
   root.setAttribute('data-cods-language-selector-enhanced', '');
   button.hidden = false;
   button.setAttribute('aria-expanded', 'false');
@@ -82,6 +85,7 @@ export function init(root: HTMLElement): void {
     panel,
     observer,
     sync,
+    listeners,
     buttonHidden,
     panelHidden,
     expanded,
@@ -102,8 +106,14 @@ export function destroy(root: HTMLElement): void {
   instance.observer.disconnect();
   for (const name of ['click', 'keydown', 'focusout'])
     root.removeEventListener(name, instance.sync);
-  uswdsLanguageSelector.off(root);
-  readopt(root);
+  if (instance.button.getAttribute('aria-expanded') === 'true')
+    // USWDS tracks this open menu module-wide; its teardown clears that reference.
+    uswdsLanguageSelector.off(root);
+  // Otherwise remove only this root's listeners: USWDS teardown would forget
+  // another selector's open menu, leaving it unable to close.
+  else
+    for (const [type, listener] of instance.listeners)
+      root.removeEventListener(type, listener);
   instance.button.hidden = instance.buttonHidden;
   if (instance.expanded === null)
     instance.button.removeAttribute('aria-expanded');
@@ -114,23 +124,25 @@ export function destroy(root: HTMLElement): void {
 }
 
 /**
- * USWDS teardown clears its module-wide open-menu reference, which leaves any
- * other open selector unable to close. Re-register that menu with USWDS: a
- * trigger click while nothing is tracked marks it active and keeps it open.
- * The click is stopped at its root so bubbling page listeners never see it.
+ * Register USWDS behavior on the root and record the listeners it adds, so
+ * destroy can detach them without resetting USWDS's module-wide open menu.
  */
-function readopt(destroyed: HTMLElement): void {
-  document
-    .querySelectorAll<HTMLElement>(
-      `${ROOT}[data-cods-language-selector-enhanced]`,
-    )
-    .forEach((root) => {
-      if (root === destroyed) return;
-      const instance = instances.get(root);
-      if (instance?.button.getAttribute('aria-expanded') !== 'true') return;
-      const stop = (event: Event) => event.stopPropagation();
-      root.addEventListener('click', stop);
-      instance.button.click();
-      root.removeEventListener('click', stop);
-    });
+function attach(root: HTMLElement): Listener[] {
+  const listeners: Listener[] = [];
+  const add = root.addEventListener;
+  root.addEventListener = function (
+    this: HTMLElement,
+    type: string,
+    listener: EventListenerOrEventListenerObject,
+    options?: boolean | AddEventListenerOptions,
+  ) {
+    listeners.push([type, listener]);
+    add.call(this, type, listener, options);
+  };
+  try {
+    uswdsLanguageSelector.on(root);
+  } finally {
+    delete (root as Partial<HTMLElement>).addEventListener;
+  }
+  return listeners;
 }
