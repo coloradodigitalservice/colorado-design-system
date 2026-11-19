@@ -9,6 +9,7 @@ import {
   componentMarkup,
   previewCode,
 } from '../apps/web/src/lib/preview-markup.mjs';
+import { docsPages } from '../apps/web/src/lib/docs-pages.mjs';
 
 const root = resolve(
   fileURLToPath(new URL('../apps/web/dist/', import.meta.url)),
@@ -33,10 +34,14 @@ function visit(directory) {
 
 checkComponentAssets();
 for (const component of loadComponents()) {
-  const page = join(root, component.name, 'index.html');
+  for (const slug of docsPages(component.name))
+    checkPage(component, slug, join(root, slug, 'index.html'));
+}
+
+function checkPage(component, slug, page) {
   if (!existsSync(page)) {
-    failures.push(`${component.name}: missing documentation page`);
-    continue;
+    failures.push(`${slug}: missing documentation page`);
+    return;
   }
   const dom = new JSDOM(readFileSync(page, 'utf8'));
   const previewCodeBlock = dom.window.document.querySelector(
@@ -46,6 +51,9 @@ for (const component of loadComponents()) {
     // Hardened pages show a curated preview instead of every fixture state.
     // Each previewed state must match its canonical fixture exactly, and the
     // code block must be exactly the markup that renders the preview.
+    const spriteUrl = dom.window.document
+      .querySelector('[data-cods-docs-preview]')
+      ?.getAttribute('data-cods-docs-preview-sprite');
     const items = [];
     for (const figure of dom.window.document.querySelectorAll(
       '[data-cods-docs-preview-state]',
@@ -55,29 +63,33 @@ for (const component of loadComponents()) {
         (candidate) => candidate.state === state,
       );
       if (!example) {
-        failures.push(`${component.name}/${state}: unknown preview state`);
+        failures.push(`${slug}/${state}: unknown preview state`);
         continue;
       }
+      const markup = componentMarkup(example.code, spriteUrl ?? undefined);
+      const template = dom.window.document.createElement('template');
+      template.innerHTML = markup;
+      const rendered = figure.cloneNode(true);
+      rendered.querySelector('figcaption')?.remove();
+      if (rendered.innerHTML.trim() !== template.innerHTML.trim())
+        failures.push(`${slug}/${state}: rendered preview drift`);
       items.push({
         label: figure.getAttribute('data-cods-docs-preview-label'),
-        markup: componentMarkup(example.code),
+        markup,
       });
     }
-    if (!items.length)
-      failures.push(`${component.name}: preview has no fixture states`);
+    if (!items.length) failures.push(`${slug}: preview has no fixture states`);
     if (previewCodeBlock.textContent !== previewCode(items))
-      failures.push(`${component.name}: preview code drift`);
+      failures.push(`${slug}: preview code drift`);
     dom.window.close();
-    continue;
+    return;
   }
   for (const example of component.examples.examples) {
     const code = dom.window.document.querySelector(
       `[data-cods-example="${example.state}"] code`,
     );
     if (code?.textContent !== example.code)
-      failures.push(
-        `${component.name}/${example.state}: documentation code drift`,
-      );
+      failures.push(`${slug}/${example.state}: documentation code drift`);
   }
   dom.window.close();
 }
