@@ -4,134 +4,88 @@ description: A native single-choice dropdown with a visible label, hint, and val
 navLabel: Select
 order: 70
 figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=272-55576
+accessibilityStatus: Automated accessibility checks (axe) pass for every preview state. Manual accessibility review, including screen-reader and native mobile picker checks, is pending.
 ---
 
-Select lets people choose one option from a fixed list. This experimental `0.x`
-component uses a native `<select>` with `<option>` children. The browser and
-operating system own the popup, keyboard navigation, type-ahead, and selection.
-No JavaScript controller or initialization is required.
+## Guidance
 
-## When to use
+### When to use
 
-Use Select when people choose one of 7–15 mutually exclusive options, space is limited, or the choices are predictable or familiar. Keep option text concise and put choices in a predictable order.
+Use Select when people choose one option from 7–15 mutually exclusive options, space is limited, or the choices are predictable or familiar. Keep option text concise and put choices in a predictable order.
 
-Do not use Select for:
+Don't use Select for:
 
-- Fewer than 7 options: use Radio Buttons to show the choices.
-- More than 15 options: use Combo Box to help people filter the list.
-- Multiple selections: use Checkboxes or a Multi-select Tag component.
-- Actions such as logging out or deleting: use a Menu or Button.
+- Fewer than 7 options. Use Radio Buttons to show the choices.
+- More than 15 options. Use Combo Box to help people filter the list.
+- Multiple selections. Use Checkboxes or a Multi-select Tag component.
+- Actions such as logging out or deleting. Use a Menu or Button.
 
-Select is native-only. A future **Combo Box** would provide a separate searchable
-or filterable widget with its own accessibility pattern. Multi-select,
-async-loaded lists, and custom-rendered dropdown panels are outside this
-component's scope. Native type-ahead jumps to matching options; it does not
-filter the list.
+Select is a native `<select>`: the browser and operating system own the popup, keyboard navigation, type-ahead, and selection. Type-ahead jumps to a matching option; it does not filter the list. Combo Box is a separate component with a text field that filters its options. Multi-select, async-loaded lists, and custom-rendered dropdown panels are outside Select's scope.
 
-## Use the package
+Choose a state that matches the field:
 
-Follow [Getting started](../getting-started/) to load the token and design-system
-stylesheets. Retain the USWDS `usa-form-group`, `usa-label`, `usa-hint`, and
-`usa-select` classes alongside the CoDS classes in the examples below. The
-chevron uses shared Phosphor Regular `caret-down` artwork, compared against the
-original Figma export at 16px and 24px. Its generated foreground variant preserves
-the existing `#1b1b1b` text token color; background SVGs cannot inherit a control’s
-`currentColor`. Source hashes and comparison notes are in `icons.provenance.json`.
-Do not wrap the
-select in a custom popup or intercept its keyboard events.
+| State    | Use when                                                                | Don't use when                                                   |
+| -------- | ----------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| Default  | People can choose or change a value.                                    | —                                                                |
+| Disabled | The choice is unavailable until something else on the page is complete. | The field is irrelevant. Remove it instead.                      |
+| Error    | The application validated the field and the value is missing or wrong.  | Validation has not run yet.                                      |
+| Success  | The application confirmed the value, and showing that helps the person. | Every valid field would show it, or the field also has an error. |
 
-Associate a visible `<label for>` with the select's unique `id`. Use a `name` for
-form submission and stable option `value` attributes. Replace all example IDs,
-names, and content when composing repeated controls. Listen for native `input`
-and `change` events when an application needs the selected value; there are no
-CoDS events or methods.
+### Empty option and placeholder text
 
-The canonical fixture, metadata, and generated examples are exported at
-`@coloradodigitalservice/colorado-design-system/fixtures/select.html`,
-`@coloradodigitalservice/colorado-design-system/metadata/select.json`, and
-`@coloradodigitalservice/colorado-design-system/examples/select.json`.
-This page and Storybook render those same examples.
+- Start with an empty first option, `<option value="">`, with visible instructional text such as "- Select -". It remains selectable so an optional field can be cleared.
+- Add native `required` when an empty value is invalid.
+- The empty option never replaces the visible label.
 
-## States and validation
+### Accessibility for Select
 
-Default and Placeholder use a first `<option value="">`
-with visible instructional text. It remains selectable so an optional field can
-be cleared; add native `required` when an empty value is invalid. Placeholder
-text never replaces the visible label.
+- Associate a visible `<label for>` with the select's unique `id`. Reference the hint, and the error message when present, with `aria-describedby`.
+- Tab and Shift+Tab move between controls. Arrow keys and type-ahead follow the native platform model; open and close keys vary by operating system (commonly Alt+ArrowDown, Space, Enter, and Escape).
+- Use native `disabled`. It removes the control from the tab order and form submission; `aria-disabled` alone does not.
+- For errors, set `aria-invalid="true"` and show a visible message below the field. Applications own validation and any announcement or focus policy for errors inserted after the page loads.
+- Do not wrap the select in a custom popup or intercept its keyboard events.
+- Select works without JavaScript or CSS and has no animation. Forced colors restores the platform arrow and uses system colors.
 
-Use native `disabled` to prevent interaction and remove the control from tab
-order and form submission. `aria-disabled` alone does not disable a select.
-Keep an explanation in the associated hint when needed.
+## Specifications
 
-For validation, use `aria-invalid="true"`, `usa-select--error`, and a visible
-`cods-select__error` message below the field. Include both hint and error
-IDs in `aria-describedby`. Mark a required field with `required` and a red
-asterisk next to its label. When correcting an error, remove the error
-classes, message reference, and `aria-invalid`. Applications own validation
-and any announcement or focus policy for dynamically inserted errors.
+### Classes
 
-Success uses `cods-select--success` on the form group and a visible success hint.
-It is an authored application validation result, not automatic `:valid` styling.
-Do not combine success with `aria-invalid="true"`.
+Keep the USWDS classes alongside the CoDS classes.
 
-## Public styling
+| Class                                         | Use                                                                          |
+| --------------------------------------------- | ---------------------------------------------------------------------------- |
+| `cods-select` with `usa-form-group`           | Form group; sets the component custom properties                             |
+| `cods-select__label` with `usa-label`         | Visible associated label                                                     |
+| `cods-select__required`                       | Required asterisk inside the label, with `aria-hidden="true"`                |
+| `cods-select__hint` with `usa-hint`           | Description referenced by `aria-describedby`                                 |
+| `cods-select__control` with `usa-select`      | Native select, including disabled, invalid, and focus states                 |
+| `usa-select--error`                           | Error state on the control, with `aria-invalid="true"`                       |
+| `cods-select__error` with `usa-error-message` | Visible validation message after the control                                 |
+| `cods-select--success`                        | Authored successful validation result on the form group, with a success hint |
 
-| Class                  | Purpose                                                      |
-| ---------------------- | ------------------------------------------------------------ |
-| `cods-select--success` | Authored successful validation state                         |
-| `cods-select`          | Form group and component custom properties                   |
-| `cods-select__label`   | Visible associated label                                     |
-| `cods-select__hint`    | Description referenced by `aria-describedby`                 |
-| `cods-select__error`   | Visible validation message                                   |
-| `cods-select__control` | Native select, including disabled, invalid, and focus states |
+### Required and error states
 
-| Custom property            | Default approved token             |
+For an error, add `required` when the field is mandatory, `usa-select--error` and `aria-invalid="true"` on the control, a `cods-select__error` message after it, and include both the hint and error IDs in `aria-describedby`. When the error is corrected, remove the error class, the message and its reference, and `aria-invalid`.
+
+Success is an authored application result, not automatic `:valid` styling. Do not combine it with `aria-invalid="true"`.
+
+### Variable settings
+
+Override these on the form group or with consumer CSS. Hover, invalid, and disabled states use their semantic form tokens.
+
+| Custom property            | Default token                      |
 | -------------------------- | ---------------------------------- |
 | `--cods-select-background` | `--cods-color-surface-form`        |
 | `--cods-select-color`      | `--cods-color-text-primary`        |
 | `--cods-select-border`     | `--cods-color-border-form-default` |
 | `--cods-select-radius`     | `--cods-radius-md`                 |
 
-Override these on the form group or use consumer CSS. Hover, invalid, and
-disabled states use their semantic form tokens. Keyboard focus uses the approved
-focus ring and gap. Native popup styling varies across browsers and platforms.
-The `data-cods-select-fixture` and `data-cods-fixture-state` attributes identify
-review examples; they are not behavior APIs.
+### Values and events
 
-## Accessibility and localization
+Give the select a `name` for form submission and stable option `value` attributes. Replace the example IDs, names, and content when composing repeated controls. Listen for native `input` and `change` events to read the selected value; there is no controller, initialization, or CoDS event.
 
-Tab and Shift+Tab move between controls; arrow keys and type-ahead use the native
-platform model. Open and close keys vary by operating system, commonly
-Alt+ArrowDown, Space, Enter, and Escape. Disabled controls are skipped. There is
-no script that cancels events, moves focus, or changes native selection behavior.
-The control remains usable without CSS or JavaScript, and has no animation.
+### Limitations
 
-Labels, hints, and errors wrap at narrow widths. Long selected text may be
-truncated by the native control; keep option labels concise and put explanatory
-text in the hint. Native popup presentation and long-option readability require
-platform review. Spanish and Arabic examples are included; inherited `dir="rtl"`
-moves the arrow to the inline end. Forced colors restores the platform arrow
-and uses system colors.
-
-## Review status
-
-Human screen-reader checks, actual 400% zoom, operating-system high contrast,
-translated-content review, and State accessibility sign-off remain pending.
-The Select design and its variants were inspected in the Aten Chrome profile
-on October 16, 2026, and the live page was revisited in the Aten profile on
-October 21. The shared caret retains the original Regular weight, geometry,
-alignment, color, and 24px box; export precision introduces only edge antialiasing
-differences. Styling uses
-the approved Git token catalog and pinned USWDS markup; final design acceptance
-remains pending. Maturity remains experimental.
-
-## Canonical examples
-
-### Figma measurements
-
-The native field has a 40px minimum height, a 16px/16px semibold label, and
-12px between the label and field. The 1px field border is accounted for inside
-the padding so the outer height remains 40px. Keyboard focus uses the observed
-2px white gap and 2px blue band. Disabled fields retain transparent stroke space
-so text and the 24px arrow do not shift. Native popup appearance remains owned
-by the browser; the illustrated custom popup is not implemented.
+- Native popup appearance varies by browser and platform; the custom popup illustrated in Figma is not implemented.
+- The native control may truncate long selected text. Keep option labels concise and put explanatory text in the hint.
+- The arrow is a background image with a fixed `#1b1b1b` color, because a background SVG cannot inherit the control's `currentColor`.

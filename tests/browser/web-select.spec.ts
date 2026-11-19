@@ -1,8 +1,66 @@
+// Select documentation page. States the curated preview does not show
+// (placeholder, long content, Spanish, RTL, focus-visible) are covered in
+// storybook-select.spec.ts.
 import { readFileSync } from 'node:fs';
 import { routeBuiltFiles } from './built-files.js';
 import { test, expect, expectAccessible } from './fixtures.js';
 
-const state = (name: string) => `[data-cods-select-fixture="${name}"]`;
+const state = (name: string) => `[data-cods-docs-preview-state="${name}"]`;
+
+test('select page follows the component page outline', async ({
+  page,
+}, testInfo) => {
+  await page.setViewportSize({ width: 320, height: 800 });
+  await page.goto('/select/');
+  const main = page.locator('main');
+  expect(await main.locator('h2').allTextContents()).toEqual([
+    'Component preview',
+    'Component code',
+    'Component status',
+    'Guidance',
+    'Specifications',
+  ]);
+  const subheadings = await main.locator('h3').allTextContents();
+  for (const heading of [
+    'When to use',
+    'Empty option and placeholder text',
+    'Accessibility for Select',
+    'Classes',
+    'Required and error states',
+    'Variable settings',
+    'Values and events',
+    'Limitations',
+  ])
+    expect(subheadings).toContain(heading);
+
+  const figures = page.locator('[data-cods-docs-preview-state]');
+  await expect(figures).toHaveCount(4);
+  expect(
+    await figures.evaluateAll((items) =>
+      items.map((item) => item.getAttribute('data-cods-docs-preview-state')),
+    ),
+  ).toEqual(['default', 'disabled', 'error', 'success']);
+  const code = page.locator('[data-cods-docs-preview-code]');
+  await expect(code).toContainText('usa-select--error');
+  await expect(code).toContainText('cods-select--success');
+
+  const status = page.locator('[data-cods-docs-status]');
+  await expect(status).toContainText(
+    'Select (Dropdown) maturity is experimental',
+  );
+  await expect(status).toContainText('Manual accessibility review');
+  await expect(status).toContainText('is pending');
+  await expect(
+    status.getByRole('link', { name: 'USWDS 3.14.0 Select (Dropdown)' }),
+  ).toBeVisible();
+  await expect(
+    status.getByRole('link', { name: 'Accessibility evidence' }),
+  ).toHaveAttribute('href', /\/select\/accessibility\/select\.evidence\.md$/);
+  // The public page omits localization guidance and the examples catalogue.
+  await expect(main).not.toContainText(/right-to-left|localization/i);
+  await expect(page.locator('[data-cods-example]')).toHaveCount(0);
+  await expectAccessible(page, testInfo);
+});
 
 test('select label, descriptions, validation, native selection and submission', async ({
   page,
@@ -57,11 +115,9 @@ test('select label, descriptions, validation, native selection and submission', 
   expect(
     await invalid.evaluate((el) => (el as HTMLSelectElement).checkValidity()),
   ).toBe(true);
-  const placeholder = page.locator(`${state('placeholder')} select`);
-  await expect(placeholder).toHaveValue('');
-  await placeholder.selectOption('adams');
-  await placeholder.selectOption('');
-  await expect(placeholder).toHaveValue('');
+  // The selectable empty first option clears an optional field.
+  await control.selectOption('');
+  await expect(control).toHaveValue('');
   const entries = await page.evaluate(() => {
     const form = document.createElement('form');
     for (const control of document.querySelectorAll('select'))
@@ -95,16 +151,16 @@ test('native keyboard type-ahead, dismissal, focus ring, and disabled tab skip',
     'box-shadow',
     'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(23, 59, 179) 0px 0px 0px 4px',
   );
-  await page.locator(`${state('focus-visible')} select`).focus();
+  // Disabled sits between Default and Error in the preview; Tab skips it.
   await page.keyboard.press(
     browserName === 'webkit' && process.platform === 'darwin'
       ? 'Alt+Tab'
       : 'Tab',
   );
-  await expect(page.locator(`${state('success')} select`)).toBeFocused();
+  await expect(page.locator(`${state('error')} select`)).toBeFocused();
 });
 
-test('select 320px reflow, RTL arrow, reduced motion, and forced colors', async ({
+test('select 320px reflow, reduced motion, and forced colors', async ({
   page,
 }, testInfo) => {
   await page.setViewportSize({ width: 320, height: 800 });
@@ -119,12 +175,6 @@ test('select 320px reflow, RTL arrow, reduced motion, and forced colors', async 
       ),
     );
   expect(overflow).toBe(false);
-  const rtl = page.locator(`${state('rtl')} select`);
-  await expect(rtl).toHaveCSS('direction', 'rtl');
-  expect(
-    await rtl.evaluate((el) => getComputedStyle(el).backgroundPosition),
-  ).toContain('8px');
-  await expectAccessible(page, testInfo);
   await page.emulateMedia({ reducedMotion: 'reduce', forcedColors: 'active' });
   const control = page.locator(`${state('default')} select`);
   await control.focus();
@@ -172,7 +222,7 @@ test('Select uses the shared Phosphor caret with its original token foreground',
     'packages/colorado-design-system/dist/icons/caret-down--1b1b1b.svg',
     'utf8',
   );
-  for (const name of ['default', 'disabled', 'error', 'rtl']) {
+  for (const name of ['default', 'disabled', 'error']) {
     const control = page.locator(`${state(name)} select`);
     await expect(control).toHaveCSS('background-size', '24px 24px');
     const matches = await control.evaluate(async (el, source) => {
@@ -198,8 +248,8 @@ test('Figma label and field measurements include the inside stroke', async ({
   page,
 }) => {
   await page.goto('/select/');
-  const control = page.locator('[data-cods-fixture-state=default] select');
-  const label = page.locator('[data-cods-fixture-state=default] label');
+  const control = page.locator(`${state('default')} select`);
+  const label = page.locator(`${state('default')} label`);
   await expect(label).toHaveCSS('font-weight', '600');
   await expect(label).toHaveCSS('line-height', '16px');
   await expect(control).toHaveCSS('height', '40px');
@@ -207,7 +257,7 @@ test('Figma label and field measurements include the inside stroke', async ({
   await expect(control).toHaveCSS('padding-inline-start', '7px');
   // Measure the label-only pattern shown in the Figma component.
   await page
-    .locator('[data-cods-fixture-state=default] .cods-select__hint')
+    .locator(`${state('default')} .cods-select__hint`)
     .evaluate((el) => el.remove());
   const gap = await control.evaluate((el) => {
     const label = el.closest('.cods-select')!.querySelector('label')!;

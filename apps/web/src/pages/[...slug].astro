@@ -16,6 +16,7 @@ import LinkExamples from '../components/LinkExamples.astro';
 import DividerExamples from '../components/DividerExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
 import ComponentStatus from '../components/ComponentStatus.astro';
+import selectMetadata from '@coloradodigitalservice/colorado-design-system/metadata/select.json';
 import accordionMetadata from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
 import IconExamples from '../components/IconExamples.astro';
 import FooterExamples from '../components/FooterExamples.astro';
@@ -63,6 +64,17 @@ const { Content } = await render(entry);
         <AccordionExamples />
         <ComponentStatus
           metadata={accordionMetadata}
+          accessibility={entry.data.accessibilityStatus!}
+          figma={entry.data.figma}
+        />
+      </>
+    )}
+    {entry.id === 'select' && (
+      <>
+        <p class="cods-docs-lead">{entry.data.description}</p>
+        <SelectExamples />
+        <ComponentStatus
+          metadata={selectMetadata}
           accessibility={entry.data.accessibilityStatus!}
           figma={entry.data.figma}
         />
@@ -116,7 +128,6 @@ const { Content } = await render(entry);
       entry.id === 'link' ||
       entry.id === 'checkbox' ||
       entry.id === 'combo-box' ||
-      entry.id === 'select' ||
       entry.id === 'divider' ||
       entry.id === 'process-list') && (
       <ComponentSummary component={entry.id} figma={entry.data.figma} />
@@ -133,7 +144,6 @@ const { Content } = await render(entry);
     {entry.id === 'tags' && <TagsExamples />}
     {entry.id === 'videos' && <VideosExamples />}
     {entry.id === 'process-list' && <ProcessListExamples />}
-    {entry.id === 'select' && <SelectExamples />}
     {entry.id === 'in-page-alert' && <InPageAlertExamples mode="remaining" />}
     {entry.id === 'button' && <ButtonExamples mode="remaining" />}
     {entry.id === 'icon' && <IconExamples />}

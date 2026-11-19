@@ -10,6 +10,83 @@
 
 **Tracking:** CDS-58 / CODS-P3-010
 
+## CODS-P4-032 hardening — 2026-11-19
+
+Developer first pass for Phase 4 (CDS-150). Manual QA, State domain acceptance,
+and client sign-off are pending; this section records only the content and
+test-audit work and its automated results.
+
+### Documentation page
+
+`/select/` now follows the component page outline: lead description, Component
+preview (Default, Disabled, Error, Success fixture states rendered by the shared
+`ComponentPreview`), generated Component code, Component status, Guidance (When
+to use with native Select versus Combo Box and a state table; Empty option and
+placeholder text; Accessibility for Select) and Specifications (Classes,
+Required and error states, Variable settings, Values and events, Limitations).
+The examples catalogue, public localization/RTL guidance, and review-history
+prose were removed; those fixture states remain in Storybook and the tests.
+Placeholder is not previewed because its markup is identical to Default.
+Component status states that axe passes for every preview state and that manual
+review is pending; it makes no conformance claim. Every class and custom
+property was checked against `select.scss` and the fixture. `ComponentPreview`
+and the preview helper were copied from CODS-P4-014 so the `<div
+data-cods-fixture-state>` fixture wrapper is stripped.
+
+### Test audit
+
+| Area                                         | Before     | After      |
+| -------------------------------------------- | ---------- | ---------- |
+| Unit (`packaged-assets.test.ts` Select case) | 1          | 1          |
+| `web-select.spec.ts` (tests × 3 browsers)    | 6 × 3 = 18 | 7 × 3 = 21 |
+| `storybook-select.spec.ts` (Chromium)        | 1          | 2          |
+| `web-shared-fixtures.spec.ts` Select entry   | 1 × 3 = 3  | 1 × 3 = 3  |
+| `web-component-docs.spec.ts` Select entry    | 0          | 0          |
+
+Decisions:
+
+- **Added:** a page-outline test (headings, four preview states, generated
+  code, status text and links, no localization copy or examples catalogue, axe
+  at 320px), replacing the removed `ComponentSummary` coverage.
+- **Moved:** the RTL arrow position and RTL caret artwork checks, and 320px
+  reflow of long content, to `storybook-select.spec.ts`, because those states
+  are no longer on the page. They now run in Chromium only. The 320px reflow,
+  reduced-motion, and forced-colors checks for previewed states stay on the web
+  page in all three browsers.
+- **Consolidated:** placeholder clearing now runs on the Default control, which
+  has identical markup. The disabled tab-skip check now tabs from Default past
+  Disabled to Error in the preview order.
+- **Removed as duplicates:** none.
+- **Kept:** every other test; each covers distinct native behavior, keyboard and
+  focus, validation and submission, no-JS/no-CSS, caret artwork, or Figma
+  measurements.
+
+### Automated results
+
+Base commit `ba92348`. `pnpm build` passed (docs output check verified the
+curated preview against the fixture). Built-files Playwright run of the Select
+web, Storybook, and shared-fixture specs: 20 passed in Chromium, WebKit, and
+Storybook. Firefox could not launch locally (`browserType.launch` failure);
+CI covers it. `pnpm lint`, `pnpm typecheck`, `pnpm format:check`, and
+`pnpm --filter @cods-internal/web validate` (0 errors) passed. `pnpm test`:
+326 of 328 passed; the two failures are 5-second timeouts in the unrelated
+`build/icons.test.mjs` Phosphor generation suite under local load.
+
+### Manual matrix for Aten Accessibility/QA (pending)
+
+Review all supported variants and states on the PR preview and in Storybook.
+Record browser, assistive technology, and versions for each result.
+
+- [ ] Native keyboard and type-ahead selection, including platform open/close keys.
+- [ ] Label, selected value, hint, and error announcements.
+- [ ] Disabled behavior: skipped in tab order, announced as unavailable, not submitted.
+- [ ] Mobile native picker use (iOS and Android).
+- [ ] Focus visibility and focus ring on every state.
+- [ ] Long-option reflow and truncation of long selected text.
+- [ ] Contrast, 400% zoom / 320px reflow, narrow screens.
+- [ ] Reduced motion, forced colors.
+- [ ] Internal localization (Spanish) and RTL (Arabic) notes, and long-text notes.
+
 ## Phosphor integration — 2026-10-21
 
 Merged the updated CODS-P3-001 base containing #67. The native control now uses
