@@ -17,6 +17,7 @@ import DividerExamples from '../components/DividerExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
 import ComponentStatus from '../components/ComponentStatus.astro';
 import accordionMetadata from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
+import inputMetadata from '@coloradodigitalservice/colorado-design-system/metadata/input.json';
 import IconExamples from '../components/IconExamples.astro';
 import FooterExamples from '../components/FooterExamples.astro';
 import InputExamples from '../components/InputExamples.astro';
@@ -86,10 +87,13 @@ const { Content } = await render(entry);
     {entry.id === 'language-selector' && <LanguageSelectorExamples />}
     {entry.id === 'input' && (
       <>
-        {' '}
-        <h2>Examples</h2>
+        <p class="cods-docs-lead">{entry.data.description}</p>
         <InputExamples />
-        <ComponentSummary component="input" figma={entry.data.figma} />
+        <ComponentStatus
+          metadata={inputMetadata}
+          accessibility={entry.data.accessibilityStatus!}
+          figma={entry.data.figma}
+        />
       </>
     )}
     {entry.id === 'card' && <CardExamples />}

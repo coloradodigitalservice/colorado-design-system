@@ -4,34 +4,84 @@ description: Native text inputs with labels, hints, and validation feedback.
 navLabel: Input
 order: 13
 figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=72-76
+accessibilityStatus: Automated accessibility checks (axe) pass for every preview state. Manual accessibility review is pending.
 ---
 
-## When to use
+## Guidance
 
-Use Input for a short, free-form answer. Choose a native input type that fits the data: text, email, telephone, or number. Use `type="number"` for quantities where incrementing and decrementing make sense, not for identifiers, ZIP codes, or phone numbers. For longer answers use a text area.
+### When to use
 
-Input is **experimental**. The examples and copyable markup use the canonical fixture; design and human accessibility review remain open.
+Use Input for a short, free-form answer, such as a name, an email address, or a number of people. Use a Large field for a longer answer.
 
-## Anatomy and markup
+Don't use Input when:
 
-Load the token and component styles as described in [Getting started](../getting-started/). Pair each `usa-input cods-input__control` with a visible `usa-label cods-input__label` using a unique `id` and matching `for`. Place them in `usa-form-group cods-input`. Use an appropriate `name`, type, and `autocomplete` value. Placeholder text does not replace a label or hint.
+- People choose from a known list of options. Use radio buttons, checkboxes, a select, or a combo box instead.
+- The answer is a ZIP code, phone number, or identifier. Use a text or `tel` input, not `type="number"`.
 
-Place feedback below the field. Associate visible hints and feedback using `aria-describedby`, listing all relevant IDs separated by spaces. Add native `required` and a visible asterisk when a response is mandatory; explain that the asterisk marks required fields. The example error uses `aria-invalid="true"` and a visible message beginning with “Error” that explains how to fix the problem. Only set invalid after validation. The host application owns validation timing, server validation, focus management, and announcement of dynamically inserted errors.
+Choose a size and type that fit the expected answer:
 
-## States and behavior
+| Variant          | Use when                                                                                     | Don't use when                                                         |
+| ---------------- | -------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| Medium (default) | Most single-line answers.                                                                    | —                                                                      |
+| Small            | A more compact field is needed.                                                              | —                                                                      |
+| Large            | The answer may run to several lines. Large uses a `textarea` that can be resized vertically. | A single line is enough.                                               |
+| Email            | Collecting an email address (`type="email"`).                                                | —                                                                      |
+| Number           | Quantities where incrementing and decrementing make sense (`type="number"`).                 | ZIP codes, phone numbers, card numbers, or other identifiers.          |
+| Decorative icons | An icon helps people recognize the expected answer at a glance.                              | The icon carries meaning that is not also in the label, hint, or text. |
 
-Use native `disabled` when the control must not be used; disabled controls are omitted from form submission. Use `readonly` for a value that can be focused and submitted but not edited, and explain why it cannot be changed. A success state uses `usa-input--success cods-input__control--success` on the input and visible text; do not rely on color alone. Error and success use a 2px validation border, which keeps its color on hover. Labels and feedback wrap, and `dir="rtl"` supports right-to-left content. Set the correct language on translated text.
+Use these states to show what people can do with a field:
 
-The `--cods-border-input-width` token sets the default and disabled border width (1px by default); `--cods-border-input-validation-width` sets the enabled error and success border width (2px by default). Override them on `.cods-input` so the control and any icons inherit the same values.
+- **Required:** add native `required` and a visible asterisk, and explain near the top of the form that the asterisk marks required fields.
+- **Error and success:** show feedback after validation, below the field. Error and success use a 2px border and visible text; don't rely on color alone.
+- **Disabled:** the field cannot be used. Disabled fields are skipped by the keyboard and left out of form submission.
+- **Read-only:** the value can be focused, copied, and submitted but not edited. Explain why it cannot be changed.
 
-The default Medium field is 40px high. Use `cods-input__control--small` for the 32px Small field, and a `textarea` with `cods-input__control--large` for the 140px Large field, which can be resized vertically.
+### Accessibility for Input
 
-Decorative leading or trailing icons can use the `usa-input-group cods-input__group` wrapper, the matching `cods-input__icon--prefix` or `cods-input__icon--suffix` class, and `cods-input__control--prefix`, `cods-input__control--suffix`, or `cods-input__control--icons` for both. Icon groups also support resizable Large text areas, with icons aligned to the first line. Icons use the corresponding error, success, or disabled color when the control changes state. Hide decorative icons from assistive technology; keep essential meaning in text. Deploy the shared sprite as described in the [Icon guidance](../icon/#sprite-url-and-deployment-path).
+- Give every field a visible label. Pair the `label`'s `for` with the input's unique `id`. Placeholder text does not replace a label or hint.
+- Link hints and feedback to the field with `aria-describedby`, listing every relevant ID separated by spaces.
+- Set `aria-invalid="true"` only after validation fails, and start the visible message with “Error:” followed by how to fix the problem.
+- Use an appropriate `name`, `type`, and `autocomplete` value so browsers and assistive technology can help people fill in the field.
+- Tab reaches enabled fields and the browser handles editing and native validation. No JavaScript is required.
+- Hide decorative icons from assistive technology with `aria-hidden="true"`, and keep essential meaning in text.
+- The host application owns validation timing, server validation, moving focus to errors, and announcing errors that are added dynamically.
 
-## Keyboard and progressive enhancement
+## Specifications
 
-Tab reaches enabled controls, and the browser handles editing, keyboard selection, and native validation. No JavaScript controller is required. The native control, label, and feedback remain available without CSS or JavaScript. Consumers are responsible for announcing errors added dynamically and preserving visible focus.
+### Variant classes
 
-## Assets and accessibility
+Place each field in a `usa-form-group cods-input` wrapper. Use `usa-form-group--error` on the wrapper of a field with an error.
 
-Fixtures, metadata, and copyable examples are exported from the design-system package under `fixtures/input.html`, `metadata/input.json`, and `examples/input.json`. Automated tests supplement human review. Screen-reader announcements, actual 400% zoom, forced colors, translation, and design and accessibility-owner review remain open in the [evidence file](https://github.com/coloradodigitalservice/colorado-design-system/blob/main/packages/colorado-design-system/src/components/input/accessibility/input.evidence.md).
+| Class                                                                | Use                                                                   |
+| -------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `usa-label cods-input__label`                                        | The visible label.                                                    |
+| `usa-hint cods-input__hint`                                          | Hint text above the field.                                            |
+| `usa-input cods-input__control`                                      | The Medium (default) input, 40px high.                                |
+| `cods-input__control--small`                                         | The Small input, 32px high.                                           |
+| `cods-input__control--large`                                         | The Large field on a `textarea`, 140px high and resizable vertically. |
+| `usa-input--error` with `aria-invalid="true"`                        | An input that failed validation.                                      |
+| `usa-input--success cods-input__control--success`                    | An input that passed validation.                                      |
+| `usa-error-message cods-input__feedback cods-input__feedback--error` | Error feedback below the field.                                       |
+| `cods-input__feedback cods-input__feedback--success`                 | Success feedback below the field.                                     |
+| `cods-input__required`                                               | The visible required asterisk, hidden from assistive technology.      |
+
+### Variable settings
+
+| Custom property                        | Default | Use                                               |
+| -------------------------------------- | ------- | ------------------------------------------------- |
+| `--cods-border-input-width`            | `1px`   | Border width of default and disabled fields.      |
+| `--cods-border-input-validation-width` | `2px`   | Border width of enabled error and success fields. |
+
+Set these on `.cods-input` so the field and any icons use the same values.
+
+### Adding icons
+
+Wrap the field in `usa-input-group cods-input__group` and add a decorative icon in a `span` with `usa-input-prefix cods-input__icon cods-input__icon--prefix` or `usa-input-suffix cods-input__icon cods-input__icon--suffix`. Add the matching padding class to the field:
+
+| Class                         | Use                        |
+| ----------------------------- | -------------------------- |
+| `cods-input__control--prefix` | A leading icon.            |
+| `cods-input__control--suffix` | A trailing icon.           |
+| `cods-input__control--icons`  | Both leading and trailing. |
+
+Icons take the error, success, or disabled color when the field changes state. On a Large field, icons align with the first line of text. Deploy the shared sprite as described in the [Icon guidance](../icon/#sprite-url-and-deployment-path).
