@@ -31,7 +31,7 @@
 
 ## Reflow, motion, forced colors, contrast, and localization
 
-- [ ] Verify positioning and readability at 400% zoom and 320px reflow, including viewport edges. Automated: when no side fits, the tooltip stays above or below the trigger without covering it and wraps to the viewport width; an open tooltip repositions on scroll and resize; the arrow tracks the trigger when the body shifts; the hover path holds inside a `scale(0.5)` ancestor.
+- [ ] Verify positioning and readability at 400% zoom and 320px reflow, including viewport edges. Automated: when no side fits, the tooltip opens below the trigger without covering it or starting above the page and wraps to the viewport width; an open tooltip repositions on scroll and resize; the arrow tracks the trigger when the body shifts; the hover path holds inside a `scale(0.5)` ancestor.
 - [ ] Verify reduced motion (the tooltip has no animation) and forced colors (system-color border, arrow hidden).
 - [ ] Verify contrast of both treatments with design. Default: white text on `text-primary`. Light: `text-primary` on white with a `border-default` border and low elevation shadow. Automated axe checks run on both.
 - [ ] Verify long translated content and right-to-left layout.

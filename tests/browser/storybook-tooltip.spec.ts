@@ -197,6 +197,8 @@ test('never covers its focused trigger in a 320 × 180 viewport', async ({
     const t = (await trigger.boundingBox())!;
     const b = (await body.boundingBox())!;
     expect(b.y + b.height <= t.y || b.y >= t.y + t.height).toBe(true);
+    // Overflow must extend downward, never above the start of the page.
+    expect(b.y).toBeGreaterThanOrEqual(-0.5);
     expect(b.x).toBeGreaterThanOrEqual(-0.5);
     expect(b.x + b.width).toBeLessThanOrEqual(320.5);
     await trigger.blur();

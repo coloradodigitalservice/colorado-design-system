@@ -117,11 +117,11 @@ export function init(root: HTMLElement): void {
         (side) => side !== preferred && side !== OPPOSITE[preferred],
       ),
     ];
-    // When nothing fits, stay above or below the trigger, whichever has more
-    // room: the body never covers the trigger, wraps within the viewport
-    // width, and the page can scroll to reveal the rest.
-    const fallback: Position = t.top >= vh - t.bottom ? 'top' : 'bottom';
-    const side = order.find(fits) ?? fallback;
+    // When nothing fits, open below the trigger: the body never covers the
+    // trigger, wraps within the viewport width, and any overflow extends the
+    // page downward, where scrolling can always reveal it. Above, overflow
+    // could land before the start of the page and be unreachable.
+    const side = order.find(fits) ?? 'bottom';
 
     const vertical = side === 'top' || side === 'bottom';
     const x = vertical
@@ -150,12 +150,14 @@ export function init(root: HTMLElement): void {
     body.style.setProperty('--cods-tooltip-arrow-offset', `${arrow}px`);
   };
 
-  const update = () => {
+  /** Show or hide to match state; `emit` is false only during init. */
+  const update = (emit = true) => {
     const next = (hovered || focused) && !dismissed;
     if (next === open) return;
     open = next;
     body.hidden = !next;
     if (next) place();
+    if (!emit) return;
     root.dispatchEvent(
       new CustomEvent(`cods-tooltip:${next ? 'open' : 'close'}`, {
         bubbles: true,
@@ -220,7 +222,8 @@ export function init(root: HTMLElement): void {
       trigger.removeAttribute('aria-describedby');
     else trigger.setAttribute('aria-describedby', authoredDescribedBy);
   });
-  update();
+  // Show the tooltip for an already-focused trigger without emitting an event.
+  update(false);
 }
 
 export function initAll(container: ParentNode = document): void {

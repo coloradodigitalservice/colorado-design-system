@@ -96,6 +96,19 @@ describe('tooltip', () => {
     expect(document.activeElement).toBe(trigger);
   });
 
+  it('shows for an already-focused trigger without emitting during init', () => {
+    const { root, trigger, body } = render();
+    const opened = vi.fn();
+    root.addEventListener('cods-tooltip:open', opened);
+    trigger.focus();
+    init(root);
+    expect(body().hidden).toBe(false);
+    expect(opened).not.toHaveBeenCalled();
+    trigger.dispatchEvent(new FocusEvent('blur'));
+    trigger.dispatchEvent(new FocusEvent('focus'));
+    expect(opened).toHaveBeenCalledOnce();
+  });
+
   it('restores authored markup and does not initialize twice', () => {
     const { root } = render('light');
     const original = root.cloneNode(true);
