@@ -11,7 +11,7 @@ export function componentMarkup(code) {
   const lines = code
     .replace(/^\s*<section[^>]*>\s*\n/, '')
     .replace(/\n\s*<\/section>\s*$/, '')
-    .replace(/^\s*<h2>[^<]*<\/h2>\s*\n/, '')
+    .replace(/^\s*<h2[^>]*>[^<]*<\/h2>\s*\n/, '')
     .split('\n');
   const indent = Math.min(
     ...lines
