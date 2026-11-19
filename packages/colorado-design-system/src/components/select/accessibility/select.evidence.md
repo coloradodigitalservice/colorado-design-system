@@ -10,6 +10,103 @@
 
 **Tracking:** CDS-58 / CODS-P3-010
 
+## CODS-P4-032 hardening — 2026-11-19
+
+Developer first pass for Phase 4 (CDS-150). Manual QA, State domain acceptance,
+and client sign-off are pending; this section records only the content and
+test-audit work and its automated results.
+
+### Documentation page
+
+`/select/` now follows the component page outline: lead description, Component
+preview (Default, Disabled, Error, Success fixture states rendered by the shared
+`ComponentPreview`), generated Component code, Component status, Guidance (When
+to use with native Select versus Combo Box and a state table; Empty option and
+placeholder text; Accessibility for Select) and Specifications (Classes,
+Required and error states, Variable settings, Values and events, Limitations).
+The examples catalogue, public localization/RTL guidance, and review-history
+prose were removed; those fixture states remain in Storybook and the tests.
+Placeholder is not previewed because its markup is identical to Default.
+Component status states that axe passes for every preview state and that manual
+review is pending; it makes no conformance claim. Every class and custom
+property was checked against `select.scss` and the fixture. `ComponentPreview`
+and the preview helper were copied from CODS-P4-014 so the `<div
+data-cods-fixture-state>` fixture wrapper is stripped.
+
+### Test audit
+
+The bar for keeping an assertion was that it tests something CoDS owns.
+Select is a native `<select>` with no controller, so re-testing native
+selection, validity, and form submission tests the browser, not CoDS.
+
+| Area                                         | Before     | After      |
+| -------------------------------------------- | ---------- | ---------- |
+| Unit (`packaged-assets.test.ts` Select case) | 1          | 1          |
+| `web-select.spec.ts` (tests × 3 browsers)    | 6 × 3 = 18 | 5 × 3 = 15 |
+| `storybook-select.spec.ts` (Chromium)        | 1          | 1          |
+| `web-shared-fixtures.spec.ts` Select entry   | 1 × 3 = 3  | 1 × 3 = 3  |
+| Spec lines (web + Storybook)                 | 259        | 186        |
+
+Decisions:
+
+- **Added:** a page-outline test (headings, preview states and order, pending
+  status, no localization copy or examples catalogue, axe at 320px). Generated
+  code and maturity text are already checked by `web-shared-fixtures.spec.ts`
+  and the build's docs output check, so it does not repeat them.
+- **Removed as browser behavior:** `selectOption` value changes,
+  `validity.valueMissing`/`checkValidity`, clearing the empty option, and the
+  `FormData` submission check (disabled controls not submitted). These assert
+  native `<select>` behavior with no CoDS code involved.
+- **Removed as fixture restatement:** first-option text, error message
+  position, required asterisk text, and absence of `usa-form-group--error`.
+  The docs output check already fails the build if previewed markup drifts from
+  the fixture.
+- **Removed:** the no-JavaScript/no-CSS test. Select ships no JavaScript, and a
+  native select working without CSS is browser behavior.
+- **Removed as duplicates:** the Storybook focus-ring and `selectOption` checks
+  (same assertions run in three browsers on the web page); the Storybook fixture
+  ID-order check (the story renders the raw fixture, so it compared the fixture
+  to itself); the RTL caret-artwork check (RTL uses the same image file as
+  Default; the RTL-specific assertion, arrow position, is kept); caret checks
+  for Disabled and Error (no state overrides the image); the duplicate
+  `background-size` assertion; an `ArrowDown`/`Enter` step that asserted
+  nothing; screenshot-only attachments.
+- **Consolidated:** the caret artwork test into the Figma geometry test (both
+  check static styling of the Default control); the two Storybook tests into one
+  at 320px.
+- **Moved:** RTL arrow position and long-content reflow to Storybook (Chromium
+  only), because those states are no longer on the page.
+- **Kept:** accessible name and description wiring, `aria-invalid` on Error and
+  not on Success, type-ahead and Escape focus (guards against CoDS interfering),
+  the focus ring, disabled tab skip, 320px reflow, forced colors, Figma
+  geometry, the shared caret artwork, and axe on the page and all Storybook
+  states.
+
+### Automated results
+
+Base commit `ba92348`. `pnpm build` passed (docs output check verified the
+curated preview against the fixture). Built-files Playwright run of the Select
+web and Storybook specs: 11 passed in Chromium, WebKit, and Storybook. Firefox could not launch locally (`browserType.launch` failure);
+CI covers it. `pnpm lint`, `pnpm typecheck`, `pnpm format:check`, and
+`pnpm --filter @cods-internal/web validate` (0 errors) passed. `pnpm test`:
+326 of 328 passed; the two failures are 5-second timeouts in the unrelated
+`build/icons.test.mjs` Phosphor generation suite under local load.
+
+### Manual matrix for Aten Accessibility/QA (pending)
+
+Review all supported variants and states on the PR preview and in Storybook.
+Record browser, assistive technology, and versions for each result.
+
+- [ ] Native keyboard and type-ahead selection, including platform open/close keys.
+- [ ] Label, selected value, hint, and error announcements.
+- [ ] Disabled behavior: skipped in tab order, announced as unavailable, not submitted.
+- [ ] Mobile native picker use (iOS and Android).
+- [ ] Focus visibility and focus ring on every state.
+- [ ] Long-option reflow and truncation of long selected text.
+- [ ] Contrast, 400% zoom / 320px reflow, narrow screens.
+- [ ] Reduced motion, forced colors.
+- [ ] Internal localization (Spanish) and RTL (Arabic) notes, and long-text notes.
+
 ## Phosphor integration — 2026-10-21
 
 Merged the updated CODS-P3-001 base containing #67. The native control now uses
