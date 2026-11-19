@@ -8,7 +8,8 @@
  * - position the tooltip in the root's local coordinate space, so the arrow,
  *   gap, and hover bridge stay aligned inside scaled ancestors;
  * - stay next to (never over) the trigger when no side has room;
- * - reposition while open when the page or an ancestor scrolls;
+ * - reposition within the visible viewport and clipping ancestors when the
+ *   page or an ancestor scrolls;
  * - point the arrow at the trigger when the body is shifted to fit; and
  * - reopen after Escape on any fresh hover or focus.
  *
@@ -27,6 +28,7 @@ const OPPOSITE: Record<Position, Position> = {
   left: 'right',
   right: 'left',
 };
+const CLIPPING_OVERFLOW = new Set(['auto', 'scroll', 'hidden', 'clip']);
 /** Space between trigger and body in CSS px; matches the arrow and hover bridge in tooltip.scss. */
 const GAP = 6;
 /** Keeps the arrow clear of the body's rounded corners, in CSS px. */
@@ -79,8 +81,6 @@ export function init(root: HTMLElement): void {
   let open = false;
 
   const place = () => {
-    body.style.left = '0px';
-    body.style.top = '0px';
     const t = trigger.getBoundingClientRect();
     const r = root.getBoundingClientRect();
     const { width: w, height: h } = body.getBoundingClientRect();
@@ -91,6 +91,66 @@ export function init(root: HTMLElement): void {
     const gapY = GAP * scaleY;
     const vw = doc.documentElement.clientWidth || view.innerWidth;
     const vh = doc.documentElement.clientHeight || view.innerHeight;
+    const bounds = { left: 0, top: 0, right: vw, bottom: vh };
+    // Visible root overflow propagates the body's overflow to the viewport.
+    const documentStyle = view.getComputedStyle(doc.documentElement);
+    const bodyOverflowIsViewport =
+      documentStyle.overflowX === 'visible' &&
+      documentStyle.overflowY === 'visible';
+
+    // Positioned ancestors can escape overflow clipping up to their containing block.
+    let skipUntil: Element | null = null;
+    for (
+      let ancestor: HTMLElement | null = root;
+      ancestor && ancestor !== doc.documentElement;
+      ancestor = ancestor.parentElement
+    ) {
+      const style = view.getComputedStyle(ancestor);
+      if (!skipUntil || ancestor === skipUntil) {
+        skipUntil = null;
+        const clipsX = CLIPPING_OVERFLOW.has(style.overflowX);
+        const clipsY = CLIPPING_OVERFLOW.has(style.overflowY);
+        if (
+          (clipsX || clipsY) &&
+          !(ancestor === doc.body && bodyOverflowIsViewport) &&
+          style.display !== 'inline' &&
+          style.display !== 'contents'
+        ) {
+          const box = ancestor.getBoundingClientRect();
+          const clipScaleX = ancestor.offsetWidth
+            ? box.width / ancestor.offsetWidth
+            : 1;
+          const clipScaleY = ancestor.offsetHeight
+            ? box.height / ancestor.offsetHeight
+            : 1;
+          if (clipsX) {
+            const left = box.left + ancestor.clientLeft * clipScaleX;
+            bounds.left = Math.max(bounds.left, left);
+            bounds.right = Math.min(
+              bounds.right,
+              left + ancestor.clientWidth * clipScaleX,
+            );
+          }
+          if (clipsY) {
+            const top = box.top + ancestor.clientTop * clipScaleY;
+            bounds.top = Math.max(bounds.top, top);
+            bounds.bottom = Math.min(
+              bounds.bottom,
+              top + ancestor.clientHeight * clipScaleY,
+            );
+          }
+        }
+      }
+      if (
+        style.display !== 'contents' &&
+        (style.position === 'absolute' || style.position === 'fixed')
+      ) {
+        const containingBlock = ancestor.offsetParent;
+        if (!containingBlock) break;
+        if (!skipUntil || containingBlock.contains(skipUntil))
+          skipUntil = containingBlock;
+      }
+    }
 
     const main = (side: Position) => {
       switch (side) {
@@ -107,8 +167,12 @@ export function init(root: HTMLElement): void {
     const fits = (side: Position) => {
       const start = main(side);
       return side === 'top' || side === 'bottom'
-        ? start >= 0 && start + h <= vh && w <= vw
-        : start >= 0 && start + w <= vw && h <= vh;
+        ? start >= bounds.top &&
+            start + h <= bounds.bottom &&
+            w <= bounds.right - bounds.left
+        : start >= bounds.left &&
+            start + w <= bounds.right &&
+            h <= bounds.bottom - bounds.top;
     };
     const order: Position[] = [
       preferred,
@@ -117,19 +181,17 @@ export function init(root: HTMLElement): void {
         (side) => side !== preferred && side !== OPPOSITE[preferred],
       ),
     ];
-    // When nothing fits, open below the trigger: the body never covers the
-    // trigger, wraps within the viewport width, and any overflow extends the
-    // page downward, where scrolling can always reveal it. Above, overflow
-    // could land before the start of the page and be unreachable.
+    // Below is the only fallback that can extend normal page flow downward.
+    // Fixed or clipping ancestors can still make the overflow unreachable.
     const side = order.find(fits) ?? 'bottom';
 
     const vertical = side === 'top' || side === 'bottom';
     const x = vertical
-      ? clamp(t.left + (t.width - w) / 2, 0, vw - w)
+      ? clamp(t.left + (t.width - w) / 2, bounds.left, bounds.right - w)
       : main(side);
     const y = vertical
       ? main(side)
-      : clamp(t.top + (t.height - h) / 2, 0, vh - h);
+      : clamp(t.top + (t.height - h) / 2, bounds.top, bounds.bottom - h);
 
     for (const item of POSITIONS)
       body.classList.toggle(`cods-tooltip__body--${item}`, item === side);

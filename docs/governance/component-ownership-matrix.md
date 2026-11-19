@@ -114,7 +114,7 @@ The 28 components below are the approved 1.0 inventory (Card - Default and Card 
 
 **Current list:**
 
-- **Tooltip** — keeps the USWDS authoring model (`title` text, `data-position`) but replaces the USWDS tooltip script and body styles with a CoDS controller and styles. Rationale: the USWDS behavior moves the trigger during setup (dropping focus), loses the hover path inside scaled ancestors, can cover the trigger or clip off-screen at 400% reflow and on scroll, misaligns the arrow when the body shifts, and keeps a dismissed tooltip closed on fresh interaction; Figma also specifies a light treatment and elevation. Direction approved in PR #98 review (2026-11-18); State design and accessibility sign-off of the result is tracked in the component's accessibility evidence. See `tooltip.metadata.json` `divergenceNotes`.
+- **Tooltip** — keeps the USWDS authoring model (`title` text, `data-position`) but replaces the USWDS tooltip script and body styles with a CoDS controller and styles. Rationale: USWDS moves the trigger during setup (dropping focus) and can clip the tooltip off-screen at constrained viewport sizes and on scroll. The earlier CoDS wrapper also needed fixes for scaled-down hover, arrow alignment, trigger overlap, and reopening after Escape; Figma specifies a light treatment and elevation. Direction approved in PR #98 review (2026-11-18); State design and accessibility approved the divergence, and remaining accessibility checks are tracked in the component's evidence. See `tooltip.metadata.json` `divergenceNotes`.
 
 **Future divergences** (to be evaluated during Phase 3):
 
