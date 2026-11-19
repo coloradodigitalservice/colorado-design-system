@@ -4,57 +4,81 @@ description: Native checkboxes for independent choices, including labeled groups
 navLabel: Checkbox
 order: 11
 figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=72-78
+accessibilityStatus: Automated accessibility checks (axe) pass for every preview state. Manual accessibility review, including screen-reader, 400% zoom, and Windows High Contrast checks, is pending.
 ---
 
-## When to use
+## Guidance
 
-Use a single checkbox for an independent yes/no choice. Use a related group when people can choose multiple options; use radio buttons when exactly one option is allowed. Every checkbox needs a visible, explicitly associated label. Give every input a document-unique `id` and match the label's `for`. Clicking the label activates its input.
+### When to use
 
-Checkbox is **experimental** in the `0.x` development series. It themes USWDS 3.14.0 native checkbox markup; no component controller or custom events are shipped. The examples and copyable HTML above come from the canonical package fixture.
+| Variant | Use when                                                                  | Don't use when                                                     |
+| ------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| Single  | People make one independent yes/no choice.                                | The choice is one of several related options; use a group.         |
+| Group   | People can choose more than one related option.                           | Exactly one option is allowed; use radio buttons.                  |
+| Card    | A larger card with a clickable label suits the layout. Single or grouped. | The layout needs a fixed card height; cards grow with their label. |
 
-## Single checkbox
+Use mixed (indeterminate) state only for a parent checkbox whose child options are partly selected, such as select all. Use disabled state for options that can't be changed.
 
-Load the token and component styles as described in [Getting started](../getting-started/). Use `usa-checkbox cods-checkbox` on the wrapper, `usa-checkbox__input cods-checkbox__input` on the native input, and `usa-checkbox__label cods-checkbox__label` on its following label. Set a meaningful `name` and `value` for form submission. Use `checked` for the initial checked state and the DOM `checked` property for runtime state. Unchecked inputs are omitted from form submission.
+### Accessibility for checkboxes
 
-## Checkbox groups
+- Every checkbox needs a visible label associated by matching the input's unique `id` and the label's `for`. Clicking the label toggles its input.
+- Put related checkboxes in a native `<fieldset>` with a visible `<legend>`. The legend names the group; it doesn't replace each checkbox's own label.
+- Tab and Shift+Tab move between enabled checkboxes. Space toggles the focused checkbox, and focus stays in place. There is no arrow-key navigation. On macOS WebKit, use Option+Tab or turn on full keyboard navigation.
+- Associate hints and errors with `aria-describedby`. Keep any existing hint IDs in the space-separated value when you add an error ID.
+- Mark an invalid checkbox with `aria-invalid="true"`, and begin the visible error text with "Error" so color isn't the only cue. Don't mark untouched optional inputs invalid.
+- Use the native `disabled` attribute. It removes the checkbox from the tab order and from form submission. `aria-disabled` alone doesn't disable a native checkbox.
+- Set mixed state with the native `indeterminate` property, which also supplies the accessible mixed state. Don't add `aria-checked="mixed"`.
+- Single, grouped, checked, disabled, and invalid checkboxes work without JavaScript. Only mixed state needs scripting.
 
-Related checkboxes **must** be inside a native `<fieldset>` with a visible `<legend>`. Use `usa-fieldset cods-checkbox__group` and `usa-legend cods-checkbox__legend`. The grouped example above shows the required pattern and copyable markup. Inputs can share a name and have distinct values. Each input still needs its own visible label; the legend names the group rather than replacing individual labels. Browser validation of `required` applies to an individual checkbox, not “choose at least one” in a group; implement any group rule in your form validation.
+## Specifications
 
-## Indeterminate (mixed) state
+### Variants and elements
 
-The native `indeterminate` **DOM property requires JavaScript**. An HTML `indeterminate` attribute does not set it. Do not add `aria-checked="mixed"` or a visual-only `data-indeterminate` attribute; the native property supplies the accessible mixed state and CSS `:indeterminate` styling together.
+Pair each CoDS class with its USWDS class. The `usa-*` classes are the upstream integration markup.
 
-The example above uses this consumer code after its markup is mounted:
+| Class                   | Use                                                                               |
+| ----------------------- | --------------------------------------------------------------------------------- |
+| `cods-checkbox`         | Wrapper for one checkbox and its label; pair with `usa-checkbox`.                 |
+| `cods-checkbox--card`   | Card style on the wrapper, with the label as the clickable card.                  |
+| `cods-checkbox__input`  | Native `type="checkbox"` input; pair with `usa-checkbox__input`.                  |
+| `cods-checkbox__label`  | Label immediately after its input; pair with `usa-checkbox__label`.               |
+| `cods-checkbox__group`  | Native `<fieldset>` around related checkboxes; pair with `usa-fieldset`.          |
+| `cods-checkbox__legend` | Visible `<legend>` that names the group; pair with `usa-legend`.                  |
+| `cods-checkbox__error`  | Visible error text after the label, referenced by the input's `aria-describedby`. |
+
+Use `checked` for the initial checked state and `disabled` for a disabled checkbox. Give each input a meaningful `name` and `value`; grouped inputs can share a `name` with distinct values. Unchecked inputs aren't submitted.
+
+### Setting the indeterminate state
+
+The HTML `indeterminate` attribute doesn't exist; set the DOM property with JavaScript after the markup is in the page:
 
 ```js
 const input = document.querySelector('#checkbox-indeterminate');
 if (input) input.indeterminate = true;
 ```
 
-This demonstrates the state, not a select-all controller. In a select-all pattern, your application must synchronize parent and child states, including after form reset. User activation clears indeterminate and toggles the native checked state. Indeterminate is independent of `checked` and does not itself determine the submitted value. Without JavaScript the example remains an ordinary unchecked checkbox.
+Activating the checkbox clears mixed state and toggles `checked`. Mixed state doesn't change the submitted value. CoDS doesn't ship a select-all controller: your application keeps the parent and child checkboxes in sync, including after a form reset. Listen to the native `input` or `change` events and read `checked` and `indeterminate`. Without JavaScript, the checkbox is an ordinary unchecked checkbox.
 
-## Validation and disabled states
+### Validation
 
-Use `aria-invalid="true"` with an `aria-describedby` reference to a visible error message (`cods-checkbox__error`). Include the word “Error” so color is not the only cue. Preserve any existing hint IDs in the space-separated `aria-describedby` value. Your form owns validation timing, error clearing, and focus when submitting. Do not mark untouched optional inputs invalid.
+Your form owns validation timing, error clearing, and moving focus on submit. The browser's `required` validation applies to an individual checkbox. A "choose at least one" rule for a group must be implemented in your form validation.
 
-Use the native `disabled` attribute to prevent interaction and remove a control from the tab order and form submission. `aria-disabled` alone does not disable a native checkbox. Both disabled unchecked and disabled checked examples are provided.
+### Variable settings
 
-## Keyboard and progressive enhancement
+Set these on a `cods-checkbox` wrapper:
 
-Tab and Shift+Tab move between enabled controls. Space toggles the focused input; focus stays in place. Labels activate their associated inputs by pointer. On macOS WebKit, use Option+Tab or enable full keyboard navigation to reach all native controls. There is no custom arrow-key navigation or focus management. Listen to native `input` or `change` events and read `checked` and `indeterminate` on the input.
+| Custom property              | Default                                                     |
+| ---------------------------- | ----------------------------------------------------------- |
+| `--cods-checkbox-background` | Unchecked box background, `color.surface-form`              |
+| `--cods-checkbox-text`       | Label text, `color.text-primary`                            |
+| `--cods-checkbox-border`     | Unchecked box border, `color.border-form-default`           |
+| `--cods-checkbox-selected`   | Checked and mixed box background, `color.bg-action-primary` |
+| `--cods-checkbox-card-width` | Card width, `15rem` (240px), constrained to its container   |
 
-Single, grouped, checked, disabled, and invalid controls remain functional without JavaScript. With CSS disabled they display as native inputs with associated labels, legend, and error text. Only mixed state needs scripting. No initialization or teardown API is needed.
+Keep text, boundary, and focus contrast when overriding colors. Card labels wrap and the card grows with its content.
 
-## Appearance and localization
+### Limitations
 
-The public classes are `cods-checkbox`, `cods-checkbox__input`, `cods-checkbox__label`, `cods-checkbox__group`, `cods-checkbox__legend`, and `cods-checkbox__error`. Keep the corresponding `usa-*` integration classes. Public custom properties on the wrapper are `--cods-checkbox-background`, `--cods-checkbox-text`, `--cods-checkbox-border`, `--cods-checkbox-selected`, and `--cods-checkbox-card-width`; the color defaults reference semantic tokens. Preserve text, boundary, and focus contrast when overriding them. Check and mixed glyphs come from the shared Phosphor Regular pipeline in regular color modes. Selected controls use white `check`/`minus` artwork against the primary background; disabled selected controls use the shared dark variants against the light disabled background. Forced-colors mode displays the native input and hides the decorative glyph, so the browser supplies checked, mixed, disabled, and focus treatments.
-
-Labels use the measured regular body typography (16px/24px), rather than semibold UI text. Labels and errors wrap without a fixed height. Translate labels, legends, and errors; set the appropriate `lang` and `dir`. The Spanish, long-content, and Arabic RTL examples exercise these patterns. No animation is added.
-
-## Card style
-
-Use `cods-checkbox--card` on the wrapper for a card with a clickable label. Checked and mixed cards use the selected surface; keyboard focus surrounds the card. The card defaults to 240px (15rem) and is constrained to its container. Override `--cods-checkbox-card-width` to fit the layout; labels wrap and height grows with the content.
-
-## Accessibility review
-
-Native input semantics provide checked, disabled, invalid, and mixed states. Authors supply meaningful names, unique IDs, related group legends, error associations, and form validation behavior. Automated checks supplement human review; screen-reader announcements, actual 400% zoom, and platform forced-colors review remain acceptance items in the [evidence file](https://github.com/coloradodigitalservice/colorado-design-system/blob/main/packages/colorado-design-system/src/components/checkbox/accessibility/checkbox.evidence.md). The component remains experimental pending review.
+- There is no JavaScript controller, initialization, or custom event; checkboxes use native browser behavior.
+- In Windows High Contrast and other forced-colors modes, the browser draws the native checkbox and its checked, mixed, disabled, and focus states.
+- No animation is added.
