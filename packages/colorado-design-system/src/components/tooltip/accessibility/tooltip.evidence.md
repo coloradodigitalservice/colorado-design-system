@@ -38,5 +38,6 @@
 
 ## Open items
 
+- Compared the light and dark variants and authoring guidance with the Tooltip Figma page on 2026-11-19. The design shows matching arrows, a soft shadow, and light tooltips on a dark surface. The docs include its 3:1 surrounding-background guidance.
 - Human design and accessibility review of the Type C result remains open, including State design owner review of the light treatment and elevation against Figma.
-- Browser and screen-reader checks are not complete. Automated tests cannot establish accessibility acceptance.
+- The Tooltip browser suite passed against the built Storybook and documentation site on 2026-11-19. Storybook behavior and axe checks ran in Chromium; the documentation smoke test ran in Chromium, Firefox, and WebKit. Manual browser and screen-reader verification remains open.

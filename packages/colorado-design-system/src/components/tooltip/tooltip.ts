@@ -220,6 +220,7 @@ export function init(root: HTMLElement): void {
       trigger.removeAttribute('aria-describedby');
     else trigger.setAttribute('aria-describedby', authoredDescribedBy);
   });
+  update();
 }
 
 export function initAll(container: ParentNode = document): void {

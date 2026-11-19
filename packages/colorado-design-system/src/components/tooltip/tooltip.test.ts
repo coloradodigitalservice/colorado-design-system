@@ -87,10 +87,11 @@ describe('tooltip', () => {
   });
 
   it('preserves focus on the trigger through init and destroy', () => {
-    const { root, trigger } = render();
+    const { root, trigger, body } = render();
     trigger.focus();
     init(root);
     expect(document.activeElement).toBe(trigger);
+    expect(body().hidden).toBe(false);
     destroy(root);
     expect(document.activeElement).toBe(trigger);
   });
