@@ -42,7 +42,7 @@ The 28 components below are the approved 1.0 inventory (Card - Default and Card 
 | Hero               | B    | Aten/State | (none)                                                                                  | CoDS-authored; large-scale page-top visual prominence component (no USWDS equivalent)                 |
 | Icon List          | A    | Aten/State | [`icon-list`](https://designsystem.digital.gov/components/icon-list/)                   | Reuse USWDS markup; style with CoDS icon and spacing tokens                                           |
 | In-Page Alert      | A    | Aten/State | [`alert`](https://designsystem.digital.gov/components/alert/)                           | Reuse USWDS markup; remap colors to CoDS severity scale                                               |
-| In-Page Navigation | A    | Aten/State | [`in-page-navigation`](https://designsystem.digital.gov/components/in-page-navigation/) | Reuse USWDS markup; style with CoDS typography and link tokens                                        |
+| In-Page Navigation | C    | Aten/State | [`in-page-navigation`](https://designsystem.digital.gov/components/in-page-navigation/) | Uses USWDS-compatible markup and CoDS styling with an approved CoDS-authored scroll tracker           |
 | Language Selector  | A    | Aten/State | (component pattern in USWDS)                                                            | Adapt USWDS select component; style with CoDS form tokens                                             |
 | Link               | A    | Aten/State | (native HTML)                                                                           | Use semantic `<a>`; style with CoDS link and focus tokens                                             |
 | Maps               | B    | Aten/State | (none)                                                                                  | CoDS-authored; embedded map container for geographic data visualization                               |
@@ -116,7 +116,9 @@ The 28 components below are the approved 1.0 inventory (Card - Default and Card 
 
 - **Tooltip** — keeps the USWDS authoring model (`title` text, `data-position`) but replaces the USWDS tooltip script and body styles with a CoDS controller and styles. Rationale: USWDS moves the trigger during setup (dropping focus) and can clip the tooltip off-screen at constrained viewport sizes and on scroll. The earlier CoDS wrapper also needed fixes for scaled-down hover, arrow alignment, trigger overlap, and reopening after Escape; Figma specifies a light treatment and elevation. Direction approved in PR #98 review (2026-11-18); State design and accessibility approved the divergence, and remaining accessibility checks are tracked in the component's evidence. See `tooltip.metadata.json` `divergenceNotes`.
 
-**Future divergences** (to be evaluated during Phase 3):
+- **In-Page Navigation** — Uses authored USWDS-compatible markup and CoDS styling, with a CoDS-authored, instance-scoped scroll tracker instead of the USWDS JavaScript. When initialized with authored links, the USWDS behavior would generate a second navigation, uses document-wide selectors, and does not disconnect its observer on teardown. This divergence was approved by State design, engineering, and accessibility leads on 2026-11-11; see the [component contract](component-contract.md#46-approved-type-c-in-page-navigation).
+
+**Additional future divergences** (to be evaluated during Phase 3):
 
 - Potential variants of USWDS components (e.g., Button with additional states or sizing).
 - Accessibility improvements beyond USWDS baseline (e.g., enhanced focus styling, improved color contrast).

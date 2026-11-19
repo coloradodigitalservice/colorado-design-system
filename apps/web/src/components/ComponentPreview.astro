@@ -1,0 +1,55 @@
+---
+/**
+ * Overview preview for a hardened component page: renders a small set of
+ * canonical fixture states and shows the exact markup that produces them.
+ * The fixture's demonstration wrapper (`<section>` plus its `<h2>` label) is
+ * removed so the preview and the copied code are the component markup only.
+ */
+import { componentMarkup, previewCode } from '../lib/preview-markup.mjs';
+
+interface Example {
+  state: string;
+  code: string;
+}
+interface Props {
+  displayName: string;
+  examples: Example[];
+  variants: { state: string; label: string }[];
+}
+
+const { displayName, examples, variants } = Astro.props;
+
+const items = variants.map(({ state, label }) => {
+  const example = examples.find((candidate) => candidate.state === state);
+  if (!example) throw new Error(`Missing ${displayName} example: ${state}`);
+  return { state, label, markup: componentMarkup(example.code) };
+});
+const code = previewCode(items);
+---
+
+<section
+  class="cods-docs-preview"
+  aria-labelledby="component-preview-heading"
+  data-cods-docs-preview
+>
+  <h2 id="component-preview-heading">Component preview</h2>
+  {items.map(({ state, label, markup }) => (
+    <figure
+      class="cods-docs-preview__item"
+      data-cods-docs-preview-state={state}
+      data-cods-docs-preview-label={label}
+    >
+      <figcaption>{label}</figcaption>
+      <Fragment set:html={markup} />
+    </figure>
+  ))}
+</section>
+<section aria-labelledby="component-code-heading">
+  <h2 id="component-code-heading">Component code</h2>
+  <pre
+    tabindex="0"
+    role="region"
+    aria-label={`${displayName} preview HTML`}
+    data-cods-docs-preview-code
+  ><code>{code}</code></pre>
+</section>

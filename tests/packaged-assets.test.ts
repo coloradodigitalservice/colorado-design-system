@@ -105,6 +105,9 @@ function fixture(
 ) {
   const root = directory();
   const fonts = join(root, 'source-fonts');
+  const licenses = join(root, 'source-licenses');
+  mkdirSync(licenses);
+  writeFileSync(join(licenses, 'LICENSE.txt'), 'original license text');
   const img = join(root, 'source-img');
   mkdirSync(fonts);
   mkdirSync(img);
@@ -133,7 +136,7 @@ function fixture(
   writeFileSync(join(root, 'style.css'), css);
   const linkedFonts = join(root, 'linked-fonts');
   symlinkSync(fonts, linkedFonts, 'dir');
-  const assets = copiedAssets({ fonts: linkedFonts, img });
+  const assets = copiedAssets({ fonts: linkedFonts, img, licenses });
   const warnings: string[] = [];
   const phosphorAssets = {
     name: 'fixture-phosphor-assets',
@@ -174,7 +177,7 @@ function fixture(
       rolldownOptions: { external: assets.isExternal },
     },
   };
-  return { root, fonts, img, assets, warnings, config };
+  return { root, fonts, img, licenses, assets, warnings, config };
 }
 
 describe('Vite packaged assets integration', () => {
@@ -187,6 +190,9 @@ describe('Vite packaged assets integration', () => {
     expect(readFileSync(join(root, 'dist/fonts/probe.woff2'), 'utf8')).toBe(
       'original font bytes',
     );
+    expect(readFileSync(join(root, 'dist/licenses/LICENSE.txt'), 'utf8')).toBe(
+      'original license text',
+    );
     const css = readFileSync(join(root, 'dist/fixture.css'), 'utf8');
     expect(cssAssetReferences(css, 'fixture.css')).toEqual([
       'fonts/probe.woff2',
@@ -194,6 +200,8 @@ describe('Vite packaged assets integration', () => {
     expect(css).not.toContain('data:');
     expect(assets.isExternal('./fonts/probe.woff2')).toBe(true);
     expect(assets.isExternal('./fonts/typo.woff2')).toBe(false);
+    expect(assets.isExternal('./licenses/LICENSE.txt')).toBe(true);
+    expect(assets.isExternal('./licenses/missing.txt')).toBe(false);
     expect(assets.isExternal('./fonts/favicons/unused.woff2')).toBe(false);
     expect(assets.isExternal('./img/usa-icons/search.svg')).toBe(true);
     expect(assets.isExternal('./img/material-icons/icon.svg')).toBe(false);

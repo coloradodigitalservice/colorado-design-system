@@ -90,10 +90,12 @@ Releases are cut by pushing a `vMAJOR.MINOR.PATCH` tag; versions below `1.0.0` (
 
 ## Attribution
 
+CoDS is licensed under [MIT](LICENSE), copyright 2026 State of Colorado. Third-party assets retain their own terms; see the [license index](packages/colorado-design-system/src/assets/licenses/THIRD-PARTY-LICENSES.md) and [licensing decisions](docs/licensing-plan.md). Open Sans and Source Code Pro are bundled with OFL notices. Museo Slab is optional and consumer-supplied, not distributed by CoDS; see the [Typography guide](apps/web/src/content/docs/typography.md).
+
 CoDS incorporates components and styles from the U.S. Web Design System (USWDS), maintained by the General Services Administration. USWDS is a public-domain design system for U.S. federal government websites and applications. See [designsystem.digital.gov](https://designsystem.digital.gov/) for more information.
 
 ## Ownership and scope
 
 [Ownership and RACI](docs/governance/ownership-and-raci.md) identifies the review path. [ADR-001](docs/adrs/001-pnpm-turborepo-boundaries.md) records this repository's workspace decision and its pending State approval. Repository issues and pull requests track the next implementation steps. Agent-assisted development resources are indexed in [`.agents/README.md`](.agents/README.md); see [ADR-005](docs/adrs/005-unified-agent-directory.md).
 
-The first supported scope targets 28 components and eight foundations (including Logos), subject to the documented approval gates. Web Components, Drupal packages, Twig, framework adapters, a runtime CMS, and a production application server are outside the initial release.
+The first supported scope targets 28 components and eight published foundation pages, subject to the documented approval gates. The Logos Foundation page is included in launch scope; see the [ADR acceptance memo](docs/memos/ADR_Acceptance_Memo_2026-09-14.md) for the decision history. Web Components, Drupal packages, Twig, framework adapters, a runtime CMS, and a production application server are outside the initial release.

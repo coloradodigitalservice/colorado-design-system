@@ -5,7 +5,7 @@ navLabel: Getting started
 order: 1
 ---
 
-This page explains how to install the Colorado Design System development release and use the two components documented so far: [Site Alert](../site-alert/) and [Accordion](../accordion/). Both are **experimental** in the `0.x` series: markup, tokens, custom properties, and controller APIs may change between releases, and the release is not supported.
+This page explains how to install the Colorado Design System development release and use [Site Alert](../site-alert/) and [Accordion](../accordion/). Accordion is **stable** and Site Alert is **experimental**. The `0.x` development release is not supported.
 
 ## Use the design system
 
@@ -31,6 +31,8 @@ import '@coloradodigitalservice/colorado-design-system/styles.css';
 ```
 
 The stylesheet places USWDS in the lowest cascade layer and CoDS rules in the `cods.*` layers above it, so your own unlayered CSS overrides both.
+
+Open Sans and Source Code Pro are included with their font licenses. Museo Slab is not bundled or downloaded automatically; h1 uses its existing system-font fallback unless you supply a separately licensed webfont. See [Typography](../typography/) for acquisition, self-hosting, and verification instructions.
 
 ## Choose a component
 

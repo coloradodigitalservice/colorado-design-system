@@ -1,5 +1,76 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.29
+
+### Patch Changes
+
+- 5982b52: Add an experimental Modal component wrapping the USWDS modal behavior, with dismissible, forced-action and large variants.
+- @coloradodigitalservice/colorado-design-tokens@0.2.29
+
+## 0.2.28
+
+### Patch Changes
+
+- Mark Accordion stable in component metadata and documentation.
+- @coloradodigitalservice/colorado-design-tokens@0.2.28
+
+## 0.2.27
+
+### Patch Changes
+
+- a17debd: Add an experimental combo box with a native select fallback.
+- 11f6a5b: Add an experimental Language Selector component.
+- 47b9d74: Add an experimental Search component with default, compact, and slim variants.
+- 7e8a840: Add an experimental responsive Videos component with native and embedded examples.
+- @coloradodigitalservice/colorado-design-tokens@0.2.27
+
+## 0.2.26
+
+### Patch Changes
+
+- f3ddcd7: Add an experimental in-page navigation component with authored jump links and current-section highlighting.
+- @coloradodigitalservice/colorado-design-tokens@0.2.26
+
+## 0.2.25
+
+### Patch Changes
+
+- Add MIT package metadata and third-party notices; exclude Museo Slab and document optional consumer-licensed heading fonts.
+- Updated dependencies
+  - @coloradodigitalservice/colorado-design-tokens@0.2.25
+
+## 0.2.24
+
+### Patch Changes
+
+- 913c806: Add the Colorado Design System logo asset and State trademark notice.
+- @coloradodigitalservice/colorado-design-tokens@0.2.24
+
+## 0.2.23
+
+### Patch Changes
+
+- Add an experimental Footer with Full and Compact variants, a documentation
+  page, and a site-wide Compact footer. Align the documentation site's header,
+  content, and footer within a 1280px container.
+
+  Support a variable number of Full footer groups and responsive disclosures.
+  Match Footer colors to the design's semantic tokens, use meaningful landmark
+  names, correct mobile separators and indentation, and stack legal links below
+  640px.
+
+- @coloradodigitalservice/colorado-design-tokens@0.2.23
+
+## 0.2.22
+
+### Patch Changes
+
+- b39882b: BREAKING: Replace the curated icon list and catalog with the full Phosphor
+  Regular sprite, a compact ID index, and source-driven sprite and CSS asset
+  selection. Consumers must update catalog parsing and any per-icon SVG imports
+  that are not required by the packaged component CSS.
+- @coloradodigitalservice/colorado-design-tokens@0.2.22
+
 ## 0.2.21
 
 ### Patch Changes

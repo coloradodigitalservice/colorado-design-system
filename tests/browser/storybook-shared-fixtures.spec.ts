@@ -33,16 +33,29 @@ for (const component of loadComponents()) {
         const template = document.createElement('template');
         template.innerHTML = html;
         const normalize = (text: string) => text.replace(/\s+/g, ' ').trim();
-        // Controllers may generate tooltips from authored attributes (for
-        // example a trigger's title); compare only the authored content.
-        const rendered = element.cloneNode(true) as Element;
-        if (!template.content.querySelector('[role="tooltip"]'))
-          rendered
-            .querySelectorAll('[role="tooltip"]')
-            .forEach((node) => node.remove());
+        // Exclude generated tooltips while following relocated modal content.
+        const authoredText = (node: Element) => {
+          const rendered = node.cloneNode(true) as Element;
+          if (!template.content.querySelector('[role="tooltip"]'))
+            rendered
+              .querySelectorAll('[role="tooltip"]')
+              .forEach((tooltip) => tooltip.remove());
+          return rendered.textContent ?? '';
+        };
+        const text = [
+          authoredText(element),
+          ...Array.from(
+            element.querySelectorAll<HTMLElement>('[data-placeholder-for]'),
+            (placeholder) => {
+              const relocated = document.getElementById(
+                placeholder.getAttribute('data-placeholder-for') ?? '',
+              );
+              return relocated ? authoredText(relocated) : '';
+            },
+          ),
+        ].join(' ');
         return (
-          normalize(rendered.textContent ?? '') ===
-          normalize(template.content.textContent ?? '')
+          normalize(text) === normalize(template.content.textContent ?? '')
         );
       }, example.html);
       expect(contentMatches).toBe(true);

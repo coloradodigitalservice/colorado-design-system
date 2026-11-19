@@ -1,81 +1,95 @@
+// Accordion documentation page. Component behavior across every fixture state
+// is covered in storybook-accordion.spec.ts; this file covers the page's own
+// composition and the page-load timing paths that only a real page exercises.
 import { routeBuiltFiles } from './built-files.js';
 import { readFileSync } from 'node:fs';
-import type { Page } from '@playwright/test';
 import { test, expect, expectAccessible } from './fixtures.js';
 
-const state = (name: string) => `[data-cods-fixture-state="${name}"]`;
+const preview = (name: string) => `[data-cods-docs-preview-state="${name}"]`;
+const defaultRoot = `${preview('default')} [data-cods-accordion]`;
 
-for (const scenario of [
-  { name: 'direct collapse', panelId: 'accordion-default-2', expanded: false },
-  {
-    name: 'single-open sibling collapse',
-    panelId: 'accordion-default-1',
-    expanded: true,
-  },
-]) {
-  test(`public setExpanded restores panel focus on ${scenario.name}`, async ({
-    page,
-  }) => {
-    const controllerUrl = '/__accordion-controller.mjs';
-    await page.route(`**${controllerUrl}`, (route) =>
-      route.fulfill({
-        contentType: 'text/javascript',
-        body: readFileSync(
-          new URL(
-            '../../packages/colorado-design-system/dist/colorado-design-system.mjs',
-            import.meta.url,
-          ),
-          'utf8',
-        ),
-      }),
-    );
-    await page.goto('/accordion/');
-    const root = page.locator(`${state('default')} [data-cods-accordion]`);
-    await expect(root).toHaveAttribute('data-cods-accordion-enhanced', '');
+test('accordion page follows the component page outline', async ({
+  page,
+}, testInfo) => {
+  await page.setViewportSize({ width: 320, height: 800 });
+  await page.goto('/accordion/');
+  const main = page.locator('main');
+  expect(await main.locator('h2').allTextContents()).toEqual([
+    'Component preview',
+    'Component code',
+    'Component status',
+    'Guidance',
+    'Specifications',
+  ]);
+  const subheadings = await main.locator('h3').allTextContents();
+  for (const heading of [
+    'When to use',
+    'Writing for accordions',
+    'Accessibility for accordions',
+    'Variants and elements',
+    'Initializing the controller',
+    'Limitations',
+  ])
+    expect(subheadings).toContain(heading);
+
+  const figures = page.locator('[data-cods-docs-preview-state]');
+  await expect(figures).toHaveCount(3);
+  for (const state of ['default', 'borderless', 'white'])
+    await expect(
+      page.locator(`${preview(state)} [data-cods-accordion]`),
+    ).toHaveAttribute('data-cods-accordion-enhanced', '');
+  await expect(page.locator('[data-cods-docs-preview-code]')).toContainText(
+    'cods-accordion--white',
+  );
+
+  const status = page.locator('[data-cods-docs-status]');
+  await expect(status).toContainText('Accordion maturity is stable');
+  await expect(status).toContainText(
+    'Manual accessibility checks were completed for all states',
+  );
+  await expect(
+    status.getByRole('link', { name: 'USWDS 3.14.0 Accordion' }),
+  ).toBeVisible();
+  await expect(
+    status.getByRole('link', { name: 'Accessibility evidence' }),
+  ).toHaveAttribute(
+    'href',
+    /\/accordion\/accessibility\/accordion\.evidence\.md$/,
+  );
+  // The public page omits localization guidance and the examples catalogue.
+  await expect(main).not.toContainText(/right-to-left|localization/i);
+  await expect(page.locator('[data-cods-fixture-state]')).toHaveCount(0);
+
+  expect(
     await page.evaluate(
-      async ({ controllerUrl }) => {
-        const api = await import(controllerUrl);
-        const original = document.querySelector<HTMLElement>(
-          '[data-cods-fixture-state="default"] [data-cods-accordion]',
-        )!;
-        // Reuse rendered canonical markup with a fresh root so the bundled
-        // public API owns initialization without the docs script's listeners.
-        const freshRoot = original.cloneNode(true) as HTMLElement;
-        original.replaceWith(freshRoot);
-        api.initAccordion(freshRoot);
-        api.setAccordionExpanded(freshRoot, 'accordion-default-2', true);
-      },
-      { controllerUrl },
-    );
-    const trigger = root.getByRole('button').nth(1);
-    const link = root.getByRole('link');
-    await link.focus();
-    await expect(link).toBeFocused();
-    const focusedDuringEvents = await page.evaluate(
-      async ({ controllerUrl, panelId, expanded }) => {
-        const api = await import(controllerUrl);
-        const root = document.querySelector<HTMLElement>(
-          '[data-cods-fixture-state="default"] [data-cods-accordion]',
-        )!;
-        const trigger = root.querySelector(
-          '[aria-controls="accordion-default-2"]',
-        );
-        const observations: boolean[] = [];
-        root.addEventListener('cods-accordion:change', () =>
-          observations.push(document.activeElement === trigger),
-        );
-        api.setAccordionExpanded(root, panelId, expanded);
-        return observations;
-      },
-      { controllerUrl, panelId: scenario.panelId, expanded: scenario.expanded },
-    );
-    await expect(link).toBeHidden();
-    await expect(trigger).toBeFocused();
-    expect(focusedDuringEvents).toEqual(
-      scenario.expanded ? [true, true] : [true],
-    );
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+  await expectAccessible(page, testInfo);
+});
+
+test('preview panels remain readable without CSS or JavaScript', async ({
+  browser,
+}, testInfo) => {
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  const page = await context.newPage();
+  if (process.env.CODS_BUILT_FILES === '1') await routeBuiltFiles(page, 'web');
+  await page.goto('http://127.0.0.1:4321/accordion/');
+  const panels = page.locator('[data-cods-accordion-panel]:visible');
+  await expect(panels).toHaveCount(4);
+  await expect(page.locator('[data-cods-accordion-enhanced]')).toHaveCount(0);
+  await page.evaluate(() =>
+    document
+      .querySelectorAll('style,link[rel="stylesheet"]')
+      .forEach((element) => element.remove()),
+  );
+  await expect(panels).toHaveCount(4);
+  await testInfo.attach('accordion-unenhanced', {
+    body: await page.screenshot({ fullPage: true }),
+    contentType: 'image/png',
   });
-}
+  await context.close();
+});
 
 test('delayed enhancement preserves focus when initial state hides content', async ({
   page,
@@ -90,7 +104,7 @@ test('delayed enhancement preserves focus when initial state hides content', asy
   });
   try {
     await page.goto('/accordion/', { waitUntil: 'commit' });
-    const root = page.locator(`${state('default')} [data-cods-accordion]`);
+    const root = page.locator(defaultRoot);
     const link = root.getByRole('link');
     await expect(link).toBeVisible();
     await expect(root).not.toHaveAttribute('data-cods-accordion-enhanced');
@@ -105,12 +119,12 @@ test('delayed enhancement preserves focus when initial state hides content', asy
   }
 });
 
-test('accordion keyboard, exclusive state, focus, and bubbling events', async ({
+test('keyboard, exclusive state, focus, and bubbling events', async ({
   page,
   browserName,
 }, testInfo) => {
   await page.goto('/accordion/');
-  const root = page.locator(`${state('default')} [data-cods-accordion]`);
+  const root = page.locator(defaultRoot);
   const buttons = root.getByRole('button');
   await expect(root).toHaveAttribute('data-cods-accordion-enhanced', '');
   await page.evaluate(() => {
@@ -148,129 +162,14 @@ test('accordion keyboard, exclusive state, focus, and bubbling events', async ({
     { panelId: 'accordion-default-2', expanded: true },
     { panelId: 'accordion-default-2', expanded: false },
   ]);
-  const outline = await buttons
-    .nth(1)
-    .evaluate((button) => getComputedStyle(button).outlineStyle);
-  expect(outline).toBe('solid');
   await expectAccessible(page, testInfo);
 });
 
-test('multiple-open, disabled, and expanded accessibility', async ({
+test('focused trigger shows the Colorado focus ring', async ({
   page,
 }, testInfo) => {
   await page.goto('/accordion/');
-  const multiple = page.locator(`${state('multiple')} [data-cods-accordion]`);
-  await expect(multiple).toHaveAttribute('data-cods-accordion-enhanced', '');
-  await expect(
-    multiple.locator('[data-cods-accordion-panel]:visible'),
-  ).toHaveCount(2);
-  await multiple.getByRole('button').first().click();
-  await expect(
-    multiple.locator('[data-cods-accordion-panel]:visible'),
-  ).toHaveCount(1);
-  await expect(
-    page.locator(state('disabled')).getByRole('button'),
-  ).toBeDisabled();
-  await expectAccessible(page, testInfo);
-});
-
-test('320px reflow, localization, reduced motion, and forced colors', async ({
-  page,
-}, testInfo) => {
-  await page.setViewportSize({ width: 320, height: 800 });
-  await page.emulateMedia({ reducedMotion: 'reduce', forcedColors: 'active' });
-  await page.goto('/accordion/');
-  const first = page.locator(`${state('default')} button`).first();
-  await expect(
-    page.locator(`${state('default')} [data-cods-accordion]`),
-  ).toHaveAttribute('data-cods-accordion-enhanced', '');
-  await first.focus();
-  const states = await page
-    .locator('[data-cods-accordion]')
-    .evaluateAll((roots) =>
-      roots.map((root) => ({
-        width: root.getBoundingClientRect().width,
-        scrollWidth: root.scrollWidth,
-      })),
-    );
-  expect(
-    states.every(({ width, scrollWidth }) => scrollWidth <= Math.ceil(width)),
-  ).toBe(true);
-  await expect(
-    page.locator(`${state('localization')} [data-cods-accordion]`),
-  ).toHaveAttribute('lang', 'es');
-  await expect(
-    page.locator(`${state('rtl')} [data-cods-accordion]`),
-  ).toHaveAttribute('dir', 'rtl');
-  expect(
-    await first.evaluate((button) => getComputedStyle(button).outlineStyle),
-  ).toBe('solid');
-  await expectAccessible(page, testInfo);
-  await testInfo.attach('accordion-narrow-forced-colors', {
-    body: await page.locator(state('default')).screenshot(),
-    contentType: 'image/png',
-  });
-});
-
-test('all server-rendered panels remain readable without CSS or JavaScript', async ({
-  browser,
-}, testInfo) => {
-  const context = await browser.newContext({ javaScriptEnabled: false });
-  const page = await context.newPage();
-  if (process.env.CODS_BUILT_FILES === '1') await routeBuiltFiles(page, 'web');
-  await page.goto('http://127.0.0.1:4321/accordion/');
-  await expect(page.locator('[data-cods-accordion-panel]:visible')).toHaveCount(
-    10,
-  );
-  await expect(page.locator('[data-cods-accordion-enhanced]')).toHaveCount(0);
-  await page.evaluate(() =>
-    document
-      .querySelectorAll('style,link[rel="stylesheet"]')
-      .forEach((element) => element.remove()),
-  );
-  await expect(page.locator('[data-cods-accordion-panel]:visible')).toHaveCount(
-    10,
-  );
-  await testInfo.attach('accordion-unenhanced', {
-    body: await page.screenshot({ fullPage: true }),
-    contentType: 'image/png',
-  });
-  await context.close();
-});
-
-test('visual review of expanded and collapsed keyboard focus states', async ({
-  page,
-}, testInfo) => {
-  await page.goto('/accordion/');
-  await page.evaluate(() => document.fonts.ready);
-  const example = page.locator(state('default'));
-  const trigger = example.getByRole('button').first();
-  await expect(example.locator('[data-cods-accordion]')).toHaveAttribute(
-    'data-cods-accordion-enhanced',
-    '',
-  );
-  await trigger.focus();
-  await testInfo.attach('accordion-expanded-focus', {
-    body: await example.screenshot(),
-    contentType: 'image/png',
-  });
-  await page.keyboard.press('Space');
-  await expect(trigger).toHaveAttribute('aria-expanded', 'false');
-  await testInfo.attach('accordion-collapsed-focus', {
-    body: await example.screenshot(),
-    contentType: 'image/png',
-  });
-});
-
-const firstTrigger = (page: Page) =>
-  page
-    .locator(`${state('default')} [data-cods-accordion]`)
-    .getByRole('button')
-    .first();
-
-test('focused trigger shows the Colorado focus ring', async ({ page }) => {
-  await page.goto('/accordion/');
-  const trigger = firstTrigger(page);
+  const trigger = page.locator(defaultRoot).getByRole('button').first();
   await trigger.focus();
   await expect(trigger).toBeFocused();
   await expect(trigger).toHaveCSS('outline-style', 'solid');
@@ -279,6 +178,19 @@ test('focused trigger shows the Colorado focus ring', async ({ page }) => {
     'box-shadow',
     'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(23, 59, 179) 0px 0px 0px 4px',
   );
+  // Review artifacts for manual visual QA of both focused states.
+  const example = page.locator(preview('default'));
+  await testInfo.attach('accordion-expanded-focus', {
+    body: await example.screenshot(),
+    contentType: 'image/png',
+  });
+  await page.keyboard.press('Space');
+  await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+  await expect(trigger).toBeFocused();
+  await testInfo.attach('accordion-collapsed-focus', {
+    body: await example.screenshot(),
+    contentType: 'image/png',
+  });
 });
 
 test('focused trigger uses the system highlight in forced colors', async ({
@@ -286,7 +198,7 @@ test('focused trigger uses the system highlight in forced colors', async ({
 }) => {
   await page.emulateMedia({ forcedColors: 'active' });
   await page.goto('/accordion/');
-  const trigger = firstTrigger(page);
+  const trigger = page.locator(defaultRoot).getByRole('button').first();
   await trigger.focus();
   await expect(trigger).toBeFocused();
   const [outline, highlight] = await Promise.all([
@@ -304,21 +216,75 @@ test('focused trigger uses the system highlight in forced colors', async ({
   await expect(trigger).toHaveCSS('outline-style', 'solid');
 });
 
-test.beforeEach(async ({ page }) => {
-  if (process.env.CODS_BUILT_FILES === '1') await routeBuiltFiles(page, 'web');
-});
-
-test('accordion items keep the Figma 12px separation with no leading gap', async ({
-  page,
-}) => {
-  await page.goto('/accordion/');
-  const root = page.locator(
-    '[data-cods-fixture-state=default] [data-cods-accordion]',
-  );
-  await expect(root).toHaveAttribute('data-cods-accordion-enhanced', '');
-  const headings = root.locator(':scope > .cods-accordion__heading');
-  await expect(headings.first()).toHaveCSS('margin-block-start', '0px');
-  for (const heading of (await headings.all()).slice(1)) {
-    await expect(heading).toHaveCSS('margin-block-start', '12px');
-  }
-});
+for (const scenario of [
+  { name: 'direct collapse', panelId: 'accordion-default-2', expanded: false },
+  {
+    name: 'single-open sibling collapse',
+    panelId: 'accordion-default-1',
+    expanded: true,
+  },
+]) {
+  test(`public setExpanded restores panel focus on ${scenario.name}`, async ({
+    page,
+  }) => {
+    const controllerUrl = '/__accordion-controller.mjs';
+    await page.route(`**${controllerUrl}`, (route) =>
+      route.fulfill({
+        contentType: 'text/javascript',
+        body: readFileSync(
+          new URL(
+            '../../packages/colorado-design-system/dist/colorado-design-system.mjs',
+            import.meta.url,
+          ),
+          'utf8',
+        ),
+      }),
+    );
+    await page.goto('/accordion/');
+    const root = page.locator(defaultRoot);
+    await expect(root).toHaveAttribute('data-cods-accordion-enhanced', '');
+    await page.evaluate(
+      async ({ controllerUrl, defaultRoot }) => {
+        const api = await import(controllerUrl);
+        const original = document.querySelector<HTMLElement>(defaultRoot)!;
+        // Reuse rendered canonical markup with a fresh root so the bundled
+        // public API owns initialization without the docs script's listeners.
+        const freshRoot = original.cloneNode(true) as HTMLElement;
+        original.replaceWith(freshRoot);
+        api.initAccordion(freshRoot);
+        api.setAccordionExpanded(freshRoot, 'accordion-default-2', true);
+      },
+      { controllerUrl, defaultRoot },
+    );
+    const trigger = root.getByRole('button').nth(1);
+    const link = root.getByRole('link');
+    await link.focus();
+    await expect(link).toBeFocused();
+    const focusedDuringEvents = await page.evaluate(
+      async ({ controllerUrl, defaultRoot, panelId, expanded }) => {
+        const api = await import(controllerUrl);
+        const root = document.querySelector<HTMLElement>(defaultRoot)!;
+        const trigger = root.querySelector(
+          '[aria-controls="accordion-default-2"]',
+        );
+        const observations: boolean[] = [];
+        root.addEventListener('cods-accordion:change', () =>
+          observations.push(document.activeElement === trigger),
+        );
+        api.setAccordionExpanded(root, panelId, expanded);
+        return observations;
+      },
+      {
+        controllerUrl,
+        defaultRoot,
+        panelId: scenario.panelId,
+        expanded: scenario.expanded,
+      },
+    );
+    await expect(link).toBeHidden();
+    await expect(trigger).toBeFocused();
+    expect(focusedDuringEvents).toEqual(
+      scenario.expanded ? [true, true] : [true],
+    );
+  });
+}

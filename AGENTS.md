@@ -98,4 +98,5 @@ Every component at `experimental` maturity or above needs `accessibility/<name>.
 - [Build Architecture](docs/BUILD.md) — build systems, entry points, package exports.
 - [Ownership and RACI](docs/governance/ownership-and-raci.md) — who approves what.
 - [`create-cods-component` skill](.agents/skills/create-cods-component/SKILL.md) — component scaffolding workflow.
+- [`cods-component-hardening` skill](.agents/skills/cods-component-hardening/SKILL.md) — Phase 4 component page, test audit, and QA handoff workflow.
 - [Agent resources index](.agents/README.md) — all repository-local skills and agent instructions.
