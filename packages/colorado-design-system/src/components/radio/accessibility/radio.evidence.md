@@ -6,6 +6,71 @@
 **Related component metadata:** `radio.metadata.json`  
 **Tracking issue:** CODS-P3-009 / CDS-57
 
+## CODS-P4-030 hardening — 2026-11-19
+
+Developer first pass for Phase 4 (CDS-151). Manual QA, State domain acceptance,
+and client sign-off are pending; this section records only the content and
+test-audit work and its automated results.
+
+### Documentation page
+
+`/radio/` now follows the component page outline: lead description, Component
+preview, Component code, Component status, Guidance (When to use with a
+Default/Tile variant table and the comparison table, Writing for Radio Buttons,
+Accessibility for Radio Buttons), and Specifications (Variants and elements,
+Adding icons to tiles, Variable settings, Limitations). The preview shows the
+`default`, `selected`, `disabled`, `disabled-group`, `error`, `tile`, and
+`tile-error` fixture states; the code block is generated from the same states
+and the tile icon uses the package sprite URL. The examples catalogue and
+public localization/RTL guidance were removed; those states remain in Storybook
+and the tests. The status states that automated axe checks pass and manual
+review is pending; it makes no conformance claim. The preview helper now also
+strips fixture `<h2>` labels that carry attributes (the `default` and `error`
+states use `<h2 id>`).
+
+### Test audit
+
+| Area                                      | Before              | After                |
+| ----------------------------------------- | ------------------- | -------------------- |
+| Unit tests                                | 0 (no controller)   | 0                    |
+| `web-radio.spec.ts`                       | 9 × 3 browsers = 27 | 10 × 3 browsers = 30 |
+| `storybook-radio.spec.ts` (Chromium)      | 1                   | 2                    |
+| `web-shared-fixtures.spec.ts` radio entry | 1 × 3               | 1 × 3                |
+| `web-component-docs.spec.ts` radio entry  | 0                   | 0                    |
+
+Decisions:
+
+- **Added:** a page-outline test (headings, seven preview states, generated code, built sprite URL, status, no localization copy or fixture catalogue, 320px no-overflow, axe).
+- **Moved:** 320px reflow for `long-content`, `localization`, and `rtl`, the RTL label padding check, the disabled tile group, and tile long-content/Spanish/RTL reflow and selection moved from `web-radio.spec.ts` to a new `storybook-radio.spec.ts` test, because those states are not in the curated preview. They now run in Chromium only.
+- **Consolidated / removed:** none; no demonstrable duplicates. The Storybook all-states smoke test overlaps the web keyboard test but runs against every fixture state, so it is kept.
+- **Kept:** keyboard, exclusive selection, label selection, disabled options and groups, error association and `valueMissing`, the error-border hover regressions (selected and unselected), focus ring and typography, forced colors, no-JS and no-CSS, Figma geometry, tile behavior, and axe — all against preview states in three browsers.
+
+### Automated results
+
+Base commit `ba92348` (main). Run on 2026-11-19 with
+`config/playwright.built-files.ts` (port 4321 was in use by another worktree):
+
+- `pnpm build`: passed, including the docs output check (32 pages).
+- `web-radio.spec.ts`, `storybook-radio.spec.ts`, `web-shared-fixtures.spec.ts`, `web-accordion.spec.ts` in `web`, `web-webkit`, and `storybook`: 86 passed.
+- Firefox could not launch locally (`browserType.launch` failed); CI covers `web-firefox`.
+- `pnpm lint`, `pnpm typecheck`, `pnpm format:check`, and `pnpm --filter @cods-internal/web validate`: passed. `pnpm test`: 17 files, 328 tests passed.
+
+### Manual matrix for Aten Accessibility/QA (pending)
+
+Review all supported variants and states on the PR preview and in Storybook.
+Record browser, assistive technology, and versions for each result.
+
+- [ ] Native Tab, arrow keys, and Space; selection by clicking labels and tile descriptions.
+- [ ] Group (legend) and selection announcements, including option position.
+- [ ] Single-choice behavior within a group and isolation between groups.
+- [ ] Disabled options and disabled groups (skipped by keyboard, selection still visible).
+- [ ] Error association: fieldset description announced on entry; invalid and required state.
+- [ ] Visible focus on default and tile options, including tile error.
+- [ ] Long-label and tile long-content reflow.
+- [ ] Contrast, 400% zoom / 320px reflow, narrow screens.
+- [ ] Reduced motion, forced colors.
+- [ ] Internal localization and long-text notes (Spanish and RTL states in Storybook).
+
 Only checks actually run and passed are checked. Browser emulation and accessible-tree assertions do not establish screen-reader announcements or human acceptance.
 
 ## Keyboard

@@ -17,6 +17,7 @@ import DividerExamples from '../components/DividerExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
 import ComponentStatus from '../components/ComponentStatus.astro';
 import accordionMetadata from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
+import radioMetadata from '@coloradodigitalservice/colorado-design-system/metadata/radio.json';
 import IconExamples from '../components/IconExamples.astro';
 import FooterExamples from '../components/FooterExamples.astro';
 import InputExamples from '../components/InputExamples.astro';
@@ -81,7 +82,17 @@ const { Content } = await render(entry);
     {entry.id === 'breadcrumbs' && <BreadcrumbsExamples />}
     {entry.id === 'modal' && <ModalExamples />}
     {entry.id === 'in-page-navigation' && <InPageNavigationExamples />}
-    {entry.id === 'radio' && <RadioExamples />}
+    {entry.id === 'radio' && (
+      <>
+        <p class="cods-docs-lead">{entry.data.description}</p>
+        <RadioExamples />
+        <ComponentStatus
+          metadata={radioMetadata}
+          accessibility={entry.data.accessibilityStatus!}
+          figma={entry.data.figma}
+        />
+      </>
+    )}
     {entry.id === 'combo-box' && <ComboBoxExamples />}
     {entry.id === 'language-selector' && <LanguageSelectorExamples />}
     {entry.id === 'input' && (
@@ -109,7 +120,6 @@ const { Content } = await render(entry);
       entry.id === 'tags' ||
       entry.id === 'card' ||
       entry.id === 'hero' ||
-      entry.id === 'radio' ||
       entry.id === 'site-alert' ||
       entry.id === 'footer' ||
       entry.id === 'breadcrumbs' ||
