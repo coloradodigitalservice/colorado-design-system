@@ -240,6 +240,22 @@ describe('Header review fixes', () => {
     expect(document.body.style.paddingRight).toBe('12px');
   });
 
+  it('keeps the page body padding priority', async () => {
+    document.body.style.setProperty('padding-right', '32px', 'important');
+    init(header());
+    menuButton().click();
+    await settle();
+    expect(document.body.style.getPropertyPriority('padding-right')).toBe(
+      'important',
+    );
+    closeButton().click();
+    await settle();
+    expect(document.body.style.getPropertyValue('padding-right')).toBe('32px');
+    expect(document.body.style.getPropertyPriority('padding-right')).toBe(
+      'important',
+    );
+  });
+
   it('leaves body padding unset when the page had none', async () => {
     init(header());
     menuButton().click();
@@ -294,6 +310,50 @@ describe('Header submenus', () => {
     );
     expect(panel(services).hidden).toBe(true);
     expect(document.activeElement).toBe(services);
+  });
+
+  it('closes an open submenu when its button is selected again', () => {
+    init(header());
+    const [services] = buttons();
+    services.click();
+    services.click();
+    expect(services.getAttribute('aria-expanded')).toBe('false');
+    expect(panel(services).hidden).toBe(true);
+    services.click();
+    expect(panel(services).hidden).toBe(false);
+  });
+
+  it('in the drawer, Escape closes only the submenu', async () => {
+    init(header());
+    menuButton().click();
+    await settle();
+    const [services] = buttons();
+    services.click();
+    const link = panel(services).querySelector('a')!;
+    link.focus();
+    link.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }),
+    );
+    expect(panel(services).hidden).toBe(true);
+    expect(document.activeElement).toBe(services);
+    expect(isOpen()).toBe(true);
+  });
+
+  it('wraps Tab from a collapsed last submenu button to Close', async () => {
+    document.querySelector('.cods-header__list > li:last-child')!.remove();
+    init(header());
+    menuButton().click();
+    await settle();
+    const last = buttons().at(-1)!;
+    last.focus();
+    const tab = new KeyboardEvent('keydown', {
+      key: 'Tab',
+      bubbles: true,
+      cancelable: true,
+    });
+    last.dispatchEvent(tab);
+    expect(tab.defaultPrevented).toBe(true);
+    expect(document.activeElement).toBe(closeButton());
   });
 
   it('restores authored submenu markup on destroy', () => {

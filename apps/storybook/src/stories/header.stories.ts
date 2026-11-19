@@ -23,9 +23,13 @@ function renderState(state: string): string {
     .replaceAll('/logos/cods-logo.svg', logoUrl);
 }
 
+/** Examples don't run searches. */
+const preventSubmit = (event: Event) => event.preventDefault();
+
 function initialize(canvas: HTMLElement): void {
   initAllHeaders(canvas);
   initAllLanguageSelector(canvas);
+  canvas.addEventListener('submit', preventSubmit);
 }
 
 /** The drawer only exists below 48em, so pin these stories to a phone viewport. */

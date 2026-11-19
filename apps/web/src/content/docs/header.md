@@ -48,8 +48,9 @@ the word "navigation"; screen readers already announce the role.
   following a link closes it and returns focus to Menu. Menu stays exposed to
   screen readers, so its expanded state is announced.
 - A submenu button announces whether its dropdown or mega menu is expanded.
-  Enter or Space opens it; Escape closes it and returns focus to the button.
-  Opening another submenu, clicking outside, or moving focus out of the
+  Enter or Space opens it and selecting it again closes it. Escape closes it
+  and returns focus to the button, also inside the drawer. Opening another
+  submenu, clicking outside, or moving focus out of the
   navigation closes it.
 - Each categorized mega-menu list is named by its section title with
   `aria-labelledby`.
@@ -162,7 +163,8 @@ controller runs.
 
 Search and the language control are separate components. Initialize the
 language control with `initLanguageSelector`; the Header controller does not.
-Search needs only its form `action`. The controller adds
+Search needs only its form `action`. The examples use `#` links and an
+`action` of `#`; replace them with your site's URLs. The controller adds
 `data-cods-header-enhanced` once the header is enhanced; do not author or
 style that attribute.
 
@@ -191,18 +193,20 @@ Menu opens the navigation as a drawer over a page overlay, sets the menu
 button's `aria-expanded` to `true`, and moves focus to Close. While the drawer
 is open:
 
-- Tab and Shift+Tab cycle through the drawer's Close button and links.
+- Tab and Shift+Tab cycle through the drawer's visible controls, including
+  open submenu links.
 - The rest of the page, except Menu, is hidden from assistive technology with
   `aria-hidden`.
 - Submenus open as accordions inside the drawer.
 - Escape, Close, the overlay, or following a navigation link closes the drawer
-  and returns focus to Menu.
+  and returns focus to Menu. Escape in an open submenu closes only that
+  submenu.
 - Widening the window past 768px closes the drawer. Focus stays on the
   focused navigation link, or moves to the first navigation link, instead of
   being lost.
 - The page's own `<body>` padding is kept: the controller adds the scrollbar
-  width to it while the drawer is open and restores it on close and on
-  `destroyHeader`.
+  width to it while the drawer is open and restores it, including any
+  `!important`, on close and on `destroyHeader`.
 
 The drawer keeps focus inside it on purpose. It covers the page like a dialog,
 so focus and screen-reader access are confined to the visible drawer instead of

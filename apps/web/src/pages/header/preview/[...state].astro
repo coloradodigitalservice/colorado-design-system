@@ -41,6 +41,8 @@ const preview = block[1]
       } from '@coloradodigitalservice/colorado-design-system';
       initAllHeaders();
       initAllLanguageSelector();
+      // Examples don't run searches.
+      document.addEventListener('submit', (event) => event.preventDefault());
     </script>
   </body>
 </html>

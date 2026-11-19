@@ -250,6 +250,13 @@ test('the full header opens dropdowns and mega menus', async ({
   await page.keyboard.press('Escape');
   await expect(mega).toBeHidden();
   await expect(agencies).toBeFocused();
+  // Examples don't navigate or search.
+  const url = page.url();
+  await services.click();
+  await nav.getByRole('link', { name: 'Taxes' }).click();
+  await header.getByRole('searchbox').fill('permits');
+  await header.getByRole('searchbox').press('Enter');
+  expect(page.url().split('#')[0]).toBe(url.split('#')[0]);
 });
 
 test('submenus open as accordions in the drawer', async ({
@@ -267,4 +274,24 @@ test('submenus open as accordions in the drawer', async ({
   const navBox = (await nav.boundingBox())!;
   expect(box.x + box.width).toBeLessThanOrEqual(navBox.x + navBox.width);
   await expectAccessible(page, testInfo, '#storybook-root');
+
+  await licenses.click();
+  await expect(link).toBeHidden();
+  await licenses.click();
+  await link.focus();
+  await page.keyboard.press('Escape');
+  await expect(link).toBeHidden();
+  await expect(licenses).toBeFocused();
+  await expect(page.locator('.cods-header__menu-button')).toHaveAttribute(
+    'aria-expanded',
+    'true',
+  );
+
+  // With a collapsed submenu last, Tab must wrap, not reach the page.
+  await page
+    .locator('.cods-header__list > li:last-child')
+    .evaluate((item) => item.remove());
+  await nav.getByRole('button', { name: 'Agencies' }).focus();
+  await page.keyboard.press('Tab');
+  await expect(nav.getByRole('button', { name: 'Close menu' })).toBeFocused();
 });

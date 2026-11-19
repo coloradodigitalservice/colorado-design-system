@@ -16,6 +16,9 @@ const SAFARI = 'is-safari';
 /** Submenu buttons USWDS toggles; each `aria-controls` names its submenu. */
 const SUBMENU_BUTTON = 'button.usa-nav__link[aria-controls]';
 const FOCUSABLE = 'a[href], button:not([disabled])';
+/** Everything USWDS's focus trap treats as focusable. */
+const TABBABLE =
+  'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]';
 
 /** Payload for the bubbling cods-header:open and cods-header:close events. */
 export interface HeaderToggleDetail {
@@ -32,6 +35,8 @@ interface Submenu {
 /** The page's `<body>` padding before the drawer opened. */
 interface Padding {
   inline: string;
+  /** `important` when the page set the inline padding with `!important`. */
+  priority: string;
   computed: string;
   scrollbar: number;
 }
@@ -50,7 +55,11 @@ interface Instance {
   /** The last element focused inside the open drawer. */
   lastFocus: HTMLElement | null;
   onFocusIn: (event: FocusEvent) => void;
+  onFocusOut: (event: FocusEvent) => void;
   onBeforeToggle: () => void;
+  onClick: (event: MouseEvent) => void;
+  onKeyDown: (event: KeyboardEvent) => void;
+  onDocumentClick: (event: MouseEvent) => void;
 }
 
 const instances = new WeakMap<HTMLElement, Instance>();
@@ -107,6 +116,7 @@ function measurePadding(document_: Document): Padding {
   const view = document_.defaultView!;
   return {
     inline: body.style.paddingRight,
+    priority: body.style.getPropertyPriority('padding-right'),
     computed: view.getComputedStyle(body).paddingRight,
     scrollbar: Math.max(0, view.innerWidth - documentElement.clientWidth),
   };
@@ -118,12 +128,72 @@ function measurePadding(document_: Document): Padding {
  * instead, and restore the page's inline value when the drawer closes.
  */
 function applyPadding(root: HTMLElement, instance: Instance): void {
-  const { body } = root.ownerDocument;
   const { inline, computed, scrollbar } = instance.padding;
-  body.style.paddingRight =
+  setPadding(
+    root,
+    instance,
     instance.open && scrollbar > 0
       ? `calc(${computed} + ${scrollbar}px)`
-      : inline;
+      : inline,
+  );
+}
+
+/** Set `<body>`'s right padding, keeping the page's `!important` priority. */
+function setPadding(
+  root: HTMLElement,
+  instance: Instance,
+  value: string,
+): void {
+  const { style } = root.ownerDocument.body;
+  if (value)
+    style.setProperty('padding-right', value, instance.padding.priority);
+  else style.removeProperty('padding-right');
+}
+
+/** Whether a control can take focus now; USWDS's trap also lists hidden ones. */
+function tabbable(element: HTMLElement): boolean {
+  if (element.closest('[hidden], [inert]')) return false;
+  return typeof element.checkVisibility === 'function'
+    ? element.checkVisibility({ visibilityProperty: true })
+    : true;
+}
+
+/** Keep Tab and Shift+Tab within the drawer's currently visible controls. */
+function trapTab(event: KeyboardEvent, instance: Instance): void {
+  const stops = [
+    ...instance.nav.querySelectorAll<HTMLElement>(TABBABLE),
+  ].filter(tabbable);
+  if (!stops.length) return;
+  const first = stops[0]!;
+  const last = stops[stops.length - 1]!;
+  const active = instance.nav.ownerDocument.activeElement;
+  let target: HTMLElement | null = null;
+  if (
+    event.shiftKey &&
+    (active === first || !stops.includes(active as HTMLElement))
+  )
+    target = last;
+  else if (!event.shiftKey && active === last) target = first;
+  if (!target) return;
+  event.preventDefault();
+  event.stopPropagation();
+  target.focus();
+}
+
+function setSubmenu(submenu: Submenu, open: boolean): void {
+  submenu.button.setAttribute('aria-expanded', String(open));
+  submenu.panel.hidden = !open;
+}
+
+function closeSubmenus(instance: Instance, except?: Submenu): void {
+  for (const submenu of instance.submenus)
+    if (submenu !== except) setSubmenu(submenu, false);
+}
+
+function openSubmenu(instance: Instance): Submenu | undefined {
+  return instance.submenus.find(
+    ({ button }) => button.getAttribute('aria-expanded') === 'true',
+  );
 }
 
 function visible(element: Element | null): element is HTMLElement {
@@ -160,7 +230,10 @@ function sync(root: HTMLElement): void {
   instance.open = open;
   applyPadding(root, instance);
   if (open) instance.lastFocus = null;
-  else restoreFocus(root, instance);
+  else {
+    closeSubmenus(instance);
+    restoreFocus(root, instance);
+  }
   root.dispatchEvent(
     new CustomEvent<HeaderToggleDetail>(
       open ? 'cods-header:open' : 'cods-header:close',
@@ -233,6 +306,51 @@ export function init(root: HTMLElement): void {
       if (instance.open && event.target instanceof HTMLElement)
         instance.lastFocus = event.target;
     },
+    onFocusOut: (event) => {
+      if (
+        !(event.relatedTarget instanceof Node) ||
+        !nav.contains(event.relatedTarget)
+      )
+        closeSubmenus(instance);
+    },
+    // USWDS can't close an open submenu without its accordion behavior.
+    onClick: (event) => {
+      const target = event.target instanceof Element ? event.target : null;
+      const submenu = instance.submenus.find(({ button }) =>
+        button.contains(target),
+      );
+      if (submenu) {
+        event.stopPropagation();
+        const open = submenu.button.getAttribute('aria-expanded') !== 'true';
+        closeSubmenus(instance, submenu);
+        setSubmenu(submenu, open);
+        return;
+      }
+      if (target?.closest('a[href]')) closeSubmenus(instance);
+    },
+    onKeyDown: (event) => {
+      if (event.key === 'Tab' && isOpen(root)) {
+        trapTab(event, instance);
+        return;
+      }
+      if (event.key !== 'Escape' && event.key !== 'Esc') return;
+      const submenu = openSubmenu(instance);
+      const target = event.target instanceof Node ? event.target : null;
+      if (
+        !submenu ||
+        !(submenu.button.contains(target) || submenu.panel.contains(target))
+      )
+        return;
+      // Otherwise USWDS also closes the drawer.
+      event.preventDefault();
+      event.stopPropagation();
+      setSubmenu(submenu, false);
+      submenu.button.focus();
+    },
+    onDocumentClick: (event) => {
+      if (!(event.target instanceof Node) || !nav.contains(event.target))
+        closeSubmenus(instance);
+    },
     // Runs before USWDS's delegated handler, so it sees the closed page.
     onBeforeToggle: () => {
       if (!isOpen(root)) instance.padding = measurePadding(document_);
@@ -245,6 +363,11 @@ export function init(root: HTMLElement): void {
     panel.hidden = true;
   }
   nav.addEventListener('focusin', instance.onFocusIn);
+  nav.addEventListener('focusout', instance.onFocusOut);
+  // Capture runs before USWDS's handlers.
+  nav.addEventListener('click', instance.onClick, true);
+  nav.addEventListener('keydown', instance.onKeyDown, true);
+  document_.addEventListener('click', instance.onDocumentClick);
   menuButton.addEventListener('click', instance.onBeforeToggle, true);
   uswdsHeader.on(root);
   root.setAttribute(ENHANCED, '');
@@ -272,10 +395,14 @@ export function destroy(root: HTMLElement): void {
   // hidden page content in place, so close it first.
   if (isOpen(root)) {
     uswdsHeader.toggleNav(false);
-    root.ownerDocument.body.style.paddingRight = instance.padding.inline;
+    setPadding(root, instance, instance.padding.inline);
   }
   uswdsHeader.off(root);
   instance.nav.removeEventListener('focusin', instance.onFocusIn);
+  instance.nav.removeEventListener('focusout', instance.onFocusOut);
+  instance.nav.removeEventListener('click', instance.onClick, true);
+  instance.nav.removeEventListener('keydown', instance.onKeyDown, true);
+  root.ownerDocument.removeEventListener('click', instance.onDocumentClick);
   instance.menuButton.removeEventListener(
     'click',
     instance.onBeforeToggle,
