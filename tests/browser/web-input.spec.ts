@@ -5,20 +5,30 @@ test('native input states, labels, descriptions, focus, and reflow', async ({
 }, testInfo) => {
   await page.goto('/input/');
   for (const heading of [
-    'Examples',
-    'Summary',
+    'Component preview',
+    'Component code',
+    'Component status',
+    'Guidance',
     'When to use',
-    'Anatomy and markup',
-    'States and behavior',
-    'Keyboard and progressive enhancement',
-    'Assets and accessibility',
+    'Accessibility for Input',
+    'Specifications',
+    'Variant classes',
+    'Variable settings',
+    'Adding icons',
   ]) {
     await expect(
       page.getByRole('heading', { name: heading, exact: true }),
     ).toBeVisible();
   }
-  const states = page.locator('[data-cods-fixture-state]');
-  await expect(states).toHaveCount(17);
+  for (const removed of ['Examples', 'Summary', 'Anatomy and markup'])
+    await expect(
+      page.getByRole('heading', { name: removed, exact: true }),
+    ).toHaveCount(0);
+  await expect(page.locator('[data-cods-docs-status]')).toContainText(
+    'Manual accessibility review is pending',
+  );
+  const states = page.locator('[data-cods-docs-preview-state]');
+  await expect(states).toHaveCount(12);
   for (const state of await states.all()) {
     const input = state.locator('input, textarea');
     await expect(input).toHaveCount(1);
@@ -77,16 +87,16 @@ test('native input states, labels, descriptions, focus, and reflow', async ({
   expect(
     await email.evaluate((el: HTMLInputElement) => el.validity.typeMismatch),
   ).toBe(true);
-  await page.locator('#input-focus-visible').focus();
+  await page.locator('#input-small').focus();
   await page.keyboard.press('Tab');
   await expect(readonly).toBeFocused();
   await expect(page.locator('#input-number')).toHaveAttribute('type', 'number');
-  const icons = page.locator('[data-cods-fixture-state="icons"] svg');
+  const icons = page.locator('[data-cods-docs-preview-state="icons"] svg');
   await expect(icons).toHaveCount(2);
   for (const icon of await icons.all())
     await expect(icon).toHaveAttribute('aria-hidden', 'true');
   const group = page.locator(
-    '[data-cods-fixture-state="icons"] .cods-input__group',
+    '[data-cods-docs-preview-state="icons"] .cods-input__group',
   );
   await group.evaluate((el) => {
     el.setAttribute('dir', 'rtl');
@@ -133,22 +143,26 @@ test('native input states, labels, descriptions, focus, and reflow', async ({
     );
   }
   await expect(
-    page.locator('[data-cods-fixture-state="error"] .cods-input__icon--prefix'),
-  ).toHaveCount(1);
-  await expect(
-    page.locator('[data-cods-fixture-state="error"] .cods-input__icon--suffix'),
-  ).toHaveCount(0);
-  await expect(
     page.locator(
-      '[data-cods-fixture-state="success"] .cods-input__icon--suffix',
+      '[data-cods-docs-preview-state="error"] .cods-input__icon--prefix',
     ),
   ).toHaveCount(1);
   await expect(
     page.locator(
-      '[data-cods-fixture-state="success"] .cods-input__icon--prefix',
+      '[data-cods-docs-preview-state="error"] .cods-input__icon--suffix',
     ),
   ).toHaveCount(0);
-  const hover = page.locator('#input-hover');
+  await expect(
+    page.locator(
+      '[data-cods-docs-preview-state="success"] .cods-input__icon--suffix',
+    ),
+  ).toHaveCount(1);
+  await expect(
+    page.locator(
+      '[data-cods-docs-preview-state="success"] .cods-input__icon--prefix',
+    ),
+  ).toHaveCount(0);
+  const hover = page.locator('#input-default');
   const beforeHover = await hover.evaluate(
     (el) => getComputedStyle(el).borderColor,
   );
@@ -235,7 +249,7 @@ test('input border tokens are independent of focus and align large icons', async
   page,
 }) => {
   await page.goto('/input/');
-  const example = page.locator('[data-cods-fixture-state="large-icons"]');
+  const example = page.locator('[data-cods-docs-preview-state="large-icons"]');
   const wrapper = example.locator('.cods-input');
   const input = example.locator('textarea');
   const expectIconsAligned = async () => {
@@ -337,7 +351,7 @@ test('decorative icons use their input validation colors', async ({ page }) => {
     ['icons', 2, 'rgb(2, 111, 40)'],
     ['large-icons', 2, 'rgb(2, 111, 40)'],
   ] as const) {
-    const example = page.locator(`[data-cods-fixture-state="${state}"]`);
+    const example = page.locator(`[data-cods-docs-preview-state="${state}"]`);
     const icons = example.locator('.cods-input__icon');
     await expect(icons).toHaveCount(count);
     for (const icon of await icons.all()) {
@@ -358,7 +372,7 @@ test('icon colors update with validation and disabled state', async ({
   await page.goto('/input/');
   const input = page.locator('#input-icons');
   const icons = page.locator(
-    '[data-cods-fixture-state="icons"] .cods-input__icon svg',
+    '[data-cods-docs-preview-state="icons"] .cods-input__icon svg',
   );
   await expect(icons).toHaveCount(2);
   const expectColor = async (color: string) => {
@@ -395,7 +409,7 @@ test('icon groups fit small and resizable large controls', async ({ page }) => {
   await page.goto('/input/');
   const small = page.locator('#input-icons');
   const smallGroup = page.locator(
-    '[data-cods-fixture-state="icons"] .cods-input__group',
+    '[data-cods-docs-preview-state="icons"] .cods-input__group',
   );
   const expectCenteredIcons = async () => {
     const layout = await smallGroup.evaluate((el) => {
@@ -431,7 +445,7 @@ test('icon groups fit small and resizable large controls', async ({ page }) => {
   ).toBe(32);
   await expectCenteredIcons();
 
-  const example = page.locator('[data-cods-fixture-state="large-icons"]');
+  const example = page.locator('[data-cods-docs-preview-state="large-icons"]');
   const large = example.locator('textarea');
   await expect(large).toHaveAccessibleName('Additional details with icons');
   await expect(large).toHaveAccessibleDescription(
