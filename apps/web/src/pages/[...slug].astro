@@ -17,6 +17,7 @@ import DividerExamples from '../components/DividerExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
 import ComponentStatus from '../components/ComponentStatus.astro';
 import accordionMetadata from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
+import comboBoxMetadata from '@coloradodigitalservice/colorado-design-system/metadata/combo-box.json';
 import IconExamples from '../components/IconExamples.astro';
 import FooterExamples from '../components/FooterExamples.astro';
 import InputExamples from '../components/InputExamples.astro';
@@ -82,7 +83,17 @@ const { Content } = await render(entry);
     {entry.id === 'modal' && <ModalExamples />}
     {entry.id === 'in-page-navigation' && <InPageNavigationExamples />}
     {entry.id === 'radio' && <RadioExamples />}
-    {entry.id === 'combo-box' && <ComboBoxExamples />}
+    {entry.id === 'combo-box' && (
+      <>
+        <p class="cods-docs-lead">{entry.data.description}</p>
+        <ComboBoxExamples />
+        <ComponentStatus
+          metadata={comboBoxMetadata}
+          accessibility={entry.data.accessibilityStatus!}
+          figma={entry.data.figma}
+        />
+      </>
+    )}
     {entry.id === 'language-selector' && <LanguageSelectorExamples />}
     {entry.id === 'input' && (
       <>
@@ -115,7 +126,6 @@ const { Content } = await render(entry);
       entry.id === 'breadcrumbs' ||
       entry.id === 'link' ||
       entry.id === 'checkbox' ||
-      entry.id === 'combo-box' ||
       entry.id === 'select' ||
       entry.id === 'divider' ||
       entry.id === 'process-list') && (

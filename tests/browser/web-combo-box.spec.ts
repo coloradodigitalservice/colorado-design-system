@@ -1,10 +1,94 @@
+// Combo Box documentation page. The curated preview shows every fixture
+// state, so behavior runs here in Chromium, Firefox, and WebKit. The no-JS
+// native fallback stays in storybook-combo-box.spec.ts.
 import { test, expect, expectAccessible } from './fixtures.js';
+
+test('combo box page follows the component page outline', async ({
+  page,
+}, testInfo) => {
+  await page.setViewportSize({ width: 320, height: 800 });
+  await page.goto('/combo-box/');
+  const main = page.locator('main');
+  expect(await main.locator('h2').allTextContents()).toEqual([
+    'Component preview',
+    'Component code',
+    'Component status',
+    'Guidance',
+    'Specifications',
+  ]);
+  const subheadings = await main.locator('h3').allTextContents();
+  for (const heading of [
+    'When to use',
+    'Accessibility for combo boxes',
+    'Elements',
+    'Markup requirements',
+    'Initializing the controller',
+    'Filtering and validation',
+    'Limitations',
+  ])
+    expect(subheadings).toContain(heading);
+
+  await expect(page.locator('[data-cods-docs-preview-state]')).toHaveCount(4);
+  for (const state of ['default', 'grouped', 'error', 'disabled'])
+    await expect(
+      page.locator(
+        `[data-cods-docs-preview-state="${state}"] [data-cods-combo-box]`,
+      ),
+    ).toHaveAttribute('data-enhanced', 'true');
+  await expect(page.locator('[data-cods-docs-preview-code]')).toContainText(
+    'cods-combo-box__select',
+  );
+
+  const status = page.locator('[data-cods-docs-status]');
+  await expect(status).toContainText('Combo Box maturity is experimental');
+  await expect(status).toContainText('Manual keyboard, screen-reader');
+  await expect(
+    status.getByRole('link', { name: 'USWDS 3.14.0 Combo Box' }),
+  ).toBeVisible();
+  await expect(
+    status.getByRole('link', { name: 'Accessibility evidence' }),
+  ).toHaveAttribute(
+    'href',
+    /\/combo-box\/accessibility\/combo-box\.evidence\.md$/,
+  );
+  // The public page omits localization guidance and the examples catalogue.
+  await expect(main).not.toContainText(/right-to-left|localization/i);
+  await expect(page.locator('[data-cods-fixture-state]')).toHaveCount(0);
+
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+  await expectAccessible(page, testInfo);
+});
+
+test('filter, clear, and status messages report each change', async ({
+  page,
+}) => {
+  await page.goto('/combo-box/');
+  const root = page.locator('[data-cods-docs-preview-state="default"]');
+  const input = root.getByRole('combobox');
+  await input.fill('2025');
+  await expect(input).toHaveAttribute('aria-expanded', 'true');
+  await expect(root.getByRole('option')).toHaveCount(1);
+  await input.press('ArrowDown');
+  await page.keyboard.press('Enter');
+  await expect(root.getByRole('status')).toHaveText('2025 selected.');
+  await root.getByRole('button', { name: 'Clear the select contents' }).click();
+  await expect(root.locator('select')).toHaveValue('');
+  await expect(root.getByRole('status')).toHaveText('Selection cleared.');
+  await input.fill('not found');
+  await expect(root.getByRole('status')).toHaveText('No results.');
+  await input.press('Escape');
+  await expect(input).toHaveAttribute('aria-expanded', 'false');
+});
 
 test('documented combo box supports keyboard and pointer selection', async ({
   page,
 }, testInfo) => {
   await page.goto('/combo-box/');
-  const root = page.locator('[data-cods-fixture-state="default"]');
+  const root = page.locator('[data-cods-docs-preview-state="default"]');
   const input = root.getByRole('combobox');
   await input.fill('2025');
   await input.press('ArrowDown');
@@ -16,11 +100,11 @@ test('documented combo box supports keyboard and pointer selection', async ({
   await expectAccessible(page, testInfo, 'article');
 });
 
-test('groups, validation and reset work on the documentation page', async ({
+test('groups, disabled, validation and reset work on the documentation page', async ({
   page,
 }) => {
   await page.goto('/combo-box/');
-  const group = page.locator('[data-cods-fixture-state="grouped"]');
+  const group = page.locator('[data-cods-docs-preview-state="grouped"]');
   const groupInput = group.getByRole('combobox');
   await groupInput.click();
   await expect(
@@ -32,8 +116,19 @@ test('groups, validation and reset work on the documentation page', async ({
   await page.keyboard.press('ArrowDown');
   await page.keyboard.press('Enter');
   await expect(group.locator('select')).toHaveValue('replace');
-  const required = page.locator('[data-cods-fixture-state="error"]');
+  await groupInput.click();
+  await expect(
+    group.locator('[data-cods-combo-box-heading]').first(),
+  ).toHaveText('Renew or replace');
+  await groupInput.press('Escape');
+  const disabled = page.locator('[data-cods-docs-preview-state="disabled"]');
+  await expect(disabled.getByRole('combobox')).toBeDisabled();
+  await expect(disabled.locator('select')).toBeDisabled();
+  const required = page.locator('[data-cods-docs-preview-state="error"]');
   const input = required.getByRole('combobox');
+  await expect(input).toHaveAttribute('required', '');
+  await expect(input).toHaveAttribute('aria-describedby', 'combo-error');
+  await expect(input).toHaveAttribute('aria-invalid', 'true');
   await input.click();
   await required.getByRole('option', { name: '2025' }).click();
   await input.fill('2026');
@@ -53,7 +148,7 @@ test('reflows at 320px and keeps focus visible in forced colors', async ({
   await page.setViewportSize({ width: 320, height: 800 });
   await page.goto('/combo-box/');
   const input = page
-    .locator('[data-cods-fixture-state="default"]')
+    .locator('[data-cods-docs-preview-state="default"]')
     .getByRole('combobox');
   await input.focus();
   await input.click();
@@ -71,7 +166,7 @@ test('uses the designed input height and error icon treatment', async ({
   page,
 }) => {
   await page.goto('/combo-box/');
-  const root = page.locator('[data-cods-fixture-state="error"]');
+  const root = page.locator('[data-cods-docs-preview-state="error"]');
   const input = root.getByRole('combobox');
   await expect(input).toHaveCSS('height', '40px');
   await input.click();
@@ -116,7 +211,7 @@ test('uncommitted text remains invalid after blur and blocks submission', async 
   page,
 }) => {
   await page.goto('/combo-box/');
-  const root = page.locator('[data-cods-fixture-state="error"]');
+  const root = page.locator('[data-cods-docs-preview-state="error"]');
   const input = root.getByRole('combobox');
   await root.locator('form').evaluate((form: HTMLFormElement) => {
     const button = document.createElement('button');
@@ -155,7 +250,7 @@ test('no results keeps valid list semantics and clears stale active option', asy
   page,
 }, testInfo) => {
   await page.goto('/combo-box/');
-  const root = page.locator('[data-cods-fixture-state="default"]');
+  const root = page.locator('[data-cods-docs-preview-state="default"]');
   const input = root.getByRole('combobox');
   await input.click();
   await input.press('ArrowDown');
@@ -172,7 +267,7 @@ test('typing after arrow navigation filters and Enter selects the matching value
   page,
 }) => {
   await page.goto('/combo-box/');
-  const root = page.locator('[data-cods-fixture-state="default"]');
+  const root = page.locator('[data-cods-docs-preview-state="default"]');
   const input = root.getByRole('combobox');
   await input.click();
   await input.press('ArrowDown');
@@ -184,7 +279,7 @@ test('typing after arrow navigation filters and Enter selects the matching value
 
 test('clicking a group heading does not select an option', async ({ page }) => {
   await page.goto('/combo-box/');
-  const root = page.locator('[data-cods-fixture-state="grouped"]');
+  const root = page.locator('[data-cods-docs-preview-state="grouped"]');
   await root.getByRole('combobox').click();
   await root.locator('[data-cods-combo-box-heading]').first().click();
   await expect(root.locator('select')).toHaveValue('');
@@ -195,7 +290,7 @@ test('Enter cannot restore a previous selection after an uncommitted edit', asyn
   page,
 }) => {
   await page.goto('/combo-box/');
-  const root = page.locator('[data-cods-fixture-state="error"]');
+  const root = page.locator('[data-cods-docs-preview-state="error"]');
   const input = root.getByRole('combobox');
   await root.locator('form').evaluate((form: HTMLFormElement) => {
     const button = document.createElement('button');
@@ -235,7 +330,7 @@ test('hovering an option keeps input focus, typing and Enter on the keyboard cho
   page,
 }) => {
   await page.goto('/combo-box/');
-  const root = page.locator('[data-cods-fixture-state="default"]');
+  const root = page.locator('[data-cods-docs-preview-state="default"]');
   const input = root.getByRole('combobox');
   await input.fill('202');
   await input.press('ArrowDown');
@@ -255,7 +350,7 @@ test('arrow navigation survives hovering the last option in a group', async ({
   page,
 }) => {
   await page.goto('/combo-box/');
-  const root = page.locator('[data-cods-fixture-state="grouped"]');
+  const root = page.locator('[data-cods-docs-preview-state="grouped"]');
   const input = root.getByRole('combobox');
   await input.click();
   await input.press('ArrowDown');
@@ -273,7 +368,7 @@ test('Tab leaves the open list without focusing an option', async ({
   page,
 }) => {
   await page.goto('/combo-box/');
-  const root = page.locator('[data-cods-fixture-state="default"]');
+  const root = page.locator('[data-cods-docs-preview-state="default"]');
   const input = root.getByRole('combobox');
   await input.click();
   await input.press('ArrowDown');
@@ -290,7 +385,7 @@ test('keyboard-active option follows the designed focus treatment', async ({
   page,
 }) => {
   await page.goto('/combo-box/');
-  const root = page.locator('[data-cods-fixture-state="default"]');
+  const root = page.locator('[data-cods-docs-preview-state="default"]');
   const input = root.getByRole('combobox');
   await input.click();
   await input.press('ArrowDown');
@@ -322,7 +417,7 @@ test('keyboard-active option stays distinguishable in forced colors', async ({
 }) => {
   await page.goto('/combo-box/');
   await page.emulateMedia({ forcedColors: 'active' });
-  const root = page.locator('[data-cods-fixture-state="default"]');
+  const root = page.locator('[data-cods-docs-preview-state="default"]');
   const input = root.getByRole('combobox');
   await input.click();
   await root.getByRole('option', { name: '2025' }).click();
