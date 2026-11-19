@@ -2,16 +2,26 @@
 // rendered preview code and the drift check derive markup identically.
 
 /**
- * Strip a canonical fixture state's demonstration wrapper (`<section>` and
- * its `<h2>` label) and dedent, leaving only the component markup.
+ * Strip a canonical fixture state's demonstration wrapper (a `<section>`, or a
+ * `<div>` carrying `data-cods-fixture-state`, and its `<h2>` label) and
+ * dedent, leaving only the component markup.
  * @param {string} code Generated example code for one fixture state.
  * @returns {string}
+ * @param {string} [spriteUrl] Built shared sprite URL for previews with icons.
  */
-export function componentMarkup(code) {
-  const lines = code
-    .replace(/^\s*<section[^>]*>\s*\n/, '')
-    .replace(/\n\s*<\/section>\s*$/, '')
-    .replace(/^\s*<h2>[^<]*<\/h2>\s*\n/, '')
+export function componentMarkup(code, spriteUrl) {
+  const markup = spriteUrl
+    ? code.replaceAll('/icons/sprite.svg', () => spriteUrl)
+    : code;
+  const wrapper =
+    markup.match(/^\s*<div\b[^>]*\bdata-cods-fixture-state=/) &&
+    /\n\s*<\/div>\s*$/.test(markup)
+      ? 'div'
+      : 'section';
+  const lines = markup
+    .replace(new RegExp(`^\\s*<${wrapper}\\b[^>]*>\\s*\\n`), '')
+    .replace(new RegExp(`\\n\\s*<\\/${wrapper}>\\s*$`), '')
+    .replace(/^\s*<h2\b[^>]*>[^<]*<\/h2>\s*\n/, '')
     .split('\n');
   const indent = Math.min(
     ...lines

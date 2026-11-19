@@ -5,6 +5,60 @@ test.beforeEach(async ({ page }) => {
   await page.goto('/radio/');
 });
 
+test('radio page follows the component page outline', async ({
+  page,
+}, testInfo) => {
+  await page.setViewportSize({ width: 320, height: 800 });
+  const main = page.locator('main');
+  expect(await main.locator('h2').allTextContents()).toEqual([
+    'Component preview',
+    'Component code',
+    'Component status',
+    'Guidance',
+    'Specifications',
+  ]);
+  const subheadings = await main.locator('h3').allTextContents();
+  for (const heading of [
+    'When to use',
+    'Writing for Radio Buttons',
+    'Accessibility for Radio Buttons',
+    'Variants and elements',
+    'Adding icons to tiles',
+    'Variable settings',
+    'Limitations',
+  ])
+    expect(subheadings).toContain(heading);
+  const figures = page.locator('[data-cods-docs-preview-state]');
+  await expect(figures).toHaveCount(7);
+  await expect(page.locator('[data-cods-docs-preview-code]')).toContainText(
+    'cods-radio--tile',
+  );
+  const sprite = page.locator('[data-cods-docs-preview-state="tile"] svg use');
+  const href = await sprite.getAttribute('href');
+  expect(href).not.toBe('/icons/sprite.svg#envelope');
+  expect(
+    await page.evaluate(
+      async (url: string) => (await fetch(url)).ok,
+      href!.split('#')[0]!,
+    ),
+  ).toBe(true);
+  const status = page.locator('[data-cods-docs-status]');
+  await expect(status).toContainText('Radio Buttons maturity is experimental');
+  await expect(status).toContainText('Manual accessibility review');
+  await expect(
+    status.getByRole('link', { name: 'USWDS 3.14.0 Radio Buttons' }),
+  ).toBeVisible();
+  // The public page omits localization guidance and the examples catalogue.
+  await expect(main).not.toContainText(/right-to-left|localization/i);
+  await expect(page.locator('[data-cods-fixture-state]')).toHaveCount(0);
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+  await expectAccessible(page, testInfo);
+});
+
 test('native grouping, labels, keyboard, disabled options and validation', async ({
   page,
   browserName,
@@ -81,7 +135,7 @@ for (const selected of [false, true]) {
   });
 }
 
-test('visible selection, focus, body typography, RTL, reflow and reduced motion', async ({
+test('visible selection, focus, body typography, reflow and reduced motion', async ({
   page,
 }) => {
   const input = page.locator('#radio-default-1');
@@ -113,25 +167,13 @@ test('visible selection, focus, body typography, RTL, reflow and reduced motion'
   });
   expect(style.shadow).toContain('inset');
   await page.setViewportSize({ width: 320, height: 900 });
-  for (const state of [
-    'default',
-    'error',
-    'long-content',
-    'localization',
-    'rtl',
-  ]) {
-    const block = page.locator(`[data-cods-fixture-state="${state}"]`);
+  // Long-content, Spanish and RTL reflow run in storybook-radio.spec.ts.
+  for (const state of ['default', 'error']) {
+    const block = page.locator(`[data-cods-docs-preview-state="${state}"]`);
     expect(await block.evaluate((el) => el.scrollWidth <= el.clientWidth)).toBe(
       true,
     );
   }
-  const rtl = page.locator('label[for="radio-rtl-1"]');
-  expect(await rtl.evaluate((el) => getComputedStyle(el).paddingRight)).toBe(
-    '36px',
-  );
-  expect(await rtl.evaluate((el) => getComputedStyle(el).paddingLeft)).toBe(
-    '8px',
-  );
   await page.emulateMedia({ reducedMotion: 'reduce' });
   expect(
     await label.evaluate(
@@ -235,7 +277,7 @@ test('Figma radio geometry and tile labels preserve native group selection', asy
   await expect(page.locator('#radio-tile-phone')).toBeDisabled();
 });
 
-test('tile supporting content, errors and disabled groups preserve native behavior', async ({
+test('tile supporting content and errors preserve native behavior', async ({
   page,
 }, testInfo) => {
   const email = page.locator('#radio-tile-email');
@@ -272,22 +314,7 @@ test('tile supporting content, errors and disabled groups preserve native behavi
   expect(
     await label.evaluate((el) => getComputedStyle(el).boxShadow),
   ).toContain('rgb(23, 59, 179)');
-  await expect(page.locator('#radio-tile-disabled-1')).toBeDisabled();
-  await expect(page.locator('#radio-tile-disabled-1')).toBeChecked();
-  await expect(page.locator('#radio-tile-disabled-2')).toBeDisabled();
-  await page.setViewportSize({ width: 320, height: 900 });
-  for (const state of ['tile-long-content', 'tile-localization', 'tile-rtl']) {
-    const block = page.locator(`[data-cods-fixture-state="${state}"]`);
-    expect(await block.evaluate((el) => el.scrollWidth <= el.clientWidth)).toBe(
-      true,
-    );
-    const options = block.getByRole('radio');
-    await expect(options).toHaveCount(2);
-    const labels = block.locator('.cods-radio__label');
-    await labels.nth(0).click();
-    await labels.nth(1).click();
-    await expect(options.nth(0)).not.toBeChecked();
-    await expect(options.nth(1)).toBeChecked();
-  }
+  // Disabled tile groups and tile long-content, Spanish and RTL states run in
+  // storybook-radio.spec.ts.
   await expectAccessible(page, testInfo);
 });

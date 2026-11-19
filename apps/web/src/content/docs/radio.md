@@ -1,84 +1,22 @@
 ---
 title: Radio Buttons
-description: Native single-selection radio groups with explicit labels, validation, and disabled states.
+description: Allow users to select exactly one choice from a group.
 navLabel: Radio Buttons
 order: 16
 figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=4054-121
+accessibilityStatus: Automated accessibility checks (axe) pass for every preview state. Manual accessibility review, including screen-reader verification, is pending.
 ---
 
-## When to use
+## Guidance
 
-Use Radio Buttons when someone must choose one option from a short, visible list. Use Select for a longer list where space is limited; use Checkbox when multiple independent choices are allowed. Keep essential information visible. Do not use radios as navigation or as segmented buttons.
+### When to use
 
-Radio Buttons is **experimental** in the `0.x` development series. The examples and copyable markup above come from the package's canonical fixture. Human accessibility and design acceptance remain pending.
+Use Radio Buttons when someone must choose exactly one option from a short, visible list. Selecting an option deselects the others in the same group. Use [Checkbox](../checkbox/) when people can select one or more options, and Select when the list is long and space is limited. Don't use radio buttons as navigation or as segmented buttons.
 
-## Markup and grouping
-
-Load the token stylesheet and the design system stylesheet as described in [Getting started](../getting-started/). No JavaScript initialization or controller is needed.
-
-Wrap every group in a `fieldset` with a visible `legend`. Give each input a document-unique `id`, a meaningful `value`, and an explicitly associated visible `label`. All options in one group share a `name`; unrelated groups must use different names. Preserve the `usa-radio`, `usa-radio__input`, `usa-radio__label`, `usa-fieldset`, and `usa-legend` classes alongside the CoDS classes.
-
-`checked` sets an initial selection. Leave it off when users should make a deliberate choice. Selecting an option deselects the other option in the same group. Use a form's native submission and reset behavior; read the selected value through ordinary form APIs and the native `change` event.
-
-## Keyboard and focus
-
-Tab enters a group at its selected option, or an enabled option if none is selected. Arrow keys move focus and selection between enabled options; Space selects the focused option. Tab leaves the group. Browser behavior determines entry direction and right-to-left navigation. No script intercepts these keys. Disabled options are skipped.
-
-## Errors and disabled states
-
-Link a visible error message to the **fieldset** with `aria-describedby`. Mark invalid options with `aria-invalid="true"`; apply native `required` for a required group. Validate on the server as well as in the browser. Explain how to fix the error in text. When validation changes dynamically, the host application owns error-summary focus and any live announcements; this CSS component does not move focus or announce updates.
-
-Use native `disabled` on an input to disable one option, or on the fieldset to disable the entire group. Disabled values are omitted from form submission. Keep inputs outside the legend so the HTML fieldset exception does not leave controls enabled. The disabled-group example preserves a selected option so the selection remains visible.
-
-## Appearance and localization
-
-Public classes are `cods-radio`, `cods-radio__input`, `cods-radio__label`, `cods-radio__group`, `cods-radio__legend`, and `cods-radio__error`. Set `--cods-radio-background`, `--cods-radio-text`, `--cods-radio-border`, and `--cods-radio-selected` on each option root to customize their semantic-token defaults. Preserve contrast and focus visibility.
-
-Labels use the measured body typography (16px/24px, regular). Logical spacing supports `dir="rtl"`, translated legends and labels wrap, and no fixed height truncates content. Set the appropriate `lang` and translate all visible content and error messages. In forced colors, visible native radio inputs replace the decorative circles, preserving selection and disabling. There is no animation.
-
-## Progressive enhancement and assets
-
-Native inputs work with JavaScript disabled and remain operable when CSS is unavailable. The component ships no controller and no CoDS custom events. Its metadata type is `static`, describing the absence of scripted behavior.
-
-Canonical assets are exported as `@coloradodigitalservice/colorado-design-system/fixtures/radio.html`, `metadata/radio.json`, and `examples/radio.json`. When copying multiple examples, replace IDs and group names so they remain unique in the destination document.
-
-## Accessibility responsibilities and status
-
-Authors own meaningful group legends, label association, unique IDs and names, required-state instructions, server validation, and dynamic error handling. Screen-reader group/legend and error announcements, actual 400% zoom, and human forced-colors review remain open in the evidence file. This component must remain experimental until the accessibility owner approves that evidence. P0-006 scope confirmation and P2-007 design acceptance remain dependencies.
-
-## Default
-
-**Use when:**
-
-- Space is limited: You have a long list of options (more than 5) and need to minimize vertical scrolling.
-- Simple attributes: You are asking for simple data points like gender, suffix, or basic "Yes/No" preferences.
-- Scanning is priority: The user needs to quickly scan through several options to find the one that applies to them.
-- Low-risk decisions: The choices are familiar, easy to understand, and do not require extensive supporting text or iconography to explain.
-
-**Don’t use when:**
-
-- Complex consequences: The choice leads to a significant change in the user's path or eligibility that requires detailed explanation.
-- Touch targets need to be large: The interface is primarily used on mobile devices where a larger "tap" area (like a tile) would improve accessibility.
-- Visual distinction is needed: You want to emphasize the importance of the choice or make it feel like a "product selection" rather than a form field.
-
-## Tile
-
-**Use when:**
-
-- High-impact decisions: You want the user to slow down and carefully consider a small set of meaningful options (usually 2–4).
-- Supporting content is required: Each option needs a sub-label, description, or icon to help the user distinguish between choices (e.g., selecting a pricing tier or a service plan).
-- Enhanced accessibility: You want to provide a larger click/touch target for users with limited motor skills.
-- Visual Hierarchy: You want to make the selection process feel more modern, interactive, and distinct from the rest of a standard text-heavy form.
-
-**Don’t use when:**
-
-- Large lists: Using tiles for a list of 10 items will create "wall of boxes" that is visually overwhelming and difficult to scan.
-- The choice is trivial: If the question is as simple as "Do you agree to the terms?", a tile adds unnecessary visual weight and "noise" to the page.
-- Consistency is broken: If every other selection in your form uses default radio buttons, switching to a tile for a simple question can confuse the user's mental model of the interface.
-
-Apply `cods-radio--tile` to each option. Place optional supporting text in a `cods-radio__description` span within the label so it remains part of the clickable option. Decorative icons should be hidden from assistive technology; include any meaning in text. For the icon in the Tile example, deploy the sprite and replace the example URL with its public URL, as described in [Sprite URL and deployment path](../icon/#sprite-url-and-deployment-path). The tile defaults to 15rem wide, constrained to its container; set `--cods-radio-tile-width` to fit the layout.
-
-## Compare Similar Components
+| Variant | Use when                                                                                                                                                                                                                                                                                                                                                                                    | Don't use when                                                                                                                                                                                                                                                                                                                   |
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Default | Space is limited: you have a long list of options (more than 5) and need to minimize vertical scrolling. You are asking for simple data points, like gender, suffix, or a basic "Yes/No" preference. People need to quickly scan several options to find the one that applies to them. The choices are familiar, low-risk, and don't need extensive supporting text or icons to explain.    | The choice leads to a significant change in the person's path or eligibility that needs detailed explanation. The interface is mainly used on mobile, where a larger tap area (like a tile) would improve accessibility. You want to emphasize the choice or make it feel like a "product selection" rather than a form field.   |
+| Tile    | You want people to slow down and carefully consider a small set of meaningful options (usually 2–4). Each option needs a sub-label, description, or icon to tell it apart (for example, a pricing tier or service plan). A larger click or touch target helps people with limited motor skills. The selection should feel more interactive and distinct from the rest of a text-heavy form. | Large lists: ten tiles create a "wall of boxes" that is overwhelming and hard to scan. The choice is trivial, such as "Do you agree to the terms?", where a tile adds unnecessary visual weight. Every other selection in the form uses default radio buttons, and switching to a tile for a simple question can confuse people. |
 
 | Component     | Use case                                                               | Number of options   | Selection type                        |
 | ------------- | ---------------------------------------------------------------------- | ------------------- | ------------------------------------- |
@@ -86,9 +24,9 @@ Apply `cods-radio--tile` to each option. Place optional supporting text in a `co
 | Radio buttons | Mutually exclusive choices; all options must be visible at a glance.   | 2 to 5 options      | Single selection                      |
 | Dropdowns     | Conserves screen space; hides options until clicked.                   | More than 5 options | Single selection (typically)          |
 
-The option counts in this table differ from the Default guidance above. This discrepancy needs design review.
+Leave every option unselected when people should make a deliberate choice; use `checked` only for a sensible default.
 
-## Writing for Radio Buttons
+### Writing for Radio Buttons
 
 Radio button labels should:
 
@@ -100,3 +38,57 @@ Radio button labels should:
 | -------- | -------- |
 | Option 1 | option 1 |
 | Red      | Red;     |
+
+### Accessibility for Radio Buttons
+
+- Tab moves into a group at its selected option, or at an enabled option when none is selected. Arrow keys move focus and selection between enabled options, Space selects the focused option, and Tab leaves the group. These are native browser behaviors; no script handles keys.
+- Wrap every group in a `fieldset` with a visible `legend`. The legend names the group.
+- Give each input a document-unique `id` and a visible `label` whose `for` matches it. Clicking the label selects the option.
+- Give all options in one group the same `name`, and give unrelated groups different names.
+- For a required group, add native `required` to its inputs and say in the legend or nearby text that an answer is required.
+- For an error, link a visible message to the `fieldset` with `aria-describedby`, mark the inputs `aria-invalid="true"`, and explain how to fix it. Validate on the server too. When validation changes dynamically, your application owns error-summary focus and any announcement.
+- Use native `disabled` on an input to disable one option, or on the `fieldset` to disable the whole group. Disabled options are skipped by the keyboard and left out of form submission. Keep inputs outside the `legend`.
+- Hide decorative tile icons from assistive technology (`aria-hidden="true"`) and put any meaning in the label text.
+
+## Specifications
+
+### Variants and elements
+
+Pair each CoDS class with its USWDS class. The `usa-*` classes are the upstream integration markup.
+
+| Class                     | Use                                                                                         |
+| ------------------------- | ------------------------------------------------------------------------------------------- |
+| `cods-radio`              | Option wrapper (default variant); pair with `usa-radio`.                                    |
+| `cods-radio--tile`        | Tile variant; add to each option wrapper alongside `cods-radio`.                            |
+| `cods-radio__input`       | Native `type="radio"` input; pair with `usa-radio__input`.                                  |
+| `cods-radio__label`       | Visible label following the input; pair with `usa-radio__label`.                            |
+| `cods-radio__description` | Optional supporting text in a `span` inside a tile label, so it stays part of the hit area. |
+| `cods-radio__group`       | The group's `fieldset`; pair with `usa-fieldset`.                                           |
+| `cods-radio__legend`      | The group's `legend`; pair with `usa-legend`.                                               |
+| `cods-radio__error`       | Error message referenced by the fieldset's `aria-describedby`.                              |
+
+Radio Buttons ships no JavaScript and dispatches no CoDS events. Load `@coloradodigitalservice/colorado-design-tokens/tokens.css` and `@coloradodigitalservice/colorado-design-system/styles.css` once, as described in [Getting started](../getting-started/). Read the selected value through ordinary form APIs and the native `change` event.
+
+### Adding icons to tiles
+
+Tile labels can start with a decorative icon from the CoDS sprite. Import the sprite URL from the package (`@coloradodigitalservice/colorado-design-system/icons/sprite.svg`) or deploy it and use its public URL, as described in [Sprite URL and deployment path](../icon/#sprite-url-and-deployment-path).
+
+### Variable settings
+
+Set these on an option wrapper to adjust the approved token-based colors and tile width:
+
+| Custom property           | Default                                               |
+| ------------------------- | ----------------------------------------------------- |
+| `--cods-radio-background` | Option background, `color.surface-form`               |
+| `--cods-radio-text`       | Label text, `color.text-primary`                      |
+| `--cods-radio-border`     | Unselected circle border, `color.border-form-default` |
+| `--cods-radio-selected`   | Selected circle fill, `color.bg-action-primary`       |
+| `--cods-radio-tile-width` | Tile width, `15rem`, constrained to its container     |
+
+Keep readable contrast and visible focus when changing colors.
+
+### Limitations
+
+- When copying more than one example into a page, replace IDs and group names so they stay unique.
+- Without CSS, native radio inputs and labels remain fully operable. In forced-colors mode, the native inputs replace the styled circles.
+- There is no animation.
