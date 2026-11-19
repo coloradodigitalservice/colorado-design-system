@@ -5,6 +5,93 @@
 **Date:** 2026-11-09  
 **Tracking:** CODS-P3-029 / CDS-77
 
+## CODS-P4-016 hardening — 2026-11-19
+
+Developer first pass for Phase 4 (CDS-130). Manual QA, State domain acceptance,
+and client sign-off are pending; this section records only the content and
+test-audit work and its automated results.
+
+### Documentation page
+
+The `/combo-box/` page now follows the component page outline: lead
+description, a curated preview of the Default, Grouped options, Required with
+error, and Disabled fixture states with their exact generated code, Component
+status, `## Guidance` (When to use, Accessibility for combo boxes), and
+`## Specifications` (Elements, Markup requirements, Initializing the
+controller, Filtering and validation, Limitations). The examples catalogue and
+public localization guidance were removed. The status states that axe passes
+for every preview state and that manual review is pending; it makes no
+conformance claim. Guidance reuses the previously reviewed page copy and was
+checked against `combo-box.ts`, `combo-box.scss`, and the metadata; it has not
+been compared with the Figma page. The shared preview helper was updated
+(identically to CODS-P4-014) to strip this fixture's `<div>` state wrapper.
+
+### Test audit
+
+| Area                                           | Before      | After       |
+| ---------------------------------------------- | ----------- | ----------- |
+| Unit (`combo-box.test.ts`)                     | 9           | 9           |
+| `web-combo-box.spec.ts`                        | 14 × 3 = 42 | 16 × 3 = 48 |
+| `storybook-combo-box.spec.ts` (Chromium)       | 4           | 1           |
+| `web-component-docs.spec.ts` combo-box entries | 2 × 3 = 6   | 0           |
+| `web-shared-fixtures.spec.ts` combo-box entry  | 1 × 3 = 3   | 1 × 3 = 3   |
+| **Playwright runs**                            | **55**      | **52**      |
+
+Decisions:
+
+- **Moved (Storybook → web, now three browsers):** filter/clear/no-results
+  status messages; group heading text; disabled input and select; required,
+  `aria-describedby`, and `aria-invalid` on the enhanced input. The preview
+  shows all four fixture states, so these gain Firefox and WebKit coverage.
+- **Consolidated:** disabled and attribute checks folded into the web
+  "groups, disabled, validation and reset" test.
+- **Removed as duplicates:** Storybook pointer selection and form reset (same
+  assertions in web tests 1 and 2); Storybook axe on all states (web axe covers
+  all four preview states plus the open no-results list); the legacy
+  `web-component-docs.spec.ts` heading and link checks, replaced by the new
+  page-outline test (links remain checked by `check-docs-output.mjs`).
+- **Added:** page-outline test (headings, four enhanced preview states, code,
+  status, no localization or catalogue, 320px reflow, axe).
+- **Kept:** every past-defect regression (hover focus, Enter after an
+  uncommitted edit, uncommitted text on blur, group-heading click, Tab out of
+  the list, keyboard-active focus treatment and forced colors) and the
+  no-JavaScript native fallback, which stays in Storybook (Chromium only)
+  because it uses its own story; axe was added to it.
+
+### Automated results
+
+Base commit `ba92348`. Local Node 26.5.0 (repo pins 24.21.0; no version
+manager installed).
+
+- `pnpm exec vitest run packages/colorado-design-system/src/components/combo-box tests/component-fixtures.test.ts`: 62 passed.
+- `pnpm build`: passed, including `check-docs-output.mjs`.
+- `pnpm exec playwright test --config config/playwright.built-files.ts` on
+  `web-combo-box`, `storybook-combo-box`, `web-shared-fixtures`,
+  `web-component-docs`, and `web-accordion` for `web`, `web-webkit`, and
+  `storybook`: all combo-box tests passed. The four other pages' "internal links
+  resolve" tests fail only under the built-files config (their API request
+  needs a server on 4321) and are unaffected by this change.
+- Firefox could not launch locally; CI covers `web-firefox`.
+- `pnpm lint`, `pnpm typecheck`, `pnpm format:check`,
+  `pnpm --filter @cods-internal/web validate`: passed.
+
+### Manual matrix for Aten Accessibility/QA (pending)
+
+Review all supported variants and states on the PR preview and in Storybook.
+Record browser, assistive technology, and versions for each result.
+
+- [ ] Typing and filtering, including the open list and result counts.
+- [ ] Arrow, Enter, Escape, and Tab paths; focus stays in the input.
+- [ ] Active-option, result-count, and selection announcements.
+- [ ] Clearing: focus returns to the input and "Selection cleared." is announced.
+- [ ] No-results state and its announcement.
+- [ ] Native no-JS fallback (Storybook "Without JavaScript").
+- [ ] Lifecycle cleanup: destroy restores the native select and value.
+- [ ] Grouped option names and headings; disabled control; required error.
+- [ ] Contrast, 400% zoom / 320px reflow, narrow screens.
+- [ ] Reduced motion, forced colors.
+- [ ] Internal localization and long-text notes (generated strings are English).
+
 ## Keyboard and focus
 
 - [ ] Keyboard selection, filtering, Escape and pointer selection passed automated tests in Chromium, Firefox and WebKit. Tab order, focus visibility and no keyboard trap still need human review.

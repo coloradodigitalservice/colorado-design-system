@@ -1,12 +1,21 @@
 ---
 import metadata from '@coloradodigitalservice/colorado-design-system/metadata/combo-box.json';
 import examples from '@coloradodigitalservice/colorado-design-system/examples/combo-box.json';
-import fixture from '@coloradodigitalservice/colorado-design-system/fixtures/combo-box.html?raw';
-import CodeExamples from './CodeExamples.astro';
+import ComponentPreview from './ComponentPreview.astro';
+import '@coloradodigitalservice/colorado-design-system/styles.css';
 ---
 
-<div set:html={fixture} />
-<CodeExamples metadata={metadata} examples={examples.examples} />
+<ComponentPreview
+  displayName={metadata.displayName}
+  examples={examples.examples}
+  variants={[
+    { state: 'default', label: 'Default' },
+    { state: 'grouped', label: 'Grouped options' },
+    { state: 'error', label: 'Required with error' },
+    { state: 'disabled', label: 'Disabled' },
+  ]}
+/>
+
 <script>
   import { initAllComboBox } from '@coloradodigitalservice/colorado-design-system';
   initAllComboBox();
