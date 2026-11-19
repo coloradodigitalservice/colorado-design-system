@@ -8,7 +8,18 @@ import spriteUrl from '@coloradodigitalservice/colorado-design-system/icons/spri
 import '@coloradodigitalservice/colorado-design-tokens/tokens.css';
 import '@coloradodigitalservice/colorado-design-system/styles.css';
 
-const preview = fixture
+// `/header/preview/` shows the default state; `/header/preview/full/` shows
+// the header with search, languages, a dropdown, and mega menus.
+export function getStaticPaths() {
+  return [{ params: { state: undefined } }, { params: { state: 'full' } }];
+}
+
+const state = Astro.params.state ?? 'default';
+const block = new RegExp(
+  `<div data-cods-header-fixture="${state}"[^>]*>([\\s\\S]*?<\\/header>)`,
+).exec(fixture);
+if (!block) throw new Error(`Missing Header fixture state: ${state}`);
+const preview = block[1]
   .replaceAll('/icons/sprite.svg', spriteUrl)
   .replaceAll('/logos/cods-logo.svg', logoUrl);
 ---
@@ -24,8 +35,12 @@ const preview = fixture
   <body>
     <Fragment set:html={preview} />
     <script>
-      import { initAllHeaders } from '@coloradodigitalservice/colorado-design-system';
+      import {
+        initAllHeaders,
+        initAllLanguageSelector,
+      } from '@coloradodigitalservice/colorado-design-system';
       initAllHeaders();
+      initAllLanguageSelector();
     </script>
   </body>
 </html>

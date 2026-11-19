@@ -7,18 +7,42 @@
 
 Every checklist item must be checked or explicitly marked "N/A — \<reason>" before the component can be marked `stable`. Leaving an item blank means the evidence is incomplete.
 
+## Review update: 2026-11-19
+
+Changes for Phil Stier's review of PR 107. Automated checks only; the manual
+items below remain open.
+
+- The horizontal navigation now shows from 48em (768px), as in the Figma
+  tablet frame. The drawer applies only below 48em.
+- The Header has the low elevation shadow from 48em.
+- A new `full` fixture state shows search, a Language Selector, a dropdown, a
+  multi-column mega menu, and a categorized mega menu. Submenus use the pinned
+  USWDS navigation behavior. Without JavaScript every submenu link stays visible.
+- While the drawer is open, Menu and its ancestors stay in the accessibility
+  tree, so its `aria-expanded="true"` is exposed. The logo and the rest of the
+  page stay hidden.
+- When widening the window closes the drawer, focus stays on the focused
+  navigation link, or moves to the first visible navigation control.
+- The controller keeps the page's own `<body>` padding: it adds the scrollbar
+  width while the drawer is open and restores the inline value on close and on
+  `destroyHeader`.
+
+Manual checks to add to the matrix: submenu keyboard and Escape behavior, mega
+menu reading order and list names, Menu announced as expanded with VoiceOver
+and NVDA, focus after resizing an open drawer, and forced colors for submenus.
+
 ## Keyboard
 
 - [ ] Every interactive element is reachable using only the keyboard, in a logical (visual/DOM-matching) order.
 - [ ] No keyboard trap: focus can always move away from the component using standard keys.
-      **Decision:** below 64em the open drawer keeps Tab and Shift+Tab inside it
+      **Decision:** below 48em the open drawer keeps Tab and Shift+Tab inside it
       (USWDS focus trap). Escape, Close, the overlay, or following a link closes
       it and returns focus to Menu, so focus is never stuck. This is the
       explicit, documented exception to CODS-P3-011's "no modal-style focus
       trapping" default, chosen on 2026-11-17 to reuse the USWDS behavior that
       matches the Figma drawer. It needs accessibility-lead confirmation.
 - [ ] Documented keyboard interactions: Tab and Shift+Tab move through the logo
-      link and navigation links in DOM order on wide screens. Below 64em, Tab
+      link and navigation links in DOM order on wide screens. Below 48em, Tab
       reaches the logo link and Menu; Enter or Space on Menu opens the drawer and
       focuses Close; Tab and Shift+Tab cycle through Close and the links inside
       the drawer; Escape closes it and returns focus to Menu.
@@ -28,7 +52,7 @@ Every checklist item must be checked or explicitly marked "N/A — \<reason>" be
 - [ ] Visible focus indication uses the approved focus tokens at every focusable state.
 - [ ] Focus is placed predictably on open, close, add, remove, and error/validation state changes:
       opening moves focus to Close; closing returns it to Menu; widening the
-      window past 64em closes the drawer.
+      window past 48em closes the drawer.
 
 ## Naming and roles
 

@@ -106,9 +106,16 @@ test('the drawer opens, keeps focus inside, and closes on narrow screens', async
     ),
   ).toEqual({ open: true });
   await expect(menu).toHaveAttribute('aria-expanded', 'true');
-  // USWDS hides everything outside the open drawer, including Menu, from
-  // assistive technology, so the button is located by class while open.
-  await expect(menu).toHaveAttribute('aria-hidden', 'true');
+  // USWDS hides everything outside the open drawer; CoDS keeps Menu exposed
+  // so screen readers can read its expanded state.
+  await expect(menu).not.toHaveAttribute('aria-hidden');
+  await expect(
+    page.getByRole('button', { name: 'Menu', expanded: true }),
+  ).toBeAttached();
+  await expect(page.locator('.cods-header__logo')).toHaveAttribute(
+    'aria-hidden',
+    'true',
+  );
   await expect(close).toBeFocused();
   await expect(close).toHaveCSS('outline-width', '4px');
   await expectAccessible(page, testInfo, '#storybook-root');
@@ -169,5 +176,95 @@ test('without the controller every link stays in the page flow', async ({
       (element) => element.scrollWidth <= element.clientWidth,
     ),
   ).toBe(true);
+  await expectAccessible(page, testInfo, '#storybook-root');
+});
+
+test('tablet widths show the horizontal navigation with the header shadow', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 800, height: 800 });
+  await page.goto(storyUrl('default'));
+  const header = page.locator('[data-cods-header]');
+  await expect(header).toHaveAttribute('data-cods-header-enhanced', '');
+  await expect(page.getByRole('button', { name: 'Menu' })).toBeHidden();
+  const links = await page
+    .getByRole('navigation', { name: 'Primary' })
+    .getByRole('link')
+    .all();
+  const boxes = await Promise.all(links.map((link) => link.boundingBox()));
+  expect(new Set(boxes.map((box) => box!.y)).size).toBe(1);
+  await expect(header).toHaveCSS(
+    'box-shadow',
+    'rgba(0, 0, 0, 0.12) 0px 4px 8px 0px',
+  );
+});
+
+test('widening an open drawer keeps focus on the focused link', async ({
+  page,
+}) => {
+  await openMobile(page);
+  const menu = page.locator('.cods-header__menu-button');
+  await menu.click();
+  const news = page
+    .getByRole('navigation', { name: 'Primary' })
+    .getByRole('link', { name: 'News' });
+  await news.focus();
+  await page.setViewportSize({ width: 800, height: 800 });
+  await expect(menu).toHaveAttribute('aria-expanded', 'false');
+  await expect(news).toBeFocused();
+});
+
+test('the full header opens dropdowns and mega menus', async ({
+  page,
+}, testInfo) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto(storyUrl('full'));
+  const header = page.locator('[data-cods-header]');
+  await expect(header).toHaveAttribute('data-cods-header-enhanced', '');
+  await expect(
+    header.getByRole('search', { name: 'Site' }).getByRole('searchbox'),
+  ).toBeVisible();
+  await expect(header.getByRole('button', { name: 'Languages' })).toBeVisible();
+  const nav = header.getByRole('navigation', { name: 'Primary' });
+  const services = nav.getByRole('button', { name: 'Services' });
+  const agencies = nav.getByRole('button', { name: 'Agencies' });
+  await expect(services).toHaveAttribute('aria-expanded', 'false');
+  await expect(nav.getByRole('link', { name: 'Taxes' })).toBeHidden();
+
+  await services.click();
+  await expect(services).toHaveAttribute('aria-expanded', 'true');
+  await expect(nav.getByRole('link', { name: 'Taxes' })).toBeVisible();
+  await expectAccessible(page, testInfo, '#storybook-root');
+
+  await agencies.click();
+  await expect(services).toHaveAttribute('aria-expanded', 'false');
+  const mega = page.locator('#cods-header-agencies');
+  await expect(mega).toBeVisible();
+  await expect(mega.getByRole('list', { name: 'Public safety' })).toBeVisible();
+  const navBox = (await nav.boundingBox())!;
+  const megaBox = (await mega.boundingBox())!;
+  expect(megaBox.width).toBeCloseTo(navBox.width, 0);
+  await expect(mega).toHaveCSS('background-color', 'rgb(0, 25, 112)');
+
+  await mega.getByRole('link', { name: 'Revenue' }).focus();
+  await page.keyboard.press('Escape');
+  await expect(mega).toBeHidden();
+  await expect(agencies).toBeFocused();
+});
+
+test('submenus open as accordions in the drawer', async ({
+  page,
+}, testInfo) => {
+  await openMobile(page, 'full');
+  await page.locator('.cods-header__menu-button').click();
+  const nav = page.getByRole('navigation', { name: 'Primary' });
+  const licenses = nav.getByRole('button', { name: 'Licenses and permits' });
+  await licenses.click();
+  await expect(licenses).toHaveAttribute('aria-expanded', 'true');
+  const link = nav.getByRole('link', { name: 'Burn permits' });
+  await expect(link).toBeVisible();
+  const box = (await link.boundingBox())!;
+  const navBox = (await nav.boundingBox())!;
+  expect(box.x + box.width).toBeLessThanOrEqual(navBox.x + navBox.width);
   await expectAccessible(page, testInfo, '#storybook-root');
 });

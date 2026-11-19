@@ -7,9 +7,8 @@ const paths = readdirSync('apps/web/dist', { recursive: true })
       typeof file === 'string' &&
       file.endsWith('.html') &&
       // Iframe-only pages are not documentation pages.
-      !['videos/embedded-example.html', 'header/preview/index.html'].includes(
-        file.replaceAll('\\', '/'),
-      ),
+      file.replaceAll('\\', '/') !== 'videos/embedded-example.html' &&
+      !file.replaceAll('\\', '/').startsWith('header/preview/'),
   )
   .map((file) => '/' + file.replace(/index\.html$/, ''));
 

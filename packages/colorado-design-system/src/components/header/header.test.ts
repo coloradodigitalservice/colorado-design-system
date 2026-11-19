@@ -1,6 +1,15 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { destroy, init, initAll, type HeaderToggleDetail } from './header.js';
-import fixture from './header.fixture.html?raw';
+import fixtures from './header.fixture.html?raw';
+
+/** One fixture state; a document supports one header. */
+function fixtureState(state: string): string {
+  const template = document.createElement('template');
+  template.innerHTML = fixtures;
+  return template.content.querySelector(`[data-cods-fixture-state="${state}"]`)!
+    .outerHTML;
+}
+const fixture = fixtureState('default');
 
 const header = () => document.querySelector<HTMLElement>('[data-cods-header]')!;
 const menuButton = () =>
@@ -194,5 +203,104 @@ describe('Header failure behavior', () => {
     expect(warn).toHaveBeenCalledTimes(1);
     expect(root.outerHTML).toBe(before);
     expect(root.hasAttribute('data-cods-header-enhanced')).toBe(false);
+  });
+});
+
+describe('Header review fixes', () => {
+  it('keeps Menu and its expanded state exposed while the drawer is open', async () => {
+    init(header());
+    menuButton().click();
+    await settle();
+    expect(menuButton().getAttribute('aria-expanded')).toBe('true');
+    for (
+      let element: HTMLElement | null = menuButton();
+      element && element !== header();
+      element = element.parentElement
+    )
+      expect(element.hasAttribute('aria-hidden')).toBe(false);
+    expect(
+      document.querySelector('.cods-header__logo')!.getAttribute('aria-hidden'),
+    ).toBe('true');
+    expect(document.getElementById('main')!.getAttribute('aria-hidden')).toBe(
+      'true',
+    );
+  });
+
+  it('restores the page body padding after closing and after destroy', async () => {
+    document.body.style.paddingRight = '12px';
+    init(header());
+    menuButton().click();
+    await settle();
+    closeButton().click();
+    await settle();
+    expect(document.body.style.paddingRight).toBe('12px');
+    menuButton().click();
+    await settle();
+    destroy(header());
+    expect(document.body.style.paddingRight).toBe('12px');
+  });
+
+  it('leaves body padding unset when the page had none', async () => {
+    init(header());
+    menuButton().click();
+    await settle();
+    closeButton().click();
+    await settle();
+    expect(document.body.style.paddingRight).toBe('');
+  });
+});
+
+describe('Header submenus', () => {
+  beforeEach(() => {
+    document.body.innerHTML = '';
+    render(fixtureState('full'));
+  });
+
+  const buttons = () => [
+    ...document.querySelectorAll<HTMLButtonElement>('.cods-header__toggle'),
+  ];
+  const panel = (button: HTMLButtonElement) =>
+    document.getElementById(button.getAttribute('aria-controls')!)!;
+
+  it('shows every submenu without JavaScript', () => {
+    expect(buttons()).toHaveLength(3);
+    for (const button of buttons()) expect(panel(button).hidden).toBe(false);
+  });
+
+  it('collapses submenus on init and opens one at a time', () => {
+    init(header());
+    for (const button of buttons()) {
+      expect(button.getAttribute('aria-expanded')).toBe('false');
+      expect(panel(button).hidden).toBe(true);
+    }
+    const [services, licenses] = buttons();
+    services.click();
+    expect(services.getAttribute('aria-expanded')).toBe('true');
+    expect(panel(services).hidden).toBe(false);
+    licenses.click();
+    expect(services.getAttribute('aria-expanded')).toBe('false');
+    expect(panel(services).hidden).toBe(true);
+    expect(panel(licenses).hidden).toBe(false);
+  });
+
+  it('closes an open submenu with Escape and returns focus to its button', () => {
+    init(header());
+    const [services] = buttons();
+    services.click();
+    const link = panel(services).querySelector('a')!;
+    link.focus();
+    link.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }),
+    );
+    expect(panel(services).hidden).toBe(true);
+    expect(document.activeElement).toBe(services);
+  });
+
+  it('restores authored submenu markup on destroy', () => {
+    const before = header().outerHTML;
+    init(header());
+    buttons()[0].click();
+    destroy(header());
+    expect(header().outerHTML).toBe(before);
   });
 });

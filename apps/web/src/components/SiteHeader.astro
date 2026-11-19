@@ -9,9 +9,9 @@ interface Props {
 
 const { pathname } = Astro.props;
 const baseUrl = import.meta.env.BASE_URL;
-// CODS-P4-008 (CDS-121) names Design System Foundations, Components, and
-// About. Those pages arrive with CODS-P4-009/010; until then the navigation
-// links to pages that exist today.
+// The planned site navigation names Design System Foundations, Components,
+// and About. Until those pages exist, the navigation links to pages that exist
+// today. Search and the language control are not part of this site's header.
 const links = [
   { label: 'Overview', path: '/' },
   { label: 'Getting started', path: '/getting-started/' },

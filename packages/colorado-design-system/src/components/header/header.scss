@@ -1,8 +1,10 @@
 /// Header: themed USWDS basic header (usa-header--basic).
 ///
 /// USWDS switches between the mobile drawer and the desktop row at its
-/// `desktop` breakpoint (64em). These rules sit in `cods.components`, above the
-/// `uswds` layer, so they override USWDS without extra specificity.
+/// `desktop` breakpoint (64em). CoDS shows the horizontal navigation from the
+/// tablet width (48em), as the Figma tablet frame does, so the drawer applies
+/// only below 48em. These rules sit in `cods.components`, above the `uswds`
+/// layer, so they override USWDS without extra specificity.
 ///
 /// Without JavaScript, `data-cods-header-enhanced` is absent: the navigation
 /// stays in the page flow at every width and the menu and close buttons are
@@ -22,6 +24,8 @@
     font-family: var(--cods-font-family-body);
     font-size: var(--cods-font-size-mobile-body);
     line-height: var(--cods-line-height-desktop-body);
+    position: relative;
+    z-index: 1;
   }
 
   .cods-header__container {
@@ -46,6 +50,30 @@
     padding-block-end: var(--cods-space-md);
   }
 
+  .cods-header__utilities {
+    align-items: center;
+    display: flex;
+    flex: 1 1 100%;
+    flex-wrap: wrap;
+    gap: var(--cods-space-sm);
+    padding-block-end: var(--cods-space-md);
+  }
+
+  .cods-header__search {
+    flex: 1 1 12rem;
+    min-inline-size: 12rem;
+  }
+
+  // USWDS positions a language control inside a header absolutely; keep it in
+  // the utilities row instead.
+  .cods-header__language {
+    flex: none;
+    inline-size: auto;
+    inset: auto;
+    margin: 0;
+    position: relative;
+  }
+
   .cods-header__home {
     display: inline-block;
     max-inline-size: 100%;
@@ -63,7 +91,8 @@
   .cods-header__home:focus-visible,
   .cods-header__menu-button:focus-visible,
   .cods-header__close:focus-visible,
-  .cods-header__link:focus-visible {
+  .cods-header__link:focus-visible,
+  .cods-header__submenu-link:focus-visible {
     box-shadow: 0 0 0 var(--cods-focus-ring-offset) var(--cods-color-focus-gap);
     outline: var(--cods-focus-ring-width) solid
       var(--cods-color-bg-action-focus);
@@ -145,9 +174,98 @@
     }
   }
 
-  // Mobile and tablet: a slide-in drawer once enhanced, an in-flow list
-  // without JavaScript.
-  @media (width < 64em) {
+  // Submenu buttons: a dropdown or mega menu at 48em and wider, an accordion
+  // in the drawer.
+  .cods-header__toggle {
+    background: none;
+    border-radius: 0;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    gap: var(--cods-space-2xs);
+    inline-size: 100%;
+    justify-content: space-between;
+    margin: 0;
+    text-align: start;
+
+    > span::after {
+      display: none;
+    }
+
+    &:hover {
+      color: var(--cods-color-text-primary);
+    }
+
+    &.cods-header__toggle--current {
+      font-weight: var(--cods-font-weight-semibold);
+    }
+  }
+
+  .cods-header__toggle-icon {
+    flex: none;
+  }
+
+  .cods-header__toggle[aria-expanded='true'] .cods-header__toggle-icon {
+    transform: rotate(180deg);
+  }
+
+  .cods-header__submenu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    &::before,
+    &::after {
+      display: none;
+    }
+  }
+
+  .cods-header__submenu-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .cods-header__submenu-item {
+    border: 0;
+    margin: 0;
+  }
+
+  .cods-header__submenu-link {
+    color: var(--cods-color-text-primary);
+    display: block;
+    line-height: var(--cods-line-height-desktop-body);
+    padding-block: var(--cods-space-xs);
+    text-decoration: none;
+
+    &:visited {
+      color: inherit;
+    }
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &[aria-current='page'] {
+      font-weight: var(--cods-font-weight-semibold);
+      text-decoration: underline;
+    }
+  }
+
+  .cods-header__megamenu-grid {
+    display: grid;
+    gap: var(--cods-space-sm) var(--cods-space-lg);
+  }
+
+  .cods-header__megamenu-title {
+    font-weight: var(--cods-font-weight-semibold);
+    margin: 0;
+    padding-block: var(--cods-space-xs) 0;
+  }
+
+  // Mobile: a slide-in drawer once enhanced, an in-flow list without
+  // JavaScript.
+  @media (width < 48em) {
     .cods-header__menu-button,
     .cods-header__close {
       display: flex;
@@ -175,6 +293,26 @@
       }
     }
 
+    .cods-header__toggle {
+      padding-inline: var(--cods-space-sm);
+      border-inline-start: var(--cods-header-indicator-width) solid transparent;
+
+      &.cods-header__toggle--current {
+        border-inline-start-color: var(
+          --cods-color-border-action-secondary-active
+        );
+      }
+    }
+
+    .cods-header__submenu {
+      padding-block-end: var(--cods-space-xs);
+      padding-inline-start: var(--cods-space-lg);
+    }
+
+    .cods-header__megamenu-grid {
+      gap: 0;
+    }
+
     .cods-header:not([data-cods-header-enhanced]) {
       .cods-header__menu-button,
       .cods-header__close {
@@ -193,11 +331,13 @@
     }
   }
 
-  @media (width >= 64em) {
+  // Tablet and wider: the horizontal navigation, with dropdowns and mega
+  // menus below it.
+  @media (width >= 48em) {
     .cods-header {
-      --cods-header-gutter: var(--cods-space-xl);
-
-      font-size: var(--cods-font-size-desktop-body);
+      box-shadow: var(--cods-elevation-low-x) var(--cods-elevation-low-y)
+        var(--cods-elevation-low-blur) var(--cods-elevation-low-spread)
+        var(--cods-color-elevation-shadow);
     }
 
     .cods-header__container {
@@ -209,20 +349,34 @@
     .cods-header__navbar {
       inline-size: auto;
       padding-block: var(--cods-space-xl) var(--cods-space-lg);
+      row-gap: var(--cods-space-md);
     }
 
-    .cods-header__logo {
+    .cods-header__logo,
+    .cods-header__utilities {
       padding: 0;
     }
 
+    .cods-header__menu-button,
+    .cods-header__close {
+      display: none;
+    }
+
+    // Undo USWDS's below-64em drawer.
     .cods-header__nav {
+      animation: none;
+      background-color: transparent;
       border-block-start: var(--cods-border-divider-width) solid
         var(--cods-color-border-subtle);
       display: block;
       float: none;
       inline-size: auto;
+      inset: auto;
       margin-inline: calc(var(--cods-header-gutter) * -1);
+      overflow: visible;
       padding: 0 var(--cods-header-gutter);
+      position: relative;
+      z-index: auto;
     }
 
     .cods-header__list {
@@ -234,6 +388,13 @@
     .cods-header__item {
       display: flex;
       inline-size: auto;
+      position: static;
+    }
+
+    .cods-header__item:has(
+      > .cods-header__submenu:not(.cods-header__megamenu)
+    ) {
+      position: relative;
     }
 
     .cods-header__link {
@@ -242,24 +403,111 @@
       padding: var(--cods-space-sm) 0
         calc(var(--cods-space-sm) - var(--cods-header-indicator-width));
 
-      &[aria-current='page'] {
+      &[aria-current='page'],
+      &.cods-header__toggle--current {
         border-block-end-color: var(
           --cods-color-border-action-secondary-active
         );
       }
+    }
+
+    .cods-header__toggle {
+      inline-size: auto;
+      justify-content: flex-start;
+      padding-inline: var(--cods-space-xs);
+      margin-inline: calc(var(--cods-space-xs) * -1);
+
+      &[aria-expanded='true'] {
+        background-color: var(--cods-color-surface-nav-active);
+        color: var(--cods-color-text-action-primary);
+      }
+    }
+
+    .cods-header[data-cods-header-enhanced] {
+      .cods-header__submenu {
+        background-color: var(--cods-color-surface-nav-active);
+        box-shadow: var(--cods-elevation-low-x) var(--cods-elevation-low-y)
+          var(--cods-elevation-low-blur) var(--cods-elevation-low-spread)
+          var(--cods-color-elevation-shadow);
+        color: var(--cods-color-text-action-primary);
+        inset-block-start: 100%;
+        inset-inline-start: 0;
+        min-inline-size: 15rem;
+        padding: var(--cods-space-sm) var(--cods-space-md);
+        position: absolute;
+        z-index: 1;
+      }
+
+      .cods-header__megamenu {
+        inline-size: auto;
+        inset-inline-end: 0;
+        padding: var(--cods-space-lg) var(--cods-header-gutter);
+      }
+
+      .cods-header__submenu-link {
+        color: var(--cods-color-text-action-primary);
+        padding-inline: 0;
+
+        &:focus-visible {
+          outline-color: var(--cods-color-focus-gap);
+        }
+      }
+    }
+
+    .cods-header__megamenu-grid {
+      grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+      margin-inline: auto;
+      max-inline-size: 80rem;
+    }
+
+    .cods-header__megamenu--categorized .cods-header__megamenu-title {
+      font-size: var(--cods-font-size-mobile-h5);
+      padding-block-end: var(--cods-space-xs);
+    }
+
+    // Without JavaScript, submenus stay open, so stack the navigation.
+    .cods-header:not([data-cods-header-enhanced])
+      .cods-header__list:has(.cods-header__submenu) {
+      display: block;
+    }
+  }
+
+  @media (width >= 64em) {
+    .cods-header {
+      --cods-header-gutter: var(--cods-space-xl);
+
+      font-size: var(--cods-font-size-desktop-body);
+    }
+
+    .cods-header__logo {
+      flex: 1 1 auto;
+    }
+
+    .cods-header__utilities {
+      flex: 0 1 28rem;
+      flex-wrap: nowrap;
+      justify-content: flex-end;
     }
   }
 
   // Transparent borders become visible in forced colors; keep only the current
   // indicator.
   @media (forced-colors: active) {
-    .cods-header__link:not([aria-current='page']) {
+    .cods-header__link:not(
+      [aria-current='page'],
+      .cods-header__toggle--current
+    ) {
       border-color: Canvas;
+    }
+
+    .cods-header__submenu {
+      border: var(--cods-border-divider-width) solid CanvasText;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .cods-header__overlay {
+    .cods-header__overlay,
+    .cods-header__toggle-icon {
       transition: none;
     }
   }

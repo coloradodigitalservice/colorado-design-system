@@ -1,6 +1,6 @@
 ---
 title: Header
-description: Colorado-themed site identity and primary navigation with a mobile menu.
+description: Colorado-themed site identity, primary navigation with optional dropdowns and mega menus, optional search and language controls, and a mobile menu.
 navLabel: Header
 order: 49
 figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=1100-8319
@@ -15,9 +15,18 @@ link to its main sections.
 
 | Use when                                                             | Don't use when                                                                                     |
 | -------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| The site has a handful of top-level sections, ideally seven or fewer | The sections need a second level of links; dropdown and mega-menu navigation is a future pattern   |
+| The site has a handful of top-level sections, ideally seven or fewer | The site needs more than one Header; use one per page                                              |
 | You need the site's or agency's logo linked to its home page         | You want to link to sections of the current page; use [In-Page Navigation](../in-page-navigation/) |
 | One header identifies the whole page                                 | A page region needs its own heading bar; use a heading instead of a second Header                  |
+
+Choose a submenu type for each section that needs a second level:
+
+| Submenu                | Use when                                                                          | Don't use when                                                                                  |
+| ---------------------- | --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Dropdown               | A section has a short, focused list of three to eight related pages               | The section has more than ten links or they need grouping; a long single column is hard to scan |
+| Multi-column mega menu | A broad section has many pages of equal importance that people should see at once | The links aren't logically grouped; sixteen or more ungrouped links are hard to scan            |
+| Categorized mega menu  | People need wayfinding; section titles let them skip to the relevant group        | The site is simple, or a category would have only two or three links                            |
+| Search and language    | The site has its own search results page, or content in more than one language    | The site has no search page or translated content; don't add controls that do nothing           |
 
 ### Writing for headers
 
@@ -34,9 +43,16 @@ the word "navigation"; screen readers already announce the role.
 ### Accessibility for headers
 
 - Tab and Shift+Tab move through the logo link and navigation links in order.
-- Below 1024px, Enter or Space on Menu opens the drawer and moves focus to
+- Below 768px, Enter or Space on Menu opens the drawer and moves focus to
   Close. Tab stays inside the open drawer, and Escape, Close, the overlay, or
-  following a link closes it and returns focus to Menu.
+  following a link closes it and returns focus to Menu. Menu stays exposed to
+  screen readers, so its expanded state is announced.
+- A submenu button announces whether its dropdown or mega menu is expanded.
+  Enter or Space opens it; Escape closes it and returns focus to the button.
+  Opening another submenu, clicking outside, or moving focus out of the
+  navigation closes it.
+- Each categorized mega-menu list is named by its section title with
+  `aria-labelledby`.
 - Mark the current section's link with `aria-current="page"`. It also gets a
   4px indicator bar and, in the drawer, semibold text, so it doesn't rely on
   color alone.
@@ -52,16 +68,31 @@ the word "navigation"; screen readers already announce the role.
 
 ### Classes
 
-| Class                      | Use                                                              |
-| -------------------------- | ---------------------------------------------------------------- |
-| `cods-header`              | The `<header>` element; pair with `usa-header usa-header--basic` |
-| `cods-header__home`        | The logo link to the site's home page; carries the `aria-label`  |
-| `cods-header__logo-image`  | The logo image, scaled to at most 48px tall                      |
-| `cods-header__menu-button` | Opens the drawer below 1024px; pair with `usa-menu-btn`          |
-| `cods-header__nav`         | The labelled `<nav>`; pair with `usa-nav`                        |
-| `cods-header__link`        | A navigation link; pair with `usa-nav-link`                      |
-| `cods-header__close`       | Closes the drawer; pair with `usa-nav__close`                    |
-| `cods-header__overlay`     | The page overlay behind the drawer; pair with `usa-overlay`      |
+| Class                                | Use                                                                                 |
+| ------------------------------------ | ----------------------------------------------------------------------------------- |
+| `cods-header`                        | The `<header>` element; pair with `usa-header usa-header--basic`                    |
+| `cods-header__home`                  | The logo link to the site's home page; carries the `aria-label`                     |
+| `cods-header__logo-image`            | The logo image, scaled to at most 48px tall                                         |
+| `cods-header__menu-button`           | Opens the drawer below 768px; pair with `usa-menu-btn`                              |
+| `cods-header__nav`                   | The labelled `<nav>`; pair with `usa-nav`                                           |
+| `cods-header__link`                  | A navigation link; pair with `usa-nav-link`                                         |
+| `cods-header__close`                 | Closes the drawer; pair with `usa-nav__close`                                       |
+| `cods-header__overlay`               | The page overlay behind the drawer; pair with `usa-overlay`                         |
+| `cods-header__utilities`             | Optional wrapper for search and the language control, after the logo                |
+| `cods-header__search`                | Add to a slim [Search](../search/) form inside the utilities                        |
+| `cods-header__language`              | Add to a [Language Selector](../language-selector/) inside the utilities            |
+| `cods-header__toggle`                | A submenu button; pair with `usa-accordion__button usa-nav__link cods-header__link` |
+| `cods-header__toggle--current`       | The submenu button whose section holds the current page; pair with `usa-current`    |
+| `cods-header__toggle-icon`           | The caret icon inside a submenu button                                              |
+| `cods-header__submenu`               | The dropdown list or mega-menu container; pair with `usa-nav__submenu`              |
+| `cods-header__megamenu`              | Add to a submenu `<div>` for a mega menu; pair with `usa-megamenu`                  |
+| `cods-header__megamenu--categorized` | A mega menu with section titles                                                     |
+| `cods-header__megamenu-grid`         | Lays out mega-menu columns                                                          |
+| `cods-header__megamenu-section`      | One titled group in a categorized mega menu                                         |
+| `cods-header__megamenu-title`        | A section title; give it an `id` and name its list with it                          |
+| `cods-header__submenu-list`          | A mega-menu column list; pair with `usa-nav__submenu-list`                          |
+| `cods-header__submenu-item`          | A submenu list item; pair with `usa-nav__submenu-item`                              |
+| `cods-header__submenu-link`          | A submenu link; mark the current page with `aria-current="page"`                    |
 
 Keep the USWDS classes alongside the `cods-header` classes; the USWDS behavior
 selects on them. Mark the current link with `aria-current="page"` and
@@ -124,8 +155,14 @@ if (header instanceof HTMLElement) initHeader(header);
 if (header instanceof HTMLElement) destroyHeader(header);
 ```
 
-Without JavaScript, every navigation link stays visible in the page flow at all
-widths and the Menu and Close buttons are hidden. The controller adds
+Without JavaScript, every navigation link, including submenu links, stays
+visible in the page flow at all widths and the Menu and Close buttons are
+hidden. Submenu buttons are collapsed and their submenus hidden only once the
+controller runs.
+
+Search and the language control are separate components. Initialize the
+language control with `initLanguageSelector`; the Header controller does not.
+Search needs only its form `action`. The controller adds
 `data-cods-header-enhanced` once the header is enhanced; do not author or
 style that attribute.
 
@@ -149,16 +186,23 @@ header.
 
 ### Mobile menu behavior
 
-Below 1024px, the Header uses the pinned USWDS header behavior. Activating
+Below 768px, the Header uses the pinned USWDS header behavior. Activating
 Menu opens the navigation as a drawer over a page overlay, sets the menu
 button's `aria-expanded` to `true`, and moves focus to Close. While the drawer
 is open:
 
 - Tab and Shift+Tab cycle through the drawer's Close button and links.
-- The rest of the page is hidden from assistive technology with `aria-hidden`.
+- The rest of the page, except Menu, is hidden from assistive technology with
+  `aria-hidden`.
+- Submenus open as accordions inside the drawer.
 - Escape, Close, the overlay, or following a navigation link closes the drawer
   and returns focus to Menu.
-- Widening the window past 1024px closes the drawer.
+- Widening the window past 768px closes the drawer. Focus stays on the
+  focused navigation link, or moves to the first navigation link, instead of
+  being lost.
+- The page's own `<body>` padding is kept: the controller adds the scrollbar
+  width to it while the drawer is open and restores it on close and on
+  `destroyHeader`.
 
 The drawer keeps focus inside it on purpose. It covers the page like a dialog,
 so focus and screen-reader access are confined to the visible drawer instead of
@@ -172,25 +216,21 @@ The Header emits bubbling, non-composed `cods-header:open` and
 
 ### Scope and related navigation
 
-The Header covers site identity, a single level of primary navigation links,
-and the mobile menu. These are separate patterns and are not part of this
-component:
-
-- **Dropdown and mega-menu navigation** (multi-level primary navigation shown
-  in the Figma file): a future navigation pattern.
-- **In-page navigation**: use [In-Page Navigation](../in-page-navigation/) to
-  link to sections of the current page.
-- **Search** in the header: use the [Search](../search/) component on its own
-  until a header integration is designed and approved.
-- **Translate** link or language selector in the header: pending the Language
-  Selector component.
+The Header covers site identity, primary navigation with dropdowns and mega
+menus, optional search and language controls, and the mobile menu. The search
+and language examples don't search or change the language; connect the search
+form to your site's search page and the language links to your translated
+pages. The Language Selector links to pages you provide; it does not translate
+content automatically. Use [In-Page Navigation](../in-page-navigation/) to link
+to sections of the current page.
 
 ## Known limitations and implementation status
 
 - **Status:** implemented as an experimental component in the `0.x`
   development series.
-- This documentation site uses the Header as its own site header, so the
-  component preview on this page loads in a separate frame.
+- This documentation site uses the Header as its own site header, without
+  search or a language control, so the component previews on this page load in
+  separate frames.
 - USWDS's header behavior keeps module-level state and finds the header with
   document-wide selectors, so it supports one Header per document. `initHeader`
   warns and leaves the markup unchanged when more than one `.usa-header` is
@@ -199,8 +239,6 @@ component:
   window resize and document key events while the drawer is open. These are
   USWDS's own behavior; `destroyHeader` closes an open drawer and removes the
   listeners.
-- The Figma tablet layout (search above the navigation) is not implemented;
-  tablets use the mobile drawer below USWDS's 1024px header breakpoint.
 - The package ships only the CoDS logo. Agency lockups shown in Figma, such as
   the Department of Revenue, are supplied by each agency through the logo slot
   and are not bundled.

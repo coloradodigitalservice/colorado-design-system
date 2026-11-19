@@ -44,7 +44,15 @@ for (const component of loadComponents()) {
           'indeterminate',
           true,
         );
-      if (example.setup === 'expand' || example.setup === 'collapse')
+      // The full Header's first buttons are search and languages; exactly one
+      // of its menu or submenu buttons is expanded.
+      if (component.name === 'header' && example.setup === 'expand')
+        await expect(
+          block.locator(
+            '.cods-header__menu-button[aria-expanded="true"], .cods-header__toggle[aria-expanded="true"]',
+          ),
+        ).toHaveCount(1);
+      else if (example.setup === 'expand' || example.setup === 'collapse')
         await expect(block.locator('button').first()).toHaveAttribute(
           'aria-expanded',
           example.setup === 'expand' ? 'true' : 'false',

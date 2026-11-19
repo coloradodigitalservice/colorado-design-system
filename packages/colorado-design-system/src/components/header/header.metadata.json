@@ -14,7 +14,7 @@
   },
   "divergenceApproved": false,
   "divergenceNotes": null,
-  "states": ["default", "expanded"],
+  "states": ["default", "expanded", "full", "submenu-expanded"],
   "progressiveEnhancement": "partial",
   "localization": "layout-sensitive",
   "examples": [
@@ -27,8 +27,19 @@
       "state": "expanded",
       "fixtureState": "default",
       "setup": "expand",
-      "instructions": "Below 64em (1024px), initialize the header and activate Menu. The navigation opens as a drawer over a page overlay; USWDS moves focus to Close, keeps Tab and Shift+Tab inside the drawer, and hides the rest of the page from assistive technology until Close, the overlay, a navigation link, or Escape closes it."
+      "instructions": "Below 48em (768px), initialize the header and activate Menu. The navigation opens as a drawer over a page overlay; USWDS moves focus to Close, keeps Tab and Shift+Tab inside the drawer, and hides the rest of the page except the Menu button from assistive technology until Close, the overlay, a navigation link, or Escape closes it."
+    },
+    {
+      "state": "full",
+      "fixtureState": "full",
+      "setup": "none"
+    },
+    {
+      "state": "submenu-expanded",
+      "fixtureState": "full",
+      "setup": "expand",
+      "instructions": "Initialize the header and activate a submenu button such as Services, Licenses and permits, or Agencies. Its aria-expanded becomes true and its dropdown or mega menu opens; Escape, activating another submenu button, clicking outside, or moving focus out of the navigation closes it."
     }
   ],
-  "description": "A Colorado-themed USWDS basic header with a replaceable site logo, a labelled primary navigation, and the USWDS mobile navigation drawer below 64em."
+  "description": "A Colorado-themed USWDS basic header with a replaceable site logo, optional search and language controls, a labelled primary navigation with optional dropdowns and mega menus, and the USWDS mobile navigation drawer below 48em."
 }
