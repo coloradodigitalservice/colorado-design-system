@@ -13,16 +13,17 @@ interface Example {
 }
 interface Props {
   displayName: string;
+  spriteUrl?: string;
   examples: Example[];
   variants: { state: string; label: string }[];
 }
 
-const { displayName, examples, variants } = Astro.props;
+const { displayName, examples, variants, spriteUrl } = Astro.props;
 
 const items = variants.map(({ state, label }) => {
   const example = examples.find((candidate) => candidate.state === state);
   if (!example) throw new Error(`Missing ${displayName} example: ${state}`);
-  return { state, label, markup: componentMarkup(example.code) };
+  return { state, label, markup: componentMarkup(example.code, spriteUrl) };
 });
 const code = previewCode(items);
 ---
@@ -31,6 +32,7 @@ const code = previewCode(items);
   class="cods-docs-preview"
   aria-labelledby="component-preview-heading"
   data-cods-docs-preview
+  data-cods-docs-preview-sprite={spriteUrl}
 >
   <h2 id="component-preview-heading">Component preview</h2>
   {items.map(({ state, label, markup }) => (

@@ -1,25 +1,40 @@
 import { test, expect, expectAccessible } from './fixtures.js';
 
-test('search variants expose named forms and submit the entered query', async ({
+const preview = (state: string) => `[data-cods-docs-preview-state="${state}"]`;
+
+test('search page follows the component page outline and submits the entered query', async ({
   page,
 }, testInfo) => {
   await page.setViewportSize({ width: 320, height: 800 });
   await page.goto('/search/');
-  const forms = page.locator('.search-examples [data-cods-fixture-state] form');
+  const main = page.locator('main');
+  expect(await main.locator('h2').allTextContents()).toEqual([
+    'Component preview',
+    'Component code',
+    'Component status',
+    'Guidance',
+    'Specifications',
+  ]);
+  const subheadings = await main.locator('h3').allTextContents();
+  for (const heading of [
+    'When to use',
+    'Accessibility for search',
+    'Variant classes',
+    'Connecting your search endpoint',
+    'Adding the search icon',
+  ])
+    expect(subheadings).toContain(heading);
+  const status = page.locator('[data-cods-docs-status]');
+  await expect(status).toContainText('Search maturity is experimental');
+  await expect(status).toContainText('Manual accessibility review');
   await expect(
-    page.getByRole('heading', { name: 'Default', exact: true }),
+    status.getByRole('link', { name: 'USWDS 3.14.0 Search' }),
   ).toBeVisible();
-  await expect(
-    page.getByRole('heading', { name: 'Compact', exact: true }),
-  ).toBeVisible();
-  await expect(
-    page.getByRole('heading', { name: 'Slim', exact: true }),
-  ).toBeVisible();
-  await expect(
-    page.getByText(
-      'These examples demonstrate the form layout. They do not return search results.',
-    ),
-  ).toBeVisible();
+  // The public page omits localization guidance and the examples catalogue.
+  await expect(main).not.toContainText(/right-to-left|localization/i);
+  await expect(page.locator('[data-cods-fixture-state]')).toHaveCount(0);
+
+  const forms = page.locator('[data-cods-docs-preview-state] form');
   await expect(forms).toHaveCount(3);
   for (const form of await forms.all()) {
     await expect(form).toHaveAttribute('role', 'search');
@@ -29,11 +44,21 @@ test('search variants expose named forms and submit the entered query', async ({
       true,
     );
   }
+  // The slim icon resolves to the built sprite, not the fixture's placeholder.
+  await expect(page.locator(`${preview('slim')} use`)).not.toHaveAttribute(
+    'href',
+    '/icons/sprite.svg#magnifying-glass',
+  );
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
   const first = forms.first();
   await first.locator('input').fill('license');
   await expect(first).toHaveAttribute('method', 'get');
   await expect(first.locator('input')).toHaveAttribute('name', 'q');
-  await expectAccessible(page, testInfo, 'article');
+  await expectAccessible(page, testInfo);
   const submitted = page.waitForRequest(
     (request) => new URL(request.url()).searchParams.get('q') === 'license',
   );
@@ -45,9 +70,8 @@ test('search examples and joined controls keep keyboard focus visible', async ({
   page,
 }) => {
   await page.goto('/search/');
-  const sections = page.locator('.search-examples > section');
-  const compact = sections.nth(1);
-  const slim = sections.nth(2);
+  const compact = page.locator(preview('compact'));
+  const slim = page.locator(preview('slim'));
   const compactBox = await compact.boundingBox();
   const slimBox = await slim.boundingBox();
   expect(
@@ -113,9 +137,8 @@ test('compact and slim search reflow in a right-to-left document without horizon
   await page.evaluate(() => {
     document.documentElement.setAttribute('dir', 'rtl');
   });
-  const sections = page.locator('.search-examples > section');
-  for (const index of [1, 2]) {
-    const section = sections.nth(index);
+  for (const state of ['compact', 'slim']) {
+    const section = page.locator(preview(state));
     const label = section.locator('label');
     const input = section.locator('input');
     await expect(label).toHaveCount(1);

@@ -4,26 +4,51 @@ description: Let people search site content.
 navLabel: Search
 order: 24
 figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=462-1419
+accessibilityStatus: Automated accessibility checks (axe) pass for every preview state. Manual accessibility review, including screen-reader testing, is pending.
 ---
 
-## When to use
+## Guidance
 
-Use Search to help people find content by entering terms.
+### When to use
 
-Use the default variant when the purpose of the search is not clear from its surroundings, or when people benefit from reading a visible label before they type. A visible label matters most to people who are less confident with digital services, who may not recognize an unlabeled field or a magnifying-glass icon as a search. Prefer the default variant when search is the main action on the page, or when the scope of the search needs explaining.
+Use Search to help people find content by entering terms. Search is a form that submits a query to a search endpoint you provide; it does not provide search results or autocomplete.
 
-Avoid the default variant in constrained spaces such as a site header or a navigation bar. Its visible label and full-width submit button crowd the other controls there.
+Choose a variant that fits the space and how clear the purpose of the search is from its surroundings:
 
-Use the compact variant in those constrained spaces, where the surrounding context already makes the purpose of the search clear and there is still room for a labeled submit button.
+| Variant | Use when                                                                                                                                                                                                                                       | Don't use when                                                                                                                              |
+| ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| Default | The purpose or scope of the search needs a visible label, search is the main action on the page, or people benefit from reading a label before they type. A visible label matters most to people who are less confident with digital services. | Space is constrained, such as a site header or navigation bar. The visible label and separate submit button crowd the other controls there. |
+| Compact | Space is constrained, such as a site header or navigation bar, the surrounding context makes the purpose clear, and there is room for a labeled submit button.                                                                                 | The purpose or scope of the search needs explaining. Use the default variant.                                                               |
+| Slim    | Space is tightest, including mobile menus, and only an icon-only submit button fits.                                                                                                                                                           | There is room for a text submit button. Use the compact variant.                                                                            |
 
-Use the slim variant where space is tightest, including mobile menus, where only an icon-only submit button fits.
+### Accessibility for search
 
-## Markup and accessibility
+- Each form has `role="search"`, which makes it a search landmark. If a page has more than one search landmark, give each a distinct `aria-label`.
+- Give every input an associated `label`, even when it is visually hidden. The compact and slim variants hide their label with `cods-search__label--hidden`, which keeps it in the accessibility tree.
+- Give the slim variant's icon-only submit button an accessible name with `aria-label`. The icon itself is decorative and has `aria-hidden="true"`.
+- People reach the input and then the submit button with the Tab key. Enter in the input or activating the button submits the form using the browser's normal form behavior; Search adds no JavaScript.
 
-Set the form action and query parameter for your own search endpoint. The form submits normally without JavaScript; it does not provide search results or autocomplete. Give every input an associated label, even when visually hidden. The compact and slim variants hide their label with `cods-search__label--hidden`, which clips the label in place rather than parking it off-canvas, so it stays in the accessibility tree without widening the page in a right-to-left document. Give an icon-only button an accessible name. If a page has multiple search landmarks, give each a distinct accessible label. Use the package icon sprite for the slim search icon and adjust its URL for your deployment.
+## Specifications
 
-Search is experimental. Human design and accessibility review remain open.
+### Variant classes
 
-## Examples
+| Class                        | USWDS class   | Use                                                                                                                                                                                |
+| ---------------------------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `cods-search`                | `usa-search`  | Required on the `form` element.                                                                                                                                                    |
+| `cods-search--default`       | —             | Visible label above the input and a text submit button, separated by a gap.                                                                                                        |
+| `cods-search--compact`       | —             | Visually hidden label; the input and text submit button are joined.                                                                                                                |
+| `cods-search--slim`          | —             | Visually hidden label; small input joined to an icon-only slim button. Add `cods-input__control--small` to the input and `cods-button--slim cods-button--icon-only` to the button. |
+| `cods-search__controls`      | —             | Wraps the input and submit button in a row. Required.                                                                                                                              |
+| `cods-search__label--hidden` | `usa-sr-only` | Hides the label visually while keeping it available to assistive technologies. Use it instead of `usa-sr-only`.                                                                    |
 
-The examples and copyable markup come from the component fixture.
+The input uses the Input component's `usa-input cods-input__control` classes, the label uses `usa-label cods-input__label`, and the button uses the Button component's `usa-button cods-button` classes.
+
+Search has no component-specific custom properties.
+
+### Connecting your search endpoint
+
+Set the form's `action` to your search results page and `method="get"`, and set the input's `name` to your endpoint's query parameter. The examples use `action="/search/"` and `name="q"`. The form submits without JavaScript. The preview forms on this page submit to this page, so they show the submitted query in the address bar but do not return search results.
+
+### Adding the search icon
+
+The slim variant's icon references the package icon sprite with `<use href="/icons/sprite.svg#magnifying-glass">`. Change the sprite URL to where your deployment serves `icons/sprite.svg` from the package.
