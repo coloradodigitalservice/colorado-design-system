@@ -93,10 +93,10 @@ const { Content } = await render(entry);
         <ComponentSummary component="input" figma={entry.data.figma} />
       </>
     )}
-    {entry.id === 'card' && (
+    {(entry.id === 'card-default' || entry.id === 'card-icon') && (
       <>
         <p class="cods-docs-lead">{entry.data.description}</p>
-        <CardExamples />
+        <CardExamples variant={entry.id === 'card-icon' ? 'icon' : 'default'} />
         <ComponentStatus
           metadata={cardMetadata}
           accessibility={entry.data.accessibilityStatus!}

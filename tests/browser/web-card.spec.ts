@@ -1,84 +1,119 @@
-// Card documentation page. The page previews the Default and Icon variants and
-// the common layouts; engine-sensitive behavior for those states runs here in
-// all three browsers. States the preview does not show (long content, RTL,
-// icon external, icon long content) are covered in storybook-card.spec.ts.
+// Card documentation pages. /card-default/ and /card-icon/ follow the Figma
+// Default Card and Icon Card frames; engine-sensitive behavior for the previewed
+// states runs here in all three browsers. Long content and RTL states are
+// covered in storybook-card.spec.ts.
 import { test, expect, expectAccessible } from './fixtures.js';
 
 const preview = (name: string) => `[data-cods-docs-preview-state="${name}"]`;
 
-test('card page follows the component page outline', async ({
-  page,
-}, testInfo) => {
-  await page.goto('/card/');
-  const main = page.locator('main');
-  expect(await main.locator('h2').allTextContents()).toEqual([
-    'Component preview',
-    'Component code',
-    'Component status',
-    'Guidance',
-    'Specifications',
-  ]);
-  const subheadings = await main
-    .locator('.cods-docs-content > h3')
-    .allTextContents();
-  expect(subheadings).toEqual([
-    'When to use',
-    'Accessibility for cards',
-    'Variants and elements',
-    'Adding icons',
-    'Setup and limitations',
-  ]);
+const pages = [
+  {
+    path: '/card-default/',
+    figma: 'node-id=1624-459',
+    subheadings: [
+      'When to use',
+      'Accessibility for default cards',
+      'Variants and elements',
+      'Setup and limitations',
+    ],
+    states: [
+      'default',
+      'with-media',
+      'flag',
+      'media-only',
+      'internal-links',
+      'default-external',
+      'grid',
+    ],
+    codeClass: 'cods-card--flag',
+    absentClass: 'cods-card--icon',
+  },
+  {
+    path: '/card-icon/',
+    figma: 'node-id=2246-770',
+    subheadings: [
+      'When to use',
+      'Accessibility for icon cards',
+      'Variants and elements',
+      'Adding icons',
+      'Setup and limitations',
+    ],
+    states: ['icon', 'icon-external'],
+    codeClass: 'cods-card--icon',
+    absentClass: 'cods-card--flag',
+  },
+];
 
-  const states = [
-    'default',
-    'with-media',
-    'flag',
-    'media-only',
-    'internal-links',
-    'default-external',
-    'grid',
-    'icon',
-  ];
-  expect(
-    await page
-      .locator('[data-cods-docs-preview-state]')
-      .evaluateAll((figures) =>
-        figures.map((figure) =>
-          figure.getAttribute('data-cods-docs-preview-state'),
+for (const card of pages)
+  test(`${card.path} follows the component page outline`, async ({
+    page,
+  }, testInfo) => {
+    await page.goto(card.path);
+    const main = page.locator('main');
+    expect(await main.locator('h2').allTextContents()).toEqual([
+      'Component preview',
+      'Component code',
+      'Component status',
+      'Guidance',
+      'Specifications',
+    ]);
+    expect(
+      await main.locator('.cods-docs-content > h3').allTextContents(),
+    ).toEqual(card.subheadings);
+    expect(
+      await page
+        .locator('[data-cods-docs-preview-state]')
+        .evaluateAll((figures) =>
+          figures.map((figure) =>
+            figure.getAttribute('data-cods-docs-preview-state'),
+          ),
         ),
-      ),
-  ).toEqual(states);
-  const code = page.locator('[data-cods-docs-preview-code]');
-  for (const className of ['cods-card--flag', 'cods-card--icon'])
-    await expect(code).toContainText(className);
+    ).toEqual(card.states);
+    const code = page.locator('[data-cods-docs-preview-code]');
+    await expect(code).toContainText(card.codeClass);
+    await expect(code).not.toContainText(card.absentClass);
 
-  const status = page.locator('[data-cods-docs-status]');
-  await expect(status).toContainText('Card maturity is experimental');
-  await expect(status).toContainText('Manual accessibility review is pending');
-  await expect(
-    status.getByRole('link', { name: 'USWDS 3.14.0 Card' }),
-  ).toBeVisible();
-  await expect(
-    status.getByRole('link', { name: 'Accessibility evidence' }),
-  ).toHaveAttribute('href', /\/card\/accessibility\/card\.evidence\.md$/);
-  await expect(
-    main.getByRole('link', { name: 'Default Card', exact: true }),
-  ).toHaveAttribute('href', /node-id=1624-459/);
-  await expect(
-    main.getByRole('link', { name: 'Icon Card', exact: true }),
-  ).toHaveAttribute('href', /node-id=2246-770/);
+    const status = page.locator('[data-cods-docs-status]');
+    await expect(status).toContainText('Card maturity is experimental');
+    await expect(status).toContainText(
+      'Manual accessibility review is pending',
+    );
+    await expect(
+      status.getByRole('link', { name: 'USWDS 3.14.0 Card' }),
+    ).toBeVisible();
+    await expect(
+      status.getByRole('link', { name: 'Accessibility evidence' }),
+    ).toHaveAttribute('href', /\/card\/accessibility\/card\.evidence\.md$/);
+    const figmaLinks = main.locator('a[href*="figma.com"]');
+    expect(await figmaLinks.count()).toBeGreaterThan(0);
+    for (const link of await figmaLinks.all())
+      await expect(link).toHaveAttribute('href', new RegExp(card.figma));
 
-  // The public page omits localization guidance and the examples catalogue.
-  await expect(main).not.toContainText(/right-to-left|localization/i);
-  await expect(page.locator('[data-cods-fixture-state]')).toHaveCount(0);
-  await expectAccessible(page, testInfo);
+    // The public page omits localization guidance and the examples catalogue.
+    await expect(main).not.toContainText(/right-to-left|localization/i);
+    await expect(page.locator('[data-cods-fixture-state]')).toHaveCount(0);
+    await expectAccessible(page, testInfo);
+  });
+
+test('the card pages link to each other', async ({ page }) => {
+  await page.goto('/card-default/');
+  await page
+    .locator('main')
+    .getByRole('link', { name: 'Icon Card', exact: true })
+    .click();
+  await expect(page).toHaveURL(/\/card-icon\/$/);
+  await page
+    .locator('main')
+    .getByRole('link', { name: 'Default Card', exact: true })
+    .click();
+  await expect(page).toHaveURL(/\/card-default\/$/);
 });
 
 test('card links and responsive grid work on the documentation page', async ({
   page,
   browserName,
 }) => {
-  await page.goto('/card/');
+  await page.goto('/card-default/');
   const multi = page.locator(preview('internal-links'));
   const first = multi.getByRole('link', { name: 'application guide' });
   const second = multi.getByRole('link', { name: 'Get application help' });
@@ -120,7 +155,7 @@ test('card links and responsive grid work on the documentation page', async ({
 test('with-media card content and image stay in place on hover', async ({
   page,
 }) => {
-  await page.goto('/card/');
+  await page.goto('/card-default/');
   const card = page.locator(`${preview('with-media')} .cods-card__link`);
   await card.scrollIntoViewIfNeeded();
   await page.mouse.move(0, 0);
@@ -145,7 +180,7 @@ test('with-media card content and image stay in place on hover', async ({
 test('default card changes border color and width on hover', async ({
   page,
 }) => {
-  await page.goto('/card/');
+  await page.goto('/card-default/');
   await page.mouse.move(0, 0);
   const card = page.locator(`${preview('default')} .cods-card__container`);
   await expect(card).toHaveCSS('border-top-width', '1px');
@@ -160,7 +195,10 @@ test('default card changes border color and width on hover', async ({
 test('icon card keeps its icon and text in place on hover', async ({
   page,
 }) => {
-  await page.goto('/card/');
+  await page.goto('/card-icon/');
+  await expect(
+    page.locator(`${preview('icon-external')} .cods-card__link`),
+  ).toHaveAccessibleName(/Visit USA.gov.*external site/);
   const icon = page.locator(`${preview('icon')} .cods-card__link`);
   // Measure in place: hovering must not scroll the card between readings.
   await icon.scrollIntoViewIfNeeded();
@@ -200,7 +238,7 @@ test('icon card keeps its icon and text in place on hover', async ({
 });
 
 test('flag card changes from side-by-side to stacked', async ({ page }) => {
-  await page.goto('/card/');
+  await page.goto('/card-default/');
   const flag = page.locator(preview('flag'));
   const media = flag.locator('.cods-card__media');
   const heading = flag.locator('.cods-card__header');
@@ -218,7 +256,7 @@ test('a flag card responds to its container at desktop viewport width', async ({
   page,
 }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
-  await page.goto('/card/');
+  await page.goto('/card-default/');
   const flag = page.locator(`${preview('flag')} .cods-card`);
   const media = flag.locator('.cods-card__media');
   const img = flag.locator('.cods-card__image');
@@ -247,7 +285,7 @@ test('a flag card responds to its container at desktop viewport width', async ({
 test('cards with individual links do not show whole-card hover', async ({
   page,
 }) => {
-  await page.goto('/card/');
+  await page.goto('/card-default/');
   const unlinked = page.locator(
     `${preview('internal-links')} .cods-card__container`,
   );

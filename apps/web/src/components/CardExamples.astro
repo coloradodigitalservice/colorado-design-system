@@ -3,20 +3,31 @@ import examples from '@coloradodigitalservice/colorado-design-system/examples/ca
 import metadata from '@coloradodigitalservice/colorado-design-system/metadata/card.json';
 import spriteUrl from '@coloradodigitalservice/colorado-design-system/icons/sprite.svg?url';
 import ComponentPreview from './ComponentPreview.astro';
+
+interface Props {
+  variant: 'default' | 'icon';
+}
+
+const variants = {
+  default: [
+    { state: 'default', label: 'Default' },
+    { state: 'with-media', label: 'With media' },
+    { state: 'flag', label: 'Flag' },
+    { state: 'media-only', label: 'Media only' },
+    { state: 'internal-links', label: 'Links inside a card' },
+    { state: 'default-external', label: 'External destination' },
+    { state: 'grid', label: 'Card group' },
+  ],
+  icon: [
+    { state: 'icon', label: 'Icon' },
+    { state: 'icon-external', label: 'External destination' },
+  ],
+}[Astro.props.variant];
 ---
 
 <ComponentPreview
   displayName={metadata.displayName}
   examples={examples.examples}
   spriteUrl={spriteUrl}
-  variants={[
-    { state: 'default', label: 'Default' },
-    { state: 'with-media', label: 'Default with media' },
-    { state: 'flag', label: 'Flag' },
-    { state: 'media-only', label: 'Media only' },
-    { state: 'internal-links', label: 'Links inside a card' },
-    { state: 'default-external', label: 'External destination' },
-    { state: 'grid', label: 'Card group' },
-    { state: 'icon', label: 'Icon' },
-  ]}
+  variants={variants}
 />
