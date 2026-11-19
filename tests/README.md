@@ -171,6 +171,11 @@ and scans its rendered `#storybook-root` after checking it is nonempty.
 Storybook test URLs set `globals=a11y.manual:!true` so the addon does not
 start a competing axe scan. Playwright owns the automated scan and still fails
 on violations; normal Storybook visits retain the addon’s automatic checks.
+The shared browser fixture replaces Vimeo video embeds with a local mock response
+so smoke and component tests do not depend on the third-party player or its
+console output. These tests do not verify real Vimeo playback or accessibility.
+The Card Storybook hover test mocks the external example image and waits for it
+to decode before interacting, avoiding layout shifts after stories render.
 
 `expectAccessible` scans WCAG 2.0/2.1 A/AA and WCAG 2.2 AA tags. Omit its optional
 selector for a complete page scan; use a selector only for an isolated story.
@@ -194,6 +199,17 @@ so the visited-link rule is verified by reading the compiled rule: the last
 `--cods-color-text-action-link-visited`. `storybook-accordion.spec.ts` checks the
 focused trigger's ring and its forced-colors system highlight. Build the design
 system (`pnpm build`) before running it. See [ADR-007](../docs/adrs/007-cascade-layer-order.md).
+
+The documentation shell renders `<main id="main-content" class="cods-docs-main"
+tabindex="-1">` as the skip link's destination. The negative tabindex is
+intentional: it lets the skip link move keyboard and screen-reader context into
+the content without adding the landmark to the Tab order. Because USWDS draws a
+ring on every focused `[tabindex]` element, `site.css` suppresses the outline on
+`.cods-docs-main:focus` only. Never remove the tabindex to hide the ring, and
+never widen the suppression to descendants. `web-shell-focus.spec.ts` guards this
+contract: pointer clicks and skip-link activation leave no container ring, the
+skip link and the next Tab stop inside main keep visible indicators (including in
+Chromium's forced-colors emulation), and main keeps `tabindex="-1"`.
 
 ## Visual regression conventions
 

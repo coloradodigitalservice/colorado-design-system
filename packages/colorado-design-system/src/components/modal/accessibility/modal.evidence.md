@@ -2,7 +2,7 @@
 
 **Maturity:** experimental  
 **Reviewer:** Claude, automated checks; human review pending  
-**Date:** 2026-11-10  
+**Date:** 2026-11-17  
 **Tracking:** CODS-P3-033 / CDS-81
 
 ## Keyboard and focus
@@ -38,10 +38,13 @@
 
 ## Open items
 
-- **Checked against Figma Modal (Desktop) in dev mode** (node `4722-7229`): 480px wide, `--cods-radius-lg` (8px), `surface/modal` background, `elevation-mid` shadow (`0 8px 16px rgba(0,0,0,0.12)`), 24px padding, a filled primary action beside an outline secondary action, and a 24px `x-mark` icon in `icon/action/link/secondary`. The component token inventory's Modal entry did not list the elevation, shadow or secondary-icon tokens; it has been updated from what the design actually specifies, and a design owner should confirm that edit.
+- **Checked against Figma Modal in dev mode** (page node `3381-4959`; desktop forced-action variant `4722-7208`, mobile forced-action variant `4722-7149`). Desktop variants: 480px wide, a 40px top spacer row (12px above the 24px close icon, 4px below it), then content padded 4px top, 32px at the sides and 32px at the bottom (a 416px text area). Mobile variants: 343px wide at a 375px viewport (16px page gutters, so 288px at 320px), a 48px top spacer, 32px side and bottom padding, and full-width, equal-width stacked actions. Both: 24px between heading, description and actions; `--cods-radius-lg` (8px); `surface/modal` background; `elevation-mid` shadow (`0 8px 16px rgba(0,0,0,0.12)`); a filled primary action beside an outline secondary action; and a 24px `x-mark` icon in `icon/action/link/secondary`, 12px from the top and end edges. The forced-action variant keeps the top spacer although it has no close button. An earlier revision of this file recorded 24px padding; that was wrong and the styles now use 32px. The component token inventory's Modal entry did not list the elevation, shadow or secondary-icon tokens; it has been updated from what the design actually specifies, and a design owner should confirm that edit.
 - **Overlay color is a known gap.** Figma defines no Colorado overlay or scrim token, so the page overlay keeps USWDS's default rather than a guessed value. A design owner must supply the token, after which the overlay moves into the component partial. Recorded here rather than hard-coded, per the themed-USWDS workflow.
 - **Triggers are buttons, not anchors.** USWDS's own example markup uses `<a href="#id">`, which its behavior converts to `role="button"` and binds a `preventDefault` listener that its teardown never removes. CoDS authors the trigger as a `<button>`, which the same behavior supports. This is a markup choice within USWDS's supported options, not a behavioral divergence, so `componentType` stays `A`; a design and accessibility reviewer should confirm.
 - **The dialog is relocated on init.** USWDS appends the dialog to `document.body` so the rest of the page can be hidden from assistive technology. Consumers styling or querying ancestors of the authored dialog need to know this; it is documented on the public page.
+- **Programmatic close activates no action.** `closeModal()` and `destroyModal()` close through the same USWDS path as `Escape`, so they never run an action's handler and still work when an action is disabled. Unit tests assert that neither clicks an action.
+- **Teardown removes USWDS's trigger listeners itself.** USWDS 3.14.0's `teardown` looks triggers up by the dialog id after setup has moved that id onto the wrapper, so it unbinds nothing; a click on a destroyed trigger would then lock and hide the page. The controller unbinds them and removes the trigger id USWDS generates. Unit tests cover a post-destroy click and an open, close, destroy and re-initialize round trip.
+- **Duplicate ids are rejected.** A dialog whose id, heading id or description id is not unique on the page is not enhanced, because USWDS would resolve the wrong element and lock the page with no visible dialog. If a copy with the same id is added after initialization, the existing trigger warns and refuses to open instead of resolving the copy.
 - **Nested and stacked modals are out of scope** for `1.0.x` and are untested. The controller enhances one dialog per root.
 - Without JavaScript the dialog content stays inline and the trigger is inert, so `progressiveEnhancement` is `partial`. A content reviewer must confirm each documented example still reads correctly in place.
 - A human screen-reader tester and State accessibility owner must complete the manual evidence and acceptance. The component remains experimental.

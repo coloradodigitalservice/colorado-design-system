@@ -1,10 +1,15 @@
 import { defineConfig, type Plugin } from 'vite';
 import dts from 'vite-plugin-dts';
+import { readFileSync } from 'node:fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { writeComponentAssets } from '../../scripts/component-fixtures.mjs';
 import { writeDistIcons } from './build/icons.mjs';
-import { copiedAssets } from './build/packaged-assets.js';
+import {
+  copiedAssets,
+  cssAssetReferences,
+  replaceUswdsIconUrls,
+} from './build/packaged-assets.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -12,6 +17,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const packageAssets = copiedAssets({
   fonts: path.resolve(__dirname, 'src/assets/fonts'),
   img: path.resolve(__dirname, 'node_modules/@uswds/uswds/dist/img'),
+  licenses: path.resolve(__dirname, 'src/assets/licenses'),
 });
 
 function componentAssetsPlugin(): Plugin {
@@ -26,10 +32,36 @@ function componentAssetsPlugin(): Plugin {
 function iconAssetsPlugin(): Plugin {
   return {
     name: 'write-phosphor-icons',
-    async writeBundle(options) {
-      await writeDistIcons(
-        path.resolve(__dirname, options.dir ?? 'dist', 'icons'),
-      );
+    async writeBundle(options, bundle) {
+      const output = path.resolve(__dirname, options.dir ?? 'dist');
+      const files = new Set<string>();
+      for (const name of Object.keys(bundle)) {
+        if (!name.endsWith('.css')) continue;
+        const stylesheet = path.resolve(output, name);
+        const css = replaceUswdsIconUrls(readFileSync(stylesheet, 'utf8'));
+        for (const reference of cssAssetReferences(css, stylesheet)) {
+          if (reference.startsWith(`icons${path.sep}`))
+            files.add(reference.slice(`icons${path.sep}`.length));
+        }
+      }
+      await writeDistIcons(path.resolve(output, 'icons'), { files });
+    },
+  };
+}
+
+function logoAssetsPlugin(): Plugin {
+  return {
+    name: 'copy-logo-assets',
+    buildStart() {
+      for (const name of ['cods-logo.svg', 'NOTICE.md']) {
+        const source = path.resolve(__dirname, 'src/assets/logos', name);
+        this.addWatchFile(source);
+        this.emitFile({
+          type: 'asset',
+          fileName: `logos/${name}`,
+          source: readFileSync(source),
+        });
+      }
     },
   };
 }
@@ -56,6 +88,7 @@ export default defineConfig({
       },
     }),
     iconAssetsPlugin(),
+    logoAssetsPlugin(),
     packageAssets.plugin,
     componentAssetsPlugin(),
   ],

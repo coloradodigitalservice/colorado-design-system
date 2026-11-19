@@ -1,6 +1,6 @@
 {
   "name": "toast",
-  "displayName": "Toast",
+  "displayName": "Toast/Snackbar",
   "maturity": "experimental",
   "type": "interactive",
   "uswdsEquivalent": null,
@@ -14,7 +14,7 @@
   },
   "divergenceApproved": false,
   "divergenceNotes": null,
-  "states": ["default"],
+  "states": ["default", "icon", "action"],
   "progressiveEnhancement": "partial",
   "localization": "text-content-only",
   "description": "Experimental supplemental notifications. Prefer persistent, contextual feedback; transient messages must duplicate information available elsewhere.",
@@ -22,6 +22,18 @@
     {
       "state": "default",
       "fixtureState": "default",
+      "setup": "none",
+      "instructions": ""
+    },
+    {
+      "state": "icon",
+      "fixtureState": "icon",
+      "setup": "none",
+      "instructions": ""
+    },
+    {
+      "state": "action",
+      "fixtureState": "action",
       "setup": "none",
       "instructions": ""
     }

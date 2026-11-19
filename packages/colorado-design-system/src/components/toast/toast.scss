@@ -13,7 +13,7 @@
     z-index: 1000;
     inset-block-end: var(--cods-space-md);
     inset-inline-end: var(--cods-space-md);
-    width: min(24rem, calc(100vw - 2 * var(--cods-space-md)));
+    width: min(20rem, calc(100vw - 2 * var(--cods-space-md)));
     max-height: calc(100dvh - 2 * var(--cods-space-md));
     overflow-y: auto;
     display: grid;
@@ -25,12 +25,18 @@
     align-items: center;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: var(--cods-space-md);
-    padding: var(--cods-space-md);
+    gap: var(--cods-space-sm);
+    padding: var(--cods-space-sm);
     border-radius: var(--cods-radius-lg);
     background: var(--cods-component-toast-background);
+    box-shadow: var(--cods-elevation-high-x) var(--cods-elevation-high-y)
+      var(--cods-elevation-high-blur) var(--cods-elevation-high-spread)
+      color-mix(in srgb, var(--cods-color-shadow) 12%, transparent);
     color: var(--cods-color-white);
     font-family: var(--cods-font-family-body);
+    font-size: var(--cods-font-size-desktop-ui);
+    font-weight: var(--cods-font-weight-semibold);
+    line-height: var(--cods-line-height-desktop-ui);
     overflow-wrap: anywhere;
     animation: cods-toast-enter 250ms ease-out;
   }
@@ -80,8 +86,7 @@
 
   .cods-toast__action:focus-visible,
   .cods-toast__dismiss:focus-visible {
-    outline: var(--cods-focus-ring-width) solid
-      var(--cods-color-bg-action-focus);
+    outline: var(--cods-focus-ring-width) solid var(--cods-color-focus-toast);
     outline-offset: var(--cods-focus-ring-offset);
   }
 

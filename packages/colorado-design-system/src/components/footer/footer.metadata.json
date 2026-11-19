@@ -1,0 +1,33 @@
+{
+  "name": "footer",
+  "displayName": "Footer",
+  "maturity": "experimental",
+  "type": "interactive",
+  "uswdsEquivalent": "footer",
+  "uswdsVersion": "3.14.0",
+  "componentType": "A",
+  "owners": {
+    "responsible": "Aten component engineer",
+    "accountable": "Aten technical lead",
+    "consulted": "Design, accessibility, and content roles",
+    "informed": "State product owner"
+  },
+  "divergenceApproved": false,
+  "divergenceNotes": null,
+  "states": ["full", "compact"],
+  "progressiveEnhancement": "partial",
+  "localization": "layout-sensitive",
+  "examples": [
+    {
+      "state": "full",
+      "fixtureState": "full",
+      "setup": "none"
+    },
+    {
+      "state": "compact",
+      "fixtureState": "compact",
+      "setup": "none"
+    }
+  ],
+  "description": "A Colorado-themed USWDS footer with mobile Full navigation disclosures and a static Compact variant."
+}

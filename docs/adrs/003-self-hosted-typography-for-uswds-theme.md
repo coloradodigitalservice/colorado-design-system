@@ -20,13 +20,16 @@ These were resolved in-session (not pre-planned) while responding to review feed
 
 ### 1. Self-hosting over CDN
 
-Colorado's three brand fonts (Open Sans, Museo Slab, Source Code Pro) are self-hosted as WOFF2 files in `packages/colorado-design-system/src/assets/fonts/`, copied into `dist/fonts/` by a Vite plugin (`vite.config.ts`), rather than loaded from a third-party CDN (e.g., Google Fonts). This avoids a third-party network dependency and is consistent with typical `.gov` privacy/reliability practice, and matches how USWDS self-hosts its own default fonts.
+Open Sans and Source Code Pro are self-hosted as WOFF2 files in `packages/colorado-design-system/src/assets/fonts/`, copied into `dist/fonts/` by a Vite plugin (`vite.config.ts`), rather than loaded from a third-party CDN. This avoids a third-party network dependency and is consistent with typical `.gov` privacy/reliability practice.
+
+**CODS-P2-009 amendment (2026-11-13):** The project owner reports that the client cannot procure Museo Slab redistribution rights and requests consumer download instructions instead. The project owner approved retaining the existing system-font fallback with optional consumer-supplied Museo Slab. Its binary and generated `@font-face` rule are removed; the family name and h1 weight remain unchanged. Consumers obtain their own suitable web-use license and self-host the provider's font files outside CoDS. See the [licensing decision](../licensing-plan.md) and [consumer setup guide](../../apps/web/src/content/docs/typography.md). CoDS performs no automatic download.
 
 ### 2. Font preparation
 
-- Source files (variable TTF/OTF, provided directly by the State) were instanced to the specific static weights Colorado's tokens use — 400/500/600 for Open Sans (roman + italic), 500 for Museo Slab (roman only), 400 for Source Code Pro (roman + italic) — then converted to WOFF2, using `fonttools` in an isolated virtual environment (no system Python changes, no new repo dependency).
+- Open Sans variable TTF/OTF source was downloaded from Google Fonts, as confirmed by the project owner; its current SIL OFL 1.1 text is retained beside the derived WOFF2 files. Original variable sources used for font instancing were removed from the working tree after conversion at the State's direction.
+- Font files were originally instanced to the specific static weights Colorado's tokens use — 400/500/600 for Open Sans (roman + italic), 500 for Museo Slab (roman only), 400 for Source Code Pro (roman + italic) — then converted to WOFF2 using `fonttools` in an isolated virtual environment (no system Python changes, no new repo dependency). The Museo Slab derivative is now removed under CODS-P2-009.
 - **Cap-height** values required by USWDS's custom-typeface-token registration were measured directly from the delivered font files (`OS/2.sCapHeight / unitsPerEm * 500px`), not estimated. This cross-checked against USWDS's own published value for Open Sans (357px measured vs. 357px in USWDS's built-in token), validating the method.
-- Original variable-font source files were provided by the State and have since been removed from the working tree at the State's direction; only the derived WOFF2s are retained in the repository.
+- Original variable-font source files were provided by the State and have since been removed from the working tree at the State's direction; only Open Sans and Source Code Pro derived WOFF2s are retained in the repository.
 
 ### 3. Font-weight settings
 
@@ -42,21 +45,21 @@ Trebuchet MS is used as a fallback in the sans and serif stacks but is **not sel
 
 ### 6. Museo Slab weight limitation
 
-Only a weight-500 Museo Slab file was provided. Colorado's token set defines a 600 weight for headings generally, but per design-mock review, Museo Slab itself is only used at 500 in current mocks — no 600/700 Museo Slab file exists or is currently needed.
+Museo Slab is used only at weight 500 in current mocks. Colorado's token set defines a 600 weight for headings generally, but no 600/700 Museo Slab is currently needed. Consumers opting in supply their own licensed weight-500 normal webfont; CoDS ships none.
 
 ## Consequences
 
 ### Benefits
 
 1. Compiled CSS now names the correct fonts as primary (not USWDS defaults with Colorado fonts as afterthought fallbacks).
-2. All font weights Colorado's tokens actually reference now produce real `@font-face` rules (previously silently missing for 500/600).
+2. Bundled Open Sans and Source Code Pro weights produce real `@font-face` rules (previously silently missing for Open Sans 500/600). Museo Slab deliberately produces no font request.
 3. No third-party font CDN dependency; consistent with USWDS's own self-hosting model.
 4. Cap-height and other metrics are measured from source-of-truth files rather than guessed, consistent with the "no guesswork" precedent set for color tokens.
 
 ### Costs & risks
 
-1. **Licensing custody:** the repository now contains a Museo Slab binary. Open Sans (Apache 2.0) and Source Code Pro (SIL OFL) are unambiguously fine to redistribute; Museo Slab is a commercial font (exljbris/FontSpring); its license has been verified by the project owner (2026-10-02), and the license reference is to be stored with the font (see Open Questions).
-2. **No bold Museo Slab:** if a future design calls for Museo Slab at 600/700, a new font file is required; none exists today.
+1. **Licensing custody:** Open Sans and Source Code Pro copyright notices and SIL OFL 1.1 texts are stored beside their derived WOFF2 files. Museo Slab is excluded from the repository and release artifacts; consumers retain their own web-use acquisition record and comply with the applicable license. See the [CODS-P2-009 licensing plan](../licensing-plan.md).
+2. **Fallback metrics:** h1 uses its existing system-font stack without consumer-supplied Museo Slab. Consumers must check long headings, narrow widths, and zoom with both their chosen font and fallback. Additional Museo Slab weights would require separate consumer acquisition and a design decision.
 3. **Figma verification gap:** Figma MCP access hit a seat-tier rate limit during this work, so exact typography values were taken from Colorado's existing token package rather than cross-checked live against Figma. Should be spot-checked once access allows.
 4. **USWDS upgrade risk:** the `$theme-font-weight-*` defaulting-to-`false` behavior is undocumented in the settings table's plain-language description (it's implied by the default value, not called out as a gotcha). A future USWDS upgrade could change this default; the upgrade-review checklist (`docs/governance/USWDS-UPGRADE-POLICY.md`) should include a font-weight regression check.
 
@@ -88,9 +91,6 @@ Only a weight-500 Museo Slab file was provided. Colorado's token set defines a 6
 - **Informed:** Component contributors, product owner
 
 ## Open questions
-
-**Q: Is there a confirmed webfont license for Museo Slab permitting its inclusion in this repository?**
-A: Verified by the project owner on 2026-10-02. The license reference (and any required notice) should be recorded in the font's asset directory so it ships with the font.
 
 **Q: Should Museo Slab support additional weights (600/700)?**
 A: Not per current design mocks, which use it only at 500. If a future design need arises, a new font file and a corresponding ADR/decision-log update would be required.

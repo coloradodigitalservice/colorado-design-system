@@ -109,6 +109,7 @@ export interface TokenDictionary {
   readonly "color-elevation-shadow": string;
   readonly "color-focus-gap": string;
   readonly "color-focus-row": string;
+  readonly "color-focus-toast": string;
   readonly "color-icon-action-link": string;
   readonly "color-icon-action-link-active": string;
   readonly "color-icon-action-link-hover": string;

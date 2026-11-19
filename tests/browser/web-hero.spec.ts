@@ -199,9 +199,13 @@ test('a narrow Hero in a wide viewport uses the mobile design and retains a one-
 }) => {
   await page.setViewportSize({ width: 1484, height: 1034 });
   await page.goto('/hero/');
+  await page.locator('main').evaluate((element: HTMLElement) => {
+    element.style.maxInlineSize = '40rem';
+  });
   const hero = page.locator(
     '[data-cods-fixture-state="dark-banner"] .cods-hero',
   );
+  expect((await hero.boundingBox())!.width).toBeLessThanOrEqual(640);
   const trail = hero.getByRole('navigation', { name: 'Breadcrumb' });
   await expect(hero.locator('.cods-hero__heading')).toHaveCSS(
     'font-size',

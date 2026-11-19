@@ -42,7 +42,7 @@ USWDS releases are monitored on a **quarterly review schedule** (Jan, Apr, Jul, 
 
 1. Check USWDS release notes and changelog since last pinned version.
 2. Identify security advisories, accessibility fixes, and new features.
-3. Assess impact on CoDS Type A components (those reusing USWDS markup).
+3. Assess impact on CoDS components that use or map to USWDS equivalents, including Type A wrappers and Type C divergences.
 4. Flag any breaking changes in USWDS Sass APIs or CSS class names.
 
 **Outcome:** Decision matrix:
@@ -62,7 +62,7 @@ USWDS releases are monitored on a **quarterly review schedule** (Jan, Apr, Jul, 
    - Confirm Sass compilation succeeds with new USWDS load paths.
    - Run existing Vitest unit tests.
    - Verify generated CSS output reflects CoDS tokens correctly.
-3. **Aten:** Run visual regression tests on all Type A components:
+3. **Aten:** Run visual regression tests on all Type A components and Type C components with a USWDS equivalent:
    - Compare before/after screenshots with new USWDS version.
    - Document any visual shifts or behavioral changes.
 4. **State technical owner:** Review change summary and test results.

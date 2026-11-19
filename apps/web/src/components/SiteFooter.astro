@@ -1,0 +1,137 @@
+---
+import { version } from '@coloradodigitalservice/colorado-design-system/package.json';
+import spriteUrl from '@coloradodigitalservice/colorado-design-system/icons/sprite.svg?url';
+
+const year = new Date().getFullYear();
+const contactLinks = [
+  { label: 'Email us', href: 'mailto:oit@state.co.us' },
+  {
+    label: 'GitHub',
+    href: 'https://github.com/coloradodigitalservice/colorado-design-system',
+  },
+  {
+    label: 'LinkedIn',
+    href: "https://www.linkedin.com/company/state-of-colorado-governor's-office-of-information-technology/home/",
+  },
+];
+const policyLinks = [
+  {
+    label: 'Accessibility',
+    href: 'https://www.colorado.gov/accessibility-standards',
+  },
+  {
+    label: 'Financial Transparency',
+    href: 'https://data.colorado.gov/stories/s/fjyf-bdat',
+  },
+  { label: 'Data Terms', href: 'https://www.colorado.gov/general-notices' },
+  { label: 'Privacy', href: 'https://www.colorado.gov/general-notices' },
+];
+---
+
+<footer
+  class="usa-footer usa-footer--slim cods-footer cods-footer--compact cods-docs-footer"
+  aria-label="Colorado Design System"
+>
+  <div class="cods-docs-container cods-footer__return-to-top">
+    <a href="#top">
+      <svg
+        class="cods-icon cods-icon--small"
+        aria-hidden="true"
+        focusable="false"
+        width="16"
+        height="16"
+        viewBox="0 0 256 256"
+      >
+        <use href={`${spriteUrl}#arrow-up`} />
+      </svg>
+      Return to top
+    </a>
+  </div>
+  <div class="usa-footer__primary-section cods-footer__primary-section">
+    <div class="cods-docs-container">
+      <nav
+        class="usa-footer__nav cods-footer__nav"
+        aria-labelledby="site-footer-contact"
+      >
+        <h2
+          id="site-footer-contact"
+          class="cods-footer__heading cods-docs-footer__heading"
+        >
+          Contact Us
+        </h2>
+        <ul class="usa-list usa-list--unstyled cods-footer__links">
+          {contactLinks.map(({ label, href }) => (
+            <li>
+              <a href={href}>{label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div class="usa-footer__secondary-section cods-footer__secondary-section">
+    <div class="cods-docs-container">
+      <div class="cods-footer__legal">
+        <p class="cods-footer__copyright">
+          Copyright &copy; {year} State of Colorado
+        </p>
+        <nav class="cods-footer__legal-nav" aria-label="Site policies">
+          <ul class="cods-footer__legal-list">
+            {policyLinks.map(({ label, href }) => (
+              <li>
+                <a href={href}>{label}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+      <p class="cods-docs-footer__release">
+        Development release <span data-cods-release={version}>{version}</span>.
+        Not a supported release.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .cods-docs-footer {
+    font-size: var(--cods-font-size-desktop-body-sm);
+    line-height: var(--cods-line-height-desktop-body-sm);
+  }
+
+  .cods-footer__return-to-top {
+    padding-block: var(--cods-space-lg);
+  }
+
+  .cods-docs-footer__heading {
+    margin: 0;
+    padding-block: var(--cods-space-md);
+  }
+
+  .cods-footer__links a,
+  .cods-footer__legal-list a,
+  .cods-footer__return-to-top a {
+    font-size: var(--cods-font-size-desktop-ui-sm);
+    line-height: var(--cods-line-height-desktop-ui-sm);
+  }
+
+  @media (width >= 40rem) {
+    .cods-footer__legal-list {
+      gap: var(--cods-space-md);
+    }
+  }
+
+  .cods-footer__legal-list a {
+    color: var(--cods-color-text-primary);
+  }
+
+  .cods-docs-footer__release {
+    margin-block: var(--cods-space-sm) 0;
+  }
+
+  @media (forced-colors: active) {
+    .cods-footer__legal-list a {
+      color: LinkText;
+    }
+  }
+</style>

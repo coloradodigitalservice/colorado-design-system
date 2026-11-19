@@ -1,7 +1,12 @@
 <div data-cods-fixture-state="default">
   <h2>Notification example</h2>
   <p>This example also shows the status next to the action.</p>
-  <button type="button" class="usa-button cods-button" data-cods-toast-demo>
+  <button
+    type="button"
+    class="usa-button cods-button"
+    data-cods-toast-demo
+    data-cods-toast-message="Changes saved."
+  >
     Save changes
   </button>
   <p data-cods-toast-demo-status>Changes have not been saved.</p>
@@ -10,6 +15,81 @@
     data-cods-toast
     role="region"
     aria-label="Notifications"
+  >
+    <div
+      class="cods-toast__announcer"
+      data-cods-toast-polite
+      role="status"
+      aria-atomic="true"
+    ></div>
+    <div
+      class="cods-toast__announcer"
+      data-cods-toast-assertive
+      role="alert"
+      aria-atomic="true"
+    ></div>
+    <div class="cods-toast__list" data-cods-toast-list></div>
+  </div>
+</div>
+<div data-cods-fixture-state="icon">
+  <h2>Icon example</h2>
+  <p>The icon is decorative; the message states the result.</p>
+  <button
+    type="button"
+    class="usa-button cods-button"
+    data-cods-toast-demo
+    data-cods-toast-message="Response submitted."
+    data-cods-toast-icon="/icons/sprite.svg#check"
+  >
+    Submit response
+  </button>
+  <p data-cods-toast-demo-status>Response not submitted.</p>
+  <div
+    class="cods-toast"
+    data-cods-toast
+    role="region"
+    aria-label="Icon example notifications"
+  >
+    <div
+      class="cods-toast__announcer"
+      data-cods-toast-polite
+      role="status"
+      aria-atomic="true"
+    ></div>
+    <div
+      class="cods-toast__announcer"
+      data-cods-toast-assertive
+      role="alert"
+      aria-atomic="true"
+    ></div>
+    <div class="cods-toast__list" data-cods-toast-list></div>
+  </div>
+</div>
+<div data-cods-fixture-state="action">
+  <h2>Action example</h2>
+  <p>Undo stays available beside the content as well as in the notification.</p>
+  <button
+    type="button"
+    class="usa-button cods-button"
+    data-cods-toast-demo
+    data-cods-toast-message="Contact information has been updated."
+    data-cods-toast-action="Undo"
+  >
+    Update contact information
+  </button>
+  <button
+    type="button"
+    class="usa-button usa-button--outline cods-button"
+    data-cods-toast-context-action
+  >
+    Undo contact information update
+  </button>
+  <p data-cods-toast-demo-status>Contact information has not been updated.</p>
+  <div
+    class="cods-toast"
+    data-cods-toast
+    role="region"
+    aria-label="Action example notifications"
   >
     <div
       class="cods-toast__announcer"

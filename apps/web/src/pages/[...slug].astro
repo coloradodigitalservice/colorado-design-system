@@ -1,7 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import '@coloradodigitalservice/colorado-design-system/styles.css';
 import InPageAlertExamples from '../components/InPageAlertExamples.astro';
 import SiteAlertExamples from '../components/SiteAlertExamples.astro';
 import CheckboxExamples from '../components/CheckboxExamples.astro';
@@ -16,8 +15,10 @@ import CardExamples from '../components/CardExamples.astro';
 import LinkExamples from '../components/LinkExamples.astro';
 import DividerExamples from '../components/DividerExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
-import IconCatalog from '../components/IconCatalog.astro';
+import ComponentStatus from '../components/ComponentStatus.astro';
+import accordionMetadata from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
 import IconExamples from '../components/IconExamples.astro';
+import FooterExamples from '../components/FooterExamples.astro';
 import InputExamples from '../components/InputExamples.astro';
 import IconListExamples from '../components/IconListExamples.astro';
 import HeroExamples from '../components/HeroExamples.astro';
@@ -26,6 +27,8 @@ import TagsExamples from '../components/TagsExamples.astro';
 import SearchExamples from '../components/SearchExamples.astro';
 import ProcessListExamples from '../components/ProcessListExamples.astro';
 import ModalExamples from '../components/ModalExamples.astro';
+import InPageNavigationExamples from '../components/InPageNavigationExamples.astro';
+import LogoExample from '../components/LogoExample.astro';
 import ToastExamples from '../components/ToastExamples.astro';
 
 export async function getStaticPaths() {
@@ -43,6 +46,7 @@ const { Content } = await render(entry);
 <BaseLayout title={entry.data.title} description={entry.data.description}>
   <article class="cods-docs-content">
     <h1>{entry.data.title}</h1>
+    {entry.id === 'logos' && <LogoExample />}
     {entry.id === 'site-alert' && (
       <>
         <p>
@@ -56,17 +60,28 @@ const { Content } = await render(entry);
     {entry.id === 'button' && <ButtonExamples mode="default" />}
     {entry.id === 'accordion' && (
       <>
-        <p>
-          Accordion shows and hides related sections of content. Its maturity is{' '}
-          <strong>experimental</strong> in the <code>0.x</code> development
-          series.
-        </p>
+        <p class="cods-docs-lead">{entry.data.description}</p>
         <AccordionExamples />
+        <ComponentStatus
+          metadata={accordionMetadata}
+          accessibility={entry.data.accessibilityStatus!}
+          figma={entry.data.figma}
+        />
+      </>
+    )}
+    {entry.id === 'footer' && (
+      <>
+        <p>
+          Footer provides full and compact Colorado-themed site navigation. Its
+          maturity is <strong>experimental</strong> in the <code>0.x</code>{' '}
+          development series.
+        </p>
+        <FooterExamples />
       </>
     )}
     {entry.id === 'breadcrumbs' && <BreadcrumbsExamples />}
     {entry.id === 'modal' && <ModalExamples />}
-
+    {entry.id === 'in-page-navigation' && <InPageNavigationExamples />}
     {entry.id === 'radio' && <RadioExamples />}
     {entry.id === 'combo-box' && <ComboBoxExamples />}
     {entry.id === 'language-selector' && <LanguageSelectorExamples />}
@@ -97,7 +112,7 @@ const { Content } = await render(entry);
       entry.id === 'hero' ||
       entry.id === 'radio' ||
       entry.id === 'site-alert' ||
-      entry.id === 'accordion' ||
+      entry.id === 'footer' ||
       entry.id === 'breadcrumbs' ||
       entry.id === 'link' ||
       entry.id === 'checkbox' ||
@@ -124,7 +139,6 @@ const { Content } = await render(entry);
     {entry.id === 'in-page-alert' && <InPageAlertExamples mode="remaining" />}
     {entry.id === 'button' && <ButtonExamples mode="remaining" />}
     {entry.id === 'icon' && <IconExamples />}
-    {entry.id === 'icon' && <IconCatalog />}
     {entry.id === 'site-alert' && <SiteAlertExamples mode="remaining" />}
   </article>
 </BaseLayout>

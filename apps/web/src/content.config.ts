@@ -10,6 +10,8 @@ const docs = defineCollection({
     navLabel: z.string().trim().min(1),
     order: z.number().int().nonnegative(),
     figma: z.url().optional(),
+    // Evidence-backed accessibility statement for the Component Status block.
+    accessibilityStatus: z.string().trim().min(1).optional(),
   }),
 });
 
