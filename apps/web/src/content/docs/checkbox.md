@@ -1,6 +1,6 @@
 ---
 title: Checkbox
-description: Native checkboxes for independent choices, including labeled groups, mixed state, and validation.
+description: Allows users to select one or more options from a list. Compare with Radio Buttons, which allow users to select exactly one choice from a group.
 navLabel: Checkbox
 order: 11
 figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=72-78
@@ -11,13 +11,26 @@ accessibilityStatus: Automated accessibility checks (axe) pass for every preview
 
 ### When to use
 
-| Variant | Use when                                                                  | Don't use when                                                     |
-| ------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| Single  | People make one independent yes/no choice.                                | The choice is one of several related options; use a group.         |
-| Group   | People can choose more than one related option.                           | Exactly one option is allowed; use radio buttons.                  |
-| Card    | A larger card with a clickable label suits the layout. Single or grouped. | The layout needs a fixed card height; cards grow with their label. |
+| Variant | Use when                                                                                                                                                                                                                                     | Don't use when                                                                                                                                                                           |
+| ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Default | You need users to select simple attributes, preferences, filters, or add-ons. Users already understand the options without extra explanation. The task should be quick to scan and low-risk or easily reversible.                            | The choice determines a pathway, eligibility, or next step. Options need descriptions, guidance, or comparison to understand. Accuracy and careful consideration matter more than speed. |
+| Card    | You need users to choose between a small set of meaningful service or application options (about 2–5). Each option needs supporting text to explain differences or consequences. You want users to slow down and make a deliberate decision. | There are many options or it's a routine settings or filter list. Options are obvious without explanation. The added visual weight would make a simple task feel heavy or slow.          |
 
-Use mixed (indeterminate) state only for a parent checkbox whose child options are partly selected, such as select all. Use disabled state for options that can't be changed.
+Compare similar components:
+
+| Component     | Use case                                                         | Number of options | Selection type                        |
+| ------------- | ---------------------------------------------------------------- | ----------------- | ------------------------------------- |
+| Checkboxes    | Independent choices, or a single binary toggle ("Accept terms"). | 1 to many         | Multiple selection (or single toggle) |
+| Radio buttons | Mutually exclusive choices; all options visible at a glance.     | 2 to 5            | Single selection                      |
+| Dropdowns     | Conserves screen space; hides options until clicked.             | More than 5       | Single selection (typically)          |
+
+Use mixed (indeterminate) state only for a parent checkbox whose child options are partly selected, such as select all.
+
+### Writing for checkboxes
+
+- Use sentence case, starting with a capital letter: "Option 1", not "option 1".
+- Don't put punctuation at the end of each option: "Red", not "Red;" or "Red,".
+- Use the first person when the checkbox asks people to agree to terms: "I agree to the Terms of Service", not "You agree to the Terms of Service".
 
 ### Accessibility for checkboxes
 

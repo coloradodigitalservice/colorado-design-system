@@ -14,10 +14,11 @@ test-audit work and its automated results.
 
 ### Documentation page
 
-`/checkbox/` now follows the component page outline: lead description,
+`/checkbox/` now follows the component page outline: lead description from Figma,
 Component preview and Component code (12 canonical fixture states: default,
 checked, indeterminate, disabled, disabled checked, error, group, and the five
-card states), Component status, Guidance (When to use variant table and
+card states), Component status, Guidance (When to use and component comparison
+from Figma, Writing for checkboxes from Figma, and
 Accessibility for checkboxes), and Specifications (variants and elements,
 setting the indeterminate state, validation, variable settings, limitations).
 The full fixture catalogue and the public localization/RTL guidance were

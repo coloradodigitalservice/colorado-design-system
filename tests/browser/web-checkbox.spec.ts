@@ -21,6 +21,7 @@ test('checkbox page follows the component page outline', async ({
   const subheadings = await main.locator('h3').allTextContents();
   for (const heading of [
     'When to use',
+    'Writing for checkboxes',
     'Accessibility for checkboxes',
     'Variants and elements',
     'Setting the indeterminate state',
