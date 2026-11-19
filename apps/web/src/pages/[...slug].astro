@@ -17,6 +17,7 @@ import DividerExamples from '../components/DividerExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
 import ComponentStatus from '../components/ComponentStatus.astro';
 import accordionMetadata from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
+import searchMetadata from '@coloradodigitalservice/colorado-design-system/metadata/search.json';
 import IconExamples from '../components/IconExamples.astro';
 import FooterExamples from '../components/FooterExamples.astro';
 import InputExamples from '../components/InputExamples.astro';
@@ -63,6 +64,17 @@ const { Content } = await render(entry);
         <AccordionExamples />
         <ComponentStatus
           metadata={accordionMetadata}
+          accessibility={entry.data.accessibilityStatus!}
+          figma={entry.data.figma}
+        />
+      </>
+    )}
+    {entry.id === 'search' && (
+      <>
+        <p class="cods-docs-lead">{entry.data.description}</p>
+        <SearchExamples />
+        <ComponentStatus
+          metadata={searchMetadata}
           accessibility={entry.data.accessibilityStatus!}
           figma={entry.data.figma}
         />
@@ -128,7 +140,6 @@ const { Content } = await render(entry);
       </>
     )}
     <Content />
-    {entry.id === 'search' && <SearchExamples />}
     {entry.id === 'hero' && <HeroExamples />}
     {entry.id === 'tags' && <TagsExamples />}
     {entry.id === 'videos' && <VideosExamples />}
