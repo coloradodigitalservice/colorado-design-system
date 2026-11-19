@@ -67,7 +67,7 @@ Post a short, plain-language update on the component's Jira ticket so the
 reviewer can start without reading the PR. Keep it to a few lines: what
 changed, where to look, and what to check. Detailed results stay in the PR and
 the evidence file. Wait for the Netlify deploy preview to finish so the link
-works, and post it when requesting Phil’s review.
+works, and post only after the user approves.
 
 ```markdown
 Ready for review and handoff. The <Component> page now follows the new
