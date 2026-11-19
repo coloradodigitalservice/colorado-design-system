@@ -54,7 +54,8 @@ Interactive components ship a TypeScript controller in `<component-name>.ts`. St
 
 - The only public integration surface is: documented `data-cods-<component-name>-*` attributes read at initialization, documented public methods on the controller instance, and documented `CustomEvent`s namespaced as `cods-<component-name>:<event-name>` (for example `cods-combo-box:select`).
 - Events are dispatched with `bubbles: true` and `composed: false` (Shadow DOM is out of scope) and carry their payload in `event.detail`.
-- Controllers must not depend on global state, global event listeners outside their own root element, or a specific bundler/module system beyond a standard ES module export. Exception: In-Page Navigation may listen for page scroll and resize events to track the current section. Its listener must be scoped to each initialized instance, coalesce updates, and be removed on `destroy`.
+- Controllers must not depend on global state or a specific bundler/module system beyond a standard ES module export.
+- Listeners belong on the root or its descendants. A controller may add `document` or `window` listeners only when the behavior needs them (for example Escape dismissal regardless of pointer location, or repositioning on scroll and resize), and only when each listener is owned by a single instance (no shared module-level handler or registry), acts only on that instance, and is removed by that instance's `destroy`. Document such listeners in a code comment and test that `destroy` removes them. In-Page Navigation coalesces its scroll and resize updates.
 
 ### 4.2 Controller lifecycle
 

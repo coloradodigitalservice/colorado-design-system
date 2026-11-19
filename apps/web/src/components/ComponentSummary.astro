@@ -18,6 +18,7 @@ import comboBox from '@coloradodigitalservice/colorado-design-system/metadata/co
 import input from '@coloradodigitalservice/colorado-design-system/metadata/input.json';
 import card from '@coloradodigitalservice/colorado-design-system/metadata/card.json';
 import iconList from '@coloradodigitalservice/colorado-design-system/metadata/icon-list.json';
+import tooltip from '@coloradodigitalservice/colorado-design-system/metadata/tooltip.json';
 
 interface Props {
   component:
@@ -38,7 +39,8 @@ interface Props {
     | 'hero'
     | 'videos'
     | 'tags'
-    | 'process-list';
+    | 'process-list'
+    | 'tooltip';
   figma?: string;
 }
 
@@ -61,6 +63,7 @@ const metadata = {
   videos,
   tags,
   'process-list': processList,
+  tooltip,
 }[Astro.props.component];
 const { figma } = Astro.props;
 const repository =

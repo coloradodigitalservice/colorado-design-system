@@ -17,6 +17,11 @@ export {
   destroy as destroyComboBox,
 } from './combo-box/combo-box.js';
 export {
+  init as initTooltip,
+  initAll as initAllTooltip,
+  destroy as destroyTooltip,
+} from './tooltip/tooltip.js';
+export {
   init as initModal,
   initAll as initAllModal,
   destroy as destroyModal,

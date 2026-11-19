@@ -33,18 +33,25 @@ for (const component of loadComponents()) {
         const template = document.createElement('template');
         template.innerHTML = html;
         const normalize = (text: string) => text.replace(/\s+/g, ' ').trim();
-        // A controller may relocate part of the fixture out of the story root
-        // (the USWDS modal moves its dialog to the document body and leaves a
-        // placeholder behind). Follow the placeholder so the canonical content
-        // is still compared in full.
+        // Exclude generated tooltips while following relocated modal content.
+        const authoredText = (node: Element) => {
+          const rendered = node.cloneNode(true) as Element;
+          if (!template.content.querySelector('[role="tooltip"]'))
+            rendered
+              .querySelectorAll('[role="tooltip"]')
+              .forEach((tooltip) => tooltip.remove());
+          return rendered.textContent ?? '';
+        };
         const text = [
-          element.textContent ?? '',
+          authoredText(element),
           ...Array.from(
             element.querySelectorAll<HTMLElement>('[data-placeholder-for]'),
-            (placeholder) =>
-              document.getElementById(
+            (placeholder) => {
+              const relocated = document.getElementById(
                 placeholder.getAttribute('data-placeholder-for') ?? '',
-              )?.textContent ?? '',
+              );
+              return relocated ? authoredText(relocated) : '';
+            },
           ),
         ].join(' ');
         return (

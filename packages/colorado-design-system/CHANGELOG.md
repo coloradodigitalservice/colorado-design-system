@@ -1,5 +1,12 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.30
+
+### Patch Changes
+
+- Fix tooltip placement during scrolling and within clipping containers.
+- @coloradodigitalservice/colorado-design-tokens@0.2.30
+
 ## 0.2.29
 
 ### Patch Changes
