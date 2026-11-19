@@ -35,38 +35,58 @@ data-cods-fixture-state>` fixture wrapper is stripped.
 
 ### Test audit
 
+The bar for keeping an assertion was that it tests something CoDS owns.
+Select is a native `<select>` with no controller, so re-testing native
+selection, validity, and form submission tests the browser, not CoDS.
+
 | Area                                         | Before     | After      |
 | -------------------------------------------- | ---------- | ---------- |
 | Unit (`packaged-assets.test.ts` Select case) | 1          | 1          |
-| `web-select.spec.ts` (tests × 3 browsers)    | 6 × 3 = 18 | 7 × 3 = 21 |
-| `storybook-select.spec.ts` (Chromium)        | 1          | 2          |
+| `web-select.spec.ts` (tests × 3 browsers)    | 6 × 3 = 18 | 5 × 3 = 15 |
+| `storybook-select.spec.ts` (Chromium)        | 1          | 1          |
 | `web-shared-fixtures.spec.ts` Select entry   | 1 × 3 = 3  | 1 × 3 = 3  |
-| `web-component-docs.spec.ts` Select entry    | 0          | 0          |
+| Spec lines (web + Storybook)                 | 259        | 186        |
 
 Decisions:
 
-- **Added:** a page-outline test (headings, four preview states, generated
-  code, status text and links, no localization copy or examples catalogue, axe
-  at 320px), replacing the removed `ComponentSummary` coverage.
-- **Moved:** the RTL arrow position and RTL caret artwork checks, and 320px
-  reflow of long content, to `storybook-select.spec.ts`, because those states
-  are no longer on the page. They now run in Chromium only. The 320px reflow,
-  reduced-motion, and forced-colors checks for previewed states stay on the web
-  page in all three browsers.
-- **Consolidated:** placeholder clearing now runs on the Default control, which
-  has identical markup. The disabled tab-skip check now tabs from Default past
-  Disabled to Error in the preview order.
-- **Removed as duplicates:** none.
-- **Kept:** every other test; each covers distinct native behavior, keyboard and
-  focus, validation and submission, no-JS/no-CSS, caret artwork, or Figma
-  measurements.
+- **Added:** a page-outline test (headings, preview states and order, pending
+  status, no localization copy or examples catalogue, axe at 320px). Generated
+  code and maturity text are already checked by `web-shared-fixtures.spec.ts`
+  and the build's docs output check, so it does not repeat them.
+- **Removed as browser behavior:** `selectOption` value changes,
+  `validity.valueMissing`/`checkValidity`, clearing the empty option, and the
+  `FormData` submission check (disabled controls not submitted). These assert
+  native `<select>` behavior with no CoDS code involved.
+- **Removed as fixture restatement:** first-option text, error message
+  position, required asterisk text, and absence of `usa-form-group--error`.
+  The docs output check already fails the build if previewed markup drifts from
+  the fixture.
+- **Removed:** the no-JavaScript/no-CSS test. Select ships no JavaScript, and a
+  native select working without CSS is browser behavior.
+- **Removed as duplicates:** the Storybook focus-ring and `selectOption` checks
+  (same assertions run in three browsers on the web page); the Storybook fixture
+  ID-order check (the story renders the raw fixture, so it compared the fixture
+  to itself); the RTL caret-artwork check (RTL uses the same image file as
+  Default; the RTL-specific assertion, arrow position, is kept); caret checks
+  for Disabled and Error (no state overrides the image); the duplicate
+  `background-size` assertion; an `ArrowDown`/`Enter` step that asserted
+  nothing; screenshot-only attachments.
+- **Consolidated:** the caret artwork test into the Figma geometry test (both
+  check static styling of the Default control); the two Storybook tests into one
+  at 320px.
+- **Moved:** RTL arrow position and long-content reflow to Storybook (Chromium
+  only), because those states are no longer on the page.
+- **Kept:** accessible name and description wiring, `aria-invalid` on Error and
+  not on Success, type-ahead and Escape focus (guards against CoDS interfering),
+  the focus ring, disabled tab skip, 320px reflow, forced colors, Figma
+  geometry, the shared caret artwork, and axe on the page and all Storybook
+  states.
 
 ### Automated results
 
 Base commit `ba92348`. `pnpm build` passed (docs output check verified the
 curated preview against the fixture). Built-files Playwright run of the Select
-web, Storybook, and shared-fixture specs: 20 passed in Chromium, WebKit, and
-Storybook. Firefox could not launch locally (`browserType.launch` failure);
+web and Storybook specs: 11 passed in Chromium, WebKit, and Storybook. Firefox could not launch locally (`browserType.launch` failure);
 CI covers it. `pnpm lint`, `pnpm typecheck`, `pnpm format:check`, and
 `pnpm --filter @cods-internal/web validate` (0 errors) passed. `pnpm test`:
 326 of 328 passed; the two failures are 5-second timeouts in the unrelated
