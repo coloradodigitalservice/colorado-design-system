@@ -5,39 +5,72 @@ import { test, expect, expectAccessible } from './fixtures.js';
 
 test.beforeEach(async ({ page }) => routeBuiltFiles(page, 'web'));
 
-test('canonical contextual examples and copyable source ship in the built docs', async ({
+const preview = (state: string) =>
+  `[data-cods-docs-preview-state="${state}"] .cods-in-page-alert`;
+
+test('in-page alert page follows the component page outline', async ({
   page,
 }, testInfo) => {
+  await page.setViewportSize({ width: 320, height: 800 });
   await page.goto('/in-page-alert/');
-  await expect(page.locator('.cods-in-page-alert')).toHaveCount(20);
+  const main = page.locator('main');
+  expect(await main.locator('h2').allTextContents()).toEqual([
+    'Component preview',
+    'Component code',
+    'Component status',
+    'Guidance',
+    'Specifications',
+  ]);
+  const subheadings = await main.locator('h3').allTextContents();
+  for (const heading of [
+    'When to use',
+    'Writing for in-page alerts',
+    'Accessibility for in-page alerts',
+    'Variants and elements',
+    'Announcing dynamic updates',
+    'Variable settings',
+    'Limitations',
+  ])
+    expect(subheadings).toContain(heading);
+
+  const states = [
+    'info',
+    'success',
+    'warning',
+    'urgent',
+    'without-heading',
+    'info-no-icon',
+  ];
+  await expect(page.locator('[data-cods-docs-preview-state]')).toHaveCount(
+    states.length,
+  );
+  // Initial-render notices carry no live-region role.
+  for (const state of states)
+    await expect(page.locator(preview(state))).not.toHaveAttribute('role');
+  await expect(page.locator('[data-cods-docs-preview-code]')).toContainText(
+    'cods-in-page-alert--no-icon',
+  );
+
+  const status = page.locator('[data-cods-docs-status]');
+  await expect(status).toContainText('In-Page Alert maturity is experimental');
+  await expect(status).toContainText('Manual accessibility review');
   await expect(
-    page.getByRole('heading', { name: 'Live regions and dynamic updates' }),
+    status.getByRole('link', { name: 'USWDS 3.14.0 In-Page Alert' }),
   ).toBeVisible();
   await expect(
-    page.locator('[data-cods-fixture-state=urgent] .cods-in-page-alert'),
-  ).not.toHaveAttribute('role');
-  await expect(
-    page.locator('[data-cods-fixture-state=dynamic-alert] .cods-in-page-alert'),
-  ).toHaveAttribute('role', 'alert');
-  await expect(
-    page.locator(
-      '[data-cods-fixture-state=dynamic-status] .cods-in-page-alert',
-    ),
-  ).toHaveAttribute('role', 'status');
-  await page.getByText('View default HTML', { exact: true }).click();
-  const source = page.getByRole('region', {
-    name: 'Default In-Page Alert HTML',
-  });
-  await expect(source).toBeVisible();
+    status.getByRole('link', { name: 'Accessibility evidence' }),
+  ).toHaveAttribute(
+    'href',
+    /\/in-page-alert\/accessibility\/in-page-alert\.evidence\.md$/,
+  );
+  // The public page omits localization guidance and the examples catalogue.
+  await expect(main).not.toContainText(/right-to-left|localization/i);
+  await expect(page.locator('[data-cods-fixture-state]')).toHaveCount(0);
+
   expect(
-    await source.evaluate((element) => {
-      const template = document.createElement('template');
-      template.innerHTML = element.textContent ?? '';
-      return (
-        template.content.querySelector('.cods-in-page-alert')?.outerHTML ===
-        document.querySelector('.cods-in-page-alert')?.outerHTML
-      );
-    }),
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
   ).toBe(true);
   await expectAccessible(page, testInfo);
 });
@@ -51,9 +84,7 @@ test('four severity colors, distinct shipped icons, and keyboard focus', async (
   const backgrounds: string[] = [];
   const accents: string[] = [];
   for (const variant of ['info', 'success', 'warning', 'urgent']) {
-    const alert = page.locator(
-      `[data-cods-fixture-state=${variant}] .cods-in-page-alert`,
-    );
+    const alert = page.locator(preview(variant));
     await expectPhosphorMask(
       alert.locator('.cods-in-page-alert__body'),
       {
@@ -111,7 +142,7 @@ test('four severity colors, distinct shipped icons, and keyboard focus', async (
   expect(new Set(accents).size).toBe(4);
 });
 
-test('320px reflow, RTL icon placement, forced colors, and reduced motion', async ({
+test('320px reflow, forced colors, and reduced motion', async ({
   page,
 }, testInfo) => {
   await page.setViewportSize({ width: 320, height: 800 });
@@ -132,20 +163,11 @@ test('320px reflow, RTL icon placement, forced colors, and reduced motion', asyn
     ['urgent', 'warning-circle'],
   ]) {
     await expectPhosphorMask(
-      page.locator(
-        `[data-cods-fixture-state=${state}] .cods-in-page-alert__body`,
-      ),
+      page.locator(`${preview(state!)} .cods-in-page-alert__body`),
       icon!,
       { size: 32, inset: 12, top: 16 },
     );
   }
-  const rtl = page.locator('[dir=rtl].cods-in-page-alert');
-  await expect(rtl).toHaveCSS('border-right-width', '8px');
-  expect(
-    await rtl
-      .locator('.cods-in-page-alert__body')
-      .evaluate((element) => getComputedStyle(element, '::before').right),
-  ).toBe('12px');
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= innerWidth,
@@ -187,39 +209,29 @@ test('message remains understandable without styles or JavaScript', async ({
 test('headed, compact and icon-free geometry matches the Figma variants', async ({
   page,
 }) => {
+  // Every compact and icon-free severity is also measured in Storybook.
   await page.goto('/in-page-alert/');
-  const headed = page.locator(
-    '[data-cods-fixture-state=info] .cods-in-page-alert__body',
-  );
+  const headed = page.locator(`${preview('info')} .cods-in-page-alert__body`);
   await expect(headed).toHaveCSS('padding-inline-start', '56px');
   await expect(headed).toHaveCSS('padding-block-start', '16px');
   await expect(headed.locator('.cods-in-page-alert__heading')).toHaveCSS(
     'margin-bottom',
     '8px',
   );
-  for (const [state, icon] of [
-    ['without-heading', 'info'],
-    ['success-compact', 'check-circle'],
-    ['warning-compact', 'warning'],
-    ['urgent-compact', 'warning-circle'],
-  ]) {
-    const body = page.locator(
-      `[data-cods-fixture-state=${state}] .cods-in-page-alert__body`,
-    );
-    await expect(body).toHaveCSS('padding-inline-start', '48px');
-    await expect(body).toHaveCSS('padding-block-start', '8px');
-    await expectPhosphorMask(body, icon!, { size: 24, inset: 12, top: 8 });
-  }
-  for (const variant of ['info', 'success', 'warning', 'urgent']) {
-    const body = page.locator(
-      `[data-cods-fixture-state=${variant}-no-icon] .cods-in-page-alert__body`,
-    );
-    await expect(body).toHaveCSS('padding-inline-start', '12px');
-    await expect(body).toHaveCSS('padding-block-start', '8px');
-    expect(
-      await body.evaluate((el) => getComputedStyle(el, '::before').display),
-    ).toBe('none');
-  }
+  const compact = page.locator(
+    `${preview('without-heading')} .cods-in-page-alert__body`,
+  );
+  await expect(compact).toHaveCSS('padding-inline-start', '48px');
+  await expect(compact).toHaveCSS('padding-block-start', '8px');
+  await expectPhosphorMask(compact, 'info', { size: 24, inset: 12, top: 8 });
+  const noIcon = page.locator(
+    `${preview('info-no-icon')} .cods-in-page-alert__body`,
+  );
+  await expect(noIcon).toHaveCSS('padding-inline-start', '12px');
+  await expect(noIcon).toHaveCSS('padding-block-start', '8px');
+  expect(
+    await noIcon.evaluate((el) => getComputedStyle(el, '::before').display),
+  ).toBe('none');
 });
 
 test('Site Alert keeps its emergency icon when the shared error mapping changes', async ({

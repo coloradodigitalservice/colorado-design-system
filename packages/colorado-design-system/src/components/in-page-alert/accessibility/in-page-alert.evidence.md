@@ -10,6 +10,102 @@
 
 **Tracking ticket:** [CDS-52 / CODS-P3-005](https://atendesign.atlassian.net/browse/CDS-52)
 
+## CODS-P4-023 hardening — 2026-11-20
+
+Developer first pass for Phase 4 (CDS-137). Manual QA, State domain acceptance,
+and client sign-off are pending; this section records only the content and
+test-audit work and its automated results.
+
+### Documentation page
+
+`apps/web` `/in-page-alert/` now follows the CoDS Website Content outline:
+title and description, a curated preview (Info, Success, Warning, Urgent,
+Without heading, Without icon) with the exact markup that renders it,
+Component Status, Guidance (When to use with a severity table, Writing,
+Accessibility), and Specifications (classes, package use, announcing dynamic
+updates with an empty live-region example, variable settings, limitations).
+The page explains contextual versus sitewide messaging (Site Alert) and states
+that dismissal is deferred and not part of this release. The full fixture
+catalogue and public localization/RTL guidance were removed from the page; the
+heading-only, long-content, Spanish, RTL, focus-visible, dynamic, and remaining
+compact/icon-free states stay in Storybook and the tests below. The status makes
+no WCAG conformance claim. The shared preview helper now strips this fixture's
+`<div data-cods-fixture-state>` wrapper (the same rule as the open Card and
+Checkbox hardening PRs), and `check-docs-output.mjs` verifies the preview and
+its code block against the canonical fixture.
+
+### Test audit
+
+Counts are Playwright runs from `config/playwright.in-page-alert.ts` (web runs
+in Chromium, Firefox, and WebKit; Storybook in Chromium). There are no
+In-Page Alert unit tests (the component has no controller); the shared
+`web-shared-fixtures.spec.ts` (1 × 3) and `storybook-shared-fixtures.spec.ts`
+(20) entries are unchanged.
+
+| Area                              | Before           | After            |
+| --------------------------------- | ---------------- | ---------------- |
+| `web-in-page-alert.spec.ts`       | 6 tests × 3 = 18 | 6 tests × 3 = 18 |
+| `storybook-in-page-alert.spec.ts` | 14               | 16               |
+| Total focused browser runs        | 32               | 34               |
+
+Decisions:
+
+- **Replaced:** the docs-catalogue test (20 alerts on the page, the
+  "View default HTML" source match, and dynamic roles on the page) became a
+  page-outline test: headings, six preview states, no live-region role on
+  initial-render previews, status text and links, no localization guidance or
+  fixture catalogue, 320px overflow, and axe. Preview code parity is enforced
+  by the build check and `web-shared-fixtures.spec.ts`; the dynamic `status` and
+  `alert` roles remain asserted by the Storybook dynamic-update tests.
+- **Kept in all three browsers (web), now against the preview:** four severity
+  colors, distinct shipped icon masks, keyboard focus and the 4px focus ring;
+  320px reflow with forced colors and reduced motion; headed, compact, and
+  icon-free geometry for the previewed Info, Without heading, and Without icon
+  states; and the no-CSS/no-JS fixture test.
+- **Moved to Storybook (states not on the page, Chromium only):** RTL border and
+  icon placement, 320px reflow of every fixture state (including long-content,
+  Spanish, and RTL) under forced colors, and compact/icon-free geometry for the
+  Success, Warning, and Urgent variants. These assertions are unchanged; they
+  now run in Chromium only.
+- **Kept unchanged:** the Site Alert shared error-mapping regression guard, the
+  Storybook dynamic-update, all-states axe, and isolated canonical-story tests.
+- **Removed:** nothing.
+
+### Automated results
+
+On the CODS-P4-023 working tree, from base `9f759ee`, with Node 26.5.0 (the
+pinned 24.21.0 was not installed on this machine; CI uses the pinned version):
+
+- `pnpm exec playwright test --config config/playwright.in-page-alert.ts`: 28
+  passed in Chromium, WebKit, and Storybook. Firefox did not launch locally
+  ("Could not find profile folder"), the same environment issue recorded
+  earlier; CI runs Firefox.
+- In-Page Alert entries in `web-shared-fixtures.spec.ts` and
+  `storybook-shared-fixtures.spec.ts`: 22 passed (Chromium, WebKit, Storybook).
+- `pnpm build`: passed, including the docs output check (36 pages).
+
+### Manual matrix for Aten Accessibility/QA (pending)
+
+Review all supported variants and states on the PR preview and in Storybook
+(`pnpm dev:storybook`). Record browser, assistive technology, and versions for
+each result.
+
+- [ ] Severity is conveyed without color alone: wording, icon, and boundary
+      for Info, Success, Warning, and Urgent, headed and compact, with and
+      without icons.
+- [ ] Initial-render alerts are read in order with no announcement; Dynamic
+      Status announces politely and Dynamic Alert assertively, without
+      duplicate speech or focus movement.
+- [ ] Heading level and name, body text, and link name and purpose.
+- [ ] Link keyboard operation and visible focus, not obscured.
+- [ ] Dismiss naming and focus: not applicable; dismissal is not implemented.
+- [ ] Message availability without CSS or JavaScript; no lifecycle (static
+      component, no controller).
+- [ ] Contrast, 400% zoom / 320px reflow, narrow screens.
+- [ ] Reduced motion, forced colors / Windows High Contrast.
+- [ ] Internal localization and long-text notes (Spanish, Arabic RTL, long
+      content).
+
 ## Keyboard
 
 - [ ] Every interactive element is reachable using only the keyboard, in a logical order. Automated native-link navigation passed in Chromium 156 and WebKit 27.2; Firefox 157 could not launch. Human keyboard review remains open.
