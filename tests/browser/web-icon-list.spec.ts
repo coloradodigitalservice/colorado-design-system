@@ -1,81 +1,82 @@
+// Icon List documentation page. The right-to-left state is not on the public
+// page; its layout is checked in storybook-icon-list.spec.ts.
 import { test, expect, expectAccessible } from './fixtures.js';
+import {
+  expectIconListLayout,
+  expectSupportingText,
+} from './icon-list-checks.js';
 
-test('icon lists retain their semantics, decorative icons and responsive layout', async ({
+const preview = (name: string) => `[data-cods-docs-preview-state="${name}"]`;
+
+test('icon list page follows the component page outline', async ({
   page,
 }, testInfo) => {
-  await page.goto('/icon-list/');
-  for (const name of [
-    'Examples',
-    'Summary',
-    'When to use',
-    'Anatomy and markup',
-    'Sizes and layout',
-    'Assets and progressive enhancement',
-    'Accessibility and review status',
-  ]) {
-    await expect(
-      page.getByRole('heading', { name, exact: true }),
-    ).toBeVisible();
-  }
-  const examples = page.locator('[data-cods-fixture-state]');
-  await expect(examples).toHaveCount(3);
-  for (const example of await examples.all()) {
-    await expect(example.locator('ul')).toHaveCount(1);
-    await expect(example.locator('ul')).toHaveAttribute('role', 'list');
-    for (const icon of await example.locator('li svg').all()) {
-      await expect(icon).toHaveAttribute('aria-hidden', 'true');
-      await expect(icon).toHaveAttribute('focusable', 'false');
-    }
-  }
-  await expect(
-    page.locator('[data-cods-fixture-state="default"] li'),
-  ).toHaveCount(3);
-  for (const width of [320, 767, 768, 1280]) {
-    await page.setViewportSize({ width, height: 800 });
-    for (const state of ['default', 'long-content', 'rtl']) {
-      const measurements = await page
-        .locator(`[data-cods-fixture-state="${state}"] li`)
-        .first()
-        .evaluate((item) => {
-          const icon = item.querySelector('svg')!.getBoundingClientRect();
-          const content = item.querySelector('.cods-icon-list__content')!;
-          const contentRect = content.getBoundingClientRect();
-          const text =
-            content.querySelector('p, strong')?.firstChild ??
-            content.firstChild!;
-          const range = document.createRange();
-          range.selectNodeContents(text);
-          const textRect = range.getBoundingClientRect();
-          const rtl = getComputedStyle(item).direction === 'rtl';
-          return {
-            size: icon.width,
-            gap: rtl
-              ? icon.left - contentRect.right
-              : contentRect.left - icon.right,
-            textOffset: textRect.top - contentRect.top,
-            alignment: Math.abs(
-              icon.top + icon.height / 2 - (textRect.top + textRect.height / 2),
-            ),
-          };
-        });
-      expect(measurements.size).toBe(width < 768 ? 16 : 24);
-      expect(measurements.gap).toBeCloseTo(12, 1);
-      // A first paragraph must start on the same line as direct or bold text.
-      expect(measurements.textOffset).toBeLessThan(5);
-      expect(measurements.alignment).toBeLessThan(3);
-    }
-    const supporting = page
-      .locator('[data-cods-fixture-state="long-content"] p')
-      .first();
-    await expect(supporting).toHaveCSS('margin-top', '8px');
-    await expect(supporting).toHaveCSS('font-size', '16px');
-    await expect(supporting).toHaveCSS('line-height', '24px');
-  }
-  await expectAccessible(page, testInfo);
   await page.setViewportSize({ width: 320, height: 800 });
+  await page.goto('/icon-list/');
+  const main = page.locator('main');
+  expect(await main.locator('h2').allTextContents()).toEqual([
+    'Component preview',
+    'Component code',
+    'Component status',
+    'Guidance',
+    'Specifications',
+  ]);
+  const subheadings = await main.locator('h3').allTextContents();
+  for (const heading of [
+    'When to use',
+    'Accessibility for icon lists',
+    'Elements',
+    'Sizes and spacing',
+    'Adding icons',
+    'Limitations',
+  ])
+    expect(subheadings).toContain(heading);
+
+  await expect(page.locator('[data-cods-docs-preview-state]')).toHaveCount(2);
+  for (const state of ['default', 'long-content']) {
+    // List semantics survive the removed markers; icons stay out of the
+    // accessibility tree.
+    const list = page.locator(preview(state)).getByRole('list');
+    await expect(list).toBeVisible();
+    await expect(list.getByRole('img')).toHaveCount(0);
+  }
+  // Preview icons load from the built sprite.
+  await expect
+    .poll(() =>
+      page
+        .locator(`${preview('default')} svg use`)
+        .first()
+        .evaluate((use) => (use as SVGUseElement).getBBox().width),
+    )
+    .toBeGreaterThan(0);
+
+  const status = page.locator('[data-cods-docs-status]');
+  await expect(status).toContainText(
+    'Automated accessibility checks (axe) pass for every preview state. Manual accessibility review is pending.',
+  );
+  await expect(status).not.toContainText(/WCAG/);
+  await expect(
+    status.getByRole('link', { name: 'USWDS 3.14.0 Icon List' }),
+  ).toBeVisible();
+  // The public page omits localization guidance and the examples catalogue.
+  await expect(main).not.toContainText(/right-to-left|localization/i);
+  await expect(page.locator('[data-cods-fixture-state]')).toHaveCount(0);
+
   expect(
     await page.evaluate(
-      () => document.documentElement.scrollWidth <= window.innerWidth,
+      () => document.documentElement.scrollWidth <= innerWidth,
     ),
   ).toBe(true);
+  await expectAccessible(page, testInfo);
+});
+
+test('preview icon lists keep their responsive layout', async ({ page }) => {
+  await page.goto('/icon-list/');
+  await expectIconListLayout(page, [
+    page.locator(`${preview('default')} ul`),
+    page.locator(`${preview('long-content')} ul`),
+  ]);
+  await expectSupportingText(
+    page.locator(`${preview('long-content')} p`).first(),
+  );
 });
