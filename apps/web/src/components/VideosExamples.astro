@@ -1,25 +1,23 @@
 ---
 import metadata from '@coloradodigitalservice/colorado-design-system/metadata/videos.json';
 import examples from '@coloradodigitalservice/colorado-design-system/examples/videos.json';
-import CodeExamples from './CodeExamples.astro';
+import ComponentPreview from './ComponentPreview.astro';
 
-const headings: Record<string, string> = {
-  default: 'Native video',
-  embed: 'Embedded video (third-party player)',
-  'embed-local-stand-in': 'Embedded video (local stand-in)',
-  'four-three': '4:3 video',
-};
+// The fixture's sample media lives at /videos/; prefix the site base path so
+// the preview plays under a project base path. The code block keeps the
+// canonical fixture paths.
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const withBase = (markup: string) =>
+  markup.replaceAll('"/videos/', `"${base}/videos/`);
 ---
 
-{examples.examples.map((example) => (
-  <section aria-label={`${example.state} video`}>
-    <h3>{headings[example.state] ?? example.state}</h3>
-    <div
-      set:html={example.html.replaceAll(
-        '/videos/',
-        `${import.meta.env.BASE_URL.replace(/\/$/, '')}/videos/`,
-      )}
-    />
-  </section>
-))}
-<CodeExamples metadata={metadata} examples={examples.examples} />
+<ComponentPreview
+  displayName={metadata.displayName}
+  examples={examples.examples}
+  variants={[
+    { state: 'default', label: 'Native video (default)' },
+    { state: 'embed', label: 'Embedded player' },
+    { state: 'four-three', label: '4:3' },
+  ]}
+  previewHtml={withBase}
+/>
