@@ -1,0 +1,563 @@
+<!-- State: default -->
+<div data-cods-header-fixture="default" data-cods-fixture-state="default">
+  <header class="usa-header usa-header--basic cods-header" data-cods-header>
+    <div class="usa-overlay cods-header__overlay"></div>
+    <div class="usa-nav-container cods-header__container">
+      <div class="usa-navbar cods-header__navbar">
+        <div class="usa-logo cods-header__logo">
+          <a
+            class="cods-header__home"
+            href="#"
+            aria-label="Colorado Design System home"
+          >
+            <img
+              class="cods-header__logo-image"
+              src="/logos/cods-logo.svg"
+              alt=""
+              width="219"
+              height="48"
+            />
+          </a>
+        </div>
+        <button
+          type="button"
+          class="usa-menu-btn cods-header__menu-button"
+          aria-controls="cods-header-primary-navigation"
+        >
+          <svg
+            class="cods-icon cods-icon--small"
+            aria-hidden="true"
+            focusable="false"
+            width="16"
+            height="16"
+            viewBox="0 0 256 256"
+          >
+            <use href="/icons/sprite.svg#list"></use>
+          </svg>
+          Menu
+        </button>
+      </div>
+      <nav
+        id="cods-header-primary-navigation"
+        class="usa-nav cods-header__nav"
+        aria-label="Primary"
+      >
+        <button
+          type="button"
+          class="usa-nav__close cods-header__close"
+          aria-label="Close menu"
+        >
+          <svg
+            class="cods-icon"
+            aria-hidden="true"
+            focusable="false"
+            width="24"
+            height="24"
+            viewBox="0 0 256 256"
+          >
+            <use href="/icons/sprite.svg#x"></use>
+          </svg>
+        </button>
+        <ul class="usa-nav__primary usa-accordion cods-header__list">
+          <li class="usa-nav__primary-item cods-header__item">
+            <a
+              class="usa-nav-link usa-current cods-header__link"
+              href="#"
+              aria-current="page"
+              ><span>Services</span></a
+            >
+          </li>
+          <li class="usa-nav__primary-item cods-header__item">
+            <a class="usa-nav-link cods-header__link" href="#"
+              ><span>Licenses and permits</span></a
+            >
+          </li>
+          <li class="usa-nav__primary-item cods-header__item">
+            <a class="usa-nav-link cods-header__link" href="#"
+              ><span>News</span></a
+            >
+          </li>
+          <li class="usa-nav__primary-item cods-header__item">
+            <a class="usa-nav-link cods-header__link" href="#"
+              ><span>About</span></a
+            >
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+</div>
+<!-- State: full -->
+<div data-cods-header-fixture="full" data-cods-fixture-state="full">
+  <header class="usa-header usa-header--basic cods-header" data-cods-header>
+    <div class="usa-overlay cods-header__overlay"></div>
+    <div class="usa-nav-container cods-header__container">
+      <div class="usa-navbar cods-header__navbar">
+        <div class="usa-logo cods-header__logo">
+          <a
+            class="cods-header__home"
+            href="#"
+            aria-label="Colorado Design System home"
+          >
+            <img
+              class="cods-header__logo-image"
+              src="/logos/cods-logo.svg"
+              alt=""
+              width="219"
+              height="48"
+            />
+          </a>
+        </div>
+        <div class="cods-header__utilities">
+          <form
+            class="usa-search cods-search cods-search--slim cods-header__search"
+            role="search"
+            aria-label="Site"
+            action="#"
+            method="get"
+          >
+            <label
+              class="usa-label cods-input__label cods-search__label--hidden"
+              for="cods-header-search"
+              >Search this site</label
+            >
+            <div class="cods-search__controls">
+              <input
+                class="usa-input cods-input__control cods-input__control--small"
+                id="cods-header-search"
+                type="search"
+                name="q"
+              />
+              <button
+                class="usa-button cods-button cods-button--slim cods-button--icon-only"
+                type="submit"
+                aria-label="Search"
+              >
+                <svg
+                  class="cods-icon cods-icon--small"
+                  aria-hidden="true"
+                  focusable="false"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 256 256"
+                >
+                  <use href="/icons/sprite.svg#magnifying-glass"></use>
+                </svg>
+              </button>
+            </div>
+          </form>
+          <nav
+            class="usa-language-container usa-language cods-language-selector cods-header__language"
+            aria-label="Languages"
+            data-cods-language-selector
+          >
+            <ul class="usa-language__primary usa-accordion">
+              <li class="usa-language__primary-item">
+                <button
+                  type="button"
+                  class="usa-button usa-language__link cods-language-selector__trigger"
+                  data-cods-language-selector-trigger
+                  aria-controls="cods-header-languages"
+                  hidden
+                >
+                  Languages
+                </button>
+                <ul
+                  id="cods-header-languages"
+                  class="usa-language__submenu cods-language-selector__panel"
+                  data-cods-language-selector-panel
+                >
+                  <li class="usa-language__submenu-item">
+                    <a href="#" hreflang="en" lang="en" aria-current="page"
+                      ><strong>English</strong></a
+                    >
+                  </li>
+                  <li class="usa-language__submenu-item">
+                    <a href="#" lang="es" hreflang="es"
+                      ><strong lang="es">Español</strong>
+                      <span lang="en">(Spanish)</span></a
+                    >
+                  </li>
+                  <li class="usa-language__submenu-item">
+                    <a href="#" lang="vi" hreflang="vi"
+                      ><strong lang="vi">Tiếng Việt</strong>
+                      <span lang="en">(Vietnamese)</span></a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+        <button
+          type="button"
+          class="usa-menu-btn cods-header__menu-button"
+          aria-controls="cods-header-full-navigation"
+        >
+          <svg
+            class="cods-icon cods-icon--small"
+            aria-hidden="true"
+            focusable="false"
+            width="16"
+            height="16"
+            viewBox="0 0 256 256"
+          >
+            <use href="/icons/sprite.svg#list"></use>
+          </svg>
+          Menu
+        </button>
+      </div>
+      <nav
+        id="cods-header-full-navigation"
+        class="usa-nav cods-header__nav"
+        aria-label="Primary"
+      >
+        <button
+          type="button"
+          class="usa-nav__close cods-header__close"
+          aria-label="Close menu"
+        >
+          <svg
+            class="cods-icon"
+            aria-hidden="true"
+            focusable="false"
+            width="24"
+            height="24"
+            viewBox="0 0 256 256"
+          >
+            <use href="/icons/sprite.svg#x"></use>
+          </svg>
+        </button>
+        <ul class="usa-nav__primary usa-accordion cods-header__list">
+          <li class="usa-nav__primary-item cods-header__item">
+            <button
+              type="button"
+              class="usa-accordion__button usa-nav__link cods-header__link cods-header__toggle cods-header__toggle--current usa-current"
+              aria-expanded="false"
+              aria-controls="cods-header-services"
+            >
+              <span>Services</span
+              ><svg
+                class="cods-icon cods-icon--small cods-header__toggle-icon"
+                aria-hidden="true"
+                focusable="false"
+                width="16"
+                height="16"
+                viewBox="0 0 256 256"
+              >
+                <use href="/icons/sprite.svg#caret-down"></use>
+              </svg>
+            </button>
+            <ul
+              id="cods-header-services"
+              class="usa-nav__submenu cods-header__submenu"
+            >
+              <li class="usa-nav__submenu-item cods-header__submenu-item">
+                <a
+                  class="cods-header__submenu-link"
+                  href="#"
+                  aria-current="page"
+                  >Driver licenses</a
+                >
+              </li>
+              <li class="usa-nav__submenu-item cods-header__submenu-item">
+                <a class="cods-header__submenu-link" href="#"
+                  >Vehicle registration</a
+                >
+              </li>
+              <li class="usa-nav__submenu-item cods-header__submenu-item">
+                <a class="cods-header__submenu-link" href="#">Taxes</a>
+              </li>
+              <li class="usa-nav__submenu-item cods-header__submenu-item">
+                <a class="cods-header__submenu-link" href="#">Unemployment</a>
+              </li>
+              <li class="usa-nav__submenu-item cods-header__submenu-item">
+                <a class="cods-header__submenu-link" href="#"
+                  >Health coverage</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li class="usa-nav__primary-item cods-header__item">
+            <button
+              type="button"
+              class="usa-accordion__button usa-nav__link cods-header__link cods-header__toggle"
+              aria-expanded="false"
+              aria-controls="cods-header-licenses"
+            >
+              <span>Licenses and permits</span
+              ><svg
+                class="cods-icon cods-icon--small cods-header__toggle-icon"
+                aria-hidden="true"
+                focusable="false"
+                width="16"
+                height="16"
+                viewBox="0 0 256 256"
+              >
+                <use href="/icons/sprite.svg#caret-down"></use>
+              </svg>
+            </button>
+            <div
+              id="cods-header-licenses"
+              class="usa-nav__submenu usa-megamenu cods-header__submenu cods-header__megamenu"
+            >
+              <div class="cods-header__megamenu-grid">
+                <ul class="usa-nav__submenu-list cods-header__submenu-list">
+                  <li class="usa-nav__submenu-item cods-header__submenu-item">
+                    <a class="cods-header__submenu-link" href="#"
+                      >Business licenses</a
+                    >
+                  </li>
+                  <li class="usa-nav__submenu-item cods-header__submenu-item">
+                    <a class="cods-header__submenu-link" href="#"
+                      >Professional licenses</a
+                    >
+                  </li>
+                  <li class="usa-nav__submenu-item cods-header__submenu-item">
+                    <a class="cods-header__submenu-link" href="#"
+                      >Liquor licenses</a
+                    >
+                  </li>
+                  <li class="usa-nav__submenu-item cods-header__submenu-item">
+                    <a class="cods-header__submenu-link" href="#"
+                      >Marijuana licenses</a
+                    >
+                  </li>
+                </ul>
+                <ul class="usa-nav__submenu-list cods-header__submenu-list">
+                  <li class="usa-nav__submenu-item cods-header__submenu-item">
+                    <a class="cods-header__submenu-link" href="#"
+                      >Building permits</a
+                    >
+                  </li>
+                  <li class="usa-nav__submenu-item cods-header__submenu-item">
+                    <a class="cods-header__submenu-link" href="#"
+                      >Burn permits</a
+                    >
+                  </li>
+                  <li class="usa-nav__submenu-item cods-header__submenu-item">
+                    <a class="cods-header__submenu-link" href="#"
+                      >Fishing licenses</a
+                    >
+                  </li>
+                  <li class="usa-nav__submenu-item cods-header__submenu-item">
+                    <a class="cods-header__submenu-link" href="#"
+                      >Hunting licenses</a
+                    >
+                  </li>
+                </ul>
+                <ul class="usa-nav__submenu-list cods-header__submenu-list">
+                  <li class="usa-nav__submenu-item cods-header__submenu-item">
+                    <a class="cods-header__submenu-link" href="#"
+                      >Oil and gas permits</a
+                    >
+                  </li>
+                  <li class="usa-nav__submenu-item cods-header__submenu-item">
+                    <a class="cods-header__submenu-link" href="#"
+                      >Water rights</a
+                    >
+                  </li>
+                  <li class="usa-nav__submenu-item cods-header__submenu-item">
+                    <a class="cods-header__submenu-link" href="#"
+                      >Special event permits</a
+                    >
+                  </li>
+                  <li class="usa-nav__submenu-item cods-header__submenu-item">
+                    <a class="cods-header__submenu-link" href="#"
+                      >Vendor permits</a
+                    >
+                  </li>
+                </ul>
+                <ul class="usa-nav__submenu-list cods-header__submenu-list">
+                  <li class="usa-nav__submenu-item cods-header__submenu-item">
+                    <a class="cods-header__submenu-link" href="#"
+                      >Renew a license</a
+                    >
+                  </li>
+                  <li class="usa-nav__submenu-item cods-header__submenu-item">
+                    <a class="cods-header__submenu-link" href="#"
+                      >Look up a license</a
+                    >
+                  </li>
+                  <li class="usa-nav__submenu-item cods-header__submenu-item">
+                    <a class="cods-header__submenu-link" href="#"
+                      >File a complaint</a
+                    >
+                  </li>
+                  <li class="usa-nav__submenu-item cods-header__submenu-item">
+                    <a class="cods-header__submenu-link" href="#"
+                      >All licenses and permits</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li class="usa-nav__primary-item cods-header__item">
+            <button
+              type="button"
+              class="usa-accordion__button usa-nav__link cods-header__link cods-header__toggle"
+              aria-expanded="false"
+              aria-controls="cods-header-agencies"
+            >
+              <span>Agencies</span
+              ><svg
+                class="cods-icon cods-icon--small cods-header__toggle-icon"
+                aria-hidden="true"
+                focusable="false"
+                width="16"
+                height="16"
+                viewBox="0 0 256 256"
+              >
+                <use href="/icons/sprite.svg#caret-down"></use>
+              </svg>
+            </button>
+            <div
+              id="cods-header-agencies"
+              class="usa-nav__submenu usa-megamenu cods-header__submenu cods-header__megamenu cods-header__megamenu--categorized"
+            >
+              <div class="cods-header__megamenu-grid">
+                <div class="cods-header__megamenu-section">
+                  <p
+                    class="cods-header__megamenu-title"
+                    id="cods-header-agencies-1"
+                  >
+                    Agriculture and environment
+                  </p>
+                  <ul
+                    class="usa-nav__submenu-list cods-header__submenu-list"
+                    aria-labelledby="cods-header-agencies-1"
+                  >
+                    <li class="usa-nav__submenu-item cods-header__submenu-item">
+                      <a class="cods-header__submenu-link" href="#"
+                        >Agriculture</a
+                      >
+                    </li>
+                    <li class="usa-nav__submenu-item cods-header__submenu-item">
+                      <a class="cods-header__submenu-link" href="#"
+                        >Natural resources</a
+                      >
+                    </li>
+                    <li class="usa-nav__submenu-item cods-header__submenu-item">
+                      <a class="cods-header__submenu-link" href="#"
+                        >Parks and wildlife</a
+                      >
+                    </li>
+                    <li class="usa-nav__submenu-item cods-header__submenu-item">
+                      <a class="cods-header__submenu-link" href="#"
+                        >Public health and environment</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+                <div class="cods-header__megamenu-section">
+                  <p
+                    class="cods-header__megamenu-title"
+                    id="cods-header-agencies-2"
+                  >
+                    Business and labor
+                  </p>
+                  <ul
+                    class="usa-nav__submenu-list cods-header__submenu-list"
+                    aria-labelledby="cods-header-agencies-2"
+                  >
+                    <li class="usa-nav__submenu-item cods-header__submenu-item">
+                      <a class="cods-header__submenu-link" href="#"
+                        >Labor and employment</a
+                      >
+                    </li>
+                    <li class="usa-nav__submenu-item cods-header__submenu-item">
+                      <a class="cods-header__submenu-link" href="#"
+                        >Regulatory agencies</a
+                      >
+                    </li>
+                    <li class="usa-nav__submenu-item cods-header__submenu-item">
+                      <a class="cods-header__submenu-link" href="#">Revenue</a>
+                    </li>
+                    <li class="usa-nav__submenu-item cods-header__submenu-item">
+                      <a class="cods-header__submenu-link" href="#"
+                        >Economic development</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+                <div class="cods-header__megamenu-section">
+                  <p
+                    class="cods-header__megamenu-title"
+                    id="cods-header-agencies-3"
+                  >
+                    Health and human services
+                  </p>
+                  <ul
+                    class="usa-nav__submenu-list cods-header__submenu-list"
+                    aria-labelledby="cods-header-agencies-3"
+                  >
+                    <li class="usa-nav__submenu-item cods-header__submenu-item">
+                      <a class="cods-header__submenu-link" href="#"
+                        >Health care policy</a
+                      >
+                    </li>
+                    <li class="usa-nav__submenu-item cods-header__submenu-item">
+                      <a class="cods-header__submenu-link" href="#"
+                        >Human services</a
+                      >
+                    </li>
+                    <li class="usa-nav__submenu-item cods-header__submenu-item">
+                      <a class="cods-header__submenu-link" href="#"
+                        >Early childhood</a
+                      >
+                    </li>
+                    <li class="usa-nav__submenu-item cods-header__submenu-item">
+                      <a class="cods-header__submenu-link" href="#"
+                        >Veterans affairs</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+                <div class="cods-header__megamenu-section">
+                  <p
+                    class="cods-header__megamenu-title"
+                    id="cods-header-agencies-4"
+                  >
+                    Public safety
+                  </p>
+                  <ul
+                    class="usa-nav__submenu-list cods-header__submenu-list"
+                    aria-labelledby="cods-header-agencies-4"
+                  >
+                    <li class="usa-nav__submenu-item cods-header__submenu-item">
+                      <a class="cods-header__submenu-link" href="#"
+                        >Corrections</a
+                      >
+                    </li>
+                    <li class="usa-nav__submenu-item cods-header__submenu-item">
+                      <a class="cods-header__submenu-link" href="#"
+                        >Public safety</a
+                      >
+                    </li>
+                    <li class="usa-nav__submenu-item cods-header__submenu-item">
+                      <a class="cods-header__submenu-link" href="#"
+                        >Military and veterans</a
+                      >
+                    </li>
+                    <li class="usa-nav__submenu-item cods-header__submenu-item">
+                      <a class="cods-header__submenu-link" href="#"
+                        >Transportation</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="usa-nav__primary-item cods-header__item">
+            <a class="usa-nav-link cods-header__link" href="#"
+              ><span>News</span></a
+            >
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+</div>

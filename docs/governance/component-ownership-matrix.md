@@ -55,7 +55,7 @@ The 28 components below are the approved 1.0 inventory (Card - Default and Card 
 | Toasts/Snackbars   | B    | Aten/State | (none)                                                                                  | CoDS-authored; transient notification with dismissal and optional action (no static USWDS equivalent) |
 | Tags               | A    | Aten/State | [`tag`](https://designsystem.digital.gov/components/tag/)                               | Reuse USWDS markup; remap to CoDS status colors                                                       |
 | Input              | A    | Aten/State | (form input)                                                                            | Use semantic `<input type="text">`; style with CoDS input tokens                                      |
-| Tooltip            | A    | Aten/State | [`tooltip`](https://designsystem.digital.gov/components/tooltip/)                       | Reuse USWDS markup and JS; style with CoDS elevation and text tokens                                  |
+| Tooltip            | C    | Aten/State | [`tooltip`](https://designsystem.digital.gov/components/tooltip/)                       | USWDS authoring model; CoDS controller and styles (see Type C)                                        |
 | Videos             | B    | Aten/State | (none)                                                                                  | CoDS-authored; responsive video container for embedded media                                          |
 
 ## Type A: Themed USWDS Components
@@ -113,6 +113,8 @@ The 28 components below are the approved 1.0 inventory (Card - Default and Card 
 **Definition:** These components _could_ reuse USWDS markup as a starting point, but intentionally diverge from USWDS design or interaction pattern due to State product requirements or accessibility needs.
 
 **Current list:**
+
+- **Tooltip** — keeps the USWDS authoring model (`title` text, `data-position`) but replaces the USWDS tooltip script and body styles with a CoDS controller and styles. Rationale: USWDS moves the trigger during setup (dropping focus) and can clip the tooltip off-screen at constrained viewport sizes and on scroll. The earlier CoDS wrapper also needed fixes for scaled-down hover, arrow alignment, trigger overlap, and reopening after Escape; Figma specifies a light treatment and elevation. Direction approved in PR #98 review (2026-11-18); State design and accessibility approved the divergence, and remaining accessibility checks are tracked in the component's evidence. See `tooltip.metadata.json` `divergenceNotes`.
 
 - **In-Page Navigation** — Uses authored USWDS-compatible markup and CoDS styling, with a CoDS-authored, instance-scoped scroll tracker instead of the USWDS JavaScript. When initialized with authored links, the USWDS behavior would generate a second navigation, uses document-wide selectors, and does not disconnect its observer on teardown. This divergence was approved by State design, engineering, and accessibility leads on 2026-11-11; see the [component contract](component-contract.md#46-approved-type-c-in-page-navigation).
 

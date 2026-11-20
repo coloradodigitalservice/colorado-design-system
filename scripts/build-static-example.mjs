@@ -44,6 +44,7 @@ export function exampleHTML() {
       );
       const html = fixture
         .replaceAll('/icons/sprite.svg', './assets/selected/icons/sprite.svg')
+        .replaceAll('/logos/cods-logo.svg', './assets/logos/cods-logo.svg')
         .replaceAll('../icons/catalog.json', './assets/icons/catalog.json');
       return `<article><h2>${escape(metadata.displayName)} (${metadata.maturity})</h2>${html}</article>`;
     })
