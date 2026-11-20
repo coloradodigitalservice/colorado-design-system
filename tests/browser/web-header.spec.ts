@@ -52,6 +52,22 @@ test('the documentation preview frame runs its own Header', async ({
   ).toBeVisible();
 });
 
+test('the full Header preview does not navigate or submit searches', async ({
+  page,
+}) => {
+  await page.goto('/header/preview/full/');
+  const url = page.url();
+  await page.getByRole('button', { name: 'Services' }).click();
+  await page.getByRole('link', { name: 'Taxes' }).click();
+  expect(page.url()).toBe(url);
+  await page.getByRole('button', { name: 'Languages' }).click();
+  await page.getByRole('link', { name: /Español/ }).click();
+  expect(page.url()).toBe(url);
+  await page.getByRole('searchbox').fill('permits');
+  await page.getByRole('searchbox').press('Enter');
+  expect(page.url()).toBe(url);
+});
+
 test('the documentation follows the component page structure', async ({
   page,
 }) => {

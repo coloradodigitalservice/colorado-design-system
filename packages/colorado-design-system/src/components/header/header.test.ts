@@ -323,6 +323,19 @@ describe('Header submenus', () => {
     expect(panel(services).hidden).toBe(false);
   });
 
+  it('lets submenu clicks reach button and document listeners', () => {
+    init(header());
+    const [services] = buttons();
+    const target = vi.fn();
+    const bubbled = vi.fn();
+    services.addEventListener('click', target);
+    document.addEventListener('click', bubbled, { once: true });
+    services.click();
+    expect(target).toHaveBeenCalledOnce();
+    expect(bubbled).toHaveBeenCalledOnce();
+    expect(panel(services).hidden).toBe(false);
+  });
+
   it('in the drawer, Escape closes only the submenu', async () => {
     init(header());
     menuButton().click();
@@ -352,6 +365,25 @@ describe('Header submenus', () => {
       cancelable: true,
     });
     last.dispatchEvent(tab);
+    expect(tab.defaultPrevented).toBe(true);
+    expect(document.activeElement).toBe(closeButton());
+  });
+
+  it('skips links excluded from the tab order when wrapping', async () => {
+    const lastLink = nav().querySelector<HTMLAnchorElement>(
+      '.cods-header__list > li:last-child a',
+    )!;
+    lastLink.tabIndex = -1;
+    init(header());
+    menuButton().click();
+    await settle();
+    buttons().at(-1)!.focus();
+    const tab = new KeyboardEvent('keydown', {
+      key: 'Tab',
+      bubbles: true,
+      cancelable: true,
+    });
+    document.activeElement!.dispatchEvent(tab);
     expect(tab.defaultPrevented).toBe(true);
     expect(document.activeElement).toBe(closeButton());
   });

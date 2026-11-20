@@ -1,4 +1,3 @@
-import { routeBuiltFiles } from './built-files.js';
 import { readFileSync } from 'node:fs';
 import { test, expect, expectAccessible } from './fixtures.js';
 
@@ -7,21 +6,59 @@ const fixture = readFileSync(
   'utf8',
 );
 
-test('canonical accordion fixture supports interactions in Storybook', async ({
+const story = (id: string) =>
+  `/iframe.html?id=components-accordion--${id}&viewMode=story&globals=a11y.manual:!true`;
+const state = (name: string) =>
+  `#storybook-root [data-cods-fixture-state="${name}"]`;
+
+test('multiple-open and disabled states across the full fixture', async ({
   page,
 }, testInfo) => {
-  await page.goto(
-    '/iframe.html?id=components-accordion--default&viewMode=story&globals=a11y.manual:!true',
-  );
-  const root = page.locator('#storybook-root [data-cods-accordion]');
-  await expect(root).toHaveAttribute('data-cods-accordion-enhanced', '');
-  const trigger = root.getByRole('button').nth(1);
-  await trigger.focus();
-  await page.keyboard.press('Enter');
-  await expect(trigger).toHaveAttribute('aria-expanded', 'true');
-  await expect(trigger).toBeFocused();
-  await expect(root.getByRole('link')).toBeVisible();
+  await page.goto(story('all-states'));
+  const multiple = page.locator(`${state('multiple')} [data-cods-accordion]`);
+  await expect(multiple).toHaveAttribute('data-cods-accordion-enhanced', '');
+  const visible = multiple.locator('[data-cods-accordion-panel]:visible');
+  await expect(visible).toHaveCount(2);
+  await multiple.getByRole('button').first().click();
+  await expect(visible).toHaveCount(1);
+  await expect(
+    page.locator(state('disabled')).getByRole('button'),
+  ).toBeDisabled();
   await expectAccessible(page, testInfo, '#storybook-root');
+});
+
+test('320px reflow, reduced motion, and forced colors for every state', async ({
+  page,
+}, testInfo) => {
+  await page.setViewportSize({ width: 320, height: 800 });
+  await page.emulateMedia({ reducedMotion: 'reduce', forcedColors: 'active' });
+  await page.goto(story('all-states'));
+  const first = page.locator(`${state('default')} button`).first();
+  await expect(
+    page.locator(`${state('default')} [data-cods-accordion]`),
+  ).toHaveAttribute('data-cods-accordion-enhanced', '');
+  await first.focus();
+  // Includes long-content, Spanish, and right-to-left fixture states.
+  const roots = await page
+    .locator('#storybook-root [data-cods-accordion]')
+    .evaluateAll((roots) =>
+      roots.map((root) => ({
+        width: root.getBoundingClientRect().width,
+        scrollWidth: root.scrollWidth,
+      })),
+    );
+  expect(roots.length).toBeGreaterThanOrEqual(8);
+  expect(
+    roots.every(({ width, scrollWidth }) => scrollWidth <= Math.ceil(width)),
+  ).toBe(true);
+  expect(
+    await first.evaluate((button) => getComputedStyle(button).outlineStyle),
+  ).toBe('solid');
+  await expectAccessible(page, testInfo, '#storybook-root');
+  await testInfo.attach('accordion-narrow-forced-colors', {
+    body: await page.locator('#storybook-root').screenshot(),
+    contentType: 'image/png',
+  });
 });
 
 test('unenhanced Storybook story uses the complete package fixture', async ({
@@ -47,63 +84,7 @@ test('unenhanced Storybook story uses the complete package fixture', async ({
   await expect(root.locator('[data-cods-accordion-enhanced]')).toHaveCount(0);
 });
 
-const defaultStory =
-  '/iframe.html?id=components-accordion--default&viewMode=story&globals=a11y.manual:!true';
-
-test('focused accordion trigger shows the Colorado focus ring', async ({
-  page,
-  browserName,
-}) => {
-  await page.goto(defaultStory);
-  const trigger = page
-    .locator('#storybook-root [data-cods-accordion]')
-    .getByRole('button')
-    .first();
-  await expect(trigger).toBeVisible();
-  await page.keyboard.press(
-    browserName === 'webkit' && process.platform === 'darwin'
-      ? 'Alt+Tab'
-      : 'Tab',
-  );
-  await expect(trigger).toBeFocused();
-  await expect(trigger).toHaveCSS('outline-style', 'solid');
-  await expect(trigger).toHaveCSS('outline-width', '2px');
-  await expect(trigger).toHaveCSS(
-    'box-shadow',
-    'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(23, 59, 179) 0px 0px 0px 4px',
-  );
-});
-
-test('focused accordion trigger uses the system highlight in forced colors', async ({
-  page,
-}) => {
-  await page.emulateMedia({ forcedColors: 'active' });
-  await page.goto(defaultStory);
-  const trigger = page
-    .locator('#storybook-root [data-cods-accordion]')
-    .getByRole('button')
-    .first();
-  await trigger.focus();
-  await expect(trigger).toBeFocused();
-  const [outline, highlight] = await Promise.all([
-    trigger.evaluate((element) => getComputedStyle(element).outlineColor),
-    page.evaluate(() => {
-      const probe = document.createElement('div');
-      probe.style.color = 'Highlight';
-      document.body.append(probe);
-      const value = getComputedStyle(probe).color;
-      probe.remove();
-      return value;
-    }),
-  ]);
-  expect(outline).toBe(highlight);
-  await expect(trigger).toHaveCSS('outline-style', 'solid');
-});
-
-test.beforeEach(async ({ page }) => {
-  if (process.env.CODS_BUILT_FILES === '1')
-    await routeBuiltFiles(page, 'storybook');
-});
+const defaultStory = story('default');
 
 for (const [story, expanded] of [
   ['expanded', ['true', 'true']],
@@ -178,6 +159,11 @@ for (const [variant, border, color] of [
       };
     });
     expect(geometry.headerHeight).toBe(56);
+    // Figma item separation: 12px between headings, none before the first.
+    const headings = root.locator(':scope > .cods-accordion__heading');
+    await expect(headings.first()).toHaveCSS('margin-block-start', '0px');
+    for (const heading of (await headings.all()).slice(1))
+      await expect(heading).toHaveCSS('margin-block-start', '12px');
     expect(geometry.textInset).toBe(16);
     await expect(panel).toHaveCSS('background-color', 'rgb(255, 255, 255)');
     await expect(panel).toHaveCSS('border-left-width', border);

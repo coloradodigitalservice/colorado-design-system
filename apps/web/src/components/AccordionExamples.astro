@@ -1,22 +1,21 @@
 ---
 import metadata from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
 import examples from '@coloradodigitalservice/colorado-design-system/examples/accordion.json';
-import CodeExamples from './CodeExamples.astro';
-import fixture from '@coloradodigitalservice/colorado-design-system/fixtures/accordion.html?raw';
+import ComponentPreview from './ComponentPreview.astro';
 import '@coloradodigitalservice/colorado-design-system/styles.css';
 ---
 
-<div class="cods-docs-accordion-examples" set:html={fixture} />
-<CodeExamples metadata={metadata} examples={examples.examples} />
+<ComponentPreview
+  displayName={metadata.displayName}
+  examples={examples.examples}
+  variants={[
+    { state: 'default', label: 'Bordered (default)' },
+    { state: 'borderless', label: 'Borderless' },
+    { state: 'white', label: 'White' },
+  ]}
+/>
 
 <script>
   import { initAllAccordions } from '@coloradodigitalservice/colorado-design-system';
   initAllAccordions();
 </script>
-
-<style>
-  pre {
-    overflow-x: auto;
-    max-width: 100%;
-  }
-</style>

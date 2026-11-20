@@ -1,0 +1,160 @@
+/*
+ * Tooltip is Type C: CoDS owns these styles and does not use the USWDS
+ * `.usa-tooltip__body` rules. The controller places the body and sets
+ * `--cods-tooltip-arrow-offset` (px from the body's start edge to the arrow).
+ *
+ * Geometry shared with tooltip.ts: the arrow is an 8px square rotated 45deg,
+ * so it extends about 5.7px past the body; the controller leaves a 6px gap
+ * (GAP), and the hover bridge (::before) fills that gap plus the 1px border.
+ */
+$arrow-size: 8px;
+$border-width: 1px;
+$bridge: 7px;
+
+// Moves the arrow's center onto the body's outer border edge.
+$arrow-edge: calc(100% - #{$arrow-size * 0.5 - $border-width});
+$arrow-start: calc(
+  var(--cods-tooltip-arrow-offset, 50%) - #{$arrow-size * 0.5 + $border-width}
+);
+
+@layer cods.components {
+  .cods-tooltip {
+    display: inline-block;
+    position: relative;
+  }
+
+  .cods-tooltip__body {
+    --cods-tooltip-background: var(--cods-color-text-primary);
+    --cods-tooltip-text: var(--cods-color-bg-page-surface-white);
+    --cods-tooltip-border: var(--cods-tooltip-background);
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100000;
+    box-sizing: border-box;
+    width: max-content;
+    max-width: min(20rem, 90vw);
+    padding: var(--cods-space-xs);
+    border: $border-width solid var(--cods-tooltip-border);
+    border-radius: var(--cods-radius-md);
+    background: var(--cods-tooltip-background);
+    box-shadow: var(--cods-elevation-low-x) var(--cods-elevation-low-y)
+      var(--cods-elevation-low-blur) var(--cods-elevation-low-spread)
+      var(--cods-color-elevation-shadow);
+    color: var(--cods-tooltip-text);
+    font-family: var(--cods-font-family-body), sans-serif;
+    font-size: var(--cods-font-size-desktop-body-sm);
+    font-weight: var(--cods-font-weight-regular);
+    line-height: var(--cods-line-height-desktop-body-sm);
+    text-align: start;
+    white-space: normal;
+    overflow-wrap: anywhere;
+
+    &[hidden] {
+      display: none;
+    }
+
+    // Hover bridge across the gap, so moving from trigger to text keeps it open.
+    &::before {
+      content: '';
+      position: absolute;
+    }
+
+    // Arrow: only the two outward-facing sides draw the border color.
+    &::after {
+      content: '';
+      position: absolute;
+      box-sizing: border-box;
+      width: $arrow-size;
+      height: $arrow-size;
+      border: $border-width solid var(--cods-tooltip-border);
+      background: var(--cods-tooltip-background);
+      transform: rotate(45deg);
+    }
+  }
+
+  .cods-tooltip__body--top {
+    &::before {
+      top: 100%;
+      right: 0;
+      left: 0;
+      height: $bridge;
+    }
+
+    &::after {
+      top: $arrow-edge;
+      left: $arrow-start;
+      border-top-color: transparent;
+      border-left-color: transparent;
+    }
+  }
+
+  .cods-tooltip__body--bottom {
+    &::before {
+      right: 0;
+      bottom: 100%;
+      left: 0;
+      height: $bridge;
+    }
+
+    &::after {
+      bottom: $arrow-edge;
+      left: $arrow-start;
+      border-right-color: transparent;
+      border-bottom-color: transparent;
+    }
+  }
+
+  .cods-tooltip__body--left {
+    &::before {
+      top: 0;
+      bottom: 0;
+      left: 100%;
+      width: $bridge;
+    }
+
+    &::after {
+      top: $arrow-start;
+      left: $arrow-edge;
+      border-bottom-color: transparent;
+      border-left-color: transparent;
+    }
+  }
+
+  .cods-tooltip__body--right {
+    &::before {
+      top: 0;
+      right: 100%;
+      bottom: 0;
+      width: $bridge;
+    }
+
+    &::after {
+      top: $arrow-start;
+      right: $arrow-edge;
+      border-top-color: transparent;
+      border-right-color: transparent;
+    }
+  }
+
+  // Light treatment from Figma. Border and shadow separate it from white and
+  // light surfaces; text-primary on white exceeds 4.5:1.
+  .cods-tooltip--light .cods-tooltip__body {
+    --cods-tooltip-background: var(--cods-color-bg-page-surface-white);
+    --cods-tooltip-text: var(--cods-color-text-primary);
+    --cods-tooltip-border: var(--cods-color-border-default);
+  }
+
+  @media (forced-colors: active) {
+    .cods-tooltip__body {
+      border-color: CanvasText;
+    }
+
+    // System colors would draw the arrow's transparent sides; the border alone
+    // identifies the tooltip.
+    .cods-tooltip__body::after {
+      display: none;
+    }
+  }
+}

@@ -167,27 +167,25 @@ describe('USWDS accordion lifecycle', () => {
     setExpanded(root, 'missing', true);
     expect(panels(root)[0].hidden).toBe(false);
   });
-  it('leaves malformed markup unchanged, warns once, and can retry after repair', () => {
-    const root = rootFor();
-    buttons(root)[1].setAttribute('aria-controls', 'missing');
-    const original = root.outerHTML;
-    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
-    init(root);
-    init(root);
-    expect(warn).toHaveBeenCalledTimes(1);
-    expect(root.outerHTML).toBe(original);
-    buttons(root)[1].setAttribute('aria-controls', 'accordion-default-2');
-    init(root);
-    expect(panels(root)[1].hidden).toBe(true);
-  });
-  it('rejects duplicate targets before changing any markup', () => {
-    const root = rootFor();
-    buttons(root)[1].setAttribute('aria-controls', 'accordion-default-1');
-    const original = root.outerHTML;
-    vi.spyOn(console, 'warn').mockImplementation(() => {});
-    init(root);
-    expect(root.outerHTML).toBe(original);
-  });
+  it.each([
+    ['a missing', 'missing'],
+    ['a duplicate', 'accordion-default-1'],
+  ])(
+    'leaves markup with %s target unchanged, warns once, and can retry after repair',
+    (_, target) => {
+      const root = rootFor();
+      buttons(root)[1].setAttribute('aria-controls', target);
+      const original = root.outerHTML;
+      const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      init(root);
+      init(root);
+      expect(warn).toHaveBeenCalledTimes(1);
+      expect(root.outerHTML).toBe(original);
+      buttons(root)[1].setAttribute('aria-controls', 'accordion-default-2');
+      init(root);
+      expect(panels(root)[1].hidden).toBe(true);
+    },
+  );
   it('initializes dynamically inserted roots and includes a root container itself', () => {
     document.body.innerHTML = '';
     const container = document.createElement('div');

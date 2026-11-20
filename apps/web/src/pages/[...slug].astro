@@ -15,6 +15,8 @@ import CardExamples from '../components/CardExamples.astro';
 import LinkExamples from '../components/LinkExamples.astro';
 import DividerExamples from '../components/DividerExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
+import ComponentStatus from '../components/ComponentStatus.astro';
+import accordionMetadata from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
 import IconExamples from '../components/IconExamples.astro';
 import FooterExamples from '../components/FooterExamples.astro';
 import HeaderExamples from '../components/HeaderExamples.astro';
@@ -25,6 +27,8 @@ import VideosExamples from '../components/VideosExamples.astro';
 import TagsExamples from '../components/TagsExamples.astro';
 import SearchExamples from '../components/SearchExamples.astro';
 import ProcessListExamples from '../components/ProcessListExamples.astro';
+import TooltipExamples from '../components/TooltipExamples.astro';
+import ModalExamples from '../components/ModalExamples.astro';
 import InPageNavigationExamples from '../components/InPageNavigationExamples.astro';
 import LogoExample from '../components/LogoExample.astro';
 
@@ -57,12 +61,13 @@ const { Content } = await render(entry);
     {entry.id === 'button' && <ButtonExamples mode="default" />}
     {entry.id === 'accordion' && (
       <>
-        <p>
-          Accordion shows and hides related sections of content. Its maturity is{' '}
-          <strong>experimental</strong> in the <code>0.x</code> development
-          series.
-        </p>
+        <p class="cods-docs-lead">{entry.data.description}</p>
         <AccordionExamples />
+        <ComponentStatus
+          metadata={accordionMetadata}
+          accessibility={entry.data.accessibilityStatus!}
+          figma={entry.data.figma}
+        />
       </>
     )}
     {entry.id === 'footer' && (
@@ -86,6 +91,13 @@ const { Content } = await render(entry);
       </>
     )}
     {entry.id === 'breadcrumbs' && <BreadcrumbsExamples />}
+    {entry.id === 'tooltip' && (
+      <>
+        <TooltipExamples />
+        <ComponentSummary component="tooltip" figma={entry.data.figma} />
+      </>
+    )}
+    {entry.id === 'modal' && <ModalExamples />}
     {entry.id === 'in-page-navigation' && <InPageNavigationExamples />}
     {entry.id === 'radio' && <RadioExamples />}
     {entry.id === 'combo-box' && <ComboBoxExamples />}
@@ -117,7 +129,6 @@ const { Content } = await render(entry);
       entry.id === 'hero' ||
       entry.id === 'radio' ||
       entry.id === 'site-alert' ||
-      entry.id === 'accordion' ||
       entry.id === 'footer' ||
       entry.id === 'header' ||
       entry.id === 'breadcrumbs' ||

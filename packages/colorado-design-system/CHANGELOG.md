@@ -1,5 +1,26 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.30
+
+### Patch Changes
+
+- Fix tooltip placement during scrolling and within clipping containers.
+- @coloradodigitalservice/colorado-design-tokens@0.2.30
+
+## 0.2.29
+
+### Patch Changes
+
+- 5982b52: Add an experimental Modal component wrapping the USWDS modal behavior, with dismissible, forced-action and large variants.
+- @coloradodigitalservice/colorado-design-tokens@0.2.29
+
+## 0.2.28
+
+### Patch Changes
+
+- Mark Accordion stable in component metadata and documentation.
+- @coloradodigitalservice/colorado-design-tokens@0.2.28
+
 ## 0.2.27
 
 ### Patch Changes

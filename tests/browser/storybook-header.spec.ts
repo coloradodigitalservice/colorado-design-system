@@ -256,7 +256,10 @@ test('the full header opens dropdowns and mega menus', async ({
   await nav.getByRole('link', { name: 'Taxes' }).click();
   await header.getByRole('searchbox').fill('permits');
   await header.getByRole('searchbox').press('Enter');
-  expect(page.url().split('#')[0]).toBe(url.split('#')[0]);
+  expect(page.url()).toBe(url);
+  await header.getByRole('button', { name: 'Languages' }).click();
+  await header.getByRole('link', { name: /Español/ }).click();
+  expect(page.url()).toBe(url);
 });
 
 test('submenus open as accordions in the drawer', async ({
@@ -294,4 +297,20 @@ test('submenus open as accordions in the drawer', async ({
   await nav.getByRole('button', { name: 'Agencies' }).focus();
   await page.keyboard.press('Tab');
   await expect(nav.getByRole('button', { name: 'Close menu' })).toBeFocused();
+});
+
+test('the drawer skips links excluded from the tab order', async ({ page }) => {
+  await openMobile(page, 'full');
+  await page.locator('.cods-header__menu-button').click();
+  const nav = page.getByRole('navigation', { name: 'Primary' });
+  await nav.getByRole('link', { name: 'News' }).evaluate((link) => {
+    link.setAttribute('tabindex', '-1');
+  });
+  const agencies = nav.getByRole('button', { name: 'Agencies' });
+  const close = nav.getByRole('button', { name: 'Close menu' });
+  await agencies.focus();
+  await page.keyboard.press('Tab');
+  await expect(close).toBeFocused();
+  await page.keyboard.press('Shift+Tab');
+  await expect(agencies).toBeFocused();
 });

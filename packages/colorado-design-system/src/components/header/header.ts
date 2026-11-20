@@ -152,7 +152,11 @@ function setPadding(
 
 /** Whether a control can take focus now; USWDS's trap also lists hidden ones. */
 function tabbable(element: HTMLElement): boolean {
-  if (element.closest('[hidden], [inert]')) return false;
+  if (
+    (element.hasAttribute('tabindex') && element.tabIndex < 0) ||
+    element.closest('[hidden], [inert]')
+  )
+    return false;
   return typeof element.checkVisibility === 'function'
     ? element.checkVisibility({ visibilityProperty: true })
     : true;
@@ -320,7 +324,6 @@ export function init(root: HTMLElement): void {
         button.contains(target),
       );
       if (submenu) {
-        event.stopPropagation();
         const open = submenu.button.getAttribute('aria-expanded') !== 'true';
         closeSubmenus(instance, submenu);
         setSubmenu(submenu, open);
@@ -364,8 +367,8 @@ export function init(root: HTMLElement): void {
   }
   nav.addEventListener('focusin', instance.onFocusIn);
   nav.addEventListener('focusout', instance.onFocusOut);
-  // Capture runs before USWDS's handlers.
-  nav.addEventListener('click', instance.onClick, true);
+  nav.addEventListener('click', instance.onClick);
+  // Capture runs before USWDS's key handlers.
   nav.addEventListener('keydown', instance.onKeyDown, true);
   document_.addEventListener('click', instance.onDocumentClick);
   menuButton.addEventListener('click', instance.onBeforeToggle, true);
@@ -400,7 +403,7 @@ export function destroy(root: HTMLElement): void {
   uswdsHeader.off(root);
   instance.nav.removeEventListener('focusin', instance.onFocusIn);
   instance.nav.removeEventListener('focusout', instance.onFocusOut);
-  instance.nav.removeEventListener('click', instance.onClick, true);
+  instance.nav.removeEventListener('click', instance.onClick);
   instance.nav.removeEventListener('keydown', instance.onKeyDown, true);
   root.ownerDocument.removeEventListener('click', instance.onDocumentClick);
   instance.menuButton.removeEventListener(

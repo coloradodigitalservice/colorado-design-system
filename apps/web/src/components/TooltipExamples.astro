@@ -1,0 +1,14 @@
+---
+import fixture from '@coloradodigitalservice/colorado-design-system/fixtures/tooltip.html?raw';
+import metadata from '@coloradodigitalservice/colorado-design-system/metadata/tooltip.json';
+import examples from '@coloradodigitalservice/colorado-design-system/examples/tooltip.json';
+import CodeExamples from './CodeExamples.astro';
+---
+
+<div set:html={fixture} />
+<CodeExamples metadata={metadata} examples={examples.examples} />
+
+<script>
+  import { initAllTooltip } from '@coloradodigitalservice/colorado-design-system';
+  initAllTooltip();
+</script>
