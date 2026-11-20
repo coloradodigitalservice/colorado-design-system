@@ -17,6 +17,7 @@ import DividerExamples from '../components/DividerExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
 import ComponentStatus from '../components/ComponentStatus.astro';
 import accordionMetadata from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
+import iconListMetadata from '@coloradodigitalservice/colorado-design-system/metadata/icon-list.json';
 import IconExamples from '../components/IconExamples.astro';
 import FooterExamples from '../components/FooterExamples.astro';
 import HeaderExamples from '../components/HeaderExamples.astro';
@@ -115,9 +116,13 @@ const { Content } = await render(entry);
     {entry.id === 'card-icon' && <CardExamples variant="icon" />}
     {entry.id === 'icon-list' && (
       <>
-        <h2>Examples</h2>
+        <p class="cods-docs-lead">{entry.data.description}</p>
         <IconListExamples />
-        <ComponentSummary component="icon-list" figma={entry.data.figma} />
+        <ComponentStatus
+          metadata={iconListMetadata}
+          accessibility={entry.data.accessibilityStatus!}
+          figma={entry.data.figma}
+        />
       </>
     )}
     {entry.id === 'checkbox' && <CheckboxExamples />}
