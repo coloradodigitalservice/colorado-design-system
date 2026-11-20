@@ -17,6 +17,7 @@ import DividerExamples from '../components/DividerExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
 import ComponentStatus from '../components/ComponentStatus.astro';
 import accordionMetadata from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
+import tagsMetadata from '@coloradodigitalservice/colorado-design-system/metadata/tags.json';
 import IconExamples from '../components/IconExamples.astro';
 import FooterExamples from '../components/FooterExamples.astro';
 import HeaderExamples from '../components/HeaderExamples.astro';
@@ -65,6 +66,17 @@ const { Content } = await render(entry);
         <AccordionExamples />
         <ComponentStatus
           metadata={accordionMetadata}
+          accessibility={entry.data.accessibilityStatus!}
+          figma={entry.data.figma}
+        />
+      </>
+    )}
+    {entry.id === 'tags' && (
+      <>
+        <p class="cods-docs-lead">{entry.data.description}</p>
+        <TagsExamples />
+        <ComponentStatus
+          metadata={tagsMetadata}
           accessibility={entry.data.accessibilityStatus!}
           figma={entry.data.figma}
         />
@@ -124,7 +136,6 @@ const { Content } = await render(entry);
     {entry.id === 'link' && <LinkExamples />}
     {entry.id === 'divider' && <DividerExamples />}
     {(entry.id === 'videos' ||
-      entry.id === 'tags' ||
       entry.id === 'card' ||
       entry.id === 'hero' ||
       entry.id === 'radio' ||
@@ -149,7 +160,6 @@ const { Content } = await render(entry);
     <Content />
     {entry.id === 'search' && <SearchExamples />}
     {entry.id === 'hero' && <HeroExamples />}
-    {entry.id === 'tags' && <TagsExamples />}
     {entry.id === 'videos' && <VideosExamples />}
     {entry.id === 'process-list' && <ProcessListExamples />}
     {entry.id === 'select' && <SelectExamples />}
