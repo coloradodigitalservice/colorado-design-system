@@ -5,6 +5,9 @@ const storyNames: Record<string, string> = {
   localization: 'spanish',
   rtl: 'right-to-left',
 };
+// Story ids that differ from the component name, such as Toast/Snackbar,
+// whose visible title contains a slash.
+const storyIds: Record<string, string> = { toast: 'toast-snackbar' };
 for (const component of loadComponents()) {
   for (const example of component.examples.examples) {
     const story =
@@ -16,7 +19,7 @@ for (const component of loadComponents()) {
       page,
     }) => {
       await page.goto(
-        `/iframe.html?id=components-${component.name}--${story}&viewMode=story&globals=a11y.manual:!true`,
+        `/iframe.html?id=components-${storyIds[component.name] ?? component.name}--${story}&viewMode=story&globals=a11y.manual:!true`,
       );
       const block = page.locator(
         `#storybook-root [data-cods-fixture-state="${example.fixtureState}"]`,
