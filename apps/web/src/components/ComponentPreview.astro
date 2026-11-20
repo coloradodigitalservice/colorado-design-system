@@ -15,9 +15,11 @@ interface Props {
   displayName: string;
   examples: Example[];
   variants: { state: string; label: string }[];
+  /** Adjusts rendered preview markup only (for example asset base paths). */
+  previewHtml?: (markup: string) => string;
 }
 
-const { displayName, examples, variants } = Astro.props;
+const { displayName, examples, variants, previewHtml } = Astro.props;
 
 const items = variants.map(({ state, label }) => {
   const example = examples.find((candidate) => candidate.state === state);
@@ -40,7 +42,7 @@ const code = previewCode(items);
       data-cods-docs-preview-label={label}
     >
       <figcaption>{label}</figcaption>
-      <Fragment set:html={markup} />
+      <Fragment set:html={previewHtml ? previewHtml(markup) : markup} />
     </figure>
   ))}
 </section>
