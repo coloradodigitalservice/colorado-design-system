@@ -1,13 +1,22 @@
 ---
-import examples from '@coloradodigitalservice/colorado-design-system/examples/link.json';
 import metadata from '@coloradodigitalservice/colorado-design-system/metadata/link.json';
-import catalogUrl from '@coloradodigitalservice/colorado-design-system/icons/catalog.json?url';
-import CodeExamples from './CodeExamples.astro';
+import examples from '@coloradodigitalservice/colorado-design-system/examples/link.json';
+import ComponentPreview from './ComponentPreview.astro';
+import '@coloradodigitalservice/colorado-design-system/styles.css';
 ---
 
-{examples.examples.map((example) => (
-  <div
-    set:html={example.html.replaceAll('../icons/catalog.json', catalogUrl)}
-  />
-))}
-<CodeExamples metadata={metadata} examples={examples.examples} />
+<ComponentPreview
+  displayName={metadata.displayName}
+  examples={examples.examples}
+  variants={[
+    { state: 'default', label: 'Inline' },
+    { state: 'standalone', label: 'Standalone' },
+    { state: 'inline-small', label: 'Inline small' },
+    { state: 'inline-large', label: 'Inline large' },
+    { state: 'standalone-small', label: 'Standalone small' },
+    { state: 'more-link', label: 'Standalone with arrow' },
+    { state: 'prefix-icon', label: 'Prefix icon' },
+    { state: 'external', label: 'External link in a new tab' },
+    { state: 'disabled', label: 'Disabled' },
+  ]}
+/>

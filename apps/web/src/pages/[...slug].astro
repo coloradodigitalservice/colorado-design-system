@@ -17,6 +17,7 @@ import DividerExamples from '../components/DividerExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
 import ComponentStatus from '../components/ComponentStatus.astro';
 import accordionMetadata from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
+import linkMetadata from '@coloradodigitalservice/colorado-design-system/metadata/link.json';
 import IconExamples from '../components/IconExamples.astro';
 import FooterExamples from '../components/FooterExamples.astro';
 import HeaderExamples from '../components/HeaderExamples.astro';
@@ -121,7 +122,17 @@ const { Content } = await render(entry);
       </>
     )}
     {entry.id === 'checkbox' && <CheckboxExamples />}
-    {entry.id === 'link' && <LinkExamples />}
+    {entry.id === 'link' && (
+      <>
+        <p class="cods-docs-lead">{entry.data.description}</p>
+        <LinkExamples />
+        <ComponentStatus
+          metadata={linkMetadata}
+          accessibility={entry.data.accessibilityStatus!}
+          figma={entry.data.figma}
+        />
+      </>
+    )}
     {entry.id === 'divider' && <DividerExamples />}
     {(entry.id === 'videos' ||
       entry.id === 'tags' ||
@@ -132,7 +143,6 @@ const { Content } = await render(entry);
       entry.id === 'footer' ||
       entry.id === 'header' ||
       entry.id === 'breadcrumbs' ||
-      entry.id === 'link' ||
       entry.id === 'checkbox' ||
       entry.id === 'combo-box' ||
       entry.id === 'select' ||
