@@ -1,5 +1,129 @@
 # Accessibility evidence: `cods-site-alert`
 
+## CODS-P4-033 hardening — 2026-11-20
+
+Developer first pass for Phase 4 (CDS-142). Manual QA, State domain acceptance,
+and client sign-off are pending; this section records only the content and
+test-audit work and its automated results.
+
+### Documentation page
+
+`apps/web` `/site-alert/` now follows the CoDS Website Content outline: title
+and description, a curated preview (Informational (default), Warning,
+Emergency) with the exact markup that renders it, Component Status, Guidance
+(When to use with a variant table, Writing for site alerts, Accessibility for
+site alerts), and Specifications (classes, placement relative to the skip link
+and header, style and icon loading, variable settings, limitations). The page
+explains sitewide versus contextual messaging (In-Page Alert) and states that
+Site Alert has no dismissal and saves no dismissed state. The examples
+catalogue and public localization/RTL guidance were removed from the page. The
+long-content, Spanish, RTL, focus-visible, and informational fixture states
+remain in Storybook and its tests. The status makes no conformance claim.
+`check-docs-output.mjs` verifies the preview and its code block against the
+canonical fixture. The shared preview helper (`preview-markup.mjs`) now strips
+the `<div data-cods-fixture-state>` wrapper Site Alert's fixture uses; the
+change is the same one used on the CODS-P4-014 branch.
+
+In-scope defect fixed: the docs site's unlayered link focus rule
+(`apps/web/src/styles/site.css`) overrode the component's focus ring on the
+page, so the Emergency link showed a blue ring on the red surface instead of
+the component's white ring. Site Alert links are now excluded from that rule,
+like Link and Breadcrumbs links. The new web keyboard test guards it.
+
+### Test audit
+
+Counts are Playwright test runs from `config/playwright.site-alert.ts` (web
+runs in Chromium, Firefox, and WebKit; Storybook in Chromium), plus Site
+Alert's entries in shared specs. Site Alert has no unit tests.
+
+| Area                                        | Before           | After             |
+| ------------------------------------------- | ---------------- | ----------------- |
+| `web-site-alert.spec.ts`                    | 5 tests × 3 = 15 | 6 tests × 3 = 18  |
+| `storybook-site-alert.spec.ts`              | 15               | 14                |
+| `web-component-docs.spec.ts` Site Alert     | 2 tests × 3 = 6  | 0                 |
+| `web-in-page-alert.spec.ts` Site Alert test | 1 test × 3 = 3   | 0                 |
+| Total browser runs                          | 39               | 32                |
+| `web-shared-fixtures.spec.ts` Site Alert    | 1 × 3            | 1 × 3 (unchanged) |
+| `storybook-shared-fixtures.spec.ts`         | 8                | 8 (unchanged)     |
+
+Decisions:
+
+- **Added (page):** a page-outline test at 320px covering headings, the three
+  preview figures and their code, Component Status and its links, no
+  localization text or fixture catalogue, no horizontal overflow, and axe.
+  It replaces the old "early example and copyable source" test; the copied
+  code is also verified exactly by the build.
+- **Moved to web (gains Firefox and WebKit):** the Storybook keyboard focus
+  test. It now tabs through the three preview links, checks the 4px solid
+  ring, that notices themselves are not focusable, and that the Emergency
+  ring is white (the defect above).
+- **Kept on web, retargeted to the preview:** no-CSS/no-JS named regions, no
+  `role="alert"` and no buttons; 320px forced colors and reflow with axe,
+  now also checking the forced-colors top border and narrow insets for each
+  preview variant; Phosphor mask alignment and contrast; Figma geometry at
+  desktop and mobile. The Informational state uses the same classes as
+  Default, so the text-only loops now cover Default and Warning.
+- **Moved to Storybook (state not on the page):** the RTL 16px narrow inset
+  check joined the Storybook 320px forced-colors/RTL test. It now runs in
+  Chromium only.
+- **Consolidated:** `web-in-page-alert.spec.ts`'s "Site Alert keeps its
+  emergency icon when the shared error mapping changes" test guards a past
+  defect. Its assertions (no icon on text-only notices without forced colors,
+  emergency mask) were folded into the Site Alert Phosphor mask test, which
+  already checked the forced-colors case, so the regression now lives with
+  the component.
+- **Removed as superseded:** Site Alert's Summary/Anatomy and link/320px
+  entries in `web-component-docs.spec.ts`; the page-outline test replaces
+  them and the build checks links.
+- **Kept in Storybook:** canonical fixture and token styles with axe,
+  320px reflow/localization/forced colors across all eight states, public
+  customization, USWDS button theme regression, `landmark-unique`, language
+  scoping of translated states, the six isolated-story checks, shipped icon
+  asset, and skip-link page placement.
+
+### Automated results
+
+Base commit `9f759ee` (`origin/main`), 2026-11-20, local Node 26.5.0 (Node
+24.21.0 was not installed on this machine).
+
+- `pnpm build`: passed, including the docs output check (36 pages).
+- `pnpm exec playwright test --config config/playwright.site-alert.ts`
+  (`web`, `web-webkit`, `storybook`): 26 passed.
+- `web-shared-fixtures`, `storybook-shared-fixtures`, `web-in-page-alert`, and
+  `web-component-docs` with `config/playwright.built-files.ts` (`web`,
+  `web-webkit`, `storybook`): passed. In one full parallel run, other pages'
+  `web-component-docs` link checks failed under load; they passed on rerun
+  in both browsers and do not involve Site Alert.
+- Firefox would not launch locally ("Could not find profile folder"); CI
+  covers `web-firefox`.
+- The `pnpm check` gates are recorded in the PR.
+
+### Manual matrix for Aten Accessibility/QA (pending)
+
+Review all supported variants and states on the PR preview and in Storybook
+(`pnpm dev:storybook`; long content, Spanish, RTL, focus-visible, and page
+placement are Storybook-only). Record browser, assistive technology, and
+versions for each result.
+
+- [ ] Announcements and urgency: notices present on load are named regions
+      and make no unsolicited announcement; emergency wording conveys urgency.
+- [ ] Non-color severity cues: lead-ins and the emergency heading convey
+      meaning without color or the icon.
+- [ ] Skip-link and navigation order: the skip link comes first and bypasses
+      the notice and header (Storybook "Page placement").
+- [ ] Dismiss names and focus: N/A. Site Alert ships no dismiss control
+      (deferred to CDS-116); confirm the page does not promise one.
+- [ ] Long-message reflow: long content wraps without clipping at 320px and
+      400% zoom.
+- [ ] No-JS and lifecycle: notices are readable without JavaScript or CSS;
+      no controller exists.
+- [ ] Keyboard and focus: links are reachable in order with a visible ring,
+      including the white ring on Emergency.
+- [ ] Contrast, 400% zoom / 320px reflow, narrow screens.
+- [ ] Reduced motion (N/A, no motion), forced colors (emergency icon, link
+      and focus colors).
+- [ ] Internal localization and long-text notes (Spanish, Arabic/RTL).
+
 ## CODS-P3-006 revision — October 27, 2026
 
 - **Maturity:** experimental; stable and gate approval are pending.

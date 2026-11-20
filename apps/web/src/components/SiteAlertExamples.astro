@@ -1,19 +1,16 @@
 ---
-import examples from '@coloradodigitalservice/colorado-design-system/examples/site-alert.json';
 import metadata from '@coloradodigitalservice/colorado-design-system/metadata/site-alert.json';
-import CodeExamples from './CodeExamples.astro';
-interface Props {
-  mode: 'default' | 'remaining';
-}
-const { mode } = Astro.props;
-const selected = examples.examples.filter((example) =>
-  mode === 'default'
-    ? example.state === 'default'
-    : example.state !== 'default',
-);
+import examples from '@coloradodigitalservice/colorado-design-system/examples/site-alert.json';
+import ComponentPreview from './ComponentPreview.astro';
+import '@coloradodigitalservice/colorado-design-system/styles.css';
 ---
 
-{selected.map((example) => (
-  <div set:html={example.html} />
-))}
-<CodeExamples metadata={metadata} examples={selected} />
+<ComponentPreview
+  displayName={metadata.displayName}
+  examples={examples.examples}
+  variants={[
+    { state: 'default', label: 'Informational (default)' },
+    { state: 'warning', label: 'Warning' },
+    { state: 'emergency', label: 'Emergency' },
+  ]}
+/>

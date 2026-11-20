@@ -221,26 +221,3 @@ test('headed, compact and icon-free geometry matches the Figma variants', async 
     ).toBe('none');
   }
 });
-
-test('Site Alert keeps its emergency icon when the shared error mapping changes', async ({
-  page,
-}) => {
-  await page.goto('/site-alert/');
-  const alerts = page.locator('.cods-site-alert');
-  await expect(alerts).toHaveCount(8);
-  const textOnly = page.locator(
-    '.cods-site-alert:not(.cods-site-alert--emergency)',
-  );
-  await expect(textOnly).toHaveCount(7);
-  for (const alert of await textOnly.all()) {
-    const icon = await alert
-      .locator('.cods-site-alert__body')
-      .evaluate((element) => getComputedStyle(element, '::before').display);
-    expect(icon).toBe('none');
-  }
-  await expectPhosphorMask(
-    page.locator('[data-cods-fixture-state=emergency] .cods-site-alert__body'),
-    'warning',
-    { size: 32, inset: 32, top: 18 },
-  );
-});

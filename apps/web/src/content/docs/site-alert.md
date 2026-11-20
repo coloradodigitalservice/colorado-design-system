@@ -1,60 +1,108 @@
 ---
 title: Site Alert
-description: Sitewide informational, warning, and emergency notices.
+description: A sitewide informational, warning, or emergency notice shown above the page header.
 navLabel: Site Alert
 order: 20
 figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=1809-10566
+accessibilityStatus: Automated accessibility checks (axe) pass for every preview state. Manual accessibility review is pending.
 ---
 
-## When to use
+## Guidance
 
-Use a Site Alert for a sitewide outage, emergency, closure, or service update that applies to every visitor. Use [In-Page Alert](../in-page-alert/) for a message about a specific form, task, or page. Show one notice per page, keep it short and scannable, and remove it when it expires. The long-content example tests wrapping; it is not recommended production copy.
+### When to use
 
-Informational notices use a pale blue surface; warnings use yellow. Both are text-only, with an inline bold lead-in. Emergency notices use a red surface, a visible heading, and a decorative warning icon. Use clear wording and useful action links so meaning does not depend on color or an icon.
+Use a Site Alert for an outage, emergency, closure, or service update that applies to everyone visiting the site.
 
-## Placement and landmarks
+Don't use a Site Alert when:
 
-Place the notice outside a narrow content column, between the skip link and the page header. Keep the skip link first so visitors can bypass the notice and navigation. The notice is a named section, not a second banner landmark. Give each section a unique `aria-labelledby` pointing to its visible lead-in or heading. Choose a heading level that fits the page.
+- The message is about a specific form, task, or page. Use [In-Page Alert](../in-page-alert/) for contextual messages instead.
+- Another Site Alert is already showing. Show one notice per page.
+- The notice has expired. Remove it as soon as it no longer applies.
 
-## Use the package
+Choose a variant that matches the urgency of the message:
 
-Load token and component styles as described in [Getting started](../getting-started/). Keep the USWDS section, alert surface, and alert body structure and the `usa-` and `cods-` classes in the copyable examples. The fixture, metadata, and examples are available under `fixtures/site-alert.html`, `metadata/site-alert.json`, and `examples/site-alert.json` in the design-system package. No JavaScript is required.
+| Variant                 | Use when                                                                                                 |
+| ----------------------- | -------------------------------------------------------------------------------------------------------- |
+| Informational (default) | Sharing a sitewide service update, such as scheduled maintenance or office hours. Pale blue, text-only.  |
+| Warning                 | Visitors need to know about a disruption or change, such as early closures. Yellow, text-only.           |
+| Emergency               | Something urgent affects everyone, such as a service interruption. Red, with a heading and warning icon. |
 
-The emergency icon uses the packaged Phosphor Regular `warning.svg` as a decorative CSS mask. Preserve the package's `icons/`, `img/`, and `fonts/` layout when serving CSS directly.
+### Writing for site alerts
 
-## Initial render and dynamic announcements
+- Keep the notice short and scannable. Long messages are supported, but they push the page down for everyone.
+- Start informational and warning notices with a short bold lead-in that names the topic, such as "Service update:".
+- Give emergency notices a heading that names the emergency, such as "Emergency: service interruption".
+- Include a link when people can act on the notice or find more information. Write link text that makes sense on its own.
 
-Notices present on page load are named regions without a live-region role. They do not move focus or force an announcement. For notices updated after load, mount an empty live region first, then populate it. Use `role="status"` for nonurgent updates and `role="alert"` only for urgent information requiring immediate awareness. Test announcements with the application's screen-reader and browser combinations.
+### Accessibility for site alerts
 
-## Anatomy
+- Place the notice between the skip link and the page header, outside any narrow content column. Keep the skip link first so keyboard and screen-reader users can bypass the notice and navigation.
+- Each notice is a `section` named by its visible lead-in or heading. Point `aria-labelledby` at that element and give every notice a unique `id`. The notice is a named region, not a second banner landmark.
+- Choose a heading level for the emergency heading that fits the page outline.
+- Notices present when the page loads have no live-region role. They don't move focus or force an announcement.
+- If your application adds a notice after the page loads, mount an empty live region first, then fill it. Use `role="status"` for nonurgent updates and `role="alert"` only for urgent information. Test announcements with the screen readers and browsers your audience uses.
+- Don't rely on color or the icon alone. The lead-in, heading, and message text must communicate the notice's meaning and urgency.
+- Links are the only focusable elements. They use the Colorado focus ring, and system colors in forced-colors mode.
 
-A named section contains the alert surface and body. Informational and warning alerts have an inline lead-in and message; emergency alerts have a heading, message, and decorative icon. An alert may include a link.
+## Specifications
 
-## Public styling and states
+### Variants and elements
 
-| Class                        | Purpose                               |
-| ---------------------------- | ------------------------------------- |
-| `cods-site-alert`            | Full-width named section              |
-| `cods-site-alert--warning`   | Warning surface                       |
-| `cods-site-alert--emergency` | Emergency surface and decorative icon |
-| `cods-site-alert__surface`   | Inner alert surface                   |
-| `cods-site-alert__body`      | Centered content and spacing          |
-| `cods-site-alert__heading`   | Visible emergency heading             |
-| `cods-site-alert__text`      | Notice text                           |
-| `cods-site-alert__link`      | Action link                           |
+Pair each CoDS class with its USWDS class. The `usa-*` classes are the upstream integration markup.
 
-The examples include long content, Spanish, Arabic/RTL, and keyboard focus. Disabled, loading, and empty notices are not useful states. The content container is centered with a maximum width of 1280px and has 32px desktop and 16px mobile insets.
+| Class                        | Use                                                                                                         |
+| ---------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `cods-site-alert`            | Full-width named `section` (informational by default); pair with `usa-site-alert`.                          |
+| `cods-site-alert--warning`   | Warning surface; keep `usa-site-alert--info` on the root.                                                   |
+| `cods-site-alert--emergency` | Emergency surface and decorative icon; pair with `usa-site-alert--emergency`.                               |
+| `cods-site-alert__surface`   | Inner alert surface; pair with `usa-alert`.                                                                 |
+| `cods-site-alert__body`      | Centered content, up to 1280px wide, with 32px desktop and 16px mobile insets; pair with `usa-alert__body`. |
+| `cods-site-alert__heading`   | Visible emergency heading; pair with `usa-alert__heading`.                                                  |
+| `cods-site-alert__text`      | Notice text, including the bold lead-in; pair with `usa-alert__text`.                                       |
+| `cods-site-alert__link`      | Action link; pair with `usa-link`.                                                                          |
 
-The root exposes `--cods-site-alert-background`, `--cods-site-alert-color`, `--cods-site-alert-icon-color`, `--cods-site-alert-padding`, `--cods-site-alert-link`, `--cods-site-alert-link-hover`, `--cods-site-alert-link-active`, and `--cods-site-alert-focus` for customization. Check text, link, icon, and focus contrast after customizing them.
+The root also carries `data-cods-site-alert`. No JavaScript is required.
 
-## Accessibility and localization
+### Placing the notice
 
-**Experimental, `0.x`.** Human screen-reader, keyboard, actual 400% zoom, operating-system high-contrast, localization, and design review remain open for this revision. Use descriptive links, translate the full notice, and verify bidirectional content with representative readers. Forced colors use system colors; text communicates the notice meaning without relying on color.
+Put the notice directly after the skip link and before the site header:
 
-## Known limitations and implementation status
+```html
+<a href="#main-content">Skip to main content</a>
+<section
+  class="usa-site-alert usa-site-alert--info cods-site-alert"
+  data-cods-site-alert
+  aria-labelledby="site-alert-heading"
+>
+  …
+</section>
+<header>…</header>
+<main id="main-content" tabindex="-1">…</main>
+```
 
-Site Alert is static and does not include a close button. Showing multiple alerts together is not supported. Human design and accessibility review remains open.
+### Loading styles and the icon
 
-## More examples
+Load `@coloradodigitalservice/colorado-design-tokens/tokens.css` and `@coloradodigitalservice/colorado-design-system/styles.css` once, as described in [Getting started](../getting-started/). The emergency icon is the packaged Phosphor Regular `warning.svg`, applied as a decorative CSS mask. When serving the CSS directly, keep the package's `icons/`, `img/`, and `fonts/` folders next to it.
 
-The examples below show each alert type, long content, translated content, and keyboard focus.
+### Variable settings
+
+Set these on a root to adjust the approved token-based values:
+
+| Custom property                 | Default                                                                       |
+| ------------------------------- | ----------------------------------------------------------------------------- |
+| `--cods-site-alert-background`  | Surface, `color.bg-alert-info` (warning and emergency set their own)          |
+| `--cods-site-alert-color`       | Text, `color.text-primary` (emergency uses `color.text-action-primary`)       |
+| `--cods-site-alert-link`        | Link, `color.text-action-link`                                                |
+| `--cods-site-alert-link-hover`  | Link hover, `color.text-action-link-hover`                                    |
+| `--cods-site-alert-link-active` | Link active, `color.text-action-link-active`                                  |
+| `--cods-site-alert-icon-color`  | Emergency icon, `color.icon-default` (emergency uses `color.icon-on-primary`) |
+| `--cods-site-alert-focus`       | Link focus ring, `color.bg-action-focus`                                      |
+| `--cods-site-alert-padding`     | Inline inset, `space.xl` (`space.md` below 48rem)                             |
+
+Check text, link, icon, and focus contrast after changing them.
+
+### Limitations
+
+- Site Alert is static. It has no close button, so notices can't be dismissed and no dismissed state is saved.
+- Showing more than one Site Alert at a time isn't supported.
+- The component doesn't add or announce notices after page load. Your application manages any live region.

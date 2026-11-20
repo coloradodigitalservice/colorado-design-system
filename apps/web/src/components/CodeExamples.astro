@@ -16,11 +16,7 @@ const { metadata, examples } = Astro.props;
 </p>
 {examples.map((example) => (
   <details class="cods-docs-example-source" data-cods-example={example.state}>
-    <summary>
-      {metadata.name === 'site-alert' && example.state === 'default'
-        ? 'View and copy HTML'
-        : `View ${example.state} HTML`}
-    </summary>
+    <summary>{`View ${example.state} HTML`}</summary>
     {example.status === 'review-required' && (
       <p>Review required: {example.instructions}</p>
     )}

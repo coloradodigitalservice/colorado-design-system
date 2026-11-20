@@ -58,26 +58,7 @@ test('package and Storybook preserve the canonical fixture and token styles', as
   await expectAccessible(page, testInfo, '#storybook-root');
 });
 
-test('keyboard links have visible focus without moving focus to the notice', async ({
-  page,
-  browserName,
-}) => {
-  await page.goto(story);
-  await expect(page.locator('.cods-site-alert').first()).toBeVisible();
-  await page.keyboard.press(
-    browserName === 'webkit' && process.platform === 'darwin'
-      ? 'Alt+Tab'
-      : 'Tab',
-  );
-  const link = page.locator('.cods-site-alert__link').first();
-  await expect(link).toBeFocused();
-  await expect(link).toHaveCSS('outline-style', 'solid');
-  await expect(link).toHaveCSS('outline-width', '4px');
-  await page.keyboard.press('Tab');
-  await expect(page.locator('.cods-site-alert__link').nth(1)).toBeFocused();
-});
-
-test('320px reflow, localization, reduced motion, and forced colors', async ({
+test('320px reflow, localization, RTL, reduced motion, and forced colors', async ({
   page,
 }, testInfo) => {
   await page.setViewportSize({ width: 320, height: 800 });
@@ -95,6 +76,11 @@ test('320px reflow, localization, reduced motion, and forced colors', async ({
   await expect(page.locator('[dir=rtl] .cods-site-alert__surface')).toHaveCSS(
     'border-top-width',
     '4px',
+  );
+  // Moved from web-site-alert.spec.ts: the page no longer shows RTL.
+  await expect(page.locator('[dir=rtl] .cods-site-alert__body')).toHaveCSS(
+    'padding-inline-start',
+    '16px',
   );
   await expectAccessible(page, testInfo, '#storybook-root');
 });
