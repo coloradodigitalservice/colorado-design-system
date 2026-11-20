@@ -56,6 +56,7 @@ Interactive components ship a TypeScript controller in `<component-name>.ts`. St
 - Events are dispatched with `bubbles: true` and `composed: false` (Shadow DOM is out of scope) and carry their payload in `event.detail`.
 - Controllers must not depend on global state or a specific bundler/module system beyond a standard ES module export.
 - Listeners belong on the root or its descendants. A controller may add `document` or `window` listeners only when the behavior needs them (for example Escape dismissal regardless of pointer location, or repositioning on scroll and resize), and only when each listener is owned by a single instance (no shared module-level handler or registry), acts only on that instance, and is removed by that instance's `destroy`. Document such listeners in a code comment and test that `destroy` removes them. In-Page Navigation coalesces its scroll and resize updates.
+- Exception: Header wraps the USWDS header behavior, which uses module-level state and a shared window resize handler and supports one header per document. USWDS installs the resize listener during initialization; while its mobile drawer is open, it toggles classes and inline padding on `<body>`, hides other page content with `aria-hidden`, and traps focus with a document key listener. `destroy` must close an open drawer and remove the behavior's listeners.
 
 ### 4.2 Controller lifecycle
 

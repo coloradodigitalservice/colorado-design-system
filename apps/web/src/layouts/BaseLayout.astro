@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import '@coloradodigitalservice/colorado-design-tokens/tokens.css';
 import '@coloradodigitalservice/colorado-design-system/styles.css';
 import SiteFooter from '../components/SiteFooter.astro';
+import SiteHeader from '../components/SiteHeader.astro';
 import '../styles/site.css';
 
 interface Props {
@@ -33,13 +34,7 @@ const pathname = Astro.url.pathname.startsWith(baseUrl)
     <a class="cods-docs-skip-link" href="#main-content">
       Skip to main content
     </a>
-    <header id="top" class="cods-docs-header">
-      <div class="cods-docs-container">
-        <a class="cods-docs-brand" href={baseUrl}>
-          Colorado Design System
-        </a>
-      </div>
-    </header>
+    <SiteHeader pathname={pathname} />
     <div class="cods-docs-container cods-docs-grid">
       <nav class="cods-docs-nav" aria-label="Documentation">
         <p class="cods-docs-nav-title">Documentation</p>

@@ -1,5 +1,12 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.31
+
+### Patch Changes
+
+- Improve Header navigation interactions, focus handling, and non-navigating examples.
+- @coloradodigitalservice/colorado-design-tokens@0.2.31
+
 ## 0.2.30
 
 ### Patch Changes

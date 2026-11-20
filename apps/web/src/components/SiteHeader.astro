@@ -1,0 +1,111 @@
+---
+import logoUrl from '@coloradodigitalservice/colorado-design-system/logos/cods-logo.svg?url';
+import spriteUrl from '@coloradodigitalservice/colorado-design-system/icons/sprite.svg?url';
+
+interface Props {
+  /** Current path without the deployment base, for example `/header/`. */
+  pathname: string;
+}
+
+const { pathname } = Astro.props;
+const baseUrl = import.meta.env.BASE_URL;
+// The planned site navigation names Design System Foundations, Components,
+// and About. Until those pages exist, the navigation links to pages that exist
+// today. Search and the language control are not part of this site's header.
+const links = [
+  { label: 'Overview', path: '/' },
+  { label: 'Getting started', path: '/getting-started/' },
+  { label: 'Components', path: '/#components' },
+];
+---
+
+<header
+  id="top"
+  class="usa-header usa-header--basic cods-header"
+  data-cods-header
+>
+  <div class="usa-overlay cods-header__overlay"></div>
+  <div class="usa-nav-container cods-header__container">
+    <div class="usa-navbar cods-header__navbar">
+      <div class="usa-logo cods-header__logo">
+        <a
+          class="cods-header__home"
+          href={baseUrl}
+          aria-label="Colorado Design System home"
+        >
+          <img
+            class="cods-header__logo-image"
+            src={logoUrl}
+            alt=""
+            width="219"
+            height="48"
+          />
+        </a>
+      </div>
+      <button
+        type="button"
+        class="usa-menu-btn cods-header__menu-button"
+        aria-controls="cods-docs-primary-navigation"
+      >
+        <svg
+          class="cods-icon cods-icon--small"
+          aria-hidden="true"
+          focusable="false"
+          width="16"
+          height="16"
+          viewBox="0 0 256 256"
+        >
+          <use href={`${spriteUrl}#list`}></use>
+        </svg>
+        Menu
+      </button>
+    </div>
+    <nav
+      id="cods-docs-primary-navigation"
+      class="usa-nav cods-header__nav"
+      aria-label="Primary"
+    >
+      <button
+        type="button"
+        class="usa-nav__close cods-header__close"
+        aria-label="Close menu"
+      >
+        <svg
+          class="cods-icon"
+          aria-hidden="true"
+          focusable="false"
+          width="24"
+          height="24"
+          viewBox="0 0 256 256"
+        >
+          <use href={`${spriteUrl}#x`}></use>
+        </svg>
+      </button>
+      <ul class="usa-nav__primary usa-accordion cods-header__list">
+        {links.map(({ label, path }) => {
+          const current = path === pathname;
+          return (
+            <li class="usa-nav__primary-item cods-header__item">
+              <a
+                class:list={[
+                  'usa-nav-link',
+                  { 'usa-current': current },
+                  'cods-header__link',
+                ]}
+                href={`${baseUrl}${path.slice(1)}`}
+                aria-current={current ? 'page' : undefined}
+              >
+                <span>{label}</span>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  import { initAllHeaders } from '@coloradodigitalservice/colorado-design-system';
+  initAllHeaders();
+</script>
