@@ -17,6 +17,7 @@ import DividerExamples from '../components/DividerExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
 import ComponentStatus from '../components/ComponentStatus.astro';
 import accordionMetadata from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
+import siteAlertMetadata from '@coloradodigitalservice/colorado-design-system/metadata/site-alert.json';
 import IconExamples from '../components/IconExamples.astro';
 import FooterExamples from '../components/FooterExamples.astro';
 import HeaderExamples from '../components/HeaderExamples.astro';
@@ -50,12 +51,13 @@ const { Content } = await render(entry);
     {entry.id === 'logos' && <LogoExample />}
     {entry.id === 'site-alert' && (
       <>
-        <p>
-          Site Alert communicates a sitewide service update or emergency. Its
-          maturity is <strong>experimental</strong> in the <code>0.x</code>{' '}
-          development series.
-        </p>
-        <SiteAlertExamples mode="default" />
+        <p class="cods-docs-lead">{entry.data.description}</p>
+        <SiteAlertExamples />
+        <ComponentStatus
+          metadata={siteAlertMetadata}
+          accessibility={entry.data.accessibilityStatus!}
+          figma={entry.data.figma}
+        />
       </>
     )}
     {entry.id === 'button' && <ButtonExamples mode="default" />}
@@ -128,7 +130,6 @@ const { Content } = await render(entry);
       entry.id === 'card' ||
       entry.id === 'hero' ||
       entry.id === 'radio' ||
-      entry.id === 'site-alert' ||
       entry.id === 'footer' ||
       entry.id === 'header' ||
       entry.id === 'breadcrumbs' ||
@@ -156,6 +157,5 @@ const { Content } = await render(entry);
     {entry.id === 'in-page-alert' && <InPageAlertExamples mode="remaining" />}
     {entry.id === 'button' && <ButtonExamples mode="remaining" />}
     {entry.id === 'icon' && <IconExamples />}
-    {entry.id === 'site-alert' && <SiteAlertExamples mode="remaining" />}
   </article>
 </BaseLayout>
