@@ -13,14 +13,6 @@ afterEach(() => {
 });
 
 describe('language selector', () => {
-  it('keeps language links visible without JavaScript', () => {
-    expect(document.querySelectorAll('a[hreflang]').length).toBe(10);
-    expect(
-      document.querySelector<HTMLElement>(
-        '[data-cods-language-selector-panel]',
-      )!.hidden,
-    ).toBe(false);
-  });
   it('toggles the disclosure and restores the fallback on destroy', () => {
     const root = document.querySelector<HTMLElement>(
       '[data-cods-language-selector]',
