@@ -1,34 +1,10 @@
-import { test, expect, expectAccessible } from './fixtures.js';
+// Scroll-geometry regressions for the In-Page Navigation controller. Keyboard,
+// hover, current-section, no-JS, and axe checks run on the docs page in
+// web-in-page-navigation.spec.ts, in all three browsers.
+import { test, expect } from './fixtures.js';
 
 const story =
   '/iframe.html?id=components-in-page-navigation--default&viewMode=story&globals=a11y.manual:!true';
-
-test('links and current section work in the canonical story', async ({
-  page,
-}, testInfo) => {
-  await page.goto(story);
-  const root = page.locator('[data-cods-in-page-navigation]');
-  const links = root.getByRole('link');
-  await expect(links.first()).toHaveAttribute('aria-current', 'location');
-  await page.locator('#storybook-root section').evaluateAll((sections) => {
-    sections.forEach((section) => {
-      (section as HTMLElement).style.minHeight = '100vh';
-    });
-  });
-  await page.locator('#payment-amounts').evaluate((heading) => {
-    window.scrollTo(
-      0,
-      window.scrollY + heading.getBoundingClientRect().top + 300,
-    );
-  });
-  await expect(links.nth(1)).toHaveAttribute('aria-current', 'location');
-  await page.locator('#required-documents').evaluate((section) => {
-    (section as HTMLElement).style.minHeight = '0';
-    window.scrollTo(0, document.documentElement.scrollHeight);
-  });
-  await expect(links.nth(2)).toHaveAttribute('aria-current', 'location');
-  await expectAccessible(page, testInfo, '#storybook-root');
-});
 
 test('a short final section stays inactive until the page end', async ({
   page,
@@ -58,38 +34,6 @@ test('a short final section stays inactive until the page end', async ({
     window.scrollTo(0, document.documentElement.scrollHeight),
   );
   await expect(links.nth(2)).toHaveAttribute('aria-current', 'location');
-});
-
-test('hover uses the desktop colors and leaves mobile links unchanged', async ({
-  page,
-}) => {
-  await page.goto(story);
-  const link = page
-    .locator('[data-cods-in-page-navigation]')
-    .getByRole('link')
-    .nth(1);
-  const colors = () =>
-    link.evaluate((node) => {
-      const style = getComputedStyle(node);
-      return { color: style.color, background: style.backgroundColor };
-    });
-  const normal = await colors();
-  await link.hover();
-  const hovered = await colors();
-  expect(hovered).not.toEqual(normal);
-  await expect(link).toHaveCSS('color', 'rgb(255, 255, 255)');
-  await page.setViewportSize({ width: 375, height: 720 });
-  await link.hover();
-  expect(await colors()).toEqual(normal);
-});
-
-test('authored links work without enhancement', async ({ page }) => {
-  await page.goto(
-    '/iframe.html?id=components-in-page-navigation--without-java-script&viewMode=story&globals=a11y.manual:!true',
-  );
-  await page.getByRole('link', { name: 'Payment amounts' }).click();
-  await expect(page).toHaveURL(/#payment-amounts$/);
-  await expect(page.locator('#payment-amounts')).toBeVisible();
 });
 
 test('a jump into a gap after a section keeps that section current', async ({
@@ -126,45 +70,4 @@ test('a jump into a gap after a section keeps that section current', async ({
     );
   });
   await expect(links.nth(1)).toHaveAttribute('aria-current', 'location');
-});
-
-test('keyboard order, exit, and link activation', async ({ page }) => {
-  await page.goto(story);
-  const root = page.locator('[data-cods-in-page-navigation]');
-  const links = root.getByRole('link');
-  await expect.poll(() => links.count()).toBeGreaterThan(1);
-  const total = await links.count();
-  await root.evaluate((nav) => {
-    const before = document.createElement('button');
-    before.textContent = 'Before navigation';
-    const after = document.createElement('button');
-    after.textContent = 'After navigation';
-    nav.before(before);
-    nav.after(after);
-  });
-  const before = page.getByRole('button', { name: 'Before navigation' });
-  const after = page.getByRole('button', { name: 'After navigation' });
-  await before.focus();
-  for (let index = 0; index < total; index += 1) {
-    await page.keyboard.press('Tab');
-    await expect(links.nth(index)).toBeFocused();
-  }
-  await page.keyboard.press('Tab');
-  await expect(after).toBeFocused();
-  for (let index = total - 1; index >= 0; index -= 1) {
-    await page.keyboard.press('Shift+Tab');
-    await expect(links.nth(index)).toBeFocused();
-  }
-  await page.keyboard.press('Shift+Tab');
-  await expect(before).toBeFocused();
-  for (let index = 0; index < total; index += 1) {
-    await before.focus();
-    for (let step = 0; step <= index; step += 1)
-      await page.keyboard.press('Tab');
-    const link = links.nth(index);
-    await expect(link).toBeFocused();
-    const href = await link.getAttribute('href');
-    await page.keyboard.press('Enter');
-    await expect(page).toHaveURL(new RegExp(`${href}$`));
-  }
 });
