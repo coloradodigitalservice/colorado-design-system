@@ -7,14 +7,18 @@
  * dedent, leaving only the component markup.
  * @param {string} code Generated example code for one fixture state.
  * @returns {string}
+ * @param {string} [spriteUrl] Built shared sprite URL for previews with icons.
  */
-export function componentMarkup(code) {
+export function componentMarkup(code, spriteUrl) {
+  const markup = spriteUrl
+    ? code.replaceAll('/icons/sprite.svg', () => spriteUrl)
+    : code;
   const wrapper =
-    code.match(/^\s*<div\b[^>]*\bdata-cods-fixture-state=/) &&
-    /\n\s*<\/div>\s*$/.test(code)
+    markup.match(/^\s*<div\b[^>]*\bdata-cods-fixture-state=/) &&
+    /\n\s*<\/div>\s*$/.test(markup)
       ? 'div'
       : 'section';
-  const lines = code
+  const lines = markup
     .replace(new RegExp(`^\\s*<${wrapper}\\b[^>]*>\\s*\\n`), '')
     .replace(new RegExp(`\\n\\s*<\\/${wrapper}>\\s*$`), '')
     .replace(/^\s*<h2>[^<]*<\/h2>\s*\n/, '')
