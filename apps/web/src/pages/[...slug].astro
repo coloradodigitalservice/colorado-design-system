@@ -17,6 +17,7 @@ import DividerExamples from '../components/DividerExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
 import ComponentStatus from '../components/ComponentStatus.astro';
 import accordionMetadata from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
+import inPageAlertMetadata from '@coloradodigitalservice/colorado-design-system/metadata/in-page-alert.json';
 import IconExamples from '../components/IconExamples.astro';
 import FooterExamples from '../components/FooterExamples.astro';
 import HeaderExamples from '../components/HeaderExamples.astro';
@@ -142,8 +143,13 @@ const { Content } = await render(entry);
     )}
     {entry.id === 'in-page-alert' && (
       <>
-        <InPageAlertExamples mode="default" />
-        <ComponentSummary component="in-page-alert" figma={entry.data.figma} />
+        <p class="cods-docs-lead">{entry.data.description}</p>
+        <InPageAlertExamples />
+        <ComponentStatus
+          metadata={inPageAlertMetadata}
+          accessibility={entry.data.accessibilityStatus!}
+          figma={entry.data.figma}
+        />
       </>
     )}
     <Content />
@@ -153,7 +159,6 @@ const { Content } = await render(entry);
     {entry.id === 'videos' && <VideosExamples />}
     {entry.id === 'process-list' && <ProcessListExamples />}
     {entry.id === 'select' && <SelectExamples />}
-    {entry.id === 'in-page-alert' && <InPageAlertExamples mode="remaining" />}
     {entry.id === 'button' && <ButtonExamples mode="remaining" />}
     {entry.id === 'icon' && <IconExamples />}
     {entry.id === 'site-alert' && <SiteAlertExamples mode="remaining" />}

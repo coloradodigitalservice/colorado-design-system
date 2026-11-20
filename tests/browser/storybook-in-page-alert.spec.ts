@@ -1,4 +1,5 @@
 import { readFileSync } from 'node:fs';
+import { expectPhosphorMask } from './icon-mask.js';
 import { routeBuiltFiles } from './built-files.js';
 import { test, expect, expectAccessible } from './fixtures.js';
 
@@ -82,3 +83,68 @@ for (const [story, state] of [
     },
   );
 }
+
+const allStates =
+  '/iframe.html?id=components-in-page-alert--all-states&viewMode=story&globals=a11y.manual:!true';
+const state = (name: string) =>
+  `[data-cods-fixture-state=${name}] .cods-in-page-alert`;
+
+// The docs page previews only common variants; these states run here
+// (Chromium only). The previewed variants also run on the page in all engines.
+test('every state reflows at 320px with RTL icon placement and forced colors', async ({
+  page,
+}, testInfo) => {
+  await page.setViewportSize({ width: 320, height: 800 });
+  await page.emulateMedia({ reducedMotion: 'reduce', forcedColors: 'active' });
+  await page.goto(allStates);
+  const alerts = page.locator('.cods-in-page-alert');
+  await expect(alerts).toHaveCount(20);
+  for (const alert of await alerts.all()) {
+    await expect(alert).toBeVisible();
+    expect(
+      await alert.evaluate(
+        (element) => element.scrollWidth <= element.clientWidth,
+      ),
+    ).toBe(true);
+  }
+  const rtl = page.locator('[dir=rtl].cods-in-page-alert');
+  await expect(rtl).toHaveCSS('border-right-width', '8px');
+  expect(
+    await rtl
+      .locator('.cods-in-page-alert__body')
+      .evaluate((element) => getComputedStyle(element, '::before').right),
+  ).toBe('12px');
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+  await expectAccessible(page, testInfo, '#storybook-root');
+});
+
+test('compact and icon-free geometry matches Figma for every severity', async ({
+  page,
+}) => {
+  await page.goto(allStates);
+  for (const [name, icon] of [
+    ['without-heading', 'info'],
+    ['success-compact', 'check-circle'],
+    ['warning-compact', 'warning'],
+    ['urgent-compact', 'warning-circle'],
+  ]) {
+    const body = page.locator(`${state(name!)} .cods-in-page-alert__body`);
+    await expect(body).toHaveCSS('padding-inline-start', '48px');
+    await expect(body).toHaveCSS('padding-block-start', '8px');
+    await expectPhosphorMask(body, icon!, { size: 24, inset: 12, top: 8 });
+  }
+  for (const variant of ['info', 'success', 'warning', 'urgent']) {
+    const body = page.locator(
+      `${state(`${variant}-no-icon`)} .cods-in-page-alert__body`,
+    );
+    await expect(body).toHaveCSS('padding-inline-start', '12px');
+    await expect(body).toHaveCSS('padding-block-start', '8px');
+    expect(
+      await body.evaluate((el) => getComputedStyle(el, '::before').display),
+    ).toBe('none');
+  }
+});

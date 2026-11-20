@@ -2,15 +2,21 @@
 // rendered preview code and the drift check derive markup identically.
 
 /**
- * Strip a canonical fixture state's demonstration wrapper (`<section>` and
- * its `<h2>` label) and dedent, leaving only the component markup.
+ * Strip a canonical fixture state's demonstration wrapper (a `<section>`, or a
+ * `<div>` carrying `data-cods-fixture-state`, and its `<h2>` label) and
+ * dedent, leaving only the component markup.
  * @param {string} code Generated example code for one fixture state.
  * @returns {string}
  */
 export function componentMarkup(code) {
+  const wrapper =
+    code.match(/^\s*<div\b[^>]*\bdata-cods-fixture-state=/) &&
+    /\n\s*<\/div>\s*$/.test(code)
+      ? 'div'
+      : 'section';
   const lines = code
-    .replace(/^\s*<section[^>]*>\s*\n/, '')
-    .replace(/\n\s*<\/section>\s*$/, '')
+    .replace(new RegExp(`^\\s*<${wrapper}\\b[^>]*>\\s*\\n`), '')
+    .replace(new RegExp(`\\n\\s*<\\/${wrapper}>\\s*$`), '')
     .replace(/^\s*<h2>[^<]*<\/h2>\s*\n/, '')
     .split('\n');
   const indent = Math.min(
