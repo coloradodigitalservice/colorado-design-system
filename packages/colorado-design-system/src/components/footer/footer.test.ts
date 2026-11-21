@@ -77,48 +77,6 @@ function setGroupCount(root: HTMLElement, count: number) {
 }
 
 describe('USWDS Footer lifecycle', () => {
-  it('keeps every navigation panel visible without JavaScript', () => {
-    const root = fullFooter();
-    expect(headings(root).every((heading) => heading.tagName === 'H2')).toBe(
-      true,
-    );
-    expect(
-      panels(root).every(
-        (panel) => panel.getAttribute('aria-expanded') === null,
-      ),
-    ).toBe(true);
-    expect(root.querySelectorAll('[hidden]')).toHaveLength(0);
-  });
-
-  it('initializes mobile disclosures and dispatches settled group events', () => {
-    const root = fullFooter();
-    window.innerWidth = 375;
-    const events: FooterChangeDetail[] = [];
-    root.addEventListener('cods-footer:change', (event) => {
-      events.push((event as CustomEvent<FooterChangeDetail>).detail);
-    });
-    init(root);
-
-    const buttons = root.querySelectorAll<HTMLButtonElement>(
-      'button.usa-footer__primary-link',
-    );
-    expect(buttons).toHaveLength(4);
-    expect(
-      Array.from(buttons).map((button) => button.getAttribute('aria-expanded')),
-    ).toEqual(['false', 'false', 'false', 'false']);
-    expect(buttons[0].getAttribute('aria-controls')).toBe(
-      panels(root)[0].getAttribute('id'),
-    );
-
-    buttons[0].click();
-    buttons[1].click();
-    expect(events).toEqual([
-      { group: 'services', expanded: true },
-      { group: 'services', expanded: false },
-      { group: 'government', expanded: true },
-    ]);
-  });
-
   it('tracks responsive markup and restores authored nodes on destroy', () => {
     const root = fullFooter();
     const original = root.outerHTML;

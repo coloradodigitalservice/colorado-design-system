@@ -4,157 +4,114 @@ description: Colorado-themed full and compact site footers.
 navLabel: Footer
 order: 50
 figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=1100-9283
+accessibilityStatus: Automated accessibility checks (axe) pass for both preview variants. Manual screen-reader, zoom, and forced-colors review is pending.
 ---
 
-## When to use
+## Guidance
 
-Use the **Full** footer when visitors benefit from categorized navigation across
-a complex site. Use the **Compact** footer when a smaller site, landing page, or
-task-focused experience needs a short set of essential links. Replace all
-example labels and destinations with links that are relevant to your agency.
+### When to use
 
-## Anatomy
+Use a footer at the end of every page to give people consistent ways to reach key services, contact information, and required State policies. Replace every example label and destination with links that are relevant to your agency.
 
-1. **Footer landmark** (`cods-footer`): names the end-of-page navigation for
-   assistive technology. A page with more than one footer landmark should give
-   each one a distinct accessible name.
-2. **Return-to-top link** (`cods-footer__return-to-top`): a native link to the
-   page's top anchor.
-3. **Primary navigation** (`cods-footer__nav`): groups service links under
-   headings in Full; Compact presents a shorter, ungrouped list.
-4. **Contact and social links** (`cods-footer__contact`,
-   `cods-footer__social`): a headed set of agency contact destinations and
-   named social links using approved CoDS icons in Full.
-5. **Legal navigation** (`cods-footer__legal-nav`): provides accessibility,
-   financial transparency, data terms, and privacy destinations alongside the
-   copyright statement.
+Choose the density that fits the site:
 
-## Use the package
+| Variant | Use when                                                                                                                           | Don't use when                                                                   |
+| ------- | ---------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| Full    | Visitors benefit from categorized navigation across a complex site, plus a Contact Us group with social links.                     | The site has only a few essential links; the groups would be thin or repetitive. |
+| Compact | A smaller site, landing page, or task-focused experience needs a short, ungrouped list of essential links. It has no social links. | People need categorized navigation or contact and social links in the footer.    |
 
-Follow [Getting started](../getting-started/) to install the development release
-and load `@coloradodigitalservice/colorado-design-tokens/tokens.css` and
-`@coloradodigitalservice/colorado-design-system/styles.css` once. Use the
-canonical fixture below as a starting point; keep USWDS's `usa-footer` classes
-alongside the public `cods-footer` classes. Choose `usa-footer--big
-cods-footer--full` for categorized navigation or `usa-footer--slim
-cods-footer--compact` for the compact variant.
+Both variants include a Return to top link, a copyright statement, and a legal navigation with accessibility, financial transparency, data terms, and privacy destinations.
 
-The page's top-level content should provide the `id` targeted by the return to
-top link (the example uses `#top`). Keep every navigation label and social link
-name meaningful; the social icon itself is decorative and hidden from
-assistive technology. Replace the example social destinations with the
-agency's actual profiles.
+### Accessibility for footers
 
-Full uses the pinned USWDS footer behavior to turn its groups into disclosures
-below 480px. Include one or more groups, each with a unique, nonempty
-`data-cods-footer-group` on a heading inside the primary navigation. Immediately
-follow each heading with its panel, using the `usa-list--unstyled` class. Adjust
-the USWDS grid classes to fit the desired number of columns; the example uses
-four on desktop and wraps additional groups to the next row.
+- Place the footer as a direct part of the page, outside `<main>`, `<article>`, and `<section>`, so it is exposed as the contentinfo landmark. Give it a concise `aria-label` when the page has more than one footer landmark, and give every footer a distinct name.
+- Give each `<nav>` (primary, social in Full, and legal) its own distinct `aria-label`.
+- Link text describes each destination. Social links are named with `aria-label`, such as "Facebook"; the icon is decorative and hidden from assistive technology.
+- Tab and Shift+Tab move through the links in document order. Every link keeps a visible focus indicator and a minimum 48px target height.
+- Below 480px, Full group headings become buttons. Enter or Space opens or closes a group, focus stays on the button, and each button exposes `aria-expanded` and `aria-controls`. Opening one group closes the others.
+- Without JavaScript, every Full link stays visible under its static heading. Compact is static and has no JavaScript behavior.
+- Choose the heading level for group headings that fits the page outline. The example uses `<h2>`.
+- The Return to top link targets an `id` your page provides near the top of its content. The example uses `#top`.
 
-Initialize Full after adding the footer to the document and destroy it before
-removing or changing the markup:
+## Specifications
 
-```ts
+### Variants and elements
+
+Pair each CoDS class with its USWDS class. The `usa-*` classes are the upstream integration markup.
+
+| Class                            | Use                                                                                                          |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `cods-footer`                    | Footer root on a `<footer>` element; pair with `usa-footer`.                                                 |
+| `cods-footer--full`              | Full variant with grouped navigation and contact links; pair with `usa-footer--big`.                         |
+| `cods-footer--compact`           | Compact variant with one ungrouped list; pair with `usa-footer--slim`.                                       |
+| `cods-footer__return-to-top`     | Return to top container; pair with `usa-footer__return-to-top`.                                              |
+| `cods-footer__primary-section`   | Primary navigation surface; pair with `usa-footer__primary-section`.                                         |
+| `cods-footer__nav`               | Primary `<nav>`; pair with `usa-footer__nav`.                                                                |
+| `cods-footer__groups`            | List of navigation groups.                                                                                   |
+| `cods-footer__group`             | One group; pair with `usa-footer__primary-content` (and `usa-footer__primary-content--collapsible` in Full). |
+| `cods-footer__heading`           | Full group heading; pair with `usa-footer__primary-link`.                                                    |
+| `cods-footer__links`             | List of group links; pair with `usa-list usa-list--unstyled`.                                                |
+| `cods-footer__contact`           | Full Contact Us group, on the same element as `cods-footer__group`.                                          |
+| `cods-footer__panel`             | Contact Us panel that holds the contact links and social navigation; pair with `usa-list--unstyled`.         |
+| `cods-footer__social`            | Social `<nav>` inside Contact Us (Full only); pair with `usa-social-nav`.                                    |
+| `cods-footer__social-list`       | Social link list; pair with `usa-social-nav__list`.                                                          |
+| `cods-footer__social-link`       | Social link with a medium CoDS icon; pair with `usa-social-link`.                                            |
+| `cods-footer__secondary-section` | Copyright and legal surface; pair with `usa-footer__secondary-section`.                                      |
+| `cods-footer__legal`             | Copyright and legal navigation wrapper.                                                                      |
+| `cods-footer__copyright`         | Copyright statement.                                                                                         |
+| `cods-footer__legal-nav`         | Legal `<nav>`.                                                                                               |
+| `cods-footer__legal-list`        | Legal link list. Links stack vertically below 640px.                                                         |
+
+| Attribute                | Use                                                                                        |
+| ------------------------ | ------------------------------------------------------------------------------------------ |
+| `data-cods-footer`       | Marks a Full footer root for the controller. Compact doesn't need it.                      |
+| `data-cods-footer-group` | A unique, nonempty key on each Full group heading. It is reported in `cods-footer:change`. |
+
+### Full footer groups
+
+Full uses the pinned USWDS footer behavior to turn its groups into disclosures below 480px. Include one or more groups inside the primary `<nav>`. Give each heading a unique `data-cods-footer-group`, and immediately follow it with its panel, which carries the `usa-list--unstyled` class. Adjust the USWDS grid classes to fit the number of columns; the example uses four on desktop and wraps additional groups to the next row.
+
+The Contact Us group holds contact links and the social navigation. Replace the example social profiles with the agency's actual profiles, and name each link with `aria-label`.
+
+### Initializing the controller
+
+Load `@coloradodigitalservice/colorado-design-tokens/tokens.css` and `@coloradodigitalservice/colorado-design-system/styles.css` once, as described in [Getting started](../getting-started/). The controller bundles the pinned USWDS footer behavior, so don't load a separate USWDS script on these footers. Use the package's icon sprite for the Return to top and social icons.
+
+```js
 import {
+  initAllFooters,
   destroyFooter,
-  initFooter,
 } from '@coloradodigitalservice/colorado-design-system';
 
-const footer = document.querySelector('[data-cods-footer]');
-if (footer instanceof HTMLElement) initFooter(footer);
+initAllFooters(document);
 
 // Before removing or replacing the footer:
-if (footer instanceof HTMLElement) destroyFooter(footer);
+const footer = document.querySelector('[data-cods-footer]');
+destroyFooter(footer);
 ```
 
-Without JavaScript, all Full links remain visible. Compact is static and does
-not need initialization. USWDS's footer behavior supports one Full footer per
-document.
+| Function                    | Behavior                                                                                                         |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `initFooter(root)`          | Initializes one connected Full footer. Repeated calls are safe. Invalid markup warns once and is left unchanged. |
+| `initAllFooters(container)` | Initializes every `[data-cods-footer]` root in a container (default `document`), including the container itself. |
+| `destroyFooter(root)`       | Removes listeners and restores the authored headings and panel IDs. Safe to call repeatedly.                     |
 
-The package exports the canonical markup at
-`@coloradodigitalservice/colorado-design-system/fixtures/footer.html` and
-metadata at `@coloradodigitalservice/colorado-design-system/metadata/footer.json`.
-The component preview above and the expandable examples below both use the
-canonical fixture; the examples provide copyable markup for both densities.
+Each changed group dispatches a bubbling, non-composed `cods-footer:change` event from the root with `detail: { group, expanded }`. Opening a group while another is open produces a closing event and an opening event. Initialization, resizing, and teardown don't dispatch events.
 
-The documentation site's own footer uses a static, contact-focused Compact
-layout from the [website mockup](https://www.figma.com/design/JLCOTY9jAy5g6vms27Uth4/CDS-Website?node-id=12450-7265).
-It includes Contact Us links, State policies, copyright, and the current
-development release. The Google Space link is omitted until a destination is
-available. Its container aligns with the header and main
-content at a maximum of 80rem (1280px), including 32px side gutters.
-Links retain 48px touch targets even though the mockup shows tighter rows.
-Consumers can choose their own container width;
-the fixture's `grid-container` uses the default USWDS width.
+### Variable settings
 
-## Variants and public classes
+Set these on a footer root to adjust its surfaces:
 
-| Variant | USWDS modifier     | CoDS modifier          | Use                                                             |
-| ------- | ------------------ | ---------------------- | --------------------------------------------------------------- |
-| Full    | `usa-footer--big`  | `cods-footer--full`    | Categorized service navigation, contact links, and social links |
-| Compact | `usa-footer--slim` | `cods-footer--compact` | A shorter, ungrouped list for smaller or task-focused sites     |
+| Custom property                      | Default                                                   |
+| ------------------------------------ | --------------------------------------------------------- |
+| `--cods-footer-primary-background`   | Primary navigation surface, `color.surface-nav-secondary` |
+| `--cods-footer-secondary-background` | Copyright and legal surface, `color.surface-nav-heel`     |
 
-The `cods-footer` class provides responsive layout, Colorado token colors,
-link/focus treatment, and touch-sized social links. Social links appear under
-Contact Us in Full; Compact has no social links. Group links remain ordinary
-HTML anchors. Full group headings become buttons at narrow widths; they use
-USWDS's disclosure behavior.
+Check text and focus contrast when changing either surface. Forced-colors mode uses system colors regardless of these overrides.
 
-Below 480px, Full groups share single-pixel separators with no space above the
-first group. Expanded links align with the heading text, after the chevron and
-its gap. Without JavaScript, the links remain visible and align with the static
-headings. Below 640px, legal links stack vertically in both variants and in the
-documentation site's footer.
+### Limitations
 
-The primary and secondary surfaces default to the semantic
-`--cods-color-surface-nav-secondary` and `--cods-color-surface-nav-heel` tokens.
-Legal links use `--cods-color-text-primary` by default, while the primary
-navigation uses the secondary-action text color.
-Consumers can override the surfaces on the footer with
-`--cods-footer-primary-background` and `--cods-footer-secondary-background`;
-check text and focus contrast when changing either surface. Forced-colors mode
-uses system colors regardless of these overrides.
-
-## Accessibility and localization
-
-The footer is a contentinfo landmark. Give it a concise accessible name when
-another footer landmark exists on the page. Use separately named `<nav>`
-landmarks for the primary, social (Full only), and legal links; link text or
-accessible names must describe their destinations. Full disclosure buttons
-expose `aria-expanded` and `aria-controls` at narrow widths. Section headings
-should match the surrounding page's heading hierarchy.
-
-Full emits a bubbling, non-composed `cods-footer:change` event after a group
-changes. Its `detail` contains the group key and expanded state.
-
-Link targets have a minimum 48px block size, and visible keyboard focus uses
-approved focus tokens. The grids reflow at narrow widths; text wraps without
-truncation. Check longer translations and right-to-left content with the
-consumer's actual copy. The disclosure behavior has no animation.
-
-## Known limitations and implementation status
-
-- **Status:** implemented as an experimental component in the `0.x`
-  development series. The source fixture, package assets, Storybook variants,
-  and docs examples share the same full and compact markup.
-- USWDS's Footer behavior supports one Full footer per document; `initFooter`
-  warns and leaves markup unchanged when multiple Full footers are present.
-- The fixture contains illustrative Colorado destinations and social profile
-  URLs; consumers must verify and replace them for their agency.
-- Screen-reader and actual 400% zoom/manual forced-colors review and design
-  approval remain required before stable maturity.
-- Markup and package paths may change before `1.0`.
-
-## Manual review checklist
-
-- With VoiceOver/Safari or NVDA/Firefox, navigate the contentinfo and navigation
-  landmarks; verify distinct names, heading order, and social link names.
-- At 320px-equivalent reflow and actual 400% zoom, check every link and group.
-- In operating-system high contrast, check text, link, boundary, and focus
-  visibility.
-- Review long translated labels and right-to-left content with localization
-  and content reviewers.
-
-Record browser and assistive-technology versions and observations in the
-component evidence file before accessibility approval.
+- USWDS's footer behavior supports one Full footer per document. `initFooter` warns and leaves markup unchanged when more than one Full footer is present.
+- The controller doesn't watch the DOM. Destroy and reinitialize after adding or removing groups.
+- The fixture's destinations and social profile URLs are illustrative; verify and replace them for your agency.
+- Groups open and close without animation.
