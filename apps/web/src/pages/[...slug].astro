@@ -17,6 +17,7 @@ import DividerExamples from '../components/DividerExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
 import ComponentStatus from '../components/ComponentStatus.astro';
 import accordionMetadata from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
+import footerMetadata from '@coloradodigitalservice/colorado-design-system/metadata/footer.json';
 import IconExamples from '../components/IconExamples.astro';
 import FooterExamples from '../components/FooterExamples.astro';
 import HeaderExamples from '../components/HeaderExamples.astro';
@@ -72,12 +73,13 @@ const { Content } = await render(entry);
     )}
     {entry.id === 'footer' && (
       <>
-        <p>
-          Footer provides full and compact Colorado-themed site navigation. Its
-          maturity is <strong>experimental</strong> in the <code>0.x</code>{' '}
-          development series.
-        </p>
+        <p class="cods-docs-lead">{entry.data.description}</p>
         <FooterExamples />
+        <ComponentStatus
+          metadata={footerMetadata}
+          accessibility={entry.data.accessibilityStatus!}
+          figma={entry.data.figma}
+        />
       </>
     )}
     {entry.id === 'header' && (
@@ -129,7 +131,6 @@ const { Content } = await render(entry);
       entry.id === 'hero' ||
       entry.id === 'radio' ||
       entry.id === 'site-alert' ||
-      entry.id === 'footer' ||
       entry.id === 'header' ||
       entry.id === 'breadcrumbs' ||
       entry.id === 'link' ||

@@ -7,6 +7,131 @@
 
 Every checklist item must be checked or explicitly marked "N/A — \<reason>" before the component can be marked `stable`. Leaving an item blank means the evidence is incomplete.
 
+## CODS-P4-018 hardening — 2026-11-20
+
+Developer first pass for Phase 4 (CDS-132). Manual QA, State domain acceptance,
+and client sign-off are pending; this section records only the content and
+test-audit work and its automated results.
+
+### Documentation page
+
+The `/footer/` page now follows the CoDS Website Content outline: lead
+description, Component preview (Full and Compact fixture states, rendered with
+the built icon sprite), generated Component code, Component status, Guidance
+(When to use with a Full/Compact variant table, Accessibility for footers), and
+Specifications (classes and attributes, Full footer groups, Initializing the
+controller, Variable settings, Limitations). The Anatomy, Use the package,
+localization/RTL, known-limitations, and manual-checklist sections were
+replaced or removed, as was the expandable examples catalogue; those states
+stay in Storybook and the tests. The page no longer describes the docs site's
+own footer. The status states that axe passes for both preview variants and
+that manual review is pending; it makes no conformance claim. Every class,
+attribute, function, and custom property was checked against `footer.scss`,
+`footer.ts`, the fixture, and metadata.
+
+Guidance text reuses the previously reviewed page copy; it has not been
+re-confirmed against the Figma component page (open item). The fixture has no
+separate identity/logo group (CDS-132 lists one); none was added.
+
+The preview wraps each variant in the page's `<article>`, so the preview
+footers are not exposed as contentinfo landmarks there (HTML-AAM). The page
+now tells authors to place the footer outside `<main>`, `<article>`, and
+`<section>`.
+
+The shared `ComponentPreview` now accepts `spriteUrl` and strips a
+`<div data-cods-fixture-state>` wrapper, copied verbatim from the Card PR
+(CODS-P4-014); the docs output check and shared fixtures spec read the sprite
+URL from the preview.
+
+### Test audit
+
+| Area                                                              | Before                    | After                      |
+| ----------------------------------------------------------------- | ------------------------- | -------------------------- |
+| Unit cases (`footer.test.ts`)                                     | 18                        | 16                         |
+| `web-footer.spec.ts`                                              | 9 tests × 3 browsers = 27 | 13 tests × 3 browsers = 39 |
+| Footer entries in `web-component-docs.spec.ts`                    | 3 tests × 3 browsers = 9  | 0                          |
+| `storybook-footer.spec.ts` (Chromium)                             | 10                        | 1                          |
+| Playwright runs, total                                            | 46                        | 40                         |
+| Shared specs (`web-shared-fixtures`, `storybook-shared-fixtures`) | 3 + 2                     | 3 + 2 (unchanged)          |
+| Lines of Footer spec code (unit + web + Storybook + docs entries) | 1018                      | 864                        |
+
+Decisions:
+
+- **Moved to the web spec (now Chromium, Firefox, and WebKit instead of
+  Chromium only):** keyboard focus ring and Tab order (Option+Tab on macOS
+  WebKit); surface overrides and forced-colors system colors; link weight,
+  underline, color, and hover; named navigation landmarks and the axe
+  `landmark-unique` rule; 320px reflow and 48px targets without JavaScript.
+- **Consolidated:** the two Storybook link-styling tests into one; the site
+  footer 320px test and the Storybook 320px test into one no-JS test that
+  covers both preview variants and the site footer; the site footer check now
+  loads one page instead of two pages that share the same layout.
+- **Replaced:** the legacy `web-component-docs` Footer entries (required
+  Summary/Anatomy headings, 320px links) and its "renders and enhances" test
+  with a page-outline test (headings, two preview states, status wording,
+  exclusions, landmark names, Full enhancement at 320px, axe). Internal links
+  stay covered by the build's docs output check.
+- **Removed as duplicates or tautologies:** the Storybook fixture-equivalence
+  test (package fixture staleness is checked by `checkComponentAssets`, story
+  content by `storybook-shared-fixtures`); the per-story fixture count test;
+  the Storybook narrow-screen disclosure test (covered by the web blade,
+  group-count, and outline tests); the site footer's Return to top click
+  (covered by the no-JS keyboard test); the unit "initializes mobile
+  disclosures" case (contained in the `it.each` group-count cases); the unit
+  "visible without JavaScript" case, which only re-read static fixture markup
+  (now proven in a browser without JavaScript).
+- **Removed assertions:** social link count, Compact's lack of social links,
+  and the absent identity block were fixture restatements.
+- **Kept:** controller lifecycle, restoration, idempotency, and every invalid
+  markup case; one and five groups in browsers; mobile blade geometry, the
+  1280px container alignment, and the legal-link 640px breakpoint (past
+  defects); site footer content, colors, and typography; the Storybook
+  surface-token check.
+- **Axe without JavaScript:** axe needs JavaScript, so the no-JS reflow test
+  does not scan. The outline test scans the enhanced page at 320px and the
+  site footer test scans the overview page.
+
+### Automated results
+
+Base commit `9f759ee` (`origin/main`), local Node 26.5.0 (nvm unavailable;
+`.nvmrc` pins 24.21.0, which CI uses).
+
+- `pnpm exec vitest run packages/colorado-design-system/src/components/footer`:
+  16 passed. `pnpm test`: 368 of 369 passed; the one failure was the icon
+  generation test's 5-second timeout under machine load, and it passed (8 of 8)
+  when rerun alone.
+- `pnpm exec playwright test --config config/playwright.built-files.ts` for
+  `web-footer.spec.ts` (Chromium and WebKit) and `storybook-footer.spec.ts`:
+  27 passed. The Footer cases in `web-shared-fixtures.spec.ts` (Chromium,
+  WebKit) and `storybook-shared-fixtures.spec.ts` passed.
+- Firefox could not launch locally (`browserType.launch: Failed to launch the
+browser process`); CI covers the `web-firefox` project.
+- `pnpm check:workspace`, `fixtures:validate`, `validate`, `tokens:check`,
+  `format:check`, `lint`, `typecheck`, `build` (including the docs output
+  drift check), `fixtures:check`, and `build-static-example --check` passed.
+
+### Manual matrix for Aten Accessibility/QA (pending)
+
+Review both variants on the PR preview (`/footer/`) and in Storybook
+(`pnpm dev:storybook`, including the Without JavaScript story). Record
+browser, assistive technology, and versions for each result.
+
+- [ ] Footer and navigation landmarks: contentinfo is exposed when the footer
+      is outside sectioning content; every navigation has a distinct name.
+- [ ] Link purpose and order: link text describes each destination; reading
+      and focus order match the visual order at desktop and narrow widths.
+- [ ] Social icon names: each social link announces its network name; icons
+      are not announced.
+- [ ] Return to top: the link reaches the page's top target and focus or
+      reading position moves there.
+- [ ] Full disclosures below 480px: Enter/Space toggle, `aria-expanded` is
+      announced, focus stays on the button, and one group opens at a time.
+- [ ] Narrow-screen wrapping and touch targets: links wrap without truncation
+      and keep 48px targets at 320px.
+- [ ] Contrast, 400% zoom / 320px reflow, narrow screens.
+- [ ] Reduced motion (no animation), forced colors.
+- [ ] Internal localization and long-text notes with translated copy.
+
 ## Keyboard
 
 - [ ] Every interactive element is reachable using only the keyboard, in a logical (visual/DOM-matching) order.
