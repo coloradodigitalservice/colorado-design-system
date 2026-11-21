@@ -17,6 +17,7 @@ import DividerExamples from '../components/DividerExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
 import ComponentStatus from '../components/ComponentStatus.astro';
 import accordionMetadata from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
+import processListMetadata from '@coloradodigitalservice/colorado-design-system/metadata/process-list.json';
 import IconExamples from '../components/IconExamples.astro';
 import FooterExamples from '../components/FooterExamples.astro';
 import HeaderExamples from '../components/HeaderExamples.astro';
@@ -65,6 +66,17 @@ const { Content } = await render(entry);
         <AccordionExamples />
         <ComponentStatus
           metadata={accordionMetadata}
+          accessibility={entry.data.accessibilityStatus!}
+          figma={entry.data.figma}
+        />
+      </>
+    )}
+    {entry.id === 'process-list' && (
+      <>
+        <p class="cods-docs-lead">{entry.data.description}</p>
+        <ProcessListExamples />
+        <ComponentStatus
+          metadata={processListMetadata}
           accessibility={entry.data.accessibilityStatus!}
           figma={entry.data.figma}
         />
@@ -136,8 +148,7 @@ const { Content } = await render(entry);
       entry.id === 'checkbox' ||
       entry.id === 'combo-box' ||
       entry.id === 'select' ||
-      entry.id === 'divider' ||
-      entry.id === 'process-list') && (
+      entry.id === 'divider') && (
       <ComponentSummary component={entry.id} figma={entry.data.figma} />
     )}
     {entry.id === 'in-page-alert' && (
@@ -151,7 +162,6 @@ const { Content } = await render(entry);
     {entry.id === 'hero' && <HeroExamples />}
     {entry.id === 'tags' && <TagsExamples />}
     {entry.id === 'videos' && <VideosExamples />}
-    {entry.id === 'process-list' && <ProcessListExamples />}
     {entry.id === 'select' && <SelectExamples />}
     {entry.id === 'in-page-alert' && <InPageAlertExamples mode="remaining" />}
     {entry.id === 'button' && <ButtonExamples mode="remaining" />}
