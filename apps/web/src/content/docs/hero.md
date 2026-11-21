@@ -4,72 +4,91 @@ description: Introduce a page with a prominent heading, optional image, and acti
 navLabel: Hero
 order: 21
 figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=1964-5570
+accessibilityStatus: Automated accessibility checks (axe) pass for every preview state. Manual accessibility review is pending.
 ---
 
-## When to use
+## Guidance
 
-Use a Hero at the top of a page when the page needs more introduction than a title alone. Choose an image Hero for a homepage or when an image helps orient visitors, set expectations, or establish the tone. Use a banner when a page needs distinction or a longer introduction but does not need an image. Avoid an image on a lower-level page when it has no strong connection to the content.
+### When to use
 
-Write a clear title of roughly 50 characters or fewer and, when useful, a one- or two-line introduction of roughly 175 characters or fewer. These are writing guidelines, not enforced limits. Include at most one call to action, and make it a clear next step. A breadcrumb is recommended on pages other than the homepage. An optional eyebrow can introduce the title.
+Use a Hero at the top of a page when the page needs more introduction than a title alone. Use a Hero sparingly: for a basic page, a clear page title may be enough to orient visitors and get them to the content. Prioritize useful information over decoration, and avoid a Hero that takes up the whole screen or delays a visitor's task.
 
-## Anatomy
+| Variant | Use when                                                                                            | Don't use when                                                                        |
+| ------- | --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| Image   | The page is a homepage, or an image helps orient visitors, set expectations, or establish the tone. | The page is a lower-level page and the image has no strong connection to its content. |
+| Banner  | The page needs distinction or a longer introduction but does not need an image.                     | A clear page title alone is enough to orient visitors.                                |
 
-A Hero introduces a page with these parts:
+Both treatments come with a light blue or dark blue surface. Choose the surface that fits the surrounding page; the dark surface is the default.
 
-1. **Breadcrumb (optional):** links to parent pages and identifies the current page.
-2. **Eyebrow (optional):** provides a short category or context above the title.
-3. **Title (required):** names the page using the appropriate heading level.
-4. **Introduction (optional):** briefly explains what people can find or do.
-5. **Call to action (optional):** one primary button or link to a clear next step.
-6. **Image (optional):** supports the page’s purpose; a banner has no image.
+A Hero can include:
 
-The surface can be light blue or dark blue for both image Heroes and banners. The examples below show all four combinations, plus examples without an action and with long right-to-left text.
+- **Breadcrumb (optional):** links to parent pages and identifies the current page. A breadcrumb is recommended on pages other than the homepage.
+- **Eyebrow (optional):** a short category or context above the title.
+- **Title (required):** names the page.
+- **Introduction (optional):** briefly explains what people can find or do.
+- **Call to action (optional):** at most one primary button that links to a clear next step.
+- **Image (optional):** supports the page's purpose. A banner has no image.
 
-## Choosing a Hero
+Choose a relevant landscape image with a single focal point or full-width scenery. Avoid collages, text in images, and stock imagery that looks like advertising.
 
-Use a Hero sparingly. For a basic page, a clear page title may be enough to orient visitors and get them to the content. Keep the introduction short and avoid a Hero that takes up the whole screen or delays a visitor’s task. Prioritize useful information over decoration, and choose images that help people understand the page.
+### Writing for Heroes
 
-## Markup and placement
+- Write a clear title of roughly 50 characters or fewer.
+- When useful, add a one- or two-line introduction of roughly 175 characters or fewer.
+- Include at most one call to action, and make its text describe a clear next step.
 
-Load the package styles as described in [Getting started](../getting-started/). Use the heading level that fits the page; for a page title, use an `h1`. The examples use `h2` because they appear within this documentation page. Use a primary [Button](../button/) for the optional action and descriptive link text. The component is static and needs no JavaScript.
+These are writing guidelines, not enforced limits. The Hero grows with longer content.
 
-The breadcrumb example uses a labeled navigation landmark, a list, and `aria-current="page"` for the current page. In a Hero narrower than 768px it presents a previous-level link; at 768px and above it shows the full trail. Use `cods-hero__eyebrow` on a paragraph above the title, not an extra heading.
+### Accessibility for Heroes
 
-Use `cods-hero--light` for the light surface and `cods-hero--image` when an image is present. Place the image before the content in the markup. It appears above the content when the Hero is narrower than 1280px and beside it when there is more room. The image is cropped with `object-fit: cover`; check the focal point at every size. Use meaningful alt text for an informative image, or `alt=""` for a decorative image.
+- Use the heading level that fits the page outline. For a page title, use an `h1`. The preview uses `h2` because it appears within this documentation page.
+- Use `cods-hero__eyebrow` on a paragraph above the title, not an extra heading.
+- Give an informative image meaningful alt text. Use `alt=""` for a decorative image.
+- Use a link styled as a primary [Button](../button/) for the call to action, with link text that makes sense on its own. The Hero is static and adds no keyboard behavior; Tab moves to the breadcrumb links and the action in source order.
+- Label the breadcrumb navigation landmark, use a list, and mark the current page with `aria-current="page"`. Below 768px, only the parent link is shown, and its "Previous level:" prefix appears and becomes part of its name.
+- Text and actions sit on a solid, token-based surface, separate from the image. If you customize the surface or place text over imagery, use an opaque surface or a scrim and verify at least 4.5:1 contrast for normal text and 3:1 for large text across the entire area behind the text, at every crop and breakpoint. A scrim alone does not guarantee contrast. Check action and focus-indicator contrast as well.
 
-Choose a relevant landscape image with a single focal point or full-width scenery. Avoid collages, text in images, and stock imagery that looks like advertising. Prepare 16:9 WebP or JPEG variants near 375, 768, and 1280 pixels wide, use `srcset` and `sizes`, and aim for less than 150 KB per image (500 KB maximum). Replace the example image with one appropriate to the page. The example is a cropped and resized [Downtown Denver photograph by Chachpond](https://commons.wikimedia.org/wiki/File:Downtown_denver.jpg), dedicated to the public domain under CC0.
+## Specifications
 
-## Responsive behavior
+### Variants and elements
 
-When the Hero is narrower than 768px, the breadcrumb shows the previous level and the title and introduction use mobile typography. At 768px and above, the full breadcrumb and larger typography are shown. A trail with only the current page remains visible. The image stacks above the content when the Hero itself is narrower than 1280px; when the Hero has at least 1280px of available width, the image moves to the side and the content follows the centered 1280px grid. The Hero grows with longer or translated content.
+Hero is CoDS-authored and has no USWDS equivalent. Its action uses the USWDS-based [Button](../button/) classes.
 
-## Public styling
+| Class                            | Use                                                                                        |
+| -------------------------------- | ------------------------------------------------------------------------------------------ |
+| `cods-hero`                      | Hero container with a dark blue surface (default).                                         |
+| `cods-hero--light`               | Light blue surface.                                                                        |
+| `cods-hero--image`               | Image layout. Add it when the Hero contains `cods-hero__image`.                            |
+| `cods-hero__image`               | The image. Place it before `cods-hero__content` in the markup.                             |
+| `cods-hero__content`             | Content region aligned to the centered grid.                                               |
+| `cods-hero__breadcrumbs`         | Optional `nav` for the breadcrumb.                                                         |
+| `cods-hero__breadcrumb-list`     | The breadcrumb's `ol`.                                                                     |
+| `cods-hero__breadcrumb-item`     | Each breadcrumb `li`. Add `aria-current="page"` to the current page's item.                |
+| `cods-hero__breadcrumb-previous` | "Previous level:" prefix inside the parent link, shown only below 768px.                   |
+| `cods-hero__eyebrow`             | Optional paragraph above the title.                                                        |
+| `cods-hero__heading`             | Page title.                                                                                |
+| `cods-hero__intro`               | Optional introduction.                                                                     |
+| `cods-hero__actions`             | Optional action container.                                                                 |
+| `cods-hero__action`              | The call to action; pair with `usa-button` and `cods-button`. The surface sets its colors. |
 
-| Class                                        | Purpose                                            |
-| -------------------------------------------- | -------------------------------------------------- |
-| `cods-hero`                                  | Hero container with a dark blue surface by default |
-| `cods-hero--light`                           | Light blue surface                                 |
-| `cods-hero--image`                           | Image layout                                       |
-| `cods-hero__image`                           | Responsive image                                   |
-| `cods-hero__content`                         | Centered content region                            |
-| `cods-hero__breadcrumbs`                     | Optional breadcrumb navigation                     |
-| `cods-hero__eyebrow`                         | Optional text above the title                      |
-| `cods-hero__heading`                         | Page title                                         |
-| `cods-hero__intro`                           | Optional introduction                              |
-| `cods-hero__actions` and `cods-hero__action` | Optional action container and primary Button       |
+Load the package styles as described in [Getting started](../getting-started/). Hero is static and needs no JavaScript. It has no supported custom properties; the surface, text, and action colors come from approved tokens.
 
-For breadcrumb list and link classes, use the copyable dark banner example. The `data-cods-fixture-state` attributes identify documentation examples and are not required for a consumer Hero.
+### Images
 
-## Contrast and accessibility
+The image is cropped with `object-fit: cover`; check the focal point at every size. Prepare 16:9 WebP or JPEG variants near 375, 768, and 1280 pixels wide, use `srcset` and `sizes`, and aim for less than 150 KB per image (500 KB maximum). Replace the preview image with one appropriate to the page. The preview uses a cropped and resized [Downtown Denver photograph by Chachpond](https://commons.wikimedia.org/wiki/File:Downtown_denver.jpg), dedicated to the public domain under CC0.
 
-Text and actions sit on a solid token-based surface, separate from the image. Maintain at least 4.5:1 contrast for normal text and 3:1 for large text. If you customize the surface or place text over imagery, use an opaque surface or a scrim and verify contrast across the entire area behind the text, at every crop and breakpoint. A scrim alone does not guarantee contrast. Check action and focus-indicator contrast as well.
+### Responsive behavior
 
-**Experimental, `0.x`.** Human design, screen-reader, actual zoom, forced-colors, and accessibility review remain open. Verify translated and right-to-left content in the consuming application.
+Breakpoints respond to the Hero's own width, not the viewport:
 
-## Known limitations and implementation status
+- Below 768px, the breadcrumb shows only the previous level and the title and introduction use mobile typography. A trail with only the current page remains visible.
+- At 768px and above, the full breadcrumb trail and larger typography are shown.
+- Below 1280px, the image stacks above the content.
+- At 1280px and above, the image moves beside the content and the content follows the centered 1280px grid.
 
-Hero is experimental. The documentation column displays image Heroes in their stacked layout; use the [full-width Hero preview](../hero-preview/) to review the desktop side-by-side layout. Automated checks do not replace human design, keyboard, screen-reader, zoom, forced-colors, and accessibility review. Background video, carousels, and image-cropping tools are not part of this component.
+This page's content column is narrower than 1280px, so the preview shows image Heroes stacked. Use the [full-width Hero preview](../hero-preview/) to review the side-by-side layout.
 
-## Examples
+### Limitations
 
-The examples use the same fixtures as Storybook and the package. Copyable markup follows the examples; replace the sample content, links, and image with your own.
+- Background video, carousels, and image-cropping tools are not part of this component.
+- Text is never placed over the image. Overlay treatments are not supported.

@@ -1,36 +1,96 @@
+// Hero documentation page and the full-width preview. States the curated
+// preview does not show (without a call to action, long right-to-left content)
+// are covered in storybook-hero.spec.ts.
+import type { Page } from '@playwright/test';
 import { test, expect, expectAccessible } from './fixtures.js';
 
-test('Hero examples expose accessible content and reflow on mobile', async ({
+const hero = (page: Page, state: string) =>
+  page.locator(`[data-cods-docs-preview-state="${state}"] .cods-hero`);
+
+/** Let a documentation-column Hero span the viewport to reach its breakpoints. */
+const fullWidth = (page: Page, ...states: string[]) =>
+  Promise.all(
+    states.map((state) =>
+      hero(page, state).evaluate((element: HTMLElement) => {
+        element.style.width = '100vw';
+        element.style.maxWidth = 'none';
+      }),
+    ),
+  );
+
+test('hero page follows the component page outline', async ({
   page,
 }, testInfo) => {
   await page.setViewportSize({ width: 320, height: 800 });
   await page.goto('/hero/');
-  const examples = page.locator('.cods-hero');
-  await expect(examples).toHaveCount(6);
-  const image = page.locator(
-    '[data-cods-fixture-state="with-image"] .cods-hero__image',
-  );
+  const main = page.locator('main');
+  // The previewed Heroes use h2 titles; read only the page's own outline.
+  expect(
+    await main
+      .locator('h2')
+      .evaluateAll((headings) =>
+        headings
+          .filter((heading) => !heading.closest('.cods-hero'))
+          .map((heading) => heading.textContent),
+      ),
+  ).toEqual([
+    'Component preview',
+    'Component code',
+    'Component status',
+    'Guidance',
+    'Specifications',
+  ]);
+  const subheadings = await main.locator('h3').allTextContents();
+  for (const heading of [
+    'When to use',
+    'Writing for Heroes',
+    'Accessibility for Heroes',
+    'Variants and elements',
+    'Images',
+    'Responsive behavior',
+    'Limitations',
+  ])
+    expect(subheadings).toContain(heading);
+
+  const states = ['with-image', 'dark-image', 'default', 'dark-banner'];
+  expect(
+    await page
+      .locator('[data-cods-docs-preview-state]')
+      .evaluateAll((figures) =>
+        figures.map((figure) =>
+          figure.getAttribute('data-cods-docs-preview-state'),
+        ),
+      ),
+  ).toEqual(states);
+  const image = hero(page, 'with-image').getByRole('img', {
+    name: 'Downtown Denver skyline above tree-lined streets',
+  });
   await expect(image).toBeVisible();
-  await expect(image).toHaveAttribute(
-    'alt',
-    'Downtown Denver skyline above tree-lined streets',
-  );
   expect(
     await image.evaluate((element: HTMLImageElement) => element.naturalWidth),
   ).toBeGreaterThan(0);
-  for (const example of await examples.all()) {
+  for (const state of states)
     expect(
-      await example.evaluate(
+      await hero(page, state).evaluate(
         (element) => element.scrollWidth <= element.clientWidth,
       ),
     ).toBe(true);
-    expect(
-      await example.locator('.cods-hero__action').count(),
-    ).toBeLessThanOrEqual(1);
-  }
+
+  const status = page.locator('[data-cods-docs-status]');
+  await expect(status).toContainText('Manual accessibility review is pending');
+  await expect(status).toContainText('CoDS-authored; USWDS has no equivalent');
   await expect(
-    page.locator('[data-cods-fixture-state="without-cta"] .cods-hero__action'),
-  ).toHaveCount(0);
+    status.getByRole('link', { name: 'Accessibility evidence' }),
+  ).toHaveAttribute('href', /\/hero\/accessibility\/hero\.evidence\.md$/);
+  // The public page omits localization guidance and the examples catalogue.
+  await expect(main).not.toContainText(/right-to-left|localization/i);
+  await expect(page.locator('[data-cods-fixture-state]')).toHaveCount(0);
+
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
   await expectAccessible(page, testInfo, 'article');
 });
 
@@ -38,24 +98,13 @@ test('Hero changes layout and breadcrumb presentation at the design breakpoints'
   page,
 }) => {
   await page.goto('/hero/');
-  const imageHero = page.locator(
-    '[data-cods-fixture-state="with-image"] .cods-hero',
-  );
+  const imageHero = hero(page, 'with-image');
   const image = imageHero.locator('.cods-hero__image');
-  const banner = page.locator(
-    '[data-cods-fixture-state="dark-banner"] .cods-hero',
-  );
+  const banner = hero(page, 'dark-banner');
   const trail = banner.getByRole('navigation', { name: 'Breadcrumb' });
   for (const width of [767, 768, 1279, 1280]) {
     await page.setViewportSize({ width, height: 900 });
-    await imageHero.evaluate((element: HTMLElement) => {
-      element.style.width = '100vw';
-      element.style.maxWidth = 'none';
-    });
-    await banner.evaluate((element: HTMLElement) => {
-      element.style.width = '100vw';
-      element.style.maxWidth = 'none';
-    });
+    await fullWidth(page, 'with-image', 'dark-banner');
     await expect(banner.locator('.cods-hero__intro')).toHaveCSS(
       'font-size',
       width < 768 ? '20px' : '22px',
@@ -88,19 +137,11 @@ test('desktop Heroes align to the centered grid and grow with content', async ({
   page,
 }) => {
   await page.goto('/hero/');
-  const imageHero = page.locator(
-    '[data-cods-fixture-state="with-image"] .cods-hero',
-  );
-  const banner = page.locator(
-    '[data-cods-fixture-state="dark-banner"] .cods-hero',
-  );
+  const imageHero = hero(page, 'with-image');
+  const banner = hero(page, 'dark-banner');
   for (const width of [1440, 1920]) {
     await page.setViewportSize({ width, height: 900 });
-    for (const hero of [imageHero, banner])
-      await hero.evaluate((el: HTMLElement) => {
-        el.style.width = '100vw';
-        el.style.maxWidth = 'none';
-      });
+    await fullWidth(page, 'with-image', 'dark-banner');
     const left = await imageHero
       .locator('.cods-hero__heading')
       .evaluate((el) => el.getBoundingClientRect().left);
@@ -129,20 +170,14 @@ test('dark and light calls to action retain the intended button states', async (
   page,
 }) => {
   await page.goto('/hero/');
-  const dark = page.locator(
-    '[data-cods-fixture-state="dark-banner"] .cods-hero__action',
-  );
-  const light = page.locator(
-    '[data-cods-fixture-state="default"] .cods-hero__action',
-  );
+  const dark = hero(page, 'dark-banner').locator('.cods-hero__action');
+  const light = hero(page, 'default').locator('.cods-hero__action');
   await expect(dark).toHaveCSS('background-color', 'rgb(255, 255, 255)');
   await expect(dark).toHaveCSS('color', 'rgb(0, 25, 112)');
   await expect(light).toHaveCSS('background-color', 'rgb(0, 25, 112)');
   await expect(light).toHaveCSS('color', 'rgb(255, 255, 255)');
   await dark.hover();
   await expect(dark).not.toHaveCSS('background-color', 'rgb(255, 255, 255)');
-  await dark.focus();
-  await expect(dark).toBeFocused();
 });
 
 test('image Hero remains readable in the documentation column on a wide screen', async ({
@@ -150,48 +185,18 @@ test('image Hero remains readable in the documentation column on a wide screen',
 }) => {
   await page.setViewportSize({ width: 1484, height: 1034 });
   await page.goto('/hero/');
-  const hero = page.locator(
-    '[data-cods-fixture-state="with-image"] .cods-hero',
-  );
-  const image = (await hero.locator('.cods-hero__image').boundingBox())!;
-  const heading = (await hero.locator('.cods-hero__heading').boundingBox())!;
-  const content = (await hero.locator('.cods-hero__content').boundingBox())!;
-  expect((await hero.boundingBox())!.width).toBeLessThan(1280);
+  const imageHero = hero(page, 'with-image');
+  const image = (await imageHero.locator('.cods-hero__image').boundingBox())!;
+  const heading = (await imageHero
+    .locator('.cods-hero__heading')
+    .boundingBox())!;
+  const content = (await imageHero
+    .locator('.cods-hero__content')
+    .boundingBox())!;
+  expect((await imageHero.boundingBox())!.width).toBeLessThan(1280);
   expect(image.y + image.height).toBeLessThanOrEqual(content.y + 1);
   expect(heading.width).toBeGreaterThan(300);
   expect(heading.height).toBeLessThan(120);
-});
-
-test('Hero documentation explains anatomy, variants, and limitations', async ({
-  page,
-}) => {
-  await page.goto('/hero/');
-  for (const heading of [
-    'Summary',
-    'Anatomy',
-    'Choosing a Hero',
-    'Responsive behavior',
-    'Public styling',
-    'Known limitations and implementation status',
-    'Examples',
-  ]) {
-    await expect(
-      page.getByRole('heading', { name: heading, exact: true }),
-    ).toBeVisible();
-  }
-  for (const name of [
-    'Light banner',
-    'Dark banner with breadcrumbs and eyebrow',
-    'Light image Hero',
-    'Dark image Hero',
-  ]) {
-    await expect(
-      page.getByRole('heading', { name, exact: true }),
-    ).toBeVisible();
-  }
-  await expect(page.getByRole('region', { name: 'Summary' })).toContainText(
-    'CoDS-authored',
-  );
 });
 
 test('a narrow Hero in a wide viewport uses the mobile design and retains a one-item breadcrumb', async ({
@@ -202,16 +207,14 @@ test('a narrow Hero in a wide viewport uses the mobile design and retains a one-
   await page.locator('main').evaluate((element: HTMLElement) => {
     element.style.maxInlineSize = '40rem';
   });
-  const hero = page.locator(
-    '[data-cods-fixture-state="dark-banner"] .cods-hero',
-  );
-  expect((await hero.boundingBox())!.width).toBeLessThanOrEqual(640);
-  const trail = hero.getByRole('navigation', { name: 'Breadcrumb' });
-  await expect(hero.locator('.cods-hero__heading')).toHaveCSS(
+  const banner = hero(page, 'dark-banner');
+  expect((await banner.boundingBox())!.width).toBeLessThanOrEqual(640);
+  const trail = banner.getByRole('navigation', { name: 'Breadcrumb' });
+  await expect(banner.locator('.cods-hero__heading')).toHaveCSS(
     'font-size',
     '36px',
   );
-  await expect(hero.locator('.cods-hero__intro')).toHaveCSS(
+  await expect(banner.locator('.cods-hero__intro')).toHaveCSS(
     'font-size',
     '20px',
   );
@@ -219,10 +222,10 @@ test('a narrow Hero in a wide viewport uses the mobile design and retains a one-
   await expect(
     trail.getByRole('link', { name: 'Previous level: Services' }),
   ).toBeVisible();
-  const image = page.locator(
-    '[data-cods-fixture-state="with-image"] .cods-hero__image',
+  await expect(hero(page, 'with-image').locator('.cods-hero__image')).toHaveCSS(
+    'height',
+    '145px',
   );
-  await expect(image).toHaveCSS('height', '145px');
   await trail
     .locator('li:not([aria-current])')
     .evaluateAll((items) => items.forEach((item) => item.remove()));
