@@ -5,7 +5,11 @@
  * The fixture's demonstration wrapper (`<section>` plus its `<h2>` label) is
  * removed so the preview and the copied code are the component markup only.
  */
-import { componentMarkup, previewCode } from '../lib/preview-markup.mjs';
+import {
+  componentMarkup,
+  previewCode,
+  withImageBase,
+} from '../lib/preview-markup.mjs';
 
 interface Example {
   state: string;
@@ -15,14 +19,20 @@ interface Props {
   displayName: string;
   examples: Example[];
   variants: { state: string; label: string }[];
+  /** Site base path for fixtures with root-relative `/images/` URLs. */
+  imageBase?: string;
 }
 
-const { displayName, examples, variants } = Astro.props;
+const { displayName, examples, variants, imageBase } = Astro.props;
 
 const items = variants.map(({ state, label }) => {
   const example = examples.find((candidate) => candidate.state === state);
   if (!example) throw new Error(`Missing ${displayName} example: ${state}`);
-  return { state, label, markup: componentMarkup(example.code) };
+  return {
+    state,
+    label,
+    markup: withImageBase(componentMarkup(example.code), imageBase),
+  };
 });
 const code = previewCode(items);
 ---
@@ -31,6 +41,7 @@ const code = previewCode(items);
   class="cods-docs-preview"
   aria-labelledby="component-preview-heading"
   data-cods-docs-preview
+  data-cods-docs-preview-image-base={imageBase}
 >
   <h2 id="component-preview-heading">Component preview</h2>
   {items.map(({ state, label, markup }) => (
