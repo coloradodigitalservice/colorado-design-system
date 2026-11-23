@@ -1,5 +1,12 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.32
+
+### Patch Changes
+
+- b6fb816: Promote Button to stable after accessibility review.
+- @coloradodigitalservice/colorado-design-tokens@0.2.32
+
 ## 0.2.31
 
 ### Patch Changes

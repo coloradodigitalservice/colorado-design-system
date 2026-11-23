@@ -6,9 +6,13 @@
  * its `<h2>` label) and dedent, leaving only the component markup.
  * @param {string} code Generated example code for one fixture state.
  * @returns {string}
+ * @param {string} [spriteUrl] Built shared sprite URL for previews with icons.
  */
-export function componentMarkup(code) {
-  const lines = code
+export function componentMarkup(code, spriteUrl) {
+  const markup = spriteUrl
+    ? code.replaceAll('/icons/sprite.svg', () => spriteUrl)
+    : code;
+  const lines = markup
     .replace(/^\s*<section[^>]*>\s*\n/, '')
     .replace(/\n\s*<\/section>\s*$/, '')
     .replace(/^\s*<h2>[^<]*<\/h2>\s*\n/, '')
