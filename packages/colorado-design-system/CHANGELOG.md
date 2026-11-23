@@ -1,5 +1,12 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.33
+
+### Patch Changes
+
+- Promote Checkbox to stable after accessibility and domain review.
+- @coloradodigitalservice/colorado-design-tokens@0.2.33
+
 ## 0.2.32
 
 ### Patch Changes
