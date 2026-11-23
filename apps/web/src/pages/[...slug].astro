@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import InPageAlertExamples from '../components/InPageAlertExamples.astro';
 import SiteAlertExamples from '../components/SiteAlertExamples.astro';
 import CheckboxExamples from '../components/CheckboxExamples.astro';
+import buttonMetadata from '@coloradodigitalservice/colorado-design-system/metadata/button.json';
 import ButtonExamples from '../components/ButtonExamples.astro';
 import AccordionExamples from '../components/AccordionExamples.astro';
 import BreadcrumbsExamples from '../components/BreadcrumbsExamples.astro';
@@ -17,6 +18,7 @@ import DividerExamples from '../components/DividerExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
 import ComponentStatus from '../components/ComponentStatus.astro';
 import accordionMetadata from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
+import checkboxMetadata from '@coloradodigitalservice/colorado-design-system/metadata/checkbox.json';
 import IconExamples from '../components/IconExamples.astro';
 import FooterExamples from '../components/FooterExamples.astro';
 import HeaderExamples from '../components/HeaderExamples.astro';
@@ -59,7 +61,17 @@ const { Content } = await render(entry);
         <SiteAlertExamples mode="default" />
       </>
     )}
-    {entry.id === 'button' && <ButtonExamples mode="default" />}
+    {entry.id === 'button' && (
+      <>
+        <p class="cods-docs-lead">{entry.data.description}</p>
+        <ButtonExamples />
+        <ComponentStatus
+          metadata={buttonMetadata}
+          accessibility={entry.data.accessibilityStatus!}
+          figma={entry.data.figma}
+        />
+      </>
+    )}
     {entry.id === 'accordion' && (
       <>
         <p class="cods-docs-lead">{entry.data.description}</p>
@@ -121,7 +133,17 @@ const { Content } = await render(entry);
         <ComponentSummary component="icon-list" figma={entry.data.figma} />
       </>
     )}
-    {entry.id === 'checkbox' && <CheckboxExamples />}
+    {entry.id === 'checkbox' && (
+      <>
+        <p class="cods-docs-lead">{entry.data.description}</p>
+        <CheckboxExamples />
+        <ComponentStatus
+          metadata={checkboxMetadata}
+          accessibility={entry.data.accessibilityStatus!}
+          figma={entry.data.figma}
+        />
+      </>
+    )}
     {entry.id === 'link' && <LinkExamples />}
     {entry.id === 'divider' && <DividerExamples />}
     {(entry.id === 'videos' ||
@@ -134,7 +156,6 @@ const { Content } = await render(entry);
       entry.id === 'header' ||
       entry.id === 'breadcrumbs' ||
       entry.id === 'link' ||
-      entry.id === 'checkbox' ||
       entry.id === 'combo-box' ||
       entry.id === 'select' ||
       entry.id === 'divider' ||
@@ -156,7 +177,6 @@ const { Content } = await render(entry);
     {entry.id === 'process-list' && <ProcessListExamples />}
     {entry.id === 'select' && <SelectExamples />}
     {entry.id === 'in-page-alert' && <InPageAlertExamples mode="remaining" />}
-    {entry.id === 'button' && <ButtonExamples mode="remaining" />}
     {entry.id === 'icon' && <IconExamples />}
     {entry.id === 'site-alert' && <SiteAlertExamples mode="remaining" />}
   </article>

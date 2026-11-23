@@ -13,7 +13,7 @@ Produces the evidence required by [contract section 6](../../../docs/governance/
 - **Screen-reader results come from a person.** Never write an observed announcement you did not hear. Leave those items unchecked and list them under "Open items" as needing a human reviewer with a named screen reader and browser pairing.
 - **Check a box only for a check you ran and that passed.** Add a short note: how it was checked, in which browsers, and when. An unrun or failed check stays `[ ]`. Write `N/A — <reason>` only when the item genuinely does not apply.
 - **Chromium, Firefox, and WebKit must all pass** before the evidence counts as complete. If one cannot be run, leave the item unchecked and list that browser under "Open items".
-- **Never mark a component `stable`** or change `maturity`. Stable requires an evidence file with no open items, reviewed by the State accessibility owner ([RACI](../../../docs/governance/ownership-and-raci.md)).
+- **Do not change `maturity` during this review.** Stable requires an evidence file with no open items, reviewed by the State accessibility owner ([RACI](../../../docs/governance/ownership-and-raci.md)). After required human approval, use the separate [stabilization skill](../cods-component-stabilization/SKILL.md).
 - **Do not hide findings.** No broad axe exclusions or disabled rules; any exception needs an explicit, reviewed rationale ([tests/README.md](../../../tests/README.md#extend-the-foundation)).
 - Automated scans and the contrast-pair checks supplement manual review; they do not replace it.
 
