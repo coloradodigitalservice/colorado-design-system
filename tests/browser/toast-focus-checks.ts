@@ -74,15 +74,19 @@ export async function expectConstrainedStackClickable(
     .first()
     .getByRole('button', { name: 'Undo', exact: true })
     .hover();
-  await page.mouse.wheel(0, 1000);
-  await expect
-    .poll(() =>
-      list.evaluate(
-        (element) =>
-          element.scrollHeight - element.clientHeight - element.scrollTop,
-      ),
-    )
-    .toBeLessThanOrEqual(1);
+  const remainingScroll = () =>
+    list.evaluate(
+      (element) =>
+        element.scrollHeight - element.clientHeight - element.scrollTop,
+    );
+  // Browsers can scroll less than the requested delta for a single wheel event.
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const remaining = await remainingScroll();
+    if (remaining <= 1) break;
+    await page.mouse.wheel(0, 1000);
+    await expect.poll(remainingScroll).toBeLessThan(remaining);
+  }
+  await expect.poll(remainingScroll).toBeLessThanOrEqual(1);
   await page.evaluate(
     () =>
       new Promise<void>((resolve) =>

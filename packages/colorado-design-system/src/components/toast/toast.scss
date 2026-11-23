@@ -10,8 +10,10 @@
 
   .cods-toast__list {
     --cods-toast-shadow-spread: max(0px, var(--cods-elevation-high-spread));
+
+    // The rendered blur can extend beyond its nominal radius.
     --cods-toast-shadow-outset: calc(
-      var(--cods-elevation-high-blur) + var(--cods-toast-shadow-spread)
+      1.5 * var(--cods-elevation-high-blur) + var(--cods-toast-shadow-spread)
     );
     --cods-toast-shadow-x: max(
       0px,
