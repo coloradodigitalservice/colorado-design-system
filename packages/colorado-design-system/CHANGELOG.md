@@ -1,5 +1,33 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.33
+
+### Patch Changes
+
+- Promote Checkbox to stable after accessibility and domain review.
+- @coloradodigitalservice/colorado-design-tokens@0.2.33
+
+## 0.2.32
+
+### Patch Changes
+
+- b6fb816: Promote Button to stable after accessibility review.
+- @coloradodigitalservice/colorado-design-tokens@0.2.32
+
+## 0.2.31
+
+### Patch Changes
+
+- Improve Header navigation interactions, focus handling, and non-navigating examples.
+- @coloradodigitalservice/colorado-design-tokens@0.2.31
+
+## 0.2.30
+
+### Patch Changes
+
+- Fix tooltip placement during scrolling and within clipping containers.
+- @coloradodigitalservice/colorado-design-tokens@0.2.30
+
 ## 0.2.29
 
 ### Patch Changes

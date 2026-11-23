@@ -1,16 +1,23 @@
 # Accessibility Evidence: `cods-checkbox`
 
-**Component maturity:** experimental
+**Component maturity:** stable (`0.x`), promoted 2026-11-23
 
-**Date:** 2026-10-27
+**Date:** 2026-11-23
 
 **Related component metadata:** `checkbox.metadata.json`
 
+## CODS-P4-015 stabilization — 2026-11-23
+
+The requester confirmed that all outstanding manual checks and required
+accessibility, technical, design, State, and client approvals are complete.
+This confirmation resolves the checklist below. Reviewer identities,
+screen-reader/browser pairings, and detailed observations were not provided.
+
 ## CODS-P4-015 hardening — 2026-11-19
 
-Developer first pass for Phase 4 (CDS-129). Manual QA, State domain acceptance,
-and client sign-off are pending; this section records only the content and
-test-audit work and its automated results.
+Developer first pass for Phase 4. This section records the content and
+test-audit work and its automated results; manual review and approvals were
+subsequently confirmed complete.
 
 ### Documentation page
 
@@ -23,9 +30,9 @@ Accessibility for checkboxes), and Specifications (variants and elements,
 setting the indeterminate state, validation, variable settings, limitations).
 The full fixture catalogue and the public localization/RTL guidance were
 removed; the long-content, Spanish, and RTL states remain in Storybook and the
-tests. The status states that automated axe checks pass and manual review is
-pending; it makes no conformance claim. The shared preview helper now also
-strips a fixture `<h2>` label that carries an `id`.
+tests. The status originally stated that automated axe checks pass and manual
+review remained to be completed; it made no conformance claim. The shared
+preview helper also strips a fixture `<h2>` label that carries an `id`.
 
 ### Test audit
 
@@ -66,31 +73,31 @@ Base commit `ba92348`. Node 26.5.0 locally (Node 24 was not installed).
   (including `@cods-internal/web` `astro check`): passed.
 - `pnpm exec vitest run`: 328 passed (17 files).
 
-### Manual matrix for Aten Accessibility/QA (pending)
+### Manual matrix for Aten Accessibility/QA
 
-Review all supported variants and states on the PR preview and in Storybook.
-Record browser, assistive technology, and versions for each result.
+Completion of the following checks was confirmed by the requester on
+2026-11-23; browser and assistive-technology details were not provided.
 
-- [ ] Space toggles and label click activates each enabled standard and card checkbox; focus stays on the input.
-- [ ] Checked, unchecked, and indeterminate (mixed) states are announced, including after activation clears mixed state.
-- [ ] Group legend is announced with each grouped checkbox.
-- [ ] Disabled and disabled checked checkboxes are skipped in the tab order and announced as unavailable.
-- [ ] Error text is announced as the description of the invalid checkbox.
-- [ ] Visible focus on standard and card states.
-- [ ] Long labels reflow at 400% zoom / 320px, including cards.
-- [ ] Contrast, narrow screens.
-- [ ] Reduced motion (no animation), Windows High Contrast / forced colors.
-- [ ] Internal localization and long-text notes (Spanish and RTL in Storybook).
+- [x] Space toggles and label click activates each enabled standard and card checkbox; focus stays on the input.
+- [x] Checked, unchecked, and indeterminate (mixed) states are announced, including after activation clears mixed state.
+- [x] Group legend is announced with each grouped checkbox.
+- [x] Disabled and disabled checked checkboxes are skipped in the tab order and announced as unavailable.
+- [x] Error text is announced as the description of the invalid checkbox.
+- [x] Visible focus on standard and card states.
+- [x] Long labels reflow at 400% zoom / 320px, including cards.
+- [x] Contrast, narrow screens.
+- [x] Reduced motion (no animation), Windows High Contrast / forced colors.
+- [x] Internal localization and long-text notes (Spanish and RTL in Storybook).
 
 ## Keyboard
 
-- [ ] Verify all enabled standard and card inputs in visual and DOM order, and that focus can leave each control.
+- [x] Enabled standard and card inputs were checked in visual and DOM order, including moving focus away, as confirmed by the requester.
 - [x] Documented native interactions: Tab and Shift+Tab navigate; Space toggles the input and clears its mixed state. Clicking a label activates its input.
 
 ## Focus
 
-- [ ] Verify visible focus for standard and card states with approved tokens.
-- [ ] Verify focus remains on the input after activation. The consuming form owns focus on validation.
+- [x] Visible focus for standard and card states was checked, as confirmed by the requester.
+- [x] Focus remains on the input after activation, as confirmed by the requester. The consuming form owns focus on validation.
 
 ## Naming and roles
 
@@ -104,11 +111,11 @@ Record browser, assistive technology, and versions for each result.
 
 ## Screen reader verification
 
-- [ ] A human tester must record browser and screen-reader pairings and announcements for standard, grouped, card, mixed, disabled, and error states.
+- [x] Human screen-reader verification of standard, grouped, card, mixed, disabled, and error states was completed, as confirmed by the requester. Pairings and observations were not supplied.
 
 ## Zoom and reflow
 
-- [ ] Verify actual 400% browser zoom and 320px reflow with long and translated labels, including cards.
+- [x] Actual 400% browser zoom and 320px reflow with long and translated labels, including cards, were checked, as confirmed by the requester.
 
 ## Motion
 
@@ -116,22 +123,29 @@ Record browser, assistive technology, and versions for each result.
 
 ## Forced colors / high contrast
 
-- [ ] Verify standard and card states and focus in Windows High Contrast. The forced-colors implementation exposes native inputs and hides decorative glyphs.
+- [x] Standard and card states and focus in Windows High Contrast were checked, as confirmed by the requester. The forced-colors implementation exposes native inputs and hides decorative glyphs.
 
 ## Localization
 
-- [ ] Verify long and translated labels wrap and remain usable, including Arabic RTL.
+- [x] Long and translated labels, including Arabic RTL, were checked, as confirmed by the requester.
 
 ## Automated results
 
 On 2026-10-27, the updated Checkbox suite passed locally in Chromium (8 tests), WebKit (8 tests), and Storybook Chromium (1 test), using built files. Firefox could not launch locally, so its 8 tests did not run.
 
-GitHub Actions run 40584208267 passed for commit `6249542`: 312 web tests across Chromium, Firefox, and WebKit, and 277 Storybook Chromium tests. This run precedes the focused-card and error-alignment follow-up; those changes need CI verification. Automated checks do not establish human screen-reader, zoom, or Windows High Contrast results.
+GitHub Actions run 40584208267 passed for commit `6249542`: 312 web tests across Chromium, Firefox, and WebKit, and 277 Storybook Chromium tests. This run precedes the focused-card and error-alignment follow-up and does not verify those changes. Automated checks do not establish human screen-reader, zoom, or Windows High Contrast results.
 
-## Open items
+## Stabilization acceptance
 
-Tracked in CDS-56:
+The requester confirmed on 2026-11-23 that the required human accessibility,
+visual, technical, and State domain reviews and client sign-off are complete.
 
-- Accessibility lead and human testers: screen-reader observations with named browser pairings, actual 400% zoom, and Windows High Contrast for standard and card states.
-- Aten design lead and State design owner: visual acceptance, including disabled treatments and the proposed geometry tokens.
-- Aten technical lead: implementation and contract review. State accessibility owner: eventual stable sign-off.
+## Stabilization validation — 2026-11-23
+
+- The full unit suite passed: 373 tests, including 57 fixture tests. Checkbox
+  has no controller unit tests.
+- The Checkbox web and Storybook specs and the Checkbox shared-fixture web
+  case passed all 35 tests, with web coverage in Chromium, Firefox, and WebKit
+  and Storybook coverage in Chromium.
+- Build, lint, typecheck, formatting, web validation, workspace checks, and
+  release readiness passed with Node 24.21.0.

@@ -1,0 +1,70 @@
+---
+import examples from '@coloradodigitalservice/colorado-design-system/examples/header.json';
+import metadata from '@coloradodigitalservice/colorado-design-system/metadata/header.json';
+import CodeExamples from './CodeExamples.astro';
+
+const previewUrl = `${import.meta.env.BASE_URL}header/preview/`;
+const fullUrl = `${previewUrl}full/`;
+---
+
+<section
+  class="cods-docs-header-preview"
+  data-cods-docs-preview="header"
+  aria-labelledby="header-preview-heading"
+>
+  <h2 id="header-preview-heading">Component preview</h2>
+  <p>
+    Each preview loads in its own frame because a page supports one Header. The
+    first shows the Header with search, a language control, a dropdown
+    (Services), a multi-column mega menu (Licenses and permits), and a
+    categorized mega menu (Agencies). Select a menu button to open it. The
+    narrow previews show the mobile layout; select Menu to open the drawer. The
+    search and language examples don't search or change the language.
+  </p>
+  <iframe
+    class="cods-docs-header-preview__frame"
+    src={fullUrl}
+    title="Header preview with search, languages, and submenus"
+    height="560"
+    loading="lazy"
+  ></iframe>
+  <iframe
+    class="cods-docs-header-preview__frame cods-docs-header-preview__frame--narrow"
+    src={previewUrl}
+    title="Header preview, narrow screen"
+    width="375"
+    height="480"
+    loading="lazy"
+  ></iframe>
+  <iframe
+    class="cods-docs-header-preview__frame cods-docs-header-preview__frame--narrow"
+    src={fullUrl}
+    title="Header preview with submenus, narrow screen"
+    width="375"
+    height="560"
+    loading="lazy"
+  ></iframe>
+</section>
+<CodeExamples metadata={metadata} examples={examples.examples} />
+
+<style>
+  .cods-docs-header-preview {
+    margin-block: var(--cods-space-lg);
+  }
+
+  .cods-docs-header-preview__frame {
+    border: var(--cods-border-divider-width) solid
+      var(--cods-color-border-subtle);
+    display: block;
+    inline-size: 100%;
+    max-inline-size: 100%;
+  }
+
+  .cods-docs-header-preview__frame + .cods-docs-header-preview__frame {
+    margin-block-start: var(--cods-space-md);
+  }
+
+  .cods-docs-header-preview__frame--narrow {
+    inline-size: 375px;
+  }
+</style>

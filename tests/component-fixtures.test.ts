@@ -47,9 +47,8 @@ describe('canonical component examples', () => {
       expect(() => generateExamples(metadata, component.fixture)).toThrow(
         'invalid maturity',
       );
-      const firstState = component.metadata.states[0];
       const missing = component.fixture.replace(
-        `data-cods-fixture-state="${firstState}"`,
+        /data-cods-fixture-state="[^"]+"/,
         'data-cods-fixture-state="unknown"',
       );
       expect(() => generateExamples(component.metadata, missing)).toThrow(

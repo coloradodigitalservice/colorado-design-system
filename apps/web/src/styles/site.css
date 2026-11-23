@@ -36,6 +36,16 @@ body {
   transform: none;
 }
 
+/*
+ * The main landmark keeps tabindex="-1" so the skip link can move keyboard and
+ * screen-reader context to it. It is a programmatic destination, not a control,
+ * so suppress USWDS's `[tabindex]:focus` ring on the container only. Focusable
+ * descendants keep their own indicators.
+ */
+.cods-docs-main:focus {
+  outline: none;
+}
+
 a:where(:not(.cods-link, .cods-breadcrumbs__link)):focus-visible {
   outline: var(--cods-focus-ring-width, 4px) solid
     var(--cods-color-bg-action-focus, #173bb3);
@@ -49,11 +59,6 @@ a:where(:not(.cods-link, .cods-breadcrumbs__link)):focus-visible {
 
 .cods-docs-footer {
   margin-block-start: var(--cods-space-2xl);
-}
-
-.cods-docs-brand {
-  font-weight: 700;
-  font-size: 1.125rem;
 }
 
 .cods-docs-grid {

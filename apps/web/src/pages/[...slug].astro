@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import InPageAlertExamples from '../components/InPageAlertExamples.astro';
 import SiteAlertExamples from '../components/SiteAlertExamples.astro';
 import CheckboxExamples from '../components/CheckboxExamples.astro';
+import buttonMetadata from '@coloradodigitalservice/colorado-design-system/metadata/button.json';
 import ButtonExamples from '../components/ButtonExamples.astro';
 import AccordionExamples from '../components/AccordionExamples.astro';
 import BreadcrumbsExamples from '../components/BreadcrumbsExamples.astro';
@@ -20,6 +21,7 @@ import accordionMetadata from '@coloradodigitalservice/colorado-design-system/me
 import checkboxMetadata from '@coloradodigitalservice/colorado-design-system/metadata/checkbox.json';
 import IconExamples from '../components/IconExamples.astro';
 import FooterExamples from '../components/FooterExamples.astro';
+import HeaderExamples from '../components/HeaderExamples.astro';
 import InputExamples from '../components/InputExamples.astro';
 import IconListExamples from '../components/IconListExamples.astro';
 import HeroExamples from '../components/HeroExamples.astro';
@@ -27,6 +29,7 @@ import VideosExamples from '../components/VideosExamples.astro';
 import TagsExamples from '../components/TagsExamples.astro';
 import SearchExamples from '../components/SearchExamples.astro';
 import ProcessListExamples from '../components/ProcessListExamples.astro';
+import TooltipExamples from '../components/TooltipExamples.astro';
 import ModalExamples from '../components/ModalExamples.astro';
 import InPageNavigationExamples from '../components/InPageNavigationExamples.astro';
 import LogoExample from '../components/LogoExample.astro';
@@ -57,7 +60,17 @@ const { Content } = await render(entry);
         <SiteAlertExamples mode="default" />
       </>
     )}
-    {entry.id === 'button' && <ButtonExamples mode="default" />}
+    {entry.id === 'button' && (
+      <>
+        <p class="cods-docs-lead">{entry.data.description}</p>
+        <ButtonExamples />
+        <ComponentStatus
+          metadata={buttonMetadata}
+          accessibility={entry.data.accessibilityStatus!}
+          figma={entry.data.figma}
+        />
+      </>
+    )}
     {entry.id === 'accordion' && (
       <>
         <p class="cods-docs-lead">{entry.data.description}</p>
@@ -79,7 +92,23 @@ const { Content } = await render(entry);
         <FooterExamples />
       </>
     )}
+    {entry.id === 'header' && (
+      <>
+        <p>
+          Header identifies the site and provides its primary navigation. Its
+          maturity is <strong>experimental</strong> in the <code>0.x</code>{' '}
+          development series.
+        </p>
+        <HeaderExamples />
+      </>
+    )}
     {entry.id === 'breadcrumbs' && <BreadcrumbsExamples />}
+    {entry.id === 'tooltip' && (
+      <>
+        <TooltipExamples />
+        <ComponentSummary component="tooltip" figma={entry.data.figma} />
+      </>
+    )}
     {entry.id === 'modal' && <ModalExamples />}
     {entry.id === 'in-page-navigation' && <InPageNavigationExamples />}
     {entry.id === 'radio' && <RadioExamples />}
@@ -123,6 +152,7 @@ const { Content } = await render(entry);
       entry.id === 'radio' ||
       entry.id === 'site-alert' ||
       entry.id === 'footer' ||
+      entry.id === 'header' ||
       entry.id === 'breadcrumbs' ||
       entry.id === 'link' ||
       entry.id === 'combo-box' ||
@@ -145,7 +175,6 @@ const { Content } = await render(entry);
     {entry.id === 'process-list' && <ProcessListExamples />}
     {entry.id === 'select' && <SelectExamples />}
     {entry.id === 'in-page-alert' && <InPageAlertExamples mode="remaining" />}
-    {entry.id === 'button' && <ButtonExamples mode="remaining" />}
     {entry.id === 'icon' && <IconExamples />}
     {entry.id === 'site-alert' && <SiteAlertExamples mode="remaining" />}
   </article>

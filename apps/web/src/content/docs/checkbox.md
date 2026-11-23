@@ -4,7 +4,7 @@ description: Allows users to select one or more options from a list. Compare wit
 navLabel: Checkbox
 order: 11
 figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=72-78
-accessibilityStatus: Automated accessibility checks (axe) pass for every preview state. Manual accessibility review, including screen-reader, 400% zoom, and Windows High Contrast checks, is pending.
+accessibilityStatus: Automated accessibility checks (axe) pass for every preview state. Manual accessibility checks were completed on November 23, 2026.
 ---
 
 ## Guidance

@@ -56,8 +56,10 @@ test('checkbox page follows the component page outline', async ({
   );
 
   const status = page.locator('[data-cods-docs-status]');
-  await expect(status).toContainText('Checkbox maturity is experimental');
-  await expect(status).toContainText('Manual accessibility review');
+  await expect(status).toContainText('Checkbox maturity is stable');
+  await expect(status).toContainText(
+    'Manual accessibility checks were completed',
+  );
   await expect(
     status.getByRole('link', { name: 'USWDS 3.14.0 Checkbox' }),
   ).toBeVisible();
