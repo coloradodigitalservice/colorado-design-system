@@ -17,6 +17,11 @@ export {
   destroy as destroyComboBox,
 } from './combo-box/combo-box.js';
 export {
+  init as initTooltip,
+  initAll as initAllTooltip,
+  destroy as destroyTooltip,
+} from './tooltip/tooltip.js';
+export {
   init as initModal,
   initAll as initAllModal,
   destroy as destroyModal,
@@ -30,6 +35,12 @@ export {
   destroy as destroyInPageNavigation,
   type InPageNavigationChangeDetail,
 } from './in-page-navigation/in-page-navigation.js';
+export {
+  init as initHeader,
+  initAll as initAllHeaders,
+  destroy as destroyHeader,
+  type HeaderToggleDetail,
+} from './header/header.js';
 export {
   init as initLanguageSelector,
   initAll as initAllLanguageSelector,

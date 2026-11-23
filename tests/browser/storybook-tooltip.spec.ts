@@ -1,0 +1,505 @@
+import { expect, expectAccessible, test } from './fixtures.js';
+
+const STORY =
+  '/iframe.html?id=components-tooltip--all-states&viewMode=story&globals=a11y.manual:!true';
+
+test('tooltip opens on focus and hover and Escape dismisses without moving focus', async ({
+  page,
+}, testInfo) => {
+  await page.goto(STORY);
+  const trigger = page
+    .locator('[data-cods-fixture-state="top"]')
+    .getByRole('button', { name: 'Top', exact: true });
+  await trigger.focus();
+  const body = trigger.locator('..').locator('[role="tooltip"]');
+  await expect(body).toBeVisible();
+  await expect(trigger).toHaveAttribute('aria-describedby', /tooltip-/);
+  await expectAccessible(page, testInfo, '#storybook-root');
+  await page.keyboard.press('Escape');
+  await expect(body).toBeHidden();
+  await expect(trigger).toBeFocused();
+  await trigger.blur();
+  await trigger.hover();
+  await expect(body).toBeVisible();
+  await body.hover();
+  await expect(body).toBeVisible();
+  await page.mouse.move(0, 0);
+  await expect(body).toBeHidden();
+});
+
+test('all positions avoid the trigger and viewport edges', async ({ page }) => {
+  await page.goto(STORY);
+  for (const side of ['top', 'bottom', 'left', 'right']) {
+    const trigger = page
+      .locator(`[data-cods-fixture-state="${side}"]`)
+      .getByRole('button', {
+        name: side.charAt(0).toUpperCase() + side.slice(1),
+        exact: true,
+      });
+    const root = trigger.locator('xpath=../..');
+    await root.evaluate((element) => {
+      Object.assign((element as HTMLElement).style, {
+        position: 'fixed',
+        left: '50%',
+        top: '50%',
+        zIndex: '999999',
+      });
+    });
+    await trigger.focus();
+    const body = trigger.locator('..').locator('[role="tooltip"]');
+    await expect(body).toBeVisible();
+    await expect(body).toHaveClass(new RegExp(`cods-tooltip__body--${side}`));
+    const t = (await trigger.boundingBox())!;
+    const b = (await body.boundingBox())!;
+    if (side === 'top') expect(b.y + b.height).toBeLessThanOrEqual(t.y);
+    if (side === 'bottom') expect(b.y).toBeGreaterThanOrEqual(t.y + t.height);
+    if (side === 'left') expect(b.x + b.width).toBeLessThanOrEqual(t.x);
+    if (side === 'right') expect(b.x).toBeGreaterThanOrEqual(t.x + t.width);
+    await trigger.blur();
+    for (const corner of [
+      'top-left',
+      'top-right',
+      'bottom-left',
+      'bottom-right',
+    ]) {
+      await root.evaluate((element, value) => {
+        Object.assign((element as HTMLElement).style, {
+          left: value.endsWith('left') ? '0px' : 'auto',
+          right: value.endsWith('right') ? '0px' : 'auto',
+          top: value.startsWith('top') ? '0px' : 'auto',
+          bottom: value.startsWith('bottom') ? '0px' : 'auto',
+        });
+      }, corner);
+      await trigger.focus();
+      await expect(body).toBeVisible();
+      const edge = (await body.boundingBox())!;
+      const viewport = page.viewportSize()!;
+      expect(edge.x).toBeGreaterThanOrEqual(-0.5);
+      expect(edge.y).toBeGreaterThanOrEqual(-0.5);
+      expect(edge.x + edge.width).toBeLessThanOrEqual(viewport.width + 0.5);
+      expect(edge.y + edge.height).toBeLessThanOrEqual(viewport.height + 0.5);
+      const target = (await trigger.boundingBox())!;
+      expect(
+        edge.x + edge.width <= target.x ||
+          edge.x >= target.x + target.width ||
+          edge.y + edge.height <= target.y ||
+          edge.y >= target.y + target.height,
+      ).toBe(true);
+      await trigger.blur();
+    }
+    await root.evaluate((element) =>
+      (element as HTMLElement).removeAttribute('style'),
+    );
+  }
+});
+
+test('an open tooltip repositions when the viewport narrows', async ({
+  page,
+}) => {
+  await page.goto(STORY);
+  const trigger = page
+    .locator('[data-cods-fixture-state="right"]')
+    .getByRole('button', { name: 'Right' });
+  const root = trigger.locator('xpath=../..');
+  await root.evaluate((element) =>
+    Object.assign((element as HTMLElement).style, {
+      position: 'fixed',
+      left: '600px',
+      top: '200px',
+    }),
+  );
+  await trigger.focus();
+  const body = trigger.locator('..').locator('[role="tooltip"]');
+  await expect(body).toHaveClass(/cods-tooltip__body--right/);
+  await page.setViewportSize({ width: 720, height: 720 });
+  await expect(body).not.toHaveClass(/cods-tooltip__body--right/);
+  await expect(trigger).toBeFocused();
+  const box = (await body.boundingBox())!;
+  expect(box.x).toBeGreaterThanOrEqual(-0.5);
+  expect(box.x + box.width).toBeLessThanOrEqual(720.5);
+});
+
+test('positions the tooltip relative to a scaled ancestor', async ({
+  page,
+}) => {
+  await page.goto(STORY);
+  const section = page.locator('[data-cods-fixture-state="top"]');
+  await section.evaluate((element) =>
+    Object.assign((element as HTMLElement).style, {
+      transform: 'scale(1.5)',
+      transformOrigin: 'top left',
+      position: 'fixed',
+      left: '300px',
+      top: '300px',
+    }),
+  );
+  const trigger = section.getByRole('button', { name: 'Top' });
+  await trigger.focus();
+  const body = trigger.locator('..').locator('[role="tooltip"]');
+  await expect(body).toHaveClass(/cods-tooltip__body--top/);
+  const t = (await trigger.boundingBox())!;
+  const b = (await body.boundingBox())!;
+  expect(b.y + b.height).toBeLessThanOrEqual(t.y);
+  expect(Math.abs(b.x + b.width / 2 - (t.x + t.width / 2))).toBeLessThan(2);
+});
+
+const LONG_TEXT =
+  'Saves your progress so you can return later. Your answers stay on this device until you submit the complete application form.';
+
+test('keeps the hover path inside a scaled-down ancestor', async ({ page }) => {
+  await page.goto(STORY);
+  const section = page.locator('[data-cods-fixture-state="top"]');
+  await section.evaluate((element) =>
+    Object.assign((element as HTMLElement).style, {
+      transform: 'scale(0.5)',
+      transformOrigin: 'top left',
+      position: 'fixed',
+      left: '300px',
+      top: '300px',
+    }),
+  );
+  const trigger = section.getByRole('button', { name: 'Top' });
+  const body = trigger.locator('..').locator('[role="tooltip"]');
+  const t = (await trigger.boundingBox())!;
+  await page.mouse.move(t.x + t.width / 2, t.y + t.height / 2);
+  await expect(body).toBeVisible();
+  const b = (await body.boundingBox())!;
+  expect(b.y + b.height).toBeLessThanOrEqual(t.y);
+  await page.mouse.move(t.x + t.width / 2, b.y + b.height / 2, { steps: 20 });
+  await expect(body).toBeVisible();
+});
+
+test('never covers its focused trigger in a 320 × 180 viewport', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 320, height: 180 });
+  await page.goto(STORY);
+  const trigger = page
+    .locator('[data-cods-fixture-state="top"]')
+    .getByRole('button', { name: 'Top' });
+  const body = trigger.locator('..').locator('[role="tooltip"]');
+  await body.evaluate(
+    (element, text) => (element.textContent = text),
+    LONG_TEXT,
+  );
+  for (const top of ['10px', '70px', '140px']) {
+    await trigger.locator('xpath=../..').evaluate(
+      (element, value) =>
+        Object.assign((element as HTMLElement).style, {
+          position: 'fixed',
+          left: '120px',
+          top: value,
+        }),
+      top,
+    );
+    await trigger.focus();
+    await expect(body).toBeVisible();
+    const t = (await trigger.boundingBox())!;
+    const b = (await body.boundingBox())!;
+    expect(b.y + b.height <= t.y || b.y >= t.y + t.height).toBe(true);
+    // Overflow must extend downward, never above the start of the page.
+    expect(b.y).toBeGreaterThanOrEqual(-0.5);
+    expect(b.x).toBeGreaterThanOrEqual(-0.5);
+    expect(b.x + b.width).toBeLessThanOrEqual(320.5);
+    await trigger.blur();
+  }
+});
+
+test('no-fit overflow can be reached by scrolling the page', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 320, height: 180 });
+  await page.goto(STORY);
+  const section = page.locator('[data-cods-fixture-state="top"]');
+  await section.evaluate((element) => {
+    document
+      .querySelectorAll<HTMLElement>('[data-cods-fixture-state]')
+      .forEach((item) => {
+        if (item !== element) item.style.display = 'none';
+      });
+    element.querySelector('h2')!.hidden = true;
+    element.style.paddingTop = '54px';
+    element.querySelector<HTMLElement>(
+      '[data-cods-tooltip]',
+    )!.style.marginLeft = '104px';
+  });
+  const trigger = section.getByRole('button', { name: 'Top' });
+  const body = trigger.locator('..').locator('[role="tooltip"]');
+  await body.evaluate(
+    (element, text) => (element.textContent = text),
+    LONG_TEXT,
+  );
+  await trigger.focus();
+  const before = (await body.boundingBox())!;
+  expect(before.y + before.height).toBeGreaterThan(180);
+
+  await page.keyboard.press('End');
+  await expect
+    .poll(async () => {
+      const box = await body.boundingBox();
+      return box ? box.y + box.height : Infinity;
+    })
+    .toBeLessThanOrEqual(180.5);
+  await page.evaluate(async () => {
+    for (let frame = 0; frame < 3; frame++) {
+      await new Promise<void>((resolve) =>
+        requestAnimationFrame(() => resolve()),
+      );
+    }
+  });
+  expect(await page.evaluate(() => window.scrollY)).toBeGreaterThan(0);
+  const tooltip = (await body.boundingBox())!;
+  const target = (await trigger.boundingBox())!;
+  expect(tooltip.y + tooltip.height).toBeLessThanOrEqual(180.5);
+  expect(target.y).toBeGreaterThanOrEqual(0);
+  await expect(trigger).toBeFocused();
+});
+
+test('an open tooltip stays in view while the page scrolls', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 800, height: 600 });
+  await page.goto(STORY);
+  await page.evaluate(() => {
+    const root = document.querySelector<HTMLElement>('#storybook-root')!;
+    root.style.paddingBlock = '1200px';
+  });
+  const trigger = page
+    .locator('[data-cods-fixture-state="bottom"]')
+    .getByRole('button', { name: 'Bottom' });
+  const body = trigger.locator('..').locator('[role="tooltip"]');
+  await trigger.evaluate((element) =>
+    element.scrollIntoView({ block: 'center' }),
+  );
+  await trigger.focus();
+  await expect(body).toHaveClass(/cods-tooltip__body--bottom/);
+  // Scroll up so the trigger sits near the bottom of the viewport.
+  await trigger.evaluate((element) =>
+    window.scrollBy(0, element.getBoundingClientRect().bottom - 590),
+  );
+  await expect(body).toHaveClass(/cods-tooltip__body--top/);
+  const t = (await trigger.boundingBox())!;
+  const b = (await body.boundingBox())!;
+  expect(t.y + t.height).toBeLessThanOrEqual(600);
+  expect(b.y).toBeGreaterThanOrEqual(-0.5);
+  expect(b.y + b.height).toBeLessThanOrEqual(t.y);
+});
+
+test('an open tooltip flips inside a scrolling container', async ({ page }) => {
+  await page.setViewportSize({ width: 800, height: 600 });
+  await page.goto(STORY);
+  const section = page.locator('[data-cods-fixture-state="bottom"]');
+  await section.evaluate((element) => {
+    document
+      .querySelectorAll<HTMLElement>('[data-cods-fixture-state]')
+      .forEach((item) => {
+        if (item !== element) item.style.display = 'none';
+      });
+    element.querySelector('h2')!.hidden = true;
+    const outer = document.createElement('div');
+    Object.assign(outer.style, {
+      position: 'fixed',
+      left: '150px',
+      top: '150px',
+      width: '190px',
+      height: '120px',
+      overflow: 'hidden',
+      border: '2px solid',
+    });
+    element.before(outer);
+    outer.append(element);
+    Object.assign(element.style, {
+      width: '300px',
+      height: '120px',
+      overflow: 'auto',
+      border: '2px solid',
+    });
+    const root = element.querySelector<HTMLElement>('[data-cods-tooltip]')!;
+    root.style.marginLeft = '80px';
+    const before = document.createElement('div');
+    const after = document.createElement('div');
+    before.style.height = '180px';
+    after.style.height = '300px';
+    element.insertBefore(before, root);
+    element.append(after);
+    element.scrollTop = 180;
+  });
+  const trigger = section.getByRole('button', { name: 'Bottom' });
+  const body = trigger.locator('..').locator('[role="tooltip"]');
+  await trigger.focus();
+  await expect(body).toHaveClass(/cods-tooltip__body--bottom/);
+
+  await section.evaluate((element) => (element.scrollTop = 120));
+  await expect(body).toHaveClass(/cods-tooltip__body--top/);
+  const bounds = await section.evaluate((element) => {
+    const outer = element.parentElement!;
+    const innerBox = element.getBoundingClientRect();
+    const outerBox = outer.getBoundingClientRect();
+    return {
+      top: Math.max(
+        innerBox.top + element.clientTop,
+        outerBox.top + outer.clientTop,
+      ),
+      bottom: Math.min(
+        innerBox.top + element.clientTop + element.clientHeight,
+        outerBox.top + outer.clientTop + outer.clientHeight,
+      ),
+      left: Math.max(
+        innerBox.left + element.clientLeft,
+        outerBox.left + outer.clientLeft,
+      ),
+      right: Math.min(
+        innerBox.left + element.clientLeft + element.clientWidth,
+        outerBox.left + outer.clientLeft + outer.clientWidth,
+      ),
+    };
+  });
+  const tooltip = (await body.boundingBox())!;
+  const target = (await trigger.boundingBox())!;
+  expect(target.y).toBeGreaterThanOrEqual(bounds.top);
+  expect(target.y + target.height).toBeLessThanOrEqual(bounds.bottom);
+  expect(tooltip.y).toBeGreaterThanOrEqual(bounds.top);
+  expect(tooltip.y + tooltip.height).toBeLessThanOrEqual(target.y);
+  expect(tooltip.x).toBeGreaterThanOrEqual(bounds.left);
+  expect(tooltip.x + tooltip.width).toBeLessThanOrEqual(bounds.right);
+  await expect(trigger).toBeFocused();
+});
+
+test('does not constrain positioned triggers to non-clipping ancestors', async ({
+  page,
+}) => {
+  await page.goto(STORY);
+  const section = page.locator('[data-cods-fixture-state="top"]');
+  await section.evaluate((element) =>
+    Object.assign(element.style, {
+      width: '120px',
+      height: '80px',
+      overflow: 'hidden',
+    }),
+  );
+  const root = section.locator('[data-cods-tooltip]');
+  const trigger = root.getByRole('button', { name: 'Top' });
+  const body = root.locator('[role="tooltip"]');
+
+  for (const position of ['absolute', 'fixed']) {
+    await root.evaluate(
+      (element, value) =>
+        Object.assign(element.style, {
+          position: value,
+          left: '400px',
+          top: '250px',
+        }),
+      position,
+    );
+    await trigger.focus();
+    await expect(body).toHaveClass(/cods-tooltip__body--top/);
+    const target = (await trigger.boundingBox())!;
+    const tooltip = (await body.boundingBox())!;
+    expect(tooltip.y + tooltip.height).toBeLessThanOrEqual(target.y);
+    expect(
+      Math.abs(tooltip.x + tooltip.width / 2 - (target.x + target.width / 2)),
+    ).toBeLessThan(2);
+    await trigger.blur();
+  }
+
+  await section.evaluate((element) =>
+    Object.assign(element.style, {
+      position: 'fixed',
+      left: '150px',
+      top: '150px',
+      width: '300px',
+      height: '120px',
+      transform: 'translateZ(0)',
+    }),
+  );
+  await root.evaluate((element) =>
+    Object.assign(element.style, {
+      position: 'fixed',
+      left: '80px',
+      top: '8px',
+    }),
+  );
+  await trigger.focus();
+  await expect(body).toHaveClass(/cods-tooltip__body--bottom/);
+  const container = (await section.boundingBox())!;
+  const tooltip = (await body.boundingBox())!;
+  expect(tooltip.y).toBeGreaterThanOrEqual(container.y);
+  expect(tooltip.y + tooltip.height).toBeLessThanOrEqual(
+    container.y + container.height,
+  );
+});
+
+test('the arrow points at the trigger when the body shifts to fit', async ({
+  page,
+}) => {
+  await page.goto(STORY);
+  const trigger = page
+    .locator('[data-cods-fixture-state="top"]')
+    .getByRole('button', { name: 'Top' });
+  const body = trigger.locator('..').locator('[role="tooltip"]');
+  await body.evaluate(
+    (element, text) => (element.textContent = text),
+    LONG_TEXT,
+  );
+  await trigger.locator('xpath=../..').evaluate((element) =>
+    Object.assign((element as HTMLElement).style, {
+      position: 'fixed',
+      left: '0px',
+      top: '300px',
+    }),
+  );
+  await trigger.focus();
+  await expect(body).toBeVisible();
+  const t = (await trigger.boundingBox())!;
+  const b = (await body.boundingBox())!;
+  expect(b.x).toBeGreaterThanOrEqual(-0.5);
+  expect(b.x + b.width / 2).toBeGreaterThan(t.x + t.width / 2 + 10);
+  const offset = await body.evaluate((element) =>
+    parseFloat(element.style.getPropertyValue('--cods-tooltip-arrow-offset')),
+  );
+  expect(Math.abs(b.x + offset - (t.x + t.width / 2))).toBeLessThan(1);
+});
+
+test('a fresh hover reopens a tooltip dismissed while focused', async ({
+  page,
+}) => {
+  await page.goto(STORY);
+  const trigger = page
+    .locator('[data-cods-fixture-state="top"]')
+    .getByRole('button', { name: 'Top' });
+  const body = trigger.locator('..').locator('[role="tooltip"]');
+  await trigger.focus();
+  await page.keyboard.press('Escape');
+  await expect(body).toBeHidden();
+  await trigger.hover();
+  await expect(body).toBeVisible();
+  await expect(trigger).toBeFocused();
+});
+
+test('the light treatment renders with an accessible contrast', async ({
+  page,
+}, testInfo) => {
+  await page.goto(STORY);
+  const trigger = page
+    .locator('[data-cods-fixture-state="light"]')
+    .getByRole('button', { name: 'Light' });
+  await trigger.focus();
+  const body = trigger.locator('..').locator('[role="tooltip"]');
+  await expect(body).toBeVisible();
+  const styles = await body.evaluate((element) => {
+    const style = getComputedStyle(element);
+    return {
+      background: style.backgroundColor,
+      shadow: style.boxShadow,
+      size: style.fontSize,
+      lineHeight: style.lineHeight,
+    };
+  });
+  expect(styles).toMatchObject({
+    background: 'rgb(255, 255, 255)',
+    size: '14px',
+    lineHeight: '20px',
+  });
+  expect(styles.shadow).not.toBe('none');
+  await expectAccessible(page, testInfo, '#storybook-root');
+});

@@ -132,8 +132,8 @@ test('keyboard order, exit, and link activation', async ({ page }) => {
   await page.goto(story);
   const root = page.locator('[data-cods-in-page-navigation]');
   const links = root.getByRole('link');
+  await expect.poll(() => links.count()).toBeGreaterThan(1);
   const total = await links.count();
-  expect(total).toBeGreaterThan(1);
   await root.evaluate((nav) => {
     const before = document.createElement('button');
     before.textContent = 'Before navigation';

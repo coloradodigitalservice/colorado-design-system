@@ -10,6 +10,7 @@ import select from '@coloradodigitalservice/colorado-design-system/metadata/sele
 import divider from '@coloradodigitalservice/colorado-design-system/metadata/divider.json';
 import accordion from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
 import footer from '@coloradodigitalservice/colorado-design-system/metadata/footer.json';
+import header from '@coloradodigitalservice/colorado-design-system/metadata/header.json';
 import link from '@coloradodigitalservice/colorado-design-system/metadata/link.json';
 
 import radio from '@coloradodigitalservice/colorado-design-system/metadata/radio.json';
@@ -18,12 +19,14 @@ import comboBox from '@coloradodigitalservice/colorado-design-system/metadata/co
 import input from '@coloradodigitalservice/colorado-design-system/metadata/input.json';
 import card from '@coloradodigitalservice/colorado-design-system/metadata/card.json';
 import iconList from '@coloradodigitalservice/colorado-design-system/metadata/icon-list.json';
+import tooltip from '@coloradodigitalservice/colorado-design-system/metadata/tooltip.json';
 
 interface Props {
   component:
     | 'site-alert'
     | 'accordion'
     | 'footer'
+    | 'header'
     | 'breadcrumbs'
     | 'in-page-alert'
     | 'link'
@@ -38,7 +41,8 @@ interface Props {
     | 'hero'
     | 'videos'
     | 'tags'
-    | 'process-list';
+    | 'process-list'
+    | 'tooltip';
   figma?: string;
 }
 
@@ -46,6 +50,7 @@ const metadata = {
   'site-alert': siteAlert,
   accordion,
   footer,
+  header,
   breadcrumbs,
   'in-page-alert': inPageAlert,
   link,
@@ -61,6 +66,7 @@ const metadata = {
   videos,
   tags,
   'process-list': processList,
+  tooltip,
 }[Astro.props.component];
 const { figma } = Astro.props;
 const repository =
