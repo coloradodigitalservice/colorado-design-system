@@ -8,7 +8,7 @@
 ## Keyboard and focus
 
 - [ ] Verify Tab and Shift+Tab reach every dismiss button in order and can leave the notification area. Enter and Space activate the native button.
-- [ ] Confirm focus indication is visible and not obscured at all states.
+- [ ] Confirm focus indication is visible and not obscured at all states. On 2026-11-23, 320 x 256 browser tests verified that the contextual Undo is not covered in Chromium, Firefox, and WebKit, and that stacked toast controls remain keyboard reachable in Chromium. Broader manual verification remains open.
 - [x] The shared focus color measured about 1.90:1 against the toast surface. Dismiss and action controls now use the `color.focus-toast` outline (blue/20 on `surface/toast/default`), approved by design and accessibility in review. `references/contrast-pairs.json` checks it at 3:1 or more, and a browser test measures the computed outline against the toast background for both controls.
 - [ ] Unit tests check that showing a message does not move focus and that dismissing a focused message returns focus to the supplied trigger. Verify keyboard operation and focus behavior in browsers, including dismissal of stacked items and missing or removed return targets.
 

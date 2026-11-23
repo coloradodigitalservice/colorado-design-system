@@ -43,9 +43,11 @@ showToast(notifications, {
 
 ## Behavior
 
-Toasts appear at the bottom-right of the viewport, are 320 pixels wide (narrower when the viewport requires it), and animate in over 250 milliseconds. The animation is removed when reduced motion is requested. Messages remain until dismissed by default; timed messages stay for at least ten seconds and pause while hovered or focused. A toast with an action stays until dismissed. The example below uses ten seconds, so a pause can make it visible for longer.
+Toasts normally appear at the bottom-right of the viewport, are 320 pixels wide (narrower when the viewport requires it), and animate in over 250 milliseconds. To avoid covering the focused control, a toast may temporarily move to the top or show a shorter, scrollable stack. If there is too little space for both, part of the focused control may still be covered. The animation is removed when reduced motion is requested. Messages remain until dismissed by default; timed messages stay for at least ten seconds and pause while hovered or focused. A toast with an action stays until dismissed. The example below uses ten seconds, so a pause can make it visible for longer.
 
 ## Examples
+
+Each JavaScript example is a standalone module for the matching copyable HTML below. Load it after the HTML using a bundler or an import map that resolves the package name. The `data-cods-fixture-state` selectors scope these examples; replace them with appropriate container selectors in your application. The live examples share one notification area so messages stack. If you combine examples on a page, use one area rather than multiple overlapping fixed areas.
 
 The example retains the saved status beside the button. Its supplemental notification disappears after ten seconds unless hovered or focused.
 
@@ -57,9 +59,10 @@ import {
   showToast,
 } from '@coloradodigitalservice/colorado-design-system';
 
-const notifications = document.querySelector('[data-cods-toast]');
-const saveButton = document.querySelector('[data-cods-toast-demo]');
-const status = document.querySelector('[data-cods-toast-demo-status]');
+const example = document.querySelector('[data-cods-fixture-state="default"]');
+const notifications = example.querySelector('[data-cods-toast]');
+const saveButton = example.querySelector('[data-cods-toast-demo]');
+const status = example.querySelector('[data-cods-toast-demo-status]');
 initToast(notifications);
 saveButton.addEventListener('click', () => {
   status.textContent = 'Changes saved.';
@@ -76,15 +79,28 @@ Check that notifications do not obscure controls or content, especially when sev
 
 ### Icon
 
-An optional `iconHref` points to a symbol in the design system's icon sprite. The icon is decorative, so the message itself must state the result. Deploy the packaged icon sprite and replace `/icons/sprite.svg` with its public URL. See [Sprite URL and deployment path](../icon/#sprite-url-and-deployment-path).
+An optional `iconHref` points to a symbol in the design system's icon sprite. The icon is decorative, so the message itself must state the result. Deploy the packaged icon sprite and replace `/icons/sprite.svg` in the matching HTML with its public URL. See [Sprite URL and deployment path](../icon/#sprite-url-and-deployment-path).
 
 ```js
-showToast(notifications, {
-  message: 'Response submitted.',
-  dismissLabel: 'Dismiss',
-  iconHref: '/icons/sprite.svg#check',
-  duration: 10000,
-  returnFocus: submitButton,
+import {
+  initToast,
+  showToast,
+} from '@coloradodigitalservice/colorado-design-system';
+
+const example = document.querySelector('[data-cods-fixture-state="icon"]');
+const notifications = example.querySelector('[data-cods-toast]');
+const submitButton = example.querySelector('[data-cods-toast-demo]');
+const status = example.querySelector('[data-cods-toast-demo-status]');
+initToast(notifications);
+submitButton.addEventListener('click', () => {
+  status.textContent = 'Response submitted.';
+  showToast(notifications, {
+    message: 'Response submitted.',
+    dismissLabel: 'Dismiss',
+    iconHref: submitButton.dataset.codsToastIcon,
+    duration: 10000,
+    returnFocus: submitButton,
+  });
 });
 ```
 
@@ -99,10 +115,11 @@ import {
   dismissAllToast,
 } from '@coloradodigitalservice/colorado-design-system';
 
-const notifications = document.querySelector('[data-cods-toast]');
-const updateButton = document.querySelector('#update-contact');
-const contextUndo = document.querySelector('#undo-contact-update');
-const status = document.querySelector('#contact-status');
+const example = document.querySelector('[data-cods-fixture-state="action"]');
+const notifications = example.querySelector('[data-cods-toast]');
+const updateButton = example.querySelector('[data-cods-toast-demo]');
+const contextUndo = example.querySelector('[data-cods-toast-context-action]');
+const status = example.querySelector('[data-cods-toast-demo-status]');
 initToast(notifications);
 
 const undo = () => {

@@ -1,4 +1,8 @@
 import { test, expect, expectAccessible } from './fixtures.js';
+import {
+  expectConstrainedStackClickable,
+  expectFocusClearOfToast,
+} from './toast-focus-checks.js';
 
 test('toast story announces and dismisses supplemental feedback', async ({
   page,
@@ -75,6 +79,125 @@ test('action remains available in context', async ({ page }) => {
   await expect(
     page.getByRole('button', { name: 'Undo contact information update' }),
   ).toBeVisible();
+});
+
+test('a toast does not obscure keyboard focus at narrow reflow', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 320, height: 256 });
+  await page.goto(
+    '/iframe.html?id=components-toast-snackbar--action&viewMode=story',
+  );
+  const trigger = page.getByRole('button', {
+    name: 'Update contact information',
+  });
+  const contextAction = page.getByRole('button', {
+    name: 'Undo contact information update',
+  });
+  const list = page.locator('.cods-toast__list');
+  await trigger.click();
+  await expect(list.locator('.cods-toast__item')).toHaveCount(1);
+  await page.keyboard.press('Tab');
+  await expectFocusClearOfToast(contextAction, list);
+  await page.keyboard.press('Shift+Tab');
+  await expectFocusClearOfToast(trigger, list);
+  await page.keyboard.press('Tab');
+  await expectFocusClearOfToast(contextAction, list);
+  await page.keyboard.press('Tab');
+  const toastAction = list.getByRole('button', { name: 'Undo', exact: true });
+  await expect(toastAction).toBeFocused();
+  await expect(toastAction).toBeInViewport({ ratio: 1 });
+  await page.keyboard.press('Enter');
+  await expect(list.locator('.cods-toast__item')).toHaveCount(0);
+  await expect(trigger).toBeFocused();
+});
+
+test('a stack avoids focused content and remains keyboard accessible', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 320, height: 256 });
+  await page.goto(
+    '/iframe.html?id=components-toast-snackbar--action&viewMode=story',
+  );
+  const trigger = page.getByRole('button', {
+    name: 'Update contact information',
+  });
+  const contextAction = page.getByRole('button', {
+    name: 'Undo contact information update',
+  });
+  const list = page.locator('.cods-toast__list');
+  await trigger.focus();
+  for (let index = 0; index < 3; index++) {
+    await page.keyboard.press('Enter');
+  }
+  const items = list.locator('.cods-toast__item');
+  await expect(items).toHaveCount(3);
+  await expectFocusClearOfToast(trigger, list);
+  await page.keyboard.press('Tab');
+  await expectFocusClearOfToast(contextAction, list);
+  await expect
+    .poll(() =>
+      list.evaluate((element) => element.scrollHeight > element.clientHeight),
+    )
+    .toBe(true);
+  for (let index = 0; index < 3; index++) {
+    for (const name of ['Undo', 'Dismiss']) {
+      await page.keyboard.press('Tab');
+      const control = items
+        .nth(index)
+        .getByRole('button', { name, exact: true });
+      await expect(control).toBeFocused();
+      await expect(control).toBeInViewport({ ratio: 1 });
+    }
+  }
+});
+
+test('a constrained toast stack remains usable with a pointer', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 320, height: 256 });
+  await page.goto(
+    '/iframe.html?id=components-toast-snackbar--action&viewMode=story',
+  );
+  const trigger = page.getByRole('button', {
+    name: 'Update contact information',
+  });
+  const list = page.locator('.cods-toast__list');
+  await expectConstrainedStackClickable(page, trigger, list);
+});
+
+test('a toast adjusts when the focused control moves on resize or scroll', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1280, height: 720 });
+  await page.goto(
+    '/iframe.html?id=components-toast-snackbar--action&viewMode=story',
+  );
+  const trigger = page.getByRole('button', {
+    name: 'Update contact information',
+  });
+  const contextAction = page.getByRole('button', {
+    name: 'Undo contact information update',
+  });
+  const list = page.locator('.cods-toast__list');
+  await trigger.focus();
+  await page.keyboard.press('Enter');
+  await contextAction.focus();
+  await expectFocusClearOfToast(contextAction, list);
+  await page.evaluate(
+    () =>
+      new Promise<void>((resolve) => requestAnimationFrame(() => resolve())),
+  );
+
+  await page.setViewportSize({ width: 320, height: 256 });
+  await expectFocusClearOfToast(contextAction, list);
+  await page.evaluate(() => {
+    document.body.style.paddingBottom = '400px';
+    window.scrollTo(0, 120);
+  });
+  await expectFocusClearOfToast(contextAction, list);
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await expectFocusClearOfToast(contextAction, list);
 });
 
 const luminance = (rgb: string) => {

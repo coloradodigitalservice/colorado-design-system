@@ -5,6 +5,9 @@ interface Instance {
   polite: HTMLElement;
   assertive: HTMLElement;
   items: Map<HTMLElement, () => void>;
+  reposition: () => void;
+  cleanupPositioning: () => void;
+  resizeObserver: ResizeObserver | undefined;
   announcements: Array<{
     live: HTMLElement;
     message: string;
@@ -32,14 +35,204 @@ export function init(root: HTMLElement): void {
   const assertive = root.querySelector<HTMLElement>(
     '[data-cods-toast-assertive]',
   );
-  if (!polite || !assertive || !root.querySelector('[data-cods-toast-list]')) {
+  const list = root.querySelector<HTMLElement>('[data-cods-toast-list]');
+  if (!polite || !assertive || !list) {
     console.warn('cods-toast: missing list or live regions', root);
     return;
   }
+  const doc = root.ownerDocument;
+  const view = doc.defaultView;
+  if (!view) {
+    console.warn('cods-toast: missing browsing context', root);
+    return;
+  }
+  const topClass = 'cods-toast__list--focus-top';
+  const clickThroughClass = 'cods-toast__list--click-through';
+  const heightProperty = '--cods-toast-focus-max-height';
+  const shadowLimitProperty = '--cods-toast-focus-shadow-limit';
+  const hadTopClass = list.classList.contains(topClass);
+  const hadClickThroughClass = list.classList.contains(clickThroughClass);
+  const hadStyle = list.hasAttribute('style');
+  const originalHeight = list.style.getPropertyValue(heightProperty);
+  const originalPriority = list.style.getPropertyPriority(heightProperty);
+  const originalShadowLimit = list.style.getPropertyValue(shadowLimitProperty);
+  const originalShadowPriority =
+    list.style.getPropertyPriority(shadowLimitProperty);
+  const resetHeight = () => {
+    if (originalHeight)
+      list.style.setProperty(heightProperty, originalHeight, originalPriority);
+    else list.style.removeProperty(heightProperty);
+    if (originalShadowLimit)
+      list.style.setProperty(
+        shadowLimitProperty,
+        originalShadowLimit,
+        originalShadowPriority,
+      );
+    else list.style.removeProperty(shadowLimitProperty);
+    if (!hadStyle && !list.style.length) list.removeAttribute('style');
+  };
+  const resetPosition = () => {
+    list.classList.toggle(topClass, hadTopClass);
+    resetHeight();
+  };
+  const pressedPointers = new Set<number>();
+  let resizeObserver: ResizeObserver | undefined;
+  const updatePosition = () => {
+    if (!list.childElementCount) {
+      resetPosition();
+      return;
+    }
+    const focused = doc.activeElement;
+    if (!focused || focused === doc.body || focused === doc.documentElement) {
+      resetPosition();
+      return;
+    }
+    if (root.contains(focused)) {
+      resetHeight();
+      return;
+    }
+    if (focused.contains(root)) {
+      resetPosition();
+      return;
+    }
+    resetPosition();
+    const focusRect = focused.getBoundingClientRect();
+    const listRect = list.getBoundingClientRect();
+    const focusStyle = view.getComputedStyle(focused);
+    const outline =
+      focusStyle.outlineStyle === 'none'
+        ? 0
+        : Math.max(
+            0,
+            (parseFloat(focusStyle.outlineWidth) || 0) +
+              (parseFloat(focusStyle.outlineOffset) || 0),
+          );
+    if (
+      focusRect.right + outline <= listRect.left ||
+      focusRect.left - outline >= listRect.right ||
+      focusRect.bottom + outline <= listRect.top ||
+      focusRect.top - outline >= listRect.bottom
+    )
+      return;
+    const inset = Math.max(0, view.innerHeight - listRect.bottom);
+    const above = focusRect.top - outline - inset;
+    const below = view.innerHeight - focusRect.bottom - outline - inset;
+    const useTop = above >= below;
+    const available = Math.max(0, useTop ? above : below);
+    list.classList.toggle(topClass, useTop);
+    const listStyle = view.getComputedStyle(list);
+    const paddingTop = parseFloat(listStyle.paddingTop) || 0;
+    const paddingBottom = parseFloat(listStyle.paddingBottom) || 0;
+    const controlHeight =
+      (list.querySelector('button')?.getBoundingClientRect().height ?? 0) +
+      paddingTop +
+      paddingBottom;
+    const focusMiddle =
+      (Math.max(0, focusRect.top) +
+        Math.min(view.innerHeight, focusRect.bottom)) /
+      2;
+    // Keep both the stack and part of the focus target visible when neither
+    // edge has enough space for a toast control.
+    const fallback = useTop
+      ? focusMiddle - inset
+      : view.innerHeight - focusMiddle - inset;
+    const height =
+      available < controlHeight ? Math.max(available, fallback) : available;
+    const contentHeight = list.scrollHeight - paddingTop - paddingBottom;
+    const edgePadding = useTop ? paddingTop : paddingBottom;
+    const shadowPadding = useTop ? paddingBottom : paddingTop;
+    const shadowLimit = Math.floor(height - contentHeight - edgePadding);
+    // Do not make a fitting toast scroll just to show shadow padding.
+    if (shadowLimit >= 0 && shadowLimit < shadowPadding)
+      list.style.setProperty(shadowLimitProperty, `${shadowLimit}px`);
+    list.style.setProperty(heightProperty, `${height}px`);
+  };
+  const reposition = () => {
+    if (pressedPointers.size) return;
+    // Measuring the unconstrained list can clamp its scroll position.
+    const scrollTop = list.scrollTop;
+    updatePosition();
+    list.scrollTop = scrollTop;
+    // The transparent padding is click-through unless a scrollbar is needed.
+    list.classList.toggle(
+      clickThroughClass,
+      !!resizeObserver && list.scrollHeight <= list.clientHeight,
+    );
+  };
+  let pending: number | undefined;
+  const scheduleReposition = () => {
+    if (pending !== undefined) return;
+    pending = view.requestAnimationFrame(() => {
+      pending = undefined;
+      reposition();
+    });
+  };
+  const onScroll = (event: Event) => {
+    if (event.target instanceof view.Node && list.contains(event.target))
+      return;
+    scheduleReposition();
+  };
+  const onFocusIn = () => {
+    reposition();
+    scheduleReposition();
+  };
+  const onPointerDown = (event: PointerEvent) => {
+    pressedPointers.add(event.pointerId);
+  };
+  const onPointerEnd = (event: PointerEvent) => {
+    if (pressedPointers.delete(event.pointerId) && !pressedPointers.size)
+      scheduleReposition();
+  };
+  const onWindowBlur = () => {
+    if (!pressedPointers.size) return;
+    pressedPointers.clear();
+    scheduleReposition();
+  };
+  if (typeof view.ResizeObserver === 'function') {
+    resizeObserver = new view.ResizeObserver(scheduleReposition);
+    resizeObserver.observe(list);
+  } else {
+    console.warn(
+      'cods-toast: ResizeObserver unavailable; shadow padding may block nearby controls',
+      root,
+    );
+  }
+  // Focus can be anywhere on the page, and scrolling or resizing can change
+  // its position relative to this instance's fixed list. Pointer tracking
+  // prevents the list from moving between a press and its click.
+  const scrollOptions = { capture: true, passive: true } as const;
+  list.addEventListener('pointerdown', onPointerDown, true);
+  list.addEventListener('animationend', scheduleReposition);
+  list.addEventListener('animationcancel', scheduleReposition);
+  doc.addEventListener('focusin', onFocusIn);
+  doc.addEventListener('focusout', scheduleReposition);
+  doc.addEventListener('scroll', onScroll, scrollOptions);
+  doc.addEventListener('pointerup', onPointerEnd, true);
+  doc.addEventListener('pointercancel', onPointerEnd, true);
+  view.addEventListener('resize', scheduleReposition);
+  view.addEventListener('blur', onWindowBlur);
   instances.set(root, {
     polite,
     assertive,
     items: new Map(),
+    reposition,
+    resizeObserver,
+    cleanupPositioning: () => {
+      list.removeEventListener('pointerdown', onPointerDown, true);
+      list.removeEventListener('animationend', scheduleReposition);
+      list.removeEventListener('animationcancel', scheduleReposition);
+      doc.removeEventListener('focusin', onFocusIn);
+      doc.removeEventListener('focusout', scheduleReposition);
+      doc.removeEventListener('scroll', onScroll, scrollOptions);
+      doc.removeEventListener('pointerup', onPointerEnd, true);
+      doc.removeEventListener('pointercancel', onPointerEnd, true);
+      view.removeEventListener('resize', scheduleReposition);
+      view.removeEventListener('blur', onWindowBlur);
+      resizeObserver?.disconnect();
+      if (pending !== undefined) view.cancelAnimationFrame(pending);
+      resetPosition();
+      list.classList.toggle(clickThroughClass, hadClickThroughClass);
+    },
     announcements: [],
   });
 }
@@ -91,6 +284,7 @@ export function show(
   }
   item.append(button);
   list.append(item);
+  instance.resizeObserver?.observe(item);
   const live =
     options.urgency === 'assertive' ? instance.assertive : instance.polite;
   instance.announcements.push({ live, message: options.message, item });
@@ -166,6 +360,7 @@ export function show(
       }
     }
   });
+  instance.reposition();
   resume();
   root.dispatchEvent(
     new CustomEvent('cods-toast:show', { bubbles: true, detail: { item } }),
@@ -179,7 +374,9 @@ export function dismiss(root: HTMLElement, item: HTMLElement): void {
   if (!instance || !cleanup) return;
   cleanup();
   instance.items.delete(item);
+  instance.resizeObserver?.unobserve(item);
   item.remove();
+  instance.reposition();
   root.dispatchEvent(
     new CustomEvent('cods-toast:dismiss', { bubbles: true, detail: { item } }),
   );
@@ -195,6 +392,7 @@ export function destroy(root: HTMLElement): void {
   const instance = instances.get(root);
   if (!instance) return;
   dismissAll(root);
+  instance.cleanupPositioning();
   if (instance.announcementTimer) clearTimeout(instance.announcementTimer);
   instance.announcements.length = 0;
   instance.polite.textContent = '';

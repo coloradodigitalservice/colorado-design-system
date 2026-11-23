@@ -9,18 +9,69 @@
   }
 
   .cods-toast__list {
+    --cods-toast-shadow-spread: max(0px, var(--cods-elevation-high-spread));
+    --cods-toast-shadow-outset: calc(
+      var(--cods-elevation-high-blur) + var(--cods-toast-shadow-spread)
+    );
+    --cods-toast-shadow-x: max(
+      0px,
+      var(--cods-elevation-high-x),
+      calc(-1 * var(--cods-elevation-high-x))
+    );
+    --cods-toast-shadow-up: max(0px, calc(-1 * var(--cods-elevation-high-y)));
+    --cods-toast-shadow-down: max(0px, var(--cods-elevation-high-y));
+    --cods-toast-shadow-inline-start: max(
+      var(--cods-space-md),
+      min(
+        calc(var(--cods-toast-shadow-outset) + var(--cods-toast-shadow-x)),
+        calc(100vw - 20rem - var(--cods-space-md))
+      )
+    );
+
     position: fixed;
     z-index: 1000;
-    inset-block-end: var(--cods-space-md);
-    inset-inline-end: var(--cods-space-md);
-    width: min(20rem, calc(100vw - 2 * var(--cods-space-md)));
-    max-height: calc(100dvh - 2 * var(--cods-space-md));
+    inset-block-end: 0;
+    inset-inline-end: 0;
+    box-sizing: border-box;
+    width: min(
+      calc(
+        20rem + var(--cods-toast-shadow-inline-start) + var(--cods-space-md)
+      ),
+      100vw
+    );
+    max-height: min(100dvh, var(--cods-toast-focus-max-height, 100dvh));
     overflow-y: auto;
     display: grid;
     gap: var(--cods-space-sm);
   }
 
+  .cods-toast__list:has(> .cods-toast__item) {
+    padding-block: min(
+        calc(var(--cods-toast-shadow-outset) + var(--cods-toast-shadow-up)),
+        var(--cods-toast-focus-shadow-limit, 100dvh)
+      )
+      var(--cods-space-md);
+    padding-inline: var(--cods-toast-shadow-inline-start) var(--cods-space-md);
+  }
+
+  .cods-toast__list--click-through {
+    pointer-events: none;
+  }
+
+  .cods-toast__list--focus-top {
+    inset-block: 0 auto;
+  }
+
+  .cods-toast__list--focus-top:has(> .cods-toast__item) {
+    padding-block: var(--cods-space-md)
+      min(
+        calc(var(--cods-toast-shadow-outset) + var(--cods-toast-shadow-down)),
+        var(--cods-toast-focus-shadow-limit, 100dvh)
+      );
+  }
+
   .cods-toast__item {
+    pointer-events: auto;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
