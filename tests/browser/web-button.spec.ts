@@ -6,6 +6,11 @@ test('Button documents the supported examples with accessible names and rendered
   page,
 }, testInfo) => {
   await page.goto('/button/');
+  const status = page.locator('[data-cods-docs-status]');
+  await expect(status).toContainText('Button maturity is stable');
+  await expect(status).toContainText(
+    'Manual accessibility checks were completed on November 23, 2026',
+  );
   expect(await page.locator('main h2').allTextContents()).toEqual([
     'Component preview',
     'Component code',

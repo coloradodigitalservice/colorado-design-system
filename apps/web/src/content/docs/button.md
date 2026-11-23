@@ -4,7 +4,7 @@ description: Lets people take an action or make a choice with one click or tap.
 navLabel: Button
 order: 40
 figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=808-2014
-accessibilityStatus: The preview is checked with axe. Manual accessibility review is pending.
+accessibilityStatus: The preview is checked with axe. Manual accessibility checks were completed on November 23, 2026.
 ---
 
 ## Guidance
