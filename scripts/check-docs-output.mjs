@@ -50,6 +50,9 @@ for (const component of loadComponents()) {
     const imageBase = dom.window.document
       .querySelector('[data-cods-docs-preview]')
       ?.getAttribute('data-cods-docs-preview-image-base');
+    const spriteUrl = dom.window.document
+      .querySelector('[data-cods-docs-preview]')
+      ?.getAttribute('data-cods-docs-preview-sprite');
     const items = [];
     for (const figure of dom.window.document.querySelectorAll(
       '[data-cods-docs-preview-state]',
@@ -62,12 +65,19 @@ for (const component of loadComponents()) {
         failures.push(`${component.name}/${state}: unknown preview state`);
         continue;
       }
+      const markup = withImageBase(
+        componentMarkup(example.code, spriteUrl ?? undefined),
+        imageBase ?? undefined,
+      );
+      const template = dom.window.document.createElement('template');
+      template.innerHTML = markup;
+      const rendered = figure.cloneNode(true);
+      rendered.querySelector('figcaption')?.remove();
+      if (rendered.innerHTML.trim() !== template.innerHTML.trim())
+        failures.push(`${component.name}/${state}: rendered preview drift`);
       items.push({
         label: figure.getAttribute('data-cods-docs-preview-label'),
-        markup: withImageBase(
-          componentMarkup(example.code),
-          imageBase ?? undefined,
-        ),
+        markup,
       });
     }
     if (!items.length)

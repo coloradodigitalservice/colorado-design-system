@@ -1,0 +1,85 @@
+---
+import spriteUrl from '@coloradodigitalservice/colorado-design-system/icons/sprite.svg?url';
+import fixture from '@coloradodigitalservice/colorado-design-system/fixtures/toast.html?raw';
+import metadata from '@coloradodigitalservice/colorado-design-system/metadata/toast.json';
+import examples from '@coloradodigitalservice/colorado-design-system/examples/toast.json';
+import CodeExamples from './CodeExamples.astro';
+---
+
+<div
+  data-cods-toast-examples
+  set:html={fixture.replaceAll('/icons/sprite.svg', spriteUrl)}
+/>
+<CodeExamples metadata={metadata} examples={examples.examples} />
+<script>
+  import {
+    initToast,
+    showToast,
+    dismissToast,
+  } from '@coloradodigitalservice/colorado-design-system';
+  const examples = document.querySelector<HTMLElement>(
+    '[data-cods-toast-examples]',
+  );
+  const root = examples?.querySelector<HTMLElement>(
+    '[data-cods-fixture-state="action"] [data-cods-toast]',
+  );
+  if (!examples || !root) {
+    console.warn('cods-toast examples: missing shared notification area');
+  } else {
+    examples.querySelectorAll('[data-cods-toast]').forEach((area) => {
+      if (area !== root) area.remove();
+    });
+    root.setAttribute('aria-label', 'Example notifications');
+    initToast(root);
+    const actionItems = new Set<HTMLElement>();
+    root.addEventListener('cods-toast:dismiss', (event) => {
+      const { item } = (event as CustomEvent<{ item: HTMLElement }>).detail;
+      actionItems.delete(item);
+    });
+    examples
+      .querySelectorAll<HTMLButtonElement>('[data-cods-toast-demo]')
+      .forEach((button) => {
+        const example = button.closest('[data-cods-fixture-state]');
+        const status = example?.querySelector<HTMLElement>(
+          '[data-cods-toast-demo-status]',
+        );
+        const contextAction = example?.querySelector<HTMLButtonElement>(
+          '[data-cods-toast-context-action]',
+        );
+        if (!status || (button.dataset.codsToastAction && !contextAction)) {
+          console.warn('cods-toast examples: missing status or action', button);
+          return;
+        }
+        const undo = () => {
+          status.textContent = 'Contact information update undone.';
+          const items = [...actionItems];
+          const returnFocus = items.some((item) =>
+            item.contains(document.activeElement),
+          );
+          items.forEach((item) => dismissToast(root, item));
+          if (returnFocus) button.focus();
+        };
+        contextAction?.addEventListener('click', undo);
+        button.addEventListener('click', () => {
+          const text = button.dataset.codsToastMessage;
+          if (!text?.trim()) {
+            console.warn('cods-toast examples: missing message', button);
+            return;
+          }
+          const actionLabel = button.dataset.codsToastAction;
+          const iconHref = button.dataset.codsToastIcon;
+          status.textContent = text;
+          const item = showToast(root, {
+            message: text,
+            dismissLabel: 'Dismiss',
+            returnFocus: button,
+            ...(iconHref && { iconHref }),
+            ...(actionLabel
+              ? { action: { label: actionLabel, onActivate: undo } }
+              : { duration: 10000 }),
+          });
+          if (item && actionLabel) actionItems.add(item);
+        });
+      });
+  }
+</script>

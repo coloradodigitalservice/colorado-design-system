@@ -17,13 +17,14 @@ interface Example {
 }
 interface Props {
   displayName: string;
+  spriteUrl?: string;
   examples: Example[];
   variants: { state: string; label: string }[];
   /** Site base path for fixtures with root-relative `/images/` URLs. */
   imageBase?: string;
 }
 
-const { displayName, examples, variants, imageBase } = Astro.props;
+const { displayName, examples, variants, imageBase, spriteUrl } = Astro.props;
 
 const items = variants.map(({ state, label }) => {
   const example = examples.find((candidate) => candidate.state === state);
@@ -31,7 +32,7 @@ const items = variants.map(({ state, label }) => {
   return {
     state,
     label,
-    markup: withImageBase(componentMarkup(example.code), imageBase),
+    markup: withImageBase(componentMarkup(example.code, spriteUrl), imageBase),
   };
 });
 const code = previewCode(items);
@@ -42,6 +43,7 @@ const code = previewCode(items);
   aria-labelledby="component-preview-heading"
   data-cods-docs-preview
   data-cods-docs-preview-image-base={imageBase}
+  data-cods-docs-preview-sprite={spriteUrl}
 >
   <h2 id="component-preview-heading">Component preview</h2>
   {items.map(({ state, label, markup }) => (

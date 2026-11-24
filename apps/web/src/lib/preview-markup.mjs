@@ -21,7 +21,7 @@ export function componentMarkup(code, spriteUrl) {
   const lines = markup
     .replace(new RegExp(`^\\s*<${wrapper}\\b[^>]*>\\s*\\n`), '')
     .replace(new RegExp(`\\n\\s*<\\/${wrapper}>\\s*$`), '')
-    .replace(/^\s*<h2>[^<]*<\/h2>\s*\n/, '')
+    .replace(/^\s*<h2\b[^>]*>[^<]*<\/h2>\s*\n/, '')
     .split('\n');
   const indent = Math.min(
     ...lines

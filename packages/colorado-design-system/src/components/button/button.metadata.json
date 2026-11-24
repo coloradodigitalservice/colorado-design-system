@@ -1,7 +1,7 @@
 {
   "name": "button",
   "displayName": "Button",
-  "maturity": "experimental",
+  "maturity": "stable",
   "type": "static",
   "uswdsEquivalent": "button",
   "uswdsVersion": "3.14.0",

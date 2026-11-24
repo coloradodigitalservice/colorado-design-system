@@ -30,6 +30,9 @@ for (const component of loadComponents()) {
           })),
         );
       expect(figures.length).toBeGreaterThan(0);
+      const spriteUrl = await page
+        .locator('[data-cods-docs-preview]')
+        .getAttribute('data-cods-docs-preview-sprite');
       const items = figures.map(({ state, label }) => {
         const example = component.examples.examples.find(
           (candidate) => candidate.state === state,
@@ -41,7 +44,7 @@ for (const component of loadComponents()) {
         return {
           label,
           markup: withImageBase(
-            componentMarkup(example!.code),
+            componentMarkup(example!.code, spriteUrl ?? undefined),
             imageBase ?? undefined,
           ),
         };
