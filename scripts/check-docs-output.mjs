@@ -61,9 +61,16 @@ for (const component of loadComponents()) {
         failures.push(`${component.name}/${state}: unknown preview state`);
         continue;
       }
+      const markup = componentMarkup(example.code, spriteUrl ?? undefined);
+      const template = dom.window.document.createElement('template');
+      template.innerHTML = markup;
+      const rendered = figure.cloneNode(true);
+      rendered.querySelector('figcaption')?.remove();
+      if (rendered.innerHTML.trim() !== template.innerHTML.trim())
+        failures.push(`${component.name}/${state}: rendered preview drift`);
       items.push({
         label: figure.getAttribute('data-cods-docs-preview-label'),
-        markup: componentMarkup(example.code, spriteUrl ?? undefined),
+        markup,
       });
     }
     if (!items.length)

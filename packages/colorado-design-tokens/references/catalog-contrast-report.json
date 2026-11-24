@@ -463,6 +463,13 @@
       "background": "color.bg-alert-success",
       "minimum": 3,
       "ratio": 5.943586152696274
+    },
+    {
+      "name": "Toast focus indicator",
+      "foreground": "color.focus-toast",
+      "background": "color.surface-toast-default",
+      "minimum": 3,
+      "ratio": 10.378071215153566
     }
   ],
   "acceptedExceptions": [

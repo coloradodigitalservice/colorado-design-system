@@ -397,6 +397,12 @@
       "foreground": "color.border-alert-success",
       "background": "color.bg-alert-success",
       "minimum": 3
+    },
+    {
+      "name": "Toast focus indicator",
+      "foreground": "color.focus-toast",
+      "background": "color.surface-toast-default",
+      "minimum": 3
     }
   ]
 }

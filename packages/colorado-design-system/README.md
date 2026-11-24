@@ -127,6 +127,14 @@ the same fixture. See
 [accessibility evidence](src/components/accordion/accessibility/accordion.evidence.md)
 for automated coverage and manual review.
 
+## Checkbox (stable)
+
+Checkbox uses native inputs and works without a controller. Set the native
+`indeterminate` property with JavaScript for the mixed state. The
+[Checkbox page](../../apps/web/src/content/docs/checkbox.md) documents usage,
+and the [accessibility evidence](src/components/checkbox/accessibility/checkbox.evidence.md)
+records the review.
+
 ## Icon (experimental)
 
 The package and static release ship the complete Regular sprite and an ID-only

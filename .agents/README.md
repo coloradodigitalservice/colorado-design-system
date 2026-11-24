@@ -10,14 +10,15 @@ Tool-agnostic home for agent guidance and repository-local skills. Any AI agent 
 
 ## Skills
 
-| Skill                                                                    | Purpose                                                                                                                                                 |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [`create-cods-component`](skills/create-cods-component/SKILL.md)         | Scaffold a new CoDS component (fixture, Sass, controller, evidence file, Storybook story, export) and hand off the steps the script does not automate.  |
-| [`cods-accessibility-review`](skills/cods-accessibility-review/SKILL.md) | Review a component's accessibility and record the evidence file. Prepares evidence only; screen-reader findings and `stable` sign-off stay with people. |
-| [`cods-component-hardening`](skills/cods-component-hardening/SKILL.md)   | Phase 4 hardening: restructure a component's docs page to the CoDS Website Content outline, audit its tests, and prepare evidence and the QA handoff.   |
-| [`cods-token-change`](skills/cods-token-change/SKILL.md)                 | Propose and implement a DTCG token change: classification, alias impact, contrast, reviewers, regeneration.                                             |
-| [`cods-browser-verification`](skills/cods-browser-verification/SKILL.md) | Verify built pages or Storybook stories with the pinned Playwright CLI, turn findings into tests, and update visual baselines.                          |
-| [`playwright-cli`](skills/playwright-cli/SKILL.md)                       | Upstream Playwright CLI skill, committed unmodified and excluded from Prettier. Refresh it with `pnpm exec playwright cli install --skills=agents`.     |
+| Skill                                                                          | Purpose                                                                                                                                                 |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`create-cods-component`](skills/create-cods-component/SKILL.md)               | Scaffold a new CoDS component (fixture, Sass, controller, evidence file, Storybook story, export) and hand off the steps the script does not automate.  |
+| [`cods-accessibility-review`](skills/cods-accessibility-review/SKILL.md)       | Review a component's accessibility and record the evidence file. Prepares evidence only; screen-reader findings and `stable` sign-off stay with people. |
+| [`cods-component-hardening`](skills/cods-component-hardening/SKILL.md)         | Phase 4 hardening: restructure a component's docs page to the CoDS Website Content outline, audit its tests, and prepare evidence and the QA handoff.   |
+| [`cods-component-stabilization`](skills/cods-component-stabilization/SKILL.md) | Promote a reviewed and approved component to stable, updating evidence, documentation, tests, and release preparation.                                  |
+| [`cods-token-change`](skills/cods-token-change/SKILL.md)                       | Propose and implement a DTCG token change: classification, alias impact, contrast, reviewers, regeneration.                                             |
+| [`cods-browser-verification`](skills/cods-browser-verification/SKILL.md)       | Verify built pages or Storybook stories with the pinned Playwright CLI, turn findings into tests, and update visual baselines.                          |
+| [`playwright-cli`](skills/playwright-cli/SKILL.md)                             | Upstream Playwright CLI skill, committed unmodified and excluded from Prettier. Refresh it with `pnpm exec playwright cli install --skills=agents`.     |
 
 ## Adding a skill
 

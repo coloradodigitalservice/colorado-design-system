@@ -60,6 +60,16 @@
         }
       }
     },
+    "focus-toast": {
+      "$type": "color",
+      "$value": "{color.co-blue-20}",
+      "$extensions": {
+        "org.colorado.source": {
+          "name": "focus-toast",
+          "location": "Toasts/Snackbars focus treatment on surface/toast/default; replaces the shared bg/action/focus ring (about 1.90:1 on the toast surface); approved by design and accessibility in the CODS-P3-034 review"
+        }
+      }
+    },
     "text-action-link-visited": {
       "$type": "color",
       "$value": "{color.co-plum-80}",
