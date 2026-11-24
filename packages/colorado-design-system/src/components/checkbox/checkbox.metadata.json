@@ -1,7 +1,7 @@
 {
   "name": "checkbox",
   "displayName": "Checkbox",
-  "maturity": "experimental",
+  "maturity": "stable",
   "type": "static",
   "uswdsEquivalent": "checkbox",
   "uswdsVersion": "3.14.0",

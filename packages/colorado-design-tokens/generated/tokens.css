@@ -109,6 +109,7 @@
   --cods-color-elevation-shadow: var(--cods-color-black-alpha-12);
   --cods-color-focus-gap: var(--cods-color-white);
   --cods-color-focus-row: var(--cods-color-co-blue-80-brand);
+  --cods-color-focus-toast: var(--cods-color-co-blue-20);
   --cods-color-icon-action-link: var(--cods-color-co-blue-60v);
   --cods-color-icon-action-link-active: var(--cods-color-co-blue-90);
   --cods-color-icon-action-link-hover: var(--cods-color-co-blue-80-brand);
