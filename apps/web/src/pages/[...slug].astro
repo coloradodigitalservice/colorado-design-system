@@ -33,6 +33,7 @@ import TooltipExamples from '../components/TooltipExamples.astro';
 import ModalExamples from '../components/ModalExamples.astro';
 import InPageNavigationExamples from '../components/InPageNavigationExamples.astro';
 import LogoExample from '../components/LogoExample.astro';
+import ToastExamples from '../components/ToastExamples.astro';
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs');
@@ -168,6 +169,7 @@ const { Content } = await render(entry);
       </>
     )}
     <Content />
+    {entry.id === 'toast' && <ToastExamples />}
     {entry.id === 'search' && <SearchExamples />}
     {entry.id === 'hero' && <HeroExamples />}
     {entry.id === 'tags' && <TagsExamples />}

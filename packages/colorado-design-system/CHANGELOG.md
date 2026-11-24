@@ -1,5 +1,17 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.34
+
+### Patch Changes
+
+- a17debd: Add an experimental combo box with a native select fallback.
+- 11f6a5b: Add an experimental Language Selector component.
+- 5982b52: Add an experimental Modal component wrapping the USWDS modal behavior, with dismissible, forced-action and large variants.
+- 47b9d74: Add an experimental Search component with default, compact, and slim variants.
+- e265306: Add experimental supplemental notifications with persistent-by-default messages and accessibility guidance.
+- 7e8a840: Add an experimental responsive Videos component with native and embedded examples.
+- @coloradodigitalservice/colorado-design-tokens@0.2.34
+
 ## 0.2.33
 
 ### Patch Changes
