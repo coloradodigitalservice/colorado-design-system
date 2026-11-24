@@ -565,8 +565,11 @@ test.describe('without JavaScript', () => {
       ).toBe(true);
       for (const link of await footer.locator('a').all()) {
         await expect(link).toBeVisible();
-        const box = await link.boundingBox();
-        expect(box!.height).toBeGreaterThanOrEqual(48);
+        // Playwright's Firefox boundingBox conversion can lose precision.
+        const height = await link.evaluate(
+          (element) => element.getBoundingClientRect().height,
+        );
+        expect(height).toBeGreaterThanOrEqual(48);
       }
     }
     expect(
