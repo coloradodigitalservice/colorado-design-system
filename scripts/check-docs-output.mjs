@@ -8,6 +8,7 @@ import { loadComponents, checkComponentAssets } from './component-fixtures.mjs';
 import {
   componentMarkup,
   previewCode,
+  withImageBase,
 } from '../apps/web/src/lib/preview-markup.mjs';
 
 const root = resolve(
@@ -46,6 +47,9 @@ for (const component of loadComponents()) {
     // Hardened pages show a curated preview instead of every fixture state.
     // Each previewed state must match its canonical fixture exactly, and the
     // code block must be exactly the markup that renders the preview.
+    const imageBase = dom.window.document
+      .querySelector('[data-cods-docs-preview]')
+      ?.getAttribute('data-cods-docs-preview-image-base');
     const spriteUrl = dom.window.document
       .querySelector('[data-cods-docs-preview]')
       ?.getAttribute('data-cods-docs-preview-sprite');
@@ -61,7 +65,10 @@ for (const component of loadComponents()) {
         failures.push(`${component.name}/${state}: unknown preview state`);
         continue;
       }
-      const markup = componentMarkup(example.code, spriteUrl ?? undefined);
+      const markup = withImageBase(
+        componentMarkup(example.code, spriteUrl ?? undefined),
+        imageBase ?? undefined,
+      );
       const template = dom.window.document.createElement('template');
       template.innerHTML = markup;
       const rendered = figure.cloneNode(true);

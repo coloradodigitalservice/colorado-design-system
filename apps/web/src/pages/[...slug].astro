@@ -18,6 +18,7 @@ import DividerExamples from '../components/DividerExamples.astro';
 import ComponentSummary from '../components/ComponentSummary.astro';
 import ComponentStatus from '../components/ComponentStatus.astro';
 import accordionMetadata from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
+import heroMetadata from '@coloradodigitalservice/colorado-design-system/metadata/hero.json';
 import checkboxMetadata from '@coloradodigitalservice/colorado-design-system/metadata/checkbox.json';
 import IconExamples from '../components/IconExamples.astro';
 import FooterExamples from '../components/FooterExamples.astro';
@@ -78,6 +79,17 @@ const { Content } = await render(entry);
         <AccordionExamples />
         <ComponentStatus
           metadata={accordionMetadata}
+          accessibility={entry.data.accessibilityStatus!}
+          figma={entry.data.figma}
+        />
+      </>
+    )}
+    {entry.id === 'hero' && (
+      <>
+        <p class="cods-docs-lead">{entry.data.description}</p>
+        <HeroExamples />
+        <ComponentStatus
+          metadata={heroMetadata}
           accessibility={entry.data.accessibilityStatus!}
           figma={entry.data.figma}
         />
@@ -149,7 +161,6 @@ const { Content } = await render(entry);
     {(entry.id === 'videos' ||
       entry.id === 'tags' ||
       entry.id === 'card' ||
-      entry.id === 'hero' ||
       entry.id === 'radio' ||
       entry.id === 'site-alert' ||
       entry.id === 'footer' ||
@@ -171,7 +182,6 @@ const { Content } = await render(entry);
     <Content />
     {entry.id === 'toast' && <ToastExamples />}
     {entry.id === 'search' && <SearchExamples />}
-    {entry.id === 'hero' && <HeroExamples />}
     {entry.id === 'tags' && <TagsExamples />}
     {entry.id === 'videos' && <VideosExamples />}
     {entry.id === 'process-list' && <ProcessListExamples />}

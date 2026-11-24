@@ -41,3 +41,19 @@ export function previewCode(items) {
     .map(({ label, markup }) => `<!-- ${label} -->\n${markup}`)
     .join('\n\n');
 }
+
+/**
+ * Prefix a fixture's root-relative `/images/` URLs (in `src` and `srcset`)
+ * with the site's deployment base, so previews load on a project base path.
+ * The preview and its code block both use the result.
+ * @param {string} markup Component markup from `componentMarkup`.
+ * @param {string} [base] Site base path, for example `/colorado-design-system/`.
+ * @returns {string}
+ */
+export function withImageBase(markup, base) {
+  if (!base) return markup;
+  const prefix = base.endsWith('/') ? base : `${base}/`;
+  return markup.replace(/(["\s])\/images\//g, (_, before) => {
+    return `${before}${prefix}images/`;
+  });
+}

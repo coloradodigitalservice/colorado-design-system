@@ -2,6 +2,7 @@ import { loadComponents } from '../../scripts/component-fixtures.mjs';
 import {
   componentMarkup,
   previewCode,
+  withImageBase,
 } from '../../apps/web/src/lib/preview-markup.mjs';
 import { test, expect } from './fixtures.js';
 
@@ -17,6 +18,9 @@ for (const component of loadComponents()) {
       await expect(page.locator('[data-cods-docs-status]')).toContainText(
         `${component.metadata.displayName} maturity is ${component.metadata.maturity}`,
       );
+      const imageBase = await page
+        .locator('[data-cods-docs-preview]')
+        .getAttribute('data-cods-docs-preview-image-base');
       const figures = await page
         .locator('[data-cods-docs-preview-state]')
         .evaluateAll((elements) =>
@@ -39,7 +43,10 @@ for (const component of loadComponents()) {
         ).toBeDefined();
         return {
           label,
-          markup: componentMarkup(example!.code, spriteUrl ?? undefined),
+          markup: withImageBase(
+            componentMarkup(example!.code, spriteUrl ?? undefined),
+            imageBase ?? undefined,
+          ),
         };
       });
       expect(await previewCodeBlock.textContent()).toBe(previewCode(items));
