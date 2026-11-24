@@ -1,5 +1,12 @@
 # @coloradodigitalservice/colorado-design-system
 
+## 0.2.35
+
+### Patch Changes
+
+- Harden Footer documentation, accessibility evidence, and regression tests.
+- @coloradodigitalservice/colorado-design-tokens@0.2.35
+
 ## 0.2.34
 
 ### Patch Changes
