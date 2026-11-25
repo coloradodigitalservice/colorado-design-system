@@ -271,7 +271,7 @@ test('live example notifications stack and Undo only clears related messages', a
   await expect(toasts).toHaveCount(2);
   await expect(
     page.locator(
-      '[data-cods-fixture-state="action"] [data-cods-toast-demo-status]',
+      '[data-cods-docs-preview-state="action"] [data-cods-toast-demo-status]',
     ),
   ).toHaveText('Contact information update undone.');
 });
@@ -282,7 +282,7 @@ test('a toast does not obscure its contextual action at narrow reflow', async ({
 }) => {
   await page.setViewportSize({ width: 320, height: 256 });
   await page.goto('/toast/');
-  const example = page.locator('[data-cods-fixture-state="action"]');
+  const example = page.locator('[data-cods-docs-preview-state="action"]');
   const trigger = example.getByRole('button', {
     name: 'Update contact information',
   });
@@ -310,7 +310,7 @@ test('a constrained toast stack remains usable with a pointer', async ({
 }) => {
   await page.setViewportSize({ width: 320, height: 256 });
   await page.goto('/toast/');
-  const example = page.locator('[data-cods-fixture-state="action"]');
+  const example = page.locator('[data-cods-docs-preview-state="action"]');
   await expectConstrainedStackClickable(
     page,
     example.getByRole('button', { name: 'Update contact information' }),
@@ -324,7 +324,7 @@ test('toast controls remain reachable when the focused control fills the viewpor
 }) => {
   await page.setViewportSize({ width: 320, height: 256 });
   await page.goto('/toast/');
-  const example = page.locator('[data-cods-fixture-state="action"]');
+  const example = page.locator('[data-cods-docs-preview-state="action"]');
   const trigger = example.getByRole('button', {
     name: 'Update contact information',
   });
@@ -370,15 +370,20 @@ async function openCopiedExample(
   state: 'default' | 'icon' | 'action',
 ) {
   await page.goto('/toast/');
-  const heading = state === 'default' ? 'examples' : state;
+  const heading =
+    state === 'default' ? 'initializing-and-showing-a-notification' : state;
   const script = await page
     .locator(`#${heading}`)
     .locator('xpath=following-sibling::pre[1]/code')
     .textContent();
-  const markup = await page
-    .locator(`[data-cods-example="${state}"] code`)
+  const previewMarkup = await page
+    .locator('[data-cods-docs-preview-code] code')
     .textContent();
-  if (script === null || markup === null)
+  const label = { default: 'Default', icon: 'Icon', action: 'Action' }[state];
+  const markup = previewMarkup
+    ?.split(`<!-- ${label} -->\n`)[1]
+    ?.split('\n\n<!-- ')[0];
+  if (script === null || !markup)
     throw new Error(`Missing copied ${state} example`);
 
   const importMap = JSON.stringify({
@@ -449,7 +454,7 @@ test('copied icon HTML and JavaScript run together', async ({ page }) => {
   await expect(toast).toContainText('Response submitted.');
   await expect(toast.locator('svg use')).toHaveAttribute(
     'href',
-    '/icons/sprite.svg#check',
+    (await trigger.getAttribute('data-cods-toast-icon'))!,
   );
   await toast.getByRole('button', { name: 'Dismiss' }).focus();
   await page.keyboard.press('Enter');
@@ -480,4 +485,25 @@ test('copied action HTML and JavaScript support both Undo controls', async ({
     .click();
   await expect(status).toHaveText('Contact information update undone.');
   await expect(toast).toHaveCount(0);
+});
+
+test('page presents preview, status, guidance, and specifications', async ({
+  page,
+}) => {
+  await page.goto('/toast/');
+  for (const name of [
+    'Component preview',
+    'Component code',
+    'Component status',
+    'Guidance',
+    'Specifications',
+  ]) {
+    await expect(
+      page.getByRole('heading', { name, exact: true }),
+    ).toBeVisible();
+  }
+  await expect(page.locator('[data-cods-docs-preview-state]')).toHaveCount(3);
+  await expect(
+    page.getByText(/Human accessibility and design review is pending/),
+  ).toBeVisible();
 });
