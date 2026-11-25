@@ -7,13 +7,20 @@ test('tooltip documentation renders working examples and canonical markup', asyn
   await expect(
     page.getByRole('heading', { name: 'Tooltip', exact: true, level: 1 }),
   ).toBeVisible();
-  for (const position of ['top', 'bottom', 'left', 'right']) {
-    await expect(
-      page.locator(`[data-cods-example="${position}"] code`),
-    ).toBeAttached();
-  }
+  expect(await page.locator('main h2').allTextContents()).toEqual([
+    'Component preview',
+    'Component code',
+    'Component status',
+    'Guidance',
+    'Specifications',
+  ]);
+  await expect(page.locator('[data-cods-docs-preview-state]')).toHaveCount(5);
+  await expect(page.locator('[data-cods-docs-preview-code]')).toBeVisible();
+  await expect(page.locator('[data-cods-docs-status]')).toContainText(
+    'manual accessibility review is pending',
+  );
   const trigger = page
-    .locator('[data-cods-fixture-state="left"]')
+    .locator('[data-cods-docs-preview-state="left"]')
     .getByRole('button', { name: 'Left' });
   await trigger.focus();
   await expect(trigger.locator('..').locator('[role="tooltip"]')).toBeVisible();

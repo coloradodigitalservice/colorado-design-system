@@ -145,7 +145,7 @@ export function init(root: HTMLElement): void {
         style.display !== 'contents' &&
         (style.position === 'absolute' || style.position === 'fixed')
       ) {
-        const containingBlock = ancestor.offsetParent;
+        const containingBlock: Element | null = ancestor.offsetParent;
         if (!containingBlock) break;
         if (!skipUntil || containingBlock.contains(skipUntil))
           skipUntil = containingBlock;
