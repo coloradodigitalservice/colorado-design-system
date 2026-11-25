@@ -12,6 +12,42 @@
 
 **Tracking:** CODS-P3-035 / CDS-83
 
+## CODS-P4-037 hardening — 2026-11-25
+
+Developer first pass for CDS-146. Manual QA, State domain acceptance, and client sign-off remain pending.
+
+### Documentation page
+
+The page uses the shared preview, code, and status, followed by guidance and specifications. The preview retains all five fixture states. It explains supplemental descriptions, accessible names, initialization, placement, and limitations. The public localization section and examples catalogue were removed; localization remains in this evidence. Status does not claim conformance. Confirm guidance against Figma during design review.
+
+### Test audit
+
+| Area                                          | Before | After |
+| --------------------------------------------- | -----: | ----: |
+| Unit cases                                    |     11 |    11 |
+| Web Tooltip runs (1 test × 3 browsers)        |      3 |     3 |
+| Storybook Tooltip runs (Chromium)             |     13 |    13 |
+| Shared web fixture runs (1 test × 3 browsers) |      3 |     3 |
+| Shared Storybook fixture runs (5 states)      |      5 |     5 |
+
+The web smoke test was updated for the shared page outline and preview, preserving focus and axe checks. Keep the distinct lifecycle, geometry, hover, focus, contrast, and prior-review regressions; no identical tests were identified for safe removal. No tests moved between browser engines.
+
+### Automated results
+
+Base: `f92de13` (main). Tooltip unit tests: 11 passed. `pnpm build` (including token and static documentation checks), `pnpm lint`, `pnpm typecheck`, `pnpm format:check`, and `pnpm check:workspace` passed. The first build logged a TypeScript TS7022 diagnostic in the Tooltip controller despite exiting successfully; an explicit type annotation addresses it. These checks used Node 26.5.0, not the pinned 24.21.0. Browser runs and visual review are pending: no local server was running and starting one was not authorized. See the PR for remaining results.
+
+### Manual matrix for Aten Accessibility/QA (pending)
+
+Record browser, assistive technology, and versions for each result. Review both treatments and all positions on the tested revision.
+
+- [ ] Focus and hover appearance, persistence and pointer movement onto the tooltip; Escape dismissal without focus loss and fresh interaction reopening.
+- [ ] VoiceOver/Safari and NVDA or JAWS announcements, including an existing description and the trigger's separate accessible name.
+- [ ] Viewport collision, scrolling, clipping, 400% zoom and 320px reflow, including the no-fit fallback.
+- [ ] Essential information available on touch devices and without JavaScript; lifecycle initialization and cleanup preserve focus.
+- [ ] Contrast and visual treatment with design; forced colors and reduced motion.
+- [ ] Internal localization, long text, and right-to-left layout.
+- [ ] State domain acceptance and client sign-off on the tested revision.
+
 ## Keyboard and focus
 
 - [ ] Verify Tab and Shift+Tab reach each trigger and that focus remains on the trigger when Escape dismisses the tooltip.
