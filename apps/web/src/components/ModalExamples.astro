@@ -1,26 +1,23 @@
 ---
 import metadata from '@coloradodigitalservice/colorado-design-system/metadata/modal.json';
 import examples from '@coloradodigitalservice/colorado-design-system/examples/modal.json';
-import CodeExamples from './CodeExamples.astro';
-import fixture from '@coloradodigitalservice/colorado-design-system/fixtures/modal.html?raw';
 import spriteUrl from '@coloradodigitalservice/colorado-design-system/icons/sprite.svg?url';
+import ComponentPreview from './ComponentPreview.astro';
 import '@coloradodigitalservice/colorado-design-system/styles.css';
 ---
 
-<div
-  class="cods-docs-modal-examples"
-  set:html={fixture.replaceAll('/icons/sprite.svg', spriteUrl)}
+<ComponentPreview
+  displayName={metadata.displayName}
+  examples={examples.examples}
+  spriteUrl={spriteUrl}
+  variants={[
+    { state: 'default', label: 'Default' },
+    { state: 'forced-action', label: 'Forced action' },
+    { state: 'large', label: 'Large' },
+  ]}
 />
-<CodeExamples metadata={metadata} examples={examples.examples} />
 
 <script>
   import { initAllModal } from '@coloradodigitalservice/colorado-design-system';
   initAllModal();
 </script>
-
-<style>
-  pre {
-    overflow-x: auto;
-    max-width: 100%;
-  }
-</style>

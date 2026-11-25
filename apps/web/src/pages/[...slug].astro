@@ -31,6 +31,7 @@ import SearchExamples from '../components/SearchExamples.astro';
 import ProcessListExamples from '../components/ProcessListExamples.astro';
 import TooltipExamples from '../components/TooltipExamples.astro';
 import ModalExamples from '../components/ModalExamples.astro';
+import modalMetadata from '@coloradodigitalservice/colorado-design-system/metadata/modal.json';
 import InPageNavigationExamples from '../components/InPageNavigationExamples.astro';
 import LogoExample from '../components/LogoExample.astro';
 import ToastExamples from '../components/ToastExamples.astro';
@@ -110,7 +111,17 @@ const { Content } = await render(entry);
         <ComponentSummary component="tooltip" figma={entry.data.figma} />
       </>
     )}
-    {entry.id === 'modal' && <ModalExamples />}
+    {entry.id === 'modal' && (
+      <>
+        <p class="cods-docs-lead">{entry.data.description}</p>
+        <ModalExamples />
+        <ComponentStatus
+          metadata={modalMetadata}
+          accessibility={entry.data.accessibilityStatus!}
+          figma={entry.data.figma}
+        />
+      </>
+    )}
     {entry.id === 'in-page-navigation' && <InPageNavigationExamples />}
     {entry.id === 'radio' && <RadioExamples />}
     {entry.id === 'combo-box' && <ComboBoxExamples />}
