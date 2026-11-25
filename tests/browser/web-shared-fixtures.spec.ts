@@ -53,7 +53,13 @@ for (const component of loadComponents()) {
         )
         .first(),
     ).toBeVisible();
-    for (const example of component.examples.examples) {
+    const examples =
+      component.name === 'header'
+        ? component.examples.examples.filter(({ state }) =>
+            ['default', 'full'].includes(state),
+          )
+        : component.examples.examples;
+    for (const example of examples) {
       const sample = page.locator(`[data-cods-example="${example.state}"]`);
       expect(await sample.locator('code').textContent()).toBe(example.code);
       if (example.status === 'review-required')

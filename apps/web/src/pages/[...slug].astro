@@ -22,6 +22,7 @@ import checkboxMetadata from '@coloradodigitalservice/colorado-design-system/met
 import IconExamples from '../components/IconExamples.astro';
 import FooterExamples from '../components/FooterExamples.astro';
 import HeaderExamples from '../components/HeaderExamples.astro';
+import headerMetadata from '@coloradodigitalservice/colorado-design-system/metadata/header.json';
 import InputExamples from '../components/InputExamples.astro';
 import IconListExamples from '../components/IconListExamples.astro';
 import HeroExamples from '../components/HeroExamples.astro';
@@ -95,12 +96,13 @@ const { Content } = await render(entry);
     )}
     {entry.id === 'header' && (
       <>
-        <p>
-          Header identifies the site and provides its primary navigation. Its
-          maturity is <strong>experimental</strong> in the <code>0.x</code>{' '}
-          development series.
-        </p>
+        <p class="cods-docs-lead">{entry.data.description}</p>
         <HeaderExamples />
+        <ComponentStatus
+          metadata={headerMetadata}
+          accessibility={entry.data.accessibilityStatus!}
+          figma={entry.data.figma}
+        />
       </>
     )}
     {entry.id === 'breadcrumbs' && <BreadcrumbsExamples />}
@@ -153,7 +155,6 @@ const { Content } = await render(entry);
       entry.id === 'radio' ||
       entry.id === 'site-alert' ||
       entry.id === 'footer' ||
-      entry.id === 'header' ||
       entry.id === 'breadcrumbs' ||
       entry.id === 'link' ||
       entry.id === 'combo-box' ||

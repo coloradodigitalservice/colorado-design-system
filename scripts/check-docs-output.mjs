@@ -80,7 +80,15 @@ for (const component of loadComponents()) {
     dom.window.close();
     continue;
   }
-  for (const example of component.examples.examples) {
+  // Header previews live in separate documents: expanded states reuse the same
+  // authored markup as default and full, so only those two samples are shown.
+  const examples =
+    component.name === 'header'
+      ? component.examples.examples.filter(({ state }) =>
+          ['default', 'full'].includes(state),
+        )
+      : component.examples.examples;
+  for (const example of examples) {
     const code = dom.window.document.querySelector(
       `[data-cods-example="${example.state}"] code`,
     );

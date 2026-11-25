@@ -7,6 +7,56 @@
 
 Every checklist item must be checked or explicitly marked "N/A — \<reason>" before the component can be marked `stable`. Leaving an item blank means the evidence is incomplete.
 
+## CODS-P4-019 hardening — 2026-11-25
+
+Developer first pass for CDS-133. Human accessibility and QA, State domain
+acceptance, and client sign-off remain pending. PR 107 implemented the Header;
+its approval does not establish Phase 4 acceptance.
+
+### Documentation and test audit
+
+The page retains isolated previews because USWDS supports one Header per
+document; it now identifies component code and shows the shared status block.
+The code section shows the fixture-generated default and full markup; expanded
+states reuse that markup and remain in Storybook. Drift checks cover both samples. Confirm the page content against the current Figma source with Design.
+
+Before and after: 28 unit cases, 5 web tests per browser (15 runs across
+Chromium, Firefox, and WebKit), and 10 Storybook tests (Chromium). Keep them:
+they cover distinct page integration, navigation, focus, no-JavaScript behavior,
+responsive layout, and regressions from PR 107. Keep the unit suite for
+lifecycle, events, validation, submenu behavior, and body padding. No tests
+were removed or moved between browsers. The shared fixture spec still checks
+the two distinct Header code samples; expanded states use the same markup.
+
+### Automated results — 2026-11-25
+
+Base: `f92de13` (main). Local commands ran with Node 26.5.0, not the
+repository-pinned 24.21.0, because nvm was unavailable in this environment;
+rerun the required checks with the pinned version.
+
+- `pnpm exec vitest run tests/component-fixtures.test.ts packages/colorado-design-system/src/components/header/header.test.ts`: 87 tests passed, including 28 Header cases.
+- `pnpm check:workspace`, `pnpm lint`, `pnpm typecheck`, `pnpm format:check`, and `pnpm --filter @cods-internal/web validate`: passed.
+- `pnpm --filter @cods-internal/web build`: passed, including the static documentation output checks.
+- Browser tests and visual inspection were not run: no preview server was already
+  running, and starting one was not authorized. CI and a reviewer must verify
+  the web and Storybook suites and the desktop and 320px previews.
+
+### Manual matrix for Aten Accessibility/QA — pending
+
+Review all supported states and record the tested revision, browser and assistive
+technology versions, findings, fixes, and retests.
+
+- [ ] Named landmarks, accessible branding and skip link to main content.
+- [ ] Mobile toggle announcements, keyboard operation, hidden links, submenu
+      naming and reading order, focus continuity at the breakpoint, and no
+      unexpected keyboard trap. Accessibility lead: confirm the documented
+      drawer focus containment and exit paths.
+- [ ] No-JavaScript fallback and initialization/destruction lifecycle.
+- [ ] Contrast, actual 400% zoom, 320px reflow, and narrow-screen browsers.
+- [ ] Reduced motion and forced colors.
+- [ ] Long text, localization, and bidirectional layout.
+- [ ] Aten Design and State domain review; client sign-off on the tested revision.
+
 ## Review update: 2026-11-19
 
 Changes for Phil Stier's review of PR 107. Automated checks only; the manual
@@ -70,8 +120,8 @@ and NVDA, focus after resizing an open drawer, and forced colors for submenus.
 - [ ] Accessible name/role documented for each state variation: the controller
       sets Menu's `aria-expanded` to `false` or `true`. While the drawer is
       open, USWDS sets `aria-hidden="true"` on page content outside the
-      navigation (including Menu); the controller removes it from the header's
-      ancestors so the navigation stays exposed when the header is nested.
+      navigation; the controller keeps Menu and its ancestors exposed so its
+      expanded state remains available, including when the header is nested.
       Without JavaScript, Menu and Close are hidden and have no expanded state.
 
 ## Screen reader verification
@@ -113,8 +163,9 @@ List any unresolved findings and their tracking issue. A component with open ite
   and design approval are still required.
 - The overlay uses USWDS's default scrim because Figma defines no Colorado
   overlay token.
-- The Figma tablet layout and the dropdown, mega-menu, search, and Translate
-  variants are out of scope for CODS-P3-011.
+- PR 107 implemented tablet navigation, dropdowns, mega menus, search and a
+  language control. Its recorded Figma deviations were approved in that PR;
+  Phase 4 design and accessibility review remain pending.
 
 ## Automated and browser verification
 

@@ -74,7 +74,9 @@ test('the documentation follows the component page structure', async ({
   await page.goto('/header/');
   const headings = await page.locator('main h2, main h3').allTextContents();
   for (const heading of [
-    'Summary',
+    'Component preview',
+    'Component code',
+    'Component status',
     'Guidance',
     'When to use',
     'Writing for headers',

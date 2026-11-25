@@ -45,7 +45,13 @@ const fullUrl = `${previewUrl}full/`;
     loading="lazy"
   ></iframe>
 </section>
-<CodeExamples metadata={metadata} examples={examples.examples} />
+<h2>Component code</h2>
+<CodeExamples
+  metadata={metadata}
+  examples={examples.examples.filter(({ state }) =>
+    ['default', 'full'].includes(state),
+  )}
+/>
 
 <style>
   .cods-docs-header-preview {

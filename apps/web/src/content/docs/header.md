@@ -4,6 +4,7 @@ description: Colorado-themed site identity, primary navigation with optional dro
 navLabel: Header
 order: 49
 figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=1100-8319
+accessibilityStatus: Automated accessibility checks have been run; manual accessibility review is pending.
 ---
 
 ## Guidance
@@ -246,5 +247,5 @@ to sections of the current page.
 - The package ships only the CoDS logo. Agency lockups shown in Figma, such as
   the Department of Revenue, are supplied by each agency through the logo slot
   and are not bundled.
-- Screen-reader, actual 400% zoom, and manual forced-colors review, plus design
-  approval, remain required before stable maturity.
+- Human accessibility review, State domain acceptance, and client sign-off remain
+  required before stable maturity.
