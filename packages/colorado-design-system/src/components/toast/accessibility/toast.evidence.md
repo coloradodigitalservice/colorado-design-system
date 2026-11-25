@@ -16,11 +16,11 @@ The page now presents the default, icon, and action fixture states, their genera
 | Area                                    | Before |  After |
 | --------------------------------------- | -----: | -----: |
 | Toast unit cases                        |      8 |      8 |
-| Web browser cases (three engines)       | 12 × 3 | 13 × 3 |
+| Web browser cases (three engines)       | 12 × 3 | 14 × 3 |
 | Storybook browser cases (Chromium)      |      9 |      9 |
 | Shared web fixture case (three engines) |  1 × 3 |  1 × 3 |
 
-Kept all existing behavior, focus, geometry, and copied-example checks; none were shown to be duplicates. Updated the copied-example and preview selectors for the new layout and added a page-outline check. No tests were moved or removed. The shared legacy documentation-heading spec did not include Toast.
+Kept all existing behavior, focus, geometry, and copied-example checks; none were shown to be duplicates. Updated the copied-example and preview selectors for the new layout and added page-outline and complete copied-example checks. No tests were moved or removed. The shared legacy documentation-heading spec did not include Toast.
 
 ### Automated results
 

@@ -5,11 +5,10 @@ import examples from '@coloradodigitalservice/colorado-design-system/examples/to
 import ComponentPreview from './ComponentPreview.astro';
 ---
 
-<div data-cods-toast-examples>
+<div data-cods-toast-examples data-cods-toast-sprite={spriteUrl}>
   <ComponentPreview
     displayName={metadata.displayName}
     examples={examples.examples}
-    spriteUrl={spriteUrl}
     variants={[
       { state: 'default', label: 'Default' },
       { state: 'icon', label: 'Icon' },
@@ -37,6 +36,14 @@ import ComponentPreview from './ComponentPreview.astro';
     });
     root.setAttribute('aria-label', 'Example notifications');
     initToast(root);
+    examples
+      .querySelectorAll<HTMLElement>('[data-cods-toast-icon]')
+      .forEach((button) => {
+        button.dataset.codsToastIcon = button.dataset.codsToastIcon?.replace(
+          '/icons/sprite.svg',
+          examples.dataset.codsToastSprite ?? '/icons/sprite.svg',
+        );
+      });
     const actionItems = new Set<HTMLElement>();
     root.addEventListener('cods-toast:dismiss', (event) => {
       const { item } = (event as CustomEvent<{ item: HTMLElement }>).detail;

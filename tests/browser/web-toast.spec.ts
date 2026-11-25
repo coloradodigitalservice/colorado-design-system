@@ -367,23 +367,36 @@ test('toast controls remain reachable when the focused control fills the viewpor
 
 async function openCopiedExample(
   page: Page,
-  state: 'default' | 'icon' | 'action',
+  state: 'default' | 'icon' | 'action' | 'all',
 ) {
   await page.goto('/toast/');
-  const heading =
-    state === 'default' ? 'initializing-and-showing-a-notification' : state;
-  const script = await page
-    .locator(`#${heading}`)
-    .locator('xpath=following-sibling::pre[1]/code')
-    .textContent();
+  const headings =
+    state === 'all'
+      ? ['initializing-and-showing-a-notification', 'icon', 'action']
+      : [
+          state === 'default'
+            ? 'initializing-and-showing-a-notification'
+            : state,
+        ];
+  const scripts = await Promise.all(
+    headings.map((heading) =>
+      page
+        .locator(`#${heading}`)
+        .locator('xpath=following-sibling::pre[1]/code')
+        .textContent(),
+    ),
+  );
   const previewMarkup = await page
     .locator('[data-cods-docs-preview-code] code')
     .textContent();
-  const label = { default: 'Default', icon: 'Icon', action: 'Action' }[state];
-  const markup = previewMarkup
-    ?.split(`<!-- ${label} -->\n`)[1]
-    ?.split('\n\n<!-- ')[0];
-  if (script === null || !markup)
+  const label = { default: 'Default', icon: 'Icon', action: 'Action', all: '' }[
+    state
+  ];
+  const markup =
+    state === 'all'
+      ? previewMarkup
+      : previewMarkup?.split(`<!-- ${label} -->\n`)[1]?.split('\n\n<!-- ')[0];
+  if (scripts.some((script) => script === null) || !markup)
     throw new Error(`Missing copied ${state} example`);
 
   const importMap = JSON.stringify({
@@ -400,9 +413,18 @@ async function openCopiedExample(
       contentType: 'text/javascript',
     }),
   );
-  await page.route('**/__cods-toast-snippet__/example.mjs', (route) =>
-    route.fulfill({ contentType: 'text/javascript', body: script }),
-  );
+  await page.route('**/__cods-toast-snippet__/example-*.mjs', (route) => {
+    const index = Number(
+      route
+        .request()
+        .url()
+        .match(/example-(\d+)\.mjs$/)?.[1],
+    );
+    return route.fulfill({
+      contentType: 'text/javascript',
+      body: scripts[index]!,
+    });
+  });
   await page.route('**/icons/sprite.svg', (route) =>
     route.fulfill({
       path: resolve('packages/colorado-design-system/dist/icons/sprite.svg'),
@@ -419,7 +441,7 @@ async function openCopiedExample(
             <title>Copied toast example</title>
             <link rel="icon" href="data:,">
             <script type="importmap">${importMap}</script>
-            <script type="module" src="/__cods-toast-snippet__/example.mjs"></script>
+            ${scripts.map((_, index) => `<script type="module" src="/__cods-toast-snippet__/example-${index}.mjs"></script>`).join('\n')}
           </head>
           <body>${markup}</body>
         </html>`,
@@ -485,6 +507,34 @@ test('copied action HTML and JavaScript support both Undo controls', async ({
     .click();
   await expect(status).toHaveText('Contact information update undone.');
   await expect(toast).toHaveCount(0);
+});
+
+test('the complete copied examples share an area and preserve unrelated notifications', async ({
+  page,
+}) => {
+  await openCopiedExample(page, 'all');
+  await expect(page.locator('[data-cods-toast]')).toHaveCount(1);
+  await page.getByRole('button', { name: 'Save changes' }).click();
+  await page.getByRole('button', { name: 'Submit response' }).click();
+  await page
+    .getByRole('button', { name: 'Update contact information' })
+    .click();
+  const toasts = page.locator('.cods-toast__item');
+  await expect(toasts).toHaveCount(3);
+  await expect(toasts.locator('svg use')).toHaveAttribute(
+    'href',
+    '/icons/sprite.svg#check',
+  );
+  expect(
+    await page.evaluate(async () => {
+      const response = await fetch('/icons/sprite.svg');
+      return response.ok && (await response.text()).includes('id="check"');
+    }),
+  ).toBe(true);
+  await toasts.getByRole('button', { name: 'Undo', exact: true }).click();
+  await expect(toasts).toHaveCount(2);
+  await expect(toasts.filter({ hasText: 'Changes saved.' })).toBeVisible();
+  await expect(toasts.filter({ hasText: 'Response submitted.' })).toBeVisible();
 });
 
 test('page presents preview, status, guidance, and specifications', async ({

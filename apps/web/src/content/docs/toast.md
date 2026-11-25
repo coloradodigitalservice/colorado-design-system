@@ -52,7 +52,7 @@ Toasts normally appear at the bottom-right of the viewport, are 320 pixels wide 
 
 ### Initializing and showing a notification
 
-Each JavaScript example is a standalone module for the matching copyable HTML above. Load it after the HTML using a bundler or an import map that resolves the package name. The examples select the matching preview controls; replace these selectors in your application. The live examples share one notification area so messages stack. Use one notification area per page to avoid overlapping fixed areas. The HTML above shows the required live regions and list. Load the package styles and tokens as described in [Getting started](../getting-started/).
+Each JavaScript example is a standalone module for the matching copyable HTML above. Load it after the HTML using a bundler or an import map that resolves the package name. The examples select the matching preview controls; replace these selectors in your application. The live examples share one notification area so messages stack. Each standalone script below selects the first notification area and removes any others, so the scripts also work together with the complete HTML above. Use one notification area per page to avoid overlapping fixed areas. The HTML above shows the required live regions and list. Load the package styles and tokens as described in [Getting started](../getting-started/).
 
 The example retains the saved status beside the button. Its supplemental notification disappears after ten seconds unless hovered or focused.
 
@@ -68,9 +68,10 @@ const saveButton = document.querySelector(
   '[data-cods-toast-message="Changes saved."]',
 );
 const status = saveButton.nextElementSibling;
-const notifications = document.querySelector(
-  '[aria-label="Notifications"][data-cods-toast]',
-);
+const notifications = document.querySelector('[data-cods-toast]');
+document.querySelectorAll('[data-cods-toast]').forEach((area) => {
+  if (area !== notifications) area.remove();
+});
 initToast(notifications);
 saveButton.addEventListener('click', () => {
   status.textContent = 'Changes saved.';
@@ -99,9 +100,10 @@ const submitButton = document.querySelector(
   '[data-cods-toast-message="Response submitted."]',
 );
 const status = submitButton.nextElementSibling;
-const notifications = document.querySelector(
-  '[aria-label="Icon example notifications"][data-cods-toast]',
-);
+const notifications = document.querySelector('[data-cods-toast]');
+document.querySelectorAll('[data-cods-toast]').forEach((area) => {
+  if (area !== notifications) area.remove();
+});
 initToast(notifications);
 submitButton.addEventListener('click', () => {
   status.textContent = 'Response submitted.';
@@ -123,7 +125,7 @@ Pass `action: { label, onActivate }` and keep an equivalent action available bes
 import {
   initToast,
   showToast,
-  dismissAllToast,
+  dismissToast,
 } from '@coloradodigitalservice/colorado-design-system';
 
 const updateButton = document.querySelector(
@@ -131,24 +133,34 @@ const updateButton = document.querySelector(
 );
 const contextUndo = updateButton.nextElementSibling;
 const status = contextUndo.nextElementSibling;
-const notifications = document.querySelector(
-  '[aria-label="Action example notifications"][data-cods-toast]',
-);
+const notifications = document.querySelector('[data-cods-toast]');
+document.querySelectorAll('[data-cods-toast]').forEach((area) => {
+  if (area !== notifications) area.remove();
+});
 initToast(notifications);
 
+const actionItems = new Set();
+notifications.addEventListener('cods-toast:dismiss', (event) => {
+  actionItems.delete(event.detail.item);
+});
 const undo = () => {
   status.textContent = 'Contact information update undone.';
-  dismissAllToast(notifications);
+  const returnFocus = [...actionItems].some((item) =>
+    item.contains(document.activeElement),
+  );
+  [...actionItems].forEach((item) => dismissToast(notifications, item));
+  if (returnFocus) updateButton.focus();
 };
 contextUndo.addEventListener('click', undo);
 updateButton.addEventListener('click', () => {
   status.textContent = 'Contact information has been updated.';
-  showToast(notifications, {
+  const item = showToast(notifications, {
     message: 'Contact information has been updated.',
     dismissLabel: 'Dismiss',
     action: { label: 'Undo', onActivate: undo },
     returnFocus: updateButton,
   });
+  if (item) actionItems.add(item);
 });
 ```
 
