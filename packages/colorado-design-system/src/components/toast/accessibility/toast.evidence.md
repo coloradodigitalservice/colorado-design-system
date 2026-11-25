@@ -5,6 +5,44 @@
 **Date:** 2026-11-11  
 **Tracking:** CODS-P3-034
 
+## CODS-P4-035 hardening — 2026-11-25
+
+Developer first pass for CDS-145, based on main `f92de13`. Aten Accessibility/QA, State domain acceptance, design review, and client sign-off remain pending. This is not an accessibility conformance claim.
+
+### Documentation and test audit
+
+The page now presents the default, icon, and action fixture states, their generated HTML, status, guidance, and controller setup. The examples retain contextual feedback and Undo. The no-JavaScript exception and the design of the action require human review. Copy follows the existing PR #97 review; confirm against Figma.
+
+| Area                                    | Before |  After |
+| --------------------------------------- | -----: | -----: |
+| Toast unit cases                        |      8 |      8 |
+| Web browser cases (three engines)       | 12 × 3 | 14 × 3 |
+| Storybook browser cases (Chromium)      |      9 |      9 |
+| Shared web fixture case (three engines) |  1 × 3 |  1 × 3 |
+
+Kept all existing behavior, focus, geometry, and copied-example checks; none were shown to be duplicates. Updated the copied-example and preview selectors for the new layout and added page-outline and complete copied-example checks. No tests were moved or removed. The shared legacy documentation-heading spec did not include Toast.
+
+### Automated results
+
+- `pnpm exec vitest run packages/colorado-design-system/src/components/toast/toast.test.ts`: 8 passed; `pnpm test`: 383 passed.
+- `pnpm check:workspace`, `pnpm --filter @cods-internal/web validate`, `pnpm lint`, `pnpm typecheck`, and `pnpm format:check`: passed.
+- `pnpm build`: exited 0; the declaration generator reported an existing Tooltip TS7022 diagnostic at `tooltip.ts:148`. The web build and its static documentation checks passed again after the page edits.
+- Browser counts were listed, not executed. The test configuration starts local preview servers; no server was running and the current task prohibits starting one. Browser and visual checks remain for CI or a user-managed preview.
+- Commands used Node 26.5.0 rather than the repository-pinned 24.21.0; repeat under the pinned version in CI.
+
+### Manual matrix for Aten Accessibility/QA (pending)
+
+Review all fixture states and Phase 3 acceptance criteria. Record the tested revision, browser, assistive technology and versions, findings, fixes, and retests.
+
+- [ ] Keyboard operation, names and roles, focus visibility, no focus stealing, dismissal and focus recovery including stacked and removed triggers.
+- [ ] Human screen-reader review of polite and assertive messages, first and repeated announcements, queue order, interruptions, and duplicates.
+- [ ] Timing, hover and focus pause, persistent actions, lifecycle and timer cleanup.
+- [ ] Contrast, 400% zoom and 320px reflow, narrow-screen layout and obscured controls.
+- [ ] Reduced motion and forced colors.
+- [ ] Long text, translated content, labels and RTL; record limitations.
+- [ ] Review no-JavaScript fallback and contextual information/action; confirm whether the exception is accepted.
+- [ ] Design review of the rendered basic, icon, and Undo treatments against Figma; State domain acceptance and client sign-off on the tested revision.
+
 ## Keyboard and focus
 
 - [ ] Verify Tab and Shift+Tab reach every dismiss button in order and can leave the notification area. Enter and Space activate the native button.

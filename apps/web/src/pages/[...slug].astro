@@ -34,6 +34,7 @@ import ModalExamples from '../components/ModalExamples.astro';
 import InPageNavigationExamples from '../components/InPageNavigationExamples.astro';
 import LogoExample from '../components/LogoExample.astro';
 import ToastExamples from '../components/ToastExamples.astro';
+import toastMetadata from '@coloradodigitalservice/colorado-design-system/metadata/toast.json';
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs');
@@ -168,8 +169,18 @@ const { Content } = await render(entry);
         <ComponentSummary component="in-page-alert" figma={entry.data.figma} />
       </>
     )}
+    {entry.id === 'toast' && (
+      <>
+        <p class="cods-docs-lead">{entry.data.description}</p>
+        <ToastExamples />
+        <ComponentStatus
+          metadata={toastMetadata}
+          accessibility={entry.data.accessibilityStatus!}
+          figma={entry.data.figma}
+        />
+      </>
+    )}
     <Content />
-    {entry.id === 'toast' && <ToastExamples />}
     {entry.id === 'search' && <SearchExamples />}
     {entry.id === 'hero' && <HeroExamples />}
     {entry.id === 'tags' && <TagsExamples />}
