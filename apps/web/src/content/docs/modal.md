@@ -4,9 +4,12 @@ description: An experimental, focus-trapped dialog for decisions that must be ma
 navLabel: Modal
 order: 24
 figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=3381-4959
+accessibilityStatus: Automated checks cover the modal; manual accessibility review is pending.
 ---
 
-## When to use
+## Guidance
+
+### When to use
 
 Modals interrupt whatever the person was doing, so use them sparingly. Frequent modals cause dialog fatigue: people learn to dismiss them without reading. Most messages belong on the page.
 
@@ -40,7 +43,7 @@ When a modal reports a problem, make the message solution-oriented:
 - Match the tone to the situation, and do not blame the person.
 - Prefer preventing the error in the first place, for example with clear labels and validation, over explaining it afterward.
 
-## Variants
+### Variants
 
 **Default** is dismissible. `Escape`, the close button, a click on the overlay, and any in-dialog action all close it. Use it for everything that is safe to dismiss.
 
@@ -48,7 +51,32 @@ When a modal reports a problem, make the message solution-oriented:
 
 **Large** widens the dialog for content that needs the room, such as a statement or a short policy. It changes width only; the behavior is the default dismissible one.
 
-## Using the controller
+### Accessibility for modals
+
+- Focus moves into the dialog, stays inside while it is open, and returns to the trigger when it closes. The page behind it cannot scroll while it is open.
+- The default dialog closes with Escape, the close button, the backdrop, or a marked close action. Forced-action dialogs require a marked action; Escape and backdrop clicks do not close them.
+
+- Each dialog needs a unique `id`, an `aria-labelledby` pointing at its heading, and an `aria-describedby` pointing at its description. The controller leaves the markup untouched if any are missing or duplicated rather than failing at runtime. If a dialog, heading, or description ID becomes duplicated after initialization, the existing trigger warns and does not open until the duplicate is removed.
+- Triggers are buttons, not links: they open a dialog rather than navigating.
+- Without JavaScript the dialog content stays inline on the page and the trigger does nothing, so the content must still make sense where you wrote it.
+
+## Specifications
+
+### Variants and elements
+
+Pair the CoDS classes with the USWDS classes shown in the component code.
+
+| Class                 | Use                                                                                                         |
+| --------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `cods-modal`          | Root containing the trigger and dialog.                                                                     |
+| `cods-modal__dialog`  | Dialog surface; pair with `usa-modal`. Add `usa-modal--lg cods-modal__dialog--large` for the large variant. |
+| `cods-modal__content` | Content container; pair with `usa-modal__content`.                                                          |
+| `cods-modal__main`    | Main content; pair with `usa-modal__main`.                                                                  |
+| `cods-modal__heading` | Dialog heading; pair with `usa-modal__heading`.                                                             |
+| `cods-modal__footer`  | Action area; pair with `usa-modal__footer`.                                                                 |
+| `cods-modal__close`   | Dismiss button; pair with `usa-modal__close`.                                                               |
+
+### Using the controller
 
 Import the controller from the package and initialize each root after its markup is in the document:
 
@@ -115,12 +143,4 @@ A dialog whose id, heading id or description id appears more than once on the pa
 
 ### Close icon sprite
 
-The close button draws its icon from the package's SVG sprite. The examples point at `/icons/sprite.svg#x`; deploy the packaged `icons/` assets and replace that URL with the sprite's public path, keeping the `#x` fragment. When you upgrade the package, deploy its new sprite with it. See [Sprite URL and deployment path](../icon/#sprite-url-and-deployment-path) for prefixed and cross-origin hosting.
-
-## Accessibility
-
-- Each dialog needs a unique `id`, an `aria-labelledby` pointing at its heading, and an `aria-describedby` pointing at its description. The controller leaves the markup untouched if any are missing or duplicated rather than failing at runtime. If a dialog, heading, or description ID becomes duplicated after initialization, the existing trigger warns and does not open until the duplicate is removed.
-- Triggers are buttons, not links: they open a dialog rather than navigating.
-- Without JavaScript the dialog content stays inline on the page and the trigger does nothing, so the content must still make sense where you wrote it.
-
-The examples above use the package's canonical fixture.
+The close button draws its icon from the package's SVG sprite. The preview code uses this site’s built sprite URL. Deploy the packaged `icons/` assets and replace that URL with the sprite’s public path, keeping the `#x` fragment. When you upgrade the package, deploy its new sprite with it. See [Sprite URL and deployment path](../icon/#sprite-url-and-deployment-path) for prefixed and cross-origin hosting.

@@ -5,6 +5,57 @@
 **Date:** 2026-11-17  
 **Tracking:** CODS-P3-033 / CDS-81
 
+## CODS-P4-028 hardening — 2026-11-25
+
+Developer first pass for CDS-144. Aten Accessibility/QA, State domain acceptance,
+and client sign-off remain pending. The component remains experimental.
+
+### Documentation page
+
+The page now shows the default, forced-action, and large canonical fixture states
+with their generated code, status, guidance, and specifications. It retains the
+reviewed Phase 3 guidance and controller, sprite, ID, and lifecycle instructions.
+The status makes no conformance claim. Design should confirm the token inventory
+and overlay decisions recorded below.
+
+### Test audit
+
+| Area                            | Before      | After       |
+| ------------------------------- | ----------- | ----------- |
+| Modal unit cases                | 16          | 16          |
+| Modal web tests, three engines  | 10 × 3 = 30 | 11 × 3 = 33 |
+| Modal Storybook tests, Chromium | 3           | 3           |
+| Shared web fixture test         | 1 × 3 = 3   | 1 × 3 = 3   |
+
+Kept all existing tests: they protect distinct close paths, focus, geometry,
+forced colors, teardown, duplicate IDs, and Storybook navigation, including
+regressions from PR #95. No identical assertions warranted removal or movement.
+Added a page structure and status check across all three web engines. The shared
+fixture test now checks curated code and status. The legacy documentation spec
+had no Modal entry. The build checks generated preview markup against fixtures.
+
+### Automated results
+
+- Base: `f92de13` (main). `pnpm exec vitest run packages/colorado-design-system/src/components/modal/modal.test.ts`: 16 passed.
+- `pnpm check:workspace`, `pnpm lint`, `pnpm typecheck`, `pnpm format:check`, web validation during the build, and `pnpm exec vitest run tests/component-fixtures.test.ts` (59 cases) passed.
+- `pnpm build` passed, including the generated documentation output check.
+- Checks used Node 26.5.0; the pinned Node 24.21.0 was unavailable locally. The package build emitted an existing Tooltip TS7022 diagnostic.
+- Browser tests and desktop/320px visual inspection pending: no existing local preview was listening, and starting a server was not authorized. CI must run the affected web, Storybook, and shared fixture specs.
+
+### Manual matrix for Aten Accessibility/QA (pending)
+
+Review all variants on the PR preview and other fixture states in Storybook.
+Record revision, browser, assistive technology, and versions with each result.
+
+- [ ] Dialog role, name and description announced on open; forced-action choices understood with NVDA or JAWS and VoiceOver.
+- [ ] Initial focus, full tab order and focus trap, background interaction exclusion, and focus return; check Safari with and without macOS full keyboard access.
+- [ ] Escape, backdrop, close button and action paths; forced-action safeguards and an available way forward.
+- [ ] Scrolling, long content, 400% zoom, 320px reflow and contrast.
+- [ ] Reduced motion and forced colors, including the dialog boundary and icon.
+- [ ] Lifecycle: open, close, destroy, reinitialize and navigate between stories; no stranded background lock.
+- [ ] No-JavaScript content in context, localization, translated close label, RTL and long text.
+- [ ] Design confirms token inventory, overlay and layout; State domain owner and client review the tested revision.
+
 ## Keyboard and focus
 
 - [ ] Focus moves into the dialog on open, stays inside it across repeated `Tab` presses, and returns to the trigger on close. Verified by automated tests in Chromium, Firefox and WebKit. A human must confirm tab order and that nothing is reachable behind the dialog.

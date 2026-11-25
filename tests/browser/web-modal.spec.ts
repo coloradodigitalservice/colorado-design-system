@@ -3,6 +3,28 @@ import { test, expect, expectAccessible } from './fixtures.js';
 const dialog = (page: import('@playwright/test').Page, id: string) =>
   page.locator(`#${id}`);
 
+test('page presents the preview, status, guidance and specifications', async ({
+  page,
+}) => {
+  await page.goto('/modal/');
+  const headings = await page.locator('main h2').allTextContents();
+  expect(headings).toEqual(
+    expect.arrayContaining([
+      'Component preview',
+      'Component code',
+      'Component status',
+      'Guidance',
+      'Specifications',
+    ]),
+  );
+  await expect(page.locator('[data-cods-docs-preview-state]')).toHaveCount(3);
+  await expect(
+    page
+      .getByText('manual accessibility review is pending', { exact: false })
+      .first(),
+  ).toBeVisible();
+});
+
 test('documented modal opens, traps focus and returns focus on close', async ({
   page,
 }, testInfo) => {
