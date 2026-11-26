@@ -115,7 +115,10 @@ for (const page of pages) {
     if (pageLandmarks.length !== 1)
       failures.push(`${label}: expected exactly one ${landmark} landmark`);
   }
-  if (document.querySelectorAll('nav[aria-label="Documentation"]').length !== 1)
+  if (
+    pagePath !== 'components/index.html' &&
+    document.querySelectorAll('nav[aria-label="Documentation"]').length !== 1
+  )
     failures.push(`${label}: missing labeled documentation navigation`);
   if (document.querySelectorAll('h1').length !== 1)
     failures.push(`${label}: expected exactly one h1`);

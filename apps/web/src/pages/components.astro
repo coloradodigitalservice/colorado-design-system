@@ -1,0 +1,97 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const docs = await getCollection('docs');
+const available = new Set(docs.map((entry) => entry.id));
+const base = import.meta.env.BASE_URL;
+const foundations = [
+  ['Color', 'color'],
+  ['Elevation', 'elevation'],
+  ['Focus States', 'focus-states'],
+  ['Grids & Spacing', 'grids-spacing'],
+  ['Icons', 'icon'],
+  ['Logos', 'logos'],
+  ['Radius', 'radius'],
+  ['Typography', 'typography'],
+];
+const components = [
+  ['Accordion', 'accordion'],
+  ['Breadcrumbs', 'breadcrumbs'],
+  ['Button', 'button'],
+  ['Card', 'card'],
+  ['Checkbox', 'checkbox'],
+  ['Combo Box', 'combo-box'],
+  ['Divider', 'divider'],
+  ['Footer', 'footer'],
+  ['Header', 'header'],
+  ['Hero', 'hero'],
+  ['Icon List', 'icon-list'],
+  ['Input', 'input'],
+  ['In-Page Alert', 'in-page-alert'],
+  ['In-Page Navigation', 'in-page-navigation'],
+  ['Language Selector', 'language-selector'],
+  ['Link', 'link'],
+  ['Maps', 'maps'],
+  ['Modal', 'modal'],
+  ['Process List', 'process-list'],
+  ['Radio Buttons', 'radio'],
+  ['Select (Dropdown)', 'select'],
+  ['Search', 'search'],
+  ['Site Alert', 'site-alert'],
+  ['Tags', 'tags'],
+  ['Toasts', 'toast'],
+  ['Videos', 'videos'],
+  ['Tooltip', 'tooltip'],
+];
+const sections: [string, string[][]][] = [
+  ['Foundations', foundations],
+  ['Components', components],
+];
+---
+
+<BaseLayout
+  title="Components"
+  description="Explore Colorado Design System foundations and components."
+  landing
+>
+  <div class="cods-hero">
+    <div class="cods-hero__content">
+      <h1 class="cods-hero__heading">Components</h1>
+    </div>
+  </div>
+  {sections.map(([heading, items], index) => (
+    <section aria-labelledby={index === 0 ? 'foundations' : 'components'}>
+      {index === 1 && <hr class="cods-divider" />}
+      <h2 id={index === 0 ? 'foundations' : 'components'}>{heading}</h2>
+      <ul class="usa-card-group cods-card-group">
+        {items.map(([label, slug]) => (
+          <li class="usa-card cods-card tablet:grid-col-6 desktop:grid-col-3">
+            {available.has(slug) ? (
+              <a
+                class="usa-card__container cods-card__container cods-card__link"
+                href={`${base}${slug}/`}
+              >
+                <div class="usa-card__header cods-card__header">
+                  <h3 class="usa-card__heading cods-card__heading">{label}</h3>
+                </div>
+                <div class="usa-card__body cods-card__body">
+                  <p>Card text</p>
+                </div>
+              </a>
+            ) : (
+              <div class="usa-card__container cods-card__container">
+                <div class="usa-card__header cods-card__header">
+                  <h3 class="usa-card__heading cods-card__heading">{label}</h3>
+                </div>
+                <div class="usa-card__body cods-card__body">
+                  <p>Page coming soon</p>
+                </div>
+              </div>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
+</BaseLayout>
