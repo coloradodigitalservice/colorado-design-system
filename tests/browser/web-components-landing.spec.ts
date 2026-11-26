@@ -51,6 +51,32 @@ test('components directory lists foundations and components in order', async ({
     'Tooltip',
   ]);
   await expect(page.getByRole('main').locator('.usa-card img')).toHaveCount(0);
+  await expect(page.getByRole('main').locator('h1')).toHaveCount(1);
+  await expect(sections.nth(1).locator('hr.cods-divider')).toHaveCount(1);
+  await expect(
+    page.getByRole('main').locator('input, select, button'),
+  ).toHaveCount(0);
+  await expect(page.getByText(/showing \d+ items/i)).toHaveCount(0);
+  await expect(
+    page.getByRole('link', { name: 'Skip to main content' }),
+  ).toHaveAttribute('href', '#main-content');
+  await expect(
+    page.getByRole('contentinfo').getByRole('link', { name: 'Return to top' }),
+  ).toHaveAttribute('href', '#top');
+  await expect(page.locator('#top')).toHaveCount(1);
+  await expect(page.getByRole('main').locator('a a, a button')).toHaveCount(0);
+  await expect(
+    sections.nth(1).getByRole('link', { name: /Language Selector/ }),
+  ).toHaveAttribute('href', '/language-selector/');
+  await expect(
+    sections.nth(1).getByRole('link', { name: /^Search/ }),
+  ).toHaveAttribute('href', '/search/');
+  await expect(
+    sections.nth(0).getByRole('link', { name: /^Logos/ }),
+  ).toHaveAttribute('href', '/logos/');
+  await expect(
+    sections.nth(1).getByRole('link', { name: /^Card / }),
+  ).toHaveAttribute('href', '/card/');
   await expect(
     page
       .getByRole('navigation', { name: 'Primary' })
@@ -79,6 +105,7 @@ test('components directory lists foundations and components in order', async ({
       const fifth = await cards.nth(4).boundingBox();
       expect(fourth?.y).toBe(first?.y);
       expect(fifth!.y).toBeGreaterThan(first!.y);
+      expect(fifth!.y).toBeGreaterThanOrEqual(first!.y + first!.height + 1);
     }
   }
 });

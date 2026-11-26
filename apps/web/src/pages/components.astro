@@ -67,7 +67,7 @@ const sections: [string, string[][]][] = [
         <h2 id={index === 0 ? 'foundations' : 'components'}>{heading}</h2>
         <ul class="usa-list--unstyled grid-row grid-gap">
           {items.map(([label, slug]) => (
-            <li class="usa-card cods-card margin-bottom-2 tablet:grid-col-6 desktop:grid-col-3">
+            <li class="usa-card cods-card padding-bottom-2 tablet:grid-col-6 desktop:grid-col-3">
               {available.has(slug) ? (
                 <a
                   class="usa-card__container cods-card__container cods-card__link"
