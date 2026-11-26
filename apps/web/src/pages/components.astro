@@ -60,38 +60,44 @@ const sections: [string, string[][]][] = [
       <h1 class="cods-hero__heading">Components</h1>
     </div>
   </div>
-  {sections.map(([heading, items], index) => (
-    <section aria-labelledby={index === 0 ? 'foundations' : 'components'}>
-      {index === 1 && <hr class="cods-divider" />}
-      <h2 id={index === 0 ? 'foundations' : 'components'}>{heading}</h2>
-      <ul class="usa-card-group cods-card-group">
-        {items.map(([label, slug]) => (
-          <li class="usa-card cods-card tablet:grid-col-6 desktop:grid-col-3">
-            {available.has(slug) ? (
-              <a
-                class="usa-card__container cods-card__container cods-card__link"
-                href={`${base}${slug}/`}
-              >
-                <div class="usa-card__header cods-card__header">
-                  <h3 class="usa-card__heading cods-card__heading">{label}</h3>
+  <div class="cods-docs-container padding-y-4">
+    {sections.map(([heading, items], index) => (
+      <section aria-labelledby={index === 0 ? 'foundations' : 'components'}>
+        {index === 1 && <hr class="cods-divider" />}
+        <h2 id={index === 0 ? 'foundations' : 'components'}>{heading}</h2>
+        <ul class="usa-list--unstyled grid-row grid-gap">
+          {items.map(([label, slug]) => (
+            <li class="usa-card cods-card margin-bottom-2 tablet:grid-col-6 desktop:grid-col-3">
+              {available.has(slug) ? (
+                <a
+                  class="usa-card__container cods-card__container cods-card__link"
+                  href={`${base}${slug}/`}
+                >
+                  <div class="usa-card__header cods-card__header">
+                    <h3 class="usa-card__heading cods-card__heading">
+                      {label}
+                    </h3>
+                  </div>
+                  <div class="usa-card__body cods-card__body">
+                    <p>Card text</p>
+                  </div>
+                </a>
+              ) : (
+                <div class="usa-card__container cods-card__container">
+                  <div class="usa-card__header cods-card__header">
+                    <h3 class="usa-card__heading cods-card__heading">
+                      {label}
+                    </h3>
+                  </div>
+                  <div class="usa-card__body cods-card__body">
+                    <p>Page coming soon</p>
+                  </div>
                 </div>
-                <div class="usa-card__body cods-card__body">
-                  <p>Card text</p>
-                </div>
-              </a>
-            ) : (
-              <div class="usa-card__container cods-card__container">
-                <div class="usa-card__header cods-card__header">
-                  <h3 class="usa-card__heading cods-card__heading">{label}</h3>
-                </div>
-                <div class="usa-card__body cods-card__body">
-                  <p>Page coming soon</p>
-                </div>
-              </div>
-            )}
-          </li>
-        ))}
-      </ul>
-    </section>
-  ))}
+              )}
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </div>
 </BaseLayout>

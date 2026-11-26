@@ -62,4 +62,23 @@ test('components directory lists foundations and components in order', async ({
   await expect(sections.nth(1).getByRole('link', { name: /Maps/ })).toHaveCount(
     0,
   );
+
+  for (const width of [1440, 768, 320]) {
+    await page.setViewportSize({ width, height: 900 });
+    const hero = await page.locator('.cods-hero').boundingBox();
+    expect(hero?.x).toBe(0);
+    expect(hero?.width).toBe(width);
+    expect(
+      await page.evaluate(() => document.documentElement.scrollWidth),
+    ).toBeLessThanOrEqual(width);
+    const cards = sections.nth(0).locator('.usa-card__container');
+    const first = await cards.nth(0).boundingBox();
+    expect(first?.width).toBeGreaterThan(150);
+    if (width === 1440) {
+      const fourth = await cards.nth(3).boundingBox();
+      const fifth = await cards.nth(4).boundingBox();
+      expect(fourth?.y).toBe(first?.y);
+      expect(fifth!.y).toBeGreaterThan(first!.y);
+    }
+  }
 });

@@ -60,75 +60,82 @@ const sectionDocs = docs.filter((entry) => {
       Skip to main content
     </a>
     <SiteHeader pathname={pathname} />
-    <div
-      class:list={[
-        'cods-docs-container',
-        'cods-docs-grid',
-        {
-          'cods-docs-grid--landing': landing,
-          'cods-docs-grid--with-toc':
-            section === 'Components' && headings.length >= 2,
-        },
-      ]}
-    >
-      {!landing && (
-        <nav class="cods-docs-nav" aria-label="Documentation">
-          <p class="cods-docs-nav-title">{section}</p>
-          <ul class="usa-sidenav">
-            {section === 'Documentation' && (
-              <li class="usa-sidenav__item">
-                <a
-                  href={baseUrl}
-                  class:list={[{ 'usa-current': pathname === '/' }]}
-                  aria-current={pathname === '/' ? 'page' : undefined}
-                >
-                  Overview
-                </a>
-              </li>
-            )}
-            {sectionDocs.map((entry) => (
-              <li class="usa-sidenav__item">
-                <a
-                  href={`${baseUrl}${entry.id}/`}
-                  class:list={[{ 'usa-current': pathname === `/${entry.id}/` }]}
-                  aria-current={
-                    pathname === `/${entry.id}/` ? 'page' : undefined
-                  }
-                >
-                  {entry.data.navLabel}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      )}
+    {landing ? (
       <main id="main-content" class="cods-docs-main" tabindex="-1">
         <slot />
       </main>
-      {section === 'Components' && headings.length >= 2 && (
-        <nav
-          class="usa-in-page-nav cods-in-page-navigation cods-docs-toc"
-          aria-label="On this page"
-          data-cods-in-page-navigation
-        >
-          <p class="usa-in-page-nav__heading cods-in-page-navigation__heading">
-            On this page
-          </p>
-          <ul class="usa-in-page-nav__list cods-in-page-navigation__list">
-            {headings.map((heading) => (
-              <li class="usa-in-page-nav__item cods-in-page-navigation__item">
-                <a
-                  class="usa-in-page-nav__link cods-in-page-navigation__link"
-                  href={`#${heading.slug}`}
-                >
-                  {heading.text}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      )}
-    </div>
+    ) : (
+      <div
+        class:list={[
+          'cods-docs-container',
+          'cods-docs-grid',
+          {
+            'cods-docs-grid--with-toc':
+              section === 'Components' && headings.length >= 2,
+          },
+        ]}
+      >
+        {!landing && (
+          <nav class="cods-docs-nav" aria-label="Documentation">
+            <p class="cods-docs-nav-title">{section}</p>
+            <ul class="usa-sidenav">
+              {section === 'Documentation' && (
+                <li class="usa-sidenav__item">
+                  <a
+                    href={baseUrl}
+                    class:list={[{ 'usa-current': pathname === '/' }]}
+                    aria-current={pathname === '/' ? 'page' : undefined}
+                  >
+                    Overview
+                  </a>
+                </li>
+              )}
+              {sectionDocs.map((entry) => (
+                <li class="usa-sidenav__item">
+                  <a
+                    href={`${baseUrl}${entry.id}/`}
+                    class:list={[
+                      { 'usa-current': pathname === `/${entry.id}/` },
+                    ]}
+                    aria-current={
+                      pathname === `/${entry.id}/` ? 'page' : undefined
+                    }
+                  >
+                    {entry.data.navLabel}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
+        <main id="main-content" class="cods-docs-main" tabindex="-1">
+          <slot />
+        </main>
+        {section === 'Components' && headings.length >= 2 && (
+          <nav
+            class="usa-in-page-nav cods-in-page-navigation cods-docs-toc"
+            aria-label="On this page"
+            data-cods-in-page-navigation
+          >
+            <p class="usa-in-page-nav__heading cods-in-page-navigation__heading">
+              On this page
+            </p>
+            <ul class="usa-in-page-nav__list cods-in-page-navigation__list">
+              {headings.map((heading) => (
+                <li class="usa-in-page-nav__item cods-in-page-navigation__item">
+                  <a
+                    class="usa-in-page-nav__link cods-in-page-navigation__link"
+                    href={`#${heading.slug}`}
+                  >
+                    {heading.text}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
+      </div>
+    )}
     <SiteFooter />
   </body>
 </html>
