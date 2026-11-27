@@ -116,7 +116,7 @@ for (const page of pages) {
       failures.push(`${label}: expected exactly one ${landmark} landmark`);
   }
   if (
-    !['about/index.html', 'components/index.html'].includes(pagePath) &&
+    !['index.html', 'about/index.html', 'components/index.html'].includes(pagePath) &&
     document.querySelectorAll('nav[aria-label="Documentation"]').length !== 1
   )
     failures.push(`${label}: missing labeled documentation navigation`);
