@@ -5,6 +5,22 @@ test('About page assembles the planned content and principles', async ({
 }, testInfo) => {
   await page.goto('/about/');
   const main = page.getByRole('main');
+  const nav = page
+    .getByRole('banner')
+    .getByRole('navigation', { name: 'Primary' });
+  await expect(nav.getByRole('link')).toHaveText([
+    'Design System Foundations',
+    'Components',
+    'About',
+  ]);
+  await expect(
+    nav.getByRole('link', { name: 'Design System Foundations' }),
+  ).toHaveAttribute('href', '/components/#foundations');
+  await expect(nav.getByRole('link', { name: 'About' })).toHaveAttribute(
+    'aria-current',
+    'page',
+  );
+
   await expect(
     main.getByRole('heading', { name: 'About', level: 1 }),
   ).toBeVisible();
