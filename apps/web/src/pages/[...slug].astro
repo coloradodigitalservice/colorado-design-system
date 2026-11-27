@@ -20,6 +20,7 @@ import ComponentStatus from '../components/ComponentStatus.astro';
 import accordionMetadata from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
 import checkboxMetadata from '@coloradodigitalservice/colorado-design-system/metadata/checkbox.json';
 import IconExamples from '../components/IconExamples.astro';
+import IconCatalog from '../components/IconCatalog.astro';
 import FooterExamples from '../components/FooterExamples.astro';
 import HeaderExamples from '../components/HeaderExamples.astro';
 import InputExamples from '../components/InputExamples.astro';
@@ -33,8 +34,12 @@ import TooltipExamples from '../components/TooltipExamples.astro';
 import ModalExamples from '../components/ModalExamples.astro';
 import InPageNavigationExamples from '../components/InPageNavigationExamples.astro';
 import LogoExample from '../components/LogoExample.astro';
+import RadiusExamples from '../components/RadiusExamples.astro';
 import ToastExamples from '../components/ToastExamples.astro';
 import TypographySpecimens from '../components/TypographySpecimens.astro';
+import ColorExamples from '../components/ColorExamples.astro';
+import GridSpacingExamples from '../components/GridSpacingExamples.astro';
+import ElevationExamples from '../components/ElevationExamples.astro';
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs');
@@ -175,6 +180,17 @@ const { Content, headings } = await render(entry);
     )}
     <Content />
     {entry.id === 'typography' && <TypographySpecimens />}
+    {entry.id === 'color' && <ColorExamples />}
+    {entry.id === 'grids-spacing' && <GridSpacingExamples />}
+    {entry.id === 'focus-states' && (
+      <div class="cods-docs-focus-example">
+        <button type="button" class="usa-button cods-button">
+          Example button
+        </button>
+      </div>
+    )}
+    {entry.id === 'elevation' && <ElevationExamples />}
+    {entry.id === 'radius' && <RadiusExamples />}
     {entry.id === 'toast' && <ToastExamples />}
     {entry.id === 'search' && <SearchExamples />}
     {entry.id === 'hero' && <HeroExamples />}
@@ -183,7 +199,18 @@ const { Content, headings } = await render(entry);
     {entry.id === 'process-list' && <ProcessListExamples />}
     {entry.id === 'select' && <SelectExamples />}
     {entry.id === 'in-page-alert' && <InPageAlertExamples mode="remaining" />}
-    {entry.id === 'icon' && <IconExamples />}
+    {entry.id === 'icon' && (
+      <>
+        <IconExamples />
+        <IconCatalog />
+      </>
+    )}
     {entry.id === 'site-alert' && <SiteAlertExamples mode="remaining" />}
   </article>
 </BaseLayout>
+
+<style>
+  .cods-docs-focus-example {
+    padding: var(--cods-space-md);
+  }
+</style>

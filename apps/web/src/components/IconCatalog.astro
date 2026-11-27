@@ -1,0 +1,74 @@
+---
+import { icons } from '@phosphor-icons/core';
+import catalog from '@coloradodigitalservice/colorado-design-system/icons/catalog.json';
+import spriteUrl from '@coloradodigitalservice/colorado-design-system/icons/sprite.svg?url';
+
+const categories = [
+  ...new Set(icons.flatMap((icon) => icon.categories)),
+].sort();
+const available = new Set(catalog.icons);
+if (
+  icons.length !== available.size ||
+  icons.some((icon) => !available.has(icon.name))
+) {
+  throw new Error('Phosphor metadata does not match the shipped icon catalog');
+}
+---
+
+<section aria-labelledby="icon-catalog">
+  <h2 id="icon-catalog">Icon catalog</h2>
+  <p>
+    Browse all {catalog.icons.length} Regular icons from{' '}
+    {catalog.source.package} {catalog.source.version}, grouped by Phosphor's
+    categories. An icon can appear in more than one category. Open an icon to
+    select its usage markup.
+  </p>
+  {categories.map((category) => (
+    <details class="catalog-category">
+      <summary>{category}</summary>
+      <ul class="catalog-icons">
+        {icons
+          .filter((icon) => icon.categories.some((item) => item === category))
+          .map((icon) => (
+            <li>
+              <details>
+                <summary>
+                  <svg
+                    class="cods-icon cods-icon--medium"
+                    aria-hidden="true"
+                    focusable="false"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 256 256"
+                  >
+                    <use href={`${spriteUrl}#${icon.name}`}></use>
+                  </svg>
+                  {icon.name}
+                </summary>
+                <pre><code>{`<svg class="cods-icon cods-icon--medium" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 256 256">\n  <use href="YOUR_SPRITE_URL#${icon.name}"></use>\n</svg>`}</code></pre>
+              </details>
+            </li>
+          ))}
+      </ul>
+    </details>
+  ))}
+</section>
+<style>
+  .catalog-category {
+    margin-block: var(--cods-space-sm);
+  }
+  .catalog-icons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+    gap: var(--cods-space-sm);
+    list-style: none;
+    padding: var(--cods-space-sm);
+  }
+  .catalog-icons summary {
+    cursor: pointer;
+    overflow-wrap: anywhere;
+  }
+  .catalog-icons pre {
+    overflow: auto;
+  }
+</style>
