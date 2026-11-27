@@ -33,7 +33,9 @@ import TooltipExamples from '../components/TooltipExamples.astro';
 import ModalExamples from '../components/ModalExamples.astro';
 import InPageNavigationExamples from '../components/InPageNavigationExamples.astro';
 import LogoExample from '../components/LogoExample.astro';
+import RadiusExamples from '../components/RadiusExamples.astro';
 import ToastExamples from '../components/ToastExamples.astro';
+import ElevationExamples from '../components/ElevationExamples.astro';
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs');
@@ -180,6 +182,8 @@ const { Content, headings } = await render(entry);
         </button>
       </div>
     )}
+    {entry.id === 'elevation' && <ElevationExamples />}
+    {entry.id === 'radius' && <RadiusExamples />}
     {entry.id === 'toast' && <ToastExamples />}
     {entry.id === 'search' && <SearchExamples />}
     {entry.id === 'hero' && <HeroExamples />}
