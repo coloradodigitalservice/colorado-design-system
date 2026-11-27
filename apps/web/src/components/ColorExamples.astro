@@ -1,0 +1,85 @@
+---
+import tokens from '@coloradodigitalservice/colorado-design-tokens/tokens.json';
+const groups = [
+  'blue',
+  'plum',
+  'red',
+  'green',
+  'teal',
+  'yellow',
+  'gray',
+] as const;
+const semantic = [
+  'color-bg-action-primary',
+  'color-text-primary',
+  'color-border-form-default',
+] as const;
+---
+
+{groups.map((group) => {
+  const colors = Object.entries(tokens).filter(
+    ([name]) =>
+      name.startsWith(`color-co-${group}-`) && !name.includes('alpha'),
+  );
+  return (
+    <section aria-label={`Colorado ${group} colors`}>
+      <h3>Colorado {group}</h3>
+      <ul class="color-list">
+        {colors.map(([name, value]) => (
+          <li>
+            <span
+              class="color-swatch"
+              style={`background-color: var(--cods-${name})`}
+              aria-hidden="true"
+            ></span>
+            <span>
+              <code>--cods-{name}</code>
+              <br />
+              {value}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+})}
+<h3>Selected semantic roles</h3>
+<ul class="color-list" aria-label="Semantic color examples">
+  {semantic.map((name) => (
+    <li>
+      <span
+        class="color-swatch"
+        style={`background-color: var(--cods-${name})`}
+        aria-hidden="true"
+      ></span>
+      <span>
+        <code>--cods-{name}</code>
+        <br />
+        {tokens[name]}
+      </span>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .color-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: var(--cods-space-sm);
+    padding: 0;
+    list-style: none;
+  }
+  .color-list li {
+    display: flex;
+    align-items: center;
+    gap: var(--cods-space-sm);
+    overflow-wrap: anywhere;
+  }
+  .color-swatch {
+    display: block;
+    flex: none;
+    inline-size: 3rem;
+    block-size: 3rem;
+    border: 1px solid currentColor;
+  }
+</style>
