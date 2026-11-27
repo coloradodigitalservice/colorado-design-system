@@ -17,6 +17,9 @@ test('Home page assembles the planned sections and image-free highlights', async
   ]);
   const cards = main.locator('.cods-card');
   await expect(cards).toHaveCount(3);
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  for (const card of await cards.all())
+    expect((await card.boundingBox())!.width).toBeGreaterThan(250);
   for (const [index, title, status] of [
     [0, 'Colorado Department of Revenue', 'Now Live'],
     [1, 'Colorado Tax Division', 'Launching Soon'],
@@ -26,6 +29,25 @@ test('Home page assembles the planned sections and image-free highlights', async
     await expect(cards.nth(index)).toContainText(status);
     await expect(cards.nth(index).locator('img')).toHaveCount(0);
   }
+  await expect(cards.nth(0).getByRole('link')).toHaveAttribute(
+    'href',
+    'https://cdor.colorado.gov/',
+  );
+  await expect(cards.nth(1).getByRole('link')).toHaveCount(0);
+  await expect(cards.nth(2).getByRole('link')).toHaveCount(0);
+  const nav = page
+    .getByRole('banner')
+    .getByRole('navigation', { name: 'Primary' });
+  await expect(nav.getByRole('link')).toHaveText([
+    'Design System Foundations',
+    'Components',
+    'About',
+  ]);
+  await expect(nav.getByRole('link', { name: 'About' })).toHaveAttribute(
+    'href',
+    '/about/',
+  );
+
   await expect(
     main.getByRole('heading', { name: 'For Developers' }),
   ).toBeVisible();

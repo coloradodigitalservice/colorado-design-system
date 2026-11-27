@@ -1,9 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import spriteUrl from '@coloradodigitalservice/colorado-design-system/icons/sprite.svg?url';
 const draft =
   'Eu tellus adipiscing risus ultrices sit justo in congue ante amet morbi leo in facilisis egestas at diam nec porttitor sed at augue semper lectus sed adipiscing tristique sagittis convallis ultricies facilisi amet malesuada tellus molestie aenean sit pharetra nulla ac nunc purus eu lectus id quam amet eu etiam tellus cum quis massa consectetur vitae gravida risus magna tempus.';
 const highlights = [
-  { title: 'Colorado Department of Revenue', status: 'Now Live' },
+  {
+    title: 'Colorado Department of Revenue',
+    status: 'Now Live',
+    href: 'https://cdor.colorado.gov/',
+  },
   { title: 'Colorado Tax Division', status: 'Launching Soon' },
   { title: 'Colorado DMV', status: 'Launching Soon' },
 ];
@@ -24,14 +29,40 @@ const highlights = [
       </p>
     </div>
   </div>
-  <div class="grid-container">
+  <div class="cods-docs-container padding-y-4">
     <p>
       Key resources:{' '}
-      <a href="https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System">
-        Figma Kit →
+      <a
+        class="usa-link cods-link cods-link--standalone"
+        href="https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System"
+      >
+        Figma Kit{' '}
+        <svg
+          class="cods-icon cods-icon--small"
+          aria-hidden="true"
+          focusable="false"
+          width="16"
+          height="16"
+          viewBox="0 0 256 256"
+        >
+          <use href={`${spriteUrl}#arrow-right`}></use>
+        </svg>
       </a>{' '}
-      <a href="https://github.com/coloradodigitalservice/colorado-design-system">
-        Github →
+      <a
+        class="usa-link cods-link cods-link--standalone"
+        href="https://github.com/coloradodigitalservice/colorado-design-system"
+      >
+        Github{' '}
+        <svg
+          class="cods-icon cods-icon--small"
+          aria-hidden="true"
+          focusable="false"
+          width="16"
+          height="16"
+          viewBox="0 0 256 256"
+        >
+          <use href={`${spriteUrl}#arrow-right`}></use>
+        </svg>
       </a>
     </p>
     <hr class="cods-divider" />
@@ -39,17 +70,33 @@ const highlights = [
       <h2 id="sites-built">Sites Built with Colorado Design System</h2>
       <ul class="usa-card-group cods-card-group">
         {highlights.map((item) => (
-          <li class="usa-card cods-card tablet:grid-col-4">
-            <div class="usa-card__container cods-card__container">
-              <div class="usa-card__header cods-card__header">
-                <h3 class="usa-card__heading cods-card__heading">
-                  {item.title}
-                </h3>
+          <li class="usa-card cods-card">
+            {item.href ? (
+              <a
+                class="usa-card__container cods-card__container cods-card__link"
+                href={item.href}
+              >
+                <div class="usa-card__header cods-card__header">
+                  <h3 class="usa-card__heading cods-card__heading">
+                    {item.title}
+                  </h3>
+                </div>
+                <div class="usa-card__body cods-card__body">
+                  <p>{item.status}</p>
+                </div>
+              </a>
+            ) : (
+              <div class="usa-card__container cods-card__container">
+                <div class="usa-card__header cods-card__header">
+                  <h3 class="usa-card__heading cods-card__heading">
+                    {item.title}
+                  </h3>
+                </div>
+                <div class="usa-card__body cods-card__body">
+                  <p>{item.status}</p>
+                </div>
               </div>
-              <div class="usa-card__body cods-card__body">
-                <p>{item.status}</p>
-              </div>
-            </div>
+            )}
           </li>
         ))}
       </ul>
