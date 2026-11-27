@@ -1,0 +1,75 @@
+---
+import tokens from '@coloradodigitalservice/colorado-design-tokens/tokens.json';
+const samples = [
+  ['h1', 'Page title'],
+  ['h2', 'Section title'],
+  ['h3', 'Subsection title'],
+  ['h4', 'Minor heading'],
+  ['h5', 'Detail heading'],
+  ['h6', 'Fine-print heading'],
+  ['body-lg', 'Large body text helps introduce a topic.'],
+  ['body', 'Standard body text should remain clear and easy to read.'],
+  ['body-sm', 'Small body text provides supporting detail.'],
+  ['code', 'const example = "Source Code Pro";'],
+] as const;
+---
+
+<ul class="specimens" aria-label="Typography token specimens">
+  {samples.map(([name, sample]) => (
+    <li>
+      <strong>{name.toUpperCase()}</strong>
+      <span
+        class:list={[
+          'specimen',
+          name === 'h1' && 'specimen--heading',
+          name === 'code' && 'specimen--code',
+        ]}
+        style={`--sample-family-mobile: var(--cods-font-family-mobile-${name}); --sample-family-desktop: var(--cods-font-family-desktop-${name}); --sample-size-mobile: var(--cods-font-size-mobile-${name}); --sample-size-desktop: var(--cods-font-size-desktop-${name}); --sample-line-mobile: var(--cods-line-height-mobile-${name}); --sample-line-desktop: var(--cods-line-height-desktop-${name}); --sample-weight-mobile: var(--cods-font-weight-mobile-${name}); --sample-weight-desktop: var(--cods-font-weight-desktop-${name})`}
+      >
+        {sample}
+      </span>
+      <span>
+        Mobile: {tokens[`font-size-mobile-${name}`]} /{' '}
+        {tokens[`line-height-mobile-${name}`]}; desktop:{' '}
+        {tokens[`font-size-desktop-${name}`]} /{' '}
+        {tokens[`line-height-desktop-${name}`]} (size / line height)
+      </span>
+    </li>
+  ))}
+</ul>
+<style>
+  .specimens {
+    display: grid;
+    gap: var(--cods-space-lg);
+    padding: 0;
+    list-style: none;
+  }
+  .specimens li {
+    display: grid;
+    gap: var(--cods-space-xs);
+    min-inline-size: 0;
+  }
+  .specimen {
+    font-size: var(--sample-size-mobile);
+    line-height: var(--sample-line-mobile);
+    font-weight: var(--sample-weight-mobile);
+    overflow-wrap: anywhere;
+  }
+  .specimen--heading {
+    --fallback: 'Trebuchet MS', Georgia, 'Times New Roman', serif;
+  }
+  .specimen--code {
+    --fallback: monospace;
+  }
+  .specimen {
+    font-family: var(--sample-family-mobile), var(--fallback, sans-serif);
+  }
+  @media (min-width: 64em) {
+    .specimen {
+      font-family: var(--sample-family-desktop), var(--fallback, sans-serif);
+      font-size: var(--sample-size-desktop);
+      line-height: var(--sample-line-desktop);
+      font-weight: var(--sample-weight-desktop);
+    }
+  }
+</style>

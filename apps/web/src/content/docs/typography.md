@@ -4,6 +4,7 @@ description: Use the bundled fonts and optionally supply your own licensed Museo
 navLabel: Typography
 section: foundation
 order: 2
+figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=14-48
 ---
 
 CoDS bundles Open Sans (body text and h2–h6) and Source Code Pro (code), together with their SIL Open Font License 1.1 notices. Keep the `fonts/` directory beside the compiled stylesheet when serving the static release.
@@ -37,3 +38,13 @@ Keep any attribution required by your actual license. The [foundry EULA](https:/
 Use an h1 inside `.usa-prose`, the selector carrying CoDS's heading treatment. Confirm in browser developer tools that your site's font request succeeds and its rendered font is Museo Slab at weight 500. Block that request and confirm the fallback remains readable. Check long headings at narrow widths and 400% zoom: the fallback's metrics differ from Museo Slab. No heading-selector override or CoDS rebuild is needed.
 
 If you cannot obtain suitable web-use rights, leave Museo Slab unconfigured and use the existing fallback. CoDS's MIT license does not license Museo Slab, other third-party fonts, or State trademarks.
+
+## Typography guidance
+
+Use headings to describe the page structure, in a meaningful order, rather than selecting a level only for its appearance. Use clear, concise language and keep paragraphs readable. Avoid relying on capitalization or visual style alone to communicate hierarchy.
+
+Choose text and background colors that meet contrast requirements. Check long text, resizing, and narrow layouts with the actual fonts and fallback fonts used by your site. The [Typography design reference](https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=14-48) contains additional writing and type guidance.
+
+## Type specimens
+
+These labeled specimens apply the generated mobile and desktop type tokens. They illustrate token values, not additional document headings. The page switches specimens at 64em as an example; check the actual styles and breakpoints in your consuming site. Museo Slab is not bundled, so the H1 specimen uses the fallback unless you supply the licensed font.
