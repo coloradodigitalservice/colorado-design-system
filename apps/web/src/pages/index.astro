@@ -1,38 +1,119 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import spriteUrl from '@coloradodigitalservice/colorado-design-system/icons/sprite.svg?url';
+const draft =
+  'Eu tellus adipiscing risus ultrices sit justo in congue ante amet morbi leo in facilisis egestas at diam nec porttitor sed at augue semper lectus sed adipiscing tristique sagittis convallis ultricies facilisi amet malesuada tellus molestie aenean sit pharetra nulla ac nunc purus eu lectus id quam amet eu etiam tellus cum quis massa consectetur vitae gravida risus magna tempus.';
+const highlights = [
+  {
+    title: 'Colorado Department of Revenue',
+    status: 'Now Live',
+    href: 'https://cdor.colorado.gov/',
+  },
+  { title: 'Colorado Tax Division', status: 'Launching Soon' },
+  { title: 'Colorado DMV', status: 'Launching Soon' },
+];
 ---
 
 <BaseLayout
-  title="Overview"
-  description="Documentation for the Colorado Design System."
+  landing
+  title="Home"
+  description="The Colorado State Design System helps agencies build consistent digital services."
 >
-  <h1>Colorado Design System</h1>
-  <p>
-    Guidance and examples for building consistent, accessible Colorado digital
-    services.
-  </p>
-  <p>
-    <a href={`${import.meta.env.BASE_URL}getting-started/`}>
-      Explore the getting started page.
-    </a>
-  </p>
-  <h2 id="components">Components</h2>
-  <ul>
-    <li>
-      <a href={`${import.meta.env.BASE_URL}accordion/`}>Accordion</a>: related
-      collapsible sections.
-    </li>
-    <li>
-      <a href={`${import.meta.env.BASE_URL}site-alert/`}>Site Alert</a>: a
-      static sitewide notice.
-    </li>
-    <li>
-      <a href={`${import.meta.env.BASE_URL}footer/`}>Footer</a>: full or compact
-      site navigation.
-    </li>
-    <li>
-      <a href={`${import.meta.env.BASE_URL}icon/`}>Icon</a>: Phosphor Regular
-      icons and usage guidance.
-    </li>
-  </ul>
+  <div class="cods-hero">
+    <div class="cods-hero__content">
+      <h1 class="cods-hero__heading">Colorado State Design System</h1>
+      <p class="cods-hero__intro">
+        The Colorado State Design System is an ecosystem of tools that empower
+        state agencies to build simple, accessible, and consistent digital
+        services for all Coloradans.
+      </p>
+    </div>
+  </div>
+  <div class="cods-docs-container padding-y-4">
+    <p>
+      Key resources:{' '}
+      <a
+        class="usa-link cods-link cods-link--standalone"
+        href="https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System"
+      >
+        Figma Kit{' '}
+        <svg
+          class="cods-icon cods-icon--small"
+          aria-hidden="true"
+          focusable="false"
+          width="16"
+          height="16"
+          viewBox="0 0 256 256"
+        >
+          <use href={`${spriteUrl}#arrow-right`}></use>
+        </svg>
+      </a>{' '}
+      <a
+        class="usa-link cods-link cods-link--standalone"
+        href="https://github.com/coloradodigitalservice/colorado-design-system"
+      >
+        Github{' '}
+        <svg
+          class="cods-icon cods-icon--small"
+          aria-hidden="true"
+          focusable="false"
+          width="16"
+          height="16"
+          viewBox="0 0 256 256"
+        >
+          <use href={`${spriteUrl}#arrow-right`}></use>
+        </svg>
+      </a>
+    </p>
+    <hr class="cods-divider" />
+    <section aria-labelledby="sites-built">
+      <h2 id="sites-built">Sites Built with Colorado Design System</h2>
+      <ul class="usa-card-group cods-card-group">
+        {highlights.map((item) => (
+          <li class="usa-card cods-card">
+            {item.href ? (
+              <a
+                class="usa-card__container cods-card__container cods-card__link"
+                href={item.href}
+              >
+                <div class="usa-card__header cods-card__header">
+                  <h3 class="usa-card__heading cods-card__heading">
+                    {item.title}
+                  </h3>
+                </div>
+                <div class="usa-card__body cods-card__body">
+                  <p>{item.status}</p>
+                </div>
+              </a>
+            ) : (
+              <div class="usa-card__container cods-card__container">
+                <div class="usa-card__header cods-card__header">
+                  <h3 class="usa-card__heading cods-card__heading">
+                    {item.title}
+                  </h3>
+                </div>
+                <div class="usa-card__body cods-card__body">
+                  <p>{item.status}</p>
+                </div>
+              </div>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
+    <hr class="cods-divider" />
+    <section aria-labelledby="getting-started">
+      <h2 id="getting-started">Getting Started</h2>
+      <div class="grid-row grid-gap">
+        <div class="tablet:grid-col-6">
+          <h3>For Developers</h3>
+          <p>{draft}</p>
+        </div>
+        <div class="tablet:grid-col-6">
+          <h3>For Designers</h3>
+          <p>{draft}</p>
+        </div>
+      </div>
+    </section>
+  </div>
 </BaseLayout>
