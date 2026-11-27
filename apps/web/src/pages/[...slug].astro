@@ -35,6 +35,7 @@ import InPageNavigationExamples from '../components/InPageNavigationExamples.ast
 import LogoExample from '../components/LogoExample.astro';
 import RadiusExamples from '../components/RadiusExamples.astro';
 import ToastExamples from '../components/ToastExamples.astro';
+import GridSpacingExamples from '../components/GridSpacingExamples.astro';
 import ElevationExamples from '../components/ElevationExamples.astro';
 
 export async function getStaticPaths() {
@@ -175,6 +176,7 @@ const { Content, headings } = await render(entry);
       </>
     )}
     <Content />
+    {entry.id === 'grids-spacing' && <GridSpacingExamples />}
     {entry.id === 'focus-states' && (
       <div class="cods-docs-focus-example">
         <button type="button" class="usa-button cods-button">
