@@ -20,6 +20,7 @@ import ComponentStatus from '../components/ComponentStatus.astro';
 import accordionMetadata from '@coloradodigitalservice/colorado-design-system/metadata/accordion.json';
 import checkboxMetadata from '@coloradodigitalservice/colorado-design-system/metadata/checkbox.json';
 import IconExamples from '../components/IconExamples.astro';
+import IconCatalog from '../components/IconCatalog.astro';
 import FooterExamples from '../components/FooterExamples.astro';
 import HeaderExamples from '../components/HeaderExamples.astro';
 import InputExamples from '../components/InputExamples.astro';
@@ -196,7 +197,12 @@ const { Content, headings } = await render(entry);
     {entry.id === 'process-list' && <ProcessListExamples />}
     {entry.id === 'select' && <SelectExamples />}
     {entry.id === 'in-page-alert' && <InPageAlertExamples mode="remaining" />}
-    {entry.id === 'icon' && <IconExamples />}
+    {entry.id === 'icon' && (
+      <>
+        <IconExamples />
+        <IconCatalog />
+      </>
+    )}
     {entry.id === 'site-alert' && <SiteAlertExamples mode="remaining" />}
   </article>
 </BaseLayout>

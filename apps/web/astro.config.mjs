@@ -7,7 +7,10 @@ export default defineConfig({
   base: basePath || '/',
   output: 'static',
   markdown: { syntaxHighlight: false },
-  vite: { plugins: [codsIcons()], server: { strictPort: true } },
+  vite: {
+    plugins: [codsIcons()],
+    server: { strictPort: true },
+  },
   trailingSlash: 'always',
   build: { format: 'directory' },
 });
