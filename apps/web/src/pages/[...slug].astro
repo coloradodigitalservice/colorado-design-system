@@ -34,7 +34,11 @@ import TooltipExamples from '../components/TooltipExamples.astro';
 import ModalExamples from '../components/ModalExamples.astro';
 import InPageNavigationExamples from '../components/InPageNavigationExamples.astro';
 import LogoExample from '../components/LogoExample.astro';
+import RadiusExamples from '../components/RadiusExamples.astro';
 import ToastExamples from '../components/ToastExamples.astro';
+import ColorExamples from '../components/ColorExamples.astro';
+import GridSpacingExamples from '../components/GridSpacingExamples.astro';
+import ElevationExamples from '../components/ElevationExamples.astro';
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs');
@@ -174,6 +178,17 @@ const { Content, headings } = await render(entry);
       </>
     )}
     <Content />
+    {entry.id === 'color' && <ColorExamples />}
+    {entry.id === 'grids-spacing' && <GridSpacingExamples />}
+    {entry.id === 'focus-states' && (
+      <div class="cods-docs-focus-example">
+        <button type="button" class="usa-button cods-button">
+          Example button
+        </button>
+      </div>
+    )}
+    {entry.id === 'elevation' && <ElevationExamples />}
+    {entry.id === 'radius' && <RadiusExamples />}
     {entry.id === 'toast' && <ToastExamples />}
     {entry.id === 'search' && <SearchExamples />}
     {entry.id === 'hero' && <HeroExamples />}
@@ -191,3 +206,9 @@ const { Content, headings } = await render(entry);
     {entry.id === 'site-alert' && <SiteAlertExamples mode="remaining" />}
   </article>
 </BaseLayout>
+
+<style>
+  .cods-docs-focus-example {
+    padding: var(--cods-space-md);
+  }
+</style>
