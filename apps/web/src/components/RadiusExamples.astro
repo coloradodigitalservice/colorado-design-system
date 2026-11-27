@@ -1,0 +1,61 @@
+---
+import tokens from '@coloradodigitalservice/colorado-design-tokens/tokens.json';
+
+const names = ['none', 'sm', 'md', 'lg', 'full'] as const;
+---
+
+<ul class="radius-examples" aria-label="Radius token examples">
+  {names.map((name) => (
+    <li>
+      <span
+        class:list={['radius-example', `radius-example--${name}`]}
+        aria-hidden="true"
+      ></span>
+      <span>
+        <code>--cods-radius-{name}</code>
+        <br />
+        {tokens[`radius-${name}`]}
+      </span>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .radius-examples {
+    display: grid;
+    gap: var(--cods-space-md);
+    padding: 0;
+    list-style: none;
+  }
+
+  .radius-examples li {
+    display: flex;
+    align-items: center;
+    gap: var(--cods-space-md);
+  }
+
+  .radius-example {
+    display: block;
+    flex: none;
+    inline-size: 4rem;
+    block-size: 4rem;
+    border: 2px solid currentColor;
+    background: var(--cods-color-bg-page-surface-blue);
+  }
+
+  .radius-example--none {
+    border-radius: var(--cods-radius-none);
+  }
+  .radius-example--sm {
+    border-radius: var(--cods-radius-sm);
+  }
+  .radius-example--md {
+    border-radius: var(--cods-radius-md);
+  }
+  .radius-example--lg {
+    border-radius: var(--cods-radius-lg);
+  }
+  .radius-example--full {
+    border-radius: var(--cods-radius-full);
+  }
+</style>
