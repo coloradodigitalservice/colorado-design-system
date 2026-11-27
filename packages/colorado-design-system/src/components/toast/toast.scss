@@ -1,0 +1,156 @@
+@layer cods.components {
+  .cods-toast__announcer {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .cods-toast__list {
+    --cods-toast-shadow-spread: max(0px, var(--cods-elevation-high-spread));
+
+    // The rendered blur can extend beyond its nominal radius.
+    --cods-toast-shadow-outset: calc(
+      1.5 * var(--cods-elevation-high-blur) + var(--cods-toast-shadow-spread)
+    );
+    --cods-toast-shadow-x: max(
+      0px,
+      var(--cods-elevation-high-x),
+      calc(-1 * var(--cods-elevation-high-x))
+    );
+    --cods-toast-shadow-up: max(0px, calc(-1 * var(--cods-elevation-high-y)));
+    --cods-toast-shadow-down: max(0px, var(--cods-elevation-high-y));
+    --cods-toast-shadow-inline-start: max(
+      var(--cods-space-md),
+      min(
+        calc(var(--cods-toast-shadow-outset) + var(--cods-toast-shadow-x)),
+        calc(100vw - 20rem - var(--cods-space-md))
+      )
+    );
+
+    position: fixed;
+    z-index: 1000;
+    inset-block-end: 0;
+    inset-inline-end: 0;
+    box-sizing: border-box;
+    width: min(
+      calc(
+        20rem + var(--cods-toast-shadow-inline-start) + var(--cods-space-md)
+      ),
+      100vw
+    );
+    max-height: min(100dvh, var(--cods-toast-focus-max-height, 100dvh));
+    overflow-y: auto;
+    display: grid;
+    gap: var(--cods-space-sm);
+  }
+
+  .cods-toast__list:has(> .cods-toast__item) {
+    padding-block: min(
+        calc(var(--cods-toast-shadow-outset) + var(--cods-toast-shadow-up)),
+        var(--cods-toast-focus-shadow-limit, 100dvh)
+      )
+      var(--cods-space-md);
+    padding-inline: var(--cods-toast-shadow-inline-start) var(--cods-space-md);
+  }
+
+  .cods-toast__list--click-through {
+    pointer-events: none;
+  }
+
+  .cods-toast__list--focus-top {
+    inset-block: 0 auto;
+  }
+
+  .cods-toast__list--focus-top:has(> .cods-toast__item) {
+    padding-block: var(--cods-space-md)
+      min(
+        calc(var(--cods-toast-shadow-outset) + var(--cods-toast-shadow-down)),
+        var(--cods-toast-focus-shadow-limit, 100dvh)
+      );
+  }
+
+  .cods-toast__item {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--cods-space-sm);
+    padding: var(--cods-space-sm);
+    border-radius: var(--cods-radius-lg);
+    background: var(--cods-component-toast-background);
+    box-shadow: var(--cods-elevation-high-x) var(--cods-elevation-high-y)
+      var(--cods-elevation-high-blur) var(--cods-elevation-high-spread)
+      color-mix(in srgb, var(--cods-color-shadow) 12%, transparent);
+    color: var(--cods-color-white);
+    font-family: var(--cods-font-family-body);
+    font-size: var(--cods-font-size-desktop-ui);
+    font-weight: var(--cods-font-weight-semibold);
+    line-height: var(--cods-line-height-desktop-ui);
+    overflow-wrap: anywhere;
+    animation: cods-toast-enter 250ms ease-out;
+  }
+
+  @keyframes cods-toast-enter {
+    from {
+      opacity: 0;
+      transform: translateY(var(--cods-space-md));
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cods-toast__item {
+      animation: none;
+    }
+  }
+
+  .cods-toast__icon {
+    flex: none;
+    width: var(--cods-space-lg);
+    height: var(--cods-space-lg);
+    fill: currentcolor;
+  }
+
+  .cods-toast__message {
+    min-width: 0;
+    flex: 1 1 12rem;
+  }
+
+  .cods-toast__action,
+  .cods-toast__dismiss {
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .cods-toast__action:focus-visible,
+  .cods-toast__dismiss:focus-visible {
+    outline: var(--cods-focus-ring-width) solid var(--cods-color-focus-toast);
+    outline-offset: var(--cods-focus-ring-offset);
+  }
+
+  @media (forced-colors: active) {
+    .cods-toast__item {
+      border: 1px solid CanvasText;
+    }
+
+    .cods-toast__action,
+    .cods-toast__dismiss {
+      color: ButtonText;
+    }
+  }
+}

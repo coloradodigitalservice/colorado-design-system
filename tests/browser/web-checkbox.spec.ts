@@ -6,6 +6,81 @@ test.beforeEach(async ({ page }) => {
   await page.goto('/checkbox/');
 });
 
+test('checkbox page follows the component page outline', async ({
+  page,
+}, testInfo) => {
+  await page.setViewportSize({ width: 320, height: 800 });
+  const main = page.locator('main');
+  expect(await main.locator('h2').allTextContents()).toEqual([
+    'Component preview',
+    'Component code',
+    'Component status',
+    'Guidance',
+    'Specifications',
+  ]);
+  const subheadings = await main.locator('h3').allTextContents();
+  for (const heading of [
+    'When to use',
+    'Writing for checkboxes',
+    'Accessibility for checkboxes',
+    'Variants and elements',
+    'Setting the indeterminate state',
+    'Validation',
+    'Variable settings',
+    'Limitations',
+  ])
+    expect(subheadings).toContain(heading);
+
+  const states = [
+    'default',
+    'checked',
+    'indeterminate',
+    'disabled',
+    'disabled-checked',
+    'error',
+    'grouped',
+    'card',
+    'card-checked',
+    'card-indeterminate',
+    'card-disabled',
+    'card-disabled-checked',
+  ];
+  const figures = page.locator('[data-cods-docs-preview-state]');
+  expect(
+    await figures.evaluateAll((items) =>
+      items.map((item) => item.getAttribute('data-cods-docs-preview-state')),
+    ),
+  ).toEqual(states);
+  await expect(page.locator('[data-cods-docs-preview-code]')).toContainText(
+    'cods-checkbox--card',
+  );
+
+  const status = page.locator('[data-cods-docs-status]');
+  await expect(status).toContainText('Checkbox maturity is stable');
+  await expect(status).toContainText(
+    'Manual accessibility checks were completed',
+  );
+  await expect(
+    status.getByRole('link', { name: 'USWDS 3.14.0 Checkbox' }),
+  ).toBeVisible();
+  await expect(
+    status.getByRole('link', { name: 'Accessibility evidence' }),
+  ).toHaveAttribute(
+    'href',
+    /\/checkbox\/accessibility\/checkbox\.evidence\.md$/,
+  );
+  // The public page omits localization guidance and the examples catalogue.
+  await expect(main).not.toContainText(/right-to-left|localization/i);
+  await expect(page.locator('[data-cods-fixture-state]')).toHaveCount(0);
+
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+  await expectAccessible(page, testInfo);
+});
+
 test('native label, keyboard, disabled, group, validation, and mixed semantics', async ({
   page,
   browserName,
@@ -44,9 +119,7 @@ test('native label, keyboard, disabled, group, validation, and mixed semantics',
   await expectAccessible(page, testInfo);
 });
 
-test('focus, token defaults, reflow, RTL, and reduced motion', async ({
-  page,
-}) => {
+test('focus, token defaults, and reduced motion', async ({ page }) => {
   const input = page.locator('#checkbox-default');
   await input.focus();
   await page.keyboard.press('Space');
@@ -71,20 +144,6 @@ test('focus, token defaults, reflow, RTL, and reduced motion', async ({
     width: '2px',
   });
   expect(visual.image).not.toBe('none');
-  await page.setViewportSize({ width: 320, height: 900 });
-  for (const state of ['long-content', 'localization', 'rtl']) {
-    const block = page.locator(`[data-cods-fixture-state="${state}"]`);
-    expect(await block.evaluate((el) => el.scrollWidth <= el.clientWidth)).toBe(
-      true,
-    );
-  }
-  const rtl = page.locator('label[for="checkbox-rtl"]');
-  expect(await rtl.evaluate((el) => getComputedStyle(el).paddingRight)).toBe(
-    '36px',
-  );
-  expect(await rtl.evaluate((el) => getComputedStyle(el).paddingLeft)).toBe(
-    '8px',
-  );
   await page.emulateMedia({ reducedMotion: 'reduce' });
   expect(
     await label.evaluate(

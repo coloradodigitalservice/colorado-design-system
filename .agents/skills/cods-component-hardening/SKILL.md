@@ -12,7 +12,7 @@ The developer first pass on a Phase 4 hardening ticket. The shared requirements 
 
 - **Content comes from sources, not invention.** The page outline comes from the CoDS Website Content document. Component copy comes from the Phase 3 ticket's Figma link and the existing page. If Figma copy is not available, reuse the existing reviewed guidance and list "confirm against Figma" as an open item. Do not invent design rules or do's and don'ts.
 - **Status must be evidence-backed.** Never write "passed WCAG 2.2" or any conformance claim. State what automated checks pass and that manual review is pending, until a person records otherwise.
-- **Do not change the component contract.** No new variants, classes, custom properties, API, or metadata maturity changes. Fix in-scope defects only.
+- **Do not change the component contract.** No new variants, classes, custom properties, API, or metadata maturity changes in this first pass. Fix in-scope defects only. After required human approval, use the separate [stabilization skill](../cods-component-stabilization/SKILL.md).
 - **Never weaken a test or drop browser coverage to make it pass or to reduce the count.** Storybook runs in Chromium only; web specs run in three browsers. Moving, merging, or parameterizing is fine when every assertion survives. Keeping every test with a reason is a valid audit result.
 - **Screen-reader results and sign-off come from people.** Prepare the manual matrix; leave it unchecked.
 - **No release steps.** Do not run changesets, `release:version`, or tags. The `repository` release-readiness check is expected to fail on these PRs.

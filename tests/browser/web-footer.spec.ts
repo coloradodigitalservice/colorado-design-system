@@ -81,7 +81,7 @@ test('header, content, and footer share a wider desktop container', async ({
   await page.setViewportSize({ width: 1600, height: 1000 });
   await page.goto('/footer/');
   const containers = page.locator(
-    '.cods-docs-header > .cods-docs-container, .cods-docs-grid, .cods-docs-footer .cods-docs-container',
+    '.cods-header__container, .cods-docs-grid, .cods-docs-footer .cods-docs-container',
   );
   await expect(containers).toHaveCount(5);
   for (const container of await containers.all()) {

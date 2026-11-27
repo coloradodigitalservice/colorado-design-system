@@ -5,6 +5,9 @@ const storyNames: Record<string, string> = {
   localization: 'spanish',
   rtl: 'right-to-left',
 };
+// Story ids that differ from the component name, such as Toast/Snackbar,
+// whose visible title contains a slash.
+const storyIds: Record<string, string> = { toast: 'toast-snackbar' };
 for (const component of loadComponents()) {
   for (const example of component.examples.examples) {
     const story =
@@ -16,7 +19,7 @@ for (const component of loadComponents()) {
       page,
     }) => {
       await page.goto(
-        `/iframe.html?id=components-${component.name}--${story}&viewMode=story&globals=a11y.manual:!true`,
+        `/iframe.html?id=components-${storyIds[component.name] ?? component.name}--${story}&viewMode=story&globals=a11y.manual:!true`,
       );
       const block = page.locator(
         `#storybook-root [data-cods-fixture-state="${example.fixtureState}"]`,
@@ -33,18 +36,25 @@ for (const component of loadComponents()) {
         const template = document.createElement('template');
         template.innerHTML = html;
         const normalize = (text: string) => text.replace(/\s+/g, ' ').trim();
-        // A controller may relocate part of the fixture out of the story root
-        // (the USWDS modal moves its dialog to the document body and leaves a
-        // placeholder behind). Follow the placeholder so the canonical content
-        // is still compared in full.
+        // Exclude generated tooltips while following relocated modal content.
+        const authoredText = (node: Element) => {
+          const rendered = node.cloneNode(true) as Element;
+          if (!template.content.querySelector('[role="tooltip"]'))
+            rendered
+              .querySelectorAll('[role="tooltip"]')
+              .forEach((tooltip) => tooltip.remove());
+          return rendered.textContent ?? '';
+        };
         const text = [
-          element.textContent ?? '',
+          authoredText(element),
           ...Array.from(
             element.querySelectorAll<HTMLElement>('[data-placeholder-for]'),
-            (placeholder) =>
-              document.getElementById(
+            (placeholder) => {
+              const relocated = document.getElementById(
                 placeholder.getAttribute('data-placeholder-for') ?? '',
-              )?.textContent ?? '',
+              );
+              return relocated ? authoredText(relocated) : '';
+            },
           ),
         ].join(' ');
         return (
@@ -57,7 +67,15 @@ for (const component of loadComponents()) {
           'indeterminate',
           true,
         );
-      if (example.setup === 'expand' || example.setup === 'collapse')
+      // The full Header's first buttons are search and languages; exactly one
+      // of its menu or submenu buttons is expanded.
+      if (component.name === 'header' && example.setup === 'expand')
+        await expect(
+          block.locator(
+            '.cods-header__menu-button[aria-expanded="true"], .cods-header__toggle[aria-expanded="true"]',
+          ),
+        ).toHaveCount(1);
+      else if (example.setup === 'expand' || example.setup === 'collapse')
         await expect(block.locator('button').first()).toHaveAttribute(
           'aria-expanded',
           example.setup === 'expand' ? 'true' : 'false',
