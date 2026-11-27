@@ -10,9 +10,10 @@ interface Props {
   title: string;
   description: string;
   headings?: { depth: number; slug: string; text: string }[];
+  landing?: boolean;
 }
 
-const { title, description, headings = [] } = Astro.props;
+const { title, description, headings = [], landing = false } = Astro.props;
 const docs = (await getCollection('docs')).sort(
   (a, b) =>
     a.data.order - b.data.order || a.data.title.localeCompare(b.data.title),
@@ -49,79 +50,87 @@ const inPageHeadings = section === 'component' ? headings : [];
       Skip to main content
     </a>
     <SiteHeader pathname={pathname} />
-    <div
-      class:list={[
-        'cods-docs-container',
-        'cods-docs-grid',
-        { 'cods-docs-grid--with-toc': inPageHeadings.length >= 2 },
-      ]}
-    >
-      <nav class="cods-docs-nav" aria-label="Documentation">
-        <details data-cods-docs-sidebar>
-          <summary class="cods-docs-nav-title">
-            <span class="cods-docs-nav-browse">Browse </span>
-            <span>
-              {section === 'foundation'
-                ? 'Foundations'
-                : section === 'component'
-                  ? 'Components'
-                  : 'Documentation'}
-            </span>
-          </summary>
-          <ul class="usa-sidenav">
-            {!section && (
-              <li>
-                <a
-                  href={baseUrl}
-                  aria-current={pathname === '/' ? 'page' : undefined}
-                >
-                  Overview
-                </a>
-              </li>
-            )}
-            {sectionDocs.map((entry) => (
-              <li class="usa-sidenav__item">
-                <a
-                  href={`${baseUrl}${entry.id}/`}
-                  class:list={[{ 'usa-current': pathname === `/${entry.id}/` }]}
-                  aria-current={
-                    pathname === `/${entry.id}/` ? 'page' : undefined
-                  }
-                >
-                  {entry.data.navLabel}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </details>
-      </nav>
+    {landing ? (
       <main id="main-content" class="cods-docs-main" tabindex="-1">
         <slot />
       </main>
-      {inPageHeadings.length >= 2 && (
-        <nav
-          class="usa-in-page-nav cods-in-page-navigation cods-docs-toc"
-          aria-label="Page sections"
-          data-cods-in-page-navigation
-        >
-          <p class="usa-in-page-nav__heading cods-in-page-navigation__heading">
-            On this page
-          </p>
-          <ul class="usa-in-page-nav__list cods-in-page-navigation__list">
-            {inPageHeadings.map((heading) => (
-              <li class="usa-in-page-nav__item cods-in-page-navigation__item">
-                <a
-                  class="usa-in-page-nav__link cods-in-page-navigation__link"
-                  href={`#${heading.slug}`}
-                >
-                  {heading.text}
-                </a>
-              </li>
-            ))}
-          </ul>
+    ) : (
+      <div
+        class:list={[
+          'cods-docs-container',
+          'cods-docs-grid',
+          { 'cods-docs-grid--with-toc': inPageHeadings.length >= 2 },
+        ]}
+      >
+        <nav class="cods-docs-nav" aria-label="Documentation">
+          <details data-cods-docs-sidebar>
+            <summary class="cods-docs-nav-title">
+              <span class="cods-docs-nav-browse">Browse </span>
+              <span>
+                {section === 'foundation'
+                  ? 'Foundations'
+                  : section === 'component'
+                    ? 'Components'
+                    : 'Documentation'}
+              </span>
+            </summary>
+            <ul class="usa-sidenav">
+              {!section && (
+                <li>
+                  <a
+                    href={baseUrl}
+                    aria-current={pathname === '/' ? 'page' : undefined}
+                  >
+                    Overview
+                  </a>
+                </li>
+              )}
+              {sectionDocs.map((entry) => (
+                <li class="usa-sidenav__item">
+                  <a
+                    href={`${baseUrl}${entry.id}/`}
+                    class:list={[
+                      { 'usa-current': pathname === `/${entry.id}/` },
+                    ]}
+                    aria-current={
+                      pathname === `/${entry.id}/` ? 'page' : undefined
+                    }
+                  >
+                    {entry.data.navLabel}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </details>
         </nav>
-      )}
-    </div>
+        <main id="main-content" class="cods-docs-main" tabindex="-1">
+          <slot />
+        </main>
+        {inPageHeadings.length >= 2 && (
+          <nav
+            class="usa-in-page-nav cods-in-page-navigation cods-docs-toc"
+            aria-label="Page sections"
+            data-cods-in-page-navigation
+          >
+            <p class="usa-in-page-nav__heading cods-in-page-navigation__heading">
+              On this page
+            </p>
+            <ul class="usa-in-page-nav__list cods-in-page-navigation__list">
+              {inPageHeadings.map((heading) => (
+                <li class="usa-in-page-nav__item cods-in-page-navigation__item">
+                  <a
+                    class="usa-in-page-nav__link cods-in-page-navigation__link"
+                    href={`#${heading.slug}`}
+                  >
+                    {heading.text}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
+      </div>
+    )}
     <SiteFooter />
   </body>
 </html>
