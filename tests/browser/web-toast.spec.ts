@@ -373,7 +373,11 @@ async function openCopiedExample(
   const heading = state === 'default' ? 'examples' : state;
   const script = await page
     .locator(`#${heading}`)
-    .locator('xpath=following-sibling::pre[1]/code')
+    .locator(
+      state === 'default'
+        ? 'xpath=./h2/following-sibling::pre[1]/code'
+        : 'xpath=following-sibling::pre[1]/code',
+    )
     .textContent();
   const markup = await page
     .locator(`[data-cods-example="${state}"] code`)

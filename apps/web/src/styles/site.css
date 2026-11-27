@@ -70,23 +70,7 @@ a:where(:not(.cods-link, .cods-breadcrumbs__link)):focus-visible {
 .cods-docs-nav-title {
   margin-block: 0 0.75rem;
   font-size: 1.125rem;
-}
-
-.cods-docs-nav ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.cods-docs-nav a {
-  display: block;
-  padding: 0.4rem 0.75rem;
-}
-
-.cods-docs-nav a[aria-current='page'] {
-  border-inline-start: 0.25rem solid
-    var(--cods-color-surface-nav-active, #001970);
-  font-weight: 700;
+  cursor: pointer;
 }
 
 main {
@@ -121,6 +105,25 @@ main h1 {
 @media (width >= 48rem) {
   .cods-docs-grid {
     grid-template-columns: minmax(12rem, 16rem) minmax(0, 1fr);
+  }
+
+  .cods-docs-nav-browse {
+    display: none;
+  }
+}
+
+@media (width >= 64rem) {
+  .cods-docs-grid--with-toc {
+    grid-template-columns: minmax(12rem, 16rem) minmax(0, 1fr) minmax(
+        10rem,
+        13rem
+      );
+    align-items: start;
+  }
+
+  .cods-docs-toc {
+    position: sticky;
+    top: 1rem;
   }
 }
 

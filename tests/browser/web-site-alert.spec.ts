@@ -154,7 +154,7 @@ test.describe('Figma geometry', () => {
       await expect(lead).toBeVisible();
       await expect(lead).toHaveCSS('display', 'inline');
       const id = await lead.getAttribute('id');
-      await expect(body.locator('xpath=ancestor::section')).toHaveAttribute(
+      await expect(body.locator('xpath=ancestor::section[1]')).toHaveAttribute(
         'aria-labelledby',
         id!,
       );

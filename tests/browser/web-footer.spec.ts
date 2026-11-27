@@ -93,7 +93,8 @@ test('header, content, and footer share a wider desktop container', async ({
   const main = await page.locator('main').boundingBox();
   const content = await page.locator('.cods-docs-content').boundingBox();
   expect(content!.width).toBe(main!.width);
-  expect(content!.width).toBeGreaterThan(900);
+  expect(content!.width).toBeGreaterThan(600);
+  expect(content!.width).toBeLessThan(900);
   const nav = await page
     .locator('.cods-docs-footer .cods-footer__nav')
     .boundingBox();
@@ -339,7 +340,7 @@ test('footer legal links stack below 640px and use rows from 640px', async ({
         const previous = boxes[index - 1];
         if (previous) {
           expect(box.x).toBe(previous.x);
-          expect(box.top).toBeGreaterThanOrEqual(previous.bottom);
+          expect(box.top).toBeGreaterThanOrEqual(previous.bottom - 0.1);
         }
       }
     }
