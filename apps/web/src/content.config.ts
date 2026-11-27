@@ -9,6 +9,7 @@ const docs = defineCollection({
     description: z.string().trim().min(1),
     navLabel: z.string().trim().min(1),
     order: z.number().int().nonnegative(),
+    section: z.enum(['foundation', 'component']).default('component'),
     figma: z.url().optional(),
     // Evidence-backed accessibility statement for the Component Status block.
     accessibilityStatus: z.string().trim().min(1).optional(),

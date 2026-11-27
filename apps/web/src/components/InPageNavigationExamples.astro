@@ -5,10 +5,11 @@ import examples from '@coloradodigitalservice/colorado-design-system/examples/in
 import CodeExamples from './CodeExamples.astro';
 ---
 
-<div set:html={fixture} />
+<div data-cods-docs-in-page-examples set:html={fixture} />
 <CodeExamples metadata={metadata} examples={examples.examples} />
 
 <script>
   import { initAllInPageNavigation } from '@coloradodigitalservice/colorado-design-system';
-  initAllInPageNavigation();
+  const examples = document.querySelector('[data-cods-docs-in-page-examples]');
+  if (examples) initAllInPageNavigation(examples);
 </script>

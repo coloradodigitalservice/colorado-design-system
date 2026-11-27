@@ -2,6 +2,7 @@
 title: Logos
 description: Colorado Design System logo asset, State branding rules, and accessible usage.
 navLabel: Logos
+section: foundation
 order: 31
 figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=1415-600
 ---
