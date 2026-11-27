@@ -8,7 +8,7 @@ export default defineConfig({
   output: 'static',
   markdown: { syntaxHighlight: false },
   vite: {
-    plugins: [codsIcons({ mode: 'full' })],
+    plugins: [codsIcons()],
     server: { strictPort: true },
   },
   trailingSlash: 'always',
