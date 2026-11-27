@@ -2,6 +2,7 @@
 title: Icon
 description: Phosphor Regular icons, selective loading, sizing, and accessible usage patterns.
 navLabel: Icon
+section: foundation
 order: 30
 figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-System?node-id=235-551
 ---

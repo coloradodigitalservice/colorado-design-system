@@ -2,6 +2,7 @@
 title: Typography
 description: Use the bundled fonts and optionally supply your own licensed Museo Slab webfont.
 navLabel: Typography
+section: foundation
 order: 2
 ---
 
