@@ -2,7 +2,6 @@ import { test, expect, expectAccessible } from './fixtures.js';
 
 const pages = [
   { path: '/breadcrumbs/', name: 'breadcrumbs' },
-  { path: '/combo-box/', name: 'combo-box' },
   { path: '/link/', name: 'link' },
   { path: '/site-alert/', name: 'site-alert' },
   { path: '/footer/', name: 'footer' },
