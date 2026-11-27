@@ -9,7 +9,7 @@ figma: https://www.figma.com/design/jQ3EiYqe3uEvFbid5ewc41/Colorado-Design-Syste
 
 ## Browse the library
 
-Browse [Phosphor Icons](https://phosphoricons.com/) and choose the **Regular**
+Browse the catalog below or [Phosphor Icons](https://phosphoricons.com/) and choose the **Regular**
 weight. CoDS includes the complete Regular sprite and a compact ID index from
 the pinned `@phosphor-icons/core` release; it does not maintain a separate
 approved-icon list. Availability does not imply design or accessibility
