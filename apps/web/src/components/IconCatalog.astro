@@ -26,33 +26,61 @@ if (
   {categories.map((category) => (
     <details class="catalog-category">
       <summary>{category}</summary>
-      <ul class="catalog-icons">
-        {icons
-          .filter((icon) => icon.categories.some((item) => item === category))
-          .map((icon) => (
-            <li>
-              <details>
-                <summary>
-                  <svg
-                    class="cods-icon cods-icon--medium"
-                    aria-hidden="true"
-                    focusable="false"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 256 256"
-                  >
-                    <use href={`${spriteUrl}#${icon.name}`}></use>
-                  </svg>
-                  {icon.name}
-                </summary>
-                <pre><code>{`<svg class="cods-icon cods-icon--medium" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 256 256">\n  <use href="YOUR_SPRITE_URL#${icon.name}"></use>\n</svg>`}</code></pre>
-              </details>
-            </li>
-          ))}
-      </ul>
+      <template>
+        <ul class="catalog-icons">
+          {icons
+            .filter((icon) => icon.categories.some((item) => item === category))
+            .map((icon) => (
+              <li>
+                <details>
+                  <summary>
+                    <svg
+                      class="cods-icon cods-icon--medium"
+                      aria-hidden="true"
+                      focusable="false"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 256 256"
+                    >
+                      <use href={`${spriteUrl}#${icon.name}`}></use>
+                    </svg>
+                    {icon.name}
+                  </summary>
+                  <pre><code>{`<svg class="cods-icon cods-icon--medium" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 256 256">\n  <use href="YOUR_SPRITE_URL#${icon.name}"></use>\n</svg>`}</code></pre>
+                </details>
+              </li>
+            ))}
+        </ul>
+      </template>
+      <noscript>
+        <p>
+          JavaScript is needed to preview icons. Use the icon name with the
+          sprite URL shown in the usage example above.
+        </p>
+        <ul>
+          {icons
+            .filter((icon) => icon.categories.some((item) => item === category))
+            .map((icon) => (
+              <li>{icon.name}</li>
+            ))}
+        </ul>
+      </noscript>
     </details>
   ))}
 </section>
+<script>
+  document
+    .querySelectorAll<HTMLDetailsElement>('.catalog-category')
+    .forEach((category) => {
+      category.addEventListener('toggle', () => {
+        if (!category.open) return;
+        const template =
+          category.querySelector<HTMLTemplateElement>('template');
+        if (!template) return;
+        template.replaceWith(template.content.cloneNode(true));
+      });
+    });
+</script>
 <style>
   .catalog-category {
     margin-block: var(--cods-space-sm);
