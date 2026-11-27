@@ -1,0 +1,148 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import spriteUrl from '@coloradodigitalservice/colorado-design-system/icons/sprite.svg?url';
+const draft =
+  'Eu tellus adipiscing risus ultrices sit justo in congue ante amet morbi leo in facilisis egestas at diam nec porttitor sed at augue semper lectus sed adipiscing tristique sagittis convallis ultricies facilisi amet malesuada tellus molestie aenean sit pharetra nulla ac nunc purus eu lectus id quam amet eu etiam tellus cum quis massa consectetur vitae gravida risus magna tempus.';
+---
+
+<BaseLayout
+  landing
+  title="About"
+  description="About the Colorado Design System."
+>
+  <div class="cods-hero">
+    <div class="cods-hero__content">
+      <h1 class="cods-hero__heading">About</h1>
+    </div>
+  </div>
+  <div class="cods-docs-container padding-y-4">
+    <section aria-labelledby="who-we-are">
+      <h2 id="who-we-are">Who We Are</h2>
+      <p>
+        The Colorado Design System is built by a community of designers,
+        developers, product managers, and more from across the State of Colorado
+        and beyond. It is led by the Colorado Digital Service, in close
+        collaboration with the Department of Personnel and Administration.
+      </p>
+    </section>
+    <hr class="cods-divider" />
+    <section aria-labelledby="contact-us">
+      <h2 id="contact-us">Contact Us</h2>
+      <ul class="usa-card-group cods-card-group">
+        <li class="usa-card cods-card">
+          <a
+            class="usa-card__container cods-card__container cods-card__link"
+            href="mailto:oit@state.co.us"
+          >
+            <div class="usa-card__header cods-card__header">
+              <h3 class="usa-card__heading cods-card__heading">
+                <svg
+                  class="cods-icon cods-icon--small"
+                  aria-hidden="true"
+                  focusable="false"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 256 256"
+                >
+                  <use href={`${spriteUrl}#envelope-simple`}></use>
+                </svg>{' '}
+                Email us
+              </h3>
+            </div>
+          </a>
+        </li>
+        <li class="usa-card cods-card">
+          <div class="usa-card__container cods-card__container">
+            <div class="usa-card__header cods-card__header">
+              <h3 class="usa-card__heading cods-card__heading">
+                <svg
+                  class="cods-icon cods-icon--small"
+                  aria-hidden="true"
+                  focusable="false"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 256 256"
+                >
+                  <use href={`${spriteUrl}#arrow-square-out`}></use>
+                </svg>{' '}
+                State contractor or employee? Join the CoDS Google Space
+              </h3>
+              <p>Link not yet available.</p>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <hr class="cods-divider" />
+    <section aria-labelledby="contribute">
+      <h2 id="contribute">Contribute</h2>
+      <p>{draft}</p>
+    </section>
+    <hr class="cods-divider" />
+    <section aria-labelledby="policies">
+      <h2 id="policies">Policies &amp; Attributions</h2>
+      <p>
+        The Colorado Design system could not exist without many open source
+        projects and contributors. In no particular order, we’d like to give
+        special thanks to:
+      </p>
+      <ul>
+        <li>
+          <a href="https://designsystem.digital.gov/">
+            The USWDS team and community
+          </a>
+        </li>
+        <li>
+          <a href="https://sipa.colorado.gov/">Our partners at SIPA</a>
+        </li>
+      </ul>
+    </section>
+    <hr class="cods-divider" />
+    <section aria-labelledby="principles">
+      <h2 id="principles">Design Principles</h2>
+      <p>
+        When building and using the Colorado Design System, we prioritize these
+        values:
+      </p>
+      <ul>
+        <li>
+          <strong>Accessible:</strong> Build digital experiences that all
+          Coloradans can use and understand
+          <ul>
+            <li>
+              Meet state compliance standards and incorporate additional best
+              practices
+            </li>
+            <li>
+              Support a variety of devices, browsers, connectivity environments,
+              and assistive tools
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>Trustworthy:</strong> Earn Coloradans’ confidence with a
+          consistent brand across the state
+          <ul>
+            <li>Keep design and code always in sync</li>
+            <li>Make behaviors easy to predict and never misleading</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Empowering:</strong> Make it faster and easier for Colorado
+          teams to deliver high-quality experiences
+          <ul>
+            <li>Provide code and design that are ready to use</li>
+            <li>Lower the cost to build and maintain quality experiences</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Adaptable:</strong> Evolve to meet Coloradans’ changing needs
+          <ul>
+            <li>Make it easy for teams to change the system for their needs</li>
+            <li>Work with teams across the state to consistently improve</li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+  </div>
+</BaseLayout>

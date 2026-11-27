@@ -4,16 +4,17 @@ test('the site header is the Header component on every page', async ({
   page,
 }, testInfo) => {
   await page.setViewportSize({ width: 1280, height: 800 });
-  await page.goto('/getting-started/');
+  await page.goto('/about/');
   const banner = page.getByRole('banner');
   await expect(banner).toHaveAttribute('data-cods-header-enhanced', '');
   await expect(
     banner.getByRole('link', { name: 'Colorado Design System home' }),
   ).toBeVisible();
   const nav = banner.getByRole('navigation', { name: 'Primary' });
-  await expect(
-    nav.getByRole('link', { name: 'Getting started' }),
-  ).toHaveAttribute('aria-current', 'page');
+  await expect(nav.getByRole('link', { name: 'About' })).toHaveAttribute(
+    'aria-current',
+    'page',
+  );
   await expect(nav.locator('[aria-current="page"]')).toHaveCount(1);
   await expectAccessible(page, testInfo, 'header');
 });
