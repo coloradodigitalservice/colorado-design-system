@@ -151,16 +151,34 @@ test('separate card guides show their own variants and accessible destinations',
 test('flag card changes from side-by-side to stacked', async ({ page }) => {
   await page.goto('/card-default/');
   const flag = page.locator('[data-cods-card-fixture="flag"]');
-  const media = flag.locator('.cods-card__media');
-  const heading = flag.locator('.cods-card__header');
   await page.setViewportSize({ width: 1200, height: 900 });
-  expect((await media.boundingBox())!.x).toBeLessThan(
-    (await heading.boundingBox())!.x,
-  );
+  await expect
+    .poll(() =>
+      flag.evaluate((root) => {
+        const image = root
+          .querySelector('.cods-card__media')!
+          .getBoundingClientRect();
+        const title = root
+          .querySelector('.cods-card__header')!
+          .getBoundingClientRect();
+        return image.x < title.x;
+      }),
+    )
+    .toBe(true);
   await page.setViewportSize({ width: 320, height: 900 });
-  expect((await media.boundingBox())!.y).toBeLessThan(
-    (await heading.boundingBox())!.y,
-  );
+  await expect
+    .poll(() =>
+      flag.evaluate((root) => {
+        const image = root
+          .querySelector('.cods-card__media')!
+          .getBoundingClientRect();
+        const title = root
+          .querySelector('.cods-card__header')!
+          .getBoundingClientRect();
+        return image.y < title.y;
+      }),
+    )
+    .toBe(true);
 });
 
 test('a flag card responds to its container at desktop viewport width', async ({
