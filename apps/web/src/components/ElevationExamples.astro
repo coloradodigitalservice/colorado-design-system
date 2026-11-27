@@ -1,0 +1,52 @@
+---
+import tokens from '@coloradodigitalservice/colorado-design-tokens/tokens.json';
+
+const levels = ['flat', 'low', 'mid', 'high'] as const;
+const dimensions = ['x', 'y', 'blur', 'spread'] as const;
+---
+
+<ul class="elevation-examples" aria-label="Elevation token examples">
+  {levels.map((level) => (
+    <li>
+      <span
+        class="elevation-example"
+        style={`box-shadow: var(--cods-elevation-${level}-x) var(--cods-elevation-${level}-y) var(--cods-elevation-${level}-blur) var(--cods-elevation-${level}-spread) var(--cods-color-elevation-shadow)`}
+        aria-hidden="true"
+      ></span>
+      <span>
+        <strong>elevation-{level}</strong>
+        <br />
+        {dimensions.map((dimension, index) => (
+          <>
+            {index > 0 && ', '}
+            {dimension}: {tokens[`elevation-${level}-${dimension}`]}
+          </>
+        ))}
+      </span>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .elevation-examples {
+    display: grid;
+    gap: var(--cods-space-lg);
+    padding: 0;
+    list-style: none;
+  }
+
+  .elevation-examples li {
+    display: flex;
+    align-items: center;
+    gap: var(--cods-space-md);
+  }
+
+  .elevation-example {
+    display: block;
+    flex: none;
+    inline-size: 5rem;
+    block-size: 3rem;
+    border: 1px solid currentColor;
+    background: white;
+  }
+</style>

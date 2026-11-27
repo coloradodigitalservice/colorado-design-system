@@ -35,6 +35,7 @@ import InPageNavigationExamples from '../components/InPageNavigationExamples.ast
 import LogoExample from '../components/LogoExample.astro';
 import RadiusExamples from '../components/RadiusExamples.astro';
 import ToastExamples from '../components/ToastExamples.astro';
+import ElevationExamples from '../components/ElevationExamples.astro';
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs');
@@ -174,6 +175,7 @@ const { Content, headings } = await render(entry);
       </>
     )}
     <Content />
+    {entry.id === 'elevation' && <ElevationExamples />}
     {entry.id === 'radius' && <RadiusExamples />}
     {entry.id === 'toast' && <ToastExamples />}
     {entry.id === 'search' && <SearchExamples />}
