@@ -23,15 +23,22 @@ test('Icons page contains the complete categorized Regular catalog', async ({
     `@phosphor-icons/core ${catalog.source.version}`,
   );
   const ids = await section
-    .locator('.catalog-icons use')
-    .evaluateAll((nodes) =>
+    .locator('.catalog-category template')
+    .evaluateAll((templates) =>
       [
         ...new Set(
-          nodes.map((node) => node.getAttribute('href')!.split('#')[1]),
+          templates.flatMap((template) =>
+            [
+              ...(template as HTMLTemplateElement).content.querySelectorAll(
+                'use',
+              ),
+            ].map((node) => node.getAttribute('href')!.split('#')[1]),
+          ),
         ),
       ].sort(),
     );
   expect(ids).toEqual([...catalog.icons].sort());
+  await expect(section.locator('.catalog-icons use')).toHaveCount(0);
   const firstCategory = section.locator('.catalog-category').first();
   await firstCategory.locator('summary').first().click();
   const firstIcon = firstCategory.locator('.catalog-icons details').first();
