@@ -20,6 +20,7 @@
     "astro": "7.4.0"
   },
   "devDependencies": {
-    "@astrojs/check": "0.9.10"
+    "@astrojs/check": "0.9.10",
+    "@phosphor-icons/core": "2.1.1"
   }
 }
