@@ -1,0 +1,64 @@
+---
+import tokens from '@coloradodigitalservice/colorado-design-tokens/tokens.json';
+const spaces = [
+  '2xs',
+  'xs',
+  'sm',
+  'md',
+  'lg',
+  'xl',
+  '2xl',
+  '3xl',
+  '4xl',
+] as const;
+---
+
+<h3>Spacing tokens</h3>
+<ul class="spacing-examples" aria-label="Spacing token examples">
+  {spaces.map((space) => (
+    <li>
+      <code>--cods-space-{space}</code>: {tokens[`space-${space}`]}
+      <span
+        class="spacing-swatch"
+        style={`inline-size: var(--cods-space-${space})`}
+        aria-hidden="true"
+      ></span>
+    </li>
+  ))}
+</ul>
+<h3>Responsive grid</h3>
+<ol class="grid-example" aria-label="Responsive grid example">
+  <li>First item</li>
+  <li>Second item</li>
+  <li>Third item</li>
+</ol>
+
+<style>
+  .spacing-examples {
+    padding: 0;
+    list-style: none;
+  }
+  .spacing-examples li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--cods-space-xs);
+    margin-block: var(--cods-space-xs);
+  }
+  .spacing-swatch {
+    display: inline-block;
+    block-size: var(--cods-space-xs);
+    background: var(--cods-color-bg-action-primary);
+  }
+  .grid-example {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    gap: var(--cods-space-md);
+    padding: 0;
+    list-style: none;
+  }
+  .grid-example li {
+    padding: var(--cods-space-md);
+    border: 1px solid currentColor;
+  }
+</style>
