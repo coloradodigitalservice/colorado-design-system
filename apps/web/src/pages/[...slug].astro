@@ -175,6 +175,13 @@ const { Content, headings } = await render(entry);
       </>
     )}
     <Content />
+    {entry.id === 'focus-states' && (
+      <div class="cods-docs-focus-example">
+        <button type="button" class="usa-button cods-button">
+          Example button
+        </button>
+      </div>
+    )}
     {entry.id === 'elevation' && <ElevationExamples />}
     {entry.id === 'radius' && <RadiusExamples />}
     {entry.id === 'toast' && <ToastExamples />}
@@ -189,3 +196,9 @@ const { Content, headings } = await render(entry);
     {entry.id === 'site-alert' && <SiteAlertExamples mode="remaining" />}
   </article>
 </BaseLayout>
+
+<style>
+  .cods-docs-focus-example {
+    padding: var(--cods-space-md);
+  }
+</style>
